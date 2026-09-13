@@ -34,6 +34,7 @@ rust4pm	import_ocel_xml	import_ocel_xml	wire	native/rust4pm-wasm/src/lib.rs	nati
 rust4pm	ocel_dfg_of_object_type	ocel_dfg_of_object_type	wire	native/rust4pm-wasm/src/lib.rs	native/rust4pm-wasm/target/wasm32-wasip1/release/rust4pm_wasm.wasm
 rust4pm	ocel_variants_of_object_type	ocel_variants_of_object_type	wire	native/rust4pm-wasm/src/lib.rs	native/rust4pm-wasm/target/wasm32-wasip1/release/rust4pm_wasm.wasm
 rust4pm	free_ocel	free_ocel	wire	native/rust4pm-wasm/src/lib.rs	native/rust4pm-wasm/target/wasm32-wasip1/release/rust4pm_wasm.wasm
+rust4pm	ocel_discover_powl	ocel_discover_powl	wire	native/rust4pm-wasm/src/lib.rs	native/rust4pm-wasm/target/wasm32-wasip1/release/rust4pm_wasm.wasm
 ferroplan	plan	plan	wire	native/ferroplan/crates/ferroplan-wasm/src/wasi_abi.rs	native/ferroplan/target/wasm32-wasip1/release/ferroplan_wasm.wasm
 ferroplan	plan_production	plan_production	wire	native/ferroplan/crates/ferroplan-wasm/src/wasi_abi.rs	native/ferroplan/target/wasm32-wasip1/release/ferroplan_wasm.wasm
 ferroplan	readiness	readiness	wire	native/ferroplan/crates/ferroplan-wasm/src/wasi_abi.rs	native/ferroplan/target/wasm32-wasip1/release/ferroplan_wasm.wasm
@@ -64,6 +65,9 @@ ferroplan	session_fluent	session_fluent	wire	native/ferroplan/crates/ferroplan-w
 ferroplan	session_plan_valid	session_plan_valid	wire	native/ferroplan/crates/ferroplan-wasm/src/wasi_abi.rs	native/ferroplan/target/wasm32-wasip1/release/ferroplan_wasm.wasm
 ferroplan	session_world_bytes	session_world_bytes	wire	native/ferroplan/crates/ferroplan-wasm/src/wasi_abi.rs	native/ferroplan/target/wasm32-wasip1/release/ferroplan_wasm.wasm
 ferroplan	session_mind_bytes	session_mind_bytes	wire	native/ferroplan/crates/ferroplan-wasm/src/wasi_abi.rs	native/ferroplan/target/wasm32-wasip1/release/ferroplan_wasm.wasm
+ferroplan	htn_plan	htn_plan	wire	native/ferroplan/crates/ferroplan-wasm/src/wasi_abi.rs	native/ferroplan/target/wasm32-wasip1/release/ferroplan_wasm.wasm
+ferroplan	fond_policy	fond_policy	wire	native/ferroplan/crates/ferroplan-wasm/src/wasi_abi.rs	native/ferroplan/target/wasm32-wasip1/release/ferroplan_wasm.wasm
+ferroplan	hddl_solve	hddl_solve	wire	native/ferroplan/crates/ferroplan-wasm/src/wasi_abi.rs	native/ferroplan/target/wasm32-wasip1/release/ferroplan_wasm.wasm
 petgraph	graph_new	graph_new	wire	native/petgraph-wasm/src/lib.rs	native/petgraph-wasm/target/wasm32-wasip1/release/petgraph_wasm.wasm
 petgraph	add_node	add_node	wire	native/petgraph-wasm/src/lib.rs	native/petgraph-wasm/target/wasm32-wasip1/release/petgraph_wasm.wasm
 petgraph	add_edge	add_edge	wire	native/petgraph-wasm/src/lib.rs	native/petgraph-wasm/target/wasm32-wasip1/release/petgraph_wasm.wasm

@@ -757,4 +757,113 @@ defmodule BeamPM.Rust4PMTest do
 
     assert {:ok, %{"freed" => true}} = Rust4PM.free_log(h)
   end
+
+  test "T14: ocel_discover_powl -- flattening bridge from a real, small, in-test OCEL v2 " <>
+         "log (2 meeting objects + 1 other-type object) to a real discovered POWL model, " <>
+         "restricted to the requested object_type and ordered by real event time" do
+    assert {:ok, %{"ocel_handle" => h}} = Rust4PM.ocel_new()
+
+    assert {:ok, _} = Rust4PM.ocel_add_event_type(h, "schedule")
+    assert {:ok, _} = Rust4PM.ocel_add_event_type(h, "notify")
+    assert {:ok, _} = Rust4PM.ocel_add_event_type(h, "close")
+    assert {:ok, _} = Rust4PM.ocel_add_object_type(h, "meeting")
+    assert {:ok, _} = Rust4PM.ocel_add_object_type(h, "room")
+
+    assert {:ok, _} = Rust4PM.ocel_add_object(h, "m1", "meeting")
+    assert {:ok, _} = Rust4PM.ocel_add_object(h, "m2", "meeting")
+    assert {:ok, _} = Rust4PM.ocel_add_object(h, "r1", "room")
+
+    # m1's events deliberately inserted out of chronological order to prove
+    # the bridge sorts by real event time, not insertion/id order.
+    assert {:ok, _} =
+             Rust4PM.ocel_add_event(h, "e_m1_close", "close", "2026-01-01T10:02:00+00:00", [
+               ["m1", "meeting"]
+             ])
+
+    assert {:ok, _} =
+             Rust4PM.ocel_add_event(h, "e_m1_schedule", "schedule", "2026-01-01T10:00:00+00:00", [
+               ["m1", "meeting"]
+             ])
+
+    assert {:ok, _} =
+             Rust4PM.ocel_add_event(h, "e_m1_notify", "notify", "2026-01-01T10:01:00+00:00", [
+               ["m1", "meeting"]
+             ])
+
+    # m2 gets the same 3-activity sequence, in already-chronological order.
+    assert {:ok, _} =
+             Rust4PM.ocel_add_event(h, "e_m2_schedule", "schedule", "2026-01-01T11:00:00+00:00", [
+               ["m2", "meeting"]
+             ])
+
+    assert {:ok, _} =
+             Rust4PM.ocel_add_event(h, "e_m2_notify", "notify", "2026-01-01T11:01:00+00:00", [
+               ["m2", "meeting"]
+             ])
+
+    assert {:ok, _} =
+             Rust4PM.ocel_add_event(h, "e_m2_close", "close", "2026-01-01T11:02:00+00:00", [
+               ["m2", "meeting"]
+             ])
+
+    # A "room" event that must NOT leak into the "meeting" flattening.
+    assert {:ok, _} =
+             Rust4PM.ocel_add_event(h, "e_r1_book", "schedule", "2026-01-01T09:00:00+00:00", [
+               ["r1", "room"]
+             ])
+
+    assert {:ok, %{"powl" => model, "num_traces" => 2, "object_type" => "meeting"}} =
+             Rust4PM.ocel_discover_powl(h, "meeting")
+
+    # Real structural assertions on the real discovered model: both
+    # flattened traces are the identical strict sequence
+    # schedule -> notify -> close (m1's real event times, after sorting,
+    # equal m2's insertion order exactly), so the recursive miner's
+    # sequence-cut applies at every level and the result is a real nested
+    # Sequence-shaped PowlNode over the 3 real activity leaves -- not just
+    # "returned something".
+    assert model == %{
+             "root" => %{
+               "PartialOrder" => %{
+                 "children" => [
+                   %{"Leaf" => %{"activity_label" => %{"Activity" => "close"}}},
+                   %{"Leaf" => %{"activity_label" => %{"Activity" => "notify"}}},
+                   %{"Leaf" => %{"activity_label" => %{"Activity" => "schedule"}}}
+                 ],
+                 "order" => [[1, 0], [2, 0], [2, 1]]
+               }
+             }
+           }
+
+    # Independent, relabeling-resilient re-statement of the same real fact:
+    # the "order" relation is a real strict total order over the 3 real
+    # children (index 2 "schedule" before index 1 "notify" before index 0
+    # "close") -- exactly the flattened chronological event sequence, for
+    # BOTH objects (m1's real event times sorted the same as m2's already-
+    # chronological insertion order), proving the timestamp sort is real.
+    assert %{"root" => %{"PartialOrder" => %{"children" => children, "order" => order}}} = model
+    assert length(children) == 3
+    activity_at = fn idx -> Enum.at(children, idx)["Leaf"]["activity_label"]["Activity"] end
+    ordered_pairs = for [a, b] <- order, do: {activity_at.(a), activity_at.(b)}
+    assert Enum.sort(ordered_pairs) ==
+             Enum.sort([
+               {"schedule", "notify"},
+               {"schedule", "close"},
+               {"notify", "close"}
+             ])
+
+    # The room object's "schedule" event never entered the flattening: a
+    # discover_powl run restricted to object_type "room" sees exactly its
+    # own single-event trace, proving the object_type filter is real (not
+    # merely undertested by the 3-activity case above).
+    assert {:ok, %{"powl" => room_model, "num_traces" => 1, "object_type" => "room"}} =
+             Rust4PM.ocel_discover_powl(h, "room")
+
+    assert room_model == %{"root" => %{"Leaf" => %{"activity_label" => %{"Activity" => "schedule"}}}}
+
+    assert {:error, {:engine, msg}} = Rust4PM.ocel_discover_powl(h, "NoSuchType")
+    assert msg =~ "unknown object_type"
+
+    assert {:ok, %{"freed" => true}} = Rust4PM.free_ocel(h)
+  end
 end

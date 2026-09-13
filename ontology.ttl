@@ -10478,8 +10478,8 @@ bap:hand_authored_test_ferroplan a bpm:HandAuthoredSource ;
     bpm:admissionReason "Chicago qualification of BeamPM.Ferroplan against a real classical-planning domain inside the wasm engine (no mocks); the planning fixtures are hand-written, not ontology facts." ;
     bpm:acceptanceCommand "mix test test/beam4pm_ferroplan_test.exs" ;
     bpm:acceptancePrerequisite "native/ferroplan/target/wasm32-wasip1/release/ferroplan_wasm.wasm" ;
-    bpm:contentSha256 "b03146d3354196f6437636d25c2b4e9b72eaa1f9984431f2bf2650d014f979ca" ;
-    bpm:admittedAtCommit "f44dcd0" ;
+    bpm:contentSha256 "24685d17a802334e78094625a969b4f1e353fd1422f943d97b7351146be8974d" ;
+    bpm:admittedAtCommit "c34e275" ;
     bpm:admissionExpires "2026-12-31" ;
     bpm:sunsetPlan "Admit the planning fixtures as ontology facts (a bpmg:ProcessContract already projects to PDDL) and render this qualification from them; then delete this admission." .
 
@@ -10571,13 +10571,49 @@ bap:hand_authored_test_rust4pm a bpm:HandAuthoredSource ;
     bpm:sourcePath "test/beam4pm_rust4pm_test.exs" ;
     bpm:authorshipKind bpm:AuthorshipKind_hand_authored_qualification ;
     bpm:authorizingPrincipal "Sean Chatman (repo owner) via Claude Code session_01UiCeLuzgcK2BLocBKxXw39" ;
-    bpm:admissionReason "Chicago qualification of BeamPM.Rust4PM against real canonical fixtures and differentially against the two native oracle binaries built from the same crate version; fixture and oracle bindings are hand-written. Re-pinned for T13: a real Chicago proof of discover_powl (previously an exposed-but-unproven facade, Section 24 falsifier gap) against a real imported small-example.xes, asserting exact structural equality on the engine's real POWL model output plus a log_stats cross-check." ;
+    bpm:admissionReason "Chicago qualification of BeamPM.Rust4PM against real canonical fixtures and differentially against the two native oracle binaries built from the same crate version; fixture and oracle bindings are hand-written. Re-pinned for T13: a real Chicago proof of discover_powl (previously an exposed-but-unproven facade, Section 24 falsifier gap) against a real imported small-example.xes, asserting exact structural equality on the engine's real POWL model output plus a log_stats cross-check. Re-pinned for T14: a real Chicago proof of the new ocel_discover_powl flattening bridge against a real, small, in-test OCEL v2 log (2 meeting objects with one object's events inserted out of chronological order + 1 other-type object), asserting exact structural equality on the real discovered POWL model, the real timestamp-sort behavior, and the real object_type filter." ;
     bpm:acceptanceCommand "mix test test/beam4pm_rust4pm_test.exs" ;
     bpm:acceptancePrerequisite "native/rust4pm-wasm/target/wasm32-wasip1/release/rust4pm_wasm.wasm" ;
-    bpm:contentSha256 "5451fb4cc70eecd4c5633fa71f9c285d1567967f06cbb5f90d406fa1622bc1fe" ;
+    bpm:contentSha256 "1bcdd936bdc3d38ec36132bf4c8dda388158a9273144bccd14bd5d81548feaee" ;
     bpm:admittedAtCommit "f44dcd0" ;
     bpm:admissionExpires "2026-12-31" ;
     bpm:sunsetPlan "Admit the fixture/oracle bindings as ontology facts and render this qualification from them (rf1/rf2 igniter recipes are the precedent); then delete this admission." .
+
+bap:hand_authored_lib_powl_conformance a bpm:HandAuthoredSource ;
+    bpm:sourcePath "lib/beam4pm_powl_conformance.ex" ;
+    bpm:authorshipKind bpm:AuthorshipKind_native_engine_facade ;
+    bpm:authorizingPrincipal "Sean Chatman (repo owner) via Claude Code session_018iXTYcpGbgf23MZYLe6TCU" ;
+    bpm:admissionReason "Step 5 (plan-execute-conform loop): combines the already-real ocel_discover_powl (BeamPM.Rust4PM, admitted above) with the already-real discover_alphappp/align_trace/compute_fitness alignment ops into one real reference-model-discovery + candidate-trace-conformance-check function. Hand-written orchestration over already-real engine ops (same convention as BeamPM.PowlDiscovery/BeamPM.Ocel), not ontology-fact-driven -- no POWL->PetriNet conversion op exists in the rust4pm engine, so this module discovers an independent alignable net from the identical flattened reference variant traces ocel_discover_powl itself uses, a disclosed real limitation stated in the module's own moduledoc. Admitted under native_engine_facade for lack of a closer-fitting closed-vocabulary kind, same precedent as lib/beam4pm_ocel.ex above (not a wasm facade itself, but hand-authored lib/ logic sitting directly on top of the real rust4pm facade)." ;
+    bpm:acceptanceCommand "mix test test/beam4pm_powl_conformance_test.exs test/beam4pm_powl_conformance_e2e_test.exs" ;
+    bpm:acceptancePrerequisite "native/rust4pm-wasm/target/wasm32-wasip1/release/rust4pm_wasm.wasm" ;
+    bpm:contentSha256 "981ae3079b22698fc2b7ddecff07dc8f1c8672190922bfde1cdbc65933137ca6" ;
+    bpm:admittedAtCommit "8e31631" ;
+    bpm:admissionExpires "2026-12-31" ;
+    bpm:sunsetPlan "No template family fits a cross-op conformance-orchestration wrapper today; keep admitted until one is proposed upstream." .
+
+bap:hand_authored_test_powl_conformance a bpm:HandAuthoredSource ;
+    bpm:sourcePath "test/beam4pm_powl_conformance_test.exs" ;
+    bpm:authorshipKind bpm:AuthorshipKind_hand_authored_qualification ;
+    bpm:authorizingPrincipal "Sean Chatman (repo owner) via Claude Code session_018iXTYcpGbgf23MZYLe6TCU" ;
+    bpm:admissionReason "Chicago qualification of lib/beam4pm_powl_conformance.ex (admitted above): a real, small, in-test OCEL log (3 reference meetings, real 6-phase sequence), asserting a conforming trace aligns at real cost 0 and a deliberately injected skip/reorder deviation is really detected (nonzero cost, a real model-only move naming the skipped activity, fitness < 1.0) -- not just that the op runs." ;
+    bpm:acceptanceCommand "mix test test/beam4pm_powl_conformance_test.exs" ;
+    bpm:acceptancePrerequisite "native/rust4pm-wasm/target/wasm32-wasip1/release/rust4pm_wasm.wasm" ;
+    bpm:contentSha256 "90469459a6ffb980c31333e33c35e895de8dba592325a02400483deab9386fa6" ;
+    bpm:admittedAtCommit "8e31631" ;
+    bpm:admissionExpires "2026-12-31" ;
+    bpm:sunsetPlan "Sunsets alongside lib/beam4pm_powl_conformance.ex's own admission." .
+
+bap:hand_authored_test_powl_conformance_e2e a bpm:HandAuthoredSource ;
+    bpm:sourcePath "test/beam4pm_powl_conformance_e2e_test.exs" ;
+    bpm:authorshipKind bpm:AuthorshipKind_hand_authored_qualification ;
+    bpm:authorizingPrincipal "Sean Chatman (repo owner) via Claude Code session_018iXTYcpGbgf23MZYLe6TCU" ;
+    bpm:admissionReason "Step 5's closing leg: reads the real OCEL v2 events captured by ash_a2a's real end-to-end test (real HDDL plan -> real A2A dispatch -> real HTTP POST to this repo's own BeamPM.OcelIngest.Router, real 201-confirmed echoes) from qualification/gym_bridge/*.json, rebuilds a real in-process OCEL log, and runs BeamPM.PowlConformance for real against it -- the actual, concrete, cross-repo plan-execute-conform loop instance, not a same-repo synthetic stand-in. Honestly skips (does not fail) when the capture files are absent, since producing them requires running the ash_a2a-side test first (documented in this file's own moduledoc)." ;
+    bpm:acceptanceCommand "mix test test/beam4pm_powl_conformance_e2e_test.exs" ;
+    bpm:acceptancePrerequisite "native/rust4pm-wasm/target/wasm32-wasip1/release/rust4pm_wasm.wasm" ;
+    bpm:contentSha256 "d363545d367de874b81b3a3c89ee4769c3fd1ee108c4c82f68a204f0fc749012" ;
+    bpm:admittedAtCommit "51ca841" ;
+    bpm:admissionExpires "2026-12-31" ;
+    bpm:sunsetPlan "Sunsets alongside lib/beam4pm_powl_conformance.ex's own admission." .
 
 bap:hand_authored_test_tract_facades a bpm:HandAuthoredSource ;
     bpm:sourcePath "test/beam4pm_tract_facades_test.exs" ;
@@ -10607,12 +10643,34 @@ bap:hand_authored_lib_application a bpm:HandAuthoredSource ;
     bpm:sourcePath "lib/beam4pm_application.ex" ;
     bpm:authorshipKind bpm:AuthorshipKind_hand_authored_qualification ;
     bpm:authorizingPrincipal "Sean Chatman (repo owner) via Claude Code session_018iXTYcpGbgf23MZYLe6TCU" ;
-    bpm:admissionReason "The OTP application module -- boots BeamPM.Application's supervision tree (including the real Bandit listener for lib/beam4pm_ocel_ingest.ex's router). Necessarily hand-authored: no ontology-fact-driven template exists for an OTP Application callback module, and it predates GATE AUTHORSHIP's own admission of every unmarked file (this file existed before the authorship gate itself was manufactured, so it was never previously surfaced as unadmitted)." ;
+    bpm:admissionReason "The OTP application module -- boots BeamPM.Application's supervision tree (including the real Bandit listener for lib/beam4pm_ocel_ingest.ex's router, and, as of the ash_a2a agent-facing wiring, the additive A2A HTTP listener BeamPM.A2ARouter). Necessarily hand-authored: no ontology-fact-driven template exists for an OTP Application callback module, and it predates GATE AUTHORSHIP's own admission of every unmarked file (this file existed before the authorship gate itself was manufactured, so it was never previously surfaced as unadmitted)." ;
     bpm:acceptanceCommand "mix test" ;
-    bpm:contentSha256 "eba7b65c1023b4c0bbb1913907f3102f1eb74268942671d3f8a039f1a3a288f8" ;
-    bpm:admittedAtCommit "91965eb" ;
+    bpm:contentSha256 "5296564323089870a49b5e8fadc1149ea08c06645434943463ef43d963f9ed8f" ;
+    bpm:admittedAtCommit "7aa4f64" ;
     bpm:admissionExpires "2026-12-31" ;
     bpm:sunsetPlan "No template family fits an OTP Application callback module today; keep as permanently-admitted hand-authored infrastructure unless a future ggen_igniter OTP-app-shell recipe is added." .
+
+bap:hand_authored_lib_a2a_agent a bpm:HandAuthoredSource ;
+    bpm:sourcePath "lib/beam4pm_a2a_agent.ex" ;
+    bpm:authorshipKind bpm:AuthorshipKind_hand_authored_qualification ;
+    bpm:authorizingPrincipal "Sean Chatman (repo owner) via Claude Code session_018iXTYcpGbgf23MZYLe6TCU" ;
+    bpm:admissionReason "BeamPM.A2AAgent -- the agent-facing AshA2A.Agent entry point over the curated BeamPM.Ash.Domain a2a skills (same 2 resources already curated as AshAi tools: OcelEvent read, ConformanceResult read). Additive alongside ex4pm's existing Ex4pm.Engine.Beam4pm HTTP route-table client; never routes beam4pm's own internals (EngineOp dispatch, OCEL/OTel evidence chain, BeamPM.ReceiptChain) through A2A/JSON-RPC. Hand-authored: no ontology-fact-driven template exists for an AshA2A.Agent shell module (same class as the OTP Application callback above)." ;
+    bpm:acceptanceCommand "mix run qualification/a2a_smoke_test.exs" ;
+    bpm:contentSha256 "2d147cf932f13bf8d31472a21a3b2d0835b5540d00ac0b8748046bd5adf3e672" ;
+    bpm:admittedAtCommit "7aa4f64" ;
+    bpm:admissionExpires "2026-12-31" ;
+    bpm:sunsetPlan "No template family fits an AshA2A.Agent shell module today; keep as permanently-admitted hand-authored infrastructure unless a future ggen_igniter A2A-agent-shell recipe is added." .
+
+bap:hand_authored_lib_a2a_router a bpm:HandAuthoredSource ;
+    bpm:sourcePath "lib/beam4pm_a2a_router.ex" ;
+    bpm:authorshipKind bpm:AuthorshipKind_hand_authored_qualification ;
+    bpm:authorizingPrincipal "Sean Chatman (repo owner) via Claude Code session_018iXTYcpGbgf23MZYLe6TCU" ;
+    bpm:admissionReason "BeamPM.A2ARouter -- thin Plug.Router forwarding /a2a to A2A.Plug so the agent-facing A2A HTTP listener is reachable at a named mount path rather than the plug's own root. Same class of supervision/HTTP-mount wiring as beam4pm_application.ex; no ontology-fact-driven template exists." ;
+    bpm:acceptanceCommand "mix run qualification/a2a_smoke_test.exs" ;
+    bpm:contentSha256 "734cf82e4625241defa3c5361ba7abdcc1c2fb2a01543a2c2d931c9287ba8b28" ;
+    bpm:admittedAtCommit "7aa4f64" ;
+    bpm:admissionExpires "2026-12-31" ;
+    bpm:sunsetPlan "No template family fits a Plug.Router HTTP-mount shell today; keep as permanently-admitted hand-authored infrastructure unless a future ggen_igniter recipe is added." .
 
 bap:hand_authored_lib_contracts a bpm:HandAuthoredSource ;
     bpm:sourcePath "lib/beam4pm_contracts.ex" ;
@@ -11297,6 +11355,15 @@ bap:engine_rust4pm_op_ocel_variants_of_object_type_n a bpm:EngineArg ;
     bpm:argOp bap:engine_rust4pm_op_ocel_variants_of_object_type ; bpm:argName "n" ; bpm:argOrder 3 ;
     bpm:argType bpm:EngineArgType_integer ; bpm:argMode bpm:ArgMode_keyword ; bpm:argDefault "nil" .
 
+bap:engine_rust4pm_op_ocel_discover_powl a bpm:EngineOp ;
+    bpm:opEngine bap:engine_rust4pm ; bpm:opName "ocel_discover_powl" ; bpm:opOrder 32 ;
+    bpm:opDoc "`{\"op\":\"ocel_discover_powl\",\"ocel_handle\":h,\"object_type\":t}` -- object-centric POWL discovery via flattening: builds a real flat EventLog (one trace per object of `object_type`, containing every event e2o-related to that object, ordered by the event's real OCEL timestamp) and runs the same real `discover_powl` recursive choice-graph inductive miner used by the flat-log `discover_powl` op. Returns `{:ok, %{\"powl\" => model, \"num_traces\" => n, \"object_type\" => t}}`. Disclosed limitation: one flattening choice per object type -- an event shared by several objects of the same type is duplicated across their traces (divergence), and relations to OTHER object types are dropped, so true multi-object convergence is not modeled." ;
+    bpm:opTimeoutClass bpm:TimeoutClass_heavy ; bpm:opKind bpm:EngineOpKind_wire .
+bap:engine_rust4pm_op_ocel_discover_powl_ocel a bpm:EngineArg ;
+    bpm:argOp bap:engine_rust4pm_op_ocel_discover_powl ; bpm:argName "ocel" ; bpm:argOrder 1 ; bpm:argWireKey "ocel_handle" ; bpm:argType bpm:EngineArgType_handle .
+bap:engine_rust4pm_op_ocel_discover_powl_object_type a bpm:EngineArg ;
+    bpm:argOp bap:engine_rust4pm_op_ocel_discover_powl ; bpm:argName "object_type" ; bpm:argOrder 2 ; bpm:argType bpm:EngineArgType_string .
+
 bap:engine_rust4pm_op_free_ocel a bpm:EngineOp ;
     bpm:opEngine bap:engine_rust4pm ; bpm:opName "free_ocel" ; bpm:opOrder 31 ;
     bpm:opDoc "`{\"op\":\"free_ocel\",\"ocel_handle\":h}` -- frees an OCEL handle." ;
@@ -11590,6 +11657,45 @@ bap:engine_ferroplan_op_session_mind_bytes a bpm:EngineOp ;
     bpm:opTimeoutClass bpm:TimeoutClass_cheap ; bpm:opKind bpm:EngineOpKind_wire .
 bap:engine_ferroplan_op_session_mind_bytes_handle a bpm:EngineArg ;
     bpm:argOp bap:engine_ferroplan_op_session_mind_bytes ; bpm:argName "handle" ; bpm:argOrder 1 ; bpm:argType bpm:EngineArgType_handle .
+
+bap:engine_ferroplan_op_htn_plan a bpm:EngineOp ;
+    bpm:opEngine bap:engine_ferroplan ; bpm:opName "htn_plan" ; bpm:opOrder 31 ;
+    bpm:opDoc "`{\"op\":\"htn_plan\",\"domain\":d,\"problem\":p[,\"limits\":l]}` -- `domain`/`problem` are UTF-8 JSON text of a `PlanningProblem` object (same wire shape as `plan`/`plan_production`'s `domain`/`problem` fields, but decoded into the typed universal-planning model rather than PDDL text). `domain` is accepted but ignored when non-empty and not equal to `problem` -- ferroplan's universal-planning model has one combined problem document, so `problem` alone is parsed as the full `PlanningProblem`. Forces `PlanningType::Hierarchical`. Returns `UniversalPlan` JSON." ;
+    bpm:opTimeoutClass bpm:TimeoutClass_heavy ; bpm:opKind bpm:EngineOpKind_wire .
+bap:engine_ferroplan_op_htn_plan_domain a bpm:EngineArg ;
+    bpm:argOp bap:engine_ferroplan_op_htn_plan ; bpm:argName "domain" ; bpm:argOrder 1 ; bpm:argType bpm:EngineArgType_string .
+bap:engine_ferroplan_op_htn_plan_problem a bpm:EngineArg ;
+    bpm:argOp bap:engine_ferroplan_op_htn_plan ; bpm:argName "problem" ; bpm:argOrder 2 ; bpm:argType bpm:EngineArgType_string .
+bap:engine_ferroplan_op_htn_plan_limits a bpm:EngineArg ;
+    bpm:argOp bap:engine_ferroplan_op_htn_plan ; bpm:argName "limits" ; bpm:argOrder 3 ;
+    bpm:argType bpm:EngineArgType_optional_map ; bpm:argMode bpm:ArgMode_optional ; bpm:argDefault "nil" ;
+    bpm:argEncoding bpm:ArgEncoding_omit_when_nil .
+
+bap:engine_ferroplan_op_fond_policy a bpm:EngineOp ;
+    bpm:opEngine bap:engine_ferroplan ; bpm:opName "fond_policy" ; bpm:opOrder 32 ;
+    bpm:opDoc "`{\"op\":\"fond_policy\",\"domain\":d,\"problem\":p[,\"limits\":l]}` -- same wire shape as `htn_plan`; forces `PlanningType::Fond`. Returns `UniversalPlan` JSON." ;
+    bpm:opTimeoutClass bpm:TimeoutClass_heavy ; bpm:opKind bpm:EngineOpKind_wire .
+bap:engine_ferroplan_op_fond_policy_domain a bpm:EngineArg ;
+    bpm:argOp bap:engine_ferroplan_op_fond_policy ; bpm:argName "domain" ; bpm:argOrder 1 ; bpm:argType bpm:EngineArgType_string .
+bap:engine_ferroplan_op_fond_policy_problem a bpm:EngineArg ;
+    bpm:argOp bap:engine_ferroplan_op_fond_policy ; bpm:argName "problem" ; bpm:argOrder 2 ; bpm:argType bpm:EngineArgType_string .
+bap:engine_ferroplan_op_fond_policy_limits a bpm:EngineArg ;
+    bpm:argOp bap:engine_ferroplan_op_fond_policy ; bpm:argName "limits" ; bpm:argOrder 3 ;
+    bpm:argType bpm:EngineArgType_optional_map ; bpm:argMode bpm:ArgMode_optional ; bpm:argDefault "nil" ;
+    bpm:argEncoding bpm:ArgEncoding_omit_when_nil .
+
+bap:engine_ferroplan_op_hddl_solve a bpm:EngineOp ;
+    bpm:opEngine bap:engine_ferroplan ; bpm:opName "hddl_solve" ; bpm:opOrder 33 ;
+    bpm:opDoc "`{\"op\":\"hddl_solve\",\"domain\":d,\"problem\":p[,\"limits\":l]}` -- `domain`/`problem` are HDDL source text (not classical PDDL or JSON): parsed, grounded, and translated by `ferroplan_hddl`'s parse -> ground -> translate pipeline into the same FOND solver used by `fond_policy` (`ferroplan::solve_hddl`). `limits` (optional; a partial `PlannerLimits` map -- `max_depth`/`max_states`/`max_iterations`, any/all omitted) is merged into the request. A domain-level failure (parse/ground/translate/timeout/worker-panic) surfaces as `{:ok, %{\"error\" => %{\"code\" => ..., \"message\" => ..., \"retryable\" => bool}}}` with a code naming the failing stage (`FP_PARSE`, `FP_HDDL_GROUND`, `FP_HDDL_TRANSLATE`, `FP_MODEL`) -- never a bare `{:error, _}` -- matching every other solve op's error-in-envelope convention (bpm:ErrorCollapse_single_key_inspect). Returns `UniversalPlan` JSON on success." ;
+    bpm:opTimeoutClass bpm:TimeoutClass_heavy ; bpm:opKind bpm:EngineOpKind_wire .
+bap:engine_ferroplan_op_hddl_solve_domain a bpm:EngineArg ;
+    bpm:argOp bap:engine_ferroplan_op_hddl_solve ; bpm:argName "domain" ; bpm:argOrder 1 ; bpm:argType bpm:EngineArgType_string .
+bap:engine_ferroplan_op_hddl_solve_problem a bpm:EngineArg ;
+    bpm:argOp bap:engine_ferroplan_op_hddl_solve ; bpm:argName "problem" ; bpm:argOrder 2 ; bpm:argType bpm:EngineArgType_string .
+bap:engine_ferroplan_op_hddl_solve_limits a bpm:EngineArg ;
+    bpm:argOp bap:engine_ferroplan_op_hddl_solve ; bpm:argName "limits" ; bpm:argOrder 3 ;
+    bpm:argType bpm:EngineArgType_optional_map ; bpm:argMode bpm:ArgMode_optional ; bpm:argDefault "nil" ;
+    bpm:argEncoding bpm:ArgEncoding_omit_when_nil .
 
 # WS1-OBS-001 — repository_default_branch_observation
 b4p:repository_default_branch_observation_rt a bpm:RecordType ;
@@ -27915,3 +28021,106 @@ bpm:unit_economics_snapshot_effective_at_f a bpm:Field ;
     bpm:fieldName "effective_at" ; bpm:fieldType "datetime" ;
     bpm:fieldDoc "ISO8601 instant at which this contract becomes effective." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
+
+# -- PPCX conformance-deviation-to-ontology admission -------------------------
+# BeamPM.DeviationAdmission (lib/beam4pm_deviation_admission.ex) closes the
+# gap where a BeamPM.PowlConformance.check_conformance/3 result reporting
+# conforms: false previously terminated in an ExUnit assertion and touched
+# nothing else. Minimal new class bpm:ProcessDeviation (not run through
+# ggen/SHACL -- a deliberately minimal admitted fact, not a new manufactured
+# record-type projection) with real fields: bpm:deviationReferenceTrace,
+# bpm:deviationCandidateTrace, bpm:deviationActivity (the real deviating
+# alignment move, "log_side/model_side"), bpm:deviationTimestamp (real
+# ISO8601 UTC instant), bpm:deviationStatus (fixed "observed" -- no invented
+# workflow state machine). Individuals are admitted at runtime by
+# BeamPM.DeviationAdmission.admit_deviation/4, one bap:process_deviation_<16
+# hex chars of sha256(reference_trace_id <> candidate_trace_id <>
+# deviating_move <> timestamp)> individual per real detected deviation.
+
+bap:hand_authored_lib_beam4pm_deviation_admission a bpm:HandAuthoredSource ;
+    bpm:sourcePath "lib/beam4pm_deviation_admission.ex" ;
+    bpm:authorshipKind bpm:AuthorshipKind_native_engine_facade ;
+    bpm:authorizingPrincipal "Sean Chatman (repo owner) via Claude Code session_018iXTYcpGbgf23MZYLe6TCU" ;
+    bpm:admissionReason "Closes the PPCX conceptual-center gap: admits a real bpm:ProcessDeviation individual into ontology.ttl on disk (a real file mutation, not an in-memory struct) whenever BeamPM.PowlConformance.check_conformance/3 reports conforms: false. Admitted under the native_engine_facade kind for lack of a closer-fitting closed-vocabulary kind (this is not a wasm native-engine facade; it is hand-authored lib/ domain logic not yet templated), same convention as bap:hand_authored_lib_beam4pm_ocel above." ;
+    bpm:acceptanceCommand "mix test test/beam4pm_deviation_admission_test.exs" ;
+    bpm:contentSha256 "4767352c23faf177d89485ba200b787b5dac573f7b22e637a5316ab70deb4b41" ;
+    bpm:admittedAtCommit "c639d69" ;
+    bpm:admissionExpires "2026-12-31" ;
+    bpm:sunsetPlan "If bpm:ProcessDeviation is later promoted to a full admitted bpm:RecordType with ggen-generated constructors/codec, migrate BeamPM.DeviationAdmission's write path onto the generated struct + a real generated/hand-written TTL-append helper; then delete this admission." .
+
+bap:hand_authored_test_deviation_admission a bpm:HandAuthoredSource ;
+    bpm:sourcePath "test/beam4pm_deviation_admission_test.exs" ;
+    bpm:authorshipKind bpm:AuthorshipKind_hand_authored_qualification ;
+    bpm:authorizingPrincipal "Sean Chatman (repo owner) via Claude Code session_018iXTYcpGbgf23MZYLe6TCU" ;
+    bpm:admissionReason "Chicago-style qualification of BeamPM.DeviationAdmission.admit_deviation/4: runs a real check_conformance/3 against a real deviating trace (the exact fixture shape from beam4pm_powl_conformance_test.exs), calls the admission function against a real temp copy of ontology.ttl, and asserts the real resulting file content on disk contains the new bpm:ProcessDeviation individual -- reads the file back, never asserts only on a return value." ;
+    bpm:acceptanceCommand "mix test test/beam4pm_deviation_admission_test.exs" ;
+    bpm:contentSha256 "1ee967b2bc49ca2d7b69ebc1529eee2168e450d85e059c33a077d9a49440e6e6" ;
+    bpm:admittedAtCommit "c639d69" ;
+    bpm:admissionExpires "2026-12-31" ;
+    bpm:sunsetPlan "If bpm:ProcessDeviation is later rendered from a pack template, generate this qualification from the matching test template as well; then delete this admission." .
+
+# EDS (Executable Design Science) core: an ExecutableResearchClaim whose
+# evidence state can only advance through a real, enforced ladder
+# (proposed -> implemented -> executable -> observed -> verified, plus
+# terminal falsified/blocked/unsupported), every transition recorded as a
+# real beam4pm-brce/v1 receipt chained via the existing BeamPM.ReceiptChain
+# primitives. lib/beam4pm_eds_ppcx_h1.ex wires the PPCX paper's Section 16
+# H1 example (deviation-feedback half) as the first concrete claim, reusing
+# BeamPM.PowlConformance.check_conformance/3 and
+# BeamPM.DeviationAdmission.admit_deviation/4 -- no new receipt format, no
+# new chaining logic, pure reuse of already-admitted capital.
+
+bap:hand_authored_lib_beam4pm_eds a bpm:HandAuthoredSource ;
+    bpm:sourcePath "lib/beam4pm_eds.ex" ;
+    bpm:authorshipKind bpm:AuthorshipKind_native_engine_facade ;
+    bpm:authorizingPrincipal "Sean Chatman (repo owner) via Claude Code session_018iXTYcpGbgf23MZYLe6TCU" ;
+    bpm:admissionReason "Executable Design Science core: ExecutableResearchClaim struct + an enforced 5-state evidence ladder (no illegal transitions/collapses) + a terminal falsified/blocked/unsupported branch reachable from any non-terminal state, every transition receipted and chained via the existing BeamPM.ReceiptChain.link_fields/3 + hash_file!/1 primitives (no new receipt schema, no new chaining logic)." ;
+    bpm:acceptanceCommand "mix test test/beam4pm_eds_test.exs" ;
+    bpm:contentSha256 "e9fca0b31543ba67de7ecc066975218d7810d7cca9d71f6a584631adc69b7057" ;
+    bpm:admittedAtCommit "4d50b4b" ;
+    bpm:admissionExpires "2026-12-31" ;
+    bpm:sunsetPlan "If a research-claim record type is ever promoted to a full admitted bpm:RecordType with ggen-generated constructors/codec, migrate BeamPM.EDS's receipt-writing onto the generated struct; then delete this admission." .
+
+bap:hand_authored_lib_beam4pm_eds_ppcx_h1 a bpm:HandAuthoredSource ;
+    bpm:sourcePath "lib/beam4pm_eds_ppcx_h1.ex" ;
+    bpm:authorshipKind bpm:AuthorshipKind_native_engine_facade ;
+    bpm:authorizingPrincipal "Sean Chatman (repo owner) via Claude Code session_018iXTYcpGbgf23MZYLe6TCU" ;
+    bpm:admissionReason "The first concrete Executable Research Claim under BeamPM.EDS: the PPCX paper's Section 16 H1 example (deviation-feedback half only, honestly disclosed as not yet the full comparative claim), driving a real claim through the full ladder against the real, already-admitted check_conformance/3 -> admit_deviation/4 pipeline." ;
+    bpm:acceptanceCommand "mix test test/beam4pm_eds_test.exs" ;
+    bpm:contentSha256 "d6c69650e66285cad187a5210633d9a7b8044c4f988c507fe4963c2935d83260" ;
+    bpm:admittedAtCommit "4d50b4b" ;
+    bpm:admissionExpires "2026-12-31" ;
+    bpm:sunsetPlan "If H1's full comparative claim (deviation-feedback vs. control condition) is later implemented, this module's scope note should be revised or this admission superseded by a broader one." .
+
+bap:hand_authored_test_eds a bpm:HandAuthoredSource ;
+    bpm:sourcePath "test/beam4pm_eds_test.exs" ;
+    bpm:authorshipKind bpm:AuthorshipKind_hand_authored_qualification ;
+    bpm:authorizingPrincipal "Sean Chatman (repo owner) via Claude Code session_018iXTYcpGbgf23MZYLe6TCU" ;
+    bpm:admissionReason "Chicago-style qualification of BeamPM.EDS and BeamPM.EDS.PPCXH1: real illegal-transition refusal, real terminal-state reachability, real receipt chain write + independent replay verification, and a real deviating OCEL trace driving the PPCX H1 artifact through the full ladder to :verified with a real ontology.ttl mutation confirmed by reading the file back -- no mocks." ;
+    bpm:acceptanceCommand "mix test test/beam4pm_eds_test.exs" ;
+    bpm:contentSha256 "14b8eb48d3a07c530cb533b7fed5a8bae588f21a44489e86b4cf2aa918ca5d29" ;
+    bpm:admittedAtCommit "4d50b4b" ;
+    bpm:admissionExpires "2026-12-31" ;
+    bpm:sunsetPlan "If a research-claim record type is ever rendered from a pack template, generate this qualification from the matching test template as well; then delete this admission." .
+
+bap:hand_authored_lib_research_erc a bpm:HandAuthoredSource ;
+    bpm:sourcePath "lib/beam4pm_research_erc.ex" ;
+    bpm:authorshipKind bpm:AuthorshipKind_hand_authored_qualification ;
+    bpm:authorizingPrincipal "Sean Chatman (repo owner) via Claude Code session_01NtCpvZrtJRf6EuhYsaCFv7" ;
+    bpm:admissionReason "BeamPM.Research.ERC -- reads real ERC (Executable Research Claim) receipt files from research/erc/ and returns them as a ledger; the sibling half of ash_a2a's identically-named module for the same cross-repo bench. Hand-written wrapper over a real filesystem receipt directory, not ontology-fact-driven, same convention as lib/beam4pm_powl_discovery.ex." ;
+    bpm:acceptanceCommand "mix eds.ledger" ;
+    bpm:contentSha256 "4e478f87c8c2550b2412a0afb1b0eaabd9039cfbdc1432c011348bc643250270" ;
+    bpm:admittedAtCommit "51ca841" ;
+    bpm:admissionExpires "2026-12-31" ;
+    bpm:sunsetPlan "No template family fits a receipt-ledger reader today; keep admitted until one is proposed upstream." .
+
+bap:hand_authored_task_eds_ledger a bpm:HandAuthoredSource ;
+    bpm:sourcePath "lib/mix/tasks/eds.ledger.ex" ;
+    bpm:authorshipKind bpm:AuthorshipKind_hand_authored_qualification ;
+    bpm:authorizingPrincipal "Sean Chatman (repo owner) via Claude Code session_01NtCpvZrtJRf6EuhYsaCFv7" ;
+    bpm:admissionReason "`mix eds.ledger` -- prints the real ERC ledger read by BeamPM.Research.ERC.ledger/0 (admitted above); prints nothing fabricated. Same hand-authored mix-task convention as the already-admitted lib/mix/tasks/beam4pm.version_bump.ex and lib/mix/tasks/beam4pm.rf2_oracle_dep.ex." ;
+    bpm:acceptanceCommand "mix eds.ledger" ;
+    bpm:contentSha256 "ad0c515715614d1bd4d9083214844b468299c9f92de331ba7de609578b05266c" ;
+    bpm:admittedAtCommit "51ca841" ;
+    bpm:admissionExpires "2026-12-31" ;
+    bpm:sunsetPlan "No template family fits an ad hoc ledger-printing mix task today; keep admitted until one is proposed upstream." .

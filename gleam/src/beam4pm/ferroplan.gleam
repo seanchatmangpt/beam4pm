@@ -160,3 +160,15 @@ pub fn session_world_bytes(handle: Int) -> Result(Dynamic, Dynamic)
 /// `{"op":"session_mind_bytes","handle":h}` -- byte size of this session's private mutable state.
 @external(erlang, "Elixir.BeamPM.Ferroplan", "session_mind_bytes")
 pub fn session_mind_bytes(handle: Int) -> Result(Dynamic, Dynamic)
+
+/// `{"op":"htn_plan","domain":d,"problem":p[,"limits":l]}` -- `domain`/`problem` are UTF-8 JSON text of a `PlanningProblem` object (same wire shape as `plan`/`plan_production`'s `domain`/`problem` fields, but decoded into the typed universal-planning model rather than PDDL text). `domain` is accepted but ignored when non-empty and not equal to `problem` -- ferroplan's universal-planning model has one combined problem document, so `problem` alone is parsed as the full `PlanningProblem`. Forces `PlanningType::Hierarchical`. Returns `UniversalPlan` JSON.
+@external(erlang, "Elixir.BeamPM.Ferroplan", "htn_plan")
+pub fn htn_plan(domain: String, problem: String) -> Result(Dynamic, Dynamic)
+
+/// `{"op":"fond_policy","domain":d,"problem":p[,"limits":l]}` -- same wire shape as `htn_plan`; forces `PlanningType::Fond`. Returns `UniversalPlan` JSON.
+@external(erlang, "Elixir.BeamPM.Ferroplan", "fond_policy")
+pub fn fond_policy(domain: String, problem: String) -> Result(Dynamic, Dynamic)
+
+/// `{"op":"hddl_solve","domain":d,"problem":p[,"limits":l]}` -- `domain`/`problem` are HDDL source text (not classical PDDL or JSON): parsed, grounded, and translated by `ferroplan_hddl`'s parse -> ground -> translate pipeline into the same FOND solver used by `fond_policy` (`ferroplan::solve_hddl`). `limits` (optional; a partial `PlannerLimits` map -- `max_depth`/`max_states`/`max_iterations`, any/all omitted) is merged into the request. A domain-level failure (parse/ground/translate/timeout/worker-panic) surfaces as `{:ok, %{"error" => %{"code" => ..., "message" => ..., "retryable" => bool}}}` with a code naming the failing stage (`FP_PARSE`, `FP_HDDL_GROUND`, `FP_HDDL_TRANSLATE`, `FP_MODEL`) -- never a bare `{:error, _}` -- matching every other solve op's error-in-envelope convention (bpm:ErrorCollapse_single_key_inspect). Returns `UniversalPlan` JSON on success.
+@external(erlang, "Elixir.BeamPM.Ferroplan", "hddl_solve")
+pub fn hddl_solve(domain: String, problem: String) -> Result(Dynamic, Dynamic)
