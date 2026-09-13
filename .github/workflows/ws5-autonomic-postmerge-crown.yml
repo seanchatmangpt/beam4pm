@@ -34,6 +34,9 @@ jobs:
           git merge-base --is-ancestor 8804843bc84fb54ca2bf9f57f9ad693be9d96f79 HEAD
           git merge-base --is-ancestor 25ec1555c28f1cb81113fcebf80f267dc1f72f6a HEAD
           git merge-base --is-ancestor 70f2549f037e832e7c2908d0e8c9ce495aa62b3c HEAD
+          git merge-base --is-ancestor 320be42351995f45984809ee2513ccb1555e6a22 HEAD
+          git merge-base --is-ancestor bc716148d4371d1e2213e0d3f91ae9286152af1c HEAD
+          test "$(find ontology/ws2-planning-blackboard -type f -name 'WS2-BB-*.ttl' | wc -l | tr -d ' ')" -eq 50
           test "$(git ls-tree HEAD vendor/ggen-marketplace | awk '{print $3}')" = "$(git -C vendor/ggen-marketplace rev-parse HEAD)"
 
       - name: Prove 50 independent ontology cells and required-field falsifiers
