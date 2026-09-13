@@ -1,0 +1,76 @@
+(define (domain beam4pm-dfcm-hddl)
+  (:requirements :typing :hierarchy :negative-preconditions)
+
+  (:types objective)
+
+  (:predicates
+    (options-preserved)
+    (fences-applied)
+    (calculus-complete)
+    (exclusions-complete)
+    (falsifiers-materialized)
+    (extension-complete)
+    (contingent-policy-constructed)
+    (selection-complete)
+  )
+
+  (:task dfcm-cycle
+    :parameters (?g - objective))
+
+  (:method dfcm-cycle-preserve-before-collapse
+    :parameters (?g - objective)
+    :task (dfcm-cycle ?g)
+    :ordered-subtasks (and
+      (p1 (preserve-known-options ?g))
+      (p2 (apply-known-fences ?g))
+      (p3 (perform-dfcm-calculus ?g))
+      (p4 (exclude-invalid-options ?g))
+      (p5 (materialize-falsifiers ?g))
+      (p6 (extend-if-required ?g))
+      (p7 (construct-contingent-policy ?g))
+      (p8 (select-lawful-option ?g))
+    )
+  )
+
+  ;; Primitive tasks are planning-only bookkeeping. There is deliberately no
+  ;; execute/actuate/write primitive: the hierarchy terminates at SELECT.
+  (:action preserve-known-options
+    :parameters (?g - objective)
+    :precondition (not (options-preserved))
+    :effect (options-preserved))
+
+  (:action apply-known-fences
+    :parameters (?g - objective)
+    :precondition (options-preserved)
+    :effect (fences-applied))
+
+  (:action perform-dfcm-calculus
+    :parameters (?g - objective)
+    :precondition (fences-applied)
+    :effect (calculus-complete))
+
+  (:action exclude-invalid-options
+    :parameters (?g - objective)
+    :precondition (calculus-complete)
+    :effect (exclusions-complete))
+
+  (:action materialize-falsifiers
+    :parameters (?g - objective)
+    :precondition (exclusions-complete)
+    :effect (falsifiers-materialized))
+
+  (:action extend-if-required
+    :parameters (?g - objective)
+    :precondition (falsifiers-materialized)
+    :effect (extension-complete))
+
+  (:action construct-contingent-policy
+    :parameters (?g - objective)
+    :precondition (extension-complete)
+    :effect (contingent-policy-constructed))
+
+  (:action select-lawful-option
+    :parameters (?g - objective)
+    :precondition (contingent-policy-constructed)
+    :effect (selection-complete))
+)
