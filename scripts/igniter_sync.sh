@@ -28,6 +28,26 @@ set -euo pipefail
 PACK="${PACK:-vendor/ggen-marketplace/packs/beam4pm-process-model-pack}"
 IGN="$PACK/igniter"
 
+# The caller-local A2A adapter expands AshA2A.Agent at compile time and asks
+# BeamPM.Ash.Domain for persisted DSL metadata. During GATE M2 the generated
+# domain has deliberately been deleted, so even the initial `mix deps.get`
+# cannot load the host project while that adapter is present. Stash only the
+# adapter through dependency loading and the resource + domain bootstrap
+# passes, restore it after the new domain's first compile pass, and restore on
+# every early exit.
+mkdir -p tmp_probe
+A2A_AGENT_SOURCE="lib/beam4pm_a2a_agent.ex"
+A2A_AGENT_STASH="tmp_probe/beam4pm_a2a_agent.ex.bootstrap-stash"
+restore_a2a_agent() {
+  if [ -f "$A2A_AGENT_STASH" ]; then
+    mv "$A2A_AGENT_STASH" "$A2A_AGENT_SOURCE"
+  fi
+}
+trap restore_a2a_agent EXIT
+if [ -f "$A2A_AGENT_SOURCE" ]; then
+  mv "$A2A_AGENT_SOURCE" "$A2A_AGENT_STASH"
+fi
+
 mix deps.get
 
 # 0. Remove the former monolithic outputs BEFORE any split-template sync
@@ -74,29 +94,10 @@ rm -f lib/beam4pm_ash.ex test/beam4pm_ash_test.exs
 #     ADDITIONAL_PACK_ONTOLOGY below into MERGED_TTL and using it for step 3
 #     too, not just 1a/2a.
 MERGED_TTL="tmp_probe/ontology_merged.ttl"
-mkdir -p tmp_probe
 ADDITIONAL_PACK_ONTOLOGIES=(
   "vendor/ggen-marketplace/packs/frontier-release-beam-pack/ontology.ttl"
 )
 cat ontology.ttl "$PACK/ontology.ttl" "${ADDITIONAL_PACK_ONTOLOGIES[@]}" > "$MERGED_TTL"
-
-# The caller-local A2A adapter expands AshA2A.Agent at compile time and asks
-# BeamPM.Ash.Domain for persisted DSL metadata.  During GATE M2 the generated
-# domain has deliberately been deleted, so the first resource sync cannot
-# compile the host project while that adapter is present.  Stash only the
-# adapter for the resource + domain bootstrap passes, restore it immediately
-# after the domain is manufactured, and restore on every early exit.
-A2A_AGENT_SOURCE="lib/beam4pm_a2a_agent.ex"
-A2A_AGENT_STASH="tmp_probe/beam4pm_a2a_agent.ex.bootstrap-stash"
-restore_a2a_agent() {
-  if [ -f "$A2A_AGENT_STASH" ]; then
-    mv "$A2A_AGENT_STASH" "$A2A_AGENT_SOURCE"
-  fi
-}
-trap restore_a2a_agent EXIT
-if [ -f "$A2A_AGENT_SOURCE" ]; then
-  mv "$A2A_AGENT_SOURCE" "$A2A_AGENT_STASH"
-fi
 
 # 1a. Ash resources: one Ash.Resource module PER admitted bpm:RecordType row
 #     (ETS data layer, uuid_primary_key :id, ontology-derived attributes),
