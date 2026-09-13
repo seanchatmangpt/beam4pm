@@ -158,7 +158,7 @@ before_sums="$(for f in "${before_files[@]}"; do shasum -a 256 "$f"; done | sort
 STASH_DIR="$(mktemp -d)"
 ONTOLOGY_BACKUP="$(mktemp)"
 cp ontology.ttl "$ONTOLOGY_BACKUP"
-HAND_AUTHORED_DEPENDENT_TESTS=(test/beam4pm_actuation_k8s_test.exs test/beam4pm_process_governor_k8s_test.exs test/beam4pm_pddl_projection_test.exs test/beam4pm_ash_ai_tools_test.exs)
+HAND_AUTHORED_DEPENDENT_TESTS=(lib/beam4pm_contracts.ex test/beam4pm_actuation_k8s_test.exs test/beam4pm_process_governor_k8s_test.exs test/beam4pm_pddl_projection_test.exs test/beam4pm_ash_ai_tools_test.exs)
 restore_stash() {
   # `if ... ; then mv; fi` (not a bare `[ -f ] && mv`) -- a bare `test && cmd`
   # statement is falsy whenever the test is false, and under this script's
