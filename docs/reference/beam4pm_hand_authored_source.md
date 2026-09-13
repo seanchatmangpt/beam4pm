@@ -174,7 +174,7 @@ artifact is absent (`ACCEPTANCE_BLOCKED_PREREQUISITE`).
 
 - Authorizing principal: Sean Chatman (repo owner) via Claude Code session_018iXTYcpGbgf23MZYLe6TCU
 - Reason: Chicago-style qualification of BeamPM.EDS and BeamPM.EDS.PPCXH1: real illegal-transition refusal, real terminal-state reachability, real receipt chain write + independent replay verification, and a real deviating OCEL trace driving the PPCX H1 artifact through the full ladder to :verified with a real ontology.ttl mutation confirmed by reading the file back -- no mocks.
-- Content sha256 at admission: `14b8eb48d3a07c530cb533b7fed5a8bae588f21a44489e86b4cf2aa918ca5d29`
+- Content sha256 at admission: `bfc270732d9cfffa3620f7ac6a9c702e526dccbded6320808e449bc2e432c176`
 - Sunset plan: If a research-claim record type is ever rendered from a pack template, generate this qualification from the matching test template as well; then delete this admission.
 
 #### `test/beam4pm_ferroplan_facades_test.exs`

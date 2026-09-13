@@ -28,7 +28,7 @@ src/beam4pm.app.src	manufacturing_input	false	-	-	rebar3 compile	-
 test/beam4pm_ash_ai_tools_test.exs	hand_authored_qualification	true	b658dbbdcaa4c5585ee1d7b4b1dc80c059a40535157960386363e383b924dfd3	2026-12-31	mix test test/beam4pm_ash_ai_tools_test.exs	-
 test/beam4pm_contracts_test.exs	hand_authored_qualification	true	04699f8e50cccd9b451619f983e472950799b8b2058000e5a1be251b004fc065	2026-12-31	mix test test/beam4pm_contracts_test.exs	-
 test/beam4pm_deviation_admission_test.exs	hand_authored_qualification	true	1ee967b2bc49ca2d7b69ebc1529eee2168e450d85e059c33a077d9a49440e6e6	2026-12-31	mix test test/beam4pm_deviation_admission_test.exs	-
-test/beam4pm_eds_test.exs	hand_authored_qualification	true	14b8eb48d3a07c530cb533b7fed5a8bae588f21a44489e86b4cf2aa918ca5d29	2026-12-31	mix test test/beam4pm_eds_test.exs	-
+test/beam4pm_eds_test.exs	hand_authored_qualification	true	bfc270732d9cfffa3620f7ac6a9c702e526dccbded6320808e449bc2e432c176	2026-12-31	mix test test/beam4pm_eds_test.exs	-
 test/beam4pm_ferroplan_facades_test.exs	hand_authored_qualification	true	9ad4f8658075e3804384a02b6c2ee550a235fd7e75615acf9838b285c9533e34	2026-12-31	mix test test/beam4pm_ferroplan_facades_test.exs	native/ferroplan/target/wasm32-wasip1/release/ferroplan_wasm.wasm
 test/beam4pm_ferroplan_test.exs	hand_authored_qualification	true	24685d17a802334e78094625a969b4f1e353fd1422f943d97b7351146be8974d	2026-12-31	mix test test/beam4pm_ferroplan_test.exs	native/ferroplan/target/wasm32-wasip1/release/ferroplan_wasm.wasm
 test/beam4pm_ocel_test.exs	hand_authored_qualification	true	af2f005ef2b9f52bf1b50b594239dee77cdbd855a1702bd19dbcaaf91b8f4e39	2026-12-31	mix test test/beam4pm_ocel_test.exs	-
