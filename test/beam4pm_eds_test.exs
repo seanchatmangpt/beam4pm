@@ -7,7 +7,7 @@ defmodule BeamPM.EDSTest do
   a real temp `receipts/eds` directory and independently re-verified via
   `BeamPM.ReceiptChain.verify/2`.
   """
-  use ExUnit.Case, async: true
+  use ExUnit.Case, async: false
 
   alias BeamPM.EDS
   alias BeamPM.EDS.Claim

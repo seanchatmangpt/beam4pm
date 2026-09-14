@@ -65,6 +65,13 @@ defmodule BeamPM.FerroplanFacadesTest do
     (:goal (at b)))
   """
 
+  @hddl_domain File.read!("native/ferroplan/crates/ferroplan-hddl/fixtures/a/domain.hddl")
+  @hddl_problem File.read!("native/ferroplan/crates/ferroplan-hddl/fixtures/a/problem.hddl")
+
+  @solve_x_domain File.read!("native/ferroplan/domains/solve_x.hddl")
+  @solve_x_problem File.read!("native/ferroplan/domains/solve_x.problem.hddl")
+
+
   # The gleam-built Erlang module for gleam/src/beam4pm/ferroplan.gleam.
   # Calls go through apply/3 so this test module compiles warning-free
   # when the gleam build output (and thus the module) is absent --
@@ -127,6 +134,28 @@ defmodule BeamPM.FerroplanFacadesTest do
       assert erlang_result == elixir_result
       assert {:ok, _explanation} = erlang_result
     end
+
+    test "hddl_solve/2 matches the elixir wrapper on a real solved HDDL FOND domain" do
+      elixir_result = BeamPM.Ferroplan.hddl_solve(@hddl_domain, @hddl_problem)
+      erlang_result = :beam4pm_ferroplan.hddl_solve(@hddl_domain, @hddl_problem)
+      assert erlang_result == elixir_result
+      assert {:ok, sol} = erlang_result
+      assert sol["solved"] == true
+      assert is_list(sol["policy"])
+      assert sol["policy"] != []
+    end
+
+    test "hddl_solve/2 matches the elixir wrapper on the canonical seven-step SOLVE(x) HDDL domain" do
+      elixir_result = BeamPM.Ferroplan.hddl_solve(@solve_x_domain, @solve_x_problem)
+      erlang_result = :beam4pm_ferroplan.hddl_solve(@solve_x_domain, @solve_x_problem)
+      assert erlang_result == elixir_result
+      assert {:ok, sol} = erlang_result
+      assert sol["solved"] == true
+      assert sol["notes"] == ["strong FOND fixed point"]
+      assert length(sol["policy"]) == 8
+    end
+
+
 
     test "session_think/session_step/session_suffix/session_advance parity on the shared handle",
          ctx do
@@ -225,6 +254,28 @@ defmodule BeamPM.FerroplanFacadesTest do
       assert gleam(:readiness, []) == BeamPM.Ferroplan.readiness()
       assert gleam(:version, []) == BeamPM.Ferroplan.version()
     end
+
+    test "hddl_solve/2 matches the elixir wrapper on a real solved HDDL FOND domain" do
+      elixir_result = BeamPM.Ferroplan.hddl_solve(@hddl_domain, @hddl_problem)
+      gleam_result = gleam(:hddl_solve, [@hddl_domain, @hddl_problem])
+      assert gleam_result == elixir_result
+      assert {:ok, sol} = gleam_result
+      assert sol["solved"] == true
+      assert is_list(sol["policy"])
+      assert sol["policy"] != []
+    end
+
+    test "hddl_solve/2 matches the elixir wrapper on the canonical seven-step SOLVE(x) HDDL domain" do
+      elixir_result = BeamPM.Ferroplan.hddl_solve(@solve_x_domain, @solve_x_problem)
+      gleam_result = gleam(:hddl_solve, [@solve_x_domain, @solve_x_problem])
+      assert gleam_result == elixir_result
+      assert {:ok, sol} = gleam_result
+      assert sol["solved"] == true
+      assert sol["notes"] == ["strong FOND fixed point"]
+      assert length(sol["policy"]) == 8
+    end
+
+
 
     test "session_think/session_valid/session_has_plan parity on the shared handle", ctx do
       elixir_think = BeamPM.Ferroplan.session_think(ctx.session_h, 10_000, 64)

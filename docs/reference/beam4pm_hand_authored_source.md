@@ -174,21 +174,21 @@ artifact is absent (`ACCEPTANCE_BLOCKED_PREREQUISITE`).
 
 - Authorizing principal: Sean Chatman (repo owner) via Claude Code session_018iXTYcpGbgf23MZYLe6TCU
 - Reason: Chicago-style qualification of BeamPM.EDS and BeamPM.EDS.PPCXH1: real illegal-transition refusal, real terminal-state reachability, real receipt chain write + independent replay verification, and a real deviating OCEL trace driving the PPCX H1 artifact through the full ladder to :verified with a real ontology.ttl mutation confirmed by reading the file back -- no mocks.
-- Content sha256 at admission: `14b8eb48d3a07c530cb533b7fed5a8bae588f21a44489e86b4cf2aa918ca5d29`
+- Content sha256 at admission: `f86b110cf2e1399f9c3b82611c8697e08726bf5fec44d5740929d15a479095d8`
 - Sunset plan: If a research-claim record type is ever rendered from a pack template, generate this qualification from the matching test template as well; then delete this admission.
 
 #### `test/beam4pm_ferroplan_facades_test.exs`
 
 - Authorizing principal: Sean Chatman (repo owner) via Claude Code session_01UiCeLuzgcK2BLocBKxXw39
 - Reason: Facade-parity qualification calling every op through Elixir, Erlang and Gleam on the same ferroplan engine handle and asserting exact equality; the op list is the engine's, not yet ontology facts.
-- Content sha256 at admission: `9ad4f8658075e3804384a02b6c2ee550a235fd7e75615acf9838b285c9533e34`
+- Content sha256 at admission: `a1d83a882acec1fdac5a42936cf1139d704ee7417c1985732dde573709811196`
 - Sunset plan: Once the ferroplan function surface is admitted as ontology facts, render the parity suite from the same facts as the facades; then delete this admission.
 
 #### `test/beam4pm_ferroplan_test.exs`
 
 - Authorizing principal: Sean Chatman (repo owner) via Claude Code session_01UiCeLuzgcK2BLocBKxXw39
 - Reason: Chicago qualification of BeamPM.Ferroplan against a real classical-planning domain inside the wasm engine (no mocks); the planning fixtures are hand-written, not ontology facts.
-- Content sha256 at admission: `24685d17a802334e78094625a969b4f1e353fd1422f943d97b7351146be8974d`
+- Content sha256 at admission: `0c4d09b7d9f437c8c9e8c397bc69e717d70e3baa9f3d7de4d70c8cf30a5ed505`
 - Sunset plan: Admit the planning fixtures as ontology facts (a bpmg:ProcessContract already projects to PDDL) and render this qualification from them; then delete this admission.
 
 #### `test/beam4pm_ocel_test.exs`
