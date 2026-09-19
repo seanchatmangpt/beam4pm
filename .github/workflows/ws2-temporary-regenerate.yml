@@ -19,7 +19,7 @@ jobs:
     container:
       image: ghcr.io/seanchatmangpt/ggen-ecosystem:v26.8.28
     steps:
-      - uses: actions/checkout@3d3c42e440d50bdb57f0e69dbd10296f5cbd7996
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
         with:
           fetch-depth: 0
       - name: Regenerate exact admitted subject
