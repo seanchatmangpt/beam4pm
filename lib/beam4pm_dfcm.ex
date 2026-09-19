@@ -144,7 +144,38 @@ defmodule BeamPM.Dfcm do
 
   @doc """
   Multifractal option allocation over surviving nondominated candidates.
-  Preserves option entropy and returns fractional capacity shares without DO authority.
+
+  When the standalone autofde CLI is available (`autofde_cli_available?/0`),
+  allocation is delegated to the certified CMCA cascade (`cmca allocate`,
+  Q16.16 fixed-point measure from the vendored bcinr allocator) and its JSON
+  plan is mapped onto this module's allocation shape
+  (`branch_id`/`allocated_fraction`/`standing` + `authority_ceiling: :select`).
+
+  CMCA guarantees observed and documented (autofde-lab `cmca/cascade.py` +
+  `cmca/bcinr_bridge.py`, verified by real runs 2026-09-18):
+
+  - Deterministic: candidates are ranked in canonical `candidate_hash` order
+    and the measure is branchless Q16.16 fixed point -- identical input yields
+    a byte-identical plan.
+  - Budget-exact: surviving candidates are renormalized so
+    `sum(allocated_fraction) == 1.0` (Q16.16 epsilon `1/65536`).
+  - Zero-allocation law: a candidate receives `allocated_fraction == 0.0`
+    ONLY when its raw measured share falls below the pruning threshold
+    (default `0.01`); such a candidate is reported with `standing: "PRUNED"`
+    and zero ticks/memory/depth -- never silently dropped. If every raw share
+    falls below the threshold, anti-starvation keeps exactly the top-measured
+    candidate at full renormalized mass. No surviving candidate gets `0.0`
+    outside this law.
+  - Cardinality law: the compiled allocator shape is `N = 8` (upstream
+    CMCA-108); more than 8 real candidates is a typed refusal
+    (`BcinrCardinalityRefusal`, CLI exit 1), never truncation.
+
+  When the CLI is absent, the uniform option-preserving fallback applies:
+  every surviving candidate receives an equal share (`1.0 / n`). When the CLI
+  is present but refuses (cardinality law, transport failure), a refused map
+  with the typed reason is returned -- the uniform fallback is NOT silently
+  substituted for a real refusal. Authority ceiling stays `:select` in every
+  branch: allocation is planning data, never DO.
   """
   @spec allocate_options(problem(), map()) :: map()
   def allocate_options(problem, budget \\ %{}) do
@@ -165,6 +196,7 @@ defmodule BeamPM.Dfcm do
       candidates =
         Enum.map(active, fn opt ->
           norm = normalize_option(opt)
+
           %{
             "branch_id" => norm.id,
             "option_entropy" => max(1.0, norm.goal_progress * 1.0),
@@ -173,37 +205,133 @@ defmodule BeamPM.Dfcm do
           }
         end)
 
-      allocator_fn =
-        if Code.ensure_loaded?(AshAutofde.CascadeAllocator) and
-             function_exported?(AshAutofde.CascadeAllocator, :allocate, 3) do
-          fn b, c -> AshAutofde.CascadeAllocator.allocate("dfcm_plan", b, c) end
-        else
-          fn _b, _c -> {:error, :allocator_unavailable} end
+      if autofde_cli_available?() do
+        case cmca_allocate(candidates, budget) do
+          {:ok, plan} ->
+            plan
+
+          {:error, detail} ->
+            %{
+              status: :refused,
+              reason: {:cmca_allocate_failed, detail},
+              allocations: [],
+              authority_ceiling: :select
+            }
         end
-
-      case allocator_fn.(budget, candidates) do
-        {:ok, plan} ->
-          Map.put(plan, :authority_ceiling, :select)
-
-        {:error, _fallback} ->
-          # Uniform option-preserving fallback
-          share = 1.0 / length(active)
-          %{
-            "plan_id" => "dfcm_plan",
-            "total_option_value_preserved" => 1.0,
-            "entropy" => 1.0,
-            "allocations" =>
-              Enum.map(active, fn opt ->
-                %{
-                  "branch_id" => opt.id,
-                  "allocated_fraction" => share,
-                  "standing" => "ADMITTED"
-                }
-              end),
-            authority_ceiling: :select
-          }
+      else
+        uniform_fallback(active)
       end
     end
+  end
+
+  # Certified CMCA path: `autofde cmca allocate` over a candidates temp file
+  # (the CLI's file-path argument form; its inline-JSON form crashes on
+  # macOS for JSON longer than one path component -- observed OSError 63,
+  # 2026-09-18), then map the JSON plan onto the allocation shape.
+  defp cmca_allocate(candidates, budget) do
+    opts = cmca_budget_opts(budget)
+
+    path =
+      Path.join(
+        System.tmp_dir!(),
+        "dfcm_cmca_candidates_#{System.unique_integer([:positive])}.json"
+      )
+
+    args =
+      ["cmca", "allocate", path, "--plan-id", opts[:plan_id]] ++
+        [
+          "--total-ticks",
+          Integer.to_string(opts[:total_ticks]),
+          "--memory-bytes",
+          Integer.to_string(opts[:memory_bytes]),
+          "--max-verification-depth",
+          Integer.to_string(opts[:max_verification_depth]),
+          "--concurrency-lanes",
+          Integer.to_string(opts[:concurrency_lanes])
+        ]
+
+    try do
+      File.write!(path, JSON.encode!(candidates))
+
+      case System.cmd(autofde_cli_path(), args, stderr_to_stdout: true) do
+        {output, 0} ->
+          case JSON.decode(output) do
+            {:ok, %{"ok" => true, "plan" => plan}} ->
+              {:ok, cmca_plan_to_shape(plan)}
+
+            {:ok, other} ->
+              {:error, {:unexpected_cli_response, other}}
+
+            {:error, err} ->
+              {:error, {:invalid_json, err, output}}
+          end
+
+        # stderr is merged into output so the refusal evidence (e.g. the
+        # BcinrCardinalityRefusal traceback) travels with the typed reason.
+        {output, code} ->
+          {:error, {:cli_failed, code, output}}
+      end
+    after
+      File.rm(path)
+    end
+  end
+
+  defp cmca_budget_opts(budget) do
+    get = fn keys, default ->
+      Enum.find_value(List.wrap(keys), default, fn key -> Map.get(budget, key) end)
+    end
+
+    [
+      plan_id: get.([:plan_id, "plan_id"], "dfcm_plan"),
+      total_ticks: get.([:total_ticks, "total_ticks"], 10_000),
+      memory_bytes: get.([:memory_bytes, "memory_bytes"], 65_536),
+      max_verification_depth: get.([:max_verification_depth, "max_verification_depth"], 6),
+      concurrency_lanes: get.([:concurrency_lanes, "concurrency_lanes"], 8)
+    ]
+  end
+
+  defp cmca_plan_to_shape(plan) do
+    %{
+      "plan_id" => plan["plan_id"],
+      "total_option_value_preserved" => plan["total_option_value_preserved"],
+      "entropy" => plan["entropy"],
+      "allocations" =>
+        Enum.map(plan["allocations"] || [], fn a ->
+          %{
+            "branch_id" => a["branch_id"],
+            "allocated_fraction" => a["allocated_fraction"],
+            "standing" => a["standing"],
+            "allocated_ticks" => a["allocated_ticks"],
+            "allocated_memory_bytes" => a["allocated_memory_bytes"],
+            "verification_depth" => a["verification_depth"],
+            "priority_lane" => a["priority_lane"]
+          }
+        end),
+      "allocator" => "cmca",
+      authority_ceiling: :select
+    }
+  end
+
+  # Uniform option-preserving fallback: lawful ONLY when the autofde CLI is
+  # absent (no certified allocator reachable). Equal shares, mass 1.0.
+  defp uniform_fallback(active) do
+    share = 1.0 / length(active)
+
+    %{
+      "plan_id" => "dfcm_plan",
+      "total_option_value_preserved" => 1.0,
+      "entropy" => 1.0,
+      "allocations" =>
+        Enum.map(active, fn opt ->
+          %{
+            "branch_id" => opt.id,
+            "allocated_fraction" => share,
+            "standing" => "ADMITTED"
+          }
+        end),
+      "allocator" => "uniform_fallback",
+      authority_ceiling: :select
+    }
   end
 
   @doc "Pareto dominance across progress, reversibility, information, reuse and bounded cost."
@@ -543,10 +671,179 @@ defmodule BeamPM.Dfcm do
   @doc "Execute Knowledge Hooks transition against base graph via standalone GraphLaw WASM engine."
   @spec graphlaw_hooks(String.t(), String.t()) :: {:ok, map()} | {:error, term()}
   def graphlaw_hooks(base_ttl, event_ttl) do
-    case run_autofde_cli(["sa2a", "graphlaw", "hooks", "--ttl", base_ttl, "--event-ttl", event_ttl]) do
+    case run_autofde_cli([
+           "sa2a",
+           "graphlaw",
+           "hooks",
+           "--ttl",
+           base_ttl,
+           "--event-ttl",
+           event_ttl
+         ]) do
       {:ok, %{"action" => "hooks", "result" => res}} -> {:ok, res}
       {:ok, %{"error" => err}} -> {:error, {:graphlaw_error, err}}
       other -> other
+    end
+  end
+  @doc """
+  Validate an Agent Card against the standalone AutoFDE-Lab `sa2a validate`
+  profile court (RFC-SA2A-001 v26.9.16, §10/§76).
+
+  Accepts either a path to a card JSON file on disk or an already-decoded
+  card map (materialized to a temp file for the CLI). Returns the lab's own
+  verdict payload: `{:ok, verdict}` when the card is admitted for the
+  profile (`status: "VALID"`), or `{:error, {:invalid_card, verdict}}` when
+  the lab refuses it (e.g. `UNSUPPORTED_PROFILE`), preserving the lab's
+  refusal reason verbatim. This is a REAL CLI execution, never a re-
+  implementation of the validator.
+
+  Note: the lab court expects the SA2A-RFC-SA2A-001 extension fields
+  `supported_profiles` / `agent_id`; A2A v0.3 wire cards (as served by
+  `A2A.Plug` / ash_a2a) carry neither, so a conformant A2A v0.3 card is
+  refused with `UNSUPPORTED_PROFILE` -- that refusal is the honest verdict,
+  not a bridge error. Set AUTOFDE_LAB_ROOT when the lab does not sit at
+  `../autofde-lab` relative to this checkout (the priv/bin/autofde
+  trampoline's own resolution order).
+  """
+  @spec sa2a_validate_card(String.t() | map()) :: {:ok, map()} | {:error, term()}
+  def sa2a_validate_card(card_path) when is_binary(card_path) do
+    if File.exists?(card_path) do
+      run_sa2a_validate(card_path)
+    else
+      {:error, {:card_not_found, card_path}}
+    end
+  end
+
+  def sa2a_validate_card(card) when is_map(card) do
+    tmp_dir = System.tmp_dir!()
+    path = Path.join(tmp_dir, "beam4pm-agent-card-#{:erlang.unique_integer([:positive])}.json")
+    File.write!(path, JSON.encode!(card))
+
+    try do
+      run_sa2a_validate(path)
+    after
+      File.rm(path)
+    end
+  end
+
+  defp run_sa2a_validate(card_path) do
+    case run_autofde_cli(["sa2a", "validate", "--card-path", card_path]) do
+      {:ok, %{"ok" => true} = verdict} ->
+        {:ok, verdict}
+
+      # The CLI emits its verdict JSON on stdout, THEN exits 1 on a refused
+      # card -- so the finding lives inside the {:error, {:cli_failed, ...}}
+      # wrapper. Decode and surface it as the card verdict it is.
+      {:error, {:cli_failed, _exit_code, output}} ->
+        case JSON.decode(output) do
+          {:ok, %{"ok" => false} = verdict} -> {:error, {:invalid_card, verdict}}
+          {:ok, other} -> {:error, {:unexpected_verdict, other}}
+          {:error, err} -> {:error, {:invalid_json, err, output}}
+        end
+
+      {:ok, other} ->
+        {:error, {:unexpected_verdict, other}}
+
+      other ->
+        other
+    end
+  end
+
+  @doc """
+  Subject one candidate assertion to the lab's §64 admission court
+  (`autofde sa2a admit`) via the standalone CLI bridge.
+
+  Pure one-shot CLI passthrough (same class as `graphlaw_hash/1`): builds the
+  option list, invokes the trampoline exactly once, decodes the JSON receipt.
+  The lab court's REFUSAL is a valid verdict, not a bridge failure -- the CLI
+  exits 0 with `"ok": false` and `"standing": "REFUSED"` -- so a refused
+  candidate still returns `{:ok, receipt}` and the caller must branch on the
+  receipt's `"ok"` / `"standing"` keys. Only process-level failures (missing
+  binary, non-zero exit, undecodable JSON, error-keyed receipt) return
+  `{:error, term()}`.
+
+  Options:
+    * `:candidate_id` - candidate identifier (default: random `cand-<hex>`)
+    * `:query_id` - query identifier (default: `"q0"`, the lab default)
+    * `:source` - source agent/engine identity (default: `"beam4pm-dfcm"`)
+    * `:evidence` - evidence payload map, JSON-encoded by the bridge
+      (default: `%{}` -- note the lab court refuses empty evidence with
+      MISSING_EVIDENCE, mirroring `BeamPM.DeviationAdmission` refusing a
+      `conforms: false` result with no deviations)
+  """
+  @spec sa2a_admit(String.t(), keyword()) :: {:ok, map()} | {:error, term()}
+  def sa2a_admit(assertion, opts \\ []) when is_binary(assertion) do
+    candidate_id =
+      Keyword.get_lazy(opts, :candidate_id, fn ->
+        "cand-" <> (:crypto.strong_rand_bytes(8) |> Base.encode16(case: :lower))
+      end)
+
+    args = [
+      "sa2a",
+      "admit",
+      "--candidate-id",
+      candidate_id,
+      "--query-id",
+      Keyword.get(opts, :query_id, "q0"),
+      "--assertion",
+      assertion,
+      "--source",
+      Keyword.get(opts, :source, "beam4pm-dfcm"),
+      "--evidence",
+      JSON.encode!(Keyword.get(opts, :evidence, %{}))
+    ]
+
+    case run_autofde_cli(args) do
+      {:ok, %{"ok" => ok, "standing" => _standing} = receipt} when is_boolean(ok) ->
+        {:ok, receipt}
+
+      {:ok, %{"error" => err}} ->
+        {:error, {:sa2a_admit_error, err}}
+
+      other ->
+        other
+    end
+  end
+
+  @doc """
+  Verify a cryptographic receipt or plan hash via the standalone AutoFDE
+  `sa2a replay` command (§38, §64) -- pure passthrough.
+
+  The lab canonicalizes `manifest_json` (`sort_keys`, compact separators,
+  ASCII) and `sha256`-hexdigests it, then compares against `expected_hash`,
+  emitting `{"ok": bool, "computed_hash": ..., "expected_hash": ...,
+  "verified": bool}` and exiting 1 on mismatch. This wrapper relays that
+  verdict untouched: `{:ok, resp}` when the lab verifies, `{:error,
+  {:replay_refused, resp}}` when the lab itself refuses (its own emitted
+  verdict carried through), and every other `run_autofde_cli/1` failure
+  verbatim. It computes nothing and decides nothing: no hash is fabricated
+  here, no receipt is written, no authority is exercised.
+
+  Note the scheme passed through to is sha256 over CANONICAL JSON, not over
+  raw file bytes -- it accepts whitespace/key-order re-serialization of the
+  same JSON semantics, a complementary refusal boundary to
+  `BeamPM.ReceiptChain`'s raw-byte chain hashing. Cross-validation of the
+  two verifiers on real receipts:
+  docs/jira/v26.9.18/b4p-p5-sa2a-replay-parity.md.
+  """
+  @spec sa2a_replay(%{required(:manifest_json) => String.t(), required(:expected_hash) => String.t()}) ::
+          {:ok, map()} | {:error, term()}
+  def sa2a_replay(%{manifest_json: manifest_json, expected_hash: expected_hash})
+      when is_binary(manifest_json) and is_binary(expected_hash) do
+    case run_autofde_cli(["sa2a", "replay", manifest_json, "--expected-hash", expected_hash]) do
+      {:ok, %{"ok" => true} = resp} ->
+        {:ok, resp}
+
+      # The lab EMITS its verdict JSON before exiting 1 on mismatch, so a
+      # refusal arrives as a cli_failed carrying the lab's own verdict payload.
+      {:error, {:cli_failed, 1, output}} ->
+        case JSON.decode(output) do
+          {:ok, %{"ok" => false} = resp} -> {:error, {:replay_refused, resp}}
+          _ -> {:error, {:cli_failed, 1, output}}
+        end
+
+      other ->
+        other
     end
   end
 
@@ -716,167 +1013,5 @@ defmodule BeamPM.Dfcm do
         end
     end
   end
-  @doc """
-  Validate an Agent Card against the standalone AutoFDE-Lab `sa2a validate`
-  profile court (RFC-SA2A-001 v26.9.16, §10/§76).
-
-  Accepts either a path to a card JSON file on disk or an already-decoded
-  card map (materialized to a temp file for the CLI). Returns the lab's own
-  verdict payload: `{:ok, verdict}` when the card is admitted for the
-  profile (`status: "VALID"`), or `{:error, {:invalid_card, verdict}}` when
-  the lab refuses it (e.g. `UNSUPPORTED_PROFILE`), preserving the lab's
-  refusal reason verbatim. This is a REAL CLI execution, never a re-
-  implementation of the validator.
-
-  Note: the lab court expects the SA2A-RFC-SA2A-001 extension fields
-  `supported_profiles` / `agent_id`; A2A v0.3 wire cards (as served by
-  `A2A.Plug` / ash_a2a) carry neither, so a conformant A2A v0.3 card is
-  refused with `UNSUPPORTED_PROFILE` -- that refusal is the honest verdict,
-  not a bridge error. Set AUTOFDE_LAB_ROOT when the lab does not sit at
-  `../autofde-lab` relative to this checkout (the priv/bin/autofde
-  trampoline's own resolution order).
-  """
-  @spec sa2a_validate_card(String.t() | map()) :: {:ok, map()} | {:error, term()}
-  def sa2a_validate_card(card_path) when is_binary(card_path) do
-    if File.exists?(card_path) do
-      run_sa2a_validate(card_path)
-    else
-      {:error, {:card_not_found, card_path}}
-    end
-  end
-
-  def sa2a_validate_card(card) when is_map(card) do
-    tmp_dir = System.tmp_dir!()
-    path = Path.join(tmp_dir, "beam4pm-agent-card-#{:erlang.unique_integer([:positive])}.json")
-    File.write!(path, JSON.encode!(card))
-
-    try do
-      run_sa2a_validate(path)
-    after
-      File.rm(path)
-    end
-  end
-
-  defp run_sa2a_validate(card_path) do
-    case run_autofde_cli(["sa2a", "validate", "--card-path", card_path]) do
-      {:ok, %{"ok" => true} = verdict} ->
-        {:ok, verdict}
-
-      # The CLI emits its verdict JSON on stdout, THEN exits 1 on a refused
-      # card -- so the finding lives inside the {:error, {:cli_failed, ...}}
-      # wrapper. Decode and surface it as the card verdict it is.
-      {:error, {:cli_failed, _exit_code, output}} ->
-        case JSON.decode(output) do
-          {:ok, %{"ok" => false} = verdict} -> {:error, {:invalid_card, verdict}}
-          {:ok, other} -> {:error, {:unexpected_verdict, other}}
-          {:error, err} -> {:error, {:invalid_json, err, output}}
-        end
-
-      {:ok, other} ->
-        {:error, {:unexpected_verdict, other}}
-
-      other ->
-        other
-    end
-  end
-
-  @doc """
-  Subject one candidate assertion to the lab's §64 admission court
-  (`autofde sa2a admit`) via the standalone CLI bridge.
-
-  Pure one-shot CLI passthrough (same class as `graphlaw_hash/1`): builds the
-  option list, invokes the trampoline exactly once, decodes the JSON receipt.
-  The lab court's REFUSAL is a valid verdict, not a bridge failure -- the CLI
-  exits 0 with `"ok": false` and `"standing": "REFUSED"` -- so a refused
-  candidate still returns `{:ok, receipt}` and the caller must branch on the
-  receipt's `"ok"` / `"standing"` keys. Only process-level failures (missing
-  binary, non-zero exit, undecodable JSON, error-keyed receipt) return
-  `{:error, term()}`.
-
-  Options:
-    * `:candidate_id` - candidate identifier (default: random `cand-<hex>`)
-    * `:query_id` - query identifier (default: `"q0"`, the lab default)
-    * `:source` - source agent/engine identity (default: `"beam4pm-dfcm"`)
-    * `:evidence` - evidence payload map, JSON-encoded by the bridge
-      (default: `%{}` -- note the lab court refuses empty evidence with
-      MISSING_EVIDENCE, mirroring `BeamPM.DeviationAdmission` refusing a
-      `conforms: false` result with no deviations)
-  """
-  @spec sa2a_admit(String.t(), keyword()) :: {:ok, map()} | {:error, term()}
-  def sa2a_admit(assertion, opts \\ []) when is_binary(assertion) do
-    candidate_id =
-      Keyword.get_lazy(opts, :candidate_id, fn ->
-        "cand-" <> (:crypto.strong_rand_bytes(8) |> Base.encode16(case: :lower))
-      end)
-
-    args = [
-      "sa2a",
-      "admit",
-      "--candidate-id",
-      candidate_id,
-      "--query-id",
-      Keyword.get(opts, :query_id, "q0"),
-      "--assertion",
-      assertion,
-      "--source",
-      Keyword.get(opts, :source, "beam4pm-dfcm"),
-      "--evidence",
-      JSON.encode!(Keyword.get(opts, :evidence, %{}))
-    ]
-
-    case run_autofde_cli(args) do
-      {:ok, %{"ok" => ok, "standing" => _standing} = receipt} when is_boolean(ok) ->
-        {:ok, receipt}
-
-      {:ok, %{"error" => err}} ->
-        {:error, {:sa2a_admit_error, err}}
-
-      other ->
-        other
-    end
-  end
-
-  @doc """
-  Verify a cryptographic receipt or plan hash via the standalone AutoFDE
-  `sa2a replay` command (§38, §64) -- pure passthrough.
-
-  The lab canonicalizes `manifest_json` (`sort_keys`, compact separators,
-  ASCII) and `sha256`-hexdigests it, then compares against `expected_hash`,
-  emitting `{"ok": bool, "computed_hash": ..., "expected_hash": ...,
-  "verified": bool}` and exiting 1 on mismatch. This wrapper relays that
-  verdict untouched: `{:ok, resp}` when the lab verifies, `{:error,
-  {:replay_refused, resp}}` when the lab itself refuses (its own emitted
-  verdict carried through), and every other `run_autofde_cli/1` failure
-  verbatim. It computes nothing and decides nothing: no hash is fabricated
-  here, no receipt is written, no authority is exercised.
-
-  Note the scheme passed through to is sha256 over CANONICAL JSON, not over
-  raw file bytes -- it accepts whitespace/key-order re-serialization of the
-  same JSON semantics, a complementary refusal boundary to
-  `BeamPM.ReceiptChain`'s raw-byte chain hashing. Cross-validation of the
-  two verifiers on real receipts:
-  docs/jira/v26.9.18/b4p-p5-sa2a-replay-parity.md.
-  """
-  @spec sa2a_replay(%{required(:manifest_json) => String.t(), required(:expected_hash) => String.t()}) ::
-          {:ok, map()} | {:error, term()}
-  def sa2a_replay(%{manifest_json: manifest_json, expected_hash: expected_hash})
-      when is_binary(manifest_json) and is_binary(expected_hash) do
-    case run_autofde_cli(["sa2a", "replay", manifest_json, "--expected-hash", expected_hash]) do
-      {:ok, %{"ok" => true} = resp} ->
-        {:ok, resp}
-
-      # The lab EMITS its verdict JSON before exiting 1 on mismatch, so a
-      # refusal arrives as a cli_failed carrying the lab's own verdict payload.
-      {:error, {:cli_failed, 1, output}} ->
-        case JSON.decode(output) do
-          {:ok, %{"ok" => false} = resp} -> {:error, {:replay_refused, resp}}
-          _ -> {:error, {:cli_failed, 1, output}}
-        end
-
-      other ->
-        other
-    end
-  end
 
 end
-
