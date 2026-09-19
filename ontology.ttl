@@ -10460,6 +10460,29 @@ bap:hand_authored_test_dfcm_sa2a_replay a bpm:HandAuthoredSource ;
     bpm:admittedAtCommit "36b0ed9" ;
     bpm:admissionExpires "2026-12-31" ;
     bpm:sunsetPlan "Render from the same bridge-fact pack as lib/beam4pm_dfcm.ex's sa2a replay surface; then delete this admission." .
+bap:hand_authored_lib_autofde_bridge a bpm:HandAuthoredSource ;
+    bpm:sourcePath "lib/beam4pm_autofde_bridge.ex" ;
+    bpm:authorshipKind bpm:AuthorshipKind_native_engine_facade ;
+    bpm:authorizingPrincipal "Sean Chatman (repo owner) via Claude Code v26.9.18 parity wave agent P8 (session b4p-p8)" ;
+    bpm:admissionReason "Persistent stdio JSON-lines port bridge to autofde-lab's BEAM port bridge (src/autofde_lab/beam/beam_port_bridge.py): one GenServer-owned BEAM Port keeps one Python interpreter alive so post-boot requests skip the per-call interpreter boot the one-shot Typer CLI path pays. Frames newline-delimited JSON, correlates one reply line per request in order, returns the bridge's {ok: false} envelopes typed, degrades to {:error, :bridge_down} on port death and lazily reboots the interpreter (restart/1 forces it). Hand-authored: no template family fits a GenServer-wrapped stdio port client (same class precedent as lib/beam4pm_ocel.ex's native_engine_facade admission); the op surface (ping, cmca_allocate, calculate_salience) is the lab bridge's, not yet ontology facts. The lab's fabric commands are NOT bridge ops -- recorded failed edge; fabric parity stays on the CLI wrapper." ;
+    bpm:acceptanceCommand "mix test test/beam4pm_autofde_bridge_test.exs" ;
+    bpm:contentSha256 "26104d7ff39850d3f2c3e9de8acd3bafe23f057ebe293ff2293af80df67454b7" ;
+    bpm:admittedAtCommit "36b0ed9" ;
+    bpm:admissionExpires "2026-12-31" ;
+    bpm:sunsetPlan "Admit the beam-bridge op surface as ontology facts (a bpm:Engine projection over autofde-lab) and render this port-bridge client from them; then delete this admission." .
+
+# -- hand_authored_qualification (14; counted as debt) -----------------------
+
+bap:hand_authored_test_autofde_bridge a bpm:HandAuthoredSource ;
+    bpm:sourcePath "test/beam4pm_autofde_bridge_test.exs" ;
+    bpm:authorshipKind bpm:AuthorshipKind_hand_authored_qualification ;
+    bpm:authorizingPrincipal "Sean Chatman (repo owner) via Claude Code v26.9.18 parity wave agent P8 (session b4p-p8)" ;
+    bpm:admissionReason "Chicago qualification of the hand-authored BeamPM.AutofdeBridge against the REAL autofde-lab beam_port_bridge interpreter (no mocks): real ping round-trip, one real cmca_allocate solve, exact plan parity with the one-shot CLI path on the same inputs, a real 5-call-per-path latency comparison (persistent channel wins on second+ call), and a real kill -9 of the interpreter's OS pid mid-session with observed {:error, :bridge_down} semantics and a fresh-interpreter recovery ping. Named skip when the autofde-lab checkout is not resolvable." ;
+    bpm:acceptanceCommand "mix test test/beam4pm_autofde_bridge_test.exs" ;
+    bpm:contentSha256 "e96351f9b34c77ccf3bfb3fa42e96e9c55c537384a80e1fec500998433c3ae88" ;
+    bpm:admittedAtCommit "36b0ed9" ;
+    bpm:admissionExpires "2026-12-31" ;
+    bpm:sunsetPlan "Render from the same beam-bridge op facts as lib/beam4pm_autofde_bridge.ex; then delete this admission." .
 
 bap:hand_authored_test_ocel a bpm:HandAuthoredSource ;
     bpm:sourcePath "test/beam4pm_ocel_test.exs" ;
