@@ -10426,7 +10426,29 @@ bap:hand_authored_lib_beam4pm_ocel a bpm:HandAuthoredSource ;
     bpm:admissionExpires "2026-12-31" ;
     bpm:sunsetPlan "Propose a dedicated hand_authored_lib_module (or similar) AuthorshipKind upstream in the vendored beam4pm-process-model-pack, or admit bpm:RecordType-level OCEL envelope facts and manufacture this codec from a pack template; then delete this admission." .
 
+bap:hand_authored_lib_dfcm a bpm:HandAuthoredSource ;
+    bpm:sourcePath "lib/beam4pm_dfcm.ex" ;
+    bpm:authorshipKind bpm:AuthorshipKind_native_engine_facade ;
+    bpm:authorizingPrincipal "Sean Chatman (repo owner) via Claude Code session_01UiCeLuzgcK2BLocBKxXw39" ;
+    bpm:admissionReason "Pure Design for Combinatorial Maximalism planning crown. Preserves admitted alternatives, applies explicit fences, records every exclusion with a deterministic receipt and falsifier, and returns either a decision-relevant observation request or a SELECT candidate. Authority ceiling is strictly :select with no DO surface." ;
+    bpm:acceptanceCommand "mix test test/beam4pm_dfcm_test.exs" ;
+    bpm:contentSha256 "05b4d2e7656ce15c114cc2e375e4731d96fa2875e53c0d68a4fb81de4f52d635" ;
+    bpm:admittedAtCommit "2d51358" ;
+    bpm:admissionExpires "2026-12-31" ;
+    bpm:sunsetPlan "Admit DfCM contracts as ontology facts and render the planning crown from a pack template; then delete this admission." .
+
 # -- hand_authored_qualification (14; counted as debt) -----------------------
+
+bap:hand_authored_test_dfcm a bpm:HandAuthoredSource ;
+    bpm:sourcePath "test/beam4pm_dfcm_test.exs" ;
+    bpm:authorshipKind bpm:AuthorshipKind_hand_authored_qualification ;
+    bpm:authorizingPrincipal "Sean Chatman (repo owner) via Claude Code session_01UiCeLuzgcK2BLocBKxXw39" ;
+    bpm:admissionReason "Chicago qualification of BeamPM.Dfcm bounded option-preservation calculus, formal HDDL/FOND fixtures, and SELECT-not-DO authority ceiling." ;
+    bpm:acceptanceCommand "mix test test/beam4pm_dfcm_test.exs" ;
+    bpm:contentSha256 "b3fd6bd1b279a7c2116a6986caaa4a69f0550a9b6a15ee7ccaa084a273b4edea" ;
+    bpm:admittedAtCommit "d8c2f19" ;
+    bpm:admissionExpires "2026-12-31" ;
+    bpm:sunsetPlan "Render from the same DfCM planning facts as lib/beam4pm_dfcm.ex; then delete this admission." .
 
 bap:hand_authored_test_ocel a bpm:HandAuthoredSource ;
     bpm:sourcePath "test/beam4pm_ocel_test.exs" ;
