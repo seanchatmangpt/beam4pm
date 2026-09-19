@@ -499,3 +499,48 @@ BEAM reductions/mailbox/heap/etc. remain the first consequence-profile extension
 - Weaver Live-check runtime: `UNKNOWN`;
 - semantic BEAM consequence profiling in beam4pm: `UNKNOWN`;
 - GALL-004-Weaver exact subject: `UNKNOWN`.
+
+## 23. Four-hour conversation synthesis — semantic feedback without authority
+
+The recent MD -> TTL, coder-agent, GNN and full-autonomics discussions add one cross-cutting identity to the Weaver court: the semantic work order/checkpoint that selected the observed consequence.
+
+### Registry generation remains a projection
+
+Target direction:
+
+`public work-order / runtime ontology -> ggen projection -> Weaver registry/templates -> runtime telemetry`.
+
+Weaver templates and semantic-convention registries remain generated projections. They are not a new private ontology and are not allowed to become the canonical Jira/work-order authority.
+
+The generated semantic telemetry surface may carry opaque:
+
+- work-order/checkpoint identity;
+- semantic subject/capability identity;
+- actuation/receipt correlation identity;
+- model/profile identity when a learned selector materially influenced the selected candidate.
+
+Authority secrets remain prohibited.
+
+### Findings and learned models feed CANDIDATE, not DO
+
+Weaver `PolicyFinding`, process conformance deviations, BEAM semantic consequence profiles, GNN scores and later ONNX/AtomVM signals may create candidate diagnoses or candidate work orders.
+
+They cannot:
+
+- alter the admitted work-order graph;
+- grant command authority;
+- skip GALL-003;
+- strengthen independent postcondition standing;
+- trigger consequence directly.
+
+Required feedback edge:
+
+`validated observation -> candidate diagnosis/work order -> formal verification/admission -> authority -> BRCE DO`.
+
+### Full-autonomics compatibility
+
+The Weaver court is therefore one evidence producer in the wider loop discussed by the GALL-015..032 work:
+
+`disturbance -> OTLP -> Weaver -> normalized OCEL -> process intelligence -> candidate diagnosis -> formal admission -> authority -> DO -> receipt -> postcondition -> learning`.
+
+GALL-004/#76 closes only its semantic observation segment. BEAM reductions and AtomVM measures remain downstream typed observations after the transport/relationship/durable-observer court is alive.
