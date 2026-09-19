@@ -21,7 +21,7 @@ defmodule BeamPM.A2AAgent do
   # a domain that cannot have been manufactured. A normal checkout always has
   # the projection and therefore compiles the real agent. This is derived from
   # exact source ownership, not an environment variable or caller-local flag.
-  if File.exists?("lib/beam4pm_ash.ex") do
+  if File.exists?("lib/beam4pm_ash_domain.ex") do
     Code.ensure_compiled!(BeamPM.Ash.Domain)
     use AshA2A.Agent, resource_or_domain: BeamPM.Ash.Domain, name: "beam4pm_a2a_agent"
   else
