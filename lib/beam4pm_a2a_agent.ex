@@ -15,7 +15,16 @@ defmodule BeamPM.A2AAgent do
   `BeamPM.ReceiptChain`) through A2A/JSON-RPC -- only the two curated
   read-only Ash actions are exposed as A2A skills.
   """
-  if File.exists?(Path.expand("../tmp_probe/a2a-ash-bootstrap", __DIR__)) do
+  domain_ready? =
+    try do
+      Code.ensure_compiled!(BeamPM.Ash.Domain)
+      apply(BeamPM.Ash.Domain, :persisted, [:ash_a2a_subject_kind])
+      true
+    rescue
+      _ -> false
+    end
+
+  if File.exists?(Path.expand("../tmp_probe/a2a-ash-bootstrap", __DIR__)) or not domain_ready? do
     @doc false
     def __bootstrap_stub__, do: :ok
   else
