@@ -1,0 +1,5 @@
+sa2a.work_order.digest=sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+sa2a.semantic.subject.digest=sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
+sa2a.capability.id=Example.Resource.change
+sa2a.receipt.id=receipt-018f
+sa2a.authority.raw_token=forbidden
