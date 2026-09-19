@@ -716,5 +716,69 @@ defmodule BeamPM.Dfcm do
         end
     end
   end
+  @doc """
+  Validate an Agent Card against the standalone AutoFDE-Lab `sa2a validate`
+  profile court (RFC-SA2A-001 v26.9.16, §10/§76).
+
+  Accepts either a path to a card JSON file on disk or an already-decoded
+  card map (materialized to a temp file for the CLI). Returns the lab's own
+  verdict payload: `{:ok, verdict}` when the card is admitted for the
+  profile (`status: "VALID"`), or `{:error, {:invalid_card, verdict}}` when
+  the lab refuses it (e.g. `UNSUPPORTED_PROFILE`), preserving the lab's
+  refusal reason verbatim. This is a REAL CLI execution, never a re-
+  implementation of the validator.
+
+  Note: the lab court expects the SA2A-RFC-SA2A-001 extension fields
+  `supported_profiles` / `agent_id`; A2A v0.3 wire cards (as served by
+  `A2A.Plug` / ash_a2a) carry neither, so a conformant A2A v0.3 card is
+  refused with `UNSUPPORTED_PROFILE` -- that refusal is the honest verdict,
+  not a bridge error. Set AUTOFDE_LAB_ROOT when the lab does not sit at
+  `../autofde-lab` relative to this checkout (the priv/bin/autofde
+  trampoline's own resolution order).
+  """
+  @spec sa2a_validate_card(String.t() | map()) :: {:ok, map()} | {:error, term()}
+  def sa2a_validate_card(card_path) when is_binary(card_path) do
+    if File.exists?(card_path) do
+      run_sa2a_validate(card_path)
+    else
+      {:error, {:card_not_found, card_path}}
+    end
+  end
+
+  def sa2a_validate_card(card) when is_map(card) do
+    tmp_dir = System.tmp_dir!()
+    path = Path.join(tmp_dir, "beam4pm-agent-card-#{:erlang.unique_integer([:positive])}.json")
+    File.write!(path, JSON.encode!(card))
+
+    try do
+      run_sa2a_validate(path)
+    after
+      File.rm(path)
+    end
+  end
+
+  defp run_sa2a_validate(card_path) do
+    case run_autofde_cli(["sa2a", "validate", "--card-path", card_path]) do
+      {:ok, %{"ok" => true} = verdict} ->
+        {:ok, verdict}
+
+      # The CLI emits its verdict JSON on stdout, THEN exits 1 on a refused
+      # card -- so the finding lives inside the {:error, {:cli_failed, ...}}
+      # wrapper. Decode and surface it as the card verdict it is.
+      {:error, {:cli_failed, _exit_code, output}} ->
+        case JSON.decode(output) do
+          {:ok, %{"ok" => false} = verdict} -> {:error, {:invalid_card, verdict}}
+          {:ok, other} -> {:error, {:unexpected_verdict, other}}
+          {:error, err} -> {:error, {:invalid_json, err, output}}
+        end
+
+      {:ok, other} ->
+        {:error, {:unexpected_verdict, other}}
+
+      other ->
+        other
+    end
+  end
+
 end
 
