@@ -36,6 +36,7 @@ jobs:
           mapfile -t targets < <(sed -n '/primary-ggen-targets.txt.*TARGETS/,/^[[:space:]]*TARGETS$/p' .github/workflows/beam4pm-manufacture.yml | sed '1d;$d' | sed 's/^[[:space:]]*//')
           targets+=(docs/generated/hand-authored-source-admissions.md qualification/generated/hand-authored-source-admissions.tsv)
           rm -rf .ggen-v2
+          rm -f ggen.lock
           for target in "${targets[@]}"; do rm -rf "$target"; done
           ggen sync run
           cp /tmp/root-ontology.ttl ontology.ttl
