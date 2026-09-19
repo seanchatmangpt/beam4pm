@@ -22,6 +22,12 @@ defmodule BeamPM.A2AAgent do
     @doc false
     def __bootstrap_stub__, do: :ok
   else
+    # GATE M2 runs inside a long-lived Mix VM that may still have the deleted
+    # pre-regeneration domain loaded. Purge that stale module before declaring
+    # the compile dependency so the freshly manufactured Spark DSL metadata,
+    # never the prior beam, is the macro's exact subject.
+    :code.purge(BeamPM.Ash.Domain)
+    :code.delete(BeamPM.Ash.Domain)
     Code.ensure_compiled!(BeamPM.Ash.Domain)
     use AshA2A.Agent, resource_or_domain: BeamPM.Ash.Domain, name: "beam4pm_a2a_agent"
   end
