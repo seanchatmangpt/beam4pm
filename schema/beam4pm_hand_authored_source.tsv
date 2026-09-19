@@ -8,7 +8,7 @@ docs/reference/discovery-and-conformance-api.md	reference_evidence	false	-	-	bas
 docs/reference/infra-beamops-first-principles.md	reference_evidence	false	-	-	bash scripts/gate_lint_truth.sh	-
 docs/reference/rust4pm-wasm-beam.md	reference_evidence	false	-	-	bash scripts/gate_lint_truth.sh	-
 docs/reference/scripts.md	reference_evidence	false	-	-	bash scripts/gate_lint_truth.sh	-
-lib/beam4pm_a2a_agent.ex	hand_authored_qualification	true	093c3eadf739f6a41c3b538640162698304ffe1970a8efcf27dca9d61d0ccfc6	2026-12-31	mix run qualification/a2a_smoke_test.exs	-
+lib/beam4pm_a2a_agent.ex	hand_authored_qualification	true	01b8a45ade64bebe2ed7181fb726518ff2288c46427d629eff9069fff8a18cb2	2026-12-31	mix run qualification/a2a_smoke_test.exs	-
 lib/beam4pm_a2a_router.ex	hand_authored_qualification	true	734cf82e4625241defa3c5361ba7abdcc1c2fb2a01543a2c2d931c9287ba8b28	2026-12-31	mix run qualification/a2a_smoke_test.exs	-
 lib/beam4pm_application.ex	hand_authored_qualification	true	5296564323089870a49b5e8fadc1149ea08c06645434943463ef43d963f9ed8f	2026-12-31	source scripts/env/rust4pm_reactor_env.sh && mix test --max-requires 1	-
 lib/beam4pm_contracts.ex	hand_authored_qualification	true	51f24b063e54cbf238778c2a0786c9571e1bf98eb1831c17cb9e3eb6a61385a7	2026-12-31	mix test test/beam4pm_contracts_test.exs	-
@@ -49,5 +49,5 @@ test/beam4pm_rust4pm_test.exs	hand_authored_qualification	true	1bcdd936bdc3d38ec
 test/beam4pm_tract_facades_test.exs	hand_authored_qualification	true	fac0045d96da2ff242f2d8e2a95457dedbdf0cefdff3a277af68b10aa3c0199c	2026-12-31	mix test test/beam4pm_tract_facades_test.exs	native/tract-wasm/target/wasm32-wasip1/release/tract_wasm.wasm
 test/beam4pm_tract_test.exs	hand_authored_qualification	true	6b60d4880fc57346c5b891ecd55ca667b96ee4913b7cb4a3983a3c4166b79708	2026-12-31	mix test test/beam4pm_tract_test.exs	native/tract-wasm/target/wasm32-wasip1/release/tract_wasm.wasm
 test/beam4pm_version_bump_test.exs	hand_authored_qualification	true	1e92cea2a087ad330f9da04b7a284da4bf6f47dd9aba7810c80d9e11bb688e50	2026-12-31	mix test test/beam4pm_version_bump_test.exs	-
-test/beam4pm_ws3_dfcm_self_healing_test.exs	hand_authored_qualification	true	cbfef52311e8b12fb63d57f786e9e7a5b3f8175b9155b13cfedbae9ba1a5f2ce	2026-12-31	mix test test/beam4pm_ws3_dfcm_self_healing_test.exs	-
+test/beam4pm_ws3_dfcm_self_healing_test.exs	reference_evidence	false	-	-	bash scripts/gate_lint_truth.sh	-
 test/ggen_igniter_patch_field_test.exs	hand_authored_qualification	true	b2be2a83ee1b8258cb429abd2c976fb1cb0bd3c5ffd4e216e3f21cf7ed42e97f	2026-12-31	mix test test/ggen_igniter_patch_field_test.exs	cmd:test -n "${BEAM4PM_RUN_EXPENSIVE_PATCH_FIELD_TESTS:-}" && test $(wc -l < lib/beam4pm_types.ex) -lt 5000
