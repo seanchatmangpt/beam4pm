@@ -76,7 +76,7 @@ artifact is absent (`ACCEPTANCE_BLOCKED_PREREQUISITE`).
 
 - Authorizing principal: Sean Chatman (repo owner) via Claude Code session_018iXTYcpGbgf23MZYLe6TCU
 - Reason: BeamPM.A2AAgent -- the agent-facing AshA2A.Agent entry point over the curated BeamPM.Ash.Domain a2a skills (same 2 resources already curated as AshAi tools: OcelEvent read, ConformanceResult read). Additive alongside ex4pm's existing Ex4pm.Engine.Beam4pm HTTP route-table client; never routes beam4pm's own internals (EngineOp dispatch, OCEL/OTel evidence chain, BeamPM.ReceiptChain) through A2A/JSON-RPC. Hand-authored: no ontology-fact-driven template exists for an AshA2A.Agent shell module (same class as the OTP Application callback above).
-- Content sha256 at admission: `a62e10ea1af19cee5294ad108b5d0b5bf70959519cc8c6b6ef9b1b2c0a8b0e96`
+- Content sha256 at admission: `d434f725a7cfb59a6d9216011353e3291bb3bf6b741b75016b77b45e210adaa2`
 - Sunset plan: No template family fits an AshA2A.Agent shell module today; keep as permanently-admitted hand-authored infrastructure unless a future ggen_igniter A2A-agent-shell recipe is added.
 
 #### `lib/beam4pm_a2a_router.ex`
