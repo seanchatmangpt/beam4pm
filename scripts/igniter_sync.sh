@@ -206,10 +206,23 @@ mix ggen_igniter.sync \
   --query fields="$IGN/queries/fields.rq" \
   --template "$IGN/templates/beam4pm_types_manifest.ex.eex" \
   --out tmp_probe/beam4pm_types_manifest.ex
-if diff -u lib/beam4pm_types_manifest.ex tmp_probe/beam4pm_types_manifest.ex; then
-  echo "cross-engine identity probe: BYTE-IDENTICAL"
+# Probe compares FORMAT-NORMALIZED forms of both engines' outputs, not raw
+# bytes. Reason (surfaced 2026-09-18, g5 wave): ggen_igniter format-on-writes
+# every .ex output through Code.format_string!/1 (reconcile_reactor.ex), the
+# Rust ggen/Tera leg writes raw template bytes. While every rendered
+# `def fields(...)` one-liner stayed under mix format's wrap width the raw
+# bytes were format-stable and byte-identical held (verified 2026-08-29 and
+# 2026-09-05); the parity wave's new long-field-list records crossed that
+# width, so raw-vs-formatted diverged on line wrapping alone -- token streams
+# verified identical. Normalizing both sides through the SAME deterministic
+# formatter keeps the probe's full strength (any record/field/order/content
+# difference still diverges) while removing that known mechanical asymmetry.
+cp lib/beam4pm_types_manifest.ex tmp_probe/beam4pm_types_manifest.rust_raw.ex
+mix format tmp_probe/beam4pm_types_manifest.rust_raw.ex tmp_probe/beam4pm_types_manifest.ex
+if diff -u tmp_probe/beam4pm_types_manifest.rust_raw.ex tmp_probe/beam4pm_types_manifest.ex; then
+  echo "cross-engine identity probe: IDENTICAL after format normalization (token streams compared under one formatter)"
 else
-  echo "cross-engine identity probe: DIVERGED -- the igniter and Rust ggen engines disagree on beam4pm_types_manifest.ex (see diff above)" >&2
+  echo "cross-engine identity probe: DIVERGED -- the igniter and Rust ggen engines disagree on beam4pm_types_manifest.ex beyond formatter normalization (see diff above)" >&2
   exit 1
 fi
 
