@@ -298,3 +298,63 @@ Stop rather than absorbing authority or planner behavior when:
 - the exact GALL-003 producer subject is unavailable.
 
 The result is `BLOCKED`, `UNSUPPORTED`, or typed refusal. beam4pm does not compensate by re-actuating the command.
+
+## 2026-09-18 exact-head code review
+
+Reviewed source subject: `054022550bc069de4b03609f514dfa8e1442a27a`.
+
+### Observed implementation
+
+beam4pm already has real pieces of the observer substrate:
+
+- the generated `BeamPM.OcelIngest.Router` exposes admitted network routes for events/objects and validates them into generated OCEL record types;
+- `BeamPM.Ocel` provides object traces, relationship queries, dangling-reference validation, and a general event/object JSON codec surface;
+- Rust4PM/POWL/conformance surfaces exist for downstream process analysis.
+
+However, these pieces do not yet constitute GALL-004 independent-observer standing.
+
+### Wire-identity gap
+
+The generated network ingest uses repository-native snake_case keys, including relationship `object_id`. Standard OCEL 2.0 exporters in the current ecosystem (including `GgenIgniter.Telemetry.Ocel2Export`) use `objectId`.
+
+Therefore:
+
+`standard OCEL2 relationship != current /ocel/events relationship wire shape`.
+
+The court must either admit a deterministic normalization adapter or change the generated wire projection at its canonical source. It must then falsify dropped/misbound E2O/O2O relations. Silent key coercion is not acceptable.
+
+### Relationship round-trip gap
+
+`BeamPM.Ocel.encode/1` and `decode/1` operate on event/object structs, while relationships are carried separately by the query API as `{record, rels}` pairs. The generic codec does not itself bind those nested relations through its public signature.
+
+Because GALL-004 ordering/postcondition evidence depends on relationships, its court must prove relationship-preserving round trip rather than treating event/object parse success as sufficient OCEL evidence.
+
+### Observer-state gap
+
+The network ingest router decodes and returns records but owns no durable observation store. That is an explicit design choice in the module docs. GALL-004 therefore still needs an exact observer artifact/state boundary from which an independent court can reconstruct what happened after the actuator returns.
+
+### Weaver/OTLP gap
+
+No reviewed beam4pm source path implements Weaver Live-check or OTLP semantic admission. PR #76 is currently an implementation contract, not runtime code.
+
+The strengthened court remains:
+
+`raw OTLP -> Weaver semantic validation -> normalized OCEL -> process/conformance -> independent post-state -> observer receipt`.
+
+Each arrow requires observed evidence; a valid OCEL decode is not a substitute for independent post-state observation.
+
+### Revised next action
+
+1. canonicalize the standard-OCEL2-to-internal relationship adapter through ontology/ggen ownership;
+2. add a relationship-preserving OCEL falsifier;
+3. define the durable/read-once observer artifact used by the independent court;
+4. implement the PR #76 Weaver semantic-validation rail against real OTLP;
+5. bind the validated telemetry identity to one exact GALL-003 receipt and an independently observed post-state;
+6. emit the deterministic observer receipt.
+
+### Review standing
+
+- OCEL ingest/query/conformance substrate: `PARTIAL_ALIVE` by source inspection;
+- independent postcondition observer: `UNKNOWN`;
+- Weaver/OTLP semantic court: `UNKNOWN`;
+- cross-repository GALL-004 seal: `UNKNOWN`.
