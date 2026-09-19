@@ -26,7 +26,7 @@ jobs:
           set -euo pipefail
           git config --global --add safe.directory /__w/beam4pm/beam4pm
           git show 38bf15d561105a8f908dd9fb527d065bf7b308cb:ontology.ttl > ontology.ttl
-          sed -i 's/fb92b63e147a63841feaee1d8d212930ab180e24170255811078eac66908f9f6/1cd508d2d6581e35240cf3d7ed92a1981fe0f0d02286745b7c7ba5649a46413c/' ontology.ttl
+          sed -i 's/c6fe4a80e42424c427ec0207505940e34ff270f0876d240d5a1c412e1f931f7d/1cd508d2d6581e35240cf3d7ed92a1981fe0f0d02286745b7c7ba5649a46413c/' ontology.ttl
           test "$(grep -c '1cd508d2d6581e35240cf3d7ed92a1981fe0f0d02286745b7c7ba5649a46413c' ontology.ttl)" -eq 1
           cp ontology.ttl /tmp/root-ontology.ttl
           cp ontology.ttl /tmp/composed-ontology.ttl
