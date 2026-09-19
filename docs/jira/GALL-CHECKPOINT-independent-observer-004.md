@@ -86,3 +86,28 @@ Outputs evidence consumed by GALL-005.
 Against one exact `ash_a2a` checkpoint subject, beam4pm independently observes the real consequence and ordering, validates its OCEL/process evidence, kills the required mismatched/double-DO/missing-prepared-receipt falsifiers, and emits a deterministic observer receipt. The court remains green only while the independent evidence relation is intact.
 
 Standing on completion: `ALIVE` for the exact independent-observer subject only.
+
+## 2026-09-18 Weaver semantic telemetry extension
+
+The independent-observer checkpoint now has a stacked telemetry-semantic extension in `seanchatmangpt/beam4pm#76`:
+
+`docs/jira/GALL-CHECKPOINT-independent-observer-004-WEAVER-SEMANTIC-COURT.md`.
+
+For OTLP-backed observation, the strengthened relation is:
+
+`observed OTLP -> Weaver Live-check -> validated telemetry + PolicyFinding evidence -> OTel/OCEL projection -> beam4pm conformance -> independent post-state -> observer receipt`.
+
+The following propositions MUST remain separate:
+
+`validated telemetry != process proof != postcondition proof != authority`.
+
+Additional load-bearing falsifiers for the OTLP path include:
+
+- recursive PolicyFinding emission loops;
+- nondeterministic Weaver template renders;
+- wrong OTel-to-OCEL identity/object relations;
+- stale semantic subject or capability identity;
+- required semantic identity missing from telemetry;
+- authority secret/token leakage into telemetry.
+
+Weaver registry/template generation remains subordinate to beam4pm's canonical ontology + ggen manufacturing authority. PolicyFindings are observational evidence only and cannot grant DO.
