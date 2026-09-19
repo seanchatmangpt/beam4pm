@@ -1,0 +1,42 @@
+file_format: definition/2
+attributes:
+  - key: sa2a.work_order.digest
+    type: string
+    stability: development
+    brief: Digest of the admitted semantic work order that selected the consequence.
+    examples: ["sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"]
+  - key: sa2a.semantic.subject.digest
+    type: string
+    stability: development
+    brief: Digest of the admitted Semantic A2A subject.
+    examples: ["sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"]
+  - key: sa2a.capability.id
+    type: string
+    stability: development
+    brief: Exact consequence capability identity.
+    examples: ["Example.Resource.change"]
+  - key: sa2a.receipt.id
+    type: string
+    stability: development
+    brief: Opaque prepared or final receipt correlation identity.
+    examples: ["receipt-018f"]
+  - key: sa2a.authority.grant.digest
+    type: string
+    stability: development
+    brief: Opaque digest identifying the authority grant without carrying bearer material.
+    examples: ["sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc"]
+events:
+  - name: sa2a.gall.observed
+    brief: An independently observed Semantic A2A consequence.
+    stability: development
+    attributes:
+      - ref: sa2a.work_order.digest
+        requirement_level: required
+      - ref: sa2a.semantic.subject.digest
+        requirement_level: required
+      - ref: sa2a.capability.id
+        requirement_level: required
+      - ref: sa2a.receipt.id
+        requirement_level: required
+      - ref: sa2a.authority.grant.digest
+        requirement_level: required
