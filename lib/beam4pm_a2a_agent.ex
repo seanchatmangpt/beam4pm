@@ -16,16 +16,20 @@ defmodule BeamPM.A2AAgent do
   read-only Ash actions are exposed as A2A skills.
   """
   # GATE M2 deletes every manufactured projection before either engine runs.
-  # During that bounded bootstrap window the canonical Ash domain source does
-  # not exist yet, so compiling the host project must not ask AshA2A to inspect
-  # a domain that cannot have been manufactured. A normal checkout always has
-  # the projection and therefore compiles the real agent. This is derived from
-  # exact source ownership, not an environment variable or caller-local flag.
-  if File.exists?("lib/beam4pm_ash_domain.ex") do
-    Code.ensure_compiled!(BeamPM.Ash.Domain)
-    use AshA2A.Agent, resource_or_domain: BeamPM.Ash.Domain, name: "beam4pm_a2a_agent"
-  else
+  # During that bounded bootstrap window the Ash domain is absent or not yet a
+  # complete Spark DSL, so compiling the host project must not ask AshA2A to
+  # inspect it. The gate owns both sentinels: /tmp covers host-side Igniter and
+  # the repository-root sentinel crosses the pinned GGen container mount. A
+  # normal checkout has neither and therefore compiles the real agent.
+  bootstrap? =
+    File.exists?("/tmp/beam4pm-a2a-gate-bootstrap") or
+      File.exists?(".beam4pm-a2a-gate-bootstrap")
+
+  if bootstrap? do
     @doc false
     def __bootstrap_stub__, do: :ok
+  else
+    Code.ensure_compiled!(BeamPM.Ash.Domain)
+    use AshA2A.Agent, resource_or_domain: BeamPM.Ash.Domain, name: "beam4pm_a2a_agent"
   end
 end
