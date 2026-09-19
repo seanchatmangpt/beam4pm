@@ -27,9 +27,7 @@ jobs:
           git config --global --add safe.directory /__w/beam4pm/beam4pm
           git show 28d10c6abc22252e72812b34d241f2a8706a410d:ontology.ttl > ontology.ttl
           sed -i 's/96e77d8e16a17d055fb19a6565dcfff1bf0689f15fb64a71110e8571a18d994b/a62e10ea1af19cee5294ad108b5d0b5bf70959519cc8c6b6ef9b1b2c0a8b0e96/' ontology.ttl
-          sed -i 's/9f584b82bd29e4077fbf803777cb5f6812db5bcbb90f4387833957e4ec520b83/b7ebc3865d4ca3aca9f912e69bc959cb82cc6b402c2d2d6e6c0727ea33bd312f/' ontology.ttl
           test "$(grep -c 'a62e10ea1af19cee5294ad108b5d0b5bf70959519cc8c6b6ef9b1b2c0a8b0e96' ontology.ttl)" -eq 1
-          test "$(grep -c 'b7ebc3865d4ca3aca9f912e69bc959cb82cc6b402c2d2d6e6c0727ea33bd312f' ontology.ttl)" -eq 1
           cp ontology.ttl /tmp/root-ontology.ttl
           cp ontology.ttl /tmp/composed-ontology.ttl
           while IFS= read -r fragment; do
