@@ -10453,7 +10453,7 @@ bap:hand_authored_test_dfcm a bpm:HandAuthoredSource ;
     bpm:authorizingPrincipal "Sean Chatman (repo owner) via Claude Code session_01UiCeLuzgcK2BLocBKxXw39" ;
     bpm:admissionReason "Chicago qualification of BeamPM.Dfcm bounded option-preservation calculus, formal HDDL/FOND fixtures, and SELECT-not-DO authority ceiling." ;
     bpm:acceptanceCommand "mix test test/beam4pm_dfcm_test.exs" ;
-    bpm:contentSha256 "b3fd6bd1b279a7c2116a6986caaa4a69f0550a9b6a15ee7ccaa084a273b4edea" ;
+    bpm:contentSha256 "cc0d6eddda7ec1d9e5d47a6f26623145fc7a6eb66d7e319d3baf3b8ebb915a34" ;
     bpm:admittedAtCommit "d8c2f19" ;
     bpm:admissionExpires "2026-12-31" ;
     bpm:sunsetPlan "Render from the same DfCM planning facts as lib/beam4pm_dfcm.ex; then delete this admission." .
@@ -10686,7 +10686,7 @@ bap:hand_authored_lib_a2a_agent a bpm:HandAuthoredSource ;
     bpm:authorizingPrincipal "Sean Chatman (repo owner) via Claude Code session_018iXTYcpGbgf23MZYLe6TCU" ;
     bpm:admissionReason "BeamPM.A2AAgent -- the agent-facing AshA2A.Agent entry point over the curated BeamPM.Ash.Domain a2a skills (same 2 resources already curated as AshAi tools: OcelEvent read, ConformanceResult read). Additive alongside ex4pm's existing Ex4pm.Engine.Beam4pm HTTP route-table client; never routes beam4pm's own internals (EngineOp dispatch, OCEL/OTel evidence chain, BeamPM.ReceiptChain) through A2A/JSON-RPC. Hand-authored: no ontology-fact-driven template exists for an AshA2A.Agent shell module (same class as the OTP Application callback above)." ;
     bpm:acceptanceCommand "mix run qualification/a2a_smoke_test.exs" ;
-    bpm:contentSha256 "01b8a45ade64bebe2ed7181fb726518ff2288c46427d629eff9069fff8a18cb2" ;
+    bpm:contentSha256 "5e25c4bebaf20f255dfb36ebd88ba7beec2ecf181fce1f32f346d7af5dab1abd" ;
     bpm:admittedAtCommit "7aa4f64" ;
     bpm:admissionExpires "2026-12-31" ;
     bpm:sunsetPlan "No template family fits an AshA2A.Agent shell module today; keep as permanently-admitted hand-authored infrastructure unless a future ggen_igniter A2A-agent-shell recipe is added." .

@@ -95,6 +95,9 @@ RUN cd native/rf1-dfg-oracle && cargo build --release \
 # artifacts); rebar3 eunit compiles/runs the test profile on top of it.
 RUN rebar3 compile && rebar3 eunit
 RUN mix local.hex --force && mix deps.get
+# The real POWL/deviation/EDS suites initialize Rust4PM in setup_all, so the
+# portable WASM engine must exist before the broad test gate starts.
+RUN bash scripts/rust4pm_wasm_build.sh
 # --exclude requires_git_root: exactly 2 of 1065 real tests (GATE
 # AUTHORSHIP's "real repository tree" describe block) call `git ls-files`
 # against the actual checkout root -- this .dockerignore deliberately
@@ -104,12 +107,8 @@ RUN mix local.hex --force && mix deps.get
 # scoped to this one RUN line, not a global test_helper.exs change.
 RUN . ./scripts/env/rust4pm_reactor_env.sh && mix test --exclude requires_git_root
 
-# The broad suite intentionally runs before the WASM artifact exists because
-# one canonical-scale Rust4PM test depends on a machine-local 29MB corpus.
-# Build the actual wasm32-wasip1 engine next, then execute a separate portable
-# checked-in-fixture court that proves the WASM OCEL/RF4 surface in every image
-# build instead of silently skipping the entire engine family.
-RUN bash scripts/rust4pm_wasm_build.sh
+# Execute a separate portable checked-in-fixture court after the broad suite
+# to keep an explicit WASM OCEL/RF4 proof in every image build.
 RUN mix test test/beam4pm_rust4pm_ci_test.exs
 
 # Demo module: seeds the same known OCEL log shape the generated eunit court
