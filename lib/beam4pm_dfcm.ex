@@ -471,6 +471,47 @@ defmodule BeamPM.Dfcm do
     end
   end
 
+  @doc """
+  Validate an OCEL 2.0 JSON log against Küsters & van der Aalst (2025) OCPQ
+  Definition 2 via the standalone AutoFDE Typer CLI (`autofde ocel validate`).
+
+  Returns `{:ok, verdict}` with the lab's verdict as atom-keyed fields: `:ok`
+  (false means the validator REFUSED the log -- still a successful validator
+  run, not a wrapper failure), `:canonical_digest`, `:event_count`,
+  `:object_count` and `:validation_error` (nil when ok). Returns
+  `{:error, term}` only when the CLI itself fails (missing binary, missing
+  file, unparsable log).
+
+  ## Example
+
+      path = Path.join(System.tmp_dir!(), "ocel-validate-doctest-p2.json")
+      File.write!(path, ~s({"objectTypes":[{"name":"Order","attributes":[]}],"eventTypes":[{"name":"Create Order","attributes":[]}],"events":[{"id":"e1","type":"Create Order","time":"2026-01-01T00:00:00Z","attributes":[],"relationships":[{"objectId":"o1","qualifier":"order"}]}],"objects":[{"id":"o1","type":"Order","attributes":[],"relationships":[]}]}))
+      {:ok, verdict} = BeamPM.Dfcm.ocel_validate(path)
+      File.rm(path)
+      {verdict[:ok], verdict[:event_count], verdict[:object_count], verdict[:validation_error]}
+      #=> {true, 1, 1, nil}
+  """
+  @spec ocel_validate(String.t()) :: {:ok, map()} | {:error, term()}
+  def ocel_validate(log_path) do
+    case run_autofde_cli(["ocel", "validate", log_path]) do
+      {:ok, %{"ok" => ok} = resp} when is_boolean(ok) ->
+        {:ok,
+         %{
+           ok: ok,
+           canonical_digest: Map.fetch!(resp, "canonical_digest"),
+           event_count: Map.fetch!(resp, "event_count"),
+           object_count: Map.fetch!(resp, "object_count"),
+           validation_error: Map.fetch!(resp, "validation_error")
+         }}
+
+      {:ok, %{"error" => err} = resp} ->
+        {:error, {:ocel_validate_error, err, resp}}
+
+      other ->
+        other
+    end
+  end
+
   @doc "Compute canonical GraphLaw BLAKE3 graph hash via standalone AutoFDE/GraphLaw WASM engine."
   @spec graphlaw_hash(String.t()) :: {:ok, String.t()} | {:error, term()}
   def graphlaw_hash(ttl_content) do
