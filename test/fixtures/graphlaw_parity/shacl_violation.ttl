@@ -1,0 +1,7 @@
+@prefix ex: <http://example.org/> .
+
+# Minimal corpus item: exactly one SHACL violation.
+# ex:PersonShape requires exactly one ex:name; this data graph has none.
+
+ex:alice a ex:Person ;
+    ex:age 33 .
