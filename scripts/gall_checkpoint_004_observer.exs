@@ -24,6 +24,8 @@ defmodule BeamPM.Gall.Observer004 do
         "schema" => "beam4pm.gall.observer/v26.9.18",
         "standing" => "ALIVE",
         "gall_003_receipt_digest" => command["handoff_digest"],
+        "producer_sha" => command["producer_sha"],
+        "work_order_digest" => command["work_order_digest"],
         "semantic_subject_digest" => digest(command["semantic_subject"]),
         "capability_id" => command["capability_id"],
         "command_fingerprint" => command["command_fingerprint"],
@@ -59,6 +61,9 @@ defmodule BeamPM.Gall.Observer004 do
       "capability_id" => "Example.Resource.change",
       "command_id" => "cmd-1",
       "command_fingerprint" => sha("command"),
+      "producer_sha" => String.duplicate("a", 40),
+      "work_order_digest" => sha("work-order"),
+      "pre_state_digest" => sha("pre-state"),
       "manufacturer_subject_digest" => sha("manufacturer"),
       "semantic_subject" => %{
         "graph_digest" => sha("graph"),
@@ -73,7 +78,7 @@ defmodule BeamPM.Gall.Observer004 do
       "command_fingerprint" => command["command_fingerprint"],
       "semantic_subject_digest" => digest(command["semantic_subject"]),
       "consequence_identity" => "row:42",
-      "post_state_digest" => sha("post-state"),
+      "post_state_digest" => sha("post-state-changed"),
       "occurrence_count" => 1,
       "source_type" => "database_read",
       "source_locator" => "fixture://independent-db"
@@ -109,7 +114,15 @@ defmodule BeamPM.Gall.Observer004 do
       run(double_paths.command, double_paths.post, double_paths.ocel, out <> ".bad2")
     )
 
-    missing_prepared = %{"events" => Enum.drop(ocel["events"], 1)}
+    unchanged_post = Map.put(post_state, "post_state_digest", command["pre_state_digest"])
+    unchanged_paths = write_fixture(root <> "-unchanged", command, unchanged_post, ocel)
+
+    assert_match(
+      {:error, {:refused_observer, :post_state_unchanged}},
+      run(unchanged_paths.command, unchanged_paths.post, unchanged_paths.ocel, out <> ".bad3")
+    )
+
+        missing_prepared = %{"events" => Enum.drop(ocel["events"], 1)}
     missing_paths = write_fixture(root <> "-missing", command, post_state, missing_prepared)
 
     assert_match(
@@ -121,6 +134,7 @@ defmodule BeamPM.Gall.Observer004 do
     File.rm_rf!(root <> "-self-report")
     File.rm_rf!(root <> "-double")
     File.rm_rf!(root <> "-missing")
+    File.rm_rf!(root <> "-unchanged")
     :ok
   end
 
@@ -128,6 +142,15 @@ defmodule BeamPM.Gall.Observer004 do
     cond do
       not sha256?(command["handoff_digest"]) ->
         {:error, {:refused_observer, :gall_003_receipt_digest}}
+
+      not git_sha?(command["producer_sha"]) ->
+        {:error, {:refused_observer, :producer_sha}}
+
+      not sha256?(command["work_order_digest"]) ->
+        {:error, {:refused_observer, :work_order_digest}}
+
+      not sha256?(command["pre_state_digest"]) ->
+        {:error, {:refused_observer, :pre_state_digest}}
 
       not is_binary(command["capability_id"]) ->
         {:error, {:refused_observer, :capability_id}}
@@ -168,12 +191,16 @@ defmodule BeamPM.Gall.Observer004 do
       not sha256?(post["post_state_digest"]) ->
         {:error, {:refused_observer, :post_state_digest}}
 
+      post["post_state_digest"] == command["pre_state_digest"] ->
+        {:error, {:refused_observer, :post_state_unchanged}}
+
       true ->
         :ok
     end
   end
 
   defp validate_ocel(command, _post, %{"events" => events}) when is_list(events) do
+    events = Enum.map(events, &normalize_event/1)
     by_activity = Map.new(events, &{&1["activity"], &1})
 
     with :ok <- required_activities(by_activity),
@@ -206,12 +233,41 @@ defmodule BeamPM.Gall.Observer004 do
   defp identities(command, events) do
     if Enum.all?(events, fn event ->
          event["command_id"] == command["command_id"] and
-           event["capability_id"] == command["capability_id"]
+           event["capability_id"] == command["capability_id"] and
+           command["command_id"] in event["related_object_ids"]
        end) do
       :ok
     else
       {:error, :ocel_identity_mismatch}
     end
+  end
+
+  # Accept both the compact qualification fixture and standard OCEL-style
+  # event keys. Standard OCEL relationship objectId is normalized to the
+  # internal object identity without changing the semantic subject.
+  defp normalize_event(event) when is_map(event) do
+    attrs =
+      case event["attributes"] do
+        map when is_map(map) -> map
+        list when is_list(list) -> Map.new(list, fn item -> {item["name"], item["value"]} end)
+        _ -> %{}
+      end
+
+    relationships = event["relationships"] || []
+
+    %{
+      "activity" =>
+        event["activity"] || event["event_type"] || event["eventType"] || event["type"],
+      "sequence" => event["sequence"] || attrs["sequence"],
+      "command_id" => event["command_id"] || attrs["command_id"],
+      "capability_id" => event["capability_id"] || attrs["capability_id"],
+      "related_object_ids" =>
+        Enum.flat_map(relationships, fn
+          %{"objectId" => id} when is_binary(id) -> [id]
+          %{"object_id" => id} when is_binary(id) -> [id]
+          _ -> []
+        end)
+    }
   end
 
   defp sequence(%{"sequence" => sequence}) when is_integer(sequence), do: {:ok, sequence}
@@ -252,12 +308,20 @@ defmodule BeamPM.Gall.Observer004 do
   defp sha256?("sha256:" <> hex), do: byte_size(hex) == 64 and hex =~ ~r/^[0-9a-f]+$/
   defp sha256?(_), do: false
 
+  defp git_sha?(hex) when is_binary(hex), do: byte_size(hex) == 40 and hex =~ ~r/^[0-9a-f]+$/
+  defp git_sha?(_), do: false
+
   defp event(activity, sequence, command) do
     %{
-      "activity" => activity,
-      "sequence" => sequence,
-      "command_id" => command["command_id"],
-      "capability_id" => command["capability_id"]
+      "event_type" => activity,
+      "attributes" => %{
+        "sequence" => sequence,
+        "command_id" => command["command_id"],
+        "capability_id" => command["capability_id"]
+      },
+      "relationships" => [
+        %{"qualifier" => "command", "objectId" => command["command_id"]}
+      ]
     }
   end
 
