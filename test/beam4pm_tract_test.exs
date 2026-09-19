@@ -89,6 +89,18 @@ defmodule BeamPM.TractTest do
       assert {:error, {:engine, msg}} = Tract.run(handle, [%{shape: [1, 1], data: [1.0]}])
       assert msg =~ "unknown model handle"
     end
+
+    test "double-freeing a model handle is rejected with a named engine error" do
+      {:ok, %{"handle" => handle}} = Tract.load_model_path(@linear_model)
+      assert {:ok, %{"freed" => true}} = Tract.free_model(handle)
+      assert {:error, {:engine, msg}} = Tract.free_model(handle)
+      assert msg =~ "unknown model handle"
+    end
+
+    test "model_info on an invalid negative handle returns an adapter error" do
+      assert {:error, {:engine, msg}} = Tract.model_info(-1)
+      assert msg =~ "TR_ADAPTER" or msg =~ "handle"
+    end
   end
 
   describe "malformed model input" do
