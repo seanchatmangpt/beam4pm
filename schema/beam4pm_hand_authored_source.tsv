@@ -13,6 +13,7 @@ lib/beam4pm_a2a_router.ex	hand_authored_qualification	true	734cf82e4625241defa3c
 lib/beam4pm_application.ex	hand_authored_qualification	true	5296564323089870a49b5e8fadc1149ea08c06645434943463ef43d963f9ed8f	2026-12-31	mix test	-
 lib/beam4pm_contracts.ex	hand_authored_qualification	true	51f24b063e54cbf238778c2a0786c9571e1bf98eb1831c17cb9e3eb6a61385a7	2026-12-31	mix test test/beam4pm_contracts_test.exs	-
 lib/beam4pm_deviation_admission.ex	native_engine_facade	true	4767352c23faf177d89485ba200b787b5dac573f7b22e637a5316ab70deb4b41	2026-12-31	mix test test/beam4pm_deviation_admission_test.exs	-
+lib/beam4pm_dfcm.ex	native_engine_facade	true	b35fe560e103fb679fd4b6677b35e1df3945a9c4cda77eb3b921095d984e48f6	2026-12-31	mix test test/beam4pm_dfcm_test.exs test/beam4pm_dfcm_sa2a_validate_card_test.exs	-
 lib/beam4pm_eds.ex	native_engine_facade	true	e9fca0b31543ba67de7ecc066975218d7810d7cca9d71f6a584631adc69b7057	2026-12-31	mix test test/beam4pm_eds_test.exs	-
 lib/beam4pm_eds_ppcx_h1.ex	native_engine_facade	true	d6c69650e66285cad187a5210633d9a7b8044c4f988c507fe4963c2935d83260	2026-12-31	mix test test/beam4pm_eds_test.exs	-
 lib/beam4pm_ocel.ex	native_engine_facade	true	f7e47a5c95278b14cc654361bf00e4b73e4440276945ba6b8eb6ef19d7b64ce2	2026-12-31	mix test test/beam4pm_ocel_test.exs	-
@@ -28,6 +29,8 @@ src/beam4pm.app.src	manufacturing_input	false	-	-	rebar3 compile	-
 test/beam4pm_ash_ai_tools_test.exs	hand_authored_qualification	true	b658dbbdcaa4c5585ee1d7b4b1dc80c059a40535157960386363e383b924dfd3	2026-12-31	mix test test/beam4pm_ash_ai_tools_test.exs	-
 test/beam4pm_contracts_test.exs	hand_authored_qualification	true	04699f8e50cccd9b451619f983e472950799b8b2058000e5a1be251b004fc065	2026-12-31	mix test test/beam4pm_contracts_test.exs	-
 test/beam4pm_deviation_admission_test.exs	hand_authored_qualification	true	1ee967b2bc49ca2d7b69ebc1529eee2168e450d85e059c33a077d9a49440e6e6	2026-12-31	mix test test/beam4pm_deviation_admission_test.exs	-
+test/beam4pm_dfcm_sa2a_validate_card_test.exs	hand_authored_qualification	true	0dc27a202e29afdf70df5e04368b706b64ba4bd33ea463eec896789d6b587062	2026-12-31	mix test test/beam4pm_dfcm_sa2a_validate_card_test.exs	-
+test/beam4pm_dfcm_test.exs	hand_authored_qualification	true	b3fd6bd1b279a7c2116a6986caaa4a69f0550a9b6a15ee7ccaa084a273b4edea	2026-12-31	mix test test/beam4pm_dfcm_test.exs	-
 test/beam4pm_eds_test.exs	hand_authored_qualification	true	f86b110cf2e1399f9c3b82611c8697e08726bf5fec44d5740929d15a479095d8	2026-12-31	mix test test/beam4pm_eds_test.exs	-
 test/beam4pm_ferroplan_facades_test.exs	hand_authored_qualification	true	a1d83a882acec1fdac5a42936cf1139d704ee7417c1985732dde573709811196	2026-12-31	mix test test/beam4pm_ferroplan_facades_test.exs	native/ferroplan/target/wasm32-wasip1/release/ferroplan_wasm.wasm
 test/beam4pm_ferroplan_test.exs	hand_authored_qualification	true	0c4d09b7d9f437c8c9e8c397bc69e717d70e3baa9f3d7de4d70c8cf30a5ed505	2026-12-31	mix test test/beam4pm_ferroplan_test.exs	native/ferroplan/target/wasm32-wasip1/release/ferroplan_wasm.wasm

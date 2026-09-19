@@ -18,3 +18,9 @@ config :ash, default_string_length_count: :codepoints
 # agent (that double-starts the agent's registered name and crashes boot).
 # BeamPM.Application only adds the HTTP listener (A2A.Plug/Bandit) on top.
 config :ash_a2a, :agents, [BeamPM.A2AAgent]
+
+# Alternate ports for the v26.9.18 parity wave (ticket b4p-p3-sa2a-card-validate-parity):
+# avoid colliding with any concurrently running main-checkout instance on 4210/4211.
+# Read at compile time by lib/beam4pm_a2a_router.ex (@a2a_port) and at runtime by
+# lib/beam4pm_application.ex (ocel_ingest_port, a2a_port).
+config :beam4pm, ocel_ingest_port: 4310, a2a_port: 4311
