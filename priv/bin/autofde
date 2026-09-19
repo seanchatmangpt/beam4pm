@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+# Standalone executable trampoline for AutoFDE-Lab Typer CLI
+# Locates the local Python interpreter with autofde_lab environment or falls back to system python.
+set -euo pipefail
+
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+BEAM4PM_ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
+AFL_ROOT="${AUTOFDE_LAB_ROOT:-$(cd "$BEAM4PM_ROOT/../autofde-lab" 2>/dev/null && pwd || echo "")}"
+
+if [ -n "$AFL_ROOT" ] && [ -x "$AFL_ROOT/.venv/bin/python3" ]; then
+    PYTHON_EXEC="$AFL_ROOT/.venv/bin/python3"
+    export PYTHONPATH="${AFL_ROOT}/src:${PYTHONPATH:-}"
+elif [ -x "$BEAM4PM_ROOT/../autofde-lab/.venv/bin/python3" ]; then
+    PYTHON_EXEC="$BEAM4PM_ROOT/../autofde-lab/.venv/bin/python3"
+    export PYTHONPATH="${BEAM4PM_ROOT}/../autofde-lab/src:${PYTHONPATH:-}"
+else
+    PYTHON_EXEC="${PYTHON_EXEC:-python3}"
+fi
+
+exec "$PYTHON_EXEC" -m autofde_lab.cli "$@"
