@@ -33,17 +33,9 @@ IGN="$PACK/igniter"
 # that generated domain before rebuilding it, so compile the adapter's explicit
 # bootstrap stub until the new domain has been generated and compiled.
 mkdir -p tmp_probe
-A2A_BOOTSTRAP_ENV_WAS_SET="${BEAM4PM_A2A_BOOTSTRAP+x}"
-A2A_BOOTSTRAP_ENV_PREVIOUS="${BEAM4PM_A2A_BOOTSTRAP-}"
-export BEAM4PM_A2A_BOOTSTRAP=1
-cleanup_a2a_bootstrap_env() {
-  if [ "$A2A_BOOTSTRAP_ENV_WAS_SET" = "x" ]; then
-    export BEAM4PM_A2A_BOOTSTRAP="$A2A_BOOTSTRAP_ENV_PREVIOUS"
-  else
-    unset BEAM4PM_A2A_BOOTSTRAP
-  fi
-}
-trap cleanup_a2a_bootstrap_env EXIT
+A2A_BOOTSTRAP_SENTINEL="/tmp/beam4pm-a2a-igniter-bootstrap"
+touch "$A2A_BOOTSTRAP_SENTINEL"
+trap 'rm -f "$A2A_BOOTSTRAP_SENTINEL"' EXIT
 
 mix deps.get
 # Remove cached project compiler state that can otherwise cause Mix to reload

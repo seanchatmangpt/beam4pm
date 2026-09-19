@@ -15,7 +15,10 @@ defmodule BeamPM.A2AAgent do
   `BeamPM.ReceiptChain`) through A2A/JSON-RPC -- only the two curated
   read-only Ash actions are exposed as A2A skills.
   """
-  if System.get_env("BEAM4PM_A2A_BOOTSTRAP") == "1" do
+  gate_bootstrap? = File.exists?("/tmp/beam4pm-a2a-gate-bootstrap")
+  igniter_bootstrap? = File.exists?("/tmp/beam4pm-a2a-igniter-bootstrap")
+
+  if gate_bootstrap? or igniter_bootstrap? do
     @doc false
     def __bootstrap_stub__, do: :ok
   else

@@ -157,7 +157,8 @@ before_sums="$(for f in "${before_files[@]}"; do shasum -a 256 "$f"; done | sort
 # "BeamPM.Ash.Domain is not a Spark DSL module", not a real regression.
 STASH_DIR="$(mktemp -d)"
 ONTOLOGY_BACKUP="$(mktemp)"
-export BEAM4PM_A2A_BOOTSTRAP=1
+A2A_BOOTSTRAP_SENTINEL="/tmp/beam4pm-a2a-gate-bootstrap"
+touch "$A2A_BOOTSTRAP_SENTINEL"
 cp ontology.ttl "$ONTOLOGY_BACKUP"
 HAND_AUTHORED_DEPENDENT_TESTS=(test/beam4pm_actuation_k8s_test.exs test/beam4pm_process_governor_k8s_test.exs test/beam4pm_pddl_projection_test.exs test/beam4pm_ash_ai_tools_test.exs)
 restore_stash() {
@@ -236,6 +237,7 @@ on_exit() {
   fi
   restore_stash
   restore_ontology
+  rm -f "$A2A_BOOTSTRAP_SENTINEL"
   rm -rf "$BACKUP_DIR"
   exit "$status"
 }
