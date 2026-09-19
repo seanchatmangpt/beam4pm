@@ -61,3 +61,5 @@ jobs:
           fi
           git commit -m "chore(ggen): regenerate A2A bootstrap admission projection"
           git push origin HEAD:codex/ws2-autonomic-blackboard-50-20260912
+
+# Exact-blob transport repair retrigger.
