@@ -28,6 +28,14 @@ defmodule BeamPM.A2AAgent do
   if bootstrap? do
     @doc false
     def __bootstrap_stub__, do: :ok
+
+    @doc false
+    def start_link(_opts), do: Task.start_link(fn -> Process.sleep(:infinity) end)
+
+    @doc false
+    def child_spec(opts) do
+      %{id: __MODULE__, start: {__MODULE__, :start_link, [opts]}, type: :worker}
+    end
   else
     # `use` is a macro and ordinary conditional syntax may expand it before
     # the module-body condition executes. Evaluate the real-agent definition
