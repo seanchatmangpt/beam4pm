@@ -1,0 +1,29 @@
+/Users/sac/autofde-lab/src/autofde_lab/sa2a/brce/boundary.py:228: SyntaxWarning: invalid escape sequence '\m'
+  3. Verify Construction integrity if artifact supplied: A = \mu(O*) (§5, §26)
+╭───────────────────── Traceback (most recent call last) ──────────────────────╮
+│ /Users/sac/autofde-lab/src/autofde_lab/sa2a/cli.py:535 in chicago            │
+│                                                                              │
+│   532 │   """Execute the Canonical Chicago Definition of Done (DoD) Court    │
+│       for v26.9.16."""                                                       │
+│   533 │   from scripts.verify_v26_9_16_chicago import run_chicago_court      │
+│   534 │                                                                      │
+│ ❱ 535 │   receipt = run_chicago_court()                                      │
+│   536 │   _emit(receipt)                                                     │
+│   537 │   if not receipt.get("all_gates_passed"):                            │
+│   538 │   │   raise typer.Exit(code=1)                                       │
+│                                                                              │
+│ /Users/sac/autofde-lab/scripts/verify_v26_9_16_chicago.py:209 in             │
+│ run_chicago_court                                                            │
+│                                                                              │
+│   206 │   │   # Gate 10: Offline Replay Succeeds Deterministically           │
+│   207 │   │   replay_engine = ReplayEngine(authority_broker=broker)          │
+│   208 │   │   replay_report = replay_engine.verify_chain(                    │
+│ ❱ 209 │   │   │   receipt_records=[prep_rec.to_dict(), final_rec.to_dict()], │
+│       # type: ignore                                                         │
+│   210 │   │   )                                                              │
+│   211 │   │   gates["Gate10_ReplaySucceedsDeterministically"] = (            │
+│   212 │   │   │   replay_report.verdict == ReplayVerdict.VALID and           │
+│       replay_report.standing == ReplayStanding.ALIVE                         │
+╰──────────────────────────────────────────────────────────────────────────────╯
+AttributeError: 'NoneType' object has no attribute 'to_dict'
+COURT_EXIT=1

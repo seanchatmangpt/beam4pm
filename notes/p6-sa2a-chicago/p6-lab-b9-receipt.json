@@ -1,0 +1,58 @@
+{
+  "schema": "https://spec.autofde.org/rfc-sa2a-002/appendix-e",
+  "receipt_id": "urn:uuid:409f9e51-085d-4126-801e-b08ec7d81ebf",
+  "protocol": "RFC-SA2A-002 v26.9.16",
+  "profile": "SA2A-PROFILE-v26.9.16",
+  "timestamp": "2026-09-19T02:28:03.250580+00:00",
+  "subject": "seanchatmangpt/autofde-lab @ fe81a552",
+  "git_commit": "fe81a5526c0e977f5705d02706d7be39574f4a39",
+  "git_tag": "f5727fa970c8fd1060e662bc9e963c484aa5ed14",
+  "tag_equality": false,
+  "environment": {
+    "system": "Darwin",
+    "release": "25.2.0",
+    "machine": "arm64",
+    "python_version": "3.13.9",
+    "python_implementation": "CPython"
+  },
+  "certifications": {
+    "chicago_zero_mock_certified": true,
+    "anti_oracle_certified": true,
+    "zero_unittest_mock": true,
+    "real_plant_collaborators": true
+  },
+  "standing": "ALIVE",
+  "all_passed": true,
+  "total_duration_ms": 3.654,
+  "aggregate_metrics": {
+    "total_benchmarks": 1,
+    "passed_benchmarks": 1,
+    "failed_benchmarks": 0,
+    "total_duration_ms": 3.654
+  },
+  "benchmarks": {
+    "SA2A-B9": {
+      "benchmark_id": "SA2A-B9",
+      "name": "OCEL evidence generation overhead",
+      "passed": true,
+      "duration_ms": 3.021,
+      "standing": "ALIVE",
+      "metrics": {
+        "events_recorded": 50,
+        "mean_event_recording_us": 9.41,
+        "p50_event_recording_us": 8.37,
+        "p95_event_recording_us": 10.22,
+        "export_latency_ms": 2.199,
+        "log_file_bytes": 68162,
+        "bytes_per_event": 1363.24,
+        "events_per_sec": 60885.84,
+        "ocpq_def2_verified": true
+      },
+      "details": {
+        "ocel_file": "/var/folders/s6/jqyw48zs39z38b_3f6f_x2sc0000gn/T/tmpfnlhjj38/b9_ocel_trace_882a373e.json"
+      },
+      "error": null
+    }
+  },
+  "receipt_digest": "9850607e2e1280470319630e36cdb00fa5316555d840b632fb3e436193726418"
+}
