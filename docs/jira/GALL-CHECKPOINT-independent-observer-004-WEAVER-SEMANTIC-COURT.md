@@ -462,3 +462,40 @@ The resulting court proves:
 `validated telemetry != process proof != postcondition proof != authority`.
 
 Each relation must be earned independently.
+
+## 22. Code-review rebasing — 2026-09-18
+
+Reviewed beam4pm base implementation at `gall/checkpoint-004-independent-observer@96150118eeeabc9d5b296399232d745d61b5e833`, whose code review was grounded on source subject `054022550bc069de4b03609f514dfa8e1442a27a`.
+
+The implementation order is now narrowed by what exists:
+
+1. `BeamPM.OcelIngest.Router` is real but accepts repository-native snake_case OCEL relationship keys (`object_id`), while standard OCEL 2.0 exporters in the ecosystem use `objectId`. Normalize this at an admitted adapter/generator boundary before using generic "OCEL2 accepted" as a court predicate.
+2. `BeamPM.Ocel` has process/object query and envelope validation logic, but its general encode/decode signature does not carry the nested relationship pairs used by the query API. GALL-004-Weaver must prove relationship-preserving ingress rather than event/object parseability alone.
+3. network ingest does not persist observer state. The Weaver court needs a durable or exact immutable observation artifact that can be independently re-read after the actuator path is gone.
+4. there is no reviewed beam4pm implementation of Weaver Live-check / OTLP semantic admission yet.
+
+Therefore the first implementation slice is NOT "BEAM reductions" yet. The dependency order is:
+
+`standard OTLP/OCEL identity -> Weaver semantic court -> relationship-preserving normalized OCEL artifact -> independent GALL-004 observer`
+
+then:
+
+`BEAM semantic consequence measures`.
+
+BEAM reductions/mailbox/heap/etc. remain the first consequence-profile extension after the semantic observation path itself has standing.
+
+### New load-bearing falsifiers from code review
+
+- standard OCEL `objectId` enters and emerges as the same relationship identity after normalization;
+- snake_case/internal representation is never mistaken for a second semantic authority;
+- an event/object round trip that drops E2O/O2O relations MUST fail;
+- an ingest response without durable/exact observer evidence MUST NOT satisfy independent-observer standing;
+- no claim of Weaver execution is permitted from architecture/docs alone.
+
+### Revised review standing
+
+- current beam4pm OCEL substrate: `PARTIAL_ALIVE`;
+- standard OCEL wire normalization: `UNKNOWN`;
+- Weaver Live-check runtime: `UNKNOWN`;
+- semantic BEAM consequence profiling in beam4pm: `UNKNOWN`;
+- GALL-004-Weaver exact subject: `UNKNOWN`.
