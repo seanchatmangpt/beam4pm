@@ -1,0 +1,7 @@
+@prefix ex: <http://example.org/> .
+
+# Control corpus item: same shapes graph, zero violations.
+
+ex:alice a ex:Person ;
+    ex:name "Alice" ;
+    ex:age 33 .

@@ -1,0 +1,5 @@
+@prefix ex: <http://example.org/> .
+
+# Hooks corpus: event delta asserted against hooks_base.ttl.
+
+ex:entity1 ex:status "active" .

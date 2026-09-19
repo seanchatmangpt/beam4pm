@@ -1,0 +1,11 @@
+@prefix kh: <http://seanchatmangpt.github.io/praxis/kh#> .
+@prefix ex: <http://example.org/> .
+
+# Hooks corpus: base graph carrying one kh:Hook definition.
+
+ex:hook1 a kh:Hook ;
+    kh:name "fire_hook" ;
+    kh:kind "delta" ;
+    kh:var "http://example.org/status" ;
+    kh:on "assert" ;
+    kh:effect "emit-delta" .
