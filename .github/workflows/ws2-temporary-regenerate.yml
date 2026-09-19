@@ -1,0 +1,64 @@
+name: WS2 temporary canonical regeneration
+
+on:
+  push:
+    branches:
+      - codex/ws2-autonomic-blackboard-50-20260912
+    paths:
+      - .github/workflows/ws2-temporary-regenerate.yml
+
+permissions:
+  contents: write
+
+jobs:
+  regenerate:
+    runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/seanchatmangpt/ggen-ecosystem:v26.8.28
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          fetch-depth: 0
+          submodules: recursive
+      - name: Re-admit exact warning-boundary sources and regenerate
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config --global --add safe.directory /__w/beam4pm/beam4pm
+          sed -i 's/d434f725a7cfb59a6d9216011353e3291bb3bf6b741b75016b77b45e210adaa2/922380f40ba562662e67b3c4a12e3517addb386f9f3b4593022fa8d74d968e71/' ontology.ttl
+          sed -i 's/05b4d2e7656ce15c114cc2e375e4731d96fa2875e53c0d68a4fb81de4f52d635/79401198d6866ef3a8e733910f77b7eeb27dbcb67486ae152400be3a56817ed5/' ontology.ttl
+          sed -i 's/ad0c515715614d1bd4d9083214844b468299c9f92de331ba7de609578b05266c/2d8b17a2803032f65c93faef45cb39395526206beacc217f0f4746c388effdf0/' ontology.ttl
+          test "$(grep -c '922380f40ba562662e67b3c4a12e3517addb386f9f3b4593022fa8d74d968e71' ontology.ttl)" -eq 1
+          test "$(grep -c '79401198d6866ef3a8e733910f77b7eeb27dbcb67486ae152400be3a56817ed5' ontology.ttl)" -eq 1
+          test "$(grep -c '2d8b17a2803032f65c93faef45cb39395526206beacc217f0f4746c388effdf0' ontology.ttl)" -eq 1
+          cp ontology.ttl /tmp/root-ontology.ttl
+          cp ontology.ttl /tmp/composed-ontology.ttl
+          while IFS= read -r fragment; do
+            cat "$fragment" >> /tmp/composed-ontology.ttl
+          done < <(find ontology -type f -name '*.ttl' -print | LC_ALL=C sort)
+          cp /tmp/composed-ontology.ttl ontology.ttl
+          mapfile -t targets < <(sed -n '/primary-ggen-targets.txt.*TARGETS/,/^[[:space:]]*TARGETS$/p' .github/workflows/beam4pm-manufacture.yml | sed '1d;$d' | sed 's/^[[:space:]]*//')
+          targets+=(
+            docs/reference/beam4pm_hand_authored_source.md
+            schema/beam4pm_hand_authored_source.tsv
+            test/beam4pm_authorship_gate_test.exs
+            docs/generated/hand-authored-source-admissions.md
+            qualification/generated/hand-authored-source-admissions.tsv
+          )
+          rm -rf .ggen-v2
+          rm -f ggen.lock
+          for target in "${targets[@]}"; do rm -rf "$target"; done
+          ggen sync run
+          cp /tmp/root-ontology.ttl ontology.ttl
+          rm -rf .ggen-v2
+      - name: Publish generated projection
+        shell: bash
+        run: |
+          set -euo pipefail
+          cd /__w/beam4pm/beam4pm
+          git config --global --add safe.directory /__w/beam4pm/beam4pm
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add -A
+          git commit -m "chore(ggen): regenerate warning-boundary admissions"
+          git push origin HEAD:codex/ws2-autonomic-blackboard-50-20260912

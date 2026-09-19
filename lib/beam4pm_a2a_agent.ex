@@ -33,8 +33,7 @@ defmodule BeamPM.A2AAgent do
     # the module-body condition executes. Evaluate the real-agent definition
     # only after the bootstrap sentinel decision so the destructive
     # regeneration window cannot inspect an incomplete Ash domain.
-    Module.eval_quoted(
-      __MODULE__,
+    Code.eval_quoted(
       quote do
         Code.ensure_compiled!(BeamPM.Ash.Domain)
         use AshA2A.Agent,
