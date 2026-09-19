@@ -358,3 +358,52 @@ Each arrow requires observed evidence; a valid OCEL decode is not a substitute f
 - independent postcondition observer: `UNKNOWN`;
 - Weaver/OTLP semantic court: `UNKNOWN`;
 - cross-repository GALL-004 seal: `UNKNOWN`.
+
+## Four-hour conversation synthesis — observer in the autonomics loop, 2026-09-18
+
+The recent conversations place beam4pm inside a larger full-autonomics loop while preserving its non-authority boundary.
+
+### Semantic correlation carried through observation
+
+When a GALL consequence is work-order-driven, normalized OTLP/OCEL evidence must preserve enough opaque identity to relate the observation to:
+
+- semantic work-order/checkpoint identity;
+- exact capability/action identity;
+- prepared/final receipt identity;
+- observed runtime/process objects.
+
+This is correlation, not authorization. The observer must never infer work-order admission or authority merely because those identifiers appear in telemetry.
+
+### Full-autonomics position
+
+The larger target discussed across the new GALL-015..032 checkpoints is:
+
+`disturbance -> OTLP/OCEL -> diagnosis/conformance/prediction -> formal verification -> admission -> authority -> BRCE DO -> receipt -> postcondition -> conformance -> MachineExperience`.
+
+beam4pm owns the observation/process-intelligence portion. It does not own promotion from prediction to law, plan to authority, or observation to DO.
+
+Required invariants remain:
+
+- `prediction != truth`;
+- `observation != law`;
+- `discovery != promotion`;
+- `plan != authority`;
+- zero unreceipted actuation.
+
+### GNN / ML / ONNX usage
+
+Process-derived features, GNN scores, anomaly models, classifiers or ONNX models may emit **diagnosis/candidate evidence**. They may rank likely causal/process relationships or candidate repairs, but their output stays observational/candidate until an independent formal/admission path accepts it.
+
+This is where semantic consequence profiling becomes valuable after the Weaver/relationship/durable-observer court is closed. BEAM reductions/mailbox/heap/scheduler measures and later AtomVM energy/radio measures are typed consequence observations, not authority.
+
+### Semantic findings can manufacture candidate work
+
+A Weaver `PolicyFinding`, process deviation, conformance failure or learned anomaly MAY be projected into a candidate semantic work order for GALL-001/002 to consider. It must not automatically mutate the admitted Jira/work-order graph or trigger DO.
+
+Thus the feedback edge is:
+
+`observer finding -> CANDIDATE work order -> admission/manufacture/authority`,
+
+never:
+
+`observer finding -> DO`.
