@@ -15,14 +15,17 @@ defmodule BeamPM.A2AAgent do
   `BeamPM.ReceiptChain`) through A2A/JSON-RPC -- only the two curated
   read-only Ash actions are exposed as A2A skills.
   """
-  gate_bootstrap? = File.exists?("/tmp/beam4pm-a2a-gate-bootstrap")
-  igniter_bootstrap? = File.exists?("/tmp/beam4pm-a2a-igniter-bootstrap")
-
-  if gate_bootstrap? or igniter_bootstrap? do
-    @doc false
-    def __bootstrap_stub__, do: :ok
-  else
+  # GATE M2 deletes every manufactured projection before either engine runs.
+  # During that bounded bootstrap window the canonical Ash domain source does
+  # not exist yet, so compiling the host project must not ask AshA2A to inspect
+  # a domain that cannot have been manufactured. A normal checkout always has
+  # the projection and therefore compiles the real agent. This is derived from
+  # exact source ownership, not an environment variable or caller-local flag.
+  if File.exists?("lib/beam4pm_ash.ex") do
     Code.ensure_compiled!(BeamPM.Ash.Domain)
     use AshA2A.Agent, resource_or_domain: BeamPM.Ash.Domain, name: "beam4pm_a2a_agent"
+  else
+    @doc false
+    def __bootstrap_stub__, do: :ok
   end
 end
