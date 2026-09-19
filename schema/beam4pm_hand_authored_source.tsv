@@ -16,6 +16,7 @@ lib/beam4pm_deviation_admission.ex	native_engine_facade	true	4767352c23faf177d89
 lib/beam4pm_dfcm.ex	native_engine_facade	true	05b4d2e7656ce15c114cc2e375e4731d96fa2875e53c0d68a4fb81de4f52d635	2026-12-31	mix test test/beam4pm_dfcm_test.exs	-
 lib/beam4pm_eds.ex	native_engine_facade	true	e9fca0b31543ba67de7ecc066975218d7810d7cca9d71f6a584631adc69b7057	2026-12-31	mix test test/beam4pm_eds_test.exs	-
 lib/beam4pm_eds_ppcx_h1.ex	native_engine_facade	true	d6c69650e66285cad187a5210633d9a7b8044c4f988c507fe4963c2935d83260	2026-12-31	mix test test/beam4pm_eds_test.exs	-
+lib/beam4pm_gall_ocel.ex	native_engine_facade	true	b28b52e8f5f4aa5eb5dd5e7325ed3f97a8e5a98260f74884c30cc145147c667f	2026-12-31	mix test test/beam4pm_gall_ocel_test.exs	-
 lib/beam4pm_ocel.ex	native_engine_facade	true	f7e47a5c95278b14cc654361bf00e4b73e4440276945ba6b8eb6ef19d7b64ce2	2026-12-31	mix test test/beam4pm_ocel_test.exs	-
 lib/beam4pm_powl_conformance.ex	native_engine_facade	true	981ae3079b22698fc2b7ddecff07dc8f1c8672190922bfde1cdbc65933137ca6	2026-12-31	mix test test/beam4pm_powl_conformance_test.exs test/beam4pm_powl_conformance_e2e_test.exs	native/rust4pm-wasm/target/wasm32-wasip1/release/rust4pm_wasm.wasm
 lib/beam4pm_powl_discovery.ex	hand_authored_qualification	true	4af71e5c91adbef6e8e1e850c4d0704b7fa7915d0de531a0529514d1de0d92b3	2026-12-31	mix test test/beam4pm_powl_discovery_test.exs	-
@@ -33,6 +34,7 @@ test/beam4pm_dfcm_test.exs	hand_authored_qualification	true	b3fd6bd1b279a7c2116a
 test/beam4pm_eds_test.exs	hand_authored_qualification	true	f86b110cf2e1399f9c3b82611c8697e08726bf5fec44d5740929d15a479095d8	2026-12-31	mix test test/beam4pm_eds_test.exs	-
 test/beam4pm_ferroplan_facades_test.exs	hand_authored_qualification	true	a1d83a882acec1fdac5a42936cf1139d704ee7417c1985732dde573709811196	2026-12-31	mix test test/beam4pm_ferroplan_facades_test.exs	native/ferroplan/target/wasm32-wasip1/release/ferroplan_wasm.wasm
 test/beam4pm_ferroplan_test.exs	hand_authored_qualification	true	0c4d09b7d9f437c8c9e8c397bc69e717d70e3baa9f3d7de4d70c8cf30a5ed505	2026-12-31	mix test test/beam4pm_ferroplan_test.exs	native/ferroplan/target/wasm32-wasip1/release/ferroplan_wasm.wasm
+test/beam4pm_gall_ocel_test.exs	hand_authored_qualification	true	be38dc5c3b8ba98b3bad24d4c3863b5c7932f3ed3281124e11623f5c61b6f414	2026-12-31	mix test test/beam4pm_gall_ocel_test.exs	-
 test/beam4pm_ocel_test.exs	hand_authored_qualification	true	af2f005ef2b9f52bf1b50b594239dee77cdbd855a1702bd19dbcaaf91b8f4e39	2026-12-31	mix test test/beam4pm_ocel_test.exs	-
 test/beam4pm_pddl_projection_test.exs	hand_authored_qualification	true	502a9e21d78964945ad6206ef74c89b37cb238728049263e766d90481741d58c	2026-12-31	mix test test/beam4pm_pddl_projection_test.exs	native/ferroplan/target/wasm32-wasip1/release/ferroplan_wasm.wasm
 test/beam4pm_petgraph_facades_test.exs	hand_authored_qualification	true	e25ecc316a71c003861a1aafc33efb1b3e011c80b56f29f8abfed18885586e37	2026-12-31	mix test test/beam4pm_petgraph_facades_test.exs	native/petgraph-wasm/target/wasm32-wasip1/release/petgraph_wasm.wasm

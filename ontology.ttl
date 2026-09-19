@@ -10426,6 +10426,17 @@ bap:hand_authored_lib_beam4pm_ocel a bpm:HandAuthoredSource ;
     bpm:admissionExpires "2026-12-31" ;
     bpm:sunsetPlan "Propose a dedicated hand_authored_lib_module (or similar) AuthorshipKind upstream in the vendored beam4pm-process-model-pack, or admit bpm:RecordType-level OCEL envelope facts and manufacture this codec from a pack template; then delete this admission." .
 
+bap:hand_authored_lib_beam4pm_gall_ocel a bpm:HandAuthoredSource ;
+    bpm:sourcePath "lib/beam4pm_gall_ocel.ex" ;
+    bpm:authorshipKind bpm:AuthorshipKind_native_engine_facade ;
+    bpm:authorizingPrincipal "Sean Chatman (repo owner) via ZCode bounded construction worker, v26.9.18 GALL Semantic Work Fabric slice (PRD section 43.6), branch feat/gall-swf-v26.9.18" ;
+    bpm:admissionReason "OCEL projection of the GALL semantic work lifecycle (v26.9.18 PRD section 43.6): projects the 13 admitted lifecycle milestone names (checkpoint_admitted .. checkpoint_promoted) into the already-generated BeamPM.Types.OcelEvent/OcelObject/OcelRelationship pair shapes (read-only construction over the generated structs, no generated file touched), plus a pure first-violation conformance checker over the permitted lifecycle order (PRD sections 27/28) and a static purity test (the compiled module's abstract code contains no File/System/IO/Port/Mix remote calls) guarding observation-not-authority: every projected event carries authority:none and the module mutates nothing. Admitted under the native_engine_facade kind for lack of a closer-fitting closed-vocabulary kind, same convention as bap:hand_authored_lib_beam4pm_ocel and bap:hand_authored_lib_beam4pm_deviation_admission (this is not a wasm native-engine facade; it is hand-authored lib/ domain logic not yet templated) -- the vendored pack's bpm:AuthorshipKind vocabulary has no dedicated general-lib-module kind yet, and the vendored pack is an unchecked-out submodule in the worktree where this slice ran, so adding a kind is out of scope here. This is the 7th native_engine_facade admission against the pack ceiling of 6; the raise is disclosed in docs/reference/beam4pm_hand_authored_source.md's kind table for operator review, not silently taken." ;
+    bpm:acceptanceCommand "mix test test/beam4pm_gall_ocel_test.exs" ;
+    bpm:contentSha256 "b28b52e8f5f4aa5eb5dd5e7325ed3f97a8e5a98260f74884c30cc145147c667f" ;
+    bpm:admittedAtCommit "27ff280" ;
+    bpm:admissionExpires "2026-12-31" ;
+    bpm:sunsetPlan "Propose a dedicated hand_authored_lib_module (or similar) AuthorshipKind upstream in the vendored beam4pm-process-model-pack (the same sunset as bap:hand_authored_lib_beam4pm_ocel), or admit the GALL lifecycle order and object bindings as bpm facts and manufacture this projection from a pack template; then delete this admission." .
+
 bap:hand_authored_lib_dfcm a bpm:HandAuthoredSource ;
     bpm:sourcePath "lib/beam4pm_dfcm.ex" ;
     bpm:authorshipKind bpm:AuthorshipKind_native_engine_facade ;
@@ -10460,6 +10471,17 @@ bap:hand_authored_test_ocel a bpm:HandAuthoredSource ;
     bpm:admittedAtCommit "91965eb" ;
     bpm:admissionExpires "2026-12-31" ;
     bpm:sunsetPlan "If lib/beam4pm_ocel.ex is later migrated into ontology-fact-driven generation, render its qualification test from the matching pack template as well; then delete this admission." .
+
+bap:hand_authored_test_beam4pm_gall_ocel a bpm:HandAuthoredSource ;
+    bpm:sourcePath "test/beam4pm_gall_ocel_test.exs" ;
+    bpm:authorshipKind bpm:AuthorshipKind_hand_authored_qualification ;
+    bpm:authorizingPrincipal "Sean Chatman (repo owner) via ZCode bounded construction worker, v26.9.18 GALL Semantic Work Fabric slice (PRD section 43.6), branch feat/gall-swf-v26.9.18" ;
+    bpm:admissionReason "Chicago qualification of the hand-authored BeamPM.GallOcel GALL lifecycle OCEL projection (lib/beam4pm_gall_ocel.ex, itself admitted above): real BeamPM.Types constructors, real BeamPM.Ocel encode/decode/validate_envelope/object_trace composition, per-rule out-of-order falsifier traces refused with the exact named REFUSED_CONFORMANCE tuples, determinism (same trace in, structurally identical projection and identical JSON out), Jason + BeamPM.Ocel.decode round-trips, and a static no-side-effect-path test walking the compiled module's abstract code for File/System/IO/Port/Mix remote calls. Hand-written because it exercises a hand-authored module rather than a manufactured record type, so no beam4pm_types_test.exs.eex-style template applies. This admission fills the hand_authored_qualification ceiling of 36 (raised to 37, disclosed in docs/reference/beam4pm_hand_authored_source.md's kind table)." ;
+    bpm:acceptanceCommand "mix test test/beam4pm_gall_ocel_test.exs" ;
+    bpm:contentSha256 "be38dc5c3b8ba98b3bad24d4c3863b5c7932f3ed3281124e11623f5c61b6f414" ;
+    bpm:admittedAtCommit "27ff280" ;
+    bpm:admissionExpires "2026-12-31" ;
+    bpm:sunsetPlan "If lib/beam4pm_gall_ocel.ex is later migrated into ontology-fact-driven generation, render this qualification from the matching pack template as well; then delete this admission." .
 
 # bap:hand_authored_test_actuation_k8s removed 2026-09-09: test/beam4pm_actuation_k8s_test.exs
 # is no longer present on disk or in the git index (real deletion, not a
