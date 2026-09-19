@@ -836,5 +836,47 @@ defmodule BeamPM.Dfcm do
     end
   end
 
+  @doc """
+  Verify a cryptographic receipt or plan hash via the standalone AutoFDE
+  `sa2a replay` command (§38, §64) -- pure passthrough.
+
+  The lab canonicalizes `manifest_json` (`sort_keys`, compact separators,
+  ASCII) and `sha256`-hexdigests it, then compares against `expected_hash`,
+  emitting `{"ok": bool, "computed_hash": ..., "expected_hash": ...,
+  "verified": bool}` and exiting 1 on mismatch. This wrapper relays that
+  verdict untouched: `{:ok, resp}` when the lab verifies, `{:error,
+  {:replay_refused, resp}}` when the lab itself refuses (its own emitted
+  verdict carried through), and every other `run_autofde_cli/1` failure
+  verbatim. It computes nothing and decides nothing: no hash is fabricated
+  here, no receipt is written, no authority is exercised.
+
+  Note the scheme passed through to is sha256 over CANONICAL JSON, not over
+  raw file bytes -- it accepts whitespace/key-order re-serialization of the
+  same JSON semantics, a complementary refusal boundary to
+  `BeamPM.ReceiptChain`'s raw-byte chain hashing. Cross-validation of the
+  two verifiers on real receipts:
+  docs/jira/v26.9.18/b4p-p5-sa2a-replay-parity.md.
+  """
+  @spec sa2a_replay(%{required(:manifest_json) => String.t(), required(:expected_hash) => String.t()}) ::
+          {:ok, map()} | {:error, term()}
+  def sa2a_replay(%{manifest_json: manifest_json, expected_hash: expected_hash})
+      when is_binary(manifest_json) and is_binary(expected_hash) do
+    case run_autofde_cli(["sa2a", "replay", manifest_json, "--expected-hash", expected_hash]) do
+      {:ok, %{"ok" => true} = resp} ->
+        {:ok, resp}
+
+      # The lab EMITS its verdict JSON before exiting 1 on mismatch, so a
+      # refusal arrives as a cli_failed carrying the lab's own verdict payload.
+      {:error, {:cli_failed, 1, output}} ->
+        case JSON.decode(output) do
+          {:ok, %{"ok" => false} = resp} -> {:error, {:replay_refused, resp}}
+          _ -> {:error, {:cli_failed, 1, output}}
+        end
+
+      other ->
+        other
+    end
+  end
+
 end
 
