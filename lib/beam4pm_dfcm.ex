@@ -780,5 +780,61 @@ defmodule BeamPM.Dfcm do
     end
   end
 
+  @doc """
+  Subject one candidate assertion to the lab's §64 admission court
+  (`autofde sa2a admit`) via the standalone CLI bridge.
+
+  Pure one-shot CLI passthrough (same class as `graphlaw_hash/1`): builds the
+  option list, invokes the trampoline exactly once, decodes the JSON receipt.
+  The lab court's REFUSAL is a valid verdict, not a bridge failure -- the CLI
+  exits 0 with `"ok": false` and `"standing": "REFUSED"` -- so a refused
+  candidate still returns `{:ok, receipt}` and the caller must branch on the
+  receipt's `"ok"` / `"standing"` keys. Only process-level failures (missing
+  binary, non-zero exit, undecodable JSON, error-keyed receipt) return
+  `{:error, term()}`.
+
+  Options:
+    * `:candidate_id` - candidate identifier (default: random `cand-<hex>`)
+    * `:query_id` - query identifier (default: `"q0"`, the lab default)
+    * `:source` - source agent/engine identity (default: `"beam4pm-dfcm"`)
+    * `:evidence` - evidence payload map, JSON-encoded by the bridge
+      (default: `%{}` -- note the lab court refuses empty evidence with
+      MISSING_EVIDENCE, mirroring `BeamPM.DeviationAdmission` refusing a
+      `conforms: false` result with no deviations)
+  """
+  @spec sa2a_admit(String.t(), keyword()) :: {:ok, map()} | {:error, term()}
+  def sa2a_admit(assertion, opts \\ []) when is_binary(assertion) do
+    candidate_id =
+      Keyword.get_lazy(opts, :candidate_id, fn ->
+        "cand-" <> (:crypto.strong_rand_bytes(8) |> Base.encode16(case: :lower))
+      end)
+
+    args = [
+      "sa2a",
+      "admit",
+      "--candidate-id",
+      candidate_id,
+      "--query-id",
+      Keyword.get(opts, :query_id, "q0"),
+      "--assertion",
+      assertion,
+      "--source",
+      Keyword.get(opts, :source, "beam4pm-dfcm"),
+      "--evidence",
+      JSON.encode!(Keyword.get(opts, :evidence, %{}))
+    ]
+
+    case run_autofde_cli(args) do
+      {:ok, %{"ok" => ok, "standing" => _standing} = receipt} when is_boolean(ok) ->
+        {:ok, receipt}
+
+      {:ok, %{"error" => err}} ->
+        {:error, {:sa2a_admit_error, err}}
+
+      other ->
+        other
+    end
+  end
+
 end
 
