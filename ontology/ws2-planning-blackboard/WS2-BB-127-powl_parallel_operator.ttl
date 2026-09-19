@@ -1,0 +1,30 @@
+@prefix bpm: <https://beam4pm.dev/ontology/process#> .
+
+# WS2-BB-127 — powl_parallel_operator
+bpm:powl_parallel_operator_rt a bpm:RecordType ;
+    bpm:recordName "powl_parallel_operator" ;
+    bpm:recordDoc "Represents concurrently executable POWL branches and their join semantics." ;
+    bpm:hasField bpm:powl_parallel_operator_operator_id_f ,
+                 bpm:powl_parallel_operator_branch_digest_f ,
+                 bpm:powl_parallel_operator_join_rule_f .
+
+bpm:powl_parallel_operator_operator_id_f a bpm:Field ;
+    bpm:fieldName "operator_id" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Parallel operator identity." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 1 .
+
+bpm:powl_parallel_operator_branch_digest_f a bpm:Field ;
+    bpm:fieldName "branch_digest" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of parallel branches." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 2 .
+
+bpm:powl_parallel_operator_join_rule_f a bpm:Field ;
+    bpm:fieldName "join_rule" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Completion rule for the parallel join." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 3 .

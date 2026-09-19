@@ -254,6 +254,7 @@ defmodule BeamPM.DfcmTest do
     end
   end
 
+  @tag skip: not File.exists?(Dfcm.autofde_cli_path())
   test "Dfcm runs standalone AutoFDE Typer binary in priv/bin/autofde" do
     assert Dfcm.autofde_cli_available?()
 
@@ -278,6 +279,7 @@ defmodule BeamPM.DfcmTest do
     assert resp["overall_fitness"] < 1.0
   end
 
+  @tag skip: not File.exists?(Dfcm.autofde_cli_path())
   test "Dfcm executes native Praxis GraphLaw WASM engine via standalone AutoFDE bridge" do
     sample_ttl = """
     @prefix ex: <http://example.org/> .
@@ -303,4 +305,3 @@ defmodule BeamPM.DfcmTest do
     assert hook_res["status"] == "ADMITTED"
   end
 end
-

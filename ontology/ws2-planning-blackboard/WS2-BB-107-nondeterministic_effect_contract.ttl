@@ -1,0 +1,30 @@
+@prefix bpm: <https://beam4pm.dev/ontology/process#> .
+
+# WS2-BB-107 — nondeterministic_effect_contract
+bpm:nondeterministic_effect_contract_rt a bpm:RecordType ;
+    bpm:recordName "nondeterministic_effect_contract" ;
+    bpm:recordDoc "Makes nondeterministic effects explicit for FOND planning and replay." ;
+    bpm:hasField bpm:nondeterministic_effect_contract_action_id_f ,
+                 bpm:nondeterministic_effect_contract_effect_set_digest_f ,
+                 bpm:nondeterministic_effect_contract_selection_semantics_f .
+
+bpm:nondeterministic_effect_contract_action_id_f a bpm:Field ;
+    bpm:fieldName "action_id" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Action whose effects are nondeterministic." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 1 .
+
+bpm:nondeterministic_effect_contract_effect_set_digest_f a bpm:Field ;
+    bpm:fieldName "effect_set_digest" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of the alternative effect sets." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 2 .
+
+bpm:nondeterministic_effect_contract_selection_semantics_f a bpm:Field ;
+    bpm:fieldName "selection_semantics" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Environment selection semantics." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 3 .

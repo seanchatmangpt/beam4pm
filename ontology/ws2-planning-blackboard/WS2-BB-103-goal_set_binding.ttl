@@ -1,0 +1,30 @@
+@prefix bpm: <https://beam4pm.dev/ontology/process#> .
+
+# WS2-BB-103 — goal_set_binding
+bpm:goal_set_binding_rt a bpm:RecordType ;
+    bpm:recordName "goal_set_binding" ;
+    bpm:recordDoc "Binds explicit valued goals to one admitted planning problem." ;
+    bpm:hasField bpm:goal_set_binding_problem_id_f ,
+                 bpm:goal_set_binding_goal_set_digest_f ,
+                 bpm:goal_set_binding_value_profile_f .
+
+bpm:goal_set_binding_problem_id_f a bpm:Field ;
+    bpm:fieldName "problem_id" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Planning problem receiving the goals." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 1 .
+
+bpm:goal_set_binding_goal_set_digest_f a bpm:Field ;
+    bpm:fieldName "goal_set_digest" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of the ordered goal set." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 2 .
+
+bpm:goal_set_binding_value_profile_f a bpm:Field ;
+    bpm:fieldName "value_profile" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Explicit value profile used for selection." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 3 .

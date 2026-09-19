@@ -1,0 +1,30 @@
+@prefix bpm: <https://beam4pm.dev/ontology/process#> .
+
+# WS2-BB-105 — initial_state_digest
+bpm:initial_state_digest_rt a bpm:RecordType ;
+    bpm:recordName "initial_state_digest" ;
+    bpm:recordDoc "Freezes the normalized initial facts used by every planner in a portfolio." ;
+    bpm:hasField bpm:initial_state_digest_problem_id_f ,
+                 bpm:initial_state_digest_fact_digest_f ,
+                 bpm:initial_state_digest_normalizer_version_f .
+
+bpm:initial_state_digest_problem_id_f a bpm:Field ;
+    bpm:fieldName "problem_id" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Planning problem identity." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 1 .
+
+bpm:initial_state_digest_fact_digest_f a bpm:Field ;
+    bpm:fieldName "fact_digest" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of sorted initial facts." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 2 .
+
+bpm:initial_state_digest_normalizer_version_f a bpm:Field ;
+    bpm:fieldName "normalizer_version" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact normalizer version." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 3 .

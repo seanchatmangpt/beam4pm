@@ -1,0 +1,30 @@
+@prefix bpm: <https://beam4pm.dev/ontology/process#> .
+
+# WS2-BB-121 — method_precondition_gate
+bpm:method_precondition_gate_rt a bpm:RecordType ;
+    bpm:recordName "method_precondition_gate" ;
+    bpm:recordDoc "Refuses HDDL method selection when its exact preconditions do not hold." ;
+    bpm:hasField bpm:method_precondition_gate_method_id_f ,
+                 bpm:method_precondition_gate_state_digest_f ,
+                 bpm:method_precondition_gate_decision_f .
+
+bpm:method_precondition_gate_method_id_f a bpm:Field ;
+    bpm:fieldName "method_id" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Method being evaluated." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 1 .
+
+bpm:method_precondition_gate_state_digest_f a bpm:Field ;
+    bpm:fieldName "state_digest" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact state evaluated for applicability." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 2 .
+
+bpm:method_precondition_gate_decision_f a bpm:Field ;
+    bpm:fieldName "decision" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Typed admitted or refused outcome." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 3 .
