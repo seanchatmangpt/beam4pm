@@ -29,7 +29,20 @@ defmodule BeamPM.A2AAgent do
     @doc false
     def __bootstrap_stub__, do: :ok
   else
-    Code.ensure_compiled!(BeamPM.Ash.Domain)
-    use AshA2A.Agent, resource_or_domain: BeamPM.Ash.Domain, name: "beam4pm_a2a_agent"
+    # `use` is a macro and ordinary conditional syntax may expand it before
+    # the module-body condition executes. Evaluate the real-agent definition
+    # only after the bootstrap sentinel decision so the destructive
+    # regeneration window cannot inspect an incomplete Ash domain.
+    Module.eval_quoted(
+      __MODULE__,
+      quote do
+        Code.ensure_compiled!(BeamPM.Ash.Domain)
+        use AshA2A.Agent,
+          resource_or_domain: BeamPM.Ash.Domain,
+          name: "beam4pm_a2a_agent"
+      end,
+      [],
+      __ENV__
+    )
   end
 end
