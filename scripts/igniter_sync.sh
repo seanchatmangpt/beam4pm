@@ -34,8 +34,17 @@ IGN="$PACK/igniter"
 # bootstrap stub until the new domain has been generated and compiled.
 mkdir -p tmp_probe
 A2A_BOOTSTRAP_SENTINEL="tmp_probe/a2a-ash-bootstrap"
-touch "$A2A_BOOTSTRAP_SENTINEL"
-trap 'rm -f "$A2A_BOOTSTRAP_SENTINEL"' EXIT
+A2A_BOOTSTRAP_SENTINEL_OWNED=0
+if [ ! -e "$A2A_BOOTSTRAP_SENTINEL" ]; then
+  touch "$A2A_BOOTSTRAP_SENTINEL"
+  A2A_BOOTSTRAP_SENTINEL_OWNED=1
+fi
+cleanup_a2a_bootstrap_sentinel() {
+  if [ "$A2A_BOOTSTRAP_SENTINEL_OWNED" -eq 1 ]; then
+    rm -f "$A2A_BOOTSTRAP_SENTINEL"
+  fi
+}
+trap cleanup_a2a_bootstrap_sentinel EXIT
 
 mix deps.get
 # Remove cached project compiler state that can otherwise cause Mix to reload

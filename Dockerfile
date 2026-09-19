@@ -95,6 +95,18 @@ RUN cd native/rf1-dfg-oracle && cargo build --release \
 # artifacts); rebar3 eunit compiles/runs the test profile on top of it.
 RUN rebar3 compile && rebar3 eunit
 RUN mix local.hex --force && mix deps.get
+# The full Rust4PM differential suite deliberately refuses to substitute a
+# toy log for the canonical BPI 2020 International Declarations dataset.
+# Materialize that exact external fixture inside the build court and verify
+# both transport and decoded bytes before the suite receives it.
+RUN mkdir -p /root/wasm4pm/data \
+    && curl --fail --location --silent --show-error --retry 3 \
+      -o /tmp/InternationalDeclarations.xes.gz \
+      https://icpmconference.org/2020/wp-content/uploads/sites/4/2020/03/InternationalDeclarations.xes_.gz \
+    && echo 'b527c8d06255f4312c6ce8f36f7f4110243d84fd6ca48583cd9b80896c601494  /tmp/InternationalDeclarations.xes.gz' | sha256sum --check --strict \
+    && gzip -dc /tmp/InternationalDeclarations.xes.gz > /root/wasm4pm/data/InternationalDeclarations.xes \
+    && echo '381e793931dbe8c393e7504ec98d66172eb9ba89802d97652c054cd61036598e  /root/wasm4pm/data/InternationalDeclarations.xes' | sha256sum --check --strict \
+    && rm -f /tmp/InternationalDeclarations.xes.gz
 # The real POWL/deviation/EDS suites initialize Rust4PM in setup_all, so the
 # portable WASM engine must exist before the broad test gate starts.
 RUN bash scripts/rust4pm_wasm_build.sh
