@@ -10536,7 +10536,7 @@ bap:hand_authored_test_petgraph a bpm:HandAuthoredSource ;
     bpm:admissionReason "Chicago qualification of BeamPM.Petgraph (A*-as-Dijkstra, Tarjan SCC, toposort, cycle detection) inside the wasm engine; graph fixtures are hand-written. Named skip when the wasm artifact is absent." ;
     bpm:acceptanceCommand "mix test test/beam4pm_petgraph_test.exs" ;
     bpm:acceptancePrerequisite "native/petgraph-wasm/target/wasm32-wasip1/release/petgraph_wasm.wasm" ;
-    bpm:contentSha256 "2516d9f57b9b99562fa9d460fd738721d8ec96ddcae0e9cfa7d27cb94f31f440" ;
+    bpm:contentSha256 "7423e27519761de43fecea0e96035c62129e3838b9d359c943fabcab5e47feff" ;
     bpm:admittedAtCommit "f44dcd0" ;
     bpm:admissionExpires "2026-12-31" ;
     bpm:sunsetPlan "Admit the graph fixtures as ontology facts and render this qualification from them; then delete this admission." .
@@ -10656,7 +10656,7 @@ bap:hand_authored_test_tract a bpm:HandAuthoredSource ;
     bpm:admissionReason "Chicago qualification of BeamPM.Tract running a real checker-validated ONNX graph (y = 2x + 1) through the wasm engine; model fixture binding is hand-written. Named skip when the wasm artifact is absent." ;
     bpm:acceptanceCommand "mix test test/beam4pm_tract_test.exs" ;
     bpm:acceptancePrerequisite "native/tract-wasm/target/wasm32-wasip1/release/tract_wasm.wasm" ;
-    bpm:contentSha256 "89f6245fd5a0fee8a1f7f3365af806b4297fb5960cbe925940e67e6624b812de" ;
+    bpm:contentSha256 "6b60d4880fc57346c5b891ecd55ca667b96ee4913b7cb4a3983a3c4166b79708" ;
     bpm:admittedAtCommit "f44dcd0" ;
     bpm:admissionExpires "2026-12-31" ;
     bpm:sunsetPlan "Admit the ONNX fixture binding as an ontology fact and render this qualification from it; then delete this admission." .
