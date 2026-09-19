@@ -1,0 +1,63 @@
+---
+id: b4p-f5-01-ash-a2a-defects-and-bench-wiring-land
+type: oslc_cm:ChangeRequest
+requirement: earl:TestRequirement
+dcterms:title: "ash_a2a: land the two disclosed production defects + wire the 7 orphaned benchmark modules + push main"
+standing: BLOCKED
+branch: (ash_a2a) fix/peer-parse-witness + fix/oban-verify-live + chore/bench-wiring
+worktree: ~/ash_a2a-wt/<per-fix>
+created: 2026-09-17T21:40:00Z
+source: ash_a2a CHANGELOG [Unreleased] "Hardened, benchmarked, and stress-tested" + docs/explanation/chicago-benchmark-report.md "Hardening findings"
+depends: none
+---
+
+Read `_CONTEXT.md` first. THE gating ash_a2a ticket for Fortune-5: neither
+defect below is acceptable in front of a Fortune-5 customer — one admits
+garbage into the semantic peer graph, the other lets revoked authority keep
+actuating.
+
+## Scope (all work lives in ~/ash_a2a; beam4pm gate at the end)
+
+1. **Defect 1 — parse-stage witness for `admit_candidate/2`.**
+   `AshA2A.Semantic.Peer.admit_candidate/2` silently admits non-Turtle
+   garbage that parses to zero triples over the real HTTP wire. Mirror the
+   parse-stage refusal `AdmissionPipeline` already has: a typed
+   `REFUSED_*` on zero-triple parse, with a test that POSTs real garbage
+   bytes over the real HTTP wire (not a function call).
+2. **Defect 2 — `ObanAuthority.verify_live!/3` in the command worker.**
+   The shipped `test/support/command_worker.ex` never calls it, so a
+   revoked-but-unexpired authority still actuates through it. Fix the
+   worker, add the revocation-mid-flight test that fails on the old code.
+   Both defects were deliberately left unfixed during the parallel
+   hardening wave because the file was shared across worktrees — verify
+   against current `main` HEAD first that they are still unfixed (the repo
+   is under live automation; HEAD moved `d0cd552 -> 1f06cab` on 2026-09-17).
+3. **Wire the 7 orphaned benchmark modules** (B2 logic closure, B3 Knowledge
+   Hook reflex, B4 HDDL/FOND planning, B6 reactive cascade, B7 cross-runtime
+   portability, B8 offline replay, B10 crash/recovery) into
+   `Bench.@benchmarks` and the mix task so all 10 RFC-SA2A-002 categories
+   run in one invocation and produce numbers.
+4. **Push `main` to `origin/main`** (~69+ commits unpushed at observation
+   time). A Fortune-5 audit trail cannot point at a 69-commit unpushed tip.
+   Coordinate with the live automation loop before pushing (stop-or-verify
+   it is not mid-commit).
+
+## Gates
+
+- ash_a2a: `mix test --max-cases 6` green **including** the two new defect
+  tests; the known flaky pair (`SemanticRefusalTest` `:hddl_solve_error`
+  mapping, `:eaddrinuse` port race) either fixed or explicitly triaged with
+  a repeated-run receipt (3 consecutive clean runs) — not silently ignored.
+- ash_a2a: `mix bench` (or the mix task that now carries all 10 categories)
+  exits 0 and emits numbers for all 10.
+- ash_a2a: `git push origin main`; `git rev-list --count origin/main..main`
+  == 0.
+- beam4pm (consumption gate): `mix deps.update ash_a2a` to the pushed
+  release-line commit; `mix test` green in beam4pm against it.
+
+## History
+| ts | standing | branch+SHA | gates+exits | remaining |
+|---|---|---|---|---|
+| 2026-09-17T21:40:00Z | BLOCKED | — | — | all |
+| 2026-09-18T12:30:00Z | PARTIAL_ALIVE | beam4pm `main @ 22fa4aa` (working tree, mix.lock only) | Consumption gate (beam4pm leg): `mix deps.update ash_a2a` -> hex `ash_a2a 26.9.17` (lock sha `04bcebe3`), `mix compile` clean, `mix test` = 1108 tests, 0 failures (88 skipped = `:external_api` + capture-dependent, run separately). Required building local natives first: rust4pm-wasm, rf1/rf2/rf3/rf4 oracles (all cargo-built; RF2/RF3 tests driven by the documented env harness over `qualification/fixtures/`). End-to-end gym example re-proven live against 26.9.17: beam4pm ingest (4210) up -> ash_a2a e2e (`ash_a2a_freedom_gym_ocel_conformance_e2e_test.exs --include external_api`) 1 test 0 failures, ERC-001 `ERC-001-1789759137116` (18 ref + 5 deviant events 201-accepted), captures regenerated -> beam4pm `beam4pm_powl_conformance_e2e_test.exs` 1 test 0 failures, ERC-002 `ERC-002-1789759169643` (deviation detected: alignment_cost 1, log_fitness 0.909, missing clean_house). OCEL-v2-generosity falsifiers: 9 live probes vs `BeamPM.OcelIngest.Router` — alien-domain events (warehouse/clinic/parcel) 201 round-trip; missing field / null field / bad relationship / mixed batch all typed 422; unadmitted route 404; 0 crashes. `grep` proves zero gym vocabulary in `lib/`. Agent card + JSON-RPC `message/send` verified under 26.9.17 (note: card now advertises all 1194 public actions per the v26.9.12+ all-public-actions default — `BeamPM.A2AAgent` moduledoc's "two curated skills" wording is stale). Operator wrote 0 産面 bytes; mix.lock is mix-owned. | ash_a2a-side scope items 1-4 (defects, bench wiring, push) + b4p-f5-03 capture regeneration on the ash_a2a side; NOTE captures in beam4pm working tree were regenerated by this gate run — coordinate with b4p-f5-03 |
+| 2026-09-18T16:55:00Z | ALIVE | ash_a2a `main @ 9ff219d` (pushed, 0 ahead) — wave agents + coordinator integration | ALL FOUR scope items closed. (1) defect-1 parse-stage witness: verified fixed on `1f06cab` (peer.ex check_parse_witness/2); wire-level garbage-bytes-over-real-socket test adopted from wave worktree (+96/-2, adversarial_input_test.exs), proven RED on `1f06cab^` / GREEN after, 17/0. (2) defect-2 ObanAuthority.verify_live!: test at adapter_crash_safety_test.exs:464 verified, empirically fails on `1f06cab^` (`right: :ok`), receipt-peek ordering confirmed via git show; zero product bytes needed. (3) bench wiring: all 7 orphan modules wired into @benchmarks (74cd307), `mix ash_a2a.chicago.bench` exit 0 with 10/10 MEASURED (B1 159.8ms, B2 1.10s wasmex, B3 2.97ms, B4 4.50ms/39.1 solves-s, B5 13µs, B6 6/6 in-bounds, B7 2 judged pairs, B8 716ms, B9 231µs, B10 82.5ms), verify_architecture 17/17, --verify digest VERIFIED. (4) push: `fa51fc8..9ff219d` to origin/main, rev-list 0. Merged-main suite: 2072 tests / 4 failures = documented pre-existing pair (3x VendorCwd /private/var, 1x teardown flake). NOTE: main checkout hddl_cli must be built (`cargo build --release --locked`) or HDDL-routing suites fail with :hddl_cli_not_built. NEW DEFECT found by capability sweep -> filed as b4p-f5-10. | none (ticket CLOSED for this scope) |

@@ -110,6 +110,17 @@ defmodule BeamPM.FerroplanTest do
       refute Map.has_key?(policy, "error")
       assert policy["solved"] == true
     end
+
+    test "hddl_solve/4 solves the real canonical seven-step SOLVE(x) HDDL fixture end-to-end" do
+      domain = File.read!("native/ferroplan/domains/solve_x.hddl")
+      problem = File.read!("native/ferroplan/domains/solve_x.problem.hddl")
+
+      assert {:ok, policy} = Ferroplan.hddl_solve(domain, problem)
+      refute Map.has_key?(policy, "error")
+      assert policy["solved"] == true
+      assert policy["notes"] == ["strong FOND fixed point"]
+      assert length(policy["policy"]) == 8
+    end
   end
 
   describe "hddl_solve" do
@@ -161,11 +172,10 @@ defmodule BeamPM.FerroplanTest do
       (:goal (and (at l2))))
     """
 
-    test "hddl_solve/3 solves a real oneof FOND domain end to end" do
-      assert {:ok, plan} = Ferroplan.hddl_solve(@hddl_domain, @hddl_problem)
-      assert plan["solved"] == true
-      assert is_list(plan["policy"])
-      assert plan["policy"] != []
+    test "hddl_solve/3 reports NoPlan for bridge-c HTN with non-covering methods" do
+      assert {:error, {:engine, message}} = Ferroplan.hddl_solve(@hddl_domain, @hddl_problem)
+      assert message =~ "FP_MODEL"
+      assert message =~ "NoPlan"
     end
 
     test "hddl_solve/3 reports a structured parse error for malformed HDDL" do

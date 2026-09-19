@@ -7,6 +7,7 @@ repositories.
 | Version | Program | Standing | Scope |
 |---|---|---|---|
 | [`v26.8.29/`](./v26.8.29/) | beam4pm / beam4pm_pro ggen-only manufacturing charter and cloud-marketplace RevOps package | `PARTIAL_ALIVE` — documentation bootstrap only; no runtime, manufacturing, or marketplace-listing evidence yet | 15-document charter: product/architecture doctrine, source-authority governance, Rust4PM reference boundary, institutional-legibility vision, cloud marketplace RevOps, pricing/packaging, GTM/sales, security/air-gap, roadmap, epics/stories, TAI quality operations, portfolio monetization strategy, and release gates/receipts. |
+| [`v26.9.17/`](./v26.9.17/) | Fortune-5 readiness: upstream landings from ash_a2a + ferroplan required for beam4pm-in-xaas; same-day family cleanup-merge plan lives alongside | `BLOCKED` — ticket set cut 2026-09-17 from observed repo states; nothing executed yet | `_CONTEXT.md` evidence base + 9 tickets (b4p-f5-01..09): ash_a2a defects/stress/captures, ferroplan wave-6 + three-way pin reconciliation + verdict-flip audit + EngineOp ontology refresh, release boundary for xaas, crown Fortune-5 trial closure. |
 
 ## Standing law
 

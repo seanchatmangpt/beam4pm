@@ -119,6 +119,31 @@ defmodule BeamPM.PetgraphTest do
       assert {:error, {:engine, msg}} = Petgraph.node_count(h)
       assert msg =~ "unknown graph handle"
     end
+
+    test "self-loop is detected as cyclic" do
+      {:ok, %{"handle" => h}} = Petgraph.graph_new()
+      {:ok, _} = Petgraph.add_edge(h, "loop_node", "loop_node")
+
+      assert {:ok, %{"cyclic" => true}} = Petgraph.is_cyclic?(h)
+      assert {:ok, %{"acyclic" => false, "order" => nil}} = Petgraph.toposort(h)
+    end
+
+    test "toposort handles multiple disconnected DAG components" do
+      {:ok, %{"handle" => h}} = Petgraph.graph_new()
+      {:ok, _} = Petgraph.add_edge(h, "C1_A", "C1_B")
+      {:ok, _} = Petgraph.add_edge(h, "C2_X", "C2_Y")
+
+      assert {:ok, %{"acyclic" => true, "order" => order}} = Petgraph.toposort(h)
+      assert index_of(order, "C1_A") < index_of(order, "C1_B")
+      assert index_of(order, "C2_X") < index_of(order, "C2_Y")
+    end
+
+    test "double-freeing a graph handle is rejected with a named engine error" do
+      {:ok, %{"handle" => h}} = Petgraph.graph_new()
+      assert {:ok, %{"freed" => true}} = Petgraph.free_graph(h)
+      assert {:error, {:engine, msg}} = Petgraph.free_graph(h)
+      assert msg =~ "unknown graph handle"
+    end
   end
 
   defp index_of(list, item), do: Enum.find_index(list, &(&1 == item))

@@ -10434,7 +10434,29 @@ bap:hand_authored_lib_beam4pm_ocel a bpm:HandAuthoredSource ;
     bpm:admissionExpires "2026-12-31" ;
     bpm:sunsetPlan "Propose a dedicated hand_authored_lib_module (or similar) AuthorshipKind upstream in the vendored beam4pm-process-model-pack, or admit bpm:RecordType-level OCEL envelope facts and manufacture this codec from a pack template; then delete this admission." .
 
+bap:hand_authored_lib_dfcm a bpm:HandAuthoredSource ;
+    bpm:sourcePath "lib/beam4pm_dfcm.ex" ;
+    bpm:authorshipKind bpm:AuthorshipKind_native_engine_facade ;
+    bpm:authorizingPrincipal "Sean Chatman (repo owner) via Claude Code session_01UiCeLuzgcK2BLocBKxXw39" ;
+    bpm:admissionReason "Pure Design for Combinatorial Maximalism planning crown. Preserves admitted alternatives, applies explicit fences, records every exclusion with a deterministic receipt and falsifier, and returns either a decision-relevant observation request or a SELECT candidate. Authority ceiling is strictly :select with no DO surface." ;
+    bpm:acceptanceCommand "mix test test/beam4pm_dfcm_test.exs" ;
+    bpm:contentSha256 "05b4d2e7656ce15c114cc2e375e4731d96fa2875e53c0d68a4fb81de4f52d635" ;
+    bpm:admittedAtCommit "2d51358" ;
+    bpm:admissionExpires "2026-12-31" ;
+    bpm:sunsetPlan "Admit DfCM contracts as ontology facts and render the planning crown from a pack template; then delete this admission." .
+
 # -- hand_authored_qualification (14; counted as debt) -----------------------
+
+bap:hand_authored_test_dfcm a bpm:HandAuthoredSource ;
+    bpm:sourcePath "test/beam4pm_dfcm_test.exs" ;
+    bpm:authorshipKind bpm:AuthorshipKind_hand_authored_qualification ;
+    bpm:authorizingPrincipal "Sean Chatman (repo owner) via Claude Code session_01UiCeLuzgcK2BLocBKxXw39" ;
+    bpm:admissionReason "Chicago qualification of BeamPM.Dfcm bounded option-preservation calculus, formal HDDL/FOND fixtures, and SELECT-not-DO authority ceiling." ;
+    bpm:acceptanceCommand "mix test test/beam4pm_dfcm_test.exs" ;
+    bpm:contentSha256 "b3fd6bd1b279a7c2116a6986caaa4a69f0550a9b6a15ee7ccaa084a273b4edea" ;
+    bpm:admittedAtCommit "d8c2f19" ;
+    bpm:admissionExpires "2026-12-31" ;
+    bpm:sunsetPlan "Render from the same DfCM planning facts as lib/beam4pm_dfcm.ex; then delete this admission." .
 
 bap:hand_authored_test_ocel a bpm:HandAuthoredSource ;
     bpm:sourcePath "test/beam4pm_ocel_test.exs" ;
@@ -10474,7 +10496,7 @@ bap:hand_authored_test_ferroplan_facades a bpm:HandAuthoredSource ;
     bpm:admissionReason "Facade-parity qualification calling every op through Elixir, Erlang and Gleam on the same ferroplan engine handle and asserting exact equality; the op list is the engine's, not yet ontology facts." ;
     bpm:acceptanceCommand "mix test test/beam4pm_ferroplan_facades_test.exs" ;
     bpm:acceptancePrerequisite "native/ferroplan/target/wasm32-wasip1/release/ferroplan_wasm.wasm" ;
-    bpm:contentSha256 "9ad4f8658075e3804384a02b6c2ee550a235fd7e75615acf9838b285c9533e34" ;
+    bpm:contentSha256 "a1d83a882acec1fdac5a42936cf1139d704ee7417c1985732dde573709811196" ;
     bpm:admittedAtCommit "f44dcd0" ;
     bpm:admissionExpires "2026-12-31" ;
     bpm:sunsetPlan "Once the ferroplan function surface is admitted as ontology facts, render the parity suite from the same facts as the facades; then delete this admission." .
@@ -10486,7 +10508,7 @@ bap:hand_authored_test_ferroplan a bpm:HandAuthoredSource ;
     bpm:admissionReason "Chicago qualification of BeamPM.Ferroplan against a real classical-planning domain inside the wasm engine (no mocks); the planning fixtures are hand-written, not ontology facts." ;
     bpm:acceptanceCommand "mix test test/beam4pm_ferroplan_test.exs" ;
     bpm:acceptancePrerequisite "native/ferroplan/target/wasm32-wasip1/release/ferroplan_wasm.wasm" ;
-    bpm:contentSha256 "24685d17a802334e78094625a969b4f1e353fd1422f943d97b7351146be8974d" ;
+    bpm:contentSha256 "0c4d09b7d9f437c8c9e8c397bc69e717d70e3baa9f3d7de4d70c8cf30a5ed505" ;
     bpm:admittedAtCommit "c34e275" ;
     bpm:admissionExpires "2026-12-31" ;
     bpm:sunsetPlan "Admit the planning fixtures as ontology facts (a bpmg:ProcessContract already projects to PDDL) and render this qualification from them; then delete this admission." .
@@ -10522,7 +10544,7 @@ bap:hand_authored_test_petgraph a bpm:HandAuthoredSource ;
     bpm:admissionReason "Chicago qualification of BeamPM.Petgraph (A*-as-Dijkstra, Tarjan SCC, toposort, cycle detection) inside the wasm engine; graph fixtures are hand-written. Named skip when the wasm artifact is absent." ;
     bpm:acceptanceCommand "mix test test/beam4pm_petgraph_test.exs" ;
     bpm:acceptancePrerequisite "native/petgraph-wasm/target/wasm32-wasip1/release/petgraph_wasm.wasm" ;
-    bpm:contentSha256 "2516d9f57b9b99562fa9d460fd738721d8ec96ddcae0e9cfa7d27cb94f31f440" ;
+    bpm:contentSha256 "7423e27519761de43fecea0e96035c62129e3838b9d359c943fabcab5e47feff" ;
     bpm:admittedAtCommit "f44dcd0" ;
     bpm:admissionExpires "2026-12-31" ;
     bpm:sunsetPlan "Admit the graph fixtures as ontology facts and render this qualification from them; then delete this admission." .
@@ -10642,7 +10664,7 @@ bap:hand_authored_test_tract a bpm:HandAuthoredSource ;
     bpm:admissionReason "Chicago qualification of BeamPM.Tract running a real checker-validated ONNX graph (y = 2x + 1) through the wasm engine; model fixture binding is hand-written. Named skip when the wasm artifact is absent." ;
     bpm:acceptanceCommand "mix test test/beam4pm_tract_test.exs" ;
     bpm:acceptancePrerequisite "native/tract-wasm/target/wasm32-wasip1/release/tract_wasm.wasm" ;
-    bpm:contentSha256 "89f6245fd5a0fee8a1f7f3365af806b4297fb5960cbe925940e67e6624b812de" ;
+    bpm:contentSha256 "6b60d4880fc57346c5b891ecd55ca667b96ee4913b7cb4a3983a3c4166b79708" ;
     bpm:admittedAtCommit "f44dcd0" ;
     bpm:admissionExpires "2026-12-31" ;
     bpm:sunsetPlan "Admit the ONNX fixture binding as an ontology fact and render this qualification from it; then delete this admission." .
@@ -11498,7 +11520,7 @@ bap:engine_ferroplan_op_session_restrict_contains_filter a bpm:EngineArg ;
 
 bap:engine_ferroplan_op_session_think a bpm:EngineOp ;
     bpm:opEngine bap:engine_ferroplan ; bpm:opName "session_think" ; bpm:opOrder 12 ;
-    bpm:opDoc "`{\"op\":\"session_think\",\"handle\":h,\"evals\":n,\"mem_mb\":n}` -- a bounded replan (bounded by evals/memory, not wall clock); stashes the resulting plan (if solved) and resets the cursor. Returns the Solution map." ;
+    bpm:opDoc "`{\"op\":\"session_think\",\"handle\":h,\"evals\":n,\"mem_mb\":n}` -- a bounded replan (bounded by evals/memory, not wall clock); stashes the resulting plan (if solved) and resets the cursor. Returns the Solution map. The wasm adapter additionally enforces the production budget caps `evals` in 1..=1000000 and `mem_mb` in 1..=2048: out-of-range values are refused as `{:ok, %{\"error\" => %{\"code\" => \"FP_LIMIT_SEARCH\" | \"FP_LIMIT_MEMORY\", ...}}}` -- never a bare `{:error, _}` (bpm:ErrorCollapse_single_key_inspect)." ;
     bpm:opTimeoutClass bpm:TimeoutClass_heavy ; bpm:opKind bpm:EngineOpKind_wire .
 bap:engine_ferroplan_op_session_think_handle a bpm:EngineArg ;
     bpm:argOp bap:engine_ferroplan_op_session_think ; bpm:argName "handle" ; bpm:argOrder 1 ; bpm:argType bpm:EngineArgType_handle .
@@ -11668,7 +11690,7 @@ bap:engine_ferroplan_op_session_mind_bytes_handle a bpm:EngineArg ;
 
 bap:engine_ferroplan_op_htn_plan a bpm:EngineOp ;
     bpm:opEngine bap:engine_ferroplan ; bpm:opName "htn_plan" ; bpm:opOrder 31 ;
-    bpm:opDoc "`{\"op\":\"htn_plan\",\"domain\":d,\"problem\":p[,\"limits\":l]}` -- `domain`/`problem` are UTF-8 JSON text of a `PlanningProblem` object (same wire shape as `plan`/`plan_production`'s `domain`/`problem` fields, but decoded into the typed universal-planning model rather than PDDL text). `domain` is accepted but ignored when non-empty and not equal to `problem` -- ferroplan's universal-planning model has one combined problem document, so `problem` alone is parsed as the full `PlanningProblem`. Forces `PlanningType::Hierarchical`. Returns `UniversalPlan` JSON." ;
+    bpm:opDoc "`{\"op\":\"htn_plan\",\"domain\":d,\"problem\":p[,\"limits\":l]}` -- `domain`/`problem` are UTF-8 JSON text of a `PlanningProblem` object (same wire shape as `plan`/`plan_production`'s `domain`/`problem` fields, but decoded into the typed universal-planning model rather than PDDL text). `domain` is accepted but ignored when non-empty and not equal to `problem` -- ferroplan's universal-planning model has one combined problem document, so `problem` alone is parsed as the full `PlanningProblem`. Forces `PlanningType::Hierarchical`. Returns `UniversalPlan` JSON. `limits` is an optional partial `PlannerLimits` map (`max_depth` 128 / `max_states` 100000 / `max_iterations` 512 / `max_wall_ms` 10000; any/all omitted fields fall back to their own serde defaults). `max_wall_ms` is INERT for this op -- the hierarchical solver never consults the wall deadline (only `fond_policy`'s fixpoint loops do) -- so this op's real wall bound is the caller's own budget: the BEAM side never blocks past its `bpm:opTimeoutClass`-derived wasmex call timeout (heavy = 120000ms)." ;
     bpm:opTimeoutClass bpm:TimeoutClass_heavy ; bpm:opKind bpm:EngineOpKind_wire .
 bap:engine_ferroplan_op_htn_plan_domain a bpm:EngineArg ;
     bpm:argOp bap:engine_ferroplan_op_htn_plan ; bpm:argName "domain" ; bpm:argOrder 1 ; bpm:argType bpm:EngineArgType_string .
@@ -11681,7 +11703,7 @@ bap:engine_ferroplan_op_htn_plan_limits a bpm:EngineArg ;
 
 bap:engine_ferroplan_op_fond_policy a bpm:EngineOp ;
     bpm:opEngine bap:engine_ferroplan ; bpm:opName "fond_policy" ; bpm:opOrder 32 ;
-    bpm:opDoc "`{\"op\":\"fond_policy\",\"domain\":d,\"problem\":p[,\"limits\":l]}` -- same wire shape as `htn_plan`; forces `PlanningType::Fond`. Returns `UniversalPlan` JSON." ;
+    bpm:opDoc "`{\"op\":\"fond_policy\",\"domain\":d,\"problem\":p[,\"limits\":l]}` -- same wire shape as `htn_plan`; forces `PlanningType::Fond` (strong-plan fixpoint first, strong-cyclic fallback; bounded by each loop's own `states + 1` round failsafe). Returns `UniversalPlan` JSON. `limits` is an optional partial `PlannerLimits` map (`max_depth` 128 / `max_states` 100000 / `max_iterations` 512 / `max_wall_ms` 10000; any/all omitted fields fall back to their own serde defaults; `max_iterations` is advisory here). WATCHDOG SEMANTICS: `max_wall_ms` is honored cooperatively -- `check_wall_deadline` runs once per fixpoint round, default 10000ms when `limits` is omitted, `0` means unbounded -- so an overrun surfaces as `{:ok, %{\"error\" => %{\"code\" => \"FP_ADAPTER\", ...}}}` (the universal-solver envelope), never a bare `{:error, _}` and never `FP_TIMEOUT` through this op (bpm:ErrorCollapse_single_key_inspect). The per-round check is not preemptive: the BEAM caller's never-block-past-budget property is carried by the caller's own wasmex call timeout (heavy = 120000ms), which bounds the gap between rounds." ;
     bpm:opTimeoutClass bpm:TimeoutClass_heavy ; bpm:opKind bpm:EngineOpKind_wire .
 bap:engine_ferroplan_op_fond_policy_domain a bpm:EngineArg ;
     bpm:argOp bap:engine_ferroplan_op_fond_policy ; bpm:argName "domain" ; bpm:argOrder 1 ; bpm:argType bpm:EngineArgType_string .
@@ -11694,7 +11716,7 @@ bap:engine_ferroplan_op_fond_policy_limits a bpm:EngineArg ;
 
 bap:engine_ferroplan_op_hddl_solve a bpm:EngineOp ;
     bpm:opEngine bap:engine_ferroplan ; bpm:opName "hddl_solve" ; bpm:opOrder 33 ;
-    bpm:opDoc "`{\"op\":\"hddl_solve\",\"domain\":d,\"problem\":p[,\"limits\":l]}` -- `domain`/`problem` are HDDL source text (not classical PDDL or JSON): parsed, grounded, and translated by `ferroplan_hddl`'s parse -> ground -> translate pipeline into the same FOND solver used by `fond_policy` (`ferroplan::solve_hddl`). `limits` (optional; a partial `PlannerLimits` map -- `max_depth`/`max_states`/`max_iterations`, any/all omitted) is merged into the request. A domain-level failure (parse/ground/translate/timeout/worker-panic) surfaces as `{:ok, %{\"error\" => %{\"code\" => ..., \"message\" => ..., \"retryable\" => bool}}}` with a code naming the failing stage (`FP_PARSE`, `FP_HDDL_GROUND`, `FP_HDDL_TRANSLATE`, `FP_MODEL`) -- never a bare `{:error, _}` -- matching every other solve op's error-in-envelope convention (bpm:ErrorCollapse_single_key_inspect). Returns `UniversalPlan` JSON on success." ;
+    bpm:opDoc "`{\"op\":\"hddl_solve\",\"domain\":d,\"problem\":p[,\"limits\":l]}` -- `domain`/`problem` are HDDL source text (not classical PDDL or JSON): parsed, grounded, and translated by `ferroplan_hddl`'s parse -> ground -> translate pipeline into the same FOND solver used by `fond_policy` (`ferroplan::solve_hddl`). `limits` (optional; a partial `PlannerLimits` map -- `max_depth` 128 / `max_states` 100000 / `max_iterations` 512 / `max_wall_ms` 10000, any/all omitted) is merged into the request, EXCEPT `max_wall_ms`: the wasm adapter forces it to `0` (the synchronous, non-threaded solve path) because wasm32-wasip1 has no OS threads and the threaded watchdog would trap the whole guest instance -- so a caller-supplied wall budget is not honored through this ABI and the effective wall bound is the BEAM caller's own wasmex call timeout (heavy = 120000ms): the host never blocks past its budget even though the engine will not self-interrupt. A domain-level failure (parse/ground/translate/root-mismatch/model) surfaces as `{:ok, %{\"error\" => %{\"code\" => ..., \"message\" => ..., \"retryable\" => bool}}}` with a code naming the failing stage (`FP_PARSE`, `FP_HDDL_GROUND`, `FP_HDDL_TRANSLATE`, `FP_HDDL_ROOT_MISMATCH` -- an Eve handoff conflicting with the problem's own `:htn` root network, new at ferroplan 6cacbda -- or `FP_MODEL`) -- never a bare `{:error, _}` -- matching every other solve op's error-in-envelope convention (bpm:ErrorCollapse_single_key_inspect). The crate's `FP_TIMEOUT`/`FP_WORKER_PANICKED` codes (renamed from `FP_HDDL_TIMEOUT`/`FP_HDDL_WORKER_PANIC` at 6cacbda) are unreachable through this ABI while the threaded watchdog is disabled. Returns `UniversalPlan` JSON on success." ;
     bpm:opTimeoutClass bpm:TimeoutClass_heavy ; bpm:opKind bpm:EngineOpKind_wire .
 bap:engine_ferroplan_op_hddl_solve_domain a bpm:EngineArg ;
     bpm:argOp bap:engine_ferroplan_op_hddl_solve ; bpm:argName "domain" ; bpm:argOrder 1 ; bpm:argType bpm:EngineArgType_string .
