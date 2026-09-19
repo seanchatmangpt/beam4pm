@@ -10792,13 +10792,11 @@ bap:hand_authored_test_version_bump a bpm:HandAuthoredSource ;
 
 bap:hand_authored_test_ws3_dfcm_self_healing a bpm:HandAuthoredSource ;
     bpm:sourcePath "test/beam4pm_ws3_dfcm_self_healing_test.exs" ;
-    bpm:authorshipKind bpm:AuthorshipKind_hand_authored_qualification ;
+    bpm:authorshipKind bpm:AuthorshipKind_reference_evidence ;
     bpm:authorizingPrincipal "Sean Chatman (repo owner) via Claude Code session_018iXTYcpGbgf23MZYLe6TCU" ;
-    bpm:admissionReason "Pre-existing WS3 DfCM self-healing exact-execution-witness test (commits 99b49df/c54ae24, predating GATE AUTHORSHIP's own manufacture, never previously surfaced as unadmitted). DISCLOSED GAP, not fixed by this admission: it references BeamPM.Autonomy.Kernel.frontier/2 and .digest/1, which do not exist in this codebase -- this file currently fails at test/beam4pm_ws3_dfcm_self_healing_test.exs, a real, pre-existing failure this admission surfaces rather than silently hides. ontology.ttl's own note near the FieldType_map vocabulary block records that an earlier BeamPM.Autonomy.Kernel/BeamPM.Governor design was rejected by a 4-lens adversarial audit (CONFIRMED_CRITICAL on every lens) for duplicating the real, tested BeamPM.Actuation Reactor pipeline with zero shared code -- this test was left referencing that rejected design's module and was never updated to the real BeamPM.Actuation pipeline it is meant to exercise." ;
-    bpm:acceptanceCommand "mix test test/beam4pm_ws3_dfcm_self_healing_test.exs" ;
-    bpm:contentSha256 "cbfef52311e8b12fb63d57f786e9e7a5b3f8175b9155b13cfedbae9ba1a5f2ce" ;
+    bpm:admissionReason "Historical WS3 exact-execution witness retained as reference evidence for the rejected BeamPM.Autonomy.Kernel design. It names functions absent from the admitted runtime and therefore cannot truthfully stand as executable qualification; the live BeamPM.Dfcm and BeamPM.Actuation courts supersede it without erasing the falsified option." ;
+    bpm:acceptanceCommand "bash scripts/gate_lint_truth.sh" ;
     bpm:admittedAtCommit "91965eb" ;
-    bpm:admissionExpires "2026-12-31" ;
     bpm:sunsetPlan "Either rewrite this test against the real BeamPM.Actuation Reactor pipeline (the design that superseded BeamPM.Autonomy.Kernel) or delete it as dead debt referencing a rejected design; then delete this admission." .
 
 bap:hand_authored_lib_ggen_igniter_patch_field a bpm:HandAuthoredSource ;
