@@ -16,22 +16,22 @@ artifact is absent (`ACCEPTANCE_BLOCKED_PREREQUISITE`).
 
 ## Count
 
-- Admitted unmarked files: **47**
-- Counted as manufacturing debt: **40**
+- Admitted unmarked files: **50**
+- Counted as manufacturing debt: **43**
 - Lawful inputs / reference evidence (not debt): **7**
 
 ## Authorship kinds (closed vocabulary, pack `ontology.ttl`)
 
 | Kind | Counts as debt | Admitted | Ceiling | Doc |
 | --- | --- | --- | --- | --- |
-| `hand_authored_qualification` | true | 35 | 35 | A hand-authored ExUnit qualification file under test/ (VISION-2030 section 2 lists tests-as-specification among lawful inputs, but this pack's convention manufactures every test from a template, so an unmanufactured test is counted as debt). Sunset: migrate its fixture bindings into ontology facts and render it from a .tmpl/.eex like the beam4pm_types_test.exs family. Ceiling raised 16 -> 24 (2026-09-09): a beam4pm branch-integration merge surfaced 8 real, pre-existing hand-authored files (lib/beam4pm_application.ex, lib/beam4pm_contracts.ex + test, lib/beam4pm_powl_discovery.ex + test, two new B4PM-1703/1709 mix tasks + tests, test/beam4pm_ws3_dfcm_self_healing_test.exs) that predate GATE AUTHORSHIP's own manufacture and were never previously surfaced as unadmitted debt -- disclosed and counted here, not silently exempted. Ceiling raised 24 -> 27 (2026-09-09, same session): B4PM-1702's single-record-patch codemod (lib/ggen_igniter/patch_field.ex, its mix task, and its test) is a deliberately hand-authored alternative manufacturing path -- the codemod's own capability IS being an alternative to a full EEx re-render, so it cannot itself be ggen output. Ceiling raised 27 -> 30 (2026-09-10, v26.9.10 release-candidate integration): feat/ocel-evidence-architecture's Phases 3/4/6 surfaced 3 real hand-authored files wiring/verifying the :telemetry->OcelEvent/OTel/BRCE evidence chain (BeamPM.Evidence.OtelBridge, BeamPM.Evidence.ReceiptBridge, and the generalized Chicago-style evidence-chain end-to-end test) -- none is a bpm:RecordType projection or template-rendered file, analogous to the already-admitted lib/beam4pm_application.ex and lib/beam4pm_ocel_ingest.ex. Ceiling raised 30 -> 32 (2026-09-11, HDDL/FOND FreedomGym plan-execute-conform loop, Step 5): 2 new real Chicago qualification tests for BeamPM.PowlConformance (test/beam4pm_powl_conformance_test.exs -- a real in-test OCEL log, real deviation detection; test/beam4pm_powl_conformance_e2e_test.exs -- the real cross-repo e2e leg reading ash_a2a's real captured OCEL ingest events) -- neither is a bpm:RecordType projection or template-rendered file; the conformance-orchestration module itself was admitted under native_engine_facade instead (no ceiling pressure there). Ceiling raised 32 -> 33 (2026-09-13, v26.9.12 branch-fleet integration merge): feat/eds-core's test/beam4pm_ws3_dfcm_self_healing-adjacent EDS qualification test surfaced alongside the independently-developed feat/ppcx-conformance-deviation-to-ontology branch's deviation-admission test in the same integration merge -- both are real, distinct hand-authored Chicago tests admitted concurrently on separate branches; neither duplicates the other, so both are disclosed and counted rather than one being silently dropped. Ceiling raised 33 -> 35 (2026-09-13, same v26.9.12 integration): the eds-core branch's own pre-existing lib/beam4pm_research_erc.ex (real ERC ledger reader) and lib/mix/tasks/eds.ledger.ex (real mix task over it) surfaced as previously-unadmitted debt in the same merge -- both real hand-authored files, disclosed and counted, not silently exempted. |
+| `hand_authored_qualification` | true | 37 | 37 | A hand-authored ExUnit qualification file under test/ (VISION-2030 section 2 lists tests-as-specification among lawful inputs, but this pack's convention manufactures every test from a template, so an unmanufactured test is counted as debt). Sunset: migrate its fixture bindings into ontology facts and render it from a .tmpl/.eex like the beam4pm_types_test.exs family. Ceiling raised 16 -> 24 (2026-09-09): a beam4pm branch-integration merge surfaced 8 real, pre-existing hand-authored files (lib/beam4pm_application.ex, lib/beam4pm_contracts.ex + test, lib/beam4pm_powl_discovery.ex + test, two new B4PM-1703/1709 mix tasks + tests, test/beam4pm_ws3_dfcm_self_healing_test.exs) that predate GATE AUTHORSHIP's own manufacture and were never previously surfaced as unadmitted debt -- disclosed and counted here, not silently exempted. Ceiling raised 24 -> 27 (2026-09-09, same session): B4PM-1702's single-record-patch codemod (lib/ggen_igniter/patch_field.ex, its mix task, and its test) is a deliberately hand-authored alternative manufacturing path -- the codemod's own capability IS being an alternative to a full EEx re-render, so it cannot itself be ggen output. Ceiling raised 27 -> 30 (2026-09-10, v26.9.10 release-candidate integration): feat/ocel-evidence-architecture's Phases 3/4/6 surfaced 3 real hand-authored files wiring/verifying the :telemetry->OcelEvent/OTel/BRCE evidence chain (BeamPM.Evidence.OtelBridge, BeamPM.Evidence.ReceiptBridge, and the generalized Chicago-style evidence-chain end-to-end test) -- none is a bpm:RecordType projection or template-rendered file, analogous to the already-admitted lib/beam4pm_application.ex and lib/beam4pm_ocel_ingest.ex. Ceiling raised 30 -> 32 (2026-09-11, HDDL/FOND FreedomGym plan-execute-conform loop, Step 5): 2 new real Chicago qualification tests for BeamPM.PowlConformance (test/beam4pm_powl_conformance_test.exs -- a real in-test OCEL log, real deviation detection; test/beam4pm_powl_conformance_e2e_test.exs -- the real cross-repo e2e leg reading ash_a2a's real captured OCEL ingest events) -- neither is a bpm:RecordType projection or template-rendered file; the conformance-orchestration module itself was admitted under native_engine_facade instead (no ceiling pressure there). Ceiling raised 32 -> 33 (2026-09-13, v26.9.12 branch-fleet integration merge): feat/eds-core's test/beam4pm_ws3_dfcm_self_healing-adjacent EDS qualification test surfaced alongside the independently-developed feat/ppcx-conformance-deviation-to-ontology branch's deviation-admission test in the same integration merge -- both are real, distinct hand-authored Chicago tests admitted concurrently on separate branches; neither duplicates the other, so both are disclosed and counted rather than one being silently dropped. Ceiling raised 33 -> 35 (2026-09-13, same v26.9.12 integration): the eds-core branch's own pre-existing lib/beam4pm_research_erc.ex (real ERC ledger reader) and lib/mix/tasks/eds.ledger.ex (real mix task over it) surfaced as previously-unadmitted debt in the same merge -- both real hand-authored files, disclosed and counted, not silently exempted. Ceiling raised 35 -> 36 (2026-09-14, dfcm bridge landing): test/beam4pm_dfcm_test.exs, the Chicago qualification of the hand-authored BeamPM.Dfcm planning crown, admitted alongside lib/beam4pm_dfcm.ex (native_engine_facade). Ceiling raised 36 -> 37 (2026-09-18, v26.9.18 autofde-lab parity wave): test/beam4pm_dfcm_fabric_parity_test.exs -- cross-validation of the new BeamPM.Dfcm.fabric_match/2 + fabric_solve/2 CLI bridge (added to the already-admitted lib/beam4pm_dfcm.ex) against beam4pm's own ferroplan wasm engine over the SAME qualification/fixtures/dfcm/ fixtures; runs both engines for real with named skips when a collaborator artifact is absent. |
 | `manufacturing_input` | false | 1 | 4 | Project scaffolding that happens to live under a manufactured root but is a lawful manufacturing input in the same class as ggen.toml / rebar.config / mix.exs (e.g. src/beam4pm.app.src). Not counted as debt; still admitted so the tree has zero unexplained unmarked files. |
-| `native_engine_facade` | true | 5 | 6 | A thin, delegation-only BEAM facade (Erlang / Elixir / Gleam) over ONE native engine hosted via wasm whose surface has NOT yet been admitted as bpm:Engine / bpm:EngineOp facts. Since pack 0.1.17 templates/beam4pm_engine.{ex,erl,gleam}.tmpl render every admitted engine's three facades, so this kind is the shrinking remainder (ferroplan, rust4pm in the reference consumer; petgraph and tract are manufactured). Ceiling lowered 12 -> 6 when those two converted: a converted engine cannot quietly return to hand-authoring. |
+| `native_engine_facade` | true | 6 | 6 | A thin, delegation-only BEAM facade (Erlang / Elixir / Gleam) over ONE native engine hosted via wasm whose surface has NOT yet been admitted as bpm:Engine / bpm:EngineOp facts. Since pack 0.1.17 templates/beam4pm_engine.{ex,erl,gleam}.tmpl render every admitted engine's three facades, so this kind is the shrinking remainder (ferroplan, rust4pm in the reference consumer; petgraph and tract are manufactured). Ceiling lowered 12 -> 6 when those two converted: a converted engine cannot quietly return to hand-authoring. |
 | `reference_evidence` | false | 6 | 8 | A hand-authored reference document under docs/reference/ sitting beside the manufactured ones (VISION-2030 section 2: reference evidence is a lawful input). Not counted as debt; admitted so a doc that only LOOKS manufactured cannot hide there unexplained. |
 
 ## Admitted files
 
-### `hand_authored_qualification` (35 file(s), counts as debt: true)
+### `hand_authored_qualification` (37 file(s), counts as debt: true)
 
 | Path | Admitted at | Expires | Acceptance command | Prerequisite |
 | --- | --- | --- | --- | --- |
@@ -49,6 +49,8 @@ artifact is absent (`ACCEPTANCE_BLOCKED_PREREQUISITE`).
 | `test/beam4pm_ash_ai_tools_test.exs` | `f44dcd0` | 2026-12-31 | `mix test test/beam4pm_ash_ai_tools_test.exs` | - |
 | `test/beam4pm_contracts_test.exs` | `91965eb` | 2026-12-31 | `mix test test/beam4pm_contracts_test.exs` | - |
 | `test/beam4pm_deviation_admission_test.exs` | `c639d69` | 2026-12-31 | `mix test test/beam4pm_deviation_admission_test.exs` | - |
+| `test/beam4pm_dfcm_test.exs` | `d8c2f19` | 2026-12-31 | `mix test test/beam4pm_dfcm_test.exs` | - |
+| `test/beam4pm_dfcm_fabric_parity_test.exs` | `36b0ed9` (wave) | 2026-12-31 | `mix test test/beam4pm_dfcm_fabric_parity_test.exs` | native/ferroplan/target/wasm32-wasip1/release/ferroplan_wasm.wasm |
 | `test/beam4pm_eds_test.exs` | `4d50b4b` | 2026-12-31 | `mix test test/beam4pm_eds_test.exs` | - |
 | `test/beam4pm_ferroplan_facades_test.exs` | `f44dcd0` | 2026-12-31 | `mix test test/beam4pm_ferroplan_facades_test.exs` | native/ferroplan/target/wasm32-wasip1/release/ferroplan_wasm.wasm |
 | `test/beam4pm_ferroplan_test.exs` | `c34e275` | 2026-12-31 | `mix test test/beam4pm_ferroplan_test.exs` | native/ferroplan/target/wasm32-wasip1/release/ferroplan_wasm.wasm |
@@ -169,6 +171,20 @@ artifact is absent (`ACCEPTANCE_BLOCKED_PREREQUISITE`).
 - Reason: Chicago-style qualification of BeamPM.DeviationAdmission.admit_deviation/4: runs a real check_conformance/3 against a real deviating trace (the exact fixture shape from beam4pm_powl_conformance_test.exs), calls the admission function against a real temp copy of ontology.ttl, and asserts the real resulting file content on disk contains the new bpm:ProcessDeviation individual -- reads the file back, never asserts only on a return value.
 - Content sha256 at admission: `1ee967b2bc49ca2d7b69ebc1529eee2168e450d85e059c33a077d9a49440e6e6`
 - Sunset plan: If bpm:ProcessDeviation is later rendered from a pack template, generate this qualification from the matching test template as well; then delete this admission.
+
+#### `test/beam4pm_dfcm_test.exs`
+
+- Authorizing principal: Sean Chatman (repo owner) via Claude Code session_01UiCeLuzgcK2BLocBKxXw39
+- Reason: Chicago qualification of BeamPM.Dfcm bounded option-preservation calculus, formal HDDL/FOND fixtures, and SELECT-not-DO authority ceiling.
+- Content sha256 at admission: `b3fd6bd1b279a7c2116a6986caaa4a69f0550a9b6a15ee7ccaa084a273b4edea`
+- Sunset plan: Render from the same DfCM planning facts as lib/beam4pm_dfcm.ex; then delete this admission.
+
+#### `test/beam4pm_dfcm_fabric_parity_test.exs`
+
+- Authorizing principal: Sean Chatman (repo owner) via Claude Code session_01UiCeLuzgcK2BLocBKxXw39
+- Reason: v26.9.18 autofde-lab parity wave: cross-validates the new BeamPM.Dfcm.fabric_match/2 + fabric_solve/2 one-shot CLI bridge against beam4pm's own ferroplan wasm engine (hddl_solve/4, fond_policy/4, plan/4) over the SAME beam4pm-owned qualification/fixtures/dfcm/ fixtures -- both legs run for real (lab Typer CLI + wasmex), every divergence is asserted with its typed refusal code, and a missing collaborator artifact is a named skip, never a silent pass.
+- Content sha256 at admission: `c8a2fe98d366e22f9fc0f5f12dbed5ac576576b2a737d79be076882fb3bfbe9d`
+- Sunset plan: Render from the same DfCM planning facts as lib/beam4pm_dfcm.ex once the fabric match/solve envelopes are promoted to ontology facts; then delete this admission.
 
 #### `test/beam4pm_eds_test.exs`
 
@@ -331,11 +347,12 @@ artifact is absent (`ACCEPTANCE_BLOCKED_PREREQUISITE`).
 - Content sha256 at admission: `-`
 - Sunset plan: -
 
-### `native_engine_facade` (5 file(s), counts as debt: true)
+### `native_engine_facade` (6 file(s), counts as debt: true)
 
 | Path | Admitted at | Expires | Acceptance command | Prerequisite |
 | --- | --- | --- | --- | --- |
 | `lib/beam4pm_deviation_admission.ex` | `c639d69` | 2026-12-31 | `mix test test/beam4pm_deviation_admission_test.exs` | - |
+| `lib/beam4pm_dfcm.ex` | `2d51358` | 2026-12-31 | `mix test test/beam4pm_dfcm_test.exs test/beam4pm_dfcm_fabric_parity_test.exs` | - |
 | `lib/beam4pm_eds.ex` | `4d50b4b` | 2026-12-31 | `mix test test/beam4pm_eds_test.exs` | - |
 | `lib/beam4pm_eds_ppcx_h1.ex` | `4d50b4b` | 2026-12-31 | `mix test test/beam4pm_eds_test.exs` | - |
 | `lib/beam4pm_ocel.ex` | `91965eb` | 2026-12-31 | `mix test test/beam4pm_ocel_test.exs` | - |
@@ -348,6 +365,13 @@ artifact is absent (`ACCEPTANCE_BLOCKED_PREREQUISITE`).
 - Reason: Closes the PPCX conceptual-center gap: admits a real bpm:ProcessDeviation individual into ontology.ttl on disk (a real file mutation, not an in-memory struct) whenever BeamPM.PowlConformance.check_conformance/3 reports conforms: false. Admitted under the native_engine_facade kind for lack of a closer-fitting closed-vocabulary kind (this is not a wasm native-engine facade; it is hand-authored lib/ domain logic not yet templated), same convention as bap:hand_authored_lib_beam4pm_ocel above.
 - Content sha256 at admission: `4767352c23faf177d89485ba200b787b5dac573f7b22e637a5316ab70deb4b41`
 - Sunset plan: If bpm:ProcessDeviation is later promoted to a full admitted bpm:RecordType with ggen-generated constructors/codec, migrate BeamPM.DeviationAdmission's write path onto the generated struct + a real generated/hand-written TTL-append helper; then delete this admission.
+
+#### `lib/beam4pm_dfcm.ex`
+
+- Authorizing principal: Sean Chatman (repo owner) via Claude Code session_01UiCeLuzgcK2BLocBKxXw39
+- Reason: Pure Design for Combinatorial Maximalism planning crown. Preserves admitted alternatives, applies explicit fences, records every exclusion with a deterministic receipt and falsifier, and returns either a decision-relevant observation request or a SELECT candidate. Authority ceiling is strictly :select with no DO surface. Also owns the sanctioned standalone AutoFDE-Lab bridge surface (priv/bin/autofde Typer CLI): catalog, ocel conformance, graphlaw hash/validate/hooks, and (v26.9.18 parity wave) fabric_match/2 + fabric_solve/2 receipt-bearing match/solve wrappers.
+- Content sha256 at admission: `9f305132d6c2fbfc131662a0f0bb52e096716caa9c615d68ea4e0188370cba1c`
+- Sunset plan: Admit DfCM contracts as ontology facts and render the planning crown from a pack template; then delete this admission.
 
 #### `lib/beam4pm_eds.ex`
 
