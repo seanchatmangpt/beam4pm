@@ -275,16 +275,11 @@ defmodule BeamPM.Gall.Observer004 do
   defp assert!(true, _message), do: :ok
   defp assert!(false, message), do: raise(message)
 
-  defp assert_match(pattern, value) do
-    quoted = Macro.escape(pattern)
-
-    unless match?(^quoted, quoted) do
+  defp assert_match(expected, actual) do
+    if expected == actual do
       :ok
-    end
-
-    case {pattern, value} do
-      {expected, actual} when expected == actual -> :ok
-      _ -> raise("GALL-004 self-test mismatch: expected #{inspect(pattern)}, got #{inspect(value)}")
+    else
+      raise("GALL-004 self-test mismatch: expected #{inspect(expected)}, got #{inspect(actual)}")
     end
   end
 end
