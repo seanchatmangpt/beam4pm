@@ -10429,11 +10429,11 @@ bap:hand_authored_lib_beam4pm_ocel a bpm:HandAuthoredSource ;
 bap:hand_authored_lib_dfcm a bpm:HandAuthoredSource ;
     bpm:sourcePath "lib/beam4pm_dfcm.ex" ;
     bpm:authorshipKind bpm:AuthorshipKind_native_engine_facade ;
-    bpm:authorizingPrincipal "Sean Chatman (repo owner) via ZCode agent P5, v26.9.18 autofde-lab parity wave (2026-09-18)" ;
-    bpm:admissionReason "Pure Design for Combinatorial Maximalism planning crown plus the sanctioned standalone AutoFDE-Lab Typer CLI bridge (priv/bin/autofde trampoline): fabric catalog, ocel conformance, sa2a graphlaw hash|validate|hooks, and (this wave, ticket b4p-p5-sa2a-replay-parity) the pure-passthrough sa2a_replay/1 that relays the lab's own sha256-over-canonical-JSON verdict (§38/§64) without computing hashes or writing receipts here. Authority ceiling is strictly :select with no DO surface." ;
-    bpm:acceptanceCommand "mix test test/beam4pm_dfcm_test.exs test/beam4pm_dfcm_sa2a_replay_test.exs" ;
-    bpm:contentSha256 "c1f29849bb95ebe456339e3d6a76d680399d7a3696020ad15c5b84df52fc7ce4" ;
-    bpm:admittedAtCommit "36b0ed9" ;
+    bpm:authorizingPrincipal "Sean Chatman (repo owner) via ZCode agents P1/P2/P3/P4/P5/P7, v26.9.18 autofde-lab parity wave (2026-09-18); union synthesized and re-admitted at integration (branch parity/integration)" ;
+    bpm:admissionReason "Pure Design for Combinatorial Maximalism planning crown plus the sanctioned standalone AutoFDE-Lab Typer CLI bridge (priv/bin/autofde trampoline). Wave-union surface: fabric catalog + fabric_match/2 + fabric_solve/2 (P1; typed refusal surfacing incl. exit-3 envelopes and stdout log-noise extraction), ocel_conformance + ocel_validate/1 (P2; OCPQ Definition 2 atom-keyed projection), sa2a graphlaw hash|validate|hooks (baseline), sa2a_validate_card/1 (P3; lab profile court verdict passthrough incl. exit-1 verdict decode), sa2a_admit/2 (P4; §64 evidentiary admission court passthrough -- a court refusal is a verdict, not a bridge error), sa2a_replay/1 (P5; sha256-over-canonical-JSON verification passthrough), and allocate_options/2 reworked onto the certified CMCA cascade via `autofde cmca allocate` with uniform fallback ONLY when the CLI is absent and typed refusals otherwise (P7; dead AshAutofde.CascadeAllocator probe removed). Authority ceiling is strictly :select with no DO surface on every path." ;
+    bpm:acceptanceCommand "mix test test/beam4pm_dfcm_test.exs test/beam4pm_dfcm_fabric_parity_test.exs test/beam4pm_dfcm_ocel_validate_parity_test.exs test/beam4pm_dfcm_sa2a_validate_card_test.exs test/beam4pm_sa2a_admit_parity_test.exs test/beam4pm_dfcm_sa2a_replay_test.exs test/beam4pm_dfcm_cmca_parity_test.exs" ;
+    bpm:contentSha256 "a88af2e5be84f71ce1c59557154d39fe6a25e30b23286b42ee1a50a0f5ab5d42" ;
+    bpm:admittedAtCommit "e592849" ;
     bpm:admissionExpires "2026-12-31" ;
     bpm:sunsetPlan "Render the planning crown and the CLI bridge from pack facts/templates (DfCM contracts as ontology facts, bridge surface as bpm:EngineOp facts); then delete this admission." .
 
@@ -10460,6 +10460,73 @@ bap:hand_authored_test_dfcm_sa2a_replay a bpm:HandAuthoredSource ;
     bpm:admittedAtCommit "36b0ed9" ;
     bpm:admissionExpires "2026-12-31" ;
     bpm:sunsetPlan "Render from the same bridge-fact pack as lib/beam4pm_dfcm.ex's sa2a replay surface; then delete this admission." .
+
+bap:hand_authored_test_dfcm_fabric_parity a bpm:HandAuthoredSource ;
+    bpm:sourcePath "test/beam4pm_dfcm_fabric_parity_test.exs" ;
+    bpm:authorshipKind bpm:AuthorshipKind_hand_authored_qualification ;
+    bpm:authorizingPrincipal "Sean Chatman (repo owner) via v26.9.18 autofde-lab parity wave (docs/jira/v26.9.18/_CONTEXT.md wave law; ticket b4p-p1-fabric-solve-parity, agent P1)" ;
+    bpm:admissionReason "Chicago parity qualification for BeamPM.Dfcm.fabric_match/2 + fabric_solve/2: real `autofde fabric match|solve` runs over beam4pm-owned HDDL/FOND fixtures (dfcm.hddl + dfcm-abcx.hddl; dfcm-fond.pddl + abcx-problem.pddl), cross-validated against BeamPM.Ferroplan wasm (pin e90928d) on the SAME fixtures, with typed-refusal legs (SKD-FABRIC-008 FOND refusal, HDDLDomain CLI-unreachability) and the observed divergence attributions pinned as permanent tripwires." ;
+    bpm:acceptanceCommand "mix test test/beam4pm_dfcm_fabric_parity_test.exs" ;
+    bpm:contentSha256 "c8a2fe98d366e22f9fc0f5f12dbed5ac576576b2a737d79be076882fb3bfbe9d" ;
+    bpm:admittedAtCommit "95ab1ac" ;
+    bpm:admissionExpires "2026-12-31" ;
+    bpm:sunsetPlan "When fabric match/solve are admitted as bpm:EngineOp facts and rendered, fold this parity table into the generated manifest test; then delete this admission." .
+
+bap:hand_authored_test_dfcm_ocel_validate_parity a bpm:HandAuthoredSource ;
+    bpm:sourcePath "test/beam4pm_dfcm_ocel_validate_parity_test.exs" ;
+    bpm:authorshipKind bpm:AuthorshipKind_hand_authored_qualification ;
+    bpm:authorizingPrincipal "Sean Chatman (repo owner) via v26.9.18 autofde-lab parity wave standing order (docs/jira/v26.9.18/_CONTEXT.md wave law; ticket b4p-p2-ocel-validate-parity, agent P2)" ;
+    bpm:admissionReason "Chicago parity qualification for BeamPM.Dfcm.ocel_validate/1: real `autofde ocel validate` (OCPQ Definition 2) runs on the positive + n05/n13/n14 falsifier fixtures and the gym_bridge captures, cross-validated against BeamPM.RF3Ocel's real oracle subprocess. Pins the observed accept/refuse boundary table including the attributed n14 divergence (law coverage: OCPQ Def. 2 structural laws have no declared-type-membership law; RF3Ocel refuses via beam4pm declaration membership) and the gym capture format's absence from the oracle importer's input contract -- permanent tripwires against verdict drift on either side." ;
+    bpm:acceptanceCommand "mix test test/beam4pm_dfcm_ocel_validate_parity_test.exs" ;
+    bpm:contentSha256 "9fa90cceffcd5906c3f5b32f7cf4929c70f520e77706ad5f3b9ce853eebfb374" ;
+    bpm:admittedAtCommit "b09469e" ;
+    bpm:admissionExpires "2026-12-31" ;
+    bpm:sunsetPlan "When the lab's ocel validate and the RF3Ocel declaration-membership law are reconciled into a single admitted boundary, fold this parity table into the generated RF3 manifest test; then delete this admission." .
+
+bap:hand_authored_test_dfcm_sa2a_validate_card a bpm:HandAuthoredSource ;
+    bpm:sourcePath "test/beam4pm_dfcm_sa2a_validate_card_test.exs" ;
+    bpm:authorshipKind bpm:AuthorshipKind_hand_authored_qualification ;
+    bpm:authorizingPrincipal "Sean Chatman (repo owner) via v26.9.18 parity wave agent P3 (worktree wt-p3, ticket b4p-p3-sa2a-card-validate-parity)" ;
+    bpm:admissionReason "Chicago qualification of BeamPM.Dfcm.sa2a_validate_card/1 against the REAL 1194-skill agent card served by a live beam4pm boot (fixture qualification/fixtures/a2a/agent-card.json, captured 2026-09-18 via GET /a2a/.well-known/agent-card.json; ash_a2a hex 26.9.17 pin). Asserts the lab court's observed UNSUPPORTED_PROFILE refusal of the A2A v0.3 card as a permanent parity tripwire (validator mis-read finding A1-A5, upstream note filed)." ;
+    bpm:acceptanceCommand "mix test test/beam4pm_dfcm_sa2a_validate_card_test.exs" ;
+    bpm:contentSha256 "0dc27a202e29afdf70df5e04368b706b64ba4bd33ea463eec896789d6b587062" ;
+    bpm:admittedAtCommit "d9dba35" ;
+    bpm:admissionExpires "2026-12-31" ;
+    bpm:sunsetPlan "Render from pack-declared sa2a-validate bridge facts and a captured-card fixture fact; then delete this admission." .
+
+bap:hand_authored_test_dfcm_sa2a_admit a bpm:HandAuthoredSource ;
+    bpm:sourcePath "test/beam4pm_sa2a_admit_parity_test.exs" ;
+    bpm:authorshipKind bpm:AuthorshipKind_hand_authored_qualification ;
+    bpm:authorizingPrincipal "Sean Chatman (repo owner) via v26.9.18 parity wave agent P4 (worktree wt-p4, ticket b4p-p4-sa2a-admit-parity); carried worktree-untracked by P4, committed and admitted at integration" ;
+    bpm:admissionReason "Consent-table qualification for BeamPM.Dfcm.sa2a_admit/2 vs BeamPM.DeviationAdmission over the lab §64 admission court (12 real-CLI tests): admit/refuse boundaries consent on all shared cases (well-formed evidenced candidate, empty assertion, empty evidence, error-keyed evidence, malformed input fail-closed); the court's evidentiary-form-only blind spot on semantic forgery (C3 unknown-type / C4 dangling-ref ADMITTED by the lab) is pinned as a permanent tripwire naming the law it guards -- semantic conformance belongs to `sa2a graphlaw validate`, not `sa2a admit`." ;
+    bpm:acceptanceCommand "mix test test/beam4pm_sa2a_admit_parity_test.exs" ;
+    bpm:contentSha256 "579ab8cbae4b9934e1ae266551e6042726bbd204b086da806f05c2729099c874" ;
+    bpm:admittedAtCommit "2b12eef" ;
+    bpm:admissionExpires "2026-12-31" ;
+    bpm:sunsetPlan "When a composed admit+graphlaw admission surface is rendered from pack facts, fold this consent table into the generated manifest test; then delete this admission." .
+
+bap:hand_authored_test_dfcm_cmca a bpm:HandAuthoredSource ;
+    bpm:sourcePath "test/beam4pm_dfcm_cmca_parity_test.exs" ;
+    bpm:authorshipKind bpm:AuthorshipKind_hand_authored_qualification ;
+    bpm:authorizingPrincipal "Sean Chatman (repo owner) via v26.9.18 parity wave agent P7 (worktree wt-p7, ticket b4p-p7-cmca-allocator-parity)" ;
+    bpm:admissionReason "Property qualification for the cmca-backed allocate_options/2 (8 tests): real-CLI allocation provenance + :select ceiling, budget exactness (sum of fractions = 1.0 within the Q16.16 quantum for 1/2/3/5/8-branch budgets), budget mapping, determinism (byte-identical plans), the zero-allocation law (fraction 0.0 iff standing PRUNED; ADMITTED implies fraction > 0), the N=8 cardinality law (25-branch input refused with BcinrCardinalityRefusal evidence, never truncated), cmca-vs-uniform parity on the benchmark budget, and the absent-CLI uniform fallback." ;
+    bpm:acceptanceCommand "mix test test/beam4pm_dfcm_cmca_parity_test.exs" ;
+    bpm:contentSha256 "24a1763ab0d8f00d305c723075f9b06774f89a6f2fec34414a3165cdef64abd4" ;
+    bpm:admittedAtCommit "78ae830" ;
+    bpm:admissionExpires "2026-12-31" ;
+    bpm:sunsetPlan "Render from the same cmca allocator facts as lib/beam4pm_dfcm.ex's allocation surface; then delete this admission." .
+
+bap:hand_authored_test_graphlaw_parity a bpm:HandAuthoredSource ;
+    bpm:sourcePath "test/beam4pm_graphlaw_parity_test.exs" ;
+    bpm:authorshipKind bpm:AuthorshipKind_hand_authored_qualification ;
+    bpm:authorizingPrincipal "Sean Chatman (repo owner) via v26.9.18 parity wave agent P10 (worktree wt-p10, ticket b4p-p10-graphlaw-cross-hash-parity)" ;
+    bpm:admissionReason "Flip-ledger parity qualification for the GraphLaw triangle (7 tests): BLAKE3 hash parity across lab CLI direct vs BeamPM.Dfcm trampoline corners on the synthesized TTL corpus with 5 digest pins, admitted-graph slice pin, SHACL violation/control + N3-denial verdict/stage-code pins, the honest empty-registry hooks pin (upstream AFDE-2612 literal-decode gap), the praxis wasm artifact identity pin (sha256 + size), and the E2BIG/stat-heuristic transport-ceiling pin (repo-root ontology.ttl yields no digest through either corner)." ;
+    bpm:acceptanceCommand "AUTOFDE_LAB_ROOT=$HOME/autofde-lab mix test --no-start test/beam4pm_graphlaw_parity_test.exs" ;
+    bpm:contentSha256 "547e6349ab5b51364e20b03409cc0c131b3d3c15f4db030ceb5690f635d1642c" ;
+    bpm:admittedAtCommit "db397e9" ;
+    bpm:admissionExpires "2026-12-31" ;
+    bpm:sunsetPlan "When the lab lifts the graphlaw transport ceilings and praxis lands hook literal decode, re-pin the full-graph digest from a rendered manifest test; then delete this admission." .
+
 bap:hand_authored_lib_autofde_bridge a bpm:HandAuthoredSource ;
     bpm:sourcePath "lib/beam4pm_autofde_bridge.ex" ;
     bpm:authorshipKind bpm:AuthorshipKind_native_engine_facade ;
