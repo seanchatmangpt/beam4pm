@@ -1,0 +1,1 @@
+bpm:conformance_result_rt a bpm:RecordType ; bpm:recordName "conformance_result" .
