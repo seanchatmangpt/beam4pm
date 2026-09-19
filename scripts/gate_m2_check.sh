@@ -157,6 +157,7 @@ before_sums="$(for f in "${before_files[@]}"; do shasum -a 256 "$f"; done | sort
 # "BeamPM.Ash.Domain is not a Spark DSL module", not a real regression.
 STASH_DIR="$(mktemp -d)"
 ONTOLOGY_BACKUP="$(mktemp)"
+A2A_BOOTSTRAP_SENTINEL="tmp_probe/a2a-ash-bootstrap"
 cp ontology.ttl "$ONTOLOGY_BACKUP"
 HAND_AUTHORED_DEPENDENT_TESTS=(test/beam4pm_actuation_k8s_test.exs test/beam4pm_process_governor_k8s_test.exs test/beam4pm_pddl_projection_test.exs test/beam4pm_ash_ai_tools_test.exs)
 restore_stash() {
@@ -235,6 +236,7 @@ on_exit() {
   fi
   restore_stash
   restore_ontology
+  rm -f "$A2A_BOOTSTRAP_SENTINEL"
   rm -rf "$BACKUP_DIR"
   exit "$status"
 }
@@ -276,6 +278,8 @@ if ! cmp -s "$BOOTSTRAP_RECEIPT_CHAIN" "$BOOTSTRAP_RECEIPT_CHAIN_TEMPLATE"; then
 fi
 
 echo "== pass 3: delete manufactured files, regenerate (both engines) =="
+mkdir -p "$(dirname "$A2A_BOOTSTRAP_SENTINEL")"
+touch "$A2A_BOOTSTRAP_SENTINEL"
 for f in "${before_files[@]}"; do
   if [ "$f" = "$BOOTSTRAP_RECEIPT_CHAIN" ]; then
     echo "preserve exact static bootstrap: $f"

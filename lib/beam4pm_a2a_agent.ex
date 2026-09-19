@@ -15,19 +15,10 @@ defmodule BeamPM.A2AAgent do
   `BeamPM.ReceiptChain`) through A2A/JSON-RPC -- only the two curated
   read-only Ash actions are exposed as A2A skills.
   """
-  domain_source = Path.expand("beam4pm_ash_domain.ex", __DIR__)
-
-  if File.exists?(Path.expand("../tmp_probe/a2a-ash-bootstrap", __DIR__)) or
-       not File.exists?(domain_source) do
+  if File.exists?(Path.expand("../tmp_probe/a2a-ash-bootstrap", __DIR__)) do
     @doc false
     def __bootstrap_stub__, do: :ok
   else
-    # GATE M2 runs inside a long-lived Mix VM that may still have the deleted
-    # pre-regeneration domain loaded. Purge that stale module before declaring
-    # the compile dependency so the freshly manufactured Spark DSL metadata,
-    # never the prior beam, is the macro's exact subject.
-    :code.purge(BeamPM.Ash.Domain)
-    :code.delete(BeamPM.Ash.Domain)
     Code.ensure_compiled!(BeamPM.Ash.Domain)
     use AshA2A.Agent, resource_or_domain: BeamPM.Ash.Domain, name: "beam4pm_a2a_agent"
   end
