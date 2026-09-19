@@ -76,7 +76,7 @@ artifact is absent (`ACCEPTANCE_BLOCKED_PREREQUISITE`).
 
 - Authorizing principal: Sean Chatman (repo owner) via Claude Code session_018iXTYcpGbgf23MZYLe6TCU
 - Reason: BeamPM.A2AAgent -- the agent-facing AshA2A.Agent entry point over the curated BeamPM.Ash.Domain a2a skills (same 2 resources already curated as AshAi tools: OcelEvent read, ConformanceResult read). Additive alongside ex4pm's existing Ex4pm.Engine.Beam4pm HTTP route-table client; never routes beam4pm's own internals (EngineOp dispatch, OCEL/OTel evidence chain, BeamPM.ReceiptChain) through A2A/JSON-RPC. Hand-authored: no ontology-fact-driven template exists for an AshA2A.Agent shell module (same class as the OTP Application callback above).
-- Content sha256 at admission: `d434f725a7cfb59a6d9216011353e3291bb3bf6b741b75016b77b45e210adaa2`
+- Content sha256 at admission: `922380f40ba562662e67b3c4a12e3517addb386f9f3b4593022fa8d74d968e71`
 - Sunset plan: No template family fits an AshA2A.Agent shell module today; keep as permanently-admitted hand-authored infrastructure unless a future ggen_igniter A2A-agent-shell recipe is added.
 
 #### `lib/beam4pm_a2a_router.ex`
@@ -139,7 +139,7 @@ artifact is absent (`ACCEPTANCE_BLOCKED_PREREQUISITE`).
 
 - Authorizing principal: Sean Chatman (repo owner) via Claude Code session_01NtCpvZrtJRf6EuhYsaCFv7
 - Reason: `mix eds.ledger` -- prints the real ERC ledger read by BeamPM.Research.ERC.ledger/0 (admitted above); prints nothing fabricated. Same hand-authored mix-task convention as the already-admitted lib/mix/tasks/beam4pm.version_bump.ex and lib/mix/tasks/beam4pm.rf2_oracle_dep.ex.
-- Content sha256 at admission: `ad0c515715614d1bd4d9083214844b468299c9f92de331ba7de609578b05266c`
+- Content sha256 at admission: `2d8b17a2803032f65c93faef45cb39395526206beacc217f0f4746c388effdf0`
 - Sunset plan: No template family fits an ad hoc ledger-printing mix task today; keep admitted until one is proposed upstream.
 
 #### `lib/mix/tasks/ggen_igniter.patch_field.ex`
@@ -354,7 +354,7 @@ artifact is absent (`ACCEPTANCE_BLOCKED_PREREQUISITE`).
 
 - Authorizing principal: Sean Chatman (repo owner) via Claude Code session_01UiCeLuzgcK2BLocBKxXw39
 - Reason: Pure Design for Combinatorial Maximalism planning crown. Preserves admitted alternatives, applies explicit fences, records every exclusion with a deterministic receipt and falsifier, and returns either a decision-relevant observation request or a SELECT candidate. Authority ceiling is strictly :select with no DO surface.
-- Content sha256 at admission: `05b4d2e7656ce15c114cc2e375e4731d96fa2875e53c0d68a4fb81de4f52d635`
+- Content sha256 at admission: `79401198d6866ef3a8e733910f77b7eeb27dbcb67486ae152400be3a56817ed5`
 - Sunset plan: Admit DfCM contracts as ontology facts and render the planning crown from a pack template; then delete this admission.
 
 #### `lib/beam4pm_eds.ex`
