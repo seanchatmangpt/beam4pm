@@ -369,7 +369,7 @@ defmodule BeamPM.Ferroplan do
   end
 
   @doc ~S"""
-  `{"op":"session_think","handle":h,"evals":n,"mem_mb":n}` -- a bounded replan (bounded by evals/memory, not wall clock); stashes the resulting plan (if solved) and resets the cursor. Returns the Solution map.
+  `{"op":"session_think","handle":h,"evals":n,"mem_mb":n}` -- a bounded replan (bounded by evals/memory, not wall clock); stashes the resulting plan (if solved) and resets the cursor. Returns the Solution map. The wasm adapter additionally enforces the production budget caps `evals` in 1..=1000000 and `mem_mb` in 1..=2048: out-of-range values are refused as `{:ok, %{"error" => %{"code" => "FP_LIMIT_SEARCH" | "FP_LIMIT_MEMORY", ...}}}` -- never a bare `{:error, _}` (bpm:ErrorCollapse_single_key_inspect).
   """
   @spec session_think(non_neg_integer(), non_neg_integer(), non_neg_integer(), keyword()) :: result()
   def session_think(handle, evals, mem_mb, opts \\ [])
@@ -692,7 +692,7 @@ defmodule BeamPM.Ferroplan do
   end
 
   @doc ~S"""
-  `{"op":"htn_plan","domain":d,"problem":p[,"limits":l]}` -- `domain`/`problem` are UTF-8 JSON text of a `PlanningProblem` object (same wire shape as `plan`/`plan_production`'s `domain`/`problem` fields, but decoded into the typed universal-planning model rather than PDDL text). `domain` is accepted but ignored when non-empty and not equal to `problem` -- ferroplan's universal-planning model has one combined problem document, so `problem` alone is parsed as the full `PlanningProblem`. Forces `PlanningType::Hierarchical`. Returns `UniversalPlan` JSON.
+  `{"op":"htn_plan","domain":d,"problem":p[,"limits":l]}` -- `domain`/`problem` are UTF-8 JSON text of a `PlanningProblem` object (same wire shape as `plan`/`plan_production`'s `domain`/`problem` fields, but decoded into the typed universal-planning model rather than PDDL text). `domain` is accepted but ignored when non-empty and not equal to `problem` -- ferroplan's universal-planning model has one combined problem document, so `problem` alone is parsed as the full `PlanningProblem`. Forces `PlanningType::Hierarchical`. Returns `UniversalPlan` JSON. `limits` is an optional partial `PlannerLimits` map (`max_depth` 128 / `max_states` 100000 / `max_iterations` 512 / `max_wall_ms` 10000; any/all omitted fields fall back to their own serde defaults). `max_wall_ms` is INERT for this op -- the hierarchical solver never consults the wall deadline (only `fond_policy`'s fixpoint loops do) -- so this op's real wall bound is the caller's own budget: the BEAM side never blocks past its `bpm:opTimeoutClass`-derived wasmex call timeout (heavy = 120000ms).
   """
   @spec htn_plan(String.t(), String.t(), map() | nil, keyword()) :: result()
   def htn_plan(domain, problem, limits \\ nil, opts \\ [])
@@ -710,7 +710,7 @@ defmodule BeamPM.Ferroplan do
   end
 
   @doc ~S"""
-  `{"op":"fond_policy","domain":d,"problem":p[,"limits":l]}` -- same wire shape as `htn_plan`; forces `PlanningType::Fond`. Returns `UniversalPlan` JSON.
+  `{"op":"fond_policy","domain":d,"problem":p[,"limits":l]}` -- same wire shape as `htn_plan`; forces `PlanningType::Fond` (strong-plan fixpoint first, strong-cyclic fallback; bounded by each loop's own `states + 1` round failsafe). Returns `UniversalPlan` JSON. `limits` is an optional partial `PlannerLimits` map (`max_depth` 128 / `max_states` 100000 / `max_iterations` 512 / `max_wall_ms` 10000; any/all omitted fields fall back to their own serde defaults; `max_iterations` is advisory here). WATCHDOG SEMANTICS: `max_wall_ms` is honored cooperatively -- `check_wall_deadline` runs once per fixpoint round, default 10000ms when `limits` is omitted, `0` means unbounded -- so an overrun surfaces as `{:ok, %{"error" => %{"code" => "FP_ADAPTER", ...}}}` (the universal-solver envelope), never a bare `{:error, _}` and never `FP_TIMEOUT` through this op (bpm:ErrorCollapse_single_key_inspect). The per-round check is not preemptive: the BEAM caller's never-block-past-budget property is carried by the caller's own wasmex call timeout (heavy = 120000ms), which bounds the gap between rounds.
   """
   @spec fond_policy(String.t(), String.t(), map() | nil, keyword()) :: result()
   def fond_policy(domain, problem, limits \\ nil, opts \\ [])
@@ -728,7 +728,7 @@ defmodule BeamPM.Ferroplan do
   end
 
   @doc ~S"""
-  `{"op":"hddl_solve","domain":d,"problem":p[,"limits":l]}` -- `domain`/`problem` are HDDL source text (not classical PDDL or JSON): parsed, grounded, and translated by `ferroplan_hddl`'s parse -> ground -> translate pipeline into the same FOND solver used by `fond_policy` (`ferroplan::solve_hddl`). `limits` (optional; a partial `PlannerLimits` map -- `max_depth`/`max_states`/`max_iterations`, any/all omitted) is merged into the request. A domain-level failure (parse/ground/translate/timeout/worker-panic) surfaces as `{:ok, %{"error" => %{"code" => ..., "message" => ..., "retryable" => bool}}}` with a code naming the failing stage (`FP_PARSE`, `FP_HDDL_GROUND`, `FP_HDDL_TRANSLATE`, `FP_MODEL`) -- never a bare `{:error, _}` -- matching every other solve op's error-in-envelope convention (bpm:ErrorCollapse_single_key_inspect). Returns `UniversalPlan` JSON on success.
+  `{"op":"hddl_solve","domain":d,"problem":p[,"limits":l]}` -- `domain`/`problem` are HDDL source text (not classical PDDL or JSON): parsed, grounded, and translated by `ferroplan_hddl`'s parse -> ground -> translate pipeline into the same FOND solver used by `fond_policy` (`ferroplan::solve_hddl`). `limits` (optional; a partial `PlannerLimits` map -- `max_depth` 128 / `max_states` 100000 / `max_iterations` 512 / `max_wall_ms` 10000, any/all omitted) is merged into the request, EXCEPT `max_wall_ms`: the wasm adapter forces it to `0` (the synchronous, non-threaded solve path) because wasm32-wasip1 has no OS threads and the threaded watchdog would trap the whole guest instance -- so a caller-supplied wall budget is not honored through this ABI and the effective wall bound is the BEAM caller's own wasmex call timeout (heavy = 120000ms): the host never blocks past its budget even though the engine will not self-interrupt. A domain-level failure (parse/ground/translate/root-mismatch/model) surfaces as `{:ok, %{"error" => %{"code" => ..., "message" => ..., "retryable" => bool}}}` with a code naming the failing stage (`FP_PARSE`, `FP_HDDL_GROUND`, `FP_HDDL_TRANSLATE`, `FP_HDDL_ROOT_MISMATCH` -- an Eve handoff conflicting with the problem's own `:htn` root network, new at ferroplan 6cacbda -- or `FP_MODEL`) -- never a bare `{:error, _}` -- matching every other solve op's error-in-envelope convention (bpm:ErrorCollapse_single_key_inspect). The crate's `FP_TIMEOUT`/`FP_WORKER_PANICKED` codes (renamed from `FP_HDDL_TIMEOUT`/`FP_HDDL_WORKER_PANIC` at 6cacbda) are unreachable through this ABI while the threaded watchdog is disabled. Returns `UniversalPlan` JSON on success.
   """
   @spec hddl_solve(String.t(), String.t(), map() | nil, keyword()) :: result()
   def hddl_solve(domain, problem, limits \\ nil, opts \\ [])
