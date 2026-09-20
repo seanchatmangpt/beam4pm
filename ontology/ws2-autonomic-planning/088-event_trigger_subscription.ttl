@@ -1,0 +1,25 @@
+@prefix bpm: <https://beam4pm.dev/ontology/process#> .
+@prefix b4p: <https://beam4pm.dev/ontology/instance#> .
+
+# WS2-PLAN-088 — event_trigger_subscription
+b4p:event_trigger_subscription_rt a bpm:RecordType ;
+    bpm:recordName "event_trigger_subscription" ;
+    bpm:recordDoc "Maps admitted state-change events to bounded replanning scopes rather than global replanning by default." ;
+    bpm:hasField b4p:event_trigger_subscription_subscription_id_f,
+                 b4p:event_trigger_subscription_event_pattern_digest_f,
+                 b4p:event_trigger_subscription_replan_scope_digest_f .
+
+b4p:event_trigger_subscription_subscription_id_f a bpm:Field ;
+    bpm:fieldName "subscription_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Identity of the event-trigger rule." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:event_trigger_subscription_event_pattern_digest_f a bpm:Field ;
+    bpm:fieldName "event_pattern_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of event predicates that trigger evaluation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:event_trigger_subscription_replan_scope_digest_f a bpm:Field ;
+    bpm:fieldName "replan_scope_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of the bounded opportunity-graph scope to reconsider." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
