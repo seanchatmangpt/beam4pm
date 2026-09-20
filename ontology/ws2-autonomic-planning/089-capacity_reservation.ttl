@@ -1,0 +1,25 @@
+@prefix bpm: <https://beam4pm.dev/ontology/process#> .
+@prefix b4p: <https://beam4pm.dev/ontology/instance#> .
+
+# WS2-PLAN-089 — capacity_reservation
+b4p:capacity_reservation_rt a bpm:RecordType ;
+    bpm:recordName "capacity_reservation" ;
+    bpm:recordDoc "Reserves finite planning or execution capacity for a selected option without consuming it prematurely." ;
+    bpm:hasField b4p:capacity_reservation_reservation_id_f,
+                 b4p:capacity_reservation_resource_vector_f,
+                 b4p:capacity_reservation_expiry_identity_f .
+
+b4p:capacity_reservation_reservation_id_f a bpm:Field ;
+    bpm:fieldName "reservation_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Identity of the capacity reservation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:capacity_reservation_resource_vector_f a bpm:Field ;
+    bpm:fieldName "resource_vector" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Typed resources and quantities reserved." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:capacity_reservation_expiry_identity_f a bpm:Field ;
+    bpm:fieldName "expiry_identity" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Expiry identity after which capacity returns to the pool." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
