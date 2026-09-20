@@ -1,0 +1,25 @@
+@prefix bpm: <https://beam4pm.dev/ontology/process#> .
+@prefix b4p: <https://beam4pm.dev/ontology/instance#> .
+
+# WS2-PLAN-073 — planner_fallback_chain
+b4p:planner_fallback_chain_rt a bpm:RecordType ;
+    bpm:recordName "planner_fallback_chain" ;
+    bpm:recordDoc "Defines an ordered bounded fallback chain that preserves deterministic behavior under planner refusal or failure." ;
+    bpm:hasField b4p:planner_fallback_chain_chain_id_f,
+                 b4p:planner_fallback_chain_planner_sequence_f,
+                 b4p:planner_fallback_chain_chain_policy_digest_f .
+
+b4p:planner_fallback_chain_chain_id_f a bpm:Field ;
+    bpm:fieldName "chain_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Identity of the fallback chain." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:planner_fallback_chain_planner_sequence_f a bpm:Field ;
+    bpm:fieldName "planner_sequence" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Ordered planner identities in the fallback path." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:planner_fallback_chain_chain_policy_digest_f a bpm:Field ;
+    bpm:fieldName "chain_policy_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of the policy governing fallback transitions." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
