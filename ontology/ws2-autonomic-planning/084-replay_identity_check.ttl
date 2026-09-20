@@ -1,0 +1,25 @@
+@prefix bpm: <https://beam4pm.dev/ontology/process#> .
+@prefix b4p: <https://beam4pm.dev/ontology/instance#> .
+
+# WS2-PLAN-084 — replay_identity_check
+b4p:replay_identity_check_rt a bpm:RecordType ;
+    bpm:recordName "replay_identity_check" ;
+    bpm:recordDoc "Compares a candidate consequence identity with prior receipted consequence identities for the exact subject." ;
+    bpm:hasField b4p:replay_identity_check_candidate_id_f,
+                 b4p:replay_identity_check_effect_identity_f,
+                 b4p:replay_identity_check_prior_receipt_digest_f .
+
+b4p:replay_identity_check_candidate_id_f a bpm:Field ;
+    bpm:fieldName "candidate_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Candidate evaluated for replay equivalence." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:replay_identity_check_effect_identity_f a bpm:Field ;
+    bpm:fieldName "effect_identity" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact projected consequence identity." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:replay_identity_check_prior_receipt_digest_f a bpm:Field ;
+    bpm:fieldName "prior_receipt_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of prior receipts used for equivalence testing." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
