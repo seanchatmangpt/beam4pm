@@ -1,0 +1,25 @@
+@prefix bpm: <https://beam4pm.dev/ontology/process#> .
+@prefix b4p: <https://beam4pm.dev/ontology/instance#> .
+
+# WS2-PLAN-066 — planner_health_signal
+b4p:planner_health_signal_rt a bpm:RecordType ;
+    bpm:recordName "planner_health_signal" ;
+    bpm:recordDoc "Tracks planner-specific health so degraded planners can be routed around without conflating failure with policy quality." ;
+    bpm:hasField b4p:planner_health_signal_planner_id_f,
+                 b4p:planner_health_signal_health_state_f,
+                 b4p:planner_health_signal_health_evidence_hash_f .
+
+b4p:planner_health_signal_planner_id_f a bpm:Field ;
+    bpm:fieldName "planner_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact planner implementation being observed." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:planner_health_signal_health_state_f a bpm:Field ;
+    bpm:fieldName "health_state" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Typed health state for portfolio routing." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:planner_health_signal_health_evidence_hash_f a bpm:Field ;
+    bpm:fieldName "health_evidence_hash" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Evidence digest supporting the health state." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
