@@ -1,0 +1,68 @@
+name: GALL-004 hosted observer + Weaver courts
+
+on:
+  pull_request:
+    branches:
+      - gall/checkpoint-004-weaver-semantic-court
+    paths:
+      - "scripts/gall_checkpoint_004_observer.exs"
+      - "scripts/gall_checkpoint_004_weaver.sh"
+      - "qualification/weaver/gall004/**"
+      - ".github/workflows/gall-004-hosted-receipts.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  observer-weaver:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          persist-credentials: false
+      - name: Assert exact head
+        run: test "$(git rev-parse HEAD)" = "${{ github.event.pull_request.head.sha || github.sha }}"
+
+      - uses: erlef/setup-beam@54075bcc5e249e4758d363f27d099f55d843f124 # v1.24.1
+        with:
+          elixir-version: "1.18.4"
+          otp-version: "27.2.4"
+          rebar3-version: "3.24.0"
+      - name: Run independent observer falsifier court
+        shell: bash
+        run: |
+          set -euo pipefail
+          elixir -e 'Mix.install([{:jason, "~> 1.4"}]); Code.require_file("scripts/gall_checkpoint_004_observer.exs")' -- --self-test
+
+      - name: Install exact Weaver v0.26.1
+        shell: bash
+        run: |
+          set -euo pipefail
+          curl --proto '=https' --tlsv1.2 -LsSf             https://github.com/open-telemetry/weaver/releases/download/v0.26.1/weaver-installer.sh             -o "$RUNNER_TEMP/weaver-installer.sh"
+          bash "$RUNNER_TEMP/weaver-installer.sh" --no-modify-path
+          for candidate in "$HOME/.cargo/bin" "$HOME/.local/bin" "$HOME/bin"; do
+            if [[ -x "$candidate/weaver" ]]; then
+              echo "$candidate" >> "$GITHUB_PATH"
+              "$candidate/weaver" --version
+              exit 0
+            fi
+          done
+          command -v weaver
+          weaver --version
+
+      - name: Run real Weaver Live-check / OTLP court
+        env:
+          GALL004_WEAVER_STATE_DIR: ${{ runner.temp }}/gall004-weaver
+        run: bash scripts/gall_checkpoint_004_weaver.sh
+
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: gall-004-weaver-${{ github.event.pull_request.head.sha || github.sha }}
+          path: |
+            ${{ runner.temp }}/gall004-weaver/weaver-court-receipt.json
+            ${{ runner.temp }}/gall004-weaver/live-check-report.json
+          if-no-files-found: error
+          retention-days: 14
