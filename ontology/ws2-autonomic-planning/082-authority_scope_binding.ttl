@@ -1,0 +1,25 @@
+@prefix bpm: <https://beam4pm.dev/ontology/process#> .
+@prefix b4p: <https://beam4pm.dev/ontology/instance#> .
+
+# WS2-PLAN-082 — authority_scope_binding
+b4p:authority_scope_binding_rt a bpm:RecordType ;
+    bpm:recordName "authority_scope_binding" ;
+    bpm:recordDoc "Binds a candidate action to the exact authority subject and consequence scope required for admission." ;
+    bpm:hasField b4p:authority_scope_binding_action_id_f,
+                 b4p:authority_scope_binding_authority_subject_id_f,
+                 b4p:authority_scope_binding_scope_digest_f .
+
+b4p:authority_scope_binding_action_id_f a bpm:Field ;
+    bpm:fieldName "action_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Candidate action being bound." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:authority_scope_binding_authority_subject_id_f a bpm:Field ;
+    bpm:fieldName "authority_subject_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact subject from which authority must originate." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:authority_scope_binding_scope_digest_f a bpm:Field ;
+    bpm:fieldName "scope_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of bounded consequences covered by that authority." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
