@@ -1,0 +1,25 @@
+@prefix bpm: <https://beam4pm.dev/ontology/process#> .
+@prefix b4p: <https://beam4pm.dev/ontology/instance#> .
+
+# WS2-PLAN-077 — bottleneck_criticality_score
+b4p:bottleneck_criticality_score_rt a bpm:RecordType ;
+    bpm:recordName "bottleneck_criticality_score" ;
+    bpm:recordDoc "Scores constrained nodes by how strongly they limit reachable downstream opportunity." ;
+    bpm:hasField b4p:bottleneck_criticality_score_node_id_f,
+                 b4p:bottleneck_criticality_score_downstream_reach_digest_f,
+                 b4p:bottleneck_criticality_score_criticality_score_f .
+
+b4p:bottleneck_criticality_score_node_id_f a bpm:Field ;
+    bpm:fieldName "node_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Constrained opportunity or resource node." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:bottleneck_criticality_score_downstream_reach_digest_f a bpm:Field ;
+    bpm:fieldName "downstream_reach_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of downstream reachability affected by the node." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:bottleneck_criticality_score_criticality_score_f a bpm:Field ;
+    bpm:fieldName "criticality_score" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Criticality value used for scheduling pressure." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
