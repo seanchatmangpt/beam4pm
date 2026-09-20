@@ -1,0 +1,25 @@
+@prefix bpm: <https://beam4pm.dev/ontology/process#> .
+@prefix b4p: <https://beam4pm.dev/ontology/instance#> .
+
+# WS2-PLAN-078 — reachability_delta_score
+b4p:reachability_delta_score_rt a bpm:RecordType ;
+    bpm:recordName "reachability_delta_score" ;
+    bpm:recordDoc "Measures how much a candidate expands or contracts the lawful reachable state space." ;
+    bpm:hasField b4p:reachability_delta_score_candidate_id_f,
+                 b4p:reachability_delta_score_baseline_reach_digest_f,
+                 b4p:reachability_delta_score_reachability_delta_f .
+
+b4p:reachability_delta_score_candidate_id_f a bpm:Field ;
+    bpm:fieldName "candidate_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Candidate whose topology effect is measured." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:reachability_delta_score_baseline_reach_digest_f a bpm:Field ;
+    bpm:fieldName "baseline_reach_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of lawful reachability before the candidate." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:reachability_delta_score_reachability_delta_f a bpm:Field ;
+    bpm:fieldName "reachability_delta" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Signed change in reachable lawful state space." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
