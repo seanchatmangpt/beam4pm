@@ -13,6 +13,8 @@ permissions:
 jobs:
   regenerate:
     runs-on: ubuntu-latest
+    env:
+      ImageOS: ubuntu24
     container:
       image: ghcr.io/seanchatmangpt/ggen-ecosystem:v26.8.28
     steps:
