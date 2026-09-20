@@ -26,16 +26,24 @@ defmodule BeamPM.A2AAgent do
       File.exists?(".beam4pm-a2a-gate-bootstrap")
 
   if bootstrap? do
-    @doc false
-    def __bootstrap_stub__, do: :ok
+    # Use the protocol's own zero-skill agent implementation so application
+    # supervision and registry discovery exercise the real OTP/A2A contracts
+    # during destructive manufacture without claiming any domain capability.
+    Code.eval_quoted(
+      quote do
+        use A2A.Agent,
+          name: "beam4pm_regeneration_bootstrap",
+          description: "Zero-skill agent available only during deterministic regeneration",
+          version: "bootstrap",
+          skills: []
 
-    @doc false
-    def start_link(_opts), do: Task.start_link(fn -> Process.sleep(:infinity) end)
-
-    @doc false
-    def child_spec(opts) do
-      %{id: __MODULE__, start: {__MODULE__, :start_link, [opts]}, type: :worker}
-    end
+        @impl A2A.Agent
+        def handle_message(_message, _context),
+          do: {:error, %{code: :regeneration_in_progress}}
+      end,
+      [],
+      __ENV__
+    )
   else
     # `use` is a macro and ordinary conditional syntax may expand it before
     # the module-body condition executes. Evaluate the real-agent definition
