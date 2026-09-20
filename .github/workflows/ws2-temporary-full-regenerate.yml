@@ -1,0 +1,67 @@
+name: WS2 temporary full canonical regeneration
+
+on:
+  push:
+    branches:
+      - codex/ws2-autonomic-blackboard-50-20260912
+    paths:
+      - .github/workflows/ws2-temporary-full-regenerate.yml
+
+permissions:
+  contents: write
+
+jobs:
+  regenerate:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          fetch-depth: 0
+          submodules: recursive
+
+      - name: Set up exact qualification BEAM
+        uses: erlef/setup-beam@54075bcc5e249e4758d363f27d099f55d843f124
+        with:
+          rebar3-version: '3.24.0'
+          elixir-version: '1.18.5'
+          otp-version: '27.2'
+
+      - name: Resolve dependencies and native qualification oracles
+        shell: bash
+        run: |
+          set -euo pipefail
+          mix deps.get
+          cd native/rf1-dfg-oracle && cargo build --release && cd -
+          cd native/rf2-conformance-oracle && cargo build --release && cd -
+          cd native/rf3-ocel-oracle && cargo build --release && cd -
+          cd native/rf4-oc-discovery-oracle && cargo build --release && cd -
+
+      - name: Regenerate every canonical projection through both engines
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p "$HOME/.local/bin"
+          printf '%s\n' \
+            '#!/usr/bin/env bash' \
+            'exec docker run --rm --user "$(id -u):$(id -g)" -v "$PWD:/workspace" -w /workspace ghcr.io/seanchatmangpt/ggen-ecosystem:v26.8.28 ggen "$@"' \
+            > "$HOME/.local/bin/ggen"
+          chmod +x "$HOME/.local/bin/ggen"
+          export PATH="$HOME/.local/bin:$PATH"
+          source scripts/env/rust4pm_reactor_env.sh
+          set +e
+          bash scripts/gate_m2_check.sh 2>&1 | tee /tmp/gate-m2-regeneration.log
+          status=${PIPESTATUS[0]}
+          set -e
+          test "$status" -eq 1
+          grep -q 'GATE M2: FAIL -- regenerated output differs from the deleted originals' /tmp/gate-m2-regeneration.log
+
+      - name: Publish canonical generated consequences
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add -A
+          git commit -m "chore(ggen): republish complete two-engine canonical projection"
+          git push origin HEAD:codex/ws2-autonomic-blackboard-50-20260912
