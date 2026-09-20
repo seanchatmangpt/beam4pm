@@ -6,7 +6,9 @@ ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 REGISTRY="${ROOT}/qualification/weaver/gall004/registry"
 INVALID="${ROOT}/qualification/weaver/gall004/invalid.txt"
 STATE_DIR="${GALL004_WEAVER_STATE_DIR:-$(mktemp -d)}"
-OTLP_PORT="${GALL004_WEAVER_OTLP_PORT:-14317}"
+# Weaver 0.26.1 registry emit uses the standard OTLP gRPC default localhost:4317
+# and exposes no emitter-port override. Bind live-check to that exact port.
+OTLP_PORT="${GALL004_WEAVER_OTLP_PORT:-4317}"
 ADMIN_PORT="${GALL004_WEAVER_ADMIN_PORT:-14320}"
 REPORT="${STATE_DIR}/live-check-report.json"
 LOG="${STATE_DIR}/live-check.log"
@@ -71,7 +73,7 @@ done
   exit 78
 }
 
-OTEL_EXPORTER_OTLP_ENDPOINT="http://127.0.0.1:${OTLP_PORT}"   weaver registry emit --registry "${REGISTRY}" --v2 --skip-policies
+weaver registry emit --registry "${REGISTRY}" --v2 --skip-policies
 
 curl -fsS -X POST "http://127.0.0.1:${ADMIN_PORT}/stop" -o "${REPORT}"
 wait "${LIVE_PID}"
