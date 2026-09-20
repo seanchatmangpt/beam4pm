@@ -245,6 +245,7 @@ on_exit() {
   if [ "$status" -ne 0 ]; then
     restore_manufactured
   fi
+  rm -f "$STASH_DIR/beam4pm_receipt_chain.ex"
   restore_stash
   restore_ontology
   rm -f "$A2A_BOOTSTRAP_SENTINEL" "$A2A_BOOTSTRAP_REPO_SENTINEL"
@@ -283,10 +284,17 @@ done
 # byte set, so this grants no handwritten or stale-output authority.
 BOOTSTRAP_RECEIPT_CHAIN="lib/beam4pm_receipt_chain.ex"
 BOOTSTRAP_RECEIPT_CHAIN_TEMPLATE="vendor/ggen-marketplace/packs/beam4pm-process-model-pack/igniter/templates/beam4pm_receipt_chain.ex.eex"
-if ! cmp -s "$BOOTSTRAP_RECEIPT_CHAIN" "$BOOTSTRAP_RECEIPT_CHAIN_TEMPLATE"; then
-  echo "GATE M2: bootstrap receipt chain diverges from its exact static template" >&2
+# receipt_chain_sync.sh formats the rendered static template before publishing it.
+# Compare against that exact deterministic consequence, not the unformatted EEx
+# source bytes; otherwise a canonical first pass can never satisfy the second.
+BOOTSTRAP_RECEIPT_CHAIN_EXPECTED="$STASH_DIR/beam4pm_receipt_chain.ex"
+cp "$BOOTSTRAP_RECEIPT_CHAIN_TEMPLATE" "$BOOTSTRAP_RECEIPT_CHAIN_EXPECTED"
+mix format "$BOOTSTRAP_RECEIPT_CHAIN_EXPECTED"
+if ! cmp -s "$BOOTSTRAP_RECEIPT_CHAIN" "$BOOTSTRAP_RECEIPT_CHAIN_EXPECTED"; then
+  echo "GATE M2: bootstrap receipt chain diverges from its formatted exact static template" >&2
   exit 1
 fi
+rm -f "$BOOTSTRAP_RECEIPT_CHAIN_EXPECTED"
 
 echo "== pass 3: delete manufactured files, regenerate (both engines) =="
 for f in "${before_files[@]}"; do
