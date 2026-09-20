@@ -1,0 +1,25 @@
+@prefix bpm: <https://beam4pm.dev/ontology/process#> .
+@prefix b4p: <https://beam4pm.dev/ontology/instance#> .
+
+# WS2-PLAN-060 — counterfactual_branch
+b4p:counterfactual_branch_rt a bpm:RecordType ;
+    bpm:recordName "counterfactual_branch" ;
+    bpm:recordDoc "Represents one explicit alternative future branch without granting actuation authority." ;
+    bpm:hasField b4p:counterfactual_branch_counterfactual_id_f,
+                 b4p:counterfactual_branch_parent_option_id_f,
+                 b4p:counterfactual_branch_outcome_digest_f .
+
+b4p:counterfactual_branch_counterfactual_id_f a bpm:Field ;
+    bpm:fieldName "counterfactual_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Identity of the alternative future branch." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:counterfactual_branch_parent_option_id_f a bpm:Field ;
+    bpm:fieldName "parent_option_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Option from which the counterfactual diverges." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:counterfactual_branch_outcome_digest_f a bpm:Field ;
+    bpm:fieldName "outcome_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of projected consequences for the branch." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
