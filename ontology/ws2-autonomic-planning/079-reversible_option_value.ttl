@@ -1,0 +1,25 @@
+@prefix bpm: <https://beam4pm.dev/ontology/process#> .
+@prefix b4p: <https://beam4pm.dev/ontology/instance#> .
+
+# WS2-PLAN-079 — reversible_option_value
+b4p:reversible_option_value_rt a bpm:RecordType ;
+    bpm:recordName "reversible_option_value" ;
+    bpm:recordDoc "Adds option value for candidates that preserve or increase lawful future choice." ;
+    bpm:hasField b4p:reversible_option_value_candidate_id_f,
+                 b4p:reversible_option_value_successor_digest_f,
+                 b4p:reversible_option_value_score_f .
+
+b4p:reversible_option_value_candidate_id_f a bpm:Field ;
+    bpm:fieldName "candidate_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Candidate being scored for preserved optionality." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:reversible_option_value_successor_digest_f a bpm:Field ;
+    bpm:fieldName "successor_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of lawful reversible successor states." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:reversible_option_value_score_f a bpm:Field ;
+    bpm:fieldName "score" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Value assigned to preserved future options." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
