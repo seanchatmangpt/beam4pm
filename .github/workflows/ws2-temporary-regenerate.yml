@@ -22,6 +22,12 @@ jobs:
         with:
           fetch-depth: 0
           submodules: recursive
+      - name: Provision formatter archive support
+        shell: bash
+        run: |
+          apt-get update
+          apt-get install --yes --no-install-recommends unzip
+
       - name: Set up exact BEAM formatter toolchain
         uses: erlef/setup-beam@54075bcc5e249e4758d363f27d099f55d843f124
         with:
