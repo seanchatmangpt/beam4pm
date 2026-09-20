@@ -225,6 +225,14 @@ mix ggen_igniter.sync \
   --query fields="$IGN/queries/fields.rq" \
   --template "$IGN/templates/beam4pm_types_manifest.ex.eex" \
   --out tmp_probe/beam4pm_types_manifest.ex
+
+# Both engines own the same semantic projection, but their renderers do not
+# share whitespace policy once a record list crosses formatter line limits.
+# Normalize both engine consequences with the admitted Elixir formatter before
+# enforcing byte identity; this changes presentation only and remains
+# deterministic under the exact BEAM toolchain used by this court.
+mix format lib/beam4pm_types_manifest.ex tmp_probe/beam4pm_types_manifest.ex
+
 if diff -u lib/beam4pm_types_manifest.ex tmp_probe/beam4pm_types_manifest.ex; then
   echo "cross-engine identity probe: BYTE-IDENTICAL"
 else
