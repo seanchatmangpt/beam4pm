@@ -1,0 +1,25 @@
+@prefix bpm: <https://beam4pm.dev/ontology/process#> .
+@prefix b4p: <https://beam4pm.dev/ontology/instance#> .
+
+# WS2-PLAN-087 — stale_plan_revalidation
+b4p:stale_plan_revalidation_rt a bpm:RecordType ;
+    bpm:recordName "stale_plan_revalidation" ;
+    bpm:recordDoc "Revalidates a previously selected plan against current state before it can remain on the active frontier." ;
+    bpm:hasField b4p:stale_plan_revalidation_plan_id_f,
+                 b4p:stale_plan_revalidation_current_state_digest_f,
+                 b4p:stale_plan_revalidation_revalidation_receipt_hash_f .
+
+b4p:stale_plan_revalidation_plan_id_f a bpm:Field ;
+    bpm:fieldName "plan_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Plan being revalidated." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:stale_plan_revalidation_current_state_digest_f a bpm:Field ;
+    bpm:fieldName "current_state_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of current planning state." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:stale_plan_revalidation_revalidation_receipt_hash_f a bpm:Field ;
+    bpm:fieldName "revalidation_receipt_hash" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Receipt recording whether the plan remains admissible." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
