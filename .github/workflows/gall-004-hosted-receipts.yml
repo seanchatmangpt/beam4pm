@@ -31,10 +31,11 @@ jobs:
           elixir-version: "1.18.4"
           otp-version: "27.2.4"
           rebar3-version: "3.24.0"
-      - run: mix deps.get
-
       - name: Run independent observer falsifier court
-        run: mix run scripts/gall_checkpoint_004_observer.exs -- --self-test
+        shell: bash
+        run: |
+          set -euo pipefail
+          elixir -e 'Mix.install([{:jason, "~> 1.4"}]); Code.require_file("scripts/gall_checkpoint_004_observer.exs")' -- --self-test
 
       - name: Install exact Weaver v0.26.1
         shell: bash
