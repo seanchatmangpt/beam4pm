@@ -1,0 +1,25 @@
+@prefix bpm: <https://beam4pm.dev/ontology/process#> .
+@prefix b4p: <https://beam4pm.dev/ontology/instance#> .
+
+# WS2-PLAN-097 — minimax_regret_selection
+b4p:minimax_regret_selection_rt a bpm:RecordType ;
+    bpm:recordName "minimax_regret_selection" ;
+    bpm:recordDoc "Selects from the lawful frontier by minimizing worst-case regret across admitted scenarios." ;
+    bpm:hasField b4p:minimax_regret_selection_episode_id_f,
+                 b4p:minimax_regret_selection_regret_matrix_digest_f,
+                 b4p:minimax_regret_selection_selected_candidate_id_f .
+
+b4p:minimax_regret_selection_episode_id_f a bpm:Field ;
+    bpm:fieldName "episode_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Planning episode receiving minimax-regret selection." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:minimax_regret_selection_regret_matrix_digest_f a bpm:Field ;
+    bpm:fieldName "regret_matrix_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of candidate-by-scenario regret values." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:minimax_regret_selection_selected_candidate_id_f a bpm:Field ;
+    bpm:fieldName "selected_candidate_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Candidate minimizing the admitted worst-case regret." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
