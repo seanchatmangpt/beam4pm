@@ -1,0 +1,25 @@
+@prefix bpm: <https://beam4pm.dev/ontology/process#> .
+@prefix b4p: <https://beam4pm.dev/ontology/instance#> .
+
+# WS2-PLAN-067 — planner_latency_budget
+b4p:planner_latency_budget_rt a bpm:RecordType ;
+    bpm:recordName "planner_latency_budget" ;
+    bpm:recordDoc "Enforces a per-planner latency budget before a slow planner can consume the full decision window." ;
+    bpm:hasField b4p:planner_latency_budget_planner_id_f,
+                 b4p:planner_latency_budget_latency_budget_ms_f,
+                 b4p:planner_latency_budget_observed_latency_ms_f .
+
+b4p:planner_latency_budget_planner_id_f a bpm:Field ;
+    bpm:fieldName "planner_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact planner receiving the latency bound." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:planner_latency_budget_latency_budget_ms_f a bpm:Field ;
+    bpm:fieldName "latency_budget_ms" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Maximum admitted planner runtime in milliseconds." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:planner_latency_budget_observed_latency_ms_f a bpm:Field ;
+    bpm:fieldName "observed_latency_ms" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Observed runtime used to enforce the budget." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
