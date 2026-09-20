@@ -75,9 +75,19 @@ done
 
 weaver registry emit --registry "${REGISTRY}" --v2 --skip-policies
 
-curl -fsS -X POST "http://127.0.0.1:${ADMIN_PORT}/stop" -o "${REPORT}"
+set +e
+STOP_HTTP="$(curl -sS -X POST "http://127.0.0.1:${ADMIN_PORT}/stop" -o "${REPORT}" -w '%{http_code}')"
+STOP_CURL_RC=$?
 wait "${LIVE_PID}"
+LIVE_RC=$?
+set -e
 LIVE_PID=""
+
+if [[ "${STOP_CURL_RC}" -ne 0 || ! -s "${REPORT}" ]]; then
+  cat "${LOG}" >&2 || true
+  echo "BUILD_BROKEN: Weaver /stop did not preserve a report (curl=${STOP_CURL_RC}, http=${STOP_HTTP})" >&2
+  exit 1
+fi
 
 python3 - "${REPORT}" <<'PY'
 import json, sys
@@ -107,6 +117,12 @@ for counts in values(data, "advice_level_counts"):
 if violations and max(violations) != 0:
     raise SystemExit(f"Weaver semantic court reported violations: {violations}")
 PY
+
+if [[ "${STOP_HTTP}" != 2* || "${LIVE_RC}" -ne 0 ]]; then
+  cat "${LOG}" >&2 || true
+  echo "BUILD_BROKEN: Weaver live-check terminated non-cleanly (http=${STOP_HTTP}, live_rc=${LIVE_RC})" >&2
+  exit 1
+fi
 
 # Court 3: undeclared authority material must not pass the semantic court.
 set +e
