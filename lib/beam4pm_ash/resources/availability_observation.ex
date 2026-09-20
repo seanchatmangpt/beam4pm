@@ -8,15 +8,14 @@ defmodule BeamPM.Ash.Resources.AvailabilityObservation do
     validate_domain_inclusion?: false
 
   attributes do
-    uuid_primary_key :id
-    attribute :tenant_id, :string, public?: true, allow_nil?: false
-    attribute :slo_id, :string, public?: true, allow_nil?: false
-    attribute :observation_hash, :string, public?: true, allow_nil?: false
+    uuid_primary_key(:id)
+    attribute(:tenant_id, :string, public?: true, allow_nil?: false)
+    attribute(:slo_id, :string, public?: true, allow_nil?: false)
+    attribute(:observation_hash, :string, public?: true, allow_nil?: false)
   end
 
   actions do
-    default_accept :*
-    defaults [:create, :read]
+    default_accept(:*)
+    defaults([:create, :read])
   end
 end
-

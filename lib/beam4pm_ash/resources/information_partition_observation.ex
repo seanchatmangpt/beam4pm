@@ -8,16 +8,15 @@ defmodule BeamPM.Ash.Resources.InformationPartitionObservation do
     validate_domain_inclusion?: false
 
   attributes do
-    uuid_primary_key :id
-    attribute :partition_id, :string, public?: true, allow_nil?: false
-    attribute :state_vector_id, :string, public?: true, allow_nil?: false
-    attribute :partition_key, :string, public?: true, allow_nil?: false
-    attribute :information_digest, :string, public?: true, allow_nil?: false
+    uuid_primary_key(:id)
+    attribute(:partition_id, :string, public?: true, allow_nil?: false)
+    attribute(:state_vector_id, :string, public?: true, allow_nil?: false)
+    attribute(:partition_key, :string, public?: true, allow_nil?: false)
+    attribute(:information_digest, :string, public?: true, allow_nil?: false)
   end
 
   actions do
-    default_accept :*
-    defaults [:create, :read]
+    default_accept(:*)
+    defaults([:create, :read])
   end
 end
-

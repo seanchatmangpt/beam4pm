@@ -8,17 +8,16 @@ defmodule BeamPM.Ash.Resources.RateDistortionBudget do
     validate_domain_inclusion?: false
 
   attributes do
-    uuid_primary_key :id
-    attribute :budget_id, :string, public?: true, allow_nil?: false
-    attribute :decision_id, :string, public?: true, allow_nil?: false
-    attribute :source_information_bits, :float, public?: true, allow_nil?: false
-    attribute :retained_information_bits, :float, public?: true, allow_nil?: false
-    attribute :maximum_distortion, :float, public?: true, allow_nil?: false
+    uuid_primary_key(:id)
+    attribute(:budget_id, :string, public?: true, allow_nil?: false)
+    attribute(:decision_id, :string, public?: true, allow_nil?: false)
+    attribute(:source_information_bits, :float, public?: true, allow_nil?: false)
+    attribute(:retained_information_bits, :float, public?: true, allow_nil?: false)
+    attribute(:maximum_distortion, :float, public?: true, allow_nil?: false)
   end
 
   actions do
-    default_accept :*
-    defaults [:create, :read]
+    default_accept(:*)
+    defaults([:create, :read])
   end
 end
-

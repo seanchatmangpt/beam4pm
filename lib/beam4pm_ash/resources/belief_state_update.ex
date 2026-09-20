@@ -8,16 +8,15 @@ defmodule BeamPM.Ash.Resources.BeliefStateUpdate do
     validate_domain_inclusion?: false
 
   attributes do
-    uuid_primary_key :id
-    attribute :prior_belief_id, :string, public?: true, allow_nil?: false
-    attribute :evidence_digest, :string, public?: true, allow_nil?: false
-    attribute :posterior_belief_id, :string, public?: true, allow_nil?: false
-    attribute :update_rule, :string, public?: true, allow_nil?: false
+    uuid_primary_key(:id)
+    attribute(:prior_belief_id, :string, public?: true, allow_nil?: false)
+    attribute(:evidence_digest, :string, public?: true, allow_nil?: false)
+    attribute(:posterior_belief_id, :string, public?: true, allow_nil?: false)
+    attribute(:update_rule, :string, public?: true, allow_nil?: false)
   end
 
   actions do
-    default_accept :*
-    defaults [:create, :read]
+    default_accept(:*)
+    defaults([:create, :read])
   end
 end
-

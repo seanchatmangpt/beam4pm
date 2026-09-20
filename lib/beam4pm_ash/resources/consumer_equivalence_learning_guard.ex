@@ -8,18 +8,17 @@ defmodule BeamPM.Ash.Resources.ConsumerEquivalenceLearningGuard do
     validate_domain_inclusion?: false
 
   attributes do
-    uuid_primary_key :id
-    attribute :guard_id, :string, public?: true, allow_nil?: false
-    attribute :source_consumer_id, :string, public?: true, allow_nil?: false
-    attribute :target_consumer_id, :string, public?: true, allow_nil?: false
-    attribute :equivalence_evidence_digest, :string, public?: true, allow_nil?: false
-    attribute :decision, :string, public?: true, allow_nil?: false
-    attribute :refusal_code, :string, public?: true, allow_nil?: false
+    uuid_primary_key(:id)
+    attribute(:guard_id, :string, public?: true, allow_nil?: false)
+    attribute(:source_consumer_id, :string, public?: true, allow_nil?: false)
+    attribute(:target_consumer_id, :string, public?: true, allow_nil?: false)
+    attribute(:equivalence_evidence_digest, :string, public?: true, allow_nil?: false)
+    attribute(:decision, :string, public?: true, allow_nil?: false)
+    attribute(:refusal_code, :string, public?: true, allow_nil?: false)
   end
 
   actions do
-    default_accept :*
-    defaults [:create, :read]
+    default_accept(:*)
+    defaults([:create, :read])
   end
 end
-

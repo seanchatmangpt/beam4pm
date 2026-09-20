@@ -8,17 +8,16 @@ defmodule BeamPM.Ash.Resources.SandboxEntitlement do
     validate_domain_inclusion?: false
 
   attributes do
-    uuid_primary_key :id
-    attribute :sandbox_entitlement_id, :string, public?: true, allow_nil?: false
-    attribute :account_id, :string, public?: true, allow_nil?: false
-    attribute :sandbox_limit, :integer, public?: true, allow_nil?: false
-    attribute :evidence_digest, :string, public?: true, allow_nil?: false
-    attribute :effective_at, :utc_datetime_usec, public?: true, allow_nil?: false
+    uuid_primary_key(:id)
+    attribute(:sandbox_entitlement_id, :string, public?: true, allow_nil?: false)
+    attribute(:account_id, :string, public?: true, allow_nil?: false)
+    attribute(:sandbox_limit, :integer, public?: true, allow_nil?: false)
+    attribute(:evidence_digest, :string, public?: true, allow_nil?: false)
+    attribute(:effective_at, :utc_datetime_usec, public?: true, allow_nil?: false)
   end
 
   actions do
-    default_accept :*
-    defaults [:create, :read]
+    default_accept(:*)
+    defaults([:create, :read])
   end
 end
-

@@ -127,6 +127,27 @@
       ]
 
     },
+    "action_eligibility_decision": {
+      "type": "object",
+      "description": "Calculates whether an action is lawful from constraints, authority, and receipts.",
+      "properties": {
+        "decision_id": {
+          "type": "string",
+          "description": "Eligibility decision identity."
+        },
+        "action_id": {
+          "type": "string",
+          "description": "Candidate action evaluated."
+        },
+        "standing": {
+          "type": "string",
+          "description": "Typed eligible or refused standing."
+        }
+      },
+      "required": ["decision_id", "action_id", "standing"
+      ]
+
+    },
     "action_pin_evidence": {
       "type": "object",
       "description": "Executable workflow-supply-chain evidence proving a referenced GitHub Action resolves to an immutable commit identity.",
@@ -304,6 +325,27 @@
         }
       },
       "required": ["agent_id", "policy_id", "assignment_hash"
+      ]
+
+    },
+    "agent_capability_advertisement": {
+      "type": "object",
+      "description": "Advertises exact subject-bound planning capabilities for portfolio routing.",
+      "properties": {
+        "agent_subject_sha": {
+          "type": "string",
+          "description": "Exact agent consumer subject."
+        },
+        "capability_digest": {
+          "type": "string",
+          "description": "Digest of advertised capabilities."
+        },
+        "valid_until": {
+          "type": "string",
+          "description": "Advertisement expiry timestamp."
+        }
+      },
+      "required": ["agent_subject_sha", "capability_digest", "valid_until"
       ]
 
     },
@@ -2099,6 +2141,27 @@
       ]
 
     },
+    "belief_update_rule": {
+      "type": "object",
+      "description": "Updates a belief state from an admitted observation without inventing facts.",
+      "properties": {
+        "rule_id": {
+          "type": "string",
+          "description": "Belief update rule identity."
+        },
+        "observation_schema": {
+          "type": "string",
+          "description": "Schema of admissible observations."
+        },
+        "update_digest": {
+          "type": "string",
+          "description": "Digest of deterministic update semantics."
+        }
+      },
+      "required": ["rule_id", "observation_schema", "update_digest"
+      ]
+
+    },
     "beneficial_owner_evidence": {
       "type": "object",
       "description": "Binds beneficial-owner identity to immutable evidence for counterparties that require enhanced diligence.",
@@ -2218,6 +2281,27 @@
         }
       },
       "required": ["opportunity_id", "readiness_id", "decision"
+      ]
+
+    },
+    "bounded_work_selection_receipt": {
+      "type": "object",
+      "description": "Receipts automatic selection of the next bounded lawful action without granting execution authority.",
+      "properties": {
+        "receipt_id": {
+          "type": "string",
+          "description": "Selection receipt identity."
+        },
+        "selected_work_item_id": {
+          "type": "string",
+          "description": "Automatically selected bounded work item."
+        },
+        "frontier_digest": {
+          "type": "string",
+          "description": "Digest of the evaluated lawful frontier."
+        }
+      },
+      "required": ["receipt_id", "selected_work_item_id", "frontier_digest"
       ]
 
     },
@@ -2777,6 +2861,27 @@
         }
       },
       "required": ["tenant_id", "capsule_id", "identity_hash"
+      ]
+
+    },
+    "case_object_binding": {
+      "type": "object",
+      "description": "Binds a planning case to its exact OCEL objects and roles.",
+      "properties": {
+        "case_id": {
+          "type": "string",
+          "description": "Planning case identity."
+        },
+        "object_id": {
+          "type": "string",
+          "description": "Related OCEL object identity."
+        },
+        "binding_role": {
+          "type": "string",
+          "description": "Role the object plays in the case."
+        }
+      },
+      "required": ["case_id", "object_id", "binding_role"
       ]
 
     },
@@ -3377,6 +3482,27 @@
       ]
 
     },
+    "compound_task_expansion": {
+      "type": "object",
+      "description": "Records the selected expansion of a compound task with alternatives preserved.",
+      "properties": {
+        "task_id": {
+          "type": "string",
+          "description": "Compound task identity."
+        },
+        "selected_method_id": {
+          "type": "string",
+          "description": "Method selected for expansion."
+        },
+        "alternative_digest": {
+          "type": "string",
+          "description": "Digest of lawful unselected methods."
+        }
+      },
+      "required": ["task_id", "selected_method_id", "alternative_digest"
+      ]
+
+    },
     "concurrency_pricing_policy": {
       "type": "object",
       "description": "Concurrent-workload packaging dimension.",
@@ -3499,6 +3625,27 @@
         }
       },
       "required": ["transition_id", "affected_state_digest", "invalidation_reason", "invalidated_at"
+      ]
+
+    },
+    "constraint_set_binding": {
+      "type": "object",
+      "description": "Binds hard and soft constraints without granting actuation authority.",
+      "properties": {
+        "problem_id": {
+          "type": "string",
+          "description": "Planning problem receiving constraints."
+        },
+        "constraint_digest": {
+          "type": "string",
+          "description": "Digest of normalized constraints."
+        },
+        "binding_mode": {
+          "type": "string",
+          "description": "Hard or soft constraint interpretation."
+        }
+      },
+      "required": ["problem_id", "constraint_digest", "binding_mode"
       ]
 
     },
@@ -3678,6 +3825,27 @@
         }
       },
       "required": ["index_digest", "platform", "platform_digest", "observed_at"
+      ]
+
+    },
+    "contingency_branch": {
+      "type": "object",
+      "description": "Binds an observation predicate to the next lawful policy branch.",
+      "properties": {
+        "branch_id": {
+          "type": "string",
+          "description": "Contingency branch identity."
+        },
+        "observation_predicate": {
+          "type": "string",
+          "description": "Predicate selecting this branch."
+        },
+        "next_node_id": {
+          "type": "string",
+          "description": "Policy node entered on match."
+        }
+      },
+      "required": ["branch_id", "observation_predicate", "next_node_id"
       ]
 
     },
@@ -5760,6 +5928,27 @@
       ]
 
     },
+    "deviation_repair_option": {
+      "type": "object",
+      "description": "Generates a reversible repair option for one conformance deviation.",
+      "properties": {
+        "option_id": {
+          "type": "string",
+          "description": "Deviation repair option identity."
+        },
+        "deviation_id": {
+          "type": "string",
+          "description": "Deviation addressed by the option."
+        },
+        "repair_plan_digest": {
+          "type": "string",
+          "description": "Digest of the bounded repair plan."
+        }
+      },
+      "required": ["option_id", "deviation_id", "repair_plan_digest"
+      ]
+
+    },
     "dfg_edge": {
       "type": "object",
       "description": "One frequency-annotated directly-follows edge between two activities.",
@@ -5861,6 +6050,27 @@
         }
       },
       "required": ["discovery_hypothesis_id", "account_id", "expected_value", "evidence_digest", "observed_at"
+      ]
+
+    },
+    "distributed_work_queue_observation": {
+      "type": "object",
+      "description": "Admits a caller-local snapshot of executable work without central surrogacy.",
+      "properties": {
+        "consumer_subject_sha": {
+          "type": "string",
+          "description": "Exact caller-local consumer subject."
+        },
+        "queue_digest": {
+          "type": "string",
+          "description": "Digest of locally visible work."
+        },
+        "observed_at": {
+          "type": "string",
+          "description": "Queue observation timestamp."
+        }
+      },
+      "required": ["consumer_subject_sha", "queue_digest", "observed_at"
       ]
 
     },
@@ -6608,6 +6818,27 @@
       ]
 
     },
+    "exact_world_state_admission": {
+      "type": "object",
+      "description": "Admits an exact immutable world-state subject before option generation.",
+      "properties": {
+        "subject_sha": {
+          "type": "string",
+          "description": "Exact SHA of the admitted planning subject."
+        },
+        "state_digest": {
+          "type": "string",
+          "description": "Digest of the normalized world state."
+        },
+        "observed_at": {
+          "type": "string",
+          "description": "Timestamp of the admitted observation."
+        }
+      },
+      "required": ["subject_sha", "state_digest", "observed_at"
+      ]
+
+    },
     "exception_authority": {
       "type": "object",
       "description": "Admits a commercial exception only when the exact authority and decision are present.",
@@ -6887,6 +7118,27 @@
         }
       },
       "required": ["failure_id", "episode_id", "failure_class", "causal_scope", "preserved_evidence_digest"
+      ]
+
+    },
+    "fairness_assumption": {
+      "type": "object",
+      "description": "Binds an explicit fairness assumption to a cyclic policy instead of hiding it.",
+      "properties": {
+        "assumption_id": {
+          "type": "string",
+          "description": "Stable fairness assumption identity."
+        },
+        "policy_digest": {
+          "type": "string",
+          "description": "Policy graph governed by the assumption."
+        },
+        "evidence_digest": {
+          "type": "string",
+          "description": "Digest of evidence supporting fairness."
+        }
+      },
+      "required": ["assumption_id", "policy_digest", "evidence_digest"
       ]
 
     },
@@ -7197,6 +7449,69 @@
       ]
 
     },
+    "goal_set_binding": {
+      "type": "object",
+      "description": "Binds explicit valued goals to one admitted planning problem.",
+      "properties": {
+        "problem_id": {
+          "type": "string",
+          "description": "Planning problem receiving the goals."
+        },
+        "goal_set_digest": {
+          "type": "string",
+          "description": "Digest of the ordered goal set."
+        },
+        "value_profile": {
+          "type": "string",
+          "description": "Explicit value profile used for selection."
+        }
+      },
+      "required": ["problem_id", "goal_set_digest", "value_profile"
+      ]
+
+    },
+    "hddl_method_candidate": {
+      "type": "object",
+      "description": "Declares one applicable method candidate for a compound task.",
+      "properties": {
+        "method_id": {
+          "type": "string",
+          "description": "HDDL method identity."
+        },
+        "compound_task_id": {
+          "type": "string",
+          "description": "Compound task decomposed by the method."
+        },
+        "subnetwork_digest": {
+          "type": "string",
+          "description": "Digest of the proposed subtask network."
+        }
+      },
+      "required": ["method_id", "compound_task_id", "subnetwork_digest"
+      ]
+
+    },
+    "hddl_task_network": {
+      "type": "object",
+      "description": "Represents a partially ordered HDDL task network over an exact problem.",
+      "properties": {
+        "network_id": {
+          "type": "string",
+          "description": "Task network identity."
+        },
+        "task_set_digest": {
+          "type": "string",
+          "description": "Digest of network tasks."
+        },
+        "ordering_digest": {
+          "type": "string",
+          "description": "Digest of partial-order constraints."
+        }
+      },
+      "required": ["network_id", "task_set_digest", "ordering_digest"
+      ]
+
+    },
     "heuristic_arc": {
       "type": "object",
       "description": "One dependency-scored candidate arc considered during heuristic-net discovery.",
@@ -7428,6 +7743,27 @@
         }
       },
       "required": ["partition_id", "state_vector_id", "partition_key", "information_digest"
+      ]
+
+    },
+    "initial_state_digest": {
+      "type": "object",
+      "description": "Freezes the normalized initial facts used by every planner in a portfolio.",
+      "properties": {
+        "problem_id": {
+          "type": "string",
+          "description": "Planning problem identity."
+        },
+        "fact_digest": {
+          "type": "string",
+          "description": "Digest of sorted initial facts."
+        },
+        "normalizer_version": {
+          "type": "string",
+          "description": "Exact normalizer version."
+        }
+      },
+      "required": ["problem_id", "fact_digest", "normalizer_version"
       ]
 
     },
@@ -7720,6 +8056,27 @@
         }
       },
       "required": ["episode_id", "exact_subject_sha", "evidence_digest", "outcome", "authority_ceiling"
+      ]
+
+    },
+    "lease_expiry_replan": {
+      "type": "object",
+      "description": "Invalidates stale leased plans and returns work to the lawful option frontier.",
+      "properties": {
+        "replan_id": {
+          "type": "string",
+          "description": "Lease-expiry replan identity."
+        },
+        "expired_lease_id": {
+          "type": "string",
+          "description": "Lease whose authority expired."
+        },
+        "returned_frontier_digest": {
+          "type": "string",
+          "description": "Digest of restored work options."
+        }
+      },
+      "required": ["replan_id", "expired_lease_id", "returned_frontier_digest"
       ]
 
     },
@@ -8109,6 +8466,27 @@
       ]
 
     },
+    "method_precondition_gate": {
+      "type": "object",
+      "description": "Refuses HDDL method selection when its exact preconditions do not hold.",
+      "properties": {
+        "method_id": {
+          "type": "string",
+          "description": "Method being evaluated."
+        },
+        "state_digest": {
+          "type": "string",
+          "description": "Exact state evaluated for applicability."
+        },
+        "decision": {
+          "type": "string",
+          "description": "Typed admitted or refused outcome."
+        }
+      },
+      "required": ["method_id", "state_digest", "decision"
+      ]
+
+    },
     "migration_contract": {
       "type": "object",
       "description": "Versioned migration path with source, target, and rollback identity.",
@@ -8314,6 +8692,27 @@
       ]
 
     },
+    "next_event_prediction_contract": {
+      "type": "object",
+      "description": "Binds a seeded next-event predictor to an exact case prefix.",
+      "properties": {
+        "prediction_id": {
+          "type": "string",
+          "description": "Next-event prediction identity."
+        },
+        "prefix_digest": {
+          "type": "string",
+          "description": "Digest of exact case prefix."
+        },
+        "distribution_digest": {
+          "type": "string",
+          "description": "Digest of predicted event probabilities."
+        }
+      },
+      "required": ["prediction_id", "prefix_digest", "distribution_digest"
+      ]
+
+    },
     "next_lawful_actuation": {
       "type": "object",
       "description": "Selects the next bounded action from scored admissible options without human micro-scheduling.",
@@ -8386,6 +8785,27 @@
         }
       },
       "required": ["tenant_id", "node_id", "failover_hash"
+      ]
+
+    },
+    "nondeterministic_effect_contract": {
+      "type": "object",
+      "description": "Makes nondeterministic effects explicit for FOND planning and replay.",
+      "properties": {
+        "action_id": {
+          "type": "string",
+          "description": "Action whose effects are nondeterministic."
+        },
+        "effect_set_digest": {
+          "type": "string",
+          "description": "Digest of the alternative effect sets."
+        },
+        "selection_semantics": {
+          "type": "string",
+          "description": "Environment selection semantics."
+        }
+      },
+      "required": ["action_id", "effect_set_digest", "selection_semantics"
       ]
 
     },
@@ -8706,6 +9126,27 @@
       ]
 
     },
+    "observation_partition": {
+      "type": "object",
+      "description": "Partitions observationally equivalent world states for contingent planning.",
+      "properties": {
+        "partition_id": {
+          "type": "string",
+          "description": "Observation partition identity."
+        },
+        "state_set_digest": {
+          "type": "string",
+          "description": "Digest of member world states."
+        },
+        "observation_key": {
+          "type": "string",
+          "description": "Observation defining equivalence."
+        }
+      },
+      "required": ["partition_id", "state_set_digest", "observation_key"
+      ]
+
+    },
     "observation_projection_update": {
       "type": "object",
       "description": "Updates future observation shape from an admitted gap while preserving an explicit authority ceiling.",
@@ -8853,6 +9294,27 @@
         }
       },
       "required": ["object_id", "object_type"
+      ]
+
+    },
+    "ocel_planning_event": {
+      "type": "object",
+      "description": "Captures a planning decision or observation as an object-centric event.",
+      "properties": {
+        "event_id": {
+          "type": "string",
+          "description": "Planning event identity."
+        },
+        "activity": {
+          "type": "string",
+          "description": "Planning activity type."
+        },
+        "object_binding_digest": {
+          "type": "string",
+          "description": "Digest of related planning objects."
+        }
+      },
+      "required": ["event_id", "activity", "object_binding_digest"
       ]
 
     },
@@ -9137,6 +9599,27 @@
         }
       },
       "required": ["left_option_id", "right_option_id", "score"
+      ]
+
+    },
+    "outcome_branch_set": {
+      "type": "object",
+      "description": "Declares the finite outcome branches an action may produce.",
+      "properties": {
+        "action_id": {
+          "type": "string",
+          "description": "Candidate action identity."
+        },
+        "branch_digest": {
+          "type": "string",
+          "description": "Digest of ordered possible outcomes."
+        },
+        "coverage_mode": {
+          "type": "string",
+          "description": "Declared completeness mode for branches."
+        }
+      },
+      "required": ["action_id", "branch_digest", "coverage_mode"
       ]
 
     },
@@ -9483,6 +9966,27 @@
       ]
 
     },
+    "plan_handoff_receipt": {
+      "type": "object",
+      "description": "Receipts transfer of an exact plan subject between caller-local consumers.",
+      "properties": {
+        "receipt_id": {
+          "type": "string",
+          "description": "Plan handoff receipt identity."
+        },
+        "plan_digest": {
+          "type": "string",
+          "description": "Digest of the transferred plan."
+        },
+        "receiver_subject_sha": {
+          "type": "string",
+          "description": "Exact receiving consumer subject."
+        }
+      },
+      "required": ["receipt_id", "plan_digest", "receiver_subject_sha"
+      ]
+
+    },
     "plan_lineage": {
       "type": "object",
       "description": "Tracks derivation, repair, and supersession across plan generations.",
@@ -9525,6 +10029,27 @@
       ]
 
     },
+    "planner_bid": {
+      "type": "object",
+      "description": "Bids for bounded work using declared cost, confidence, and capsule identity.",
+      "properties": {
+        "bid_id": {
+          "type": "string",
+          "description": "Planner bid identity."
+        },
+        "work_item_id": {
+          "type": "string",
+          "description": "Bounded work item being bid."
+        },
+        "score_digest": {
+          "type": "string",
+          "description": "Digest of cost, confidence, and evidence scores."
+        }
+      },
+      "required": ["bid_id", "work_item_id", "score_digest"
+      ]
+
+    },
     "planner_capability_profile": {
       "type": "object",
       "description": "Declares the problem features and guarantees supported by one planner.",
@@ -9564,6 +10089,27 @@
         }
       },
       "required": ["planner_id", "planner_kind", "identity_hash"
+      ]
+
+    },
+    "planner_lease": {
+      "type": "object",
+      "description": "Grants time-bounded construction authority for one work item without DO authority.",
+      "properties": {
+        "lease_id": {
+          "type": "string",
+          "description": "Planner lease identity."
+        },
+        "work_item_id": {
+          "type": "string",
+          "description": "Leased bounded work item."
+        },
+        "expires_at": {
+          "type": "string",
+          "description": "Lease expiry timestamp."
+        }
+      },
+      "required": ["lease_id", "work_item_id", "expires_at"
       ]
 
     },
@@ -9707,6 +10253,153 @@
         }
       },
       "required": ["action_name"
+      ]
+
+    },
+    "planning_blackboard_claim": {
+      "type": "object",
+      "description": "Claims bounded planning work with an explicit owner and expiry.",
+      "properties": {
+        "claim_id": {
+          "type": "string",
+          "description": "Blackboard claim identity."
+        },
+        "work_item_id": {
+          "type": "string",
+          "description": "Bounded work item claimed."
+        },
+        "owner_subject_sha": {
+          "type": "string",
+          "description": "Exact caller-local owner subject."
+        }
+      },
+      "required": ["claim_id", "work_item_id", "owner_subject_sha"
+      ]
+
+    },
+    "planning_blackboard_conflict": {
+      "type": "object",
+      "description": "Captures mutually incompatible blackboard claims without silent last-writer wins.",
+      "properties": {
+        "conflict_id": {
+          "type": "string",
+          "description": "Blackboard conflict identity."
+        },
+        "claim_set_digest": {
+          "type": "string",
+          "description": "Digest of incompatible claims."
+        },
+        "conflict_type": {
+          "type": "string",
+          "description": "Typed conflict classification."
+        }
+      },
+      "required": ["conflict_id", "claim_set_digest", "conflict_type"
+      ]
+
+    },
+    "planning_blackboard_fact": {
+      "type": "object",
+      "description": "Publishes a provenance-bound planning fact to the distributed blackboard.",
+      "properties": {
+        "fact_id": {
+          "type": "string",
+          "description": "Blackboard fact identity."
+        },
+        "subject_sha": {
+          "type": "string",
+          "description": "Exact subject the fact describes."
+        },
+        "provenance_digest": {
+          "type": "string",
+          "description": "Digest of observation provenance."
+        }
+      },
+      "required": ["fact_id", "subject_sha", "provenance_digest"
+      ]
+
+    },
+    "planning_blackboard_resolution": {
+      "type": "object",
+      "description": "Records evidence-based resolution while preserving losing lawful claims.",
+      "properties": {
+        "resolution_id": {
+          "type": "string",
+          "description": "Conflict resolution identity."
+        },
+        "conflict_id": {
+          "type": "string",
+          "description": "Conflict being resolved."
+        },
+        "preserved_option_digest": {
+          "type": "string",
+          "description": "Digest of preserved unselected claims."
+        }
+      },
+      "required": ["resolution_id", "conflict_id", "preserved_option_digest"
+      ]
+
+    },
+    "planning_case_identity": {
+      "type": "object",
+      "description": "Defines a stable process-planning case across events, objects, and replans.",
+      "properties": {
+        "case_id": {
+          "type": "string",
+          "description": "Stable planning case identity."
+        },
+        "subject_sha": {
+          "type": "string",
+          "description": "Exact repository subject for the case."
+        },
+        "lineage_root": {
+          "type": "string",
+          "description": "Root identity of the plan lineage."
+        }
+      },
+      "required": ["case_id", "subject_sha", "lineage_root"
+      ]
+
+    },
+    "planning_conformance_alignment": {
+      "type": "object",
+      "description": "Aligns an observed planning trace to its admitted policy and process model.",
+      "properties": {
+        "alignment_id": {
+          "type": "string",
+          "description": "Conformance alignment identity."
+        },
+        "trace_digest": {
+          "type": "string",
+          "description": "Digest of observed planning events."
+        },
+        "model_digest": {
+          "type": "string",
+          "description": "Digest of the admitted model."
+        }
+      },
+      "required": ["alignment_id", "trace_digest", "model_digest"
+      ]
+
+    },
+    "planning_problem_admission": {
+      "type": "object",
+      "description": "Binds an admitted world state to a bounded planning problem.",
+      "properties": {
+        "problem_id": {
+          "type": "string",
+          "description": "Stable planning problem identity."
+        },
+        "state_digest": {
+          "type": "string",
+          "description": "Digest of the admitted initial state."
+        },
+        "authority_scope": {
+          "type": "string",
+          "description": "Authority boundary for proposed actions."
+        }
+      },
+      "required": ["problem_id", "state_digest", "authority_scope"
       ]
 
     },
@@ -9886,6 +10579,48 @@
       ]
 
     },
+    "policy_graph_edge": {
+      "type": "object",
+      "description": "Defines an outcome-labelled transition between policy graph nodes.",
+      "properties": {
+        "source_node_id": {
+          "type": "string",
+          "description": "Origin policy node."
+        },
+        "outcome_label": {
+          "type": "string",
+          "description": "Observed outcome selecting the transition."
+        },
+        "target_node_id": {
+          "type": "string",
+          "description": "Destination policy node."
+        }
+      },
+      "required": ["source_node_id", "outcome_label", "target_node_id"
+      ]
+
+    },
+    "policy_graph_node": {
+      "type": "object",
+      "description": "Defines one exact state node in an executable policy graph.",
+      "properties": {
+        "node_id": {
+          "type": "string",
+          "description": "Policy node identity."
+        },
+        "state_digest": {
+          "type": "string",
+          "description": "Normalized state digest at the node."
+        },
+        "selected_action_id": {
+          "type": "string",
+          "description": "Action selected when the node matches."
+        }
+      },
+      "required": ["node_id", "state_digest", "selected_action_id"
+      ]
+
+    },
     "policy_payoff_observation": {
       "type": "object",
       "description": "Records bounded policy payoff separately from planner identity and parameters.",
@@ -9944,6 +10679,27 @@
       ]
 
     },
+    "powl_choice_operator": {
+      "type": "object",
+      "description": "Represents an evidence-selected exclusive POWL choice without erasing alternatives.",
+      "properties": {
+        "operator_id": {
+          "type": "string",
+          "description": "Choice operator identity."
+        },
+        "branch_digest": {
+          "type": "string",
+          "description": "Digest of available branches."
+        },
+        "selection_rule": {
+          "type": "string",
+          "description": "Rule selecting a branch at execution."
+        }
+      },
+      "required": ["operator_id", "branch_digest", "selection_rule"
+      ]
+
+    },
     "powl_freq": {
       "type": "object",
       "description": "A POWL node's multiplicity/frequency tag (Freq): how many times it may occur.",
@@ -9986,6 +10742,48 @@
       ]
 
     },
+    "powl_loop_operator": {
+      "type": "object",
+      "description": "Represents a guarded POWL loop with a bounded exit condition.",
+      "properties": {
+        "operator_id": {
+          "type": "string",
+          "description": "Loop operator identity."
+        },
+        "body_digest": {
+          "type": "string",
+          "description": "Digest of loop body operators."
+        },
+        "exit_predicate": {
+          "type": "string",
+          "description": "Predicate terminating the loop."
+        }
+      },
+      "required": ["operator_id", "body_digest", "exit_predicate"
+      ]
+
+    },
+    "powl_parallel_operator": {
+      "type": "object",
+      "description": "Represents concurrently executable POWL branches and their join semantics.",
+      "properties": {
+        "operator_id": {
+          "type": "string",
+          "description": "Parallel operator identity."
+        },
+        "branch_digest": {
+          "type": "string",
+          "description": "Digest of parallel branches."
+        },
+        "join_rule": {
+          "type": "string",
+          "description": "Completion rule for the parallel join."
+        }
+      },
+      "required": ["operator_id", "branch_digest", "join_rule"
+      ]
+
+    },
     "powl_partial_order_edge": {
       "type": "object",
       "description": "One strict order edge of a PartialOrderNode.order set: from_index must happen before to_index among the parent node's children.",
@@ -10000,6 +10798,27 @@
         }
       },
       "required": ["from_index", "to_index"
+      ]
+
+    },
+    "powl_partial_order_plan": {
+      "type": "object",
+      "description": "Projects a decomposed task network into an executable POWL partial order.",
+      "properties": {
+        "plan_id": {
+          "type": "string",
+          "description": "POWL plan identity."
+        },
+        "operator_digest": {
+          "type": "string",
+          "description": "Digest of POWL operators."
+        },
+        "order_digest": {
+          "type": "string",
+          "description": "Digest of ordering constraints."
+        }
+      },
+      "required": ["plan_id", "operator_digest", "order_digest"
       ]
 
     },
@@ -10024,6 +10843,27 @@
       ]
 
     },
+    "powl_sequence_operator": {
+      "type": "object",
+      "description": "Represents an ordered POWL operator sequence with exact predecessor binding.",
+      "properties": {
+        "operator_id": {
+          "type": "string",
+          "description": "Sequence operator identity."
+        },
+        "step_digest": {
+          "type": "string",
+          "description": "Digest of ordered steps."
+        },
+        "predecessor_digest": {
+          "type": "string",
+          "description": "Digest of predecessor bindings."
+        }
+      },
+      "required": ["operator_id", "step_digest", "predecessor_digest"
+      ]
+
+    },
     "ppddl_projection": {
       "type": "object",
       "description": "Binds a plan candidate to an exact PPDDL problem/domain projection.",
@@ -10042,6 +10882,27 @@
         }
       },
       "required": ["plan_id", "domain_hash", "problem_hash"
+      ]
+
+    },
+    "prefix_alignment_frontier": {
+      "type": "object",
+      "description": "Preserves competing minimum-cost alignments for a live event prefix.",
+      "properties": {
+        "frontier_id": {
+          "type": "string",
+          "description": "Prefix alignment frontier identity."
+        },
+        "prefix_digest": {
+          "type": "string",
+          "description": "Digest of the observed prefix."
+        },
+        "candidate_digest": {
+          "type": "string",
+          "description": "Digest of nondominated alignments."
+        }
+      },
+      "required": ["frontier_id", "prefix_digest", "candidate_digest"
       ]
 
     },
@@ -10150,6 +11011,27 @@
         }
       },
       "required": ["opportunity_id", "pricing_basis_id", "evidence_hash"
+      ]
+
+    },
+    "primitive_task_binding": {
+      "type": "object",
+      "description": "Binds a primitive HDDL task to one executable action contract.",
+      "properties": {
+        "task_id": {
+          "type": "string",
+          "description": "Primitive task identity."
+        },
+        "action_id": {
+          "type": "string",
+          "description": "Executable action identity."
+        },
+        "binding_digest": {
+          "type": "string",
+          "description": "Digest of parameter and type bindings."
+        }
+      },
+      "required": ["task_id", "action_id", "binding_digest"
       ]
 
     },
@@ -11146,6 +12028,27 @@
       ]
 
     },
+    "recovery_subtask": {
+      "type": "object",
+      "description": "Declares a bounded recovery subtask for one failed or adverse outcome.",
+      "properties": {
+        "subtask_id": {
+          "type": "string",
+          "description": "Recovery subtask identity."
+        },
+        "trigger_outcome": {
+          "type": "string",
+          "description": "Outcome that triggers recovery."
+        },
+        "recovery_goal_digest": {
+          "type": "string",
+          "description": "Digest of the bounded recovery goal."
+        }
+      },
+      "required": ["subtask_id", "trigger_outcome", "recovery_goal_digest"
+      ]
+
+    },
     "recovery_time_receipt": {
       "type": "object",
       "description": "Receipts the observed recovery-time consequence against the paid-service objective.",
@@ -11342,6 +12245,27 @@
         }
       },
       "required": ["refusal_id", "candidate_policy_id", "regression_detection_id", "acceptance_threshold", "observed_regression", "authority_ceiling"
+      ]
+
+    },
+    "remaining_time_estimate_contract": {
+      "type": "object",
+      "description": "Binds a calibrated completion-time estimate to an exact planning case.",
+      "properties": {
+        "estimate_id": {
+          "type": "string",
+          "description": "Remaining-time estimate identity."
+        },
+        "case_state_digest": {
+          "type": "string",
+          "description": "Digest of current case state."
+        },
+        "interval_digest": {
+          "type": "string",
+          "description": "Digest of calibrated time interval."
+        }
+      },
+      "required": ["estimate_id", "case_state_digest", "interval_digest"
       ]
 
     },
@@ -12345,6 +13269,27 @@
       ]
 
     },
+    "scheduling_priority_score": {
+      "type": "object",
+      "description": "Computes transparent next-work priority from value, delay, information, and reversibility.",
+      "properties": {
+        "score_id": {
+          "type": "string",
+          "description": "Priority score identity."
+        },
+        "work_item_id": {
+          "type": "string",
+          "description": "Bounded work item scored."
+        },
+        "component_digest": {
+          "type": "string",
+          "description": "Digest of normalized score components."
+        }
+      },
+      "required": ["score_id", "work_item_id", "component_digest"
+      ]
+
+    },
     "seat_pricing_policy": {
       "type": "object",
       "description": "Named-seat enterprise packaging dimension.",
@@ -13136,6 +14081,48 @@
       ]
 
     },
+    "strong_cyclic_plan_candidate": {
+      "type": "object",
+      "description": "Records a fair strong-cyclic policy candidate for recoverable recurrence.",
+      "properties": {
+        "candidate_id": {
+          "type": "string",
+          "description": "Strong-cyclic candidate identity."
+        },
+        "policy_digest": {
+          "type": "string",
+          "description": "Digest of the cyclic policy graph."
+        },
+        "fairness_proof": {
+          "type": "string",
+          "description": "Evidence binding recurrence to fairness assumptions."
+        }
+      },
+      "required": ["candidate_id", "policy_digest", "fairness_proof"
+      ]
+
+    },
+    "strong_plan_candidate": {
+      "type": "object",
+      "description": "Records a policy candidate that reaches the goal under every admitted outcome.",
+      "properties": {
+        "candidate_id": {
+          "type": "string",
+          "description": "Strong plan candidate identity."
+        },
+        "policy_digest": {
+          "type": "string",
+          "description": "Digest of the policy graph."
+        },
+        "coverage_proof": {
+          "type": "string",
+          "description": "Evidence covering every admitted outcome."
+        }
+      },
+      "required": ["candidate_id", "policy_digest", "coverage_proof"
+      ]
+
+    },
     "subject_failure_separation": {
       "type": "object",
       "description": "Attributes a failure to the exact subject only after the validation capsule is independently admitted.",
@@ -13486,6 +14473,27 @@
       ]
 
     },
+    "task_decomposition_proof": {
+      "type": "object",
+      "description": "Records evidence that a method expansion preserves task-network constraints.",
+      "properties": {
+        "proof_id": {
+          "type": "string",
+          "description": "Decomposition proof identity."
+        },
+        "method_id": {
+          "type": "string",
+          "description": "Method whose expansion is proven."
+        },
+        "constraint_proof_digest": {
+          "type": "string",
+          "description": "Digest of constraint-preservation evidence."
+        }
+      },
+      "required": ["proof_id", "method_id", "constraint_proof_digest"
+      ]
+
+    },
     "tax_jurisdiction_evidence": {
       "type": "object",
       "description": "Binds the contracting entity to an evidenced tax jurisdiction before price and invoice admission.",
@@ -13788,6 +14796,27 @@
         }
       },
       "required": ["time_to_value_id", "account_id", "verified_days", "evidence_digest", "observed_at"
+      ]
+
+    },
+    "token_replay_state": {
+      "type": "object",
+      "description": "Records deterministic process-token state after replaying an event prefix.",
+      "properties": {
+        "replay_id": {
+          "type": "string",
+          "description": "Token replay identity."
+        },
+        "prefix_digest": {
+          "type": "string",
+          "description": "Digest of the replayed event prefix."
+        },
+        "marking_digest": {
+          "type": "string",
+          "description": "Digest of resulting token marking."
+        }
+      },
+      "required": ["replay_id", "prefix_digest", "marking_digest"
       ]
 
     },
@@ -14728,6 +15757,27 @@
         }
       },
       "required": ["evidence_id", "subject_sha", "vulnerability_count", "observed_result"
+      ]
+
+    },
+    "weak_plan_candidate": {
+      "type": "object",
+      "description": "Records a weak plan while preserving its uncovered counterfactuals.",
+      "properties": {
+        "candidate_id": {
+          "type": "string",
+          "description": "Weak plan candidate identity."
+        },
+        "policy_digest": {
+          "type": "string",
+          "description": "Digest of the proposed policy."
+        },
+        "uncovered_digest": {
+          "type": "string",
+          "description": "Digest of outcomes not guaranteed to reach the goal."
+        }
+      },
+      "required": ["candidate_id", "policy_digest", "uncovered_digest"
       ]
 
     },

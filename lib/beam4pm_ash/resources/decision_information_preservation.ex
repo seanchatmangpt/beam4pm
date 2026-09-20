@@ -8,18 +8,17 @@ defmodule BeamPM.Ash.Resources.DecisionInformationPreservation do
     validate_domain_inclusion?: false
 
   attributes do
-    uuid_primary_key :id
-    attribute :preservation_id, :string, public?: true, allow_nil?: false
-    attribute :decision_id, :string, public?: true, allow_nil?: false
-    attribute :source_partition_digest, :string, public?: true, allow_nil?: false
-    attribute :projection_digest, :string, public?: true, allow_nil?: false
-    attribute :preserved_question_set_digest, :string, public?: true, allow_nil?: false
-    attribute :loss_score, :float, public?: true, allow_nil?: false
+    uuid_primary_key(:id)
+    attribute(:preservation_id, :string, public?: true, allow_nil?: false)
+    attribute(:decision_id, :string, public?: true, allow_nil?: false)
+    attribute(:source_partition_digest, :string, public?: true, allow_nil?: false)
+    attribute(:projection_digest, :string, public?: true, allow_nil?: false)
+    attribute(:preserved_question_set_digest, :string, public?: true, allow_nil?: false)
+    attribute(:loss_score, :float, public?: true, allow_nil?: false)
   end
 
   actions do
-    default_accept :*
-    defaults [:create, :read]
+    default_accept(:*)
+    defaults([:create, :read])
   end
 end
-

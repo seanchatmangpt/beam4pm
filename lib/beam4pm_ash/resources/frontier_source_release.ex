@@ -8,17 +8,16 @@ defmodule BeamPM.Ash.Resources.FrontierSourceRelease do
     validate_domain_inclusion?: false
 
   attributes do
-    uuid_primary_key :id
-    attribute :source_url, :string, public?: true, allow_nil?: false
-    attribute :publisher, :string, public?: true, allow_nil?: false
-    attribute :published_at, :utc_datetime_usec, public?: true, allow_nil?: false
-    attribute :content_digest, :string, public?: true, allow_nil?: false
-    attribute :claims, :map, public?: true, allow_nil?: false
+    uuid_primary_key(:id)
+    attribute(:source_url, :string, public?: true, allow_nil?: false)
+    attribute(:publisher, :string, public?: true, allow_nil?: false)
+    attribute(:published_at, :utc_datetime_usec, public?: true, allow_nil?: false)
+    attribute(:content_digest, :string, public?: true, allow_nil?: false)
+    attribute(:claims, :map, public?: true, allow_nil?: false)
   end
 
   actions do
-    default_accept :*
-    defaults [:create, :read]
+    default_accept(:*)
+    defaults([:create, :read])
   end
 end
-

@@ -8,15 +8,14 @@ defmodule BeamPM.Ash.Resources.CaseStats do
     validate_domain_inclusion?: false
 
   attributes do
-    uuid_primary_key :id
-    attribute :case_id, :string, public?: true, allow_nil?: false
-    attribute :event_count, :integer, public?: true, allow_nil?: false
-    attribute :duration_seconds, :float, public?: true
+    uuid_primary_key(:id)
+    attribute(:case_id, :string, public?: true, allow_nil?: false)
+    attribute(:event_count, :integer, public?: true, allow_nil?: false)
+    attribute(:duration_seconds, :float, public?: true)
   end
 
   actions do
-    default_accept :*
-    defaults [:create, :read]
+    default_accept(:*)
+    defaults([:create, :read])
   end
 end
-

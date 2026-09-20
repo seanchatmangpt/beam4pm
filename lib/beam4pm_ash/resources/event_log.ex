@@ -8,15 +8,14 @@ defmodule BeamPM.Ash.Resources.EventLog do
     validate_domain_inclusion?: false
 
   attributes do
-    uuid_primary_key :id
-    attribute :log_id, :string, public?: true, allow_nil?: false
-    attribute :name, :string, public?: true, allow_nil?: false
-    attribute :description, :string, public?: true
+    uuid_primary_key(:id)
+    attribute(:log_id, :string, public?: true, allow_nil?: false)
+    attribute(:name, :string, public?: true, allow_nil?: false)
+    attribute(:description, :string, public?: true)
   end
 
   actions do
-    default_accept :*
-    defaults [:create, :read]
+    default_accept(:*)
+    defaults([:create, :read])
   end
 end
-

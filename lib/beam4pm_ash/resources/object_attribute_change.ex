@@ -8,17 +8,16 @@ defmodule BeamPM.Ash.Resources.ObjectAttributeChange do
     validate_domain_inclusion?: false
 
   attributes do
-    uuid_primary_key :id
-    attribute :object_id, :string, public?: true, allow_nil?: false
-    attribute :attribute_name, :string, public?: true, allow_nil?: false
-    attribute :old_value, :string, public?: true
-    attribute :new_value, :string, public?: true, allow_nil?: false
-    attribute :changed_at, :utc_datetime_usec, public?: true, allow_nil?: false
+    uuid_primary_key(:id)
+    attribute(:object_id, :string, public?: true, allow_nil?: false)
+    attribute(:attribute_name, :string, public?: true, allow_nil?: false)
+    attribute(:old_value, :string, public?: true)
+    attribute(:new_value, :string, public?: true, allow_nil?: false)
+    attribute(:changed_at, :utc_datetime_usec, public?: true, allow_nil?: false)
   end
 
   actions do
-    default_accept :*
-    defaults [:create, :read]
+    default_accept(:*)
+    defaults([:create, :read])
   end
 end
-

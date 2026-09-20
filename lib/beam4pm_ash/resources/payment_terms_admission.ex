@@ -8,15 +8,14 @@ defmodule BeamPM.Ash.Resources.PaymentTermsAdmission do
     validate_domain_inclusion?: false
 
   attributes do
-    uuid_primary_key :id
-    attribute :opportunity_id, :string, public?: true, allow_nil?: false
-    attribute :payment_terms, :string, public?: true, allow_nil?: false
-    attribute :authority_evidence_hash, :string, public?: true, allow_nil?: false
+    uuid_primary_key(:id)
+    attribute(:opportunity_id, :string, public?: true, allow_nil?: false)
+    attribute(:payment_terms, :string, public?: true, allow_nil?: false)
+    attribute(:authority_evidence_hash, :string, public?: true, allow_nil?: false)
   end
 
   actions do
-    default_accept :*
-    defaults [:create, :read]
+    default_accept(:*)
+    defaults([:create, :read])
   end
 end
-

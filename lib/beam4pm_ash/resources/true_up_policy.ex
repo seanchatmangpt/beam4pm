@@ -8,16 +8,15 @@ defmodule BeamPM.Ash.Resources.TrueUpPolicy do
     validate_domain_inclusion?: false
 
   attributes do
-    uuid_primary_key :id
-    attribute :policy_id, :string, public?: true, allow_nil?: false
-    attribute :commitment_id, :string, public?: true, allow_nil?: false
-    attribute :cadence, :atom, public?: true, allow_nil?: false
-    attribute :shortfall_behavior, :atom, public?: true, allow_nil?: false
+    uuid_primary_key(:id)
+    attribute(:policy_id, :string, public?: true, allow_nil?: false)
+    attribute(:commitment_id, :string, public?: true, allow_nil?: false)
+    attribute(:cadence, :atom, public?: true, allow_nil?: false)
+    attribute(:shortfall_behavior, :atom, public?: true, allow_nil?: false)
   end
 
   actions do
-    default_accept :*
-    defaults [:create, :read]
+    default_accept(:*)
+    defaults([:create, :read])
   end
 end
-

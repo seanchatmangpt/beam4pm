@@ -40,7 +40,9 @@ defmodule BeamPM.Pro.CompatibilityTest do
 
   test "an unknown component is a typed refusal, not a crash" do
     assert Compatibility.check(%{totally_unknown_component: "1.0.0"}) ==
-             {:error, {:incompatible, :totally_unknown_component, "unknown component (not in the compatibility matrix)"}}
+             {:error,
+              {:incompatible, :totally_unknown_component,
+               "unknown component (not in the compatibility matrix)"}}
   end
 
   test "an unparseable version string is a typed refusal, not a crash" do

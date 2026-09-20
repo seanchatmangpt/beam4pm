@@ -8,16 +8,15 @@ defmodule BeamPM.Ash.Resources.EditionDefinition do
     validate_domain_inclusion?: false
 
   attributes do
-    uuid_primary_key :id
-    attribute :edition_id, :string, public?: true, allow_nil?: false
-    attribute :name, :string, public?: true, allow_nil?: false
-    attribute :bundle_ids, {:array, :string}, public?: true, allow_nil?: false
-    attribute :support_tier, :string, public?: true, allow_nil?: false
+    uuid_primary_key(:id)
+    attribute(:edition_id, :string, public?: true, allow_nil?: false)
+    attribute(:name, :string, public?: true, allow_nil?: false)
+    attribute(:bundle_ids, {:array, :string}, public?: true, allow_nil?: false)
+    attribute(:support_tier, :string, public?: true, allow_nil?: false)
   end
 
   actions do
-    default_accept :*
-    defaults [:create, :read]
+    default_accept(:*)
+    defaults([:create, :read])
   end
 end
-

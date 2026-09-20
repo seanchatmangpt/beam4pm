@@ -1,4 +1,6 @@
 defmodule BeamPM.Dfcm do
+  @compile {:no_warn_undefined, AshAutofde.CascadeAllocator}
+
   @moduledoc """
   Pure Design for Combinatorial Maximalism planning crown.
 

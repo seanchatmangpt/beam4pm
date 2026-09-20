@@ -23,7 +23,13 @@ defmodule BeamPM.ActuationTest do
   # Graph-derived qualification data (rendered by ggen_igniter):
   @inc_action "increment_counter"
   @inc_requires ["counter_ready"]
-  @allowlist_names ["increment_counter", "k8s_scale_down", "k8s_scale_up", "observe_counter", "restart_worker"]
+  @allowlist_names [
+    "increment_counter",
+    "k8s_scale_down",
+    "k8s_scale_up",
+    "observe_counter",
+    "restart_worker"
+  ]
 
   defp bridge_path do
     path = Path.expand("qualification/fixtures/toy_gym_bridge.py")
@@ -119,7 +125,12 @@ defmodule BeamPM.ActuationTest do
     events = mined_events!(receipt, run_id)
     assert length(events) == 4
 
-    assert [%LogTrace{case_id: ^run_id, activity_sequence: ["plan", "admit", "execute", "observe"]}] =
+    assert [
+             %LogTrace{
+               case_id: ^run_id,
+               activity_sequence: ["plan", "admit", "execute", "observe"]
+             }
+           ] =
              Discovery.traces_from_events(events, "case_id")
 
     assert dfg_tuples(events, "case_id") == [

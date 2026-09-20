@@ -281,7 +281,8 @@ defmodule BeamPM.ReceiptChain do
   `chain_id` for human inspection.
   """
   @spec tip_index_path(String.t(), String.t()) :: String.t()
-  def tip_index_path(receipts_dir, chain_id) when is_binary(receipts_dir) and is_binary(chain_id) do
+  def tip_index_path(receipts_dir, chain_id)
+      when is_binary(receipts_dir) and is_binary(chain_id) do
     digest = :sha256 |> :crypto.hash(chain_id) |> Base.encode16(case: :lower)
     Path.join([receipts_dir, @tip_index_dir, digest <> ".json"])
   end
@@ -433,9 +434,14 @@ defmodule BeamPM.ReceiptChain do
     index_path = tip_index_path(receipts_dir, chain_id)
 
     case File.rm(index_path) do
-      :ok -> :ok
-      {:error, :enoent} -> :ok
-      {:error, reason} -> raise File.Error, reason: reason, action: "remove file", path: index_path
+      :ok ->
+        :ok
+
+      {:error, :enoent} ->
+        :ok
+
+      {:error, reason} ->
+        raise File.Error, reason: reason, action: "remove file", path: index_path
     end
   end
 

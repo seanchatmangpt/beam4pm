@@ -8,17 +8,16 @@ defmodule BeamPM.Ash.Resources.ReceiptLearningCompilation do
     validate_domain_inclusion?: false
 
   attributes do
-    uuid_primary_key :id
-    attribute :compilation_id, :string, public?: true, allow_nil?: false
-    attribute :receipt_chain_head, :string, public?: true, allow_nil?: false
-    attribute :admitted_receipt_count, :integer, public?: true, allow_nil?: false
-    attribute :rejected_receipt_count, :integer, public?: true, allow_nil?: false
-    attribute :learning_digest, :string, public?: true, allow_nil?: false
+    uuid_primary_key(:id)
+    attribute(:compilation_id, :string, public?: true, allow_nil?: false)
+    attribute(:receipt_chain_head, :string, public?: true, allow_nil?: false)
+    attribute(:admitted_receipt_count, :integer, public?: true, allow_nil?: false)
+    attribute(:rejected_receipt_count, :integer, public?: true, allow_nil?: false)
+    attribute(:learning_digest, :string, public?: true, allow_nil?: false)
   end
 
   actions do
-    default_accept :*
-    defaults [:create, :read]
+    default_accept(:*)
+    defaults([:create, :read])
   end
 end
-

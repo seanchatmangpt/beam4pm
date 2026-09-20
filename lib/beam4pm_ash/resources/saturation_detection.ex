@@ -8,18 +8,17 @@ defmodule BeamPM.Ash.Resources.SaturationDetection do
     validate_domain_inclusion?: false
 
   attributes do
-    uuid_primary_key :id
-    attribute :detection_id, :string, public?: true, allow_nil?: false
-    attribute :curriculum_id, :string, public?: true, allow_nil?: false
-    attribute :recent_gain, :float, public?: true, allow_nil?: false
-    attribute :gain_slope, :float, public?: true, allow_nil?: false
-    attribute :novelty_floor, :float, public?: true, allow_nil?: false
-    attribute :coverage_digest, :string, public?: true, allow_nil?: false
+    uuid_primary_key(:id)
+    attribute(:detection_id, :string, public?: true, allow_nil?: false)
+    attribute(:curriculum_id, :string, public?: true, allow_nil?: false)
+    attribute(:recent_gain, :float, public?: true, allow_nil?: false)
+    attribute(:gain_slope, :float, public?: true, allow_nil?: false)
+    attribute(:novelty_floor, :float, public?: true, allow_nil?: false)
+    attribute(:coverage_digest, :string, public?: true, allow_nil?: false)
   end
 
   actions do
-    default_accept :*
-    defaults [:create, :read]
+    default_accept(:*)
+    defaults([:create, :read])
   end
 end
-

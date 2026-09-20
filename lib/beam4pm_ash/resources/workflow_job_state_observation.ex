@@ -8,16 +8,15 @@ defmodule BeamPM.Ash.Resources.WorkflowJobStateObservation do
     validate_domain_inclusion?: false
 
   attributes do
-    uuid_primary_key :id
-    attribute :job_id, :string, public?: true, allow_nil?: false
-    attribute :run_id, :string, public?: true, allow_nil?: false
-    attribute :runner_identity, :string, public?: true, allow_nil?: false
-    attribute :conclusion, :string, public?: true, allow_nil?: false
+    uuid_primary_key(:id)
+    attribute(:job_id, :string, public?: true, allow_nil?: false)
+    attribute(:run_id, :string, public?: true, allow_nil?: false)
+    attribute(:runner_identity, :string, public?: true, allow_nil?: false)
+    attribute(:conclusion, :string, public?: true, allow_nil?: false)
   end
 
   actions do
-    default_accept :*
-    defaults [:create, :read]
+    default_accept(:*)
+    defaults([:create, :read])
   end
 end
-

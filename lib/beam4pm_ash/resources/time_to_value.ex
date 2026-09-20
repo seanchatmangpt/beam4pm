@@ -8,17 +8,16 @@ defmodule BeamPM.Ash.Resources.TimeToValue do
     validate_domain_inclusion?: false
 
   attributes do
-    uuid_primary_key :id
-    attribute :time_to_value_id, :string, public?: true, allow_nil?: false
-    attribute :account_id, :string, public?: true, allow_nil?: false
-    attribute :verified_days, :integer, public?: true, allow_nil?: false
-    attribute :evidence_digest, :string, public?: true, allow_nil?: false
-    attribute :observed_at, :utc_datetime_usec, public?: true, allow_nil?: false
+    uuid_primary_key(:id)
+    attribute(:time_to_value_id, :string, public?: true, allow_nil?: false)
+    attribute(:account_id, :string, public?: true, allow_nil?: false)
+    attribute(:verified_days, :integer, public?: true, allow_nil?: false)
+    attribute(:evidence_digest, :string, public?: true, allow_nil?: false)
+    attribute(:observed_at, :utc_datetime_usec, public?: true, allow_nil?: false)
   end
 
   actions do
-    default_accept :*
-    defaults [:create, :read]
+    default_accept(:*)
+    defaults([:create, :read])
   end
 end
-

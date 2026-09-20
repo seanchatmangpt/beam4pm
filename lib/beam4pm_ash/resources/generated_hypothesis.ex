@@ -8,17 +8,16 @@ defmodule BeamPM.Ash.Resources.GeneratedHypothesis do
     validate_domain_inclusion?: false
 
   attributes do
-    uuid_primary_key :id
-    attribute :hypothesis_id, :string, public?: true, allow_nil?: false
-    attribute :source_gap_id, :string, public?: true, allow_nil?: false
-    attribute :candidate_capability, :string, public?: true, allow_nil?: false
-    attribute :expected_value, :float, public?: true, allow_nil?: false
-    attribute :falsifier_contract, :string, public?: true, allow_nil?: false
+    uuid_primary_key(:id)
+    attribute(:hypothesis_id, :string, public?: true, allow_nil?: false)
+    attribute(:source_gap_id, :string, public?: true, allow_nil?: false)
+    attribute(:candidate_capability, :string, public?: true, allow_nil?: false)
+    attribute(:expected_value, :float, public?: true, allow_nil?: false)
+    attribute(:falsifier_contract, :string, public?: true, allow_nil?: false)
   end
 
   actions do
-    default_accept :*
-    defaults [:create, :read]
+    default_accept(:*)
+    defaults([:create, :read])
   end
 end
-

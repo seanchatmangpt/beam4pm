@@ -1,0 +1,30 @@
+@prefix bpm: <https://beam4pm.dev/ontology/process#> .
+
+# WS2-BB-135 — prefix_alignment_frontier
+bpm:prefix_alignment_frontier_rt a bpm:RecordType ;
+    bpm:recordName "prefix_alignment_frontier" ;
+    bpm:recordDoc "Preserves competing minimum-cost alignments for a live event prefix." ;
+    bpm:hasField bpm:prefix_alignment_frontier_frontier_id_f ,
+                 bpm:prefix_alignment_frontier_prefix_digest_f ,
+                 bpm:prefix_alignment_frontier_candidate_digest_f .
+
+bpm:prefix_alignment_frontier_frontier_id_f a bpm:Field ;
+    bpm:fieldName "frontier_id" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Prefix alignment frontier identity." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 1 .
+
+bpm:prefix_alignment_frontier_prefix_digest_f a bpm:Field ;
+    bpm:fieldName "prefix_digest" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of the observed prefix." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 2 .
+
+bpm:prefix_alignment_frontier_candidate_digest_f a bpm:Field ;
+    bpm:fieldName "candidate_digest" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of nondominated alignments." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 3 .

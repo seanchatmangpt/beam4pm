@@ -8,15 +8,14 @@ defmodule BeamPM.Ash.Resources.PlannerPortfolio do
     validate_domain_inclusion?: false
 
   attributes do
-    uuid_primary_key :id
-    attribute :portfolio_id, :string, public?: true, allow_nil?: false
-    attribute :planner_ids, :string, public?: true, allow_nil?: false
-    attribute :diversity_hash, :string, public?: true, allow_nil?: false
+    uuid_primary_key(:id)
+    attribute(:portfolio_id, :string, public?: true, allow_nil?: false)
+    attribute(:planner_ids, :string, public?: true, allow_nil?: false)
+    attribute(:diversity_hash, :string, public?: true, allow_nil?: false)
   end
 
   actions do
-    default_accept :*
-    defaults [:create, :read]
+    default_accept(:*)
+    defaults([:create, :read])
   end
 end
-

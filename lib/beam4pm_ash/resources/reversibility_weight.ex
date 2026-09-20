@@ -8,15 +8,14 @@ defmodule BeamPM.Ash.Resources.ReversibilityWeight do
     validate_domain_inclusion?: false
 
   attributes do
-    uuid_primary_key :id
-    attribute :action_id, :string, public?: true, allow_nil?: false
-    attribute :rollback_id, :string, public?: true, allow_nil?: false
-    attribute :weight, :string, public?: true, allow_nil?: false
+    uuid_primary_key(:id)
+    attribute(:action_id, :string, public?: true, allow_nil?: false)
+    attribute(:rollback_id, :string, public?: true, allow_nil?: false)
+    attribute(:weight, :string, public?: true, allow_nil?: false)
   end
 
   actions do
-    default_accept :*
-    defaults [:create, :read]
+    default_accept(:*)
+    defaults([:create, :read])
   end
 end
-

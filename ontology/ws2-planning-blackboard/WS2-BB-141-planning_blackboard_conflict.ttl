@@ -1,0 +1,30 @@
+@prefix bpm: <https://beam4pm.dev/ontology/process#> .
+
+# WS2-BB-141 — planning_blackboard_conflict
+bpm:planning_blackboard_conflict_rt a bpm:RecordType ;
+    bpm:recordName "planning_blackboard_conflict" ;
+    bpm:recordDoc "Captures mutually incompatible blackboard claims without silent last-writer wins." ;
+    bpm:hasField bpm:planning_blackboard_conflict_conflict_id_f ,
+                 bpm:planning_blackboard_conflict_claim_set_digest_f ,
+                 bpm:planning_blackboard_conflict_conflict_type_f .
+
+bpm:planning_blackboard_conflict_conflict_id_f a bpm:Field ;
+    bpm:fieldName "conflict_id" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Blackboard conflict identity." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 1 .
+
+bpm:planning_blackboard_conflict_claim_set_digest_f a bpm:Field ;
+    bpm:fieldName "claim_set_digest" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of incompatible claims." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 2 .
+
+bpm:planning_blackboard_conflict_conflict_type_f a bpm:Field ;
+    bpm:fieldName "conflict_type" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Typed conflict classification." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 3 .

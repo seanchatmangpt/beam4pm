@@ -8,16 +8,15 @@ defmodule BeamPM.Ash.Resources.BillingAccount do
     validate_domain_inclusion?: false
 
   attributes do
-    uuid_primary_key :id
-    attribute :billing_account_id, :string, public?: true, allow_nil?: false
-    attribute :account_id, :string, public?: true, allow_nil?: false
-    attribute :currency, :string, public?: true, allow_nil?: false
-    attribute :invoice_profile, :string, public?: true, allow_nil?: false
+    uuid_primary_key(:id)
+    attribute(:billing_account_id, :string, public?: true, allow_nil?: false)
+    attribute(:account_id, :string, public?: true, allow_nil?: false)
+    attribute(:currency, :string, public?: true, allow_nil?: false)
+    attribute(:invoice_profile, :string, public?: true, allow_nil?: false)
   end
 
   actions do
-    default_accept :*
-    defaults [:create, :read]
+    default_accept(:*)
+    defaults([:create, :read])
   end
 end
-

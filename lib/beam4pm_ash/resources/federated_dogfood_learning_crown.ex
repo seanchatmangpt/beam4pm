@@ -8,22 +8,21 @@ defmodule BeamPM.Ash.Resources.FederatedDogfoodLearningCrown do
     validate_domain_inclusion?: false
 
   attributes do
-    uuid_primary_key :id
-    attribute :crown_id, :string, public?: true, allow_nil?: false
-    attribute :exact_subject_sha, :string, public?: true, allow_nil?: false
-    attribute :consumer_id, :string, public?: true, allow_nil?: false
-    attribute :pack_sha, :string, public?: true, allow_nil?: false
-    attribute :capsule_digest, :string, public?: true, allow_nil?: false
-    attribute :manufacture_receipt_digest, :string, public?: true, allow_nil?: false
-    attribute :ownership_verification_digest, :string, public?: true, allow_nil?: false
-    attribute :second_pass_identity_digest, :string, public?: true, allow_nil?: false
-    attribute :workflow_sequence, :string, public?: true, allow_nil?: false
-    attribute :authority_ceiling, :string, public?: true, allow_nil?: false
+    uuid_primary_key(:id)
+    attribute(:crown_id, :string, public?: true, allow_nil?: false)
+    attribute(:exact_subject_sha, :string, public?: true, allow_nil?: false)
+    attribute(:consumer_id, :string, public?: true, allow_nil?: false)
+    attribute(:pack_sha, :string, public?: true, allow_nil?: false)
+    attribute(:capsule_digest, :string, public?: true, allow_nil?: false)
+    attribute(:manufacture_receipt_digest, :string, public?: true, allow_nil?: false)
+    attribute(:ownership_verification_digest, :string, public?: true, allow_nil?: false)
+    attribute(:second_pass_identity_digest, :string, public?: true, allow_nil?: false)
+    attribute(:workflow_sequence, :string, public?: true, allow_nil?: false)
+    attribute(:authority_ceiling, :string, public?: true, allow_nil?: false)
   end
 
   actions do
-    default_accept :*
-    defaults [:create, :read]
+    default_accept(:*)
+    defaults([:create, :read])
   end
 end
-

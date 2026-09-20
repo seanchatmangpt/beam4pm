@@ -8,16 +8,15 @@ defmodule BeamPM.Ash.Resources.ObservationFreshnessAssessment do
     validate_domain_inclusion?: false
 
   attributes do
-    uuid_primary_key :id
-    attribute :observation_id, :string, public?: true, allow_nil?: false
-    attribute :observed_at, :utc_datetime_usec, public?: true, allow_nil?: false
-    attribute :freshness_deadline, :utc_datetime_usec, public?: true, allow_nil?: false
-    attribute :freshness_status, :string, public?: true, allow_nil?: false
+    uuid_primary_key(:id)
+    attribute(:observation_id, :string, public?: true, allow_nil?: false)
+    attribute(:observed_at, :utc_datetime_usec, public?: true, allow_nil?: false)
+    attribute(:freshness_deadline, :utc_datetime_usec, public?: true, allow_nil?: false)
+    attribute(:freshness_status, :string, public?: true, allow_nil?: false)
   end
 
   actions do
-    default_accept :*
-    defaults [:create, :read]
+    default_accept(:*)
+    defaults([:create, :read])
   end
 end
-

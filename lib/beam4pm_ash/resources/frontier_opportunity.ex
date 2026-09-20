@@ -8,17 +8,16 @@ defmodule BeamPM.Ash.Resources.FrontierOpportunity do
     validate_domain_inclusion?: false
 
   attributes do
-    uuid_primary_key :id
-    attribute :source_digest, :string, public?: true, allow_nil?: false
-    attribute :response_mode, :atom, public?: true, allow_nil?: false
-    attribute :target_repository, :string, public?: true, allow_nil?: false
-    attribute :required_capability, :string, public?: true, allow_nil?: false
-    attribute :benchmark_id, :string, public?: true, allow_nil?: false
+    uuid_primary_key(:id)
+    attribute(:source_digest, :string, public?: true, allow_nil?: false)
+    attribute(:response_mode, :atom, public?: true, allow_nil?: false)
+    attribute(:target_repository, :string, public?: true, allow_nil?: false)
+    attribute(:required_capability, :string, public?: true, allow_nil?: false)
+    attribute(:benchmark_id, :string, public?: true, allow_nil?: false)
   end
 
   actions do
-    default_accept :*
-    defaults [:create, :read]
+    default_accept(:*)
+    defaults([:create, :read])
   end
 end
-

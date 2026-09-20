@@ -233,7 +233,11 @@ defmodule BeamPM.RF1.DfgDiscovery do
     %{"source" => "Add penalty", "target" => "Send for Credit Collection", "frequency" => 36},
     %{"source" => "Create Fine", "target" => "Payment", "frequency" => 23},
     %{"source" => "Create Fine", "target" => "Send Fine", "frequency" => 77},
-    %{"source" => "Insert Date Appeal to Prefecture", "target" => "Add penalty", "frequency" => 1},
+    %{
+      "source" => "Insert Date Appeal to Prefecture",
+      "target" => "Add penalty",
+      "frequency" => 1
+    },
     %{"source" => "Insert Fine Notification", "target" => "Add penalty", "frequency" => 52},
     %{
       "source" => "Insert Fine Notification",
@@ -689,7 +693,10 @@ defmodule BeamPM.RF1.DfgDiscovery do
     path
   end
 
-  defp falsify_receipt_fields(_paths, {:falsify_detected, :nonexistent_path, dataset, status, raw}) do
+  defp falsify_receipt_fields(
+         _paths,
+         {:falsify_detected, :nonexistent_path, dataset, status, raw}
+       ) do
     {dataset, true, status, raw}
   end
 
@@ -697,7 +704,10 @@ defmodule BeamPM.RF1.DfgDiscovery do
     {dataset, true, status, raw}
   end
 
-  defp falsify_receipt_fields(paths, {:falsify_detected_wrong_reason, :truncated_xes, status, raw}) do
+  defp falsify_receipt_fields(
+         paths,
+         {:falsify_detected_wrong_reason, :truncated_xes, status, raw}
+       ) do
     {paths.truncated_xes, false, status, raw}
   end
 

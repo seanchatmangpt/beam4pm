@@ -8,16 +8,15 @@ defmodule BeamPM.Ash.Resources.RefusalBoundaryObservation do
     validate_domain_inclusion?: false
 
   attributes do
-    uuid_primary_key :id
-    attribute :subject_id, :string, public?: true, allow_nil?: false
-    attribute :refusal_code, :string, public?: true, allow_nil?: false
-    attribute :authority_boundary, :string, public?: true, allow_nil?: false
-    attribute :evidence_digest, :string, public?: true, allow_nil?: false
+    uuid_primary_key(:id)
+    attribute(:subject_id, :string, public?: true, allow_nil?: false)
+    attribute(:refusal_code, :string, public?: true, allow_nil?: false)
+    attribute(:authority_boundary, :string, public?: true, allow_nil?: false)
+    attribute(:evidence_digest, :string, public?: true, allow_nil?: false)
   end
 
   actions do
-    default_accept :*
-    defaults [:create, :read]
+    default_accept(:*)
+    defaults([:create, :read])
   end
 end
-

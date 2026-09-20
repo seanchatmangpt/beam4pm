@@ -8,14 +8,13 @@ defmodule BeamPM.Ash.Resources.PetriTransition do
     validate_domain_inclusion?: false
 
   attributes do
-    uuid_primary_key :id
-    attribute :transition_id, :string, public?: true, allow_nil?: false
-    attribute :label, :string, public?: true
+    uuid_primary_key(:id)
+    attribute(:transition_id, :string, public?: true, allow_nil?: false)
+    attribute(:label, :string, public?: true)
   end
 
   actions do
-    default_accept :*
-    defaults [:create, :read]
+    default_accept(:*)
+    defaults([:create, :read])
   end
 end
-

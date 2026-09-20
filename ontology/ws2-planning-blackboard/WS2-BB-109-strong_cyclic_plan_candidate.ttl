@@ -1,0 +1,30 @@
+@prefix bpm: <https://beam4pm.dev/ontology/process#> .
+
+# WS2-BB-109 — strong_cyclic_plan_candidate
+bpm:strong_cyclic_plan_candidate_rt a bpm:RecordType ;
+    bpm:recordName "strong_cyclic_plan_candidate" ;
+    bpm:recordDoc "Records a fair strong-cyclic policy candidate for recoverable recurrence." ;
+    bpm:hasField bpm:strong_cyclic_plan_candidate_candidate_id_f ,
+                 bpm:strong_cyclic_plan_candidate_policy_digest_f ,
+                 bpm:strong_cyclic_plan_candidate_fairness_proof_f .
+
+bpm:strong_cyclic_plan_candidate_candidate_id_f a bpm:Field ;
+    bpm:fieldName "candidate_id" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Strong-cyclic candidate identity." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 1 .
+
+bpm:strong_cyclic_plan_candidate_policy_digest_f a bpm:Field ;
+    bpm:fieldName "policy_digest" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of the cyclic policy graph." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 2 .
+
+bpm:strong_cyclic_plan_candidate_fairness_proof_f a bpm:Field ;
+    bpm:fieldName "fairness_proof" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Evidence binding recurrence to fairness assumptions." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 3 .

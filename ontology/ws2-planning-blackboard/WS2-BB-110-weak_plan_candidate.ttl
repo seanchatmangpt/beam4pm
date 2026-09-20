@@ -1,0 +1,30 @@
+@prefix bpm: <https://beam4pm.dev/ontology/process#> .
+
+# WS2-BB-110 — weak_plan_candidate
+bpm:weak_plan_candidate_rt a bpm:RecordType ;
+    bpm:recordName "weak_plan_candidate" ;
+    bpm:recordDoc "Records a weak plan while preserving its uncovered counterfactuals." ;
+    bpm:hasField bpm:weak_plan_candidate_candidate_id_f ,
+                 bpm:weak_plan_candidate_policy_digest_f ,
+                 bpm:weak_plan_candidate_uncovered_digest_f .
+
+bpm:weak_plan_candidate_candidate_id_f a bpm:Field ;
+    bpm:fieldName "candidate_id" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Weak plan candidate identity." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 1 .
+
+bpm:weak_plan_candidate_policy_digest_f a bpm:Field ;
+    bpm:fieldName "policy_digest" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of the proposed policy." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 2 .
+
+bpm:weak_plan_candidate_uncovered_digest_f a bpm:Field ;
+    bpm:fieldName "uncovered_digest" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of outcomes not guaranteed to reach the goal." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 3 .

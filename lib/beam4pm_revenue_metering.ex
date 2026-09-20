@@ -157,7 +157,8 @@ defmodule BeamPM.Revenue.Metering do
         |> Enum.map(fn %LogTrace{case_id: case_id} ->
           {:ok, usage_event} =
             UsageEvent.new(%{
-              event_id: deterministic_event_id(entitlement_id, metric_name, case_id, period_start),
+              event_id:
+                deterministic_event_id(entitlement_id, metric_name, case_id, period_start),
               entitlement_id: entitlement_id,
               quantity: 1.0,
               metric_name: metric_name,

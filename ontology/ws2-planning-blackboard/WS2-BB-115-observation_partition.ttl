@@ -1,0 +1,30 @@
+@prefix bpm: <https://beam4pm.dev/ontology/process#> .
+
+# WS2-BB-115 — observation_partition
+bpm:observation_partition_rt a bpm:RecordType ;
+    bpm:recordName "observation_partition" ;
+    bpm:recordDoc "Partitions observationally equivalent world states for contingent planning." ;
+    bpm:hasField bpm:observation_partition_partition_id_f ,
+                 bpm:observation_partition_state_set_digest_f ,
+                 bpm:observation_partition_observation_key_f .
+
+bpm:observation_partition_partition_id_f a bpm:Field ;
+    bpm:fieldName "partition_id" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Observation partition identity." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 1 .
+
+bpm:observation_partition_state_set_digest_f a bpm:Field ;
+    bpm:fieldName "state_set_digest" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of member world states." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 2 .
+
+bpm:observation_partition_observation_key_f a bpm:Field ;
+    bpm:fieldName "observation_key" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Observation defining equivalence." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 3 .

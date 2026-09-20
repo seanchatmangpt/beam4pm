@@ -8,17 +8,16 @@ defmodule BeamPM.Ash.Resources.EntitlementEvent do
     validate_domain_inclusion?: false
 
   attributes do
-    uuid_primary_key :id
-    attribute :event_id, :string, public?: true, allow_nil?: false
-    attribute :entitlement_id, :string, public?: true, allow_nil?: false
-    attribute :event_type, :string, public?: true, allow_nil?: false
-    attribute :effective_at, :utc_datetime_usec, public?: true, allow_nil?: false
-    attribute :payload, :map, public?: true
+    uuid_primary_key(:id)
+    attribute(:event_id, :string, public?: true, allow_nil?: false)
+    attribute(:entitlement_id, :string, public?: true, allow_nil?: false)
+    attribute(:event_type, :string, public?: true, allow_nil?: false)
+    attribute(:effective_at, :utc_datetime_usec, public?: true, allow_nil?: false)
+    attribute(:payload, :map, public?: true)
   end
 
   actions do
-    default_accept :*
-    defaults [:create, :read]
+    default_accept(:*)
+    defaults([:create, :read])
   end
 end
-

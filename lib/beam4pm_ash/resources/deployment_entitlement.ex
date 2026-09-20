@@ -8,16 +8,15 @@ defmodule BeamPM.Ash.Resources.DeploymentEntitlement do
     validate_domain_inclusion?: false
 
   attributes do
-    uuid_primary_key :id
-    attribute :entitlement_id, :string, public?: true, allow_nil?: false
-    attribute :tenant_id, :string, public?: true, allow_nil?: false
-    attribute :profile_id, :string, public?: true, allow_nil?: false
-    attribute :valid_until, :utc_datetime_usec, public?: true, allow_nil?: false
+    uuid_primary_key(:id)
+    attribute(:entitlement_id, :string, public?: true, allow_nil?: false)
+    attribute(:tenant_id, :string, public?: true, allow_nil?: false)
+    attribute(:profile_id, :string, public?: true, allow_nil?: false)
+    attribute(:valid_until, :utc_datetime_usec, public?: true, allow_nil?: false)
   end
 
   actions do
-    default_accept :*
-    defaults [:create, :read]
+    default_accept(:*)
+    defaults([:create, :read])
   end
 end
-

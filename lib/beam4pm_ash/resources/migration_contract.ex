@@ -8,16 +8,15 @@ defmodule BeamPM.Ash.Resources.MigrationContract do
     validate_domain_inclusion?: false
 
   attributes do
-    uuid_primary_key :id
-    attribute :migration_id, :string, public?: true, allow_nil?: false
-    attribute :from_version, :string, public?: true, allow_nil?: false
-    attribute :to_version, :string, public?: true, allow_nil?: false
-    attribute :rollback_plan, :string, public?: true, allow_nil?: false
+    uuid_primary_key(:id)
+    attribute(:migration_id, :string, public?: true, allow_nil?: false)
+    attribute(:from_version, :string, public?: true, allow_nil?: false)
+    attribute(:to_version, :string, public?: true, allow_nil?: false)
+    attribute(:rollback_plan, :string, public?: true, allow_nil?: false)
   end
 
   actions do
-    default_accept :*
-    defaults [:create, :read]
+    default_accept(:*)
+    defaults([:create, :read])
   end
 end
-
