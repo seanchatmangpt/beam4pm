@@ -8,15 +8,14 @@ defmodule BeamPM.Ash.Resources.HddlTaskNetwork do
     validate_domain_inclusion?: false
 
   attributes do
-    uuid_primary_key :id
-    attribute :network_id, :string, public?: true, allow_nil?: false
-    attribute :task_set_digest, :string, public?: true, allow_nil?: false
-    attribute :ordering_digest, :string, public?: true, allow_nil?: false
+    uuid_primary_key(:id)
+    attribute(:network_id, :string, public?: true, allow_nil?: false)
+    attribute(:task_set_digest, :string, public?: true, allow_nil?: false)
+    attribute(:ordering_digest, :string, public?: true, allow_nil?: false)
   end
 
   actions do
-    default_accept :*
-    defaults [:create, :read]
+    default_accept(:*)
+    defaults([:create, :read])
   end
 end
-

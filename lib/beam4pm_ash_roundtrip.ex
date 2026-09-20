@@ -735,8 +735,10 @@ defmodule BeamPM.AshRoundtrip do
     autonomic_circuit_breaker_transition: BeamPM.Ash.Resources.AutonomicCircuitBreakerTransition,
     autonomic_compensation_verification: BeamPM.Ash.Resources.AutonomicCompensationVerification,
     autonomic_crash_recovery: BeamPM.Ash.Resources.AutonomicCrashRecovery,
-    autonomic_cross_consumer_receipt_refusal: BeamPM.Ash.Resources.AutonomicCrossConsumerReceiptRefusal,
-    autonomic_deterministic_receipt_replay: BeamPM.Ash.Resources.AutonomicDeterministicReceiptReplay,
+    autonomic_cross_consumer_receipt_refusal:
+      BeamPM.Ash.Resources.AutonomicCrossConsumerReceiptRefusal,
+    autonomic_deterministic_receipt_replay:
+      BeamPM.Ash.Resources.AutonomicDeterministicReceiptReplay,
     autonomic_failure_classification: BeamPM.Ash.Resources.AutonomicFailureClassification,
     autonomic_forged_receipt_refusal: BeamPM.Ash.Resources.AutonomicForgedReceiptRefusal,
     autonomic_generated_surface_refusal: BeamPM.Ash.Resources.AutonomicGeneratedSurfaceRefusal,
@@ -762,7 +764,8 @@ defmodule BeamPM.AshRoundtrip do
     autonomic_rollback_transition: BeamPM.Ash.Resources.AutonomicRollbackTransition,
     autonomic_saga_compensation: BeamPM.Ash.Resources.AutonomicSagaCompensation,
     autonomic_second_run_identity: BeamPM.Ash.Resources.AutonomicSecondRunIdentity,
-    autonomic_self_healing_completion_receipt: BeamPM.Ash.Resources.AutonomicSelfHealingCompletionReceipt,
+    autonomic_self_healing_completion_receipt:
+      BeamPM.Ash.Resources.AutonomicSelfHealingCompletionReceipt,
     autonomic_stale_action_refusal: BeamPM.Ash.Resources.AutonomicStaleActionRefusal,
     autonomic_stale_receipt_refusal: BeamPM.Ash.Resources.AutonomicStaleReceiptRefusal,
     autonomic_state_vector: BeamPM.Ash.Resources.AutonomicStateVector,
@@ -802,7 +805,8 @@ defmodule BeamPM.AshRoundtrip do
     canary_decision: BeamPM.Ash.Resources.CanaryDecision,
     canary_evidence: BeamPM.Ash.Resources.CanaryEvidence,
     cancellation_policy: BeamPM.Ash.Resources.CancellationPolicy,
-    canonical_source_authority_observation: BeamPM.Ash.Resources.CanonicalSourceAuthorityObservation,
+    canonical_source_authority_observation:
+      BeamPM.Ash.Resources.CanonicalSourceAuthorityObservation,
     capability_bundle: BeamPM.Ash.Resources.CapabilityBundle,
     capability_gap: BeamPM.Ash.Resources.CapabilityGap,
     capability_gap_learning: BeamPM.Ash.Resources.CapabilityGapLearning,
@@ -845,8 +849,10 @@ defmodule BeamPM.AshRoundtrip do
     consumer_pack_pin_observation: BeamPM.Ash.Resources.ConsumerPackPinObservation,
     consumption_pool: BeamPM.Ash.Resources.ConsumptionPool,
     consumption_subscription: BeamPM.Ash.Resources.ConsumptionSubscription,
-    container_manifest_digest_observation: BeamPM.Ash.Resources.ContainerManifestDigestObservation,
-    container_platform_digest_observation: BeamPM.Ash.Resources.ContainerPlatformDigestObservation,
+    container_manifest_digest_observation:
+      BeamPM.Ash.Resources.ContainerManifestDigestObservation,
+    container_platform_digest_observation:
+      BeamPM.Ash.Resources.ContainerPlatformDigestObservation,
     contingency_branch: BeamPM.Ash.Resources.ContingencyBranch,
     contracting_entity_identity: BeamPM.Ash.Resources.ContractingEntityIdentity,
     cost_center_allocation: BeamPM.Ash.Resources.CostCenterAllocation,
@@ -987,7 +993,8 @@ defmodule BeamPM.AshRoundtrip do
     funding_approval_chain: BeamPM.Ash.Resources.FundingApprovalChain,
     fx_conversion_policy: BeamPM.Ash.Resources.FxConversionPolicy,
     generated_hypothesis: BeamPM.Ash.Resources.GeneratedHypothesis,
-    generated_output_ownership_observation: BeamPM.Ash.Resources.GeneratedOutputOwnershipObservation,
+    generated_output_ownership_observation:
+      BeamPM.Ash.Resources.GeneratedOutputOwnershipObservation,
     generated_source_route: BeamPM.Ash.Resources.GeneratedSourceRoute,
     goal_set_binding: BeamPM.Ash.Resources.GoalSetBinding,
     hddl_method_candidate: BeamPM.Ash.Resources.HddlMethodCandidate,
@@ -1022,8 +1029,10 @@ defmodule BeamPM.AshRoundtrip do
     license_evidence: BeamPM.Ash.Resources.LicenseEvidence,
     log_trace: BeamPM.Ash.Resources.LogTrace,
     machine_actionable_delta: BeamPM.Ash.Resources.MachineActionableDelta,
-    manufacture_receipt_presence_observation: BeamPM.Ash.Resources.ManufactureReceiptPresenceObservation,
-    manufacture_receipt_validity_observation: BeamPM.Ash.Resources.ManufactureReceiptValidityObservation,
+    manufacture_receipt_presence_observation:
+      BeamPM.Ash.Resources.ManufactureReceiptPresenceObservation,
+    manufacture_receipt_validity_observation:
+      BeamPM.Ash.Resources.ManufactureReceiptValidityObservation,
     master_service_agreement_binding: BeamPM.Ash.Resources.MasterServiceAgreementBinding,
     master_service_agreement_state: BeamPM.Ash.Resources.MasterServiceAgreementState,
     mcts_plan_candidate: BeamPM.Ash.Resources.MctsPlanCandidate,
@@ -1198,9 +1207,11 @@ defmodule BeamPM.AshRoundtrip do
     repair_effectiveness_measurement: BeamPM.Ash.Resources.RepairEffectivenessMeasurement,
     replay_environment_identity: BeamPM.Ash.Resources.ReplayEnvironmentIdentity,
     repository_ancestry_observation: BeamPM.Ash.Resources.RepositoryAncestryObservation,
-    repository_default_branch_observation: BeamPM.Ash.Resources.RepositoryDefaultBranchObservation,
+    repository_default_branch_observation:
+      BeamPM.Ash.Resources.RepositoryDefaultBranchObservation,
     repository_exact_head_observation: BeamPM.Ash.Resources.RepositoryExactHeadObservation,
-    repository_worktree_state_observation: BeamPM.Ash.Resources.RepositoryWorktreeStateObservation,
+    repository_worktree_state_observation:
+      BeamPM.Ash.Resources.RepositoryWorktreeStateObservation,
     reproducible_build_evidence: BeamPM.Ash.Resources.ReproducibleBuildEvidence,
     reseller_authorization: BeamPM.Ash.Resources.ResellerAuthorization,
     reserve_work_promotion: BeamPM.Ash.Resources.ReserveWorkPromotion,
@@ -1313,7 +1324,8 @@ defmodule BeamPM.AshRoundtrip do
     usage_reconciliation_receipt: BeamPM.Ash.Resources.UsageReconciliationReceipt,
     usage_signal: BeamPM.Ash.Resources.UsageSignal,
     validation_capsule_drift_observation: BeamPM.Ash.Resources.ValidationCapsuleDriftObservation,
-    validation_capsule_identity_observation: BeamPM.Ash.Resources.ValidationCapsuleIdentityObservation,
+    validation_capsule_identity_observation:
+      BeamPM.Ash.Resources.ValidationCapsuleIdentityObservation,
     value_baseline: BeamPM.Ash.Resources.ValueBaseline,
     value_driver: BeamPM.Ash.Resources.ValueDriver,
     value_of_information_estimate: BeamPM.Ash.Resources.ValueOfInformationEstimate,
@@ -1330,7 +1342,8 @@ defmodule BeamPM.AshRoundtrip do
     vulnerability_scan_evidence: BeamPM.Ash.Resources.VulnerabilityScanEvidence,
     weak_plan_candidate: BeamPM.Ash.Resources.WeakPlanCandidate,
     wip_limit_gate: BeamPM.Ash.Resources.WipLimitGate,
-    workflow_definition_digest_observation: BeamPM.Ash.Resources.WorkflowDefinitionDigestObservation,
+    workflow_definition_digest_observation:
+      BeamPM.Ash.Resources.WorkflowDefinitionDigestObservation,
     workflow_job_state_observation: BeamPM.Ash.Resources.WorkflowJobStateObservation,
     workflow_run_state_observation: BeamPM.Ash.Resources.WorkflowRunStateObservation,
     workload_backpressure_signal: BeamPM.Ash.Resources.WorkloadBackpressureSignal,
@@ -1701,4 +1714,3 @@ defmodule BeamPM.AshRoundtrip do
     codec_reasons ++ ash_reasons
   end
 end
-

@@ -8,15 +8,14 @@ defmodule BeamPM.Ash.Resources.DistributedWorkQueueObservation do
     validate_domain_inclusion?: false
 
   attributes do
-    uuid_primary_key :id
-    attribute :consumer_subject_sha, :string, public?: true, allow_nil?: false
-    attribute :queue_digest, :string, public?: true, allow_nil?: false
-    attribute :observed_at, :utc_datetime_usec, public?: true, allow_nil?: false
+    uuid_primary_key(:id)
+    attribute(:consumer_subject_sha, :string, public?: true, allow_nil?: false)
+    attribute(:queue_digest, :string, public?: true, allow_nil?: false)
+    attribute(:observed_at, :utc_datetime_usec, public?: true, allow_nil?: false)
   end
 
   actions do
-    default_accept :*
-    defaults [:create, :read]
+    default_accept(:*)
+    defaults([:create, :read])
   end
 end
-

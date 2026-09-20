@@ -8,16 +8,15 @@ defmodule BeamPM.Ash.Resources.CallerLocalCheckoutObservation do
     validate_domain_inclusion?: false
 
   attributes do
-    uuid_primary_key :id
-    attribute :consumer_repository_id, :string, public?: true, allow_nil?: false
-    attribute :checkout_sha, :string, public?: true, allow_nil?: false
-    attribute :checkout_path, :string, public?: true, allow_nil?: false
-    attribute :evidence_digest, :string, public?: true, allow_nil?: false
+    uuid_primary_key(:id)
+    attribute(:consumer_repository_id, :string, public?: true, allow_nil?: false)
+    attribute(:checkout_sha, :string, public?: true, allow_nil?: false)
+    attribute(:checkout_path, :string, public?: true, allow_nil?: false)
+    attribute(:evidence_digest, :string, public?: true, allow_nil?: false)
   end
 
   actions do
-    default_accept :*
-    defaults [:create, :read]
+    default_accept(:*)
+    defaults([:create, :read])
   end
 end
-

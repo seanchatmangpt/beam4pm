@@ -8,16 +8,15 @@ defmodule BeamPM.Ash.Resources.EntitlementRevocation do
     validate_domain_inclusion?: false
 
   attributes do
-    uuid_primary_key :id
-    attribute :revocation_id, :string, public?: true, allow_nil?: false
-    attribute :grant_id, :string, public?: true, allow_nil?: false
-    attribute :reason, :string, public?: true, allow_nil?: false
-    attribute :revoked_at, :utc_datetime_usec, public?: true, allow_nil?: false
+    uuid_primary_key(:id)
+    attribute(:revocation_id, :string, public?: true, allow_nil?: false)
+    attribute(:grant_id, :string, public?: true, allow_nil?: false)
+    attribute(:reason, :string, public?: true, allow_nil?: false)
+    attribute(:revoked_at, :utc_datetime_usec, public?: true, allow_nil?: false)
   end
 
   actions do
-    default_accept :*
-    defaults [:create, :read]
+    default_accept(:*)
+    defaults([:create, :read])
   end
 end
-

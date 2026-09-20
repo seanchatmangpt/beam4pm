@@ -8,16 +8,15 @@ defmodule BeamPM.Ash.Resources.RenewalOption do
     validate_domain_inclusion?: false
 
   attributes do
-    uuid_primary_key :id
-    attribute :option_id, :string, public?: true, allow_nil?: false
-    attribute :subscription_id, :string, public?: true, allow_nil?: false
-    attribute :term_months, :integer, public?: true, allow_nil?: false
-    attribute :notice_by, :utc_datetime_usec, public?: true, allow_nil?: false
+    uuid_primary_key(:id)
+    attribute(:option_id, :string, public?: true, allow_nil?: false)
+    attribute(:subscription_id, :string, public?: true, allow_nil?: false)
+    attribute(:term_months, :integer, public?: true, allow_nil?: false)
+    attribute(:notice_by, :utc_datetime_usec, public?: true, allow_nil?: false)
   end
 
   actions do
-    default_accept :*
-    defaults [:create, :read]
+    default_accept(:*)
+    defaults([:create, :read])
   end
 end
-

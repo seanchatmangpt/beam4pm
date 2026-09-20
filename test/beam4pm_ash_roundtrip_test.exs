@@ -50,8 +50,11 @@ defmodule BeamPM.AshRoundtripTest do
         |> Ash.Resource.Info.public_attributes()
         |> Enum.map(& &1.name)
 
-      assert public -- wire_fields == [:id], "#{name}: Ash-only attributes #{inspect(public -- wire_fields)}"
-      assert wire_fields -- public == [], "#{name}: wire fields missing from Ash #{inspect(wire_fields -- public)}"
+      assert public -- wire_fields == [:id],
+             "#{name}: Ash-only attributes #{inspect(public -- wire_fields)}"
+
+      assert wire_fields -- public == [],
+             "#{name}: wire fields missing from Ash #{inspect(wire_fields -- public)}"
     end
   end
 
@@ -138,4 +141,3 @@ defmodule BeamPM.AshRoundtripTest do
     end
   end
 end
-

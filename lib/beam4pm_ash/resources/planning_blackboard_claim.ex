@@ -8,15 +8,14 @@ defmodule BeamPM.Ash.Resources.PlanningBlackboardClaim do
     validate_domain_inclusion?: false
 
   attributes do
-    uuid_primary_key :id
-    attribute :claim_id, :string, public?: true, allow_nil?: false
-    attribute :work_item_id, :string, public?: true, allow_nil?: false
-    attribute :owner_subject_sha, :string, public?: true, allow_nil?: false
+    uuid_primary_key(:id)
+    attribute(:claim_id, :string, public?: true, allow_nil?: false)
+    attribute(:work_item_id, :string, public?: true, allow_nil?: false)
+    attribute(:owner_subject_sha, :string, public?: true, allow_nil?: false)
   end
 
   actions do
-    default_accept :*
-    defaults [:create, :read]
+    default_accept(:*)
+    defaults([:create, :read])
   end
 end
-

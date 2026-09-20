@@ -8,15 +8,14 @@ defmodule BeamPM.Ash.Resources.AccountMasterMatch do
     validate_domain_inclusion?: false
 
   attributes do
-    uuid_primary_key :id
-    attribute :source_account_id, :string, public?: true, allow_nil?: false
-    attribute :canonical_account_id, :string, public?: true, allow_nil?: false
-    attribute :match_evidence_hash, :string, public?: true, allow_nil?: false
+    uuid_primary_key(:id)
+    attribute(:source_account_id, :string, public?: true, allow_nil?: false)
+    attribute(:canonical_account_id, :string, public?: true, allow_nil?: false)
+    attribute(:match_evidence_hash, :string, public?: true, allow_nil?: false)
   end
 
   actions do
-    default_accept :*
-    defaults [:create, :read]
+    default_accept(:*)
+    defaults([:create, :read])
   end
 end
-

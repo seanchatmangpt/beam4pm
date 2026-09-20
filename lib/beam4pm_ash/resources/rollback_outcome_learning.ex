@@ -8,18 +8,17 @@ defmodule BeamPM.Ash.Resources.RollbackOutcomeLearning do
     validate_domain_inclusion?: false
 
   attributes do
-    uuid_primary_key :id
-    attribute :learning_id, :string, public?: true, allow_nil?: false
-    attribute :rollback_id, :string, public?: true, allow_nil?: false
-    attribute :pre_rollback_state_digest, :string, public?: true, allow_nil?: false
-    attribute :post_rollback_state_digest, :string, public?: true, allow_nil?: false
-    attribute :recovery_score, :float, public?: true, allow_nil?: false
-    attribute :evidence_digest, :string, public?: true, allow_nil?: false
+    uuid_primary_key(:id)
+    attribute(:learning_id, :string, public?: true, allow_nil?: false)
+    attribute(:rollback_id, :string, public?: true, allow_nil?: false)
+    attribute(:pre_rollback_state_digest, :string, public?: true, allow_nil?: false)
+    attribute(:post_rollback_state_digest, :string, public?: true, allow_nil?: false)
+    attribute(:recovery_score, :float, public?: true, allow_nil?: false)
+    attribute(:evidence_digest, :string, public?: true, allow_nil?: false)
   end
 
   actions do
-    default_accept :*
-    defaults [:create, :read]
+    default_accept(:*)
+    defaults([:create, :read])
   end
 end
-

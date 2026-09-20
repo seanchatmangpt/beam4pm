@@ -8,15 +8,14 @@ defmodule BeamPM.Ash.Resources.NondeterministicEffectContract do
     validate_domain_inclusion?: false
 
   attributes do
-    uuid_primary_key :id
-    attribute :action_id, :string, public?: true, allow_nil?: false
-    attribute :effect_set_digest, :string, public?: true, allow_nil?: false
-    attribute :selection_semantics, :string, public?: true, allow_nil?: false
+    uuid_primary_key(:id)
+    attribute(:action_id, :string, public?: true, allow_nil?: false)
+    attribute(:effect_set_digest, :string, public?: true, allow_nil?: false)
+    attribute(:selection_semantics, :string, public?: true, allow_nil?: false)
   end
 
   actions do
-    default_accept :*
-    defaults [:create, :read]
+    default_accept(:*)
+    defaults([:create, :read])
   end
 end
-

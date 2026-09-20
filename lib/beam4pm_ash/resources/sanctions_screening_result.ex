@@ -8,15 +8,14 @@ defmodule BeamPM.Ash.Resources.SanctionsScreeningResult do
     validate_domain_inclusion?: false
 
   attributes do
-    uuid_primary_key :id
-    attribute :account_id, :string, public?: true, allow_nil?: false
-    attribute :screening_id, :string, public?: true, allow_nil?: false
-    attribute :screening_result, :string, public?: true, allow_nil?: false
+    uuid_primary_key(:id)
+    attribute(:account_id, :string, public?: true, allow_nil?: false)
+    attribute(:screening_id, :string, public?: true, allow_nil?: false)
+    attribute(:screening_result, :string, public?: true, allow_nil?: false)
   end
 
   actions do
-    default_accept :*
-    defaults [:create, :read]
+    default_accept(:*)
+    defaults([:create, :read])
   end
 end
-

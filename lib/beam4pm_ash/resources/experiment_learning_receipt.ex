@@ -8,18 +8,17 @@ defmodule BeamPM.Ash.Resources.ExperimentLearningReceipt do
     validate_domain_inclusion?: false
 
   attributes do
-    uuid_primary_key :id
-    attribute :receipt_id, :string, public?: true, allow_nil?: false
-    attribute :experiment_id, :string, public?: true, allow_nil?: false
-    attribute :exact_subject_sha, :string, public?: true, allow_nil?: false
-    attribute :evidence_digest, :string, public?: true, allow_nil?: false
-    attribute :result_digest, :string, public?: true, allow_nil?: false
-    attribute :authority_ceiling, :string, public?: true, allow_nil?: false
+    uuid_primary_key(:id)
+    attribute(:receipt_id, :string, public?: true, allow_nil?: false)
+    attribute(:experiment_id, :string, public?: true, allow_nil?: false)
+    attribute(:exact_subject_sha, :string, public?: true, allow_nil?: false)
+    attribute(:evidence_digest, :string, public?: true, allow_nil?: false)
+    attribute(:result_digest, :string, public?: true, allow_nil?: false)
+    attribute(:authority_ceiling, :string, public?: true, allow_nil?: false)
   end
 
   actions do
-    default_accept :*
-    defaults [:create, :read]
+    default_accept(:*)
+    defaults([:create, :read])
   end
 end
-

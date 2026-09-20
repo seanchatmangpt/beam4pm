@@ -8,18 +8,17 @@ defmodule BeamPM.Ash.Resources.BillingReconciliation do
     validate_domain_inclusion?: false
 
   attributes do
-    uuid_primary_key :id
-    attribute :entitlement_id, :string, public?: true, allow_nil?: false
-    attribute :metric_name, :string, public?: true, allow_nil?: false
-    attribute :total_quantity, :float, public?: true, allow_nil?: false
-    attribute :applied_event_ids, {:array, :string}, public?: true, allow_nil?: false
-    attribute :period_start, :utc_datetime_usec, public?: true, allow_nil?: false
-    attribute :period_end, :utc_datetime_usec, public?: true, allow_nil?: false
+    uuid_primary_key(:id)
+    attribute(:entitlement_id, :string, public?: true, allow_nil?: false)
+    attribute(:metric_name, :string, public?: true, allow_nil?: false)
+    attribute(:total_quantity, :float, public?: true, allow_nil?: false)
+    attribute(:applied_event_ids, {:array, :string}, public?: true, allow_nil?: false)
+    attribute(:period_start, :utc_datetime_usec, public?: true, allow_nil?: false)
+    attribute(:period_end, :utc_datetime_usec, public?: true, allow_nil?: false)
   end
 
   actions do
-    default_accept :*
-    defaults [:create, :read]
+    default_accept(:*)
+    defaults([:create, :read])
   end
 end
-

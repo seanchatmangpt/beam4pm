@@ -136,14 +136,29 @@ defmodule BeamPM.ProcessGovernor do
       initial_state: "reset",
       transitions: [
         %{ordinal: 1, from_state: "reset", to_state: "scaled_up", actuation_name: "k8s_scale_up"},
-        %{ordinal: 2, from_state: "scaled_up", to_state: "scaled_down", actuation_name: "k8s_scale_down"}
+        %{
+          ordinal: 2,
+          from_state: "scaled_up",
+          to_state: "scaled_down",
+          actuation_name: "k8s_scale_down"
+        }
       ]
     },
     "toy_counter_governed" => %{
       initial_state: "reset",
       transitions: [
-        %{ordinal: 1, from_state: "reset", to_state: "incremented_once", actuation_name: "increment_counter"},
-        %{ordinal: 2, from_state: "incremented_once", to_state: "observed", actuation_name: "observe_counter"}
+        %{
+          ordinal: 1,
+          from_state: "reset",
+          to_state: "incremented_once",
+          actuation_name: "increment_counter"
+        },
+        %{
+          ordinal: 2,
+          from_state: "incremented_once",
+          to_state: "observed",
+          actuation_name: "observe_counter"
+        }
       ]
     }
   }
@@ -265,7 +280,13 @@ defmodule BeamPM.ProcessGovernor do
           effects: []
         }
 
-        dispatch_actuation(snapshot, candidate, run_id, run_opts, Actuation.run(action_input, run_opts))
+        dispatch_actuation(
+          snapshot,
+          candidate,
+          run_id,
+          run_opts,
+          Actuation.run(action_input, run_opts)
+        )
     end
   end
 
@@ -293,9 +314,18 @@ defmodule BeamPM.ProcessGovernor do
     {:ok, new_snapshot, receipt}
   end
 
-  defp dispatch_actuation(_snapshot, candidate, run_id, run_opts, {:error, {:refused, reason} = tagged}) do
+  defp dispatch_actuation(
+         _snapshot,
+         candidate,
+         run_id,
+         run_opts,
+         {:error, {:refused, reason} = tagged}
+       ) do
     path = actuation_receipt_path_if_written(run_opts)
-    receipt = build_and_write_receipt(candidate, run_id, run_opts, :refused, inspect(reason), path)
+
+    receipt =
+      build_and_write_receipt(candidate, run_id, run_opts, :refused, inspect(reason), path)
+
     {:error, tagged, receipt}
   end
 
@@ -309,7 +339,14 @@ defmodule BeamPM.ProcessGovernor do
     path = actuation_receipt_path_if_written(run_opts)
 
     receipt =
-      build_and_write_receipt(candidate, run_id, run_opts, :execution_failed, inspect(reason), path)
+      build_and_write_receipt(
+        candidate,
+        run_id,
+        run_opts,
+        :execution_failed,
+        inspect(reason),
+        path
+      )
 
     {:error, tagged, receipt}
   end
@@ -321,7 +358,17 @@ defmodule BeamPM.ProcessGovernor do
   # than a FunctionClauseError if that contract ever widens.
   defp dispatch_actuation(_snapshot, candidate, run_id, run_opts, {:error, other}) do
     path = actuation_receipt_path_if_written(run_opts)
-    receipt = build_and_write_receipt(candidate, run_id, run_opts, :execution_failed, inspect(other), path)
+
+    receipt =
+      build_and_write_receipt(
+        candidate,
+        run_id,
+        run_opts,
+        :execution_failed,
+        inspect(other),
+        path
+      )
+
     {:error, {:execution_failed, other}, receipt}
   end
 
@@ -379,8 +426,11 @@ defmodule BeamPM.ProcessGovernor do
            {:ok, new_snap, _receipt} <- apply_transition(snap, candidate, actuation_opts) do
         {:cont, {:ok, new_snap}}
       else
-        {:error, reason} -> {:halt, {:error, reason, snap}}
-        {:error, reason, receipt} -> {:halt, {:error, reason, %{snap | receipts: [receipt | snap.receipts]}}}
+        {:error, reason} ->
+          {:halt, {:error, reason, snap}}
+
+        {:error, reason, receipt} ->
+          {:halt, {:error, reason, %{snap | receipts: [receipt | snap.receipts]}}}
       end
     end)
   end
@@ -408,7 +458,8 @@ defmodule BeamPM.ProcessGovernor do
       {:ok, session} ->
         try do
           {result, _final_session} =
-            Enum.reduce_while(transitions, {{:ok, snapshot}, session}, fn t, {{:ok, snap}, sess} ->
+            Enum.reduce_while(transitions, {{:ok, snapshot}, session}, fn t,
+                                                                          {{:ok, snap}, sess} ->
               run_opts = Keyword.put(actuation_opts, :session, sess)
 
               with {:ok, candidate} <- plan_transition(snap, t.ordinal),
@@ -455,7 +506,14 @@ defmodule BeamPM.ProcessGovernor do
         run_id = Keyword.fetch!(run_opts, :run_id)
 
         receipt =
-          build_and_write_receipt(candidate, run_id, run_opts, :execution_failed, inspect(tagged), nil)
+          build_and_write_receipt(
+            candidate,
+            run_id,
+            run_opts,
+            :execution_failed,
+            inspect(tagged),
+            nil
+          )
 
         {:error, tagged, %{snapshot | receipts: [receipt]}}
 
@@ -494,7 +552,8 @@ defmodule BeamPM.ProcessGovernor do
           | {:error, {:replay_broken, pos_integer(), term()}}
   def replay(process_id, process_receipts)
       when is_binary(process_id) and is_list(process_receipts) do
-    seed_state = @contracts |> Map.get(process_id, %{initial_state: nil}) |> Map.fetch!(:initial_state)
+    seed_state =
+      @contracts |> Map.get(process_id, %{initial_state: nil}) |> Map.fetch!(:initial_state)
 
     process_receipts
     |> Enum.reduce_while({:ok, [], seed_state}, fn receipt, {:ok, events_acc, state_acc} ->
@@ -626,7 +685,11 @@ defmodule BeamPM.ProcessGovernor do
       Keyword.get(run_opts, :receipts_dir, Path.join(File.cwd!(), "receipts/actuations"))
 
     path =
-      Path.join([receipts_dir, "process", "#{receipt.process_id}-t#{receipt.ordinal}-#{receipt.run_id}.json"])
+      Path.join([
+        receipts_dir,
+        "process",
+        "#{receipt.process_id}-t#{receipt.ordinal}-#{receipt.run_id}.json"
+      ])
 
     File.mkdir_p!(Path.dirname(path))
 
@@ -646,7 +709,11 @@ defmodule BeamPM.ProcessGovernor do
             nil
 
           a ->
-            %{"run_id" => a.run_id, "receipt_path" => a.receipt_path, "receipt_schema" => a.receipt_schema}
+            %{
+              "run_id" => a.run_id,
+              "receipt_path" => a.receipt_path,
+              "receipt_schema" => a.receipt_schema
+            }
         end
     }
 

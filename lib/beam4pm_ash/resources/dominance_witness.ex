@@ -8,15 +8,14 @@ defmodule BeamPM.Ash.Resources.DominanceWitness do
     validate_domain_inclusion?: false
 
   attributes do
-    uuid_primary_key :id
-    attribute :dominant_option_id, :string, public?: true, allow_nil?: false
-    attribute :dominated_option_id, :string, public?: true, allow_nil?: false
-    attribute :witness_hash, :string, public?: true, allow_nil?: false
+    uuid_primary_key(:id)
+    attribute(:dominant_option_id, :string, public?: true, allow_nil?: false)
+    attribute(:dominated_option_id, :string, public?: true, allow_nil?: false)
+    attribute(:witness_hash, :string, public?: true, allow_nil?: false)
   end
 
   actions do
-    default_accept :*
-    defaults [:create, :read]
+    default_accept(:*)
+    defaults([:create, :read])
   end
 end
-

@@ -8,18 +8,17 @@ defmodule BeamPM.Ash.Resources.ServiceSpan do
     validate_domain_inclusion?: false
 
   attributes do
-    uuid_primary_key :id
-    attribute :span_id, :string, public?: true, allow_nil?: false
-    attribute :service_name, :string, public?: true, allow_nil?: false
-    attribute :duration_ms, :integer, public?: true, allow_nil?: false
-    attribute :parent_span_id, :string, public?: true
-    attribute :trace_id, :string, public?: true, allow_nil?: false
-    attribute :start_time, :utc_datetime_usec, public?: true, allow_nil?: false
+    uuid_primary_key(:id)
+    attribute(:span_id, :string, public?: true, allow_nil?: false)
+    attribute(:service_name, :string, public?: true, allow_nil?: false)
+    attribute(:duration_ms, :integer, public?: true, allow_nil?: false)
+    attribute(:parent_span_id, :string, public?: true)
+    attribute(:trace_id, :string, public?: true, allow_nil?: false)
+    attribute(:start_time, :utc_datetime_usec, public?: true, allow_nil?: false)
   end
 
   actions do
-    default_accept :*
-    defaults [:create, :read]
+    default_accept(:*)
+    defaults([:create, :read])
   end
 end
-

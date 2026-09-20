@@ -8,16 +8,15 @@ defmodule BeamPM.Ash.Resources.QuotaPolicy do
     validate_domain_inclusion?: false
 
   attributes do
-    uuid_primary_key :id
-    attribute :quota_id, :string, public?: true, allow_nil?: false
-    attribute :metric_name, :string, public?: true, allow_nil?: false
-    attribute :limit, :float, public?: true, allow_nil?: false
-    attribute :window, :atom, public?: true, allow_nil?: false
+    uuid_primary_key(:id)
+    attribute(:quota_id, :string, public?: true, allow_nil?: false)
+    attribute(:metric_name, :string, public?: true, allow_nil?: false)
+    attribute(:limit, :float, public?: true, allow_nil?: false)
+    attribute(:window, :atom, public?: true, allow_nil?: false)
   end
 
   actions do
-    default_accept :*
-    defaults [:create, :read]
+    default_accept(:*)
+    defaults([:create, :read])
   end
 end
-

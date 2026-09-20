@@ -8,16 +8,15 @@ defmodule BeamPM.Ash.Resources.FrontierBenchmark do
     validate_domain_inclusion?: false
 
   attributes do
-    uuid_primary_key :id
-    attribute :benchmark_id, :string, public?: true, allow_nil?: false
-    attribute :metric, :string, public?: true, allow_nil?: false
-    attribute :acceptance_predicate, :string, public?: true, allow_nil?: false
-    attribute :falsifier, :string, public?: true, allow_nil?: false
+    uuid_primary_key(:id)
+    attribute(:benchmark_id, :string, public?: true, allow_nil?: false)
+    attribute(:metric, :string, public?: true, allow_nil?: false)
+    attribute(:acceptance_predicate, :string, public?: true, allow_nil?: false)
+    attribute(:falsifier, :string, public?: true, allow_nil?: false)
   end
 
   actions do
-    default_accept :*
-    defaults [:create, :read]
+    default_accept(:*)
+    defaults([:create, :read])
   end
 end
-

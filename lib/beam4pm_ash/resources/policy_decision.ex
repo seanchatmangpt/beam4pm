@@ -8,15 +8,14 @@ defmodule BeamPM.Ash.Resources.PolicyDecision do
     validate_domain_inclusion?: false
 
   attributes do
-    uuid_primary_key :id
-    attribute :decision_id, :string, public?: true, allow_nil?: false
-    attribute :verdict, :atom, public?: true, allow_nil?: false
-    attribute :reason, :string, public?: true
+    uuid_primary_key(:id)
+    attribute(:decision_id, :string, public?: true, allow_nil?: false)
+    attribute(:verdict, :atom, public?: true, allow_nil?: false)
+    attribute(:reason, :string, public?: true)
   end
 
   actions do
-    default_accept :*
-    defaults [:create, :read]
+    default_accept(:*)
+    defaults([:create, :read])
   end
 end
-

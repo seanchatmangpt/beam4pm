@@ -16,7 +16,8 @@ defmodule BeamPM.Rf2Conformance.OracleBridge do
   """
 
   @spec run(String.t(), map(), non_neg_integer()) :: {:ok, map()} | {:error, term()}
-  def run(oracle_bin, payload, timeout \\ 60_000) when is_binary(oracle_bin) and is_map(payload) do
+  def run(oracle_bin, payload, timeout \\ 60_000)
+      when is_binary(oracle_bin) and is_map(payload) do
     sh = System.find_executable("sh") || "/bin/sh"
     tmp = Path.join(System.tmp_dir!(), "rf2-oracle-in-#{System.unique_integer([:positive])}.json")
     File.write!(tmp, JSON.encode!(payload))
@@ -209,7 +210,9 @@ defmodule BeamPM.Rf2Conformance do
           clean_fitness = clean.fitness
 
           log_fitness_delta = clean_fitness["log_fitness"] - mutated_fitness["log_fitness"]
-          avg_fitness_delta = clean_fitness["average_fitness"] - mutated_fitness["average_fitness"]
+
+          avg_fitness_delta =
+            clean_fitness["average_fitness"] - mutated_fitness["average_fitness"]
 
           cond do
             log_fitness_delta <= 0.0 ->
@@ -274,7 +277,8 @@ defmodule BeamPM.Rf2Conformance do
     argument(:falsify, result(:check_falsify))
     argument(:run_opts, input(:run_opts))
 
-    run(fn %{oracle_bin: oracle_bin, clean: clean, falsify: falsify, run_opts: run_opts}, _context ->
+    run(fn %{oracle_bin: oracle_bin, clean: clean, falsify: falsify, run_opts: run_opts},
+           _context ->
       path =
         write_receipt!(run_opts, %{
           "outcome" => "checked",
@@ -461,7 +465,10 @@ defmodule BeamPM.Rf2Conformance do
   end
 
   defp find_tagged_reason(%{error: {:conformance_check_failed, _} = tagged}), do: {:ok, tagged}
-  defp find_tagged_reason(%{error: {:falsify_did_not_discriminate, _} = tagged}), do: {:ok, tagged}
+
+  defp find_tagged_reason(%{error: {:falsify_did_not_discriminate, _} = tagged}),
+    do: {:ok, tagged}
+
   defp find_tagged_reason(%{error: {:oracle_failed, _} = tagged}), do: {:ok, tagged}
   defp find_tagged_reason(%{error: nested}), do: find_tagged_reason(nested)
   defp find_tagged_reason(_other), do: :error

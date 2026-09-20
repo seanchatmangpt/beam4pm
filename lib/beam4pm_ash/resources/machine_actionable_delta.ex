@@ -8,16 +8,15 @@ defmodule BeamPM.Ash.Resources.MachineActionableDelta do
     validate_domain_inclusion?: false
 
   attributes do
-    uuid_primary_key :id
-    attribute :subject_id, :string, public?: true, allow_nil?: false
-    attribute :prior_state_digest, :string, public?: true, allow_nil?: false
-    attribute :delta_digest, :string, public?: true, allow_nil?: false
-    attribute :recommended_action, :string, public?: true, allow_nil?: false
+    uuid_primary_key(:id)
+    attribute(:subject_id, :string, public?: true, allow_nil?: false)
+    attribute(:prior_state_digest, :string, public?: true, allow_nil?: false)
+    attribute(:delta_digest, :string, public?: true, allow_nil?: false)
+    attribute(:recommended_action, :string, public?: true, allow_nil?: false)
   end
 
   actions do
-    default_accept :*
-    defaults [:create, :read]
+    default_accept(:*)
+    defaults([:create, :read])
   end
 end
-

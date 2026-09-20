@@ -8,15 +8,14 @@ defmodule BeamPM.Ash.Resources.NextLawfulActuation do
     validate_domain_inclusion?: false
 
   attributes do
-    uuid_primary_key :id
-    attribute :episode_id, :string, public?: true, allow_nil?: false
-    attribute :selected_action_id, :string, public?: true, allow_nil?: false
-    attribute :selection_receipt_hash, :string, public?: true, allow_nil?: false
+    uuid_primary_key(:id)
+    attribute(:episode_id, :string, public?: true, allow_nil?: false)
+    attribute(:selected_action_id, :string, public?: true, allow_nil?: false)
+    attribute(:selection_receipt_hash, :string, public?: true, allow_nil?: false)
   end
 
   actions do
-    default_accept :*
-    defaults [:create, :read]
+    default_accept(:*)
+    defaults([:create, :read])
   end
 end
-

@@ -8,16 +8,15 @@ defmodule BeamPM.Ash.Resources.EnvironmentProfile do
     validate_domain_inclusion?: false
 
   attributes do
-    uuid_primary_key :id
-    attribute :profile_id, :string, public?: true, allow_nil?: false
-    attribute :environment, :atom, public?: true, allow_nil?: false
-    attribute :region, :string, public?: true, allow_nil?: false
-    attribute :configuration_hash, :string, public?: true, allow_nil?: false
+    uuid_primary_key(:id)
+    attribute(:profile_id, :string, public?: true, allow_nil?: false)
+    attribute(:environment, :atom, public?: true, allow_nil?: false)
+    attribute(:region, :string, public?: true, allow_nil?: false)
+    attribute(:configuration_hash, :string, public?: true, allow_nil?: false)
   end
 
   actions do
-    default_accept :*
-    defaults [:create, :read]
+    default_accept(:*)
+    defaults([:create, :read])
   end
 end
-

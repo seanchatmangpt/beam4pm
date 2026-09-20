@@ -8,16 +8,15 @@ defmodule BeamPM.Ash.Resources.InvoiceSchedule do
     validate_domain_inclusion?: false
 
   attributes do
-    uuid_primary_key :id
-    attribute :schedule_id, :string, public?: true, allow_nil?: false
-    attribute :billing_account_id, :string, public?: true, allow_nil?: false
-    attribute :cadence, :atom, public?: true, allow_nil?: false
-    attribute :next_invoice_at, :utc_datetime_usec, public?: true, allow_nil?: false
+    uuid_primary_key(:id)
+    attribute(:schedule_id, :string, public?: true, allow_nil?: false)
+    attribute(:billing_account_id, :string, public?: true, allow_nil?: false)
+    attribute(:cadence, :atom, public?: true, allow_nil?: false)
+    attribute(:next_invoice_at, :utc_datetime_usec, public?: true, allow_nil?: false)
   end
 
   actions do
-    default_accept :*
-    defaults [:create, :read]
+    default_accept(:*)
+    defaults([:create, :read])
   end
 end
-

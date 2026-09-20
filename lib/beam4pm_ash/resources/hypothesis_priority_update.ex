@@ -8,17 +8,16 @@ defmodule BeamPM.Ash.Resources.HypothesisPriorityUpdate do
     validate_domain_inclusion?: false
 
   attributes do
-    uuid_primary_key :id
-    attribute :update_id, :string, public?: true, allow_nil?: false
-    attribute :hypothesis_id, :string, public?: true, allow_nil?: false
-    attribute :prior_priority, :float, public?: true, allow_nil?: false
-    attribute :new_priority, :float, public?: true, allow_nil?: false
-    attribute :payoff_evidence_digest, :string, public?: true, allow_nil?: false
+    uuid_primary_key(:id)
+    attribute(:update_id, :string, public?: true, allow_nil?: false)
+    attribute(:hypothesis_id, :string, public?: true, allow_nil?: false)
+    attribute(:prior_priority, :float, public?: true, allow_nil?: false)
+    attribute(:new_priority, :float, public?: true, allow_nil?: false)
+    attribute(:payoff_evidence_digest, :string, public?: true, allow_nil?: false)
   end
 
   actions do
-    default_accept :*
-    defaults [:create, :read]
+    default_accept(:*)
+    defaults([:create, :read])
   end
 end
-

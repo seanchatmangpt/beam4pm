@@ -8,15 +8,14 @@ defmodule BeamPM.Ash.Resources.MethodPreconditionGate do
     validate_domain_inclusion?: false
 
   attributes do
-    uuid_primary_key :id
-    attribute :method_id, :string, public?: true, allow_nil?: false
-    attribute :state_digest, :string, public?: true, allow_nil?: false
-    attribute :decision, :string, public?: true, allow_nil?: false
+    uuid_primary_key(:id)
+    attribute(:method_id, :string, public?: true, allow_nil?: false)
+    attribute(:state_digest, :string, public?: true, allow_nil?: false)
+    attribute(:decision, :string, public?: true, allow_nil?: false)
   end
 
   actions do
-    default_accept :*
-    defaults [:create, :read]
+    default_accept(:*)
+    defaults([:create, :read])
   end
 end
-

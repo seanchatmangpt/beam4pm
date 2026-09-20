@@ -8,16 +8,15 @@ defmodule BeamPM.Ash.Resources.ObservationStalenessInvalidation do
     validate_domain_inclusion?: false
 
   attributes do
-    uuid_primary_key :id
-    attribute :observation_id, :string, public?: true, allow_nil?: false
-    attribute :invalidated_at, :utc_datetime_usec, public?: true, allow_nil?: false
-    attribute :staleness_reason, :string, public?: true, allow_nil?: false
-    attribute :replacement_required, :boolean, public?: true, allow_nil?: false
+    uuid_primary_key(:id)
+    attribute(:observation_id, :string, public?: true, allow_nil?: false)
+    attribute(:invalidated_at, :utc_datetime_usec, public?: true, allow_nil?: false)
+    attribute(:staleness_reason, :string, public?: true, allow_nil?: false)
+    attribute(:replacement_required, :boolean, public?: true, allow_nil?: false)
   end
 
   actions do
-    default_accept :*
-    defaults [:create, :read]
+    default_accept(:*)
+    defaults([:create, :read])
   end
 end
-

@@ -49,7 +49,11 @@ defmodule BeamPM.OcelIngest.RouterTest do
     body =
       JSON.encode!(%{
         "events" => [
-          %{"event_id" => "e-1", "event_type" => "Create Order", "event_time" => "2026-09-09T00:00:00Z"},
+          %{
+            "event_id" => "e-1",
+            "event_type" => "Create Order",
+            "event_time" => "2026-09-09T00:00:00Z"
+          },
           %{"event_type" => "Ship Order", "event_time" => "2026-09-09T01:00:00Z"}
         ]
       })
@@ -94,8 +98,18 @@ defmodule BeamPM.OcelIngest.RouterTest do
     events_body =
       JSON.encode!(%{
         "events" => [
-          %{"event_id" => "e-1", "event_type" => "Create Order", "event_time" => "2026-09-09T00:00:00Z", "attributes" => %{"case_id" => "c-42"}},
-          %{"event_id" => "e-2", "event_type" => "Ship Order", "event_time" => "2026-09-09T01:00:00Z", "attributes" => %{"case_id" => "c-42"}}
+          %{
+            "event_id" => "e-1",
+            "event_type" => "Create Order",
+            "event_time" => "2026-09-09T00:00:00Z",
+            "attributes" => %{"case_id" => "c-42"}
+          },
+          %{
+            "event_id" => "e-2",
+            "event_type" => "Ship Order",
+            "event_time" => "2026-09-09T01:00:00Z",
+            "attributes" => %{"case_id" => "c-42"}
+          }
         ]
       })
 
@@ -188,11 +202,18 @@ defmodule BeamPM.OcelIngest.RouterTest do
     assert conn.status == 201
     resp = JSON.decode!(conn.resp_body)
     assert resp["ok"] == true
-    assert [%{"qualifier" => "contains", "object_id" => "o-item-1"}] = resp["record"]["relationships"]
+
+    assert [%{"qualifier" => "contains", "object_id" => "o-item-1"}] =
+             resp["record"]["relationships"]
   end
 
   test "a record with no relationships key gets a real empty relationships list, not a missing key" do
-    body = JSON.encode!(%{"event_id" => "e-1", "event_type" => "Create Order", "event_time" => "2026-09-09T00:00:00Z"})
+    body =
+      JSON.encode!(%{
+        "event_id" => "e-1",
+        "event_type" => "Create Order",
+        "event_time" => "2026-09-09T00:00:00Z"
+      })
 
     conn =
       conn(:post, @events_path, body)

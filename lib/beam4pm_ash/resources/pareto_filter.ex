@@ -8,15 +8,14 @@ defmodule BeamPM.Ash.Resources.ParetoFilter do
     validate_domain_inclusion?: false
 
   attributes do
-    uuid_primary_key :id
-    attribute :option_set_id, :string, public?: true, allow_nil?: false
-    attribute :objective_set_hash, :string, public?: true, allow_nil?: false
-    attribute :pareto_set_hash, :string, public?: true, allow_nil?: false
+    uuid_primary_key(:id)
+    attribute(:option_set_id, :string, public?: true, allow_nil?: false)
+    attribute(:objective_set_hash, :string, public?: true, allow_nil?: false)
+    attribute(:pareto_set_hash, :string, public?: true, allow_nil?: false)
   end
 
   actions do
-    default_accept :*
-    defaults [:create, :read]
+    default_accept(:*)
+    defaults([:create, :read])
   end
 end
-

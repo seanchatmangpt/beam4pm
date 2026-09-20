@@ -8,16 +8,15 @@ defmodule BeamPM.Ash.Resources.NormalizedEventObservation do
     validate_domain_inclusion?: false
 
   attributes do
-    uuid_primary_key :id
-    attribute :source_system, :string, public?: true, allow_nil?: false
-    attribute :event_id, :string, public?: true, allow_nil?: false
-    attribute :event_type, :string, public?: true, allow_nil?: false
-    attribute :event_time, :utc_datetime_usec, public?: true, allow_nil?: false
+    uuid_primary_key(:id)
+    attribute(:source_system, :string, public?: true, allow_nil?: false)
+    attribute(:event_id, :string, public?: true, allow_nil?: false)
+    attribute(:event_type, :string, public?: true, allow_nil?: false)
+    attribute(:event_time, :utc_datetime_usec, public?: true, allow_nil?: false)
   end
 
   actions do
-    default_accept :*
-    defaults [:create, :read]
+    default_accept(:*)
+    defaults([:create, :read])
   end
 end
-

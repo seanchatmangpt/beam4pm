@@ -8,16 +8,15 @@ defmodule BeamPM.Ash.Resources.ValueOfInformationEstimate do
     validate_domain_inclusion?: false
 
   attributes do
-    uuid_primary_key :id
-    attribute :decision_id, :string, public?: true, allow_nil?: false
-    attribute :evidence_candidate_id, :string, public?: true, allow_nil?: false
-    attribute :expected_information_gain, :float, public?: true, allow_nil?: false
-    attribute :cost_basis, :string, public?: true, allow_nil?: false
+    uuid_primary_key(:id)
+    attribute(:decision_id, :string, public?: true, allow_nil?: false)
+    attribute(:evidence_candidate_id, :string, public?: true, allow_nil?: false)
+    attribute(:expected_information_gain, :float, public?: true, allow_nil?: false)
+    attribute(:cost_basis, :string, public?: true, allow_nil?: false)
   end
 
   actions do
-    default_accept :*
-    defaults [:create, :read]
+    default_accept(:*)
+    defaults([:create, :read])
   end
 end
-

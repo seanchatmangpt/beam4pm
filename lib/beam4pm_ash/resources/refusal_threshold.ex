@@ -8,17 +8,16 @@ defmodule BeamPM.Ash.Resources.RefusalThreshold do
     validate_domain_inclusion?: false
 
   attributes do
-    uuid_primary_key :id
-    attribute :threshold_id, :string, public?: true, allow_nil?: false
-    attribute :refusal_class, :string, public?: true, allow_nil?: false
-    attribute :limit, :float, public?: true, allow_nil?: false
-    attribute :metric_id, :string, public?: true, allow_nil?: false
-    attribute :authority_binding, :string, public?: true, allow_nil?: false
+    uuid_primary_key(:id)
+    attribute(:threshold_id, :string, public?: true, allow_nil?: false)
+    attribute(:refusal_class, :string, public?: true, allow_nil?: false)
+    attribute(:limit, :float, public?: true, allow_nil?: false)
+    attribute(:metric_id, :string, public?: true, allow_nil?: false)
+    attribute(:authority_binding, :string, public?: true, allow_nil?: false)
   end
 
   actions do
-    default_accept :*
-    defaults [:create, :read]
+    default_accept(:*)
+    defaults([:create, :read])
   end
 end
-

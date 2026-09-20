@@ -8,15 +8,14 @@ defmodule BeamPM.Ash.Resources.PlanLineage do
     validate_domain_inclusion?: false
 
   attributes do
-    uuid_primary_key :id
-    attribute :plan_id, :string, public?: true, allow_nil?: false
-    attribute :parent_plan_id, :string, public?: true, allow_nil?: false
-    attribute :lineage_hash, :string, public?: true, allow_nil?: false
+    uuid_primary_key(:id)
+    attribute(:plan_id, :string, public?: true, allow_nil?: false)
+    attribute(:parent_plan_id, :string, public?: true, allow_nil?: false)
+    attribute(:lineage_hash, :string, public?: true, allow_nil?: false)
   end
 
   actions do
-    default_accept :*
-    defaults [:create, :read]
+    default_accept(:*)
+    defaults([:create, :read])
   end
 end
-

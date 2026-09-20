@@ -8,15 +8,14 @@ defmodule BeamPM.Ash.Resources.StalePlanRefusal do
     validate_domain_inclusion?: false
 
   attributes do
-    uuid_primary_key :id
-    attribute :plan_id, :string, public?: true, allow_nil?: false
-    attribute :admitted_preimage_hash, :string, public?: true, allow_nil?: false
-    attribute :observed_preimage_hash, :string, public?: true, allow_nil?: false
+    uuid_primary_key(:id)
+    attribute(:plan_id, :string, public?: true, allow_nil?: false)
+    attribute(:admitted_preimage_hash, :string, public?: true, allow_nil?: false)
+    attribute(:observed_preimage_hash, :string, public?: true, allow_nil?: false)
   end
 
   actions do
-    default_accept :*
-    defaults [:create, :read]
+    default_accept(:*)
+    defaults([:create, :read])
   end
 end
-

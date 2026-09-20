@@ -8,18 +8,17 @@ defmodule BeamPM.Ash.Resources.AcceptanceCriteriaNonweakening do
     validate_domain_inclusion?: false
 
   attributes do
-    uuid_primary_key :id
-    attribute :assessment_id, :string, public?: true, allow_nil?: false
-    attribute :acceptance_contract_id, :string, public?: true, allow_nil?: false
-    attribute :prior_digest, :string, public?: true, allow_nil?: false
-    attribute :candidate_digest, :string, public?: true, allow_nil?: false
-    attribute :strength_result, :string, public?: true, allow_nil?: false
-    attribute :refusal_code, :string, public?: true, allow_nil?: false
+    uuid_primary_key(:id)
+    attribute(:assessment_id, :string, public?: true, allow_nil?: false)
+    attribute(:acceptance_contract_id, :string, public?: true, allow_nil?: false)
+    attribute(:prior_digest, :string, public?: true, allow_nil?: false)
+    attribute(:candidate_digest, :string, public?: true, allow_nil?: false)
+    attribute(:strength_result, :string, public?: true, allow_nil?: false)
+    attribute(:refusal_code, :string, public?: true, allow_nil?: false)
   end
 
   actions do
-    default_accept :*
-    defaults [:create, :read]
+    default_accept(:*)
+    defaults([:create, :read])
   end
 end
-

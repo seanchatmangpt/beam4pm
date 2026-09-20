@@ -8,15 +8,14 @@ defmodule BeamPM.Ash.Resources.K8sObjectRef do
     validate_domain_inclusion?: false
 
   attributes do
-    uuid_primary_key :id
-    attribute :kind, :string, public?: true, allow_nil?: false
-    attribute :name, :string, public?: true, allow_nil?: false
-    attribute :namespace, :string, public?: true
+    uuid_primary_key(:id)
+    attribute(:kind, :string, public?: true, allow_nil?: false)
+    attribute(:name, :string, public?: true, allow_nil?: false)
+    attribute(:namespace, :string, public?: true)
   end
 
   actions do
-    default_accept :*
-    defaults [:create, :read]
+    default_accept(:*)
+    defaults([:create, :read])
   end
 end
-

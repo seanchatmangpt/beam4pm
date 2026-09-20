@@ -8,15 +8,14 @@ defmodule BeamPM.Ash.Resources.PathSchemaQuery do
     validate_domain_inclusion?: false
 
   attributes do
-    uuid_primary_key :id
-    attribute :source_type, :string, public?: true, allow_nil?: false
-    attribute :target_type, :string, public?: true, allow_nil?: false
-    attribute :max_length, :integer, public?: true, allow_nil?: false
+    uuid_primary_key(:id)
+    attribute(:source_type, :string, public?: true, allow_nil?: false)
+    attribute(:target_type, :string, public?: true, allow_nil?: false)
+    attribute(:max_length, :integer, public?: true, allow_nil?: false)
   end
 
   actions do
-    default_accept :*
-    defaults [:create, :read]
+    default_accept(:*)
+    defaults([:create, :read])
   end
 end
-

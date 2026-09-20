@@ -8,14 +8,13 @@ defmodule BeamPM.Ash.Resources.AlignmentMove do
     validate_domain_inclusion?: false
 
   attributes do
-    uuid_primary_key :id
-    attribute :move_type, :atom, public?: true, allow_nil?: false
-    attribute :cost, :integer, public?: true, allow_nil?: false
+    uuid_primary_key(:id)
+    attribute(:move_type, :atom, public?: true, allow_nil?: false)
+    attribute(:cost, :integer, public?: true, allow_nil?: false)
   end
 
   actions do
-    default_accept :*
-    defaults [:create, :read]
+    default_accept(:*)
+    defaults([:create, :read])
   end
 end
-

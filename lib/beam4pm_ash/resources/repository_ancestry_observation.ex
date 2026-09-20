@@ -8,16 +8,15 @@ defmodule BeamPM.Ash.Resources.RepositoryAncestryObservation do
     validate_domain_inclusion?: false
 
   attributes do
-    uuid_primary_key :id
-    attribute :ancestor_sha, :string, public?: true, allow_nil?: false
-    attribute :descendant_sha, :string, public?: true, allow_nil?: false
-    attribute :relation, :string, public?: true, allow_nil?: false
-    attribute :evidence_digest, :string, public?: true, allow_nil?: false
+    uuid_primary_key(:id)
+    attribute(:ancestor_sha, :string, public?: true, allow_nil?: false)
+    attribute(:descendant_sha, :string, public?: true, allow_nil?: false)
+    attribute(:relation, :string, public?: true, allow_nil?: false)
+    attribute(:evidence_digest, :string, public?: true, allow_nil?: false)
   end
 
   actions do
-    default_accept :*
-    defaults [:create, :read]
+    default_accept(:*)
+    defaults([:create, :read])
   end
 end
-

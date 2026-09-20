@@ -8,17 +8,16 @@ defmodule BeamPM.Ash.Resources.HistoricalEpisodeReplay do
     validate_domain_inclusion?: false
 
   attributes do
-    uuid_primary_key :id
-    attribute :replay_id, :string, public?: true, allow_nil?: false
-    attribute :episode_id, :string, public?: true, allow_nil?: false
-    attribute :historical_subject_sha, :string, public?: true, allow_nil?: false
-    attribute :replay_seed, :string, public?: true, allow_nil?: false
-    attribute :divergence_code, :string, public?: true, allow_nil?: false
+    uuid_primary_key(:id)
+    attribute(:replay_id, :string, public?: true, allow_nil?: false)
+    attribute(:episode_id, :string, public?: true, allow_nil?: false)
+    attribute(:historical_subject_sha, :string, public?: true, allow_nil?: false)
+    attribute(:replay_seed, :string, public?: true, allow_nil?: false)
+    attribute(:divergence_code, :string, public?: true, allow_nil?: false)
   end
 
   actions do
-    default_accept :*
-    defaults [:create, :read]
+    default_accept(:*)
+    defaults([:create, :read])
   end
 end
-

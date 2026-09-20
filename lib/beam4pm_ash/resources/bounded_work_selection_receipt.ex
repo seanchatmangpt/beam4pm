@@ -8,15 +8,14 @@ defmodule BeamPM.Ash.Resources.BoundedWorkSelectionReceipt do
     validate_domain_inclusion?: false
 
   attributes do
-    uuid_primary_key :id
-    attribute :receipt_id, :string, public?: true, allow_nil?: false
-    attribute :selected_work_item_id, :string, public?: true, allow_nil?: false
-    attribute :frontier_digest, :string, public?: true, allow_nil?: false
+    uuid_primary_key(:id)
+    attribute(:receipt_id, :string, public?: true, allow_nil?: false)
+    attribute(:selected_work_item_id, :string, public?: true, allow_nil?: false)
+    attribute(:frontier_digest, :string, public?: true, allow_nil?: false)
   end
 
   actions do
-    default_accept :*
-    defaults [:create, :read]
+    default_accept(:*)
+    defaults([:create, :read])
   end
 end
-

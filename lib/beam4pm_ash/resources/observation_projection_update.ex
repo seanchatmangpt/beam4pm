@@ -8,18 +8,17 @@ defmodule BeamPM.Ash.Resources.ObservationProjectionUpdate do
     validate_domain_inclusion?: false
 
   attributes do
-    uuid_primary_key :id
-    attribute :update_id, :string, public?: true, allow_nil?: false
-    attribute :projection_id, :string, public?: true, allow_nil?: false
-    attribute :prior_digest, :string, public?: true, allow_nil?: false
-    attribute :new_digest, :string, public?: true, allow_nil?: false
-    attribute :triggering_gap_id, :string, public?: true, allow_nil?: false
-    attribute :authority_ceiling, :string, public?: true, allow_nil?: false
+    uuid_primary_key(:id)
+    attribute(:update_id, :string, public?: true, allow_nil?: false)
+    attribute(:projection_id, :string, public?: true, allow_nil?: false)
+    attribute(:prior_digest, :string, public?: true, allow_nil?: false)
+    attribute(:new_digest, :string, public?: true, allow_nil?: false)
+    attribute(:triggering_gap_id, :string, public?: true, allow_nil?: false)
+    attribute(:authority_ceiling, :string, public?: true, allow_nil?: false)
   end
 
   actions do
-    default_accept :*
-    defaults [:create, :read]
+    default_accept(:*)
+    defaults([:create, :read])
   end
 end
-

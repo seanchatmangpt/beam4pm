@@ -116,14 +116,24 @@ defmodule BeamPM.Revenue.MeteringTest do
           "ENTITLEMENT_CREATION_REQUESTED",
           "2018-01-05T00:00:00Z"
         ),
-        entitlement_event!("evt-c-002", "ent-cancelled-001", "ENTITLEMENT_ACTIVE", "2018-01-06T00:00:00Z"),
+        entitlement_event!(
+          "evt-c-002",
+          "ent-cancelled-001",
+          "ENTITLEMENT_ACTIVE",
+          "2018-01-06T00:00:00Z"
+        ),
         entitlement_event!(
           "evt-c-003",
           "ent-cancelled-001",
           "ENTITLEMENT_CANCELLING",
           "2019-06-01T00:00:00Z"
         ),
-        entitlement_event!("evt-c-004", "ent-cancelled-001", "ENTITLEMENT_CANCELLED", "2019-07-01T00:00:00Z")
+        entitlement_event!(
+          "evt-c-004",
+          "ent-cancelled-001",
+          "ENTITLEMENT_CANCELLED",
+          "2019-07-01T00:00:00Z"
+        )
       ])
 
     active =
@@ -134,7 +144,12 @@ defmodule BeamPM.Revenue.MeteringTest do
           "ENTITLEMENT_CREATION_REQUESTED",
           "2018-02-01T00:00:00Z"
         ),
-        entitlement_event!("evt-a-002", "ent-active-001", "ENTITLEMENT_ACTIVE", "2018-02-02T00:00:00Z")
+        entitlement_event!(
+          "evt-a-002",
+          "ent-active-001",
+          "ENTITLEMENT_ACTIVE",
+          "2018-02-02T00:00:00Z"
+        )
       ])
 
     %{
@@ -196,7 +211,13 @@ defmodule BeamPM.Revenue.MeteringTest do
     # chronologically-last event instant for the first discovered case and
     # pin exact instant equality against the emitted event.
     first_case = hd(traces).case_id
-    first_usage = Enum.find(usage, &(&1.event_id == independent_event_id(@intl_entitlement, first_case, period_start)))
+
+    first_usage =
+      Enum.find(
+        usage,
+        &(&1.event_id == independent_event_id(@intl_entitlement, first_case, period_start))
+      )
+
     assert first_usage != nil
 
     expected_last_instant =
@@ -382,6 +403,11 @@ defmodule BeamPM.Revenue.MeteringTest do
     # Emission carries the same guard: ids minted under a swapped window
     # would evade dedup against a corrected re-emission (see moduledoc).
     assert {:error, {:invalid_period, ^period_end, ^period_start}} =
-             Metering.emit_usage_events(intl_events, @intl_entitlement, @metric, {period_end, period_start})
+             Metering.emit_usage_events(
+               intl_events,
+               @intl_entitlement,
+               @metric,
+               {period_end, period_start}
+             )
   end
 end

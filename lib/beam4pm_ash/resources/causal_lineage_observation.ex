@@ -8,16 +8,15 @@ defmodule BeamPM.Ash.Resources.CausalLineageObservation do
     validate_domain_inclusion?: false
 
   attributes do
-    uuid_primary_key :id
-    attribute :cause_observation_id, :string, public?: true, allow_nil?: false
-    attribute :effect_observation_id, :string, public?: true, allow_nil?: false
-    attribute :causal_basis, :string, public?: true, allow_nil?: false
-    attribute :evidence_digest, :string, public?: true, allow_nil?: false
+    uuid_primary_key(:id)
+    attribute(:cause_observation_id, :string, public?: true, allow_nil?: false)
+    attribute(:effect_observation_id, :string, public?: true, allow_nil?: false)
+    attribute(:causal_basis, :string, public?: true, allow_nil?: false)
+    attribute(:evidence_digest, :string, public?: true, allow_nil?: false)
   end
 
   actions do
-    default_accept :*
-    defaults [:create, :read]
+    default_accept(:*)
+    defaults([:create, :read])
   end
 end
-

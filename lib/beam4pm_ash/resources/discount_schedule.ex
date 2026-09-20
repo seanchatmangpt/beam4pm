@@ -8,16 +8,15 @@ defmodule BeamPM.Ash.Resources.DiscountSchedule do
     validate_domain_inclusion?: false
 
   attributes do
-    uuid_primary_key :id
-    attribute :schedule_id, :string, public?: true, allow_nil?: false
-    attribute :threshold, :float, public?: true, allow_nil?: false
-    attribute :discount_percent, :float, public?: true, allow_nil?: false
-    attribute :currency, :string, public?: true, allow_nil?: false
+    uuid_primary_key(:id)
+    attribute(:schedule_id, :string, public?: true, allow_nil?: false)
+    attribute(:threshold, :float, public?: true, allow_nil?: false)
+    attribute(:discount_percent, :float, public?: true, allow_nil?: false)
+    attribute(:currency, :string, public?: true, allow_nil?: false)
   end
 
   actions do
-    default_accept :*
-    defaults [:create, :read]
+    default_accept(:*)
+    defaults([:create, :read])
   end
 end
-

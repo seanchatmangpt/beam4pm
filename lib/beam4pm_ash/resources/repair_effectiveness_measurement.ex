@@ -8,17 +8,16 @@ defmodule BeamPM.Ash.Resources.RepairEffectivenessMeasurement do
     validate_domain_inclusion?: false
 
   attributes do
-    uuid_primary_key :id
-    attribute :measurement_id, :string, public?: true, allow_nil?: false
-    attribute :repair_id, :string, public?: true, allow_nil?: false
-    attribute :baseline_failure_rate, :float, public?: true, allow_nil?: false
-    attribute :post_repair_failure_rate, :float, public?: true, allow_nil?: false
-    attribute :evaluation_window_digest, :string, public?: true, allow_nil?: false
+    uuid_primary_key(:id)
+    attribute(:measurement_id, :string, public?: true, allow_nil?: false)
+    attribute(:repair_id, :string, public?: true, allow_nil?: false)
+    attribute(:baseline_failure_rate, :float, public?: true, allow_nil?: false)
+    attribute(:post_repair_failure_rate, :float, public?: true, allow_nil?: false)
+    attribute(:evaluation_window_digest, :string, public?: true, allow_nil?: false)
   end
 
   actions do
-    default_accept :*
-    defaults [:create, :read]
+    default_accept(:*)
+    defaults([:create, :read])
   end
 end
-

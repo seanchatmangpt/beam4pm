@@ -8,18 +8,17 @@ defmodule BeamPM.Ash.Resources.PromotionThreshold do
     validate_domain_inclusion?: false
 
   attributes do
-    uuid_primary_key :id
-    attribute :threshold_id, :string, public?: true, allow_nil?: false
-    attribute :objective_id, :string, public?: true, allow_nil?: false
-    attribute :minimum_payoff, :float, public?: true, allow_nil?: false
-    attribute :maximum_regression, :float, public?: true, allow_nil?: false
-    attribute :minimum_evidence_count, :integer, public?: true, allow_nil?: false
-    attribute :authority_binding, :string, public?: true, allow_nil?: false
+    uuid_primary_key(:id)
+    attribute(:threshold_id, :string, public?: true, allow_nil?: false)
+    attribute(:objective_id, :string, public?: true, allow_nil?: false)
+    attribute(:minimum_payoff, :float, public?: true, allow_nil?: false)
+    attribute(:maximum_regression, :float, public?: true, allow_nil?: false)
+    attribute(:minimum_evidence_count, :integer, public?: true, allow_nil?: false)
+    attribute(:authority_binding, :string, public?: true, allow_nil?: false)
   end
 
   actions do
-    default_accept :*
-    defaults [:create, :read]
+    default_accept(:*)
+    defaults([:create, :read])
   end
 end
-

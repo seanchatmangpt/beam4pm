@@ -8,15 +8,14 @@ defmodule BeamPM.Ash.Resources.AgentCapabilityAdvertisement do
     validate_domain_inclusion?: false
 
   attributes do
-    uuid_primary_key :id
-    attribute :agent_subject_sha, :string, public?: true, allow_nil?: false
-    attribute :capability_digest, :string, public?: true, allow_nil?: false
-    attribute :valid_until, :utc_datetime_usec, public?: true, allow_nil?: false
+    uuid_primary_key(:id)
+    attribute(:agent_subject_sha, :string, public?: true, allow_nil?: false)
+    attribute(:capability_digest, :string, public?: true, allow_nil?: false)
+    attribute(:valid_until, :utc_datetime_usec, public?: true, allow_nil?: false)
   end
 
   actions do
-    default_accept :*
-    defaults [:create, :read]
+    default_accept(:*)
+    defaults([:create, :read])
   end
 end
-

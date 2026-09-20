@@ -8,17 +8,16 @@ defmodule BeamPM.Ash.Resources.CurriculumGeneration do
     validate_domain_inclusion?: false
 
   attributes do
-    uuid_primary_key :id
-    attribute :curriculum_id, :string, public?: true, allow_nil?: false
-    attribute :source_gap_set_digest, :string, public?: true, allow_nil?: false
-    attribute :ordered_hypotheses_digest, :string, public?: true, allow_nil?: false
-    attribute :diversity_score, :float, public?: true, allow_nil?: false
-    attribute :falsifier_coverage, :float, public?: true, allow_nil?: false
+    uuid_primary_key(:id)
+    attribute(:curriculum_id, :string, public?: true, allow_nil?: false)
+    attribute(:source_gap_set_digest, :string, public?: true, allow_nil?: false)
+    attribute(:ordered_hypotheses_digest, :string, public?: true, allow_nil?: false)
+    attribute(:diversity_score, :float, public?: true, allow_nil?: false)
+    attribute(:falsifier_coverage, :float, public?: true, allow_nil?: false)
   end
 
   actions do
-    default_accept :*
-    defaults [:create, :read]
+    default_accept(:*)
+    defaults([:create, :read])
   end
 end
-

@@ -8,16 +8,15 @@ defmodule BeamPM.Ash.Resources.ServiceLevelObjective do
     validate_domain_inclusion?: false
 
   attributes do
-    uuid_primary_key :id
-    attribute :slo_id, :string, public?: true, allow_nil?: false
-    attribute :contract_id, :string, public?: true, allow_nil?: false
-    attribute :target_percent, :float, public?: true, allow_nil?: false
-    attribute :measurement_window, :atom, public?: true, allow_nil?: false
+    uuid_primary_key(:id)
+    attribute(:slo_id, :string, public?: true, allow_nil?: false)
+    attribute(:contract_id, :string, public?: true, allow_nil?: false)
+    attribute(:target_percent, :float, public?: true, allow_nil?: false)
+    attribute(:measurement_window, :atom, public?: true, allow_nil?: false)
   end
 
   actions do
-    default_accept :*
-    defaults [:create, :read]
+    default_accept(:*)
+    defaults([:create, :read])
   end
 end
-

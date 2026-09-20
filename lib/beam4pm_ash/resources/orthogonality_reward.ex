@@ -8,18 +8,17 @@ defmodule BeamPM.Ash.Resources.OrthogonalityReward do
     validate_domain_inclusion?: false
 
   attributes do
-    uuid_primary_key :id
-    attribute :reward_id, :string, public?: true, allow_nil?: false
-    attribute :candidate_id, :string, public?: true, allow_nil?: false
-    attribute :comparison_set_digest, :string, public?: true, allow_nil?: false
-    attribute :minimum_semantic_distance, :float, public?: true, allow_nil?: false
-    attribute :reward, :float, public?: true, allow_nil?: false
-    attribute :independence_evidence_digest, :string, public?: true, allow_nil?: false
+    uuid_primary_key(:id)
+    attribute(:reward_id, :string, public?: true, allow_nil?: false)
+    attribute(:candidate_id, :string, public?: true, allow_nil?: false)
+    attribute(:comparison_set_digest, :string, public?: true, allow_nil?: false)
+    attribute(:minimum_semantic_distance, :float, public?: true, allow_nil?: false)
+    attribute(:reward, :float, public?: true, allow_nil?: false)
+    attribute(:independence_evidence_digest, :string, public?: true, allow_nil?: false)
   end
 
   actions do
-    default_accept :*
-    defaults [:create, :read]
+    default_accept(:*)
+    defaults([:create, :read])
   end
 end
-

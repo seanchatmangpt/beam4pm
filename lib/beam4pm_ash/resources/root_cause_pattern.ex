@@ -8,17 +8,16 @@ defmodule BeamPM.Ash.Resources.RootCausePattern do
     validate_domain_inclusion?: false
 
   attributes do
-    uuid_primary_key :id
-    attribute :pattern_id, :string, public?: true, allow_nil?: false
-    attribute :failure_class, :string, public?: true, allow_nil?: false
-    attribute :causal_graph_digest, :string, public?: true, allow_nil?: false
-    attribute :confirmed_reproducer_digest, :string, public?: true, allow_nil?: false
-    attribute :reusable_scope, :string, public?: true, allow_nil?: false
+    uuid_primary_key(:id)
+    attribute(:pattern_id, :string, public?: true, allow_nil?: false)
+    attribute(:failure_class, :string, public?: true, allow_nil?: false)
+    attribute(:causal_graph_digest, :string, public?: true, allow_nil?: false)
+    attribute(:confirmed_reproducer_digest, :string, public?: true, allow_nil?: false)
+    attribute(:reusable_scope, :string, public?: true, allow_nil?: false)
   end
 
   actions do
-    default_accept :*
-    defaults [:create, :read]
+    default_accept(:*)
+    defaults([:create, :read])
   end
 end
-

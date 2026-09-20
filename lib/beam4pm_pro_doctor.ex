@@ -17,8 +17,11 @@ defmodule BeamPM.Pro.Doctor do
   """
 
   @type check_name ::
-          :version_mismatch | :migration_lag | :connector_failure | :entitlement_failure |
-          :source_provenance_mismatch
+          :version_mismatch
+          | :migration_lag
+          | :connector_failure
+          | :entitlement_failure
+          | :source_provenance_mismatch
   @type check_result :: {:ok, check_name()} | {:error, {check_name(), String.t()}}
   @type report :: %{status: :healthy | :degraded, checks: [check_result()]}
 
@@ -54,7 +57,9 @@ defmodule BeamPM.Pro.Doctor do
         "status" => Atom.to_string(report.status),
         "checks" =>
           Enum.map(report.checks, fn
-            {:ok, name} -> %{"check" => Atom.to_string(name), "outcome" => "ok"}
+            {:ok, name} ->
+              %{"check" => Atom.to_string(name), "outcome" => "ok"}
+
             {:error, {name, diagnosis}} ->
               %{"check" => Atom.to_string(name), "outcome" => "error", "diagnosis" => diagnosis}
           end)
@@ -127,7 +132,8 @@ defmodule BeamPM.Pro.Doctor do
             end
 
           {:error, reason} ->
-            {:error, {:source_provenance_mismatch, "could not read own source: #{inspect(reason)}"}}
+            {:error,
+             {:source_provenance_mismatch, "could not read own source: #{inspect(reason)}"}}
         end
 
       forced_reason when is_binary(forced_reason) ->

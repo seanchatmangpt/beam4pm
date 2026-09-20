@@ -8,16 +8,15 @@ defmodule BeamPM.Ash.Resources.RepositoryWorktreeStateObservation do
     validate_domain_inclusion?: false
 
   attributes do
-    uuid_primary_key :id
-    attribute :repository_id, :string, public?: true, allow_nil?: false
-    attribute :worktree_hash, :string, public?: true, allow_nil?: false
-    attribute :dirty_path_count, :integer, public?: true, allow_nil?: false
-    attribute :observed_at, :utc_datetime_usec, public?: true, allow_nil?: false
+    uuid_primary_key(:id)
+    attribute(:repository_id, :string, public?: true, allow_nil?: false)
+    attribute(:worktree_hash, :string, public?: true, allow_nil?: false)
+    attribute(:dirty_path_count, :integer, public?: true, allow_nil?: false)
+    attribute(:observed_at, :utc_datetime_usec, public?: true, allow_nil?: false)
   end
 
   actions do
-    default_accept :*
-    defaults [:create, :read]
+    default_accept(:*)
+    defaults([:create, :read])
   end
 end
-

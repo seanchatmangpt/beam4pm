@@ -289,7 +289,10 @@ defmodule BeamPM.RF3Ocel do
 
     case Reactor.run(
            __MODULE__,
-           %{scenario: scenario, run_opts: Map.put(norm_opts, :__scenario_for_receipt__, scenario)},
+           %{
+             scenario: scenario,
+             run_opts: Map.put(norm_opts, :__scenario_for_receipt__, scenario)
+           },
            %{},
            async?: false
          ) do
@@ -366,10 +369,11 @@ defmodule BeamPM.RF3Ocel do
 
       reconstructed["num_events"] != built["num_events"] or
           reconstructed["num_objects"] != built["num_objects"] ->
-        {:error, {:reconstructed_ocel_diverged_from_built, %{built: built, reconstructed: reconstructed}}}
+        {:error,
+         {:reconstructed_ocel_diverged_from_built, %{built: built, reconstructed: reconstructed}}}
 
       roundtrip["num_events"] != built["num_events"] or
-          roundtrip["num_objects"] != built["num_objects"] or
+        roundtrip["num_objects"] != built["num_objects"] or
           roundtrip["type_stats"] != built["type_stats"] ->
         {:error, {:roundtrip_not_identical_to_built, %{built: built, roundtrip: roundtrip}}}
 
@@ -441,7 +445,10 @@ defmodule BeamPM.RF3Ocel do
     if reconstructed_o2o < raw_o2o do
       {:error,
        {:dangling_o2o_relationship_silently_dropped_by_process_mining,
-        %{raw_o2o_relationship_count: raw_o2o, reconstructed_o2o_relationship_count: reconstructed_o2o}}}
+        %{
+          raw_o2o_relationship_count: raw_o2o,
+          reconstructed_o2o_relationship_count: reconstructed_o2o
+        }}}
     else
       {:ok,
        %{
@@ -465,8 +472,7 @@ defmodule BeamPM.RF3Ocel do
       n13_fixture_path: Keyword.fetch!(opts, :n13_fixture_path),
       n14_fixture_path: Keyword.fetch!(opts, :n14_fixture_path),
       n05_fixture_path: Keyword.get(opts, :n05_fixture_path),
-      receipts_dir:
-        Keyword.get(opts, :receipts_dir, Path.join(File.cwd!(), "receipts/rf3_ocel")),
+      receipts_dir: Keyword.get(opts, :receipts_dir, Path.join(File.cwd!(), "receipts/rf3_ocel")),
       run_id:
         Keyword.get(
           opts,

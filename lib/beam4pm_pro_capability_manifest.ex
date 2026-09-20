@@ -139,7 +139,13 @@ defmodule BeamPM.Pro.CapabilityManifest do
     %{
       capability: :admitted_actuations,
       status: :alive,
-      evidence: ["increment_counter -> inc", "k8s_scale_down -> scale_down", "k8s_scale_up -> scale_up", "observe_counter -> noop", "restart_worker -> restart"]
+      evidence: [
+        "increment_counter -> inc",
+        "k8s_scale_down -> scale_down",
+        "k8s_scale_up -> scale_up",
+        "observe_counter -> noop",
+        "restart_worker -> restart"
+      ]
     }
   end
 
