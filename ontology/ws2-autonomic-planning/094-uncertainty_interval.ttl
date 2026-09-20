@@ -1,0 +1,25 @@
+@prefix bpm: <https://beam4pm.dev/ontology/process#> .
+@prefix b4p: <https://beam4pm.dev/ontology/instance#> .
+
+# WS2-PLAN-094 — uncertainty_interval
+b4p:uncertainty_interval_rt a bpm:RecordType ;
+    bpm:recordName "uncertainty_interval" ;
+    bpm:recordDoc "Carries bounded outcome uncertainty instead of forcing a point estimate during selection." ;
+    bpm:hasField b4p:uncertainty_interval_candidate_id_f,
+                 b4p:uncertainty_interval_lower_upper_bounds_f,
+                 b4p:uncertainty_interval_calibration_evidence_digest_f .
+
+b4p:uncertainty_interval_candidate_id_f a bpm:Field ;
+    bpm:fieldName "candidate_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Candidate whose outcome uncertainty is represented." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:uncertainty_interval_lower_upper_bounds_f a bpm:Field ;
+    bpm:fieldName "lower_upper_bounds" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Encoded lower and upper bounds for relevant outcomes." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:uncertainty_interval_calibration_evidence_digest_f a bpm:Field ;
+    bpm:fieldName "calibration_evidence_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of calibration evidence supporting the interval." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
