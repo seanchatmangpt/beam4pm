@@ -1,0 +1,25 @@
+@prefix bpm: <https://beam4pm.dev/ontology/process#> .
+@prefix b4p: <https://beam4pm.dev/ontology/instance#> .
+
+# WS2-PLAN-092 — cost_of_delay_curve
+b4p:cost_of_delay_curve_rt a bpm:RecordType ;
+    bpm:recordName "cost_of_delay_curve" ;
+    bpm:recordDoc "Represents non-linear delay cost across future time buckets for one opportunity." ;
+    bpm:hasField b4p:cost_of_delay_curve_opportunity_id_f,
+                 b4p:cost_of_delay_curve_time_bucket_digest_f,
+                 b4p:cost_of_delay_curve_delay_cost_vector_f .
+
+b4p:cost_of_delay_curve_opportunity_id_f a bpm:Field ;
+    bpm:fieldName "opportunity_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Opportunity whose delay economics are modeled." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:cost_of_delay_curve_time_bucket_digest_f a bpm:Field ;
+    bpm:fieldName "time_bucket_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of ordered future time buckets." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:cost_of_delay_curve_delay_cost_vector_f a bpm:Field ;
+    bpm:fieldName "delay_cost_vector" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Cost vector across the admitted time buckets." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
