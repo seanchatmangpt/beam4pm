@@ -1,0 +1,25 @@
+@prefix bpm: <https://beam4pm.dev/ontology/process#> .
+@prefix b4p: <https://beam4pm.dev/ontology/instance#> .
+
+# WS2-PLAN-052 — option_provenance
+b4p:option_provenance_rt a bpm:RecordType ;
+    bpm:recordName "option_provenance" ;
+    bpm:recordDoc "Binds each generated option to its generator, input state, and derivation evidence." ;
+    bpm:hasField b4p:option_provenance_option_id_f,
+                 b4p:option_provenance_generator_id_f,
+                 b4p:option_provenance_provenance_digest_f .
+
+b4p:option_provenance_option_id_f a bpm:Field ;
+    bpm:fieldName "option_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Required option_id for option provenance." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:option_provenance_generator_id_f a bpm:Field ;
+    bpm:fieldName "generator_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Required generator_id identifying the option-producing planner." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:option_provenance_provenance_digest_f a bpm:Field ;
+    bpm:fieldName "provenance_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Required provenance_digest preserving derivation evidence and replay." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
