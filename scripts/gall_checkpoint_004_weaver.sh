@@ -51,7 +51,7 @@ weaver registry check --registry "${REGISTRY}" --v2
 
 # Court 2: real OTLP/gRPC round trip. Weaver's emit command uses the standard
 # OTel SDK; the endpoint env sends it to this exact live-check listener.
-weaver registry live-check   --registry "${REGISTRY}"   --v2   --format json   --output=http   --otlp-grpc-address 127.0.0.1   --otlp-grpc-port "${OTLP_PORT}"   --admin-port "${ADMIN_PORT}"   --inactivity-timeout 60   --fail-on violation   >"${LOG}" 2>&1 &
+weaver registry live-check   --registry "${REGISTRY}"   --v2   --include-unreferenced true   --format json   --output=http   --otlp-grpc-address 127.0.0.1   --otlp-grpc-port "${OTLP_PORT}"   --admin-port "${ADMIN_PORT}"   --inactivity-timeout 60   --fail-on violation   >"${LOG}" 2>&1 &
 LIVE_PID=$!
 
 ready=0
@@ -126,7 +126,7 @@ fi
 
 # Court 3: undeclared authority material must not pass the semantic court.
 set +e
-weaver registry live-check   --registry "${REGISTRY}"   --v2   --input-source "${INVALID}"   --input-format text   --format json   --no-stream   --fail-on violation   >"${STATE_DIR}/negative.json" 2>"${STATE_DIR}/negative.err"
+weaver registry live-check   --registry "${REGISTRY}"   --v2   --include-unreferenced true   --input-source "${INVALID}"   --input-format text   --format json   --no-stream   --fail-on violation   >"${STATE_DIR}/negative.json" 2>"${STATE_DIR}/negative.err"
 NEGATIVE_EXIT=$?
 set -e
 if [[ "${NEGATIVE_EXIT}" -eq 0 ]]; then
