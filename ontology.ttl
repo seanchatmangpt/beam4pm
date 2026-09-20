@@ -10439,16 +10439,6 @@ bap:hand_authored_lib_dfcm a bpm:HandAuthoredSource ;
 
 # -- hand_authored_qualification (14; counted as debt) -----------------------
 
-bap:hand_authored_test_dfcm a bpm:HandAuthoredSource ;
-    bpm:sourcePath "test/beam4pm_dfcm_test.exs" ;
-    bpm:authorshipKind bpm:AuthorshipKind_hand_authored_qualification ;
-    bpm:authorizingPrincipal "Sean Chatman (repo owner) via Claude Code session_01UiCeLuzgcK2BLocBKxXw39" ;
-    bpm:admissionReason "Chicago qualification of BeamPM.Dfcm bounded option-preservation calculus, formal HDDL/FOND fixtures, and SELECT-not-DO authority ceiling." ;
-    bpm:acceptanceCommand "mix test test/beam4pm_dfcm_test.exs" ;
-    bpm:contentSha256 "b3fd6bd1b279a7c2116a6986caaa4a69f0550a9b6a15ee7ccaa084a273b4edea" ;
-    bpm:admittedAtCommit "d8c2f19" ;
-    bpm:admissionExpires "2026-12-31" ;
-    bpm:sunsetPlan "Render from the same DfCM planning facts as lib/beam4pm_dfcm.ex; then delete this admission." .
 
 bap:hand_authored_test_ocel a bpm:HandAuthoredSource ;
     bpm:sourcePath "test/beam4pm_ocel_test.exs" ;
