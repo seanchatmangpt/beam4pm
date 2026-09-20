@@ -1,0 +1,25 @@
+@prefix bpm: <https://beam4pm.dev/ontology/process#> .
+@prefix b4p: <https://beam4pm.dev/ontology/instance#> .
+
+# WS2-PLAN-064 — experiment_probe_option
+b4p:experiment_probe_option_rt a bpm:RecordType ;
+    bpm:recordName "experiment_probe_option" ;
+    bpm:recordDoc "Represents a reversible probe whose primary value is learning rather than immediate exploitation." ;
+    bpm:hasField b4p:experiment_probe_option_probe_id_f,
+                 b4p:experiment_probe_option_reversibility_witness_f,
+                 b4p:experiment_probe_option_measurement_plan_digest_f .
+
+b4p:experiment_probe_option_probe_id_f a bpm:Field ;
+    bpm:fieldName "probe_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Identity of the proposed probe." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:experiment_probe_option_reversibility_witness_f a bpm:Field ;
+    bpm:fieldName "reversibility_witness" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Witness that the probe can be lawfully reversed." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:experiment_probe_option_measurement_plan_digest_f a bpm:Field ;
+    bpm:fieldName "measurement_plan_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of observations the probe is expected to collect." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
