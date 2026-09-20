@@ -161,7 +161,16 @@ A2A_BOOTSTRAP_SENTINEL="/tmp/beam4pm-a2a-gate-bootstrap"
 A2A_BOOTSTRAP_REPO_SENTINEL=".beam4pm-a2a-gate-bootstrap"
 touch "$A2A_BOOTSTRAP_SENTINEL" "$A2A_BOOTSTRAP_REPO_SENTINEL"
 cp ontology.ttl "$ONTOLOGY_BACKUP"
-HAND_AUTHORED_DEPENDENT_TESTS=(test/beam4pm_actuation_k8s_test.exs test/beam4pm_process_governor_k8s_test.exs test/beam4pm_pddl_projection_test.exs test/beam4pm_ash_ai_tools_test.exs)
+HAND_AUTHORED_DEPENDENT_TESTS=(
+  test/beam4pm_actuation_k8s_test.exs
+  test/beam4pm_process_governor_k8s_test.exs
+  test/beam4pm_pddl_projection_test.exs
+  test/beam4pm_ash_ai_tools_test.exs
+  test/beam4pm_powl_conformance_test.exs
+  test/beam4pm_deviation_admission_test.exs
+  test/beam4pm_eds_test.exs
+  test/beam4pm_powl_conformance_e2e_test.exs
+)
 restore_stash() {
   # `if ... ; then mv; fi` (not a bare `[ -f ] && mv`) -- a bare `test && cmd`
   # statement is falsy whenever the test is false, and under this script's
