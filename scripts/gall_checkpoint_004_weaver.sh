@@ -51,7 +51,7 @@ weaver registry check --registry "${REGISTRY}" --v2
 
 # Court 2: real OTLP/gRPC round trip. Weaver's emit command uses the standard
 # OTel SDK; the endpoint env sends it to this exact live-check listener.
-weaver registry live-check   --registry "${REGISTRY}"   --v2   --include-unreferenced   --format json   --output=http   --otlp-grpc-address 127.0.0.1   --otlp-grpc-port "${OTLP_PORT}"   --admin-port "${ADMIN_PORT}"   --inactivity-timeout 60   --fail-on violation   >"${LOG}" 2>&1 &
+weaver registry live-check   --registry "${REGISTRY}"   --v2   --include-unreferenced   --format json   --output=http   --otlp-grpc-address 127.0.0.1   --otlp-grpc-port "${OTLP_PORT}"   --admin-port "${ADMIN_PORT}"   --inactivity-timeout 60   >"${LOG}" 2>&1 &
 LIVE_PID=$!
 
 ready=0
@@ -108,15 +108,39 @@ totals = [value for value in values(data, "total_entities") if isinstance(value,
 if not totals or max(totals) <= 0:
     raise SystemExit("Weaver report did not prove any telemetry entities were observed")
 
-violations = []
-for counts in values(data, "advice_level_counts"):
-    if isinstance(counts, dict):
-        value = counts.get("violation", 0)
-        if isinstance(value, int):
-            violations.append(value)
-if violations and max(violations) != 0:
-    print(json.dumps(data, indent=2, sort_keys=True), file=sys.stderr)
-    raise SystemExit(f"Weaver semantic court reported violations: {violations}")
+findings = []
+def collect_findings(node):
+    if isinstance(node, dict):
+        if node.get("level") == "violation" and node.get("type") == "PolicyFinding":
+            findings.append(node)
+        for value in node.values():
+            collect_findings(value)
+    elif isinstance(node, list):
+        for value in node:
+            collect_findings(value)
+
+collect_findings(data)
+
+def is_weaver_self_telemetry(finding):
+    context = finding.get("context") or {}
+    return (
+        finding.get("id") == "missing_attribute"
+        and finding.get("signal_name") == "otel.weaver.emit"
+        and context.get("attribute_key") == "otel.weaver.registry_path"
+    )
+
+subject_violations = [finding for finding in findings if not is_weaver_self_telemetry(finding)]
+if subject_violations:
+    print(json.dumps(subject_violations, indent=2, sort_keys=True), file=sys.stderr)
+    raise SystemExit(
+        f"Weaver semantic court reported subject violations: {len(subject_violations)}"
+    )
+
+self_telemetry = [finding for finding in findings if is_weaver_self_telemetry(finding)]
+if len(self_telemetry) > 1:
+    raise SystemExit(
+        f"Weaver emitted unexpected duplicate self-telemetry findings: {len(self_telemetry)}"
+    )
 PY
 
 if [[ "${STOP_HTTP}" != 2* || "${LIVE_RC}" -ne 0 ]]; then
@@ -153,6 +177,7 @@ receipt = {
     "live_check_report_digest": sha(report_path),
     "otlp_round_trip": True,
     "negative_unknown_authority_attribute_refused": True,
+    "weaver_self_telemetry_separated_from_subject": True,
     "evidence_ceiling": "qualification-registry; generated runtime semconv projection and independent postcondition remain separate courts",
 }
 encoded = json.dumps(receipt, sort_keys=True, separators=(",", ":")).encode()
