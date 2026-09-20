@@ -1,0 +1,25 @@
+@prefix bpm: <https://beam4pm.dev/ontology/process#> .
+@prefix b4p: <https://beam4pm.dev/ontology/instance#> .
+
+# WS2-PLAN-053 — constraint_binding_set
+b4p:constraint_binding_set_rt a bpm:RecordType ;
+    bpm:recordName "constraint_binding_set" ;
+    bpm:recordDoc "Materializes the exact hard and soft constraints bound to one planning episode." ;
+    bpm:hasField b4p:constraint_binding_set_episode_id_f,
+                 b4p:constraint_binding_set_constraint_set_digest_f,
+                 b4p:constraint_binding_set_binding_version_f .
+
+b4p:constraint_binding_set_episode_id_f a bpm:Field ;
+    bpm:fieldName "episode_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Planning episode receiving the bound constraints." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:constraint_binding_set_constraint_set_digest_f a bpm:Field ;
+    bpm:fieldName "constraint_set_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of the complete admitted constraint set." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:constraint_binding_set_binding_version_f a bpm:Field ;
+    bpm:fieldName "binding_version" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Version identity that prevents stale constraint reuse." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
