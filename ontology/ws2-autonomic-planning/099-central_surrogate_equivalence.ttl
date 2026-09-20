@@ -1,0 +1,25 @@
+@prefix bpm: <https://beam4pm.dev/ontology/process#> .
+@prefix b4p: <https://beam4pm.dev/ontology/instance#> .
+
+# WS2-PLAN-099 — central_surrogate_equivalence
+b4p:central_surrogate_equivalence_rt a bpm:RecordType ;
+    bpm:recordName "central_surrogate_equivalence" ;
+    bpm:recordDoc "Admits a central planning surrogate only when it proves semantic equivalence to every exact caller-local consumer partition." ;
+    bpm:hasField b4p:central_surrogate_equivalence_surrogate_id_f,
+                 b4p:central_surrogate_equivalence_consumer_set_digest_f,
+                 b4p:central_surrogate_equivalence_equivalence_proof_digest_f .
+
+b4p:central_surrogate_equivalence_surrogate_id_f a bpm:Field ;
+    bpm:fieldName "surrogate_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Identity of the proposed central surrogate." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:central_surrogate_equivalence_consumer_set_digest_f a bpm:Field ;
+    bpm:fieldName "consumer_set_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of exact caller-local subjects covered by the proof." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:central_surrogate_equivalence_equivalence_proof_digest_f a bpm:Field ;
+    bpm:fieldName "equivalence_proof_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of the equivalence proof required before topology collapse." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
