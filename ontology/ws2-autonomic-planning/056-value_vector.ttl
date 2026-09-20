@@ -1,0 +1,25 @@
+@prefix bpm: <https://beam4pm.dev/ontology/process#> .
+@prefix b4p: <https://beam4pm.dev/ontology/instance#> .
+
+# WS2-PLAN-056 — value_vector
+b4p:value_vector_rt a bpm:RecordType ;
+    bpm:recordName "value_vector" ;
+    bpm:recordDoc "Carries explicit multi-objective value coordinates without prematurely scalarizing them." ;
+    bpm:hasField b4p:value_vector_candidate_id_f,
+                 b4p:value_vector_objective_vector_f,
+                 b4p:value_vector_value_model_digest_f .
+
+b4p:value_vector_candidate_id_f a bpm:Field ;
+    bpm:fieldName "candidate_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Candidate scored across explicit objectives." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:value_vector_objective_vector_f a bpm:Field ;
+    bpm:fieldName "objective_vector" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Ordered objective values preserved for later selection." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:value_vector_value_model_digest_f a bpm:Field ;
+    bpm:fieldName "value_model_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of the admitted value model." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
