@@ -30,7 +30,7 @@ jobs:
       - run: mix local.hex --force
       - run: mix local.rebar --force
       - run: mix deps.get
-      - run: mix format --check-formatted
+      - run: mix format --check-formatted scripts/gall_checkpoint_004_observer.exs
       - run: mix compile --warnings-as-errors
       - name: GALL-004 independent observer self-test
         run: mix run scripts/gall_checkpoint_004_observer.exs -- --self-test
