@@ -60,6 +60,12 @@ jobs:
           elixir-version: '1.18.4'
           otp-version: '27.2.4'
 
+      - name: Record toolchain identity
+        shell: bash
+        run: |
+          set -euo pipefail
+          echo 'WS2_DFCM_TOOLCHAIN=otp=27.2.4;elixir=1.18.4;rebar3=3.24.0' >> "$GITHUB_ENV"
+
       - name: Prepare deterministic regeneration dependencies
         shell: bash
         run: |
@@ -69,18 +75,24 @@ jobs:
             (cd "native/$crate" && cargo build --release)
           done
 
-      - name: Install identity-pinned ggen manufacturer
+      - name: Bind ggen-ecosystem validation capsule
         shell: bash
         run: |
           set -euo pipefail
+          capsule='ghcr.io/seanchatmangpt/ggen-ecosystem:v26.8.28'
+          docker pull "$capsule"
+          capsule_image_id="$(docker image inspect --format '{{.Id}}' "$capsule")"
+          capsule_repo_digest="$(docker image inspect --format '{{index .RepoDigests 0}}' "$capsule")"
+
+          echo "WS2_DFCM_CAPSULE=$capsule" >> "$GITHUB_ENV"
+          echo "WS2_DFCM_CAPSULE_IMAGE_ID=$capsule_image_id" >> "$GITHUB_ENV"
+          echo "WS2_DFCM_CAPSULE_REPO_DIGEST=$capsule_repo_digest" >> "$GITHUB_ENV"
+
           mkdir -p "$HOME/.local/bin"
-          archive="$RUNNER_TEMP/ggen-x86_64-unknown-linux-gnu.tar.gz"
-          curl --fail --location --silent --show-error --retry 3 \
-            --proto '=https' --tlsv1.2 \
-            -o "$archive" \
-            https://github.com/seanchatmangpt/ggen/releases/download/v26.8.28/ggen-x86_64-unknown-linux-gnu.tar.gz
-          echo 'ccb9fe78ef0c84d8b240b45beb6e73f47e2c930d5db3efcf9a0e58dfe071d313  '"$archive" | sha256sum --check --strict
-          tar -xzf "$archive" -C "$HOME/.local/bin" ggen
+          printf '%s\n' \
+            '#!/usr/bin/env bash' \
+            'exec docker run --rm --user "$(id -u):$(id -g)" -v "$PWD:/workspace" -w /workspace ghcr.io/seanchatmangpt/ggen-ecosystem:v26.8.28 ggen "$@"' \
+            > "$HOME/.local/bin/ggen"
           chmod +x "$HOME/.local/bin/ggen"
           echo "$HOME/.local/bin" >> "$GITHUB_PATH"
 
