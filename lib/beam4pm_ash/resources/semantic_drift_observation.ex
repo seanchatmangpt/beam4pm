@@ -8,16 +8,15 @@ defmodule BeamPM.Ash.Resources.SemanticDriftObservation do
     validate_domain_inclusion?: false
 
   attributes do
-    uuid_primary_key :id
-    attribute :subject_id, :string, public?: true, allow_nil?: false
-    attribute :prior_semantic_digest, :string, public?: true, allow_nil?: false
-    attribute :current_semantic_digest, :string, public?: true, allow_nil?: false
-    attribute :drift_class, :string, public?: true, allow_nil?: false
+    uuid_primary_key(:id)
+    attribute(:subject_id, :string, public?: true, allow_nil?: false)
+    attribute(:prior_semantic_digest, :string, public?: true, allow_nil?: false)
+    attribute(:current_semantic_digest, :string, public?: true, allow_nil?: false)
+    attribute(:drift_class, :string, public?: true, allow_nil?: false)
   end
 
   actions do
-    default_accept :*
-    defaults [:create, :read]
+    default_accept(:*)
+    defaults([:create, :read])
   end
 end
-

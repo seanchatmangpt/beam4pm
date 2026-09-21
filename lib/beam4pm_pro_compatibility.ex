@@ -28,7 +28,13 @@ defmodule BeamPM.Pro.Compatibility do
   # at manufacturing time -- the actual BRCE actuation surface this
   # compatibility manifest is claiming compatibility FOR, never a
   # hand-maintained list.
-  @admitted_actuations ["increment_counter", "k8s_scale_down", "k8s_scale_up", "observe_counter", "restart_worker"]
+  @admitted_actuations [
+    "increment_counter",
+    "k8s_scale_down",
+    "k8s_scale_up",
+    "observe_counter",
+    "restart_worker"
+  ]
 
   @doc """
   The admitted BRCE actuation action names (from `BeamPM.Actuation`'s
@@ -62,12 +68,14 @@ defmodule BeamPM.Pro.Compatibility do
   defp check_one(component, version_string) do
     case Map.fetch(@matrix, component) do
       :error ->
-        {:error, {:incompatible, component, "unknown component (not in the compatibility matrix)"}}
+        {:error,
+         {:incompatible, component, "unknown component (not in the compatibility matrix)"}}
 
       {:ok, requirement} ->
         case Version.parse(version_string) do
           :error ->
-            {:error, {:incompatible, component, "unparseable version string: #{inspect(version_string)}"}}
+            {:error,
+             {:incompatible, component, "unparseable version string: #{inspect(version_string)}"}}
 
           {:ok, parsed} ->
             if Version.match?(parsed, requirement) do

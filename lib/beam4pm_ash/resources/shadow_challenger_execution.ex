@@ -8,18 +8,17 @@ defmodule BeamPM.Ash.Resources.ShadowChallengerExecution do
     validate_domain_inclusion?: false
 
   attributes do
-    uuid_primary_key :id
-    attribute :execution_id, :string, public?: true, allow_nil?: false
-    attribute :incumbent_policy_id, :string, public?: true, allow_nil?: false
-    attribute :challenger_policy_id, :string, public?: true, allow_nil?: false
-    attribute :shared_observation_digest, :string, public?: true, allow_nil?: false
-    attribute :shadow_receipt_digest, :string, public?: true, allow_nil?: false
-    attribute :authority_mode, :string, public?: true, allow_nil?: false
+    uuid_primary_key(:id)
+    attribute(:execution_id, :string, public?: true, allow_nil?: false)
+    attribute(:incumbent_policy_id, :string, public?: true, allow_nil?: false)
+    attribute(:challenger_policy_id, :string, public?: true, allow_nil?: false)
+    attribute(:shared_observation_digest, :string, public?: true, allow_nil?: false)
+    attribute(:shadow_receipt_digest, :string, public?: true, allow_nil?: false)
+    attribute(:authority_mode, :string, public?: true, allow_nil?: false)
   end
 
   actions do
-    default_accept :*
-    defaults [:create, :read]
+    default_accept(:*)
+    defaults([:create, :read])
   end
 end
-

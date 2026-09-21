@@ -8,16 +8,15 @@ defmodule BeamPM.Ash.Resources.PowlChoiceGraphEdge do
     validate_domain_inclusion?: false
 
   attributes do
-    uuid_primary_key :id
-    attribute :from_kind, :atom, public?: true, allow_nil?: false
-    attribute :from_child_index, :integer, public?: true
-    attribute :to_kind, :atom, public?: true, allow_nil?: false
-    attribute :to_child_index, :integer, public?: true
+    uuid_primary_key(:id)
+    attribute(:from_kind, :atom, public?: true, allow_nil?: false)
+    attribute(:from_child_index, :integer, public?: true)
+    attribute(:to_kind, :atom, public?: true, allow_nil?: false)
+    attribute(:to_child_index, :integer, public?: true)
   end
 
   actions do
-    default_accept :*
-    defaults [:create, :read]
+    default_accept(:*)
+    defaults([:create, :read])
   end
 end
-

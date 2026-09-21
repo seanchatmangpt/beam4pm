@@ -8,16 +8,15 @@ defmodule BeamPM.Ash.Resources.SecondPassByteIdentityObservation do
     validate_domain_inclusion?: false
 
   attributes do
-    uuid_primary_key :id
-    attribute :first_tree_digest, :string, public?: true, allow_nil?: false
-    attribute :second_tree_digest, :string, public?: true, allow_nil?: false
-    attribute :byte_identity, :boolean, public?: true, allow_nil?: false
-    attribute :receipt_digest, :string, public?: true, allow_nil?: false
+    uuid_primary_key(:id)
+    attribute(:first_tree_digest, :string, public?: true, allow_nil?: false)
+    attribute(:second_tree_digest, :string, public?: true, allow_nil?: false)
+    attribute(:byte_identity, :boolean, public?: true, allow_nil?: false)
+    attribute(:receipt_digest, :string, public?: true, allow_nil?: false)
   end
 
   actions do
-    default_accept :*
-    defaults [:create, :read]
+    default_accept(:*)
+    defaults([:create, :read])
   end
 end
-

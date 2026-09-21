@@ -8,15 +8,14 @@ defmodule BeamPM.Ash.Resources.CounterfactualFrontier do
     validate_domain_inclusion?: false
 
   attributes do
-    uuid_primary_key :id
-    attribute :option_set_id, :string, public?: true, allow_nil?: false
-    attribute :world_model_hash, :string, public?: true, allow_nil?: false
-    attribute :frontier_hash, :string, public?: true, allow_nil?: false
+    uuid_primary_key(:id)
+    attribute(:option_set_id, :string, public?: true, allow_nil?: false)
+    attribute(:world_model_hash, :string, public?: true, allow_nil?: false)
+    attribute(:frontier_hash, :string, public?: true, allow_nil?: false)
   end
 
   actions do
-    default_accept :*
-    defaults [:create, :read]
+    default_accept(:*)
+    defaults([:create, :read])
   end
 end
-

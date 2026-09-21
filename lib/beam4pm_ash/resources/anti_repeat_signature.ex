@@ -8,17 +8,16 @@ defmodule BeamPM.Ash.Resources.AntiRepeatSignature do
     validate_domain_inclusion?: false
 
   attributes do
-    uuid_primary_key :id
-    attribute :signature_id, :string, public?: true, allow_nil?: false
-    attribute :failure_class, :string, public?: true, allow_nil?: false
-    attribute :causal_features_digest, :string, public?: true, allow_nil?: false
-    attribute :repair_family, :string, public?: true, allow_nil?: false
-    attribute :first_seen_episode, :string, public?: true, allow_nil?: false
+    uuid_primary_key(:id)
+    attribute(:signature_id, :string, public?: true, allow_nil?: false)
+    attribute(:failure_class, :string, public?: true, allow_nil?: false)
+    attribute(:causal_features_digest, :string, public?: true, allow_nil?: false)
+    attribute(:repair_family, :string, public?: true, allow_nil?: false)
+    attribute(:first_seen_episode, :string, public?: true, allow_nil?: false)
   end
 
   actions do
-    default_accept :*
-    defaults [:create, :read]
+    default_accept(:*)
+    defaults([:create, :read])
   end
 end
-

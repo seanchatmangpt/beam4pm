@@ -1,0 +1,30 @@
+@prefix bpm: <https://beam4pm.dev/ontology/process#> .
+
+# WS2-BB-114 — belief_update_rule
+bpm:belief_update_rule_rt a bpm:RecordType ;
+    bpm:recordName "belief_update_rule" ;
+    bpm:recordDoc "Updates a belief state from an admitted observation without inventing facts." ;
+    bpm:hasField bpm:belief_update_rule_rule_id_f ,
+                 bpm:belief_update_rule_observation_schema_f ,
+                 bpm:belief_update_rule_update_digest_f .
+
+bpm:belief_update_rule_rule_id_f a bpm:Field ;
+    bpm:fieldName "rule_id" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Belief update rule identity." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 1 .
+
+bpm:belief_update_rule_observation_schema_f a bpm:Field ;
+    bpm:fieldName "observation_schema" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Schema of admissible observations." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 2 .
+
+bpm:belief_update_rule_update_digest_f a bpm:Field ;
+    bpm:fieldName "update_digest" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of deterministic update semantics." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 3 .

@@ -8,15 +8,14 @@ defmodule BeamPM.Ash.Resources.ReworkCost do
     validate_domain_inclusion?: false
 
   attributes do
-    uuid_primary_key :id
-    attribute :case_id, :string, public?: true, allow_nil?: false
-    attribute :loop_count, :integer, public?: true, allow_nil?: false
-    attribute :weighted_cost, :float, public?: true, allow_nil?: false
+    uuid_primary_key(:id)
+    attribute(:case_id, :string, public?: true, allow_nil?: false)
+    attribute(:loop_count, :integer, public?: true, allow_nil?: false)
+    attribute(:weighted_cost, :float, public?: true, allow_nil?: false)
   end
 
   actions do
-    default_accept :*
-    defaults [:create, :read]
+    default_accept(:*)
+    defaults([:create, :read])
   end
 end
-

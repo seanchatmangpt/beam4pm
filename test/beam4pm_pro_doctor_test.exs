@@ -20,8 +20,7 @@ defmodule BeamPM.Pro.DoctorTest do
     report = Doctor.run(version_mismatch: "beam4pm 0.1.0 incompatible with ggen_igniter 99.0.0")
     assert report.status == :degraded
 
-    assert {:error, {:version_mismatch, "beam4pm 0.1.0 incompatible with ggen_igniter 99.0.0"}} in
-             report.checks
+    assert {:error, {:version_mismatch, "beam4pm 0.1.0 incompatible with ggen_igniter 99.0.0"}} in report.checks
   end
 
   test "an injected migration_lag failure is diagnosed by name" do
@@ -37,8 +36,8 @@ defmodule BeamPM.Pro.DoctorTest do
 
   test "an injected entitlement_failure failure is diagnosed by name" do
     report = Doctor.run(entitlement_failure: "no active entitlement grant for this tenant")
-    assert {:error, {:entitlement_failure, "no active entitlement grant for this tenant"}} in
-             report.checks
+
+    assert {:error, {:entitlement_failure, "no active entitlement grant for this tenant"}} in report.checks
   end
 
   test "an injected source_provenance_mismatch failure is diagnosed by name" do

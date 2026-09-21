@@ -1,0 +1,30 @@
+@prefix bpm: <https://beam4pm.dev/ontology/process#> .
+
+# WS2-BB-134 — token_replay_state
+bpm:token_replay_state_rt a bpm:RecordType ;
+    bpm:recordName "token_replay_state" ;
+    bpm:recordDoc "Records deterministic process-token state after replaying an event prefix." ;
+    bpm:hasField bpm:token_replay_state_replay_id_f ,
+                 bpm:token_replay_state_prefix_digest_f ,
+                 bpm:token_replay_state_marking_digest_f .
+
+bpm:token_replay_state_replay_id_f a bpm:Field ;
+    bpm:fieldName "replay_id" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Token replay identity." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 1 .
+
+bpm:token_replay_state_prefix_digest_f a bpm:Field ;
+    bpm:fieldName "prefix_digest" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of the replayed event prefix." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 2 .
+
+bpm:token_replay_state_marking_digest_f a bpm:Field ;
+    bpm:fieldName "marking_digest" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of resulting token marking." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 3 .

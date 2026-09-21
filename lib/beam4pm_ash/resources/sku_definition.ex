@@ -8,16 +8,15 @@ defmodule BeamPM.Ash.Resources.SkuDefinition do
     validate_domain_inclusion?: false
 
   attributes do
-    uuid_primary_key :id
-    attribute :sku, :string, public?: true, allow_nil?: false
-    attribute :edition_id, :string, public?: true, allow_nil?: false
-    attribute :billing_model, :atom, public?: true, allow_nil?: false
-    attribute :status, :atom, public?: true, allow_nil?: false
+    uuid_primary_key(:id)
+    attribute(:sku, :string, public?: true, allow_nil?: false)
+    attribute(:edition_id, :string, public?: true, allow_nil?: false)
+    attribute(:billing_model, :atom, public?: true, allow_nil?: false)
+    attribute(:status, :atom, public?: true, allow_nil?: false)
   end
 
   actions do
-    default_accept :*
-    defaults [:create, :read]
+    default_accept(:*)
+    defaults([:create, :read])
   end
 end
-

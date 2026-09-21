@@ -8,15 +8,14 @@ defmodule BeamPM.Ash.Resources.HeuristicArc do
     validate_domain_inclusion?: false
 
   attributes do
-    uuid_primary_key :id
-    attribute :source_activity, :string, public?: true, allow_nil?: false
-    attribute :target_activity, :string, public?: true, allow_nil?: false
-    attribute :dependency_measure, :float, public?: true, allow_nil?: false
+    uuid_primary_key(:id)
+    attribute(:source_activity, :string, public?: true, allow_nil?: false)
+    attribute(:target_activity, :string, public?: true, allow_nil?: false)
+    attribute(:dependency_measure, :float, public?: true, allow_nil?: false)
   end
 
   actions do
-    default_accept :*
-    defaults [:create, :read]
+    default_accept(:*)
+    defaults([:create, :read])
   end
 end
-

@@ -1,0 +1,30 @@
+@prefix bpm: <https://beam4pm.dev/ontology/process#> .
+
+# WS2-BB-112 — policy_graph_node
+bpm:policy_graph_node_rt a bpm:RecordType ;
+    bpm:recordName "policy_graph_node" ;
+    bpm:recordDoc "Defines one exact state node in an executable policy graph." ;
+    bpm:hasField bpm:policy_graph_node_node_id_f ,
+                 bpm:policy_graph_node_state_digest_f ,
+                 bpm:policy_graph_node_selected_action_id_f .
+
+bpm:policy_graph_node_node_id_f a bpm:Field ;
+    bpm:fieldName "node_id" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Policy node identity." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 1 .
+
+bpm:policy_graph_node_state_digest_f a bpm:Field ;
+    bpm:fieldName "state_digest" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Normalized state digest at the node." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 2 .
+
+bpm:policy_graph_node_selected_action_id_f a bpm:Field ;
+    bpm:fieldName "selected_action_id" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Action selected when the node matches." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 3 .

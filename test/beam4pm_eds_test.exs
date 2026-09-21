@@ -7,6 +7,8 @@ defmodule BeamPM.EDSTest do
   a real temp `receipts/eds` directory and independently re-verified via
   `BeamPM.ReceiptChain.verify/2`.
   """
+  # File.cd!/2 changes the VM-wide working directory, so this module cannot
+  # lawfully overlap file-loading tests in the same BEAM instance.
   use ExUnit.Case, async: false
 
   alias BeamPM.EDS

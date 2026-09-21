@@ -90,7 +90,9 @@ defmodule BeamPM.RF1.DfgDiscoveryTest do
   # directly (that would be testing something the oracle never claims to
   # accept as its whole stdin).
   defp shell_invoke_oracle!(oracle_bin, xes_path) do
-    payload_file = Path.join(System.tmp_dir!(), "rf1-shell-probe-#{System.unique_integer([:positive])}.json")
+    payload_file =
+      Path.join(System.tmp_dir!(), "rf1-shell-probe-#{System.unique_integer([:positive])}.json")
+
     File.write!(payload_file, JSON.encode!(%{"op" => "dfg_discover", "xes_path" => xes_path}))
     {raw, 0} = System.shell("#{oracle_bin} < #{payload_file}")
     File.rm(payload_file)

@@ -1,0 +1,30 @@
+@prefix bpm: <https://beam4pm.dev/ontology/process#> .
+
+# WS2-BB-146 — lease_expiry_replan
+bpm:lease_expiry_replan_rt a bpm:RecordType ;
+    bpm:recordName "lease_expiry_replan" ;
+    bpm:recordDoc "Invalidates stale leased plans and returns work to the lawful option frontier." ;
+    bpm:hasField bpm:lease_expiry_replan_replan_id_f ,
+                 bpm:lease_expiry_replan_expired_lease_id_f ,
+                 bpm:lease_expiry_replan_returned_frontier_digest_f .
+
+bpm:lease_expiry_replan_replan_id_f a bpm:Field ;
+    bpm:fieldName "replan_id" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Lease-expiry replan identity." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 1 .
+
+bpm:lease_expiry_replan_expired_lease_id_f a bpm:Field ;
+    bpm:fieldName "expired_lease_id" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Lease whose authority expired." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 2 .
+
+bpm:lease_expiry_replan_returned_frontier_digest_f a bpm:Field ;
+    bpm:fieldName "returned_frontier_digest" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of restored work options." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 3 .

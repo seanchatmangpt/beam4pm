@@ -8,15 +8,14 @@ defmodule BeamPM.Ash.Resources.ReachabilityAnalysis do
     validate_domain_inclusion?: false
 
   attributes do
-    uuid_primary_key :id
-    attribute :state_id, :string, public?: true, allow_nil?: false
-    attribute :goal_id, :string, public?: true, allow_nil?: false
-    attribute :reachability_proof_hash, :string, public?: true, allow_nil?: false
+    uuid_primary_key(:id)
+    attribute(:state_id, :string, public?: true, allow_nil?: false)
+    attribute(:goal_id, :string, public?: true, allow_nil?: false)
+    attribute(:reachability_proof_hash, :string, public?: true, allow_nil?: false)
   end
 
   actions do
-    default_accept :*
-    defaults [:create, :read]
+    default_accept(:*)
+    defaults([:create, :read])
   end
 end
-

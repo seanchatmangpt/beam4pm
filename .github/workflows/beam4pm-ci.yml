@@ -53,10 +53,10 @@ jobs:
         run: |
           rebar3 eunit
 
-      - name: Build rust4pm-Reactor-validation oracle crates (RF1/RF2/RF3)
+      - name: Build rust4pm-Reactor-validation oracle crates (RF1/RF2/RF3/RF4)
         shell: bash
         run: |
-          # Real Rust subprocess oracles the RF1/RF2/RF3 Chicago tests spawn (thin
+          # Real Rust subprocess oracles the RF1/RF2/RF3/RF4 Chicago tests spawn (thin
           # adapters over the real process_mining =0.6.2 function surface, no
           # algorithm re-implemented). ubuntu-latest ships a preinstalled
           # cargo/rustc, the same toolchain that already compiles ggen_igniter's
@@ -64,6 +64,7 @@ jobs:
           cd native/rf1-dfg-oracle && cargo build --release && cd -
           cd native/rf2-conformance-oracle && cargo build --release && cd -
           cd native/rf3-ocel-oracle && cargo build --release && cd -
+          cd native/rf4-oc-discovery-oracle && cargo build --release && cd -
 
       - name: Cache mix dependencies
         uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
@@ -95,8 +96,15 @@ jobs:
       - name: mix test
         shell: bash
         run: |
+          mkdir -p "$HOME/wasm4pm/data"
+          curl --fail --location --silent --show-error --retry 3 \
+            -o "$RUNNER_TEMP/InternationalDeclarations.xes.gz" \
+            https://icpmconference.org/2020/wp-content/uploads/sites/4/2020/03/InternationalDeclarations.xes_.gz
+          gzip -dc "$RUNNER_TEMP/InternationalDeclarations.xes.gz" > "$HOME/wasm4pm/data/InternationalDeclarations.xes"
+          sha256sum "$RUNNER_TEMP/InternationalDeclarations.xes.gz" "$HOME/wasm4pm/data/InternationalDeclarations.xes"
+          bash scripts/rust4pm_wasm_build.sh
           source scripts/env/rust4pm_reactor_env.sh
-          mix test
+          mix test --max-requires 1
 
       - name: gleam test (gleam/ projection)
         shell: bash

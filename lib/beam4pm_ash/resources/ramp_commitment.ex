@@ -8,16 +8,15 @@ defmodule BeamPM.Ash.Resources.RampCommitment do
     validate_domain_inclusion?: false
 
   attributes do
-    uuid_primary_key :id
-    attribute :ramp_id, :string, public?: true, allow_nil?: false
-    attribute :phase, :integer, public?: true, allow_nil?: false
-    attribute :committed_amount, :float, public?: true, allow_nil?: false
-    attribute :effective_at, :utc_datetime_usec, public?: true, allow_nil?: false
+    uuid_primary_key(:id)
+    attribute(:ramp_id, :string, public?: true, allow_nil?: false)
+    attribute(:phase, :integer, public?: true, allow_nil?: false)
+    attribute(:committed_amount, :float, public?: true, allow_nil?: false)
+    attribute(:effective_at, :utc_datetime_usec, public?: true, allow_nil?: false)
   end
 
   actions do
-    default_accept :*
-    defaults [:create, :read]
+    default_accept(:*)
+    defaults([:create, :read])
   end
 end
-

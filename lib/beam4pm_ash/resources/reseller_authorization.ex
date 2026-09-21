@@ -8,16 +8,15 @@ defmodule BeamPM.Ash.Resources.ResellerAuthorization do
     validate_domain_inclusion?: false
 
   attributes do
-    uuid_primary_key :id
-    attribute :authorization_id, :string, public?: true, allow_nil?: false
-    attribute :reseller_id, :string, public?: true, allow_nil?: false
-    attribute :sku, :string, public?: true, allow_nil?: false
-    attribute :status, :atom, public?: true, allow_nil?: false
+    uuid_primary_key(:id)
+    attribute(:authorization_id, :string, public?: true, allow_nil?: false)
+    attribute(:reseller_id, :string, public?: true, allow_nil?: false)
+    attribute(:sku, :string, public?: true, allow_nil?: false)
+    attribute(:status, :atom, public?: true, allow_nil?: false)
   end
 
   actions do
-    default_accept :*
-    defaults [:create, :read]
+    default_accept(:*)
+    defaults([:create, :read])
   end
 end
-

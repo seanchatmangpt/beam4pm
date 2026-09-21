@@ -24,7 +24,10 @@ defmodule BeamPM.Pro.Simulation do
   Removing an edge that doesn't exist, or adding one that already exists,
   is a no-op on that respective side (idempotent, never raises).
   """
-  @spec apply_change([dfg_edge()], {:remove, String.t(), String.t()} | {:add, String.t(), String.t(), non_neg_integer()}) ::
+  @spec apply_change(
+          [dfg_edge()],
+          {:remove, String.t(), String.t()} | {:add, String.t(), String.t(), non_neg_integer()}
+        ) ::
           [dfg_edge()]
   def apply_change(edges, {:remove, from, to}) when is_list(edges) do
     Enum.reject(edges, fn {f, t, _freq} -> f == from and t == to end)
@@ -94,7 +97,8 @@ defmodule BeamPM.Pro.Simulation do
     on_stack = MapSet.put(on_stack, node)
     visited = MapSet.put(visited, node)
 
-    Enum.reduce_while(Map.get(adjacency, node, []), {false, visited}, fn neighbor, {_found, acc_visited} ->
+    Enum.reduce_while(Map.get(adjacency, node, []), {false, visited}, fn neighbor,
+                                                                         {_found, acc_visited} ->
       cond do
         MapSet.member?(on_stack, neighbor) ->
           {:halt, {true, acc_visited}}
@@ -117,6 +121,11 @@ defmodule BeamPM.Pro.Simulation do
   """
   @spec gaps() :: [atom()]
   def gaps do
-    [:discrete_event_simulation, :throughput_modeling, :resource_contention, :waiting_time_estimation]
+    [
+      :discrete_event_simulation,
+      :throughput_modeling,
+      :resource_contention,
+      :waiting_time_estimation
+    ]
   end
 end

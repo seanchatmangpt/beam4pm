@@ -1,0 +1,30 @@
+@prefix bpm: <https://beam4pm.dev/ontology/process#> .
+
+# WS2-BB-145 — planner_lease
+bpm:planner_lease_rt a bpm:RecordType ;
+    bpm:recordName "planner_lease" ;
+    bpm:recordDoc "Grants time-bounded construction authority for one work item without DO authority." ;
+    bpm:hasField bpm:planner_lease_lease_id_f ,
+                 bpm:planner_lease_work_item_id_f ,
+                 bpm:planner_lease_expires_at_f .
+
+bpm:planner_lease_lease_id_f a bpm:Field ;
+    bpm:fieldName "lease_id" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Planner lease identity." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 1 .
+
+bpm:planner_lease_work_item_id_f a bpm:Field ;
+    bpm:fieldName "work_item_id" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Leased bounded work item." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 2 .
+
+bpm:planner_lease_expires_at_f a bpm:Field ;
+    bpm:fieldName "expires_at" ;
+    bpm:fieldType "datetime" ;
+    bpm:fieldDoc "Lease expiry timestamp." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 3 .

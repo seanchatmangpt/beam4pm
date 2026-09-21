@@ -8,17 +8,16 @@ defmodule BeamPM.Ash.Resources.OutcomeLabel do
     validate_domain_inclusion?: false
 
   attributes do
-    uuid_primary_key :id
-    attribute :label_id, :string, public?: true, allow_nil?: false
-    attribute :episode_id, :string, public?: true, allow_nil?: false
-    attribute :outcome_class, :string, public?: true, allow_nil?: false
-    attribute :confidence_basis, :string, public?: true, allow_nil?: false
-    attribute :independent_evidence_digest, :string, public?: true, allow_nil?: false
+    uuid_primary_key(:id)
+    attribute(:label_id, :string, public?: true, allow_nil?: false)
+    attribute(:episode_id, :string, public?: true, allow_nil?: false)
+    attribute(:outcome_class, :string, public?: true, allow_nil?: false)
+    attribute(:confidence_basis, :string, public?: true, allow_nil?: false)
+    attribute(:independent_evidence_digest, :string, public?: true, allow_nil?: false)
   end
 
   actions do
-    default_accept :*
-    defaults [:create, :read]
+    default_accept(:*)
+    defaults([:create, :read])
   end
 end
-

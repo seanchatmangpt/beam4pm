@@ -16,7 +16,13 @@ defmodule BeamPM.Pro.License do
 
   import Bitwise, only: [bxor: 2, bor: 2]
 
-  @licensable_actions ["increment_counter", "k8s_scale_down", "k8s_scale_up", "observe_counter", "restart_worker"]
+  @licensable_actions [
+    "increment_counter",
+    "k8s_scale_down",
+    "k8s_scale_up",
+    "observe_counter",
+    "restart_worker"
+  ]
 
   @doc """
   Admitted actuation names known at manufacture time (from the

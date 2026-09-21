@@ -8,16 +8,15 @@ defmodule BeamPM.Ash.Resources.ConsumptionPool do
     validate_domain_inclusion?: false
 
   attributes do
-    uuid_primary_key :id
-    attribute :pool_id, :string, public?: true, allow_nil?: false
-    attribute :account_id, :string, public?: true, allow_nil?: false
-    attribute :unit, :string, public?: true, allow_nil?: false
-    attribute :remaining_quantity, :float, public?: true, allow_nil?: false
+    uuid_primary_key(:id)
+    attribute(:pool_id, :string, public?: true, allow_nil?: false)
+    attribute(:account_id, :string, public?: true, allow_nil?: false)
+    attribute(:unit, :string, public?: true, allow_nil?: false)
+    attribute(:remaining_quantity, :float, public?: true, allow_nil?: false)
   end
 
   actions do
-    default_accept :*
-    defaults [:create, :read]
+    default_accept(:*)
+    defaults([:create, :read])
   end
 end
-

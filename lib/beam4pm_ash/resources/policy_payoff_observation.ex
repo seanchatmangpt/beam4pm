@@ -8,18 +8,17 @@ defmodule BeamPM.Ash.Resources.PolicyPayoffObservation do
     validate_domain_inclusion?: false
 
   attributes do
-    uuid_primary_key :id
-    attribute :observation_id, :string, public?: true, allow_nil?: false
-    attribute :policy_id, :string, public?: true, allow_nil?: false
-    attribute :parameter_digest, :string, public?: true, allow_nil?: false
-    attribute :objective_id, :string, public?: true, allow_nil?: false
-    attribute :payoff, :float, public?: true, allow_nil?: false
-    attribute :evidence_digest, :string, public?: true, allow_nil?: false
+    uuid_primary_key(:id)
+    attribute(:observation_id, :string, public?: true, allow_nil?: false)
+    attribute(:policy_id, :string, public?: true, allow_nil?: false)
+    attribute(:parameter_digest, :string, public?: true, allow_nil?: false)
+    attribute(:objective_id, :string, public?: true, allow_nil?: false)
+    attribute(:payoff, :float, public?: true, allow_nil?: false)
+    attribute(:evidence_digest, :string, public?: true, allow_nil?: false)
   end
 
   actions do
-    default_accept :*
-    defaults [:create, :read]
+    default_accept(:*)
+    defaults([:create, :read])
   end
 end
-

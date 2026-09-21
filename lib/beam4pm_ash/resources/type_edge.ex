@@ -8,16 +8,15 @@ defmodule BeamPM.Ash.Resources.TypeEdge do
     validate_domain_inclusion?: false
 
   attributes do
-    uuid_primary_key :id
-    attribute :source_type, :string, public?: true, allow_nil?: false
-    attribute :target_type, :string, public?: true, allow_nil?: false
-    attribute :qualifier, :string, public?: true, allow_nil?: false
-    attribute :direction, :atom, public?: true, allow_nil?: false
+    uuid_primary_key(:id)
+    attribute(:source_type, :string, public?: true, allow_nil?: false)
+    attribute(:target_type, :string, public?: true, allow_nil?: false)
+    attribute(:qualifier, :string, public?: true, allow_nil?: false)
+    attribute(:direction, :atom, public?: true, allow_nil?: false)
   end
 
   actions do
-    default_accept :*
-    defaults [:create, :read]
+    default_accept(:*)
+    defaults([:create, :read])
   end
 end
-

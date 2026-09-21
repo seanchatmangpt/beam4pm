@@ -1,16 +1,14 @@
-# Independent qualification rail; NOT a ggen-generated projection.
-# Preserves the DfCM Chicago court outside manufactured test/ ownership.
+# Independent WS2 qualification rail; not a ggen-generated projection.
 name: WS2 DfCM Independent Qualification
 
 on:
   pull_request:
     branches: [main]
     paths:
-      - "qualification/beam4pm_dfcm_test.exs"
-      - "qualification/fixtures/dfcm/**"
-      - "lib/beam4pm_dfcm.ex"
-      - "ontology.ttl"
       - "ontology/ws2-autonomic-planning/**"
+      - "lib/beam4pm_dfcm.ex"
+      - "test/beam4pm_dfcm_test.exs"
+      - "qualification/fixtures/dfcm/**"
       - ".github/workflows/ws2-dfcm-qualification.yml"
   workflow_dispatch:
 
@@ -20,7 +18,7 @@ permissions:
 jobs:
   dfcm:
     name: DfCM SELECT-only Chicago
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 30
     steps:
       - name: Checkout exact candidate
@@ -28,14 +26,28 @@ jobs:
         with:
           persist-credentials: false
           submodules: recursive
+          fetch-depth: 0
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+
+      - name: Prove exact subject identity
+        env:
+          EXPECTED_HEAD: ${{ github.event.pull_request.head.sha || github.sha }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "$EXPECTED_HEAD"
+          echo "EXACT_HEAD_ALIVE=$EXPECTED_HEAD"
+
       - name: Set up BEAM
         uses: erlef/setup-beam@54075bcc5e249e4758d363f27d099f55d843f124 # v1.24.1
         with:
           elixir-version: "1.19.5"
           otp-version: "28.3.1"
+
       - name: Resolve dependencies
         shell: bash
         run: mix deps.get
-      - name: Execute preserved DfCM Chicago qualification
+
+      - name: Execute DfCM Chicago
         shell: bash
-        run: mix test qualification/beam4pm_dfcm_test.exs
+        run: mix test test/beam4pm_dfcm_test.exs

@@ -8,18 +8,17 @@ defmodule BeamPM.Ash.Resources.VerificationDepthUpdate do
     validate_domain_inclusion?: false
 
   attributes do
-    uuid_primary_key :id
-    attribute :update_id, :string, public?: true, allow_nil?: false
-    attribute :verifier_id, :string, public?: true, allow_nil?: false
-    attribute :prior_depth, :integer, public?: true, allow_nil?: false
-    attribute :new_depth, :integer, public?: true, allow_nil?: false
-    attribute :risk_signal_digest, :string, public?: true, allow_nil?: false
-    attribute :minimum_depth, :integer, public?: true, allow_nil?: false
+    uuid_primary_key(:id)
+    attribute(:update_id, :string, public?: true, allow_nil?: false)
+    attribute(:verifier_id, :string, public?: true, allow_nil?: false)
+    attribute(:prior_depth, :integer, public?: true, allow_nil?: false)
+    attribute(:new_depth, :integer, public?: true, allow_nil?: false)
+    attribute(:risk_signal_digest, :string, public?: true, allow_nil?: false)
+    attribute(:minimum_depth, :integer, public?: true, allow_nil?: false)
   end
 
   actions do
-    default_accept :*
-    defaults [:create, :read]
+    default_accept(:*)
+    defaults([:create, :read])
   end
 end
-

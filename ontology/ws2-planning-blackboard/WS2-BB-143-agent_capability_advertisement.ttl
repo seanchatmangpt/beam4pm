@@ -1,0 +1,30 @@
+@prefix bpm: <https://beam4pm.dev/ontology/process#> .
+
+# WS2-BB-143 — agent_capability_advertisement
+bpm:agent_capability_advertisement_rt a bpm:RecordType ;
+    bpm:recordName "agent_capability_advertisement" ;
+    bpm:recordDoc "Advertises exact subject-bound planning capabilities for portfolio routing." ;
+    bpm:hasField bpm:agent_capability_advertisement_agent_subject_sha_f ,
+                 bpm:agent_capability_advertisement_capability_digest_f ,
+                 bpm:agent_capability_advertisement_valid_until_f .
+
+bpm:agent_capability_advertisement_agent_subject_sha_f a bpm:Field ;
+    bpm:fieldName "agent_subject_sha" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact agent consumer subject." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 1 .
+
+bpm:agent_capability_advertisement_capability_digest_f a bpm:Field ;
+    bpm:fieldName "capability_digest" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of advertised capabilities." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 2 .
+
+bpm:agent_capability_advertisement_valid_until_f a bpm:Field ;
+    bpm:fieldName "valid_until" ;
+    bpm:fieldType "datetime" ;
+    bpm:fieldDoc "Advertisement expiry timestamp." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 3 .

@@ -8,15 +8,14 @@ defmodule BeamPM.Ash.Resources.PropagationScore do
     validate_domain_inclusion?: false
 
   attributes do
-    uuid_primary_key :id
-    attribute :option_id, :string, public?: true, allow_nil?: false
-    attribute :graph_hash, :string, public?: true, allow_nil?: false
-    attribute :score, :string, public?: true, allow_nil?: false
+    uuid_primary_key(:id)
+    attribute(:option_id, :string, public?: true, allow_nil?: false)
+    attribute(:graph_hash, :string, public?: true, allow_nil?: false)
+    attribute(:score, :string, public?: true, allow_nil?: false)
   end
 
   actions do
-    default_accept :*
-    defaults [:create, :read]
+    default_accept(:*)
+    defaults([:create, :read])
   end
 end
-

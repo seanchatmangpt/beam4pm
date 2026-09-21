@@ -45,8 +45,22 @@ defmodule BeamPM.AutonomyKernelGeneratedTest do
     frontier = Kernel.frontier(candidates(), :observed)
     {:ok, selection} = Kernel.select(frontier, %{max_risk: 0.3})
     {:ok, intent} = Kernel.intent(selection, "hook")
-    assert {:refused, :intent_identity_mismatch} = Kernel.grant(intent, %{authority_id: "a", intent_hash: "wrong", candidate_id: intent.candidate_id, do: true})
-    assert {:refused, :scope_mismatch} = Kernel.grant(intent, %{authority_id: "a", intent_hash: Kernel.digest(intent), candidate_id: "other", do: true})
+
+    assert {:refused, :intent_identity_mismatch} =
+             Kernel.grant(intent, %{
+               authority_id: "a",
+               intent_hash: "wrong",
+               candidate_id: intent.candidate_id,
+               do: true
+             })
+
+    assert {:refused, :scope_mismatch} =
+             Kernel.grant(intent, %{
+               authority_id: "a",
+               intent_hash: Kernel.digest(intent),
+               candidate_id: "other",
+               do: true
+             })
   end
 
   test "BRCE is the exclusive DO boundary and binds actual ETS consequence" do
@@ -54,7 +68,15 @@ defmodule BeamPM.AutonomyKernelGeneratedTest do
     frontier = Kernel.frontier(candidates(), :observed)
     {:ok, selection} = Kernel.select(frontier, %{max_risk: 0.3, min_reversibility: 0.9})
     {:ok, intent} = Kernel.intent(selection, "hook")
-    {:ok, grant} = Kernel.grant(intent, %{authority_id: "authority-1", intent_hash: Kernel.digest(intent), candidate_id: intent.candidate_id, do: true})
+
+    {:ok, grant} =
+      Kernel.grant(intent, %{
+        authority_id: "authority-1",
+        intent_hash: Kernel.digest(intent),
+        candidate_id: intent.candidate_id,
+        do: true
+      })
+
     assert :ets.lookup(table, :status) == []
     assert {:ok, receipt} = Kernel.brce_do(intent, grant, {:ets_put, table, :status, :executed})
     assert :ets.lookup(table, :status) == [{:status, :executed}]
@@ -72,9 +94,19 @@ defmodule BeamPM.AutonomyKernelGeneratedTest do
     frontier = Kernel.frontier(candidates(), :observed)
     {:ok, selection} = Kernel.select(frontier, %{max_risk: 0.3})
     {:ok, intent} = Kernel.intent(selection, "hook")
-    {:ok, grant} = Kernel.grant(intent, %{authority_id: "authority-1", intent_hash: Kernel.digest(intent), candidate_id: intent.candidate_id, do: true})
+
+    {:ok, grant} =
+      Kernel.grant(intent, %{
+        authority_id: "authority-1",
+        intent_hash: Kernel.digest(intent),
+        candidate_id: intent.candidate_id,
+        do: true
+      })
+
     {:ok, receipt} = Kernel.brce_do(intent, grant, {:ets_put, table, :x, 1})
     assert {:refused, :consequence_mismatch} = Kernel.replay(receipt, {:ets_value, :x, [{:x, 2}]})
-    assert {:refused, :unverified_replay} = Kernel.learn(%{kind: :replay_result, verified?: false}, frontier)
+
+    assert {:refused, :unverified_replay} =
+             Kernel.learn(%{kind: :replay_result, verified?: false}, frontier)
   end
 end

@@ -8,15 +8,14 @@ defmodule BeamPM.Ash.Resources.DependencyDag do
     validate_domain_inclusion?: false
 
   attributes do
-    uuid_primary_key :id
-    attribute :dag_id, :string, public?: true, allow_nil?: false
-    attribute :node_set_hash, :string, public?: true, allow_nil?: false
-    attribute :edge_set_hash, :string, public?: true, allow_nil?: false
+    uuid_primary_key(:id)
+    attribute(:dag_id, :string, public?: true, allow_nil?: false)
+    attribute(:node_set_hash, :string, public?: true, allow_nil?: false)
+    attribute(:edge_set_hash, :string, public?: true, allow_nil?: false)
   end
 
   actions do
-    default_accept :*
-    defaults [:create, :read]
+    default_accept(:*)
+    defaults([:create, :read])
   end
 end
-
