@@ -220,6 +220,79 @@ jobs:
           echo "exit_code=$exit_code" >> "$GITHUB_OUTPUT"
           echo "$exit_code" > "$evidence/sync-exit-code.txt"
 
+      - name: Qualify WS2 planner semantic projections and falsifiers
+        if: steps.sync.outputs.exit_code == '0'
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import re
+          from pathlib import Path
+
+          root = Path("ontology/ws2-autonomic-planning")
+          files = [
+              root / f"{i:03d}-{name}"
+              for i in range(51, 101)
+              for name in []
+          ]
+          files = sorted(
+              p for p in root.glob("*.ttl")
+              if p.name[:3].isdigit() and 51 <= int(p.name[:3]) <= 100
+          )
+          if len(files) != 50:
+              raise SystemExit(f"REFUSED[WS2_SEMANTIC_CENSUS]:expected=50:actual={len(files)}")
+
+          records = []
+          for path in files:
+              text = path.read_text()
+              names = re.findall(r'bpm:recordName "([^"]+)"', text)
+              if len(names) != 1:
+                  raise SystemExit(f"REFUSED[WS2_RECORD_IDENTITY]:{path}:{names}")
+              required = len(re.findall(r'bpm:fieldRequired "true"', text))
+              if required != 3:
+                  raise SystemExit(f"REFUSED[WS2_REQUIRED_FIELD_COUNT]:{path}:{required}")
+              if re.search(r'\b(?:execute|actuate)\b|bpm:fieldName "do"', text, re.I):
+                  raise SystemExit(f"REFUSED[WS2_DO_SURFACE]:{path}")
+              records.append(names[0])
+
+          if len(set(records)) != 50:
+              raise SystemExit("REFUSED[WS2_RECORD_NAME_COLLISION]")
+
+          erlang = Path("src/beam4pm_types.erl").read_text()
+          tests = Path("test/beam4pm_types_test.exs").read_text()
+          missing_source = [name for name in records if name not in erlang]
+          missing_tests = [name for name in records if name not in tests]
+          if missing_source:
+              raise SystemExit("BUILD_BROKEN[WS2_ERLANG_PROJECTION_MISSING]:" + ",".join(missing_source))
+          if missing_tests:
+              raise SystemExit("BUILD_BROKEN[WS2_TEST_PROJECTION_MISSING]:" + ",".join(missing_tests))
+
+          # Negative falsifiers: the verifier must reject each invalid shape.
+          def admitted(names, required_counts, do_flags):
+              return (
+                  len(names) == 50
+                  and len(set(names)) == 50
+                  and all(n == 3 for n in required_counts)
+                  and not any(do_flags)
+              )
+
+          required_counts = [3] * 50
+          do_flags = [False] * 50
+          if admitted(records + [records[0]], required_counts + [3], do_flags + [False]):
+              raise SystemExit("FALSIFIER_BROKEN[DUPLICATE_RECORD_NOT_REJECTED]")
+          bad_required = required_counts.copy()
+          bad_required[0] = 2
+          if admitted(records, bad_required, do_flags):
+              raise SystemExit("FALSIFIER_BROKEN[MISSING_REQUIRED_FIELD_NOT_REJECTED]")
+          bad_do = do_flags.copy()
+          bad_do[0] = True
+          if admitted(records, required_counts, bad_do):
+              raise SystemExit("FALSIFIER_BROKEN[DO_SURFACE_NOT_REJECTED]")
+
+          print("ALIVE[WS2_SEMANTIC_PROJECTION_50]")
+          print("FALSIFIERS[duplicate,missing-required,do-surface]=PASS")
+          PY
+
       - name: Verify first receipt, output ownership, and second-sync byte identity
         if: steps.sync.outputs.exit_code == '0'
         shell: bash
