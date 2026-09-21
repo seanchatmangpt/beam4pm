@@ -132,6 +132,7 @@ jobs:
           .github/workflows/beam4pm-container.yml
           .github/workflows/beam4pm-infra-validate.yml
           docs/reference/beam4pm_types_reference.md
+          docs/reference/beam4pm_hand_authored_source.md
           gleam/gleam.toml
           gleam/src/beam4pm.gleam
           gleam/src/beam4pm/discovery.gleam
@@ -158,6 +159,7 @@ jobs:
           lib/beam4pm_types.ex
           lib/beam4pm_types_manifest.ex
           schema/beam4pm_ai_contracts.schema.json
+          schema/beam4pm_hand_authored_source.tsv
           schema/beam4pm_types.schema.json
           src/beam4pm_ai_contracts.erl
           src/beam4pm_ai_contracts_codec.erl
@@ -173,6 +175,7 @@ jobs:
           test/beam4pm_ai_contracts_codec_tests.erl
           test/beam4pm_ai_contracts_test.exs
           test/beam4pm_ai_contracts_tests.erl
+          test/beam4pm_authorship_gate_test.exs
           test/beam4pm_billing_test.exs
           test/beam4pm_billing_tests.erl
           test/beam4pm_codec_test.exs
