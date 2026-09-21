@@ -391,16 +391,43 @@ jobs:
           first = json.loads((root / "first-sync-identity.json").read_text())
           receipt = json.loads(Path(".ggen-v2/receipt.json").read_text())
           payload = receipt.get("payload") or {}
-          outputs = payload.get("outputs") or {}
+          receipt_outputs = payload.get("outputs") or {}
 
-          actual = {}
-          for rel, expected in sorted(outputs.items()):
+          if payload.get("graph_hash") != first.get("graph_hash"):
+              raise SystemExit("REFUSED[SECOND_SYNC_GRAPH_IDENTITY_MISMATCH]")
+
+          targets = {
+              line.strip()
+              for line in (root / "primary-ggen-targets.txt").read_text().splitlines()
+              if line.strip()
+          }
+          uncensused = sorted(set(receipt_outputs) - targets)
+          if uncensused:
+              raise SystemExit(
+                  "REFUSED[SECOND_OUTPUT_OUTSIDE_OWNERSHIP_CENSUS]:" + ",".join(uncensused)
+              )
+          for rel, expected in sorted(receipt_outputs.items()):
               path = Path(rel)
               if not path.is_file():
                   raise SystemExit(f"REFUSED[SECOND_RECEIPTED_OUTPUT_MISSING]:{rel}")
               digest = hashlib.sha256(path.read_bytes()).hexdigest()
               if digest != expected:
-                  raise SystemExit(f"REFUSED[SECOND_RECEIPT_DIGEST_MISMATCH]:{rel}:{expected}:{digest}")
+                  raise SystemExit(
+                      f"REFUSED[SECOND_RECEIPT_DIGEST_MISMATCH]:{rel}:{expected}:{digest}"
+                  )
+
+          # Byte identity is measured over the exact first-run consequence set,
+          # independent of whether the second receipt repeats unchanged outputs.
+          actual = {}
+          for rel, expected in sorted(first["outputs"].items()):
+              path = Path(rel)
+              if not path.is_file():
+                  raise SystemExit(f"REFUSED[SECOND_SYNC_OUTPUT_MISSING]:{rel}")
+              digest = hashlib.sha256(path.read_bytes()).hexdigest()
+              if digest != expected:
+                  raise SystemExit(
+                      f"REFUSED[SECOND_SYNC_BYTE_DRIFT]:{rel}:{expected}:{digest}"
+                  )
               actual[rel] = digest
 
           second = {"graph_hash": payload.get("graph_hash"), "outputs": actual}
