@@ -1,0 +1,101 @@
+name: WS2 DfCM scheduled recovery
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'scripts/ws2_dfcm_recovery_check.sh'
+      - '.github/workflows/ws2-dfcm-recovery.yml'
+      - '.github/workflows/ws2-dfcm-crown-integration.yml'
+  workflow_dispatch:
+    inputs:
+      subject_sha:
+        description: Exact already-manufactured beam4pm subject to verify
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ws2-dfcm-recovery-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  exact-subject-recovery:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    env:
+      RECOVERY_SUBJECT_SHA: ${{ github.event_name == 'workflow_dispatch' && inputs.subject_sha || '574368706e6afd804c7a13771bed3cf03da33ce0' }}
+
+    steps:
+      - name: Checkout recovery court
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Preserve court outside target checkout
+        shell: bash
+        run: |
+          set -euo pipefail
+          cp scripts/ws2_dfcm_recovery_check.sh "$RUNNER_TEMP/ws2_dfcm_recovery_check.sh"
+          chmod +x "$RUNNER_TEMP/ws2_dfcm_recovery_check.sh"
+          bash -n "$RUNNER_TEMP/ws2_dfcm_recovery_check.sh"
+
+      - name: Checkout exact admitted subject
+        shell: bash
+        run: |
+          set -euo pipefail
+          git fetch --no-tags origin main
+          git rev-parse --verify "${RECOVERY_SUBJECT_SHA}^{commit}"
+          git checkout --detach "$RECOVERY_SUBJECT_SHA"
+          test "$(git rev-parse HEAD)" = "$RECOVERY_SUBJECT_SHA"
+          git submodule update --init --recursive
+
+      - name: Set up admitted BEAM toolchain
+        uses: erlef/setup-beam@54075bcc5e249e4758d363f27d099f55d843f124 # v1.24.1
+        with:
+          rebar3-version: '3.24.0'
+          elixir-version: '1.18.4'
+          otp-version: '27.2.4'
+
+      - name: Prepare deterministic regeneration dependencies
+        shell: bash
+        run: |
+          set -euo pipefail
+          mix deps.get
+          for crate in rf1-dfg-oracle rf2-conformance-oracle rf3-ocel-oracle rf4-oc-discovery-oracle; do
+            (cd "native/$crate" && cargo build --release)
+          done
+
+      - name: Install identity-pinned ggen manufacturer
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p "$HOME/.local/bin"
+          archive="$RUNNER_TEMP/ggen-x86_64-unknown-linux-gnu.tar.gz"
+          curl --fail --location --silent --show-error --retry 3 \
+            --proto '=https' --tlsv1.2 \
+            -o "$archive" \
+            https://github.com/seanchatmangpt/ggen/releases/download/v26.8.28/ggen-x86_64-unknown-linux-gnu.tar.gz
+          echo 'ccb9fe78ef0c84d8b240b45beb6e73f47e2c930d5db3efcf9a0e58dfe071d313  '"$archive" | sha256sum --check --strict
+          tar -xzf "$archive" -C "$HOME/.local/bin" ggen
+          chmod +x "$HOME/.local/bin/ggen"
+          echo "$HOME/.local/bin" >> "$GITHUB_PATH"
+
+      - name: Execute read-only DfCM recovery court
+        shell: bash
+        run: |
+          set -euo pipefail
+          export PATH="$HOME/.local/bin:$PATH"
+          "$RUNNER_TEMP/ws2_dfcm_recovery_check.sh" "$RECOVERY_SUBJECT_SHA" "$GITHUB_WORKSPACE" | tee "$RUNNER_TEMP/ws2-dfcm-recovery-receipt.json"
+
+      - name: Preserve recovery receipt
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: ws2-dfcm-recovery-${{ env.RECOVERY_SUBJECT_SHA }}
+          path: ${{ runner.temp }}/ws2-dfcm-recovery-receipt.json
+          if-no-files-found: warn
+          retention-days: 14
