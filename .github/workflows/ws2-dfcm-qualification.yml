@@ -12,6 +12,10 @@ on:
       - ".github/workflows/ws2-dfcm-qualification.yml"
   workflow_dispatch:
 
+concurrency:
+  group: ws2-dfcm-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
 permissions:
   contents: read
 
@@ -19,13 +23,12 @@ jobs:
   dfcm:
     name: DfCM SELECT-only Chicago
     runs-on: ubuntu-24.04
-    timeout-minutes: 30
+    timeout-minutes: 8
     steps:
       - name: Checkout exact candidate
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
-          submodules: recursive
           fetch-depth: 0
           ref: ${{ github.event.pull_request.head.sha || github.sha }}
 
@@ -44,10 +47,90 @@ jobs:
           elixir-version: "1.19.5"
           otp-version: "28.3.1"
 
-      - name: Resolve dependencies
+      - name: Execute narrow DfCM SELECT-only Chicago
         shell: bash
-        run: mix deps.get
+        run: |
+          set -euo pipefail
+          cat > "$RUNNER_TEMP/ws2_dfcm_chicago.exs" <<'ELIXIR'
+          alias BeamPM.Dfcm
 
-      - name: Execute DfCM Chicago
-        shell: bash
-        run: mix test test/beam4pm_dfcm_test.exs
+          assert = fn condition, receipt ->
+            unless condition do
+              raise "REFUSED[#{receipt}]"
+            end
+          end
+
+          assert.(Dfcm.authority_ceiling() == :select, "AUTHORITY_CEILING")
+          assert.(
+            Dfcm.phase_order() == [
+              :preserve,
+              :fence,
+              :calculus,
+              :exclusions,
+              :falsifier,
+              :extension,
+              :construct_contingent_policy,
+              :select
+            ],
+            "PHASE_ORDER"
+          )
+
+          unknown = Dfcm.cycle(Dfcm.benchmark())
+          assert.(unknown.preserved_options == ["A", "B", "C"], "UNKNOWN_FRONTIER_PRESERVATION")
+          assert.(unknown.decision.kind == :observe, "UNKNOWN_MUST_OBSERVE")
+          assert.(unknown.decision.observation == :x, "UNKNOWN_OBSERVATION_X")
+          assert.(unknown.authority_ceiling == :select, "UNKNOWN_SELECT_CEILING")
+
+          positive =
+            Dfcm.benchmark()
+            |> Dfcm.observe(:x, :positive)
+            |> Dfcm.cycle()
+
+          assert.(positive.decision.kind == :select, "POSITIVE_SELECTION_KIND")
+          assert.(positive.decision.selected_option == "C", "POSITIVE_SELECT_C")
+          assert.(positive.decision.authority_ceiling == :select, "POSITIVE_SELECT_CEILING")
+
+          negative_problem =
+            Dfcm.benchmark()
+            |> Dfcm.observe(:x, :negative)
+
+          negative = Dfcm.cycle(negative_problem)
+          assert.(negative.decision.selected_option == "B", "NEGATIVE_SELECT_B")
+          exclusion = Enum.find(negative.excluded_options, &(&1.option_id == "C"))
+          assert.(exclusion.reason == {:observation_disables, :x, :negative}, "TYPED_REFUSAL")
+          assert.(exclusion.falsifier == {:observation_is, :x, :positive}, "REFUSAL_FALSIFIER")
+          assert.(is_binary(exclusion.receipt_hash) and byte_size(exclusion.receipt_hash) == 64, "REFUSAL_RECEIPT")
+          assert.(
+            Dfcm.cycle(negative_problem).excluded_options == negative.excluded_options,
+            "DETERMINISTIC_RECEIPT_REPLAY"
+          )
+
+          [a, b, _c] = Dfcm.benchmark().options
+          assert.(not Dfcm.dominates?(a, b), "REVERSIBILITY_PREVENTS_COST_ONLY_DOMINANCE")
+
+          policy = Dfcm.policy(Dfcm.benchmark())
+          assert.(policy.kind == :strong_cyclic, "FOND_STRONG_CYCLIC")
+          assert.(policy.branches.inconclusive.kind == :observe, "FOND_INCONCLUSIVE_RECURRENCE")
+          assert.(policy.authority_ceiling == :select, "FOND_SELECT_CEILING")
+
+          allocation = Dfcm.allocate_options(Dfcm.benchmark())
+          assert.(allocation.authority_ceiling == :select, "ALLOCATION_SELECT_CEILING")
+          assert.(length(allocation["allocations"]) == 3, "ALLOCATION_FRONTIER_PRESERVED")
+          assert.(
+            Enum.all?(allocation["allocations"], &(&1["standing"] == "ADMITTED")),
+            "ALLOCATION_ADMISSION"
+          )
+
+          hddl = File.read!("qualification/fixtures/dfcm/dfcm.hddl")
+          fond = File.read!("qualification/fixtures/dfcm/dfcm-fond.pddl")
+          assert.(String.contains?(hddl, "construct-contingent-policy"), "HDDL_CONSTRUCT_POLICY")
+          assert.(String.contains?(hddl, "select-lawful-option"), "HDDL_SELECT")
+          assert.(String.contains?(fond, ":effect (oneof"), "FOND_ONEOF")
+          assert.(not String.contains?(hddl, "(:action execute"), "HDDL_NO_EXECUTE")
+          assert.(not String.contains?(hddl, "(:action actuate"), "HDDL_NO_ACTUATE")
+          assert.(not String.contains?(fond, "(:action execute"), "FOND_NO_EXECUTE")
+          assert.(not String.contains?(fond, "(:action actuate"), "FOND_NO_ACTUATE")
+
+          IO.puts("ALIVE[WS2_DFCM_SELECT_ONLY_CHICAGO]")
+          ELIXIR
+          elixir -r lib/beam4pm_dfcm.ex "$RUNNER_TEMP/ws2_dfcm_chicago.exs"
