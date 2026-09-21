@@ -417,8 +417,13 @@ jobs:
                   for chunk in iter(lambda: fh.read(1048576), b''):
                       h.update(chunk)
               return h.hexdigest()
+          def optional_digest(name):
+              path = root / name
+              return digest(path) if path.is_file() else None
+
+          second_exit_path = root / 'second-sync-exit-code.txt'
           receipt = {
-              'schema': 'https://beam4pm.dev/receipts/composed-ggen-sync/v2',
+              'schema': 'https://beam4pm.dev/receipts/composed-ggen-sync/v3',
               'repository': os.environ['GITHUB_REPOSITORY'],
               'source_sha': os.environ['CANDIDATE_SHA'],
               'run_id': os.environ['GITHUB_RUN_ID'],
@@ -428,6 +433,17 @@ jobs:
               'marketplace_sha': os.environ['MARKETPLACE_SHA'],
               'sync_command': 'ggen sync run',
               'sync_exit_code': os.environ.get('SYNC_EXIT_CODE'),
+              'second_sync_exit_code': second_exit_path.read_text().strip() if second_exit_path.is_file() else None,
+              'first_sync_identity_sha256': optional_digest('first-sync-identity.json'),
+              'second_sync_identity_sha256': optional_digest('second-sync-identity.json'),
+              'second_sync_identity_equal': (
+                  (root / 'first-sync-identity.json').is_file()
+                  and (root / 'second-sync-identity.json').is_file()
+                  and (root / 'first-sync-identity.json').read_bytes()
+                      == (root / 'second-sync-identity.json').read_bytes()
+              ),
+              'first_ggen_receipt_sha256': optional_digest('ggen-receipt-first.json'),
+              'second_ggen_receipt_sha256': optional_digest('ggen-receipt-second.json'),
               'ontology_inputs_sha256': (root / 'ontology-inputs.sha256').read_text().splitlines(),
               'primary_target_census_sha256': digest(root / 'primary-ggen-targets.txt'),
               'primary_tree_sha256': digest(root / 'primary-ggen-tree.tar'),
@@ -437,7 +453,18 @@ jobs:
           }
           (root / 'beam4pm-manufacture-receipt.json').write_text(json.dumps(receipt, indent=2, sort_keys=True) + '\n')
           PY
-          sha256sum "$evidence/ggen-sync.patch" "$evidence/primary-ggen-tree.tar" "$evidence/beam4pm-manufacture-receipt.json" "$evidence/packs.json" "$evidence/ontology-inputs.sha256" "$evidence/primary-ggen-targets.txt" > "$evidence/SHA256SUMS"
+          receipt_files=(
+            "$evidence/ggen-sync.patch"
+            "$evidence/primary-ggen-tree.tar"
+            "$evidence/beam4pm-manufacture-receipt.json"
+            "$evidence/packs.json"
+            "$evidence/ontology-inputs.sha256"
+            "$evidence/primary-ggen-targets.txt"
+          )
+          for optional in first-sync-identity.json second-sync-identity.json ggen-receipt-first.json ggen-receipt-second.json second-sync-exit-code.txt; do
+            [[ -f "$evidence/$optional" ]] && receipt_files+=("$evidence/$optional")
+          done
+          sha256sum "${receipt_files[@]}" > "$evidence/SHA256SUMS"
 
       - name: Upload deterministic replay evidence
         if: always()
