@@ -122,7 +122,7 @@ defmodule BeamPM.Gall.Observer004 do
       run(unchanged_paths.command, unchanged_paths.post, unchanged_paths.ocel, out <> ".bad3")
     )
 
-        missing_prepared = %{"events" => Enum.drop(ocel["events"], 1)}
+    missing_prepared = %{"events" => Enum.drop(ocel["events"], 1)}
     missing_paths = write_fixture(root <> "-missing", command, post_state, missing_prepared)
 
     assert_match(

@@ -1,0 +1,36 @@
+name: GALL-004 Independent Observer Court
+
+on:
+  pull_request:
+    paths:
+      - "scripts/gall_checkpoint_004_observer.exs"
+      - "docs/jira/GALL-CHECKPOINT-independent-observer-004*"
+      - "docs/jira/v26.9.18/GALL-004-*"
+      - ".github/workflows/gall-004-independent-observer.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  exact-head:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      - name: Admit exact subject
+        env:
+          EXPECTED_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
+        run: test "$(git rev-parse HEAD)" = "$EXPECTED_SHA"
+      - uses: erlef/setup-beam@v1
+        with:
+          otp-version: "28.0"
+          elixir-version: "1.19.5"
+      - run: mix local.hex --force
+      - run: mix local.rebar --force
+      - run: mix deps.get
+      - run: mix format --check-formatted
+      - run: mix compile --warnings-as-errors
+      - name: GALL-004 independent observer self-test
+        run: mix run scripts/gall_checkpoint_004_observer.exs -- --self-test
