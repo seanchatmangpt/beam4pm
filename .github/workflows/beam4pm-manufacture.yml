@@ -243,20 +243,45 @@ jobs:
               raise SystemExit(f"REFUSED[WS2_SEMANTIC_CENSUS]:expected=50:actual={len(files)}")
 
           records = []
+          field_signatures = {}
           for path in files:
               text = path.read_text()
               names = re.findall(r'bpm:recordName "([^"]+)"', text)
               if len(names) != 1:
                   raise SystemExit(f"REFUSED[WS2_RECORD_IDENTITY]:{path}:{names}")
+              field_names = re.findall(r'bpm:fieldName "([^"]+)"', text)
               required = len(re.findall(r'bpm:fieldRequired "true"', text))
-              if required != 3:
-                  raise SystemExit(f"REFUSED[WS2_REQUIRED_FIELD_COUNT]:{path}:{required}")
+              if required != 3 or len(field_names) != 3:
+                  raise SystemExit(
+                      f"REFUSED[WS2_REQUIRED_FIELD_COUNT]:{path}:"
+                      f"required={required}:field_names={len(field_names)}"
+                  )
               if re.search(r'\b(?:execute|actuate)\b|bpm:fieldName "do"', text, re.I):
                   raise SystemExit(f"REFUSED[WS2_DO_SURFACE]:{path}")
               records.append(names[0])
+              field_signatures[names[0]] = set(field_names)
 
           if len(set(records)) != 50:
               raise SystemExit("REFUSED[WS2_RECORD_NAME_COLLISION]")
+
+          # d_semantic is Jaccard distance over field-name sets. recordName is
+          # deliberately excluded so identity alone cannot satisfy the court.
+          # epsilon=0 is the exact semantic-duplicate boundary for this typed
+          # contract class: every pair must differ in at least one field role.
+          epsilon = 0.0
+          min_distance = 1.0
+          for i, left in enumerate(records):
+              for right in records[i + 1:]:
+                  a = field_signatures[left]
+                  b = field_signatures[right]
+                  union = a | b
+                  distance = 1.0 - (len(a & b) / len(union))
+                  min_distance = min(min_distance, distance)
+                  if not distance > epsilon:
+                      raise SystemExit(
+                          f"REFUSED[WS2_SEMANTIC_FRAGMENTATION]:{left}:{right}:"
+                          f"distance={distance}:epsilon={epsilon}"
+                      )
 
           erlang = Path("src/beam4pm_types.erl").read_text()
           tests = Path("test/beam4pm_types_test.exs").read_text()
@@ -290,6 +315,7 @@ jobs:
               raise SystemExit("FALSIFIER_BROKEN[DO_SURFACE_NOT_REJECTED]")
 
           print("ALIVE[WS2_SEMANTIC_PROJECTION_50]")
+          print(f"D_SEMANTIC[min]={min_distance:.6f};epsilon={epsilon:.6f}")
           print("FALSIFIERS[duplicate,missing-required,do-surface]=PASS")
           PY
 
