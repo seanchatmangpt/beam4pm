@@ -18,3 +18,7 @@ config :ash, default_string_length_count: :codepoints
 # agent (that double-starts the agent's registered name and crashes boot).
 # BeamPM.Application only adds the HTTP listener (A2A.Plug/Bandit) on top.
 config :ash_a2a, :agents, [BeamPM.A2AAgent]
+
+# wt-p1 (parity/fabric-solve) wave ports: keep this worktree's Bandit
+# listeners off the shared defaults so parallel worktrees never collide.
+config :beam4pm, ocel_ingest_port: 4301, a2a_port: 4302
