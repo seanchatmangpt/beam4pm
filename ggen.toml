@@ -5,14 +5,17 @@ name = "beam4pm"
 source = "ontology.ttl"
 
 [packs]
-beam4pm-process-model = { path = "vendor/ggen-marketplace/packs/beam4pm-process-model-pack" }
-beam4pm-pro-infra = { path = "vendor/ggen-marketplace/packs/beam4pm-pro-infra-pack" }
-github-actions-pack = { path = "vendor/ggen-marketplace/packs/github-actions-pack" }
-beam4pm-ai-contracts = { path = "vendor/ggen-marketplace/packs/beam4pm-ai-contracts-pack" }
-beam4pm-pro-entitlement = { path = "vendor/ggen-marketplace/packs/beam4pm-pro-entitlement-pack" }
-frontier-release = { path = "vendor/ggen-marketplace/packs/frontier-release-beam-pack" }
-fortune5-architecture = { path = "vendor/ggen-marketplace/packs/fortune5-architecture-pack" }
-fortune5-deployment-blocks = { path = "vendor/ggen-marketplace/packs/fortune5-deployment-blocks-pack" }
+# G3 wave proof (2026-09-18): the vendored clone is empty in this scratch
+# worktree, so every wired pack resolves against the g3 authoring worktree
+# (branch pack/port-bridge) instead. UNCOMMITTED proof wiring -- never merge.
+beam4pm-process-model = { path = "/Users/sac/ggen-marketplace-wt/g3/packs/beam4pm-process-model-pack" }
+beam4pm-pro-infra = { path = "/Users/sac/ggen-marketplace-wt/g3/packs/beam4pm-pro-infra-pack" }
+github-actions-pack = { path = "/Users/sac/ggen-marketplace-wt/g3/packs/github-actions-pack" }
+beam4pm-ai-contracts = { path = "/Users/sac/ggen-marketplace-wt/g3/packs/beam4pm-ai-contracts-pack" }
+beam4pm-pro-entitlement = { path = "/Users/sac/ggen-marketplace-wt/g3/packs/beam4pm-pro-entitlement-pack" }
+frontier-release = { path = "/Users/sac/ggen-marketplace-wt/g3/packs/frontier-release-beam-pack" }
+fortune5-architecture = { path = "/Users/sac/ggen-marketplace-wt/g3/packs/fortune5-architecture-pack" }
+fortune5-deployment-blocks = { path = "/Users/sac/ggen-marketplace-wt/g3/packs/fortune5-deployment-blocks-pack" }
 # gh-terraform-pack: investigated 2026-08-30, NOT wired -- ships unscoped
 # reference-repo instance data that hard-collides (family "repository") or
 # pollutes (families "milestones"/"labels") any second consumer's output.
