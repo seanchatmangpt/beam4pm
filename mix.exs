@@ -72,7 +72,7 @@ defmodule Beam4pm.MixProject do
   # manufacturing-time dep like :ggen_igniter.
   defp deps do
     [
-      {:ggen_igniter, "~> 26.9", runtime: false},
+      {:ggen_igniter, path: "/Users/sac/ggen_igniter-wt/g4", runtime: false},
       {:ash, "~> 3.0"},
       {:ash_ai, "~> 1.0"},
       {:wasmex, "~> 0.15"},
