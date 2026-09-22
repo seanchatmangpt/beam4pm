@@ -13,8 +13,8 @@ source = "path:vendor/ggen-marketplace/packs/beam4pm-pro-infra-pack"
 content_hash = "blake3:7d069bbc76b22d685a10e00acea10222be388580203ccfb91d2dc34df7856ea5"
 
 [packs.beam4pm-process-model]
-source = "path:vendor/ggen-marketplace/packs/beam4pm-process-model-pack"
-content_hash = "blake3:f05ae5232fcd8f77bf2f14fc7897b184747778f48f6cd5fef6e301b381be4fe0"
+source = "path:/Users/sac/ggen-marketplace-wt/g1/packs/beam4pm-process-model-pack"
+content_hash = "blake3:c9861f9e8082aa8d3246852aa8db017764e13bae78fd067c50dfc3603727bdc6"
 
 [packs.fortune5-architecture]
 source = "path:vendor/ggen-marketplace/packs/fortune5-architecture-pack"
@@ -30,4 +30,4 @@ content_hash = "blake3:db66e43ad9684aa25ccb9cbde9c27a732922c63334628b048749c5dac
 
 [packs.github-actions-pack]
 source = "path:vendor/ggen-marketplace/packs/github-actions-pack"
-content_hash = "blake3:bc07910463a1bed1cb62d248aa4f4d97b84b5d5f77066926782390a47b11e3a3"
+content_hash = "blake3:e20e7b3b6f1114765dd7a85e36b5fa59ea76acbaf4dc6f32556beb0890532e0a"

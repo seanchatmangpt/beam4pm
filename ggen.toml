@@ -5,7 +5,9 @@ name = "beam4pm"
 source = "ontology.ttl"
 
 [packs]
-beam4pm-process-model = { path = "vendor/ggen-marketplace/packs/beam4pm-process-model-pack" }
+# UNCOMMITTED scratch edit (wt-g1-proof, g1 wave): pack path pointed at the
+# pack/cli-bridge authorship worktree for the bpm:CliBridge proof.
+beam4pm-process-model = { path = "/Users/sac/ggen-marketplace-wt/g1/packs/beam4pm-process-model-pack" }
 beam4pm-pro-infra = { path = "vendor/ggen-marketplace/packs/beam4pm-pro-infra-pack" }
 github-actions-pack = { path = "vendor/ggen-marketplace/packs/github-actions-pack" }
 beam4pm-ai-contracts = { path = "vendor/ggen-marketplace/packs/beam4pm-ai-contracts-pack" }
