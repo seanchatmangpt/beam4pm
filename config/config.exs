@@ -1,5 +1,9 @@
 import Config
 
+# g2 proof-worktree port offset (UNCOMMITTED scratch config): keep this
+# worktree's Bandit listeners off the main checkout's 4210/4211.
+config :beam4pm, ocel_ingest_port: 4331, a2a_port: 4332
+
 # Required by ash >= 3.33 (transitively pulled in by ash_ai 1.0.0's bump):
 # Ash needs to know how to count string length for :string/:ci_string
 # min_length/max_length constraints, the string_length validation, and the
