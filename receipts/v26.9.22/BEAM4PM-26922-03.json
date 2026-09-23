@@ -1,0 +1,16 @@
+{
+ "wo": "BEAM4PM-26922-03",
+ "base_sha": "574368706e6afd804c7a13771bed3cf03da33ce0",
+ "repo": "PR #86 (seanchatmangpt/beam4pm)",
+ "branch_head": "3265c20f",
+ "command": "mix run qualification/sa2a_e2e_qualification.exs; jq -r .subject_sha docs/jira/v26.9.22/receipts/sa2a-e2e-latest.json; gh pr create; gh pr merge (pending CI)",
+ "exit": 0,
+ "output_excerpt": [
+  "guard extended (3f26fe03): on 6/6 pass it writes the durable receipt bound to the subject \u2014 subject_sha/subject_tree via git rev-parse, verifier command, check count",
+  "qualification => QUALIFICATION: 6/6 passed; receipt subject_sha == HEAD 3f26fe0305994f570250def4cf22e4389e04c65a (verified equal)",
+  "runlog committed per the repo's docs/jira/vX practice (24fd490c, includes the receipt under receipts/)",
+  "PR open: https://github.com/seanchatmangpt/beam4pm/pull/86 (head chore/consume-ash-a2a-26.9.21); WO3's merged-state check (gh pr list --state merged --head ... = 1) QUEUED behind exact-head CI green (beam4pm CI ~50min cycles; two pushes: 24fd490c then 3265c20f WO4 raise)",
+  "operational note: after an M2 run the compiled A2A agent stays in bootstrap mode (compile-time sentinel captured in the .beam); recompile lib/beam4pm_a2a_agent.ex before qualifying \u2014 hit and diagnosed via agent_card().name probe"
+ ],
+ "standing": "PARTIAL_ALIVE"
+}

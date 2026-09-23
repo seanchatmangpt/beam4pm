@@ -1,0 +1,13 @@
+{
+ "wo": "BEAM4PM-26922-09",
+ "base_sha": "574368706e6afd804c7a13771bed3cf03da33ce0",
+ "repo": "/Users/sac/beam4pm + origin",
+ "branch_head": "-",
+ "command": "not started \u2014 depends_on [03 merge, 05]",
+ "exit": null,
+ "output_excerpt": [
+  "BLOCKED: the version bump + tag v26.9.22 chain requires WO3's PR merged (CI green) and WO5 landed; both pending at receipt time. The mix beam4pm.version_bump task exists (lib/mix/tasks/beam4pm.version_bump.ex) and the push authority for the tag is granted by the dispatch \u2014 execution is mechanical once 03+05 land",
+  "note: the repo tops out at v26.9.9 on origin and a local-only v26.9.10 tag exists (W0); the push-or-retire decision for it belongs to the same landing"
+ ],
+ "standing": "BLOCKED"
+}

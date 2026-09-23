@@ -1,0 +1,12 @@
+{
+ "wo": "BEAM4PM-26922-06",
+ "base_sha": "574368706e6afd804c7a13771bed3cf03da33ce0",
+ "repo": "/Users/sac/beam4pm",
+ "branch_head": "-",
+ "command": "not started",
+ "exit": null,
+ "output_excerpt": [
+  "BLOCKED by WO5 (depends_on [05]): the sa2a_plan/sa2a_admit/sa2a_replay wrappers extend lib/beam4pm_autofde_bridge.ex, which itself lands with parity/integration (70e2662). The gate needs autofde-lab's .venv on PATH and new test cases over the real beam_port_bridge"
+ ],
+ "standing": "BLOCKED"
+}

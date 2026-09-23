@@ -1,0 +1,17 @@
+{
+ "wo": "BEAM4PM-26922-01",
+ "base_sha": "574368706e6afd804c7a13771bed3cf03da33ce0",
+ "repo": "/Users/sac/beam4pm (chore/consume-ash-a2a-26.9.21)",
+ "branch_head": "6ad97f8b (merge a386b6e2 + fix commit)",
+ "command": "git fetch origin; git merge --no-ff origin/main -F msg; git rm .beam4pm-a2a-gate-bootstrap; gitignore entry; Q6 domain-derived; mix test --max-requires 1; mix run qualification/sa2a_e2e_qualification.exs",
+ "exit": 0,
+ "output_excerpt": [
+  "git merge-base --is-ancestor origin/main HEAD => 0 after merge a386b6e2 (parents 8d95dbbe + 57436870; merge-tree pre-check 0 conflicts)",
+  "! git ls-files --error-unmatch .beam4pm-a2a-gate-bootstrap => true (git rm + .gitignore entry; gate that committed it in e80f0eb can no longer re-track it)",
+  "Q6 guard: hardcoded length(card.skills)==1194 replaced by domain-derived count = sum of Ash.Resource.Info.public_actions over Ash.Domain.Info.resources(BeamPM.Ash.Domain) \u2014 the exact AshA2A.CapabilityIndex.Compiler enumeration; qualification prints skills=1294 domain=1294",
+  "mix test --max-requires 1 => 1158 tests, 0 failures, 90 skipped (after building rust4pm-wasm + RF1-RF4 oracle crates per CI recipe; first run had 20 failures all 'oracle binary missing', exit 126/127 \u2014 environmental, none after build)",
+  "mix run qualification/sa2a_e2e_qualification.exs => QUALIFICATION: 6/6 passed",
+  "NOTE: mix format --check-formatted is UNSUPPORTED here \u2014 repo has no .formatter.exs; repo gates are the scripts/* gates"
+ ],
+ "standing": "ALIVE"
+}

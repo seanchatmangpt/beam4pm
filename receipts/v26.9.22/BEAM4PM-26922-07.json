@@ -1,0 +1,12 @@
+{
+ "wo": "BEAM4PM-26922-07",
+ "base_sha": "574368706e6afd804c7a13771bed3cf03da33ce0",
+ "repo": "seanchatmangpt/beam4pm (GitHub ops)",
+ "branch_head": "-",
+ "command": "not started",
+ "exit": null,
+ "output_excerpt": [
+  "QUEUED (leaf WO; deps 02+04 done): land feat/gall-swf-v26.9.18; PR superseding #78; land #75->#76->#79 and #77->#80 after fixing their checks. Six PR operations each requiring exact-head CI green (~50 min/cycle on this repo) \u2014 deferred honestly rather than attempted half-verified; no dependent WO blocked (WO9 needs 03+05 only)"
+ ],
+ "standing": "QUEUED"
+}

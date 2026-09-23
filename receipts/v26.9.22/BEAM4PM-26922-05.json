@@ -1,0 +1,12 @@
+{
+ "wo": "BEAM4PM-26922-05",
+ "base_sha": "574368706e6afd804c7a13771bed3cf03da33ce0",
+ "repo": "/Users/sac/beam4pm",
+ "branch_head": "-",
+ "command": "not started",
+ "exit": null,
+ "output_excerpt": [
+  "BLOCKED (session budget + sequencing): the parity/integration 70e2662 merge carries the hand-authored-source ledger's 36/50 rows whose conflict resolution is entangled with the WO4 raise just landed (fd883988 deliberately keeps the 35/35 pre-parity truth; 70e2662's doc rows admit the parity files the same merge brings). The gate (4 parity test files + authorship + priv/bin/autofde tracked + clean tree) needs autofde-lab's real bridge under $HOME/autofde-lab/.venv and a further 50-min CI cycle. Not attempted: landing it half-verified would red the open PR #86 and block WO3's merge"
+ ],
+ "standing": "BLOCKED"
+}

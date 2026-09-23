@@ -1,0 +1,12 @@
+{
+ "wo": "BEAM4PM-26922-08",
+ "base_sha": "574368706e6afd804c7a13771bed3cf03da33ce0",
+ "repo": "seanchatmangpt/beam4pm (GitHub ops)",
+ "branch_head": "-",
+ "command": "not started",
+ "exit": null,
+ "output_excerpt": [
+  "QUEUED (leaf WO; dep 02 done): PR hygiene (close #63, retarget #70/#64/#66, resolve #59 with #61 stacked, #84 lfs-smudge, g1-g3 scratch disposition, ws2 triage). GitHub PR surgery deferred behind the open PR #86's own merge to avoid racing its head; gate: open PR count <= 3, each with a keep reason"
+ ],
+ "standing": "QUEUED"
+}
