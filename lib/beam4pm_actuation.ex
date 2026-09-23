@@ -410,7 +410,11 @@ defmodule BeamPM.Actuation do
           # BeamPM.Actuation.Session.close/2 after it, via try/after.
           bridge_timeout = Map.fetch!(opts, :bridge_timeout)
 
-          case GymBridge.request(bridge, %{"op" => "step", "action" => gym_action}, bridge_timeout) do
+          case GymBridge.request(
+                 bridge,
+                 %{"op" => "step", "action" => gym_action},
+                 bridge_timeout
+               ) do
             {:ok, step_reply} ->
               {:ok,
                %{
@@ -687,8 +691,7 @@ defmodule BeamPM.Actuation do
         "events" => Enum.map(Map.fetch!(fields, :events), &Codec.to_map/1),
         "replay" => %{
           "gym" => Map.fetch!(opts, :gym),
-          "bridge_cmd" =>
-            "python3 #{Map.fetch!(opts, :bridge)} --gym #{Map.fetch!(opts, :gym)}",
+          "bridge_cmd" => "python3 #{Map.fetch!(opts, :bridge)} --gym #{Map.fetch!(opts, :gym)}",
           "action_json" => Map.fetch!(fields, :action_json)
         }
       }

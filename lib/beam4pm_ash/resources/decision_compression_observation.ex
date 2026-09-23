@@ -8,16 +8,15 @@ defmodule BeamPM.Ash.Resources.DecisionCompressionObservation do
     validate_domain_inclusion?: false
 
   attributes do
-    uuid_primary_key :id
-    attribute :compression_id, :string, public?: true, allow_nil?: false
-    attribute :input_state_digest, :string, public?: true, allow_nil?: false
-    attribute :output_delta_digest, :string, public?: true, allow_nil?: false
-    attribute :loss_bound, :string, public?: true, allow_nil?: false
+    uuid_primary_key(:id)
+    attribute(:compression_id, :string, public?: true, allow_nil?: false)
+    attribute(:input_state_digest, :string, public?: true, allow_nil?: false)
+    attribute(:output_delta_digest, :string, public?: true, allow_nil?: false)
+    attribute(:loss_bound, :string, public?: true, allow_nil?: false)
   end
 
   actions do
-    default_accept :*
-    defaults [:create, :read]
+    default_accept(:*)
+    defaults([:create, :read])
   end
 end
-

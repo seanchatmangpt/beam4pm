@@ -8,17 +8,16 @@ defmodule BeamPM.Ash.Resources.FrontierEvidence do
     validate_domain_inclusion?: false
 
   attributes do
-    uuid_primary_key :id
-    attribute :subject_identity, :string, public?: true, allow_nil?: false
-    attribute :verifier_identity, :string, public?: true, allow_nil?: false
-    attribute :receipt_ref, :string, public?: true, allow_nil?: false
-    attribute :replay_ref, :string, public?: true, allow_nil?: false
-    attribute :standing, :atom, public?: true, allow_nil?: false
+    uuid_primary_key(:id)
+    attribute(:subject_identity, :string, public?: true, allow_nil?: false)
+    attribute(:verifier_identity, :string, public?: true, allow_nil?: false)
+    attribute(:receipt_ref, :string, public?: true, allow_nil?: false)
+    attribute(:replay_ref, :string, public?: true, allow_nil?: false)
+    attribute(:standing, :atom, public?: true, allow_nil?: false)
   end
 
   actions do
-    default_accept :*
-    defaults [:create, :read]
+    default_accept(:*)
+    defaults([:create, :read])
   end
 end
-

@@ -8,18 +8,17 @@ defmodule BeamPM.Ash.Resources.RegressionDetector do
     validate_domain_inclusion?: false
 
   attributes do
-    uuid_primary_key :id
-    attribute :detection_id, :string, public?: true, allow_nil?: false
-    attribute :baseline_policy_id, :string, public?: true, allow_nil?: false
-    attribute :candidate_policy_id, :string, public?: true, allow_nil?: false
-    attribute :metric_id, :string, public?: true, allow_nil?: false
-    attribute :regression_delta, :float, public?: true, allow_nil?: false
-    attribute :evidence_digest, :string, public?: true, allow_nil?: false
+    uuid_primary_key(:id)
+    attribute(:detection_id, :string, public?: true, allow_nil?: false)
+    attribute(:baseline_policy_id, :string, public?: true, allow_nil?: false)
+    attribute(:candidate_policy_id, :string, public?: true, allow_nil?: false)
+    attribute(:metric_id, :string, public?: true, allow_nil?: false)
+    attribute(:regression_delta, :float, public?: true, allow_nil?: false)
+    attribute(:evidence_digest, :string, public?: true, allow_nil?: false)
   end
 
   actions do
-    default_accept :*
-    defaults [:create, :read]
+    default_accept(:*)
+    defaults([:create, :read])
   end
 end
-

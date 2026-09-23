@@ -8,16 +8,15 @@ defmodule BeamPM.Ash.Resources.CommercialForecast do
     validate_domain_inclusion?: false
 
   attributes do
-    uuid_primary_key :id
-    attribute :forecast_id, :string, public?: true, allow_nil?: false
-    attribute :account_id, :string, public?: true, allow_nil?: false
-    attribute :amount, :float, public?: true, allow_nil?: false
-    attribute :confidence, :float, public?: true, allow_nil?: false
+    uuid_primary_key(:id)
+    attribute(:forecast_id, :string, public?: true, allow_nil?: false)
+    attribute(:account_id, :string, public?: true, allow_nil?: false)
+    attribute(:amount, :float, public?: true, allow_nil?: false)
+    attribute(:confidence, :float, public?: true, allow_nil?: false)
   end
 
   actions do
-    default_accept :*
-    defaults [:create, :read]
+    default_accept(:*)
+    defaults([:create, :read])
   end
 end
-

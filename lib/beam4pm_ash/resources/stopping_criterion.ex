@@ -8,18 +8,17 @@ defmodule BeamPM.Ash.Resources.StoppingCriterion do
     validate_domain_inclusion?: false
 
   attributes do
-    uuid_primary_key :id
-    attribute :criterion_id, :string, public?: true, allow_nil?: false
-    attribute :objective_id, :string, public?: true, allow_nil?: false
-    attribute :minimum_gain, :float, public?: true, allow_nil?: false
-    attribute :maximum_episodes, :integer, public?: true, allow_nil?: false
-    attribute :evidence_window_digest, :string, public?: true, allow_nil?: false
-    attribute :authority_binding, :string, public?: true, allow_nil?: false
+    uuid_primary_key(:id)
+    attribute(:criterion_id, :string, public?: true, allow_nil?: false)
+    attribute(:objective_id, :string, public?: true, allow_nil?: false)
+    attribute(:minimum_gain, :float, public?: true, allow_nil?: false)
+    attribute(:maximum_episodes, :integer, public?: true, allow_nil?: false)
+    attribute(:evidence_window_digest, :string, public?: true, allow_nil?: false)
+    attribute(:authority_binding, :string, public?: true, allow_nil?: false)
   end
 
   actions do
-    default_accept :*
-    defaults [:create, :read]
+    default_accept(:*)
+    defaults([:create, :read])
   end
 end
-

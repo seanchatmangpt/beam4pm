@@ -8,18 +8,17 @@ defmodule BeamPM.Ash.Resources.PlannerPolicyComparison do
     validate_domain_inclusion?: false
 
   attributes do
-    uuid_primary_key :id
-    attribute :comparison_id, :string, public?: true, allow_nil?: false
-    attribute :planner_id, :string, public?: true, allow_nil?: false
-    attribute :incumbent_policy_id, :string, public?: true, allow_nil?: false
-    attribute :challenger_policy_id, :string, public?: true, allow_nil?: false
-    attribute :payoff_delta, :float, public?: true, allow_nil?: false
-    attribute :winner_evidence_digest, :string, public?: true, allow_nil?: false
+    uuid_primary_key(:id)
+    attribute(:comparison_id, :string, public?: true, allow_nil?: false)
+    attribute(:planner_id, :string, public?: true, allow_nil?: false)
+    attribute(:incumbent_policy_id, :string, public?: true, allow_nil?: false)
+    attribute(:challenger_policy_id, :string, public?: true, allow_nil?: false)
+    attribute(:payoff_delta, :float, public?: true, allow_nil?: false)
+    attribute(:winner_evidence_digest, :string, public?: true, allow_nil?: false)
   end
 
   actions do
-    default_accept :*
-    defaults [:create, :read]
+    default_accept(:*)
+    defaults([:create, :read])
   end
 end
-

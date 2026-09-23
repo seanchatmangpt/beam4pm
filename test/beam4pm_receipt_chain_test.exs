@@ -59,13 +59,13 @@ defmodule BeamPM.ReceiptChainTest do
       run_id = "act-chain-#{n}"
 
       {:ok, out} =
-        Actuation.run(inc_action(), [
+        Actuation.run(inc_action(),
           gym: "toy-counter",
           bridge: bridge_path(),
           receipts_dir: tmp_dir,
           run_id: run_id,
           chain_id: chain_id
-        ])
+        )
 
       {run_id, out.receipt_path}
     end
@@ -129,13 +129,13 @@ defmodule BeamPM.ReceiptChainTest do
       run_id = "act-falsifier-#{n}"
 
       {:ok, out} =
-        Actuation.run(inc_action(), [
+        Actuation.run(inc_action(),
           gym: "toy-counter",
           bridge: bridge_path(),
           receipts_dir: tmp_dir,
           run_id: run_id,
           chain_id: chain_id
-        ])
+        )
 
       out.receipt_path
     end
@@ -158,7 +158,9 @@ defmodule BeamPM.ReceiptChainTest do
     original_hash = sha256_hex!(path2)
 
     tampered =
-      Map.update!(original, "admission", fn a -> Map.put(a, "reason", "TAMPERED " <> a["reason"]) end)
+      Map.update!(original, "admission", fn a ->
+        Map.put(a, "reason", "TAMPERED " <> a["reason"])
+      end)
 
     File.write!(path2, JSON.encode!(tampered))
 
@@ -174,7 +176,9 @@ defmodule BeamPM.ReceiptChainTest do
     # And the break is exactly localized: seq 3 is the receipt whose
     # recorded prev_receipt_hash (pointing at path2) no longer recomputes,
     # because path2's real bytes changed underneath it.
-    assert path3 |> File.read!() |> JSON.decode!() |> Map.fetch!("prev_receipt_hash") == original_hash
+    assert path3 |> File.read!() |> JSON.decode!() |> Map.fetch!("prev_receipt_hash") ==
+             original_hash
+
     assert original_hash != sha256_hex!(path2)
   end
 
@@ -182,13 +186,13 @@ defmodule BeamPM.ReceiptChainTest do
     chain_id = "single-link-chain"
 
     {:ok, out} =
-      Actuation.run(inc_action(), [
+      Actuation.run(inc_action(),
         gym: "toy-counter",
         bridge: bridge_path(),
         receipts_dir: tmp_dir,
         run_id: "act-solo",
         chain_id: chain_id
-      ])
+      )
 
     assert {:ok, %{chain_id: ^chain_id, length: 1, receipt_paths: [path]}} =
              ReceiptChain.verify(tmp_dir, chain_id)
@@ -199,7 +203,11 @@ defmodule BeamPM.ReceiptChainTest do
   test "no chain_id opt: receipt shape is byte-for-byte today's beam4pm-brce/v1 shape, zero new chain keys",
        %{tmp_dir: tmp_dir} do
     {:ok, out} =
-      Actuation.run(inc_action(), gym: "toy-counter", bridge: bridge_path(), receipts_dir: tmp_dir)
+      Actuation.run(inc_action(),
+        gym: "toy-counter",
+        bridge: bridge_path(),
+        receipts_dir: tmp_dir
+      )
 
     receipt = out.receipt_path |> File.read!() |> JSON.decode!()
 
@@ -209,7 +217,15 @@ defmodule BeamPM.ReceiptChainTest do
     refute Map.has_key?(receipt, "prev_receipt_hash")
 
     assert Map.keys(receipt) |> Enum.sort() ==
-             Enum.sort(["receipt_schema", "standing", "action", "admission", "execution", "events", "replay"])
+             Enum.sort([
+               "receipt_schema",
+               "standing",
+               "action",
+               "admission",
+               "execution",
+               "events",
+               "replay"
+             ])
   end
 
   # -- EX2 "standing" field: the fifth identity/authority/consequence/replay/
@@ -227,7 +243,12 @@ defmodule BeamPM.ReceiptChainTest do
     refute ReceiptChain.valid_standing?(nil)
 
     {:ok, default_out} =
-      Actuation.run(inc_action(), gym: "toy-counter", bridge: bridge_path(), receipts_dir: tmp_dir, run_id: "act-standing-default")
+      Actuation.run(inc_action(),
+        gym: "toy-counter",
+        bridge: bridge_path(),
+        receipts_dir: tmp_dir,
+        run_id: "act-standing-default"
+      )
 
     default_receipt = default_out.receipt_path |> File.read!() |> JSON.decode!()
     assert default_receipt["standing"] == "provisional"
@@ -387,7 +408,12 @@ defmodule BeamPM.ReceiptChainTest do
           # never touches: a bare brce receipt (no chain fields) or a
           # foreign-schema JSON file, alternating.
           schema = if rem(i, 20) == 0, do: @brce_schema, else: "other/v1"
-          write_json!(Path.join(tmp_dir, "noise-#{i}.json"), %{"receipt_schema" => schema, "i" => i})
+
+          write_json!(Path.join(tmp_dir, "noise-#{i}.json"), %{
+            "receipt_schema" => schema,
+            "i" => i
+          })
+
           counts
         else
           chain = Enum.random(chains)
@@ -420,7 +446,9 @@ defmodule BeamPM.ReceiptChainTest do
     unsafe_index = ReceiptChain.tip_index_path(tmp_dir, "tenant/acme process #7")
     assert Path.dirname(unsafe_index) == index_dir
     assert Path.basename(unsafe_index) =~ ~r/\A[0-9a-f]{64}\.json\z/
-    assert (unsafe_index |> File.read!() |> JSON.decode!())["chain_id"] == "tenant/acme process #7"
+
+    assert (unsafe_index |> File.read!() |> JSON.decode!())["chain_id"] ==
+             "tenant/acme process #7"
   end
 
   test "tip index: crash window (tip recorded, receipt never written) is repaired by the validated read + scan fallback, and the REAL Actuation writer continues unbroken",
@@ -429,13 +457,13 @@ defmodule BeamPM.ReceiptChainTest do
 
     run = fn n ->
       {:ok, out} =
-        Actuation.run(inc_action(), [
+        Actuation.run(inc_action(),
           gym: "toy-counter",
           bridge: bridge_path(),
           receipts_dir: tmp_dir,
           run_id: "act-crash-#{n}",
           chain_id: chain_id
-        ])
+        )
 
       out.receipt_path
     end
@@ -447,7 +475,10 @@ defmodule BeamPM.ReceiptChainTest do
     # put_chain_fields/2 and its File.write! leaves behind: the index already
     # names seq 3 at a path that never gets written.
     ghost = Path.join(tmp_dir, "act-crash-ghost.json")
-    assert %{chain_seq: 3, prev_receipt_path: ^path2} = ReceiptChain.link_fields(tmp_dir, chain_id, ghost)
+
+    assert %{chain_seq: 3, prev_receipt_path: ^path2} =
+             ReceiptChain.link_fields(tmp_dir, chain_id, ghost)
+
     refute File.exists?(ghost)
     index = ReceiptChain.tip_index_path(tmp_dir, chain_id) |> File.read!() |> JSON.decode!()
     assert index["chain_seq"] == 3 and index["receipt_path"] == ghost
@@ -457,7 +488,9 @@ defmodule BeamPM.ReceiptChainTest do
     # rebuilt from it.
     expected = ReceiptChain.link_fields_by_scan(tmp_dir, chain_id)
     assert %{chain_seq: 3, prev_receipt_path: ^path2} = expected
-    assert ReceiptChain.link_fields(tmp_dir, chain_id, Path.join(tmp_dir, "act-crash-3.json")) == expected
+
+    assert ReceiptChain.link_fields(tmp_dir, chain_id, Path.join(tmp_dir, "act-crash-3.json")) ==
+             expected
 
     # And the REAL writer continues from the repaired state: real receipt 3
     # chains to real receipt 2 by recomputed sha256, whole chain verifies.
@@ -494,7 +527,9 @@ defmodule BeamPM.ReceiptChainTest do
     File.write!(index_path, "{not json")
     assert ReceiptChain.link_fields(tmp_dir, "chain-a", next) == expected
     rebuilt = index_path |> File.read!() |> JSON.decode!()
-    assert rebuilt["chain_id"] == "chain-a" and rebuilt["chain_seq"] == 3 and rebuilt["receipt_path"] == next
+
+    assert rebuilt["chain_id"] == "chain-a" and rebuilt["chain_seq"] == 3 and
+             rebuilt["receipt_path"] == next
 
     # (2) points at a REAL, valid tip receipt -- of ANOTHER chain.
     File.write!(index_path, entry.(2, b2))
@@ -573,7 +608,8 @@ defmodule BeamPM.ReceiptChainTest do
       })
     end
 
-    assert %{chain_seq: 3, prev_receipt_path: ^h2} = ReceiptChain.link_fields_by_scan(tmp_dir, chain_id)
+    assert %{chain_seq: 3, prev_receipt_path: ^h2} =
+             ReceiptChain.link_fields_by_scan(tmp_dir, chain_id)
 
     # Steady-state per-write cycle, five real times: take the link for the
     # receipt about to be written (timed -- this is the cost under test),
@@ -596,7 +632,10 @@ defmodule BeamPM.ReceiptChainTest do
       )
 
     scan_us =
-      Enum.min(for _ <- 1..5, do: elem(:timer.tc(fn -> ReceiptChain.link_fields_by_scan(tmp_dir, chain_id) end), 0))
+      Enum.min(
+        for _ <- 1..5,
+            do: elem(:timer.tc(fn -> ReceiptChain.link_fields_by_scan(tmp_dir, chain_id) end), 0)
+      )
 
     assert index_us * 20 <= scan_us,
            "indexed #{index_us}us vs scan #{scan_us}us at N=3,007 -- the index no longer " <>

@@ -8,16 +8,15 @@ defmodule BeamPM.Ash.Resources.CatalogRelease do
     validate_domain_inclusion?: false
 
   attributes do
-    uuid_primary_key :id
-    attribute :release_id, :string, public?: true, allow_nil?: false
-    attribute :version, :string, public?: true, allow_nil?: false
-    attribute :sku_ids, {:array, :string}, public?: true, allow_nil?: false
-    attribute :effective_at, :utc_datetime_usec, public?: true, allow_nil?: false
+    uuid_primary_key(:id)
+    attribute(:release_id, :string, public?: true, allow_nil?: false)
+    attribute(:version, :string, public?: true, allow_nil?: false)
+    attribute(:sku_ids, {:array, :string}, public?: true, allow_nil?: false)
+    attribute(:effective_at, :utc_datetime_usec, public?: true, allow_nil?: false)
   end
 
   actions do
-    default_accept :*
-    defaults [:create, :read]
+    default_accept(:*)
+    defaults([:create, :read])
   end
 end
-

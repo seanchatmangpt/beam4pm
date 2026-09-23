@@ -8,15 +8,14 @@ defmodule BeamPM.Ash.Resources.TaxJurisdictionEvidence do
     validate_domain_inclusion?: false
 
   attributes do
-    uuid_primary_key :id
-    attribute :contracting_entity_id, :string, public?: true, allow_nil?: false
-    attribute :tax_jurisdiction, :string, public?: true, allow_nil?: false
-    attribute :evidence_hash, :string, public?: true, allow_nil?: false
+    uuid_primary_key(:id)
+    attribute(:contracting_entity_id, :string, public?: true, allow_nil?: false)
+    attribute(:tax_jurisdiction, :string, public?: true, allow_nil?: false)
+    attribute(:evidence_hash, :string, public?: true, allow_nil?: false)
   end
 
   actions do
-    default_accept :*
-    defaults [:create, :read]
+    default_accept(:*)
+    defaults([:create, :read])
   end
 end
-

@@ -1,0 +1,30 @@
+@prefix bpm: <https://beam4pm.dev/ontology/process#> .
+
+# WS2-BB-140 — planning_blackboard_claim
+bpm:planning_blackboard_claim_rt a bpm:RecordType ;
+    bpm:recordName "planning_blackboard_claim" ;
+    bpm:recordDoc "Claims bounded planning work with an explicit owner and expiry." ;
+    bpm:hasField bpm:planning_blackboard_claim_claim_id_f ,
+                 bpm:planning_blackboard_claim_work_item_id_f ,
+                 bpm:planning_blackboard_claim_owner_subject_sha_f .
+
+bpm:planning_blackboard_claim_claim_id_f a bpm:Field ;
+    bpm:fieldName "claim_id" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Blackboard claim identity." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 1 .
+
+bpm:planning_blackboard_claim_work_item_id_f a bpm:Field ;
+    bpm:fieldName "work_item_id" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Bounded work item claimed." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 2 .
+
+bpm:planning_blackboard_claim_owner_subject_sha_f a bpm:Field ;
+    bpm:fieldName "owner_subject_sha" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact caller-local owner subject." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 3 .

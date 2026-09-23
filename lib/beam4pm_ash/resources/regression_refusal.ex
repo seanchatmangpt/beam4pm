@@ -8,18 +8,17 @@ defmodule BeamPM.Ash.Resources.RegressionRefusal do
     validate_domain_inclusion?: false
 
   attributes do
-    uuid_primary_key :id
-    attribute :refusal_id, :string, public?: true, allow_nil?: false
-    attribute :candidate_policy_id, :string, public?: true, allow_nil?: false
-    attribute :regression_detection_id, :string, public?: true, allow_nil?: false
-    attribute :acceptance_threshold, :float, public?: true, allow_nil?: false
-    attribute :observed_regression, :float, public?: true, allow_nil?: false
-    attribute :authority_ceiling, :string, public?: true, allow_nil?: false
+    uuid_primary_key(:id)
+    attribute(:refusal_id, :string, public?: true, allow_nil?: false)
+    attribute(:candidate_policy_id, :string, public?: true, allow_nil?: false)
+    attribute(:regression_detection_id, :string, public?: true, allow_nil?: false)
+    attribute(:acceptance_threshold, :float, public?: true, allow_nil?: false)
+    attribute(:observed_regression, :float, public?: true, allow_nil?: false)
+    attribute(:authority_ceiling, :string, public?: true, allow_nil?: false)
   end
 
   actions do
-    default_accept :*
-    defaults [:create, :read]
+    default_accept(:*)
+    defaults([:create, :read])
   end
 end
-

@@ -1,0 +1,30 @@
+@prefix bpm: <https://beam4pm.dev/ontology/process#> .
+
+# WS2-BB-125 — powl_choice_operator
+bpm:powl_choice_operator_rt a bpm:RecordType ;
+    bpm:recordName "powl_choice_operator" ;
+    bpm:recordDoc "Represents an evidence-selected exclusive POWL choice without erasing alternatives." ;
+    bpm:hasField bpm:powl_choice_operator_operator_id_f ,
+                 bpm:powl_choice_operator_branch_digest_f ,
+                 bpm:powl_choice_operator_selection_rule_f .
+
+bpm:powl_choice_operator_operator_id_f a bpm:Field ;
+    bpm:fieldName "operator_id" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Choice operator identity." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 1 .
+
+bpm:powl_choice_operator_branch_digest_f a bpm:Field ;
+    bpm:fieldName "branch_digest" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of available branches." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 2 .
+
+bpm:powl_choice_operator_selection_rule_f a bpm:Field ;
+    bpm:fieldName "selection_rule" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Rule selecting a branch at execution." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 3 .

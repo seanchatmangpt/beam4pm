@@ -8,18 +8,17 @@ defmodule BeamPM.Ash.Resources.CostLatencyReliabilityTradeoff do
     validate_domain_inclusion?: false
 
   attributes do
-    uuid_primary_key :id
-    attribute :assessment_id, :string, public?: true, allow_nil?: false
-    attribute :candidate_policy_id, :string, public?: true, allow_nil?: false
-    attribute :cost_score, :float, public?: true, allow_nil?: false
-    attribute :latency_score, :float, public?: true, allow_nil?: false
-    attribute :reliability_score, :float, public?: true, allow_nil?: false
-    attribute :utility_score, :float, public?: true, allow_nil?: false
+    uuid_primary_key(:id)
+    attribute(:assessment_id, :string, public?: true, allow_nil?: false)
+    attribute(:candidate_policy_id, :string, public?: true, allow_nil?: false)
+    attribute(:cost_score, :float, public?: true, allow_nil?: false)
+    attribute(:latency_score, :float, public?: true, allow_nil?: false)
+    attribute(:reliability_score, :float, public?: true, allow_nil?: false)
+    attribute(:utility_score, :float, public?: true, allow_nil?: false)
   end
 
   actions do
-    default_accept :*
-    defaults [:create, :read]
+    default_accept(:*)
+    defaults([:create, :read])
   end
 end
-

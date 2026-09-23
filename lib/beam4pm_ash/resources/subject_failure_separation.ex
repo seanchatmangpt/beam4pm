@@ -8,17 +8,16 @@ defmodule BeamPM.Ash.Resources.SubjectFailureSeparation do
     validate_domain_inclusion?: false
 
   attributes do
-    uuid_primary_key :id
-    attribute :assessment_id, :string, public?: true, allow_nil?: false
-    attribute :exact_subject_sha, :string, public?: true, allow_nil?: false
-    attribute :capsule_standing, :string, public?: true, allow_nil?: false
-    attribute :subject_failure_code, :string, public?: true, allow_nil?: false
-    attribute :independent_reproducer_digest, :string, public?: true, allow_nil?: false
+    uuid_primary_key(:id)
+    attribute(:assessment_id, :string, public?: true, allow_nil?: false)
+    attribute(:exact_subject_sha, :string, public?: true, allow_nil?: false)
+    attribute(:capsule_standing, :string, public?: true, allow_nil?: false)
+    attribute(:subject_failure_code, :string, public?: true, allow_nil?: false)
+    attribute(:independent_reproducer_digest, :string, public?: true, allow_nil?: false)
   end
 
   actions do
-    default_accept :*
-    defaults [:create, :read]
+    default_accept(:*)
+    defaults([:create, :read])
   end
 end
-

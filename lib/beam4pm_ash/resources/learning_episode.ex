@@ -8,17 +8,16 @@ defmodule BeamPM.Ash.Resources.LearningEpisode do
     validate_domain_inclusion?: false
 
   attributes do
-    uuid_primary_key :id
-    attribute :episode_id, :string, public?: true, allow_nil?: false
-    attribute :exact_subject_sha, :string, public?: true, allow_nil?: false
-    attribute :evidence_digest, :string, public?: true, allow_nil?: false
-    attribute :outcome, :string, public?: true, allow_nil?: false
-    attribute :authority_ceiling, :string, public?: true, allow_nil?: false
+    uuid_primary_key(:id)
+    attribute(:episode_id, :string, public?: true, allow_nil?: false)
+    attribute(:exact_subject_sha, :string, public?: true, allow_nil?: false)
+    attribute(:evidence_digest, :string, public?: true, allow_nil?: false)
+    attribute(:outcome, :string, public?: true, allow_nil?: false)
+    attribute(:authority_ceiling, :string, public?: true, allow_nil?: false)
   end
 
   actions do
-    default_accept :*
-    defaults [:create, :read]
+    default_accept(:*)
+    defaults([:create, :read])
   end
 end
-

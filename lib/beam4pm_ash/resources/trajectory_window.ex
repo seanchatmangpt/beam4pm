@@ -8,17 +8,16 @@ defmodule BeamPM.Ash.Resources.TrajectoryWindow do
     validate_domain_inclusion?: false
 
   attributes do
-    uuid_primary_key :id
-    attribute :window_id, :string, public?: true, allow_nil?: false
-    attribute :repository_id, :string, public?: true, allow_nil?: false
-    attribute :first_subject_sha, :string, public?: true, allow_nil?: false
-    attribute :last_subject_sha, :string, public?: true, allow_nil?: false
-    attribute :episode_count, :integer, public?: true, allow_nil?: false
+    uuid_primary_key(:id)
+    attribute(:window_id, :string, public?: true, allow_nil?: false)
+    attribute(:repository_id, :string, public?: true, allow_nil?: false)
+    attribute(:first_subject_sha, :string, public?: true, allow_nil?: false)
+    attribute(:last_subject_sha, :string, public?: true, allow_nil?: false)
+    attribute(:episode_count, :integer, public?: true, allow_nil?: false)
   end
 
   actions do
-    default_accept :*
-    defaults [:create, :read]
+    default_accept(:*)
+    defaults([:create, :read])
   end
 end
-

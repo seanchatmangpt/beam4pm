@@ -8,16 +8,15 @@ defmodule BeamPM.Ash.Resources.StaleSubjectRefusalEvidence do
     validate_domain_inclusion?: false
 
   attributes do
-    uuid_primary_key :id
-    attribute :evidence_id, :string, public?: true, allow_nil?: false
-    attribute :subject_sha, :string, public?: true, allow_nil?: false
-    attribute :stale_sha, :string, public?: true, allow_nil?: false
-    attribute :observed_result, :atom, public?: true, allow_nil?: false
+    uuid_primary_key(:id)
+    attribute(:evidence_id, :string, public?: true, allow_nil?: false)
+    attribute(:subject_sha, :string, public?: true, allow_nil?: false)
+    attribute(:stale_sha, :string, public?: true, allow_nil?: false)
+    attribute(:observed_result, :atom, public?: true, allow_nil?: false)
   end
 
   actions do
-    default_accept :*
-    defaults [:create, :read]
+    default_accept(:*)
+    defaults([:create, :read])
   end
 end
-

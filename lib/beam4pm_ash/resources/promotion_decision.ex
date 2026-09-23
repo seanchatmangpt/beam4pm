@@ -8,18 +8,17 @@ defmodule BeamPM.Ash.Resources.PromotionDecision do
     validate_domain_inclusion?: false
 
   attributes do
-    uuid_primary_key :id
-    attribute :decision_id, :string, public?: true, allow_nil?: false
-    attribute :candidate_policy_id, :string, public?: true, allow_nil?: false
-    attribute :threshold_id, :string, public?: true, allow_nil?: false
-    attribute :evidence_set_digest, :string, public?: true, allow_nil?: false
-    attribute :decision, :string, public?: true, allow_nil?: false
-    attribute :refusal_code, :string, public?: true, allow_nil?: false
+    uuid_primary_key(:id)
+    attribute(:decision_id, :string, public?: true, allow_nil?: false)
+    attribute(:candidate_policy_id, :string, public?: true, allow_nil?: false)
+    attribute(:threshold_id, :string, public?: true, allow_nil?: false)
+    attribute(:evidence_set_digest, :string, public?: true, allow_nil?: false)
+    attribute(:decision, :string, public?: true, allow_nil?: false)
+    attribute(:refusal_code, :string, public?: true, allow_nil?: false)
   end
 
   actions do
-    default_accept :*
-    defaults [:create, :read]
+    default_accept(:*)
+    defaults([:create, :read])
   end
 end
-

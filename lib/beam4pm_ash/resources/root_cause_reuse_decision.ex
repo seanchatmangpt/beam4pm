@@ -8,17 +8,16 @@ defmodule BeamPM.Ash.Resources.RootCauseReuseDecision do
     validate_domain_inclusion?: false
 
   attributes do
-    uuid_primary_key :id
-    attribute :decision_id, :string, public?: true, allow_nil?: false
-    attribute :pattern_id, :string, public?: true, allow_nil?: false
-    attribute :current_failure_id, :string, public?: true, allow_nil?: false
-    attribute :similarity_score, :float, public?: true, allow_nil?: false
-    attribute :applicability_evidence_digest, :string, public?: true, allow_nil?: false
+    uuid_primary_key(:id)
+    attribute(:decision_id, :string, public?: true, allow_nil?: false)
+    attribute(:pattern_id, :string, public?: true, allow_nil?: false)
+    attribute(:current_failure_id, :string, public?: true, allow_nil?: false)
+    attribute(:similarity_score, :float, public?: true, allow_nil?: false)
+    attribute(:applicability_evidence_digest, :string, public?: true, allow_nil?: false)
   end
 
   actions do
-    default_accept :*
-    defaults [:create, :read]
+    default_accept(:*)
+    defaults([:create, :read])
   end
 end
-

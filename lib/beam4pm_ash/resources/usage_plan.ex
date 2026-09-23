@@ -8,16 +8,15 @@ defmodule BeamPM.Ash.Resources.UsagePlan do
     validate_domain_inclusion?: false
 
   attributes do
-    uuid_primary_key :id
-    attribute :plan_id, :string, public?: true, allow_nil?: false
-    attribute :metric_name, :string, public?: true, allow_nil?: false
-    attribute :unit, :string, public?: true, allow_nil?: false
-    attribute :billing_mode, :atom, public?: true, allow_nil?: false
+    uuid_primary_key(:id)
+    attribute(:plan_id, :string, public?: true, allow_nil?: false)
+    attribute(:metric_name, :string, public?: true, allow_nil?: false)
+    attribute(:unit, :string, public?: true, allow_nil?: false)
+    attribute(:billing_mode, :atom, public?: true, allow_nil?: false)
   end
 
   actions do
-    default_accept :*
-    defaults [:create, :read]
+    default_accept(:*)
+    defaults([:create, :read])
   end
 end
-

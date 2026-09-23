@@ -8,16 +8,15 @@ defmodule BeamPM.Ash.Resources.ManufactureReceiptValidityObservation do
     validate_domain_inclusion?: false
 
   attributes do
-    uuid_primary_key :id
-    attribute :receipt_digest, :string, public?: true, allow_nil?: false
-    attribute :subject_sha, :string, public?: true, allow_nil?: false
-    attribute :verification_status, :string, public?: true, allow_nil?: false
-    attribute :verifier_identity, :string, public?: true, allow_nil?: false
+    uuid_primary_key(:id)
+    attribute(:receipt_digest, :string, public?: true, allow_nil?: false)
+    attribute(:subject_sha, :string, public?: true, allow_nil?: false)
+    attribute(:verification_status, :string, public?: true, allow_nil?: false)
+    attribute(:verifier_identity, :string, public?: true, allow_nil?: false)
   end
 
   actions do
-    default_accept :*
-    defaults [:create, :read]
+    default_accept(:*)
+    defaults([:create, :read])
   end
 end
-

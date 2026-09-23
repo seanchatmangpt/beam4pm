@@ -8,15 +8,14 @@ defmodule BeamPM.Ash.Resources.TechnicalBlocker do
     validate_domain_inclusion?: false
 
   attributes do
-    uuid_primary_key :id
-    attribute :opportunity_id, :string, public?: true, allow_nil?: false
-    attribute :blocker_id, :string, public?: true, allow_nil?: false
-    attribute :refusal_code, :string, public?: true, allow_nil?: false
+    uuid_primary_key(:id)
+    attribute(:opportunity_id, :string, public?: true, allow_nil?: false)
+    attribute(:blocker_id, :string, public?: true, allow_nil?: false)
+    attribute(:refusal_code, :string, public?: true, allow_nil?: false)
   end
 
   actions do
-    default_accept :*
-    defaults [:create, :read]
+    default_accept(:*)
+    defaults([:create, :read])
   end
 end
-

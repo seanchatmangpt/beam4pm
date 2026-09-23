@@ -52,7 +52,9 @@ defmodule BeamPM.ProcessGovernorTest do
     assert t1.actuation_name == "increment_counter"
     assert t2.actuation_name == "observe_counter"
 
-    assert {:error, {:refused, reason}} = ProcessGovernor.initial_snapshot("not_an_admitted_process")
+    assert {:error, {:refused, reason}} =
+             ProcessGovernor.initial_snapshot("not_an_admitted_process")
+
     assert reason =~ "is not an admitted bpmg:ProcessContract"
   end
 
@@ -76,8 +78,11 @@ defmodule BeamPM.ProcessGovernorTest do
       assert actuation_json["execution"]["performed"] == true
     end
 
-    assert read_json!(receipt1.actuation.receipt_path)["action"]["action_name"] == "increment_counter"
-    assert read_json!(receipt2.actuation.receipt_path)["action"]["action_name"] == "observe_counter"
+    assert read_json!(receipt1.actuation.receipt_path)["action"]["action_name"] ==
+             "increment_counter"
+
+    assert read_json!(receipt2.actuation.receipt_path)["action"]["action_name"] ==
+             "observe_counter"
 
     # The process-level receipt is ALSO real and on disk (unlike the
     # reimplemented module's in-memory-only receipt, lost on crash/restart).
@@ -126,7 +131,11 @@ defmodule BeamPM.ProcessGovernorTest do
     # to_state, not the initial state) must be a typed refusal, never a
     # crash and never a silently-accepted actuation.
     assert {:error, {:refused, reason}, receipt} =
-             ProcessGovernor.apply_transition(snapshot, t2_candidate, opts(tmp_dir, "toy-counter"))
+             ProcessGovernor.apply_transition(
+               snapshot,
+               t2_candidate,
+               opts(tmp_dir, "toy-counter")
+             )
 
     assert reason =~ "exact-state fence"
     assert receipt.outcome == :refused
@@ -162,10 +171,16 @@ defmodule BeamPM.ProcessGovernorTest do
     }
 
     assert {:error, {:refused, reason}, receipt} =
-             ProcessGovernor.apply_transition(snapshot, forged_candidate, opts(tmp_dir, "toy-counter"))
+             ProcessGovernor.apply_transition(
+               snapshot,
+               forged_candidate,
+               opts(tmp_dir, "toy-counter")
+             )
 
     assert reason =~ "is not admitted by BeamPM.Actuation.admitted_actuations/0"
-    assert receipt.actuation == nil, "a non-admitted actuation name must never reach BeamPM.Actuation.run/2"
+
+    assert receipt.actuation == nil,
+           "a non-admitted actuation name must never reach BeamPM.Actuation.run/2"
 
     refute File.exists?(Path.join(tmp_dir, receipt.run_id <> ".json")),
            "BeamPM.Actuation.run/2 must never have been called for a non-admitted actuation_name"

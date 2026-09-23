@@ -8,15 +8,14 @@ defmodule BeamPM.Ash.Resources.ConformanceResult do
     validate_domain_inclusion?: false
 
   attributes do
-    uuid_primary_key :id
-    attribute :trace_id, :string, public?: true, allow_nil?: false
-    attribute :fitness, :float, public?: true, allow_nil?: false
-    attribute :precision, :float, public?: true
+    uuid_primary_key(:id)
+    attribute(:trace_id, :string, public?: true, allow_nil?: false)
+    attribute(:fitness, :float, public?: true, allow_nil?: false)
+    attribute(:precision, :float, public?: true)
   end
 
   actions do
-    default_accept :*
-    defaults [:create, :read]
+    default_accept(:*)
+    defaults([:create, :read])
   end
 end
-

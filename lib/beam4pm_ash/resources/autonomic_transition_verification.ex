@@ -8,16 +8,15 @@ defmodule BeamPM.Ash.Resources.AutonomicTransitionVerification do
     validate_domain_inclusion?: false
 
   attributes do
-    uuid_primary_key :id
-    attribute :actuation_id, :string, public?: true, allow_nil?: false
-    attribute :subject_sha, :string, public?: true, allow_nil?: false
-    attribute :authority_receipt_sha, :string, public?: true, allow_nil?: false
-    attribute :state_digest, :string, public?: true, allow_nil?: false
+    uuid_primary_key(:id)
+    attribute(:actuation_id, :string, public?: true, allow_nil?: false)
+    attribute(:subject_sha, :string, public?: true, allow_nil?: false)
+    attribute(:authority_receipt_sha, :string, public?: true, allow_nil?: false)
+    attribute(:state_digest, :string, public?: true, allow_nil?: false)
   end
 
   actions do
-    default_accept :*
-    defaults [:create, :read]
+    default_accept(:*)
+    defaults([:create, :read])
   end
 end
-

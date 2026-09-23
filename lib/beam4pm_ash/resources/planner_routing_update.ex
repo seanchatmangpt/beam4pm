@@ -8,18 +8,17 @@ defmodule BeamPM.Ash.Resources.PlannerRoutingUpdate do
     validate_domain_inclusion?: false
 
   attributes do
-    uuid_primary_key :id
-    attribute :update_id, :string, public?: true, allow_nil?: false
-    attribute :route_id, :string, public?: true, allow_nil?: false
-    attribute :prior_planner_id, :string, public?: true, allow_nil?: false
-    attribute :selected_planner_id, :string, public?: true, allow_nil?: false
-    attribute :payoff_basis_digest, :string, public?: true, allow_nil?: false
-    attribute :rollback_policy_id, :string, public?: true, allow_nil?: false
+    uuid_primary_key(:id)
+    attribute(:update_id, :string, public?: true, allow_nil?: false)
+    attribute(:route_id, :string, public?: true, allow_nil?: false)
+    attribute(:prior_planner_id, :string, public?: true, allow_nil?: false)
+    attribute(:selected_planner_id, :string, public?: true, allow_nil?: false)
+    attribute(:payoff_basis_digest, :string, public?: true, allow_nil?: false)
+    attribute(:rollback_policy_id, :string, public?: true, allow_nil?: false)
   end
 
   actions do
-    default_accept :*
-    defaults [:create, :read]
+    default_accept(:*)
+    defaults([:create, :read])
   end
 end
-

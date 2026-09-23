@@ -2,11 +2,11 @@
 defmodule BeamPM.AshRoundtripTest do
   use ExUnit.Case, async: false
 
-  # Ash.DataLayer.Ets logs one debug block per create (1194 per sweep).
+  # Ash.DataLayer.Ets logs one debug block per create (1294 per sweep).
   @moduletag capture_log: true
 
-  @record_count 597
-  @fixture_count 1194
+  @record_count 647
+  @fixture_count 1294
 
   setup do
     dir =
@@ -50,8 +50,11 @@ defmodule BeamPM.AshRoundtripTest do
         |> Ash.Resource.Info.public_attributes()
         |> Enum.map(& &1.name)
 
-      assert public -- wire_fields == [:id], "#{name}: Ash-only attributes #{inspect(public -- wire_fields)}"
-      assert wire_fields -- public == [], "#{name}: wire fields missing from Ash #{inspect(wire_fields -- public)}"
+      assert public -- wire_fields == [:id],
+             "#{name}: Ash-only attributes #{inspect(public -- wire_fields)}"
+
+      assert wire_fields -- public == [],
+             "#{name}: wire fields missing from Ash #{inspect(wire_fields -- public)}"
     end
   end
 
@@ -91,7 +94,7 @@ defmodule BeamPM.AshRoundtripTest do
 
     # The whole sweep reports it under the record.variant label and nothing else fails.
     {pass, failures} = BeamPM.AshRoundtrip.verify_samples(dir, "ex")
-    assert pass == 1193
+    assert pass == 1293
     assert Enum.all?(failures, &String.starts_with?(&1, "account_discovery.full: "))
     assert failures != []
   end
@@ -138,4 +141,3 @@ defmodule BeamPM.AshRoundtripTest do
     end
   end
 end
-

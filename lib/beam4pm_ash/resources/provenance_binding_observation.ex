@@ -8,16 +8,15 @@ defmodule BeamPM.Ash.Resources.ProvenanceBindingObservation do
     validate_domain_inclusion?: false
 
   attributes do
-    uuid_primary_key :id
-    attribute :observation_id, :string, public?: true, allow_nil?: false
-    attribute :source_capsule_digest, :string, public?: true, allow_nil?: false
-    attribute :evidence_digest, :string, public?: true, allow_nil?: false
-    attribute :binding_status, :string, public?: true, allow_nil?: false
+    uuid_primary_key(:id)
+    attribute(:observation_id, :string, public?: true, allow_nil?: false)
+    attribute(:source_capsule_digest, :string, public?: true, allow_nil?: false)
+    attribute(:evidence_digest, :string, public?: true, allow_nil?: false)
+    attribute(:binding_status, :string, public?: true, allow_nil?: false)
   end
 
   actions do
-    default_accept :*
-    defaults [:create, :read]
+    default_accept(:*)
+    defaults([:create, :read])
   end
 end
-

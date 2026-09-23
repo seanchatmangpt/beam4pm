@@ -8,16 +8,15 @@ defmodule BeamPM.Ash.Resources.CommercialValueRealization do
     validate_domain_inclusion?: false
 
   attributes do
-    uuid_primary_key :id
-    attribute :realization_id, :string, public?: true, allow_nil?: false
-    attribute :baseline_id, :string, public?: true, allow_nil?: false
-    attribute :realized_value, :float, public?: true, allow_nil?: false
-    attribute :measured_at, :utc_datetime_usec, public?: true, allow_nil?: false
+    uuid_primary_key(:id)
+    attribute(:realization_id, :string, public?: true, allow_nil?: false)
+    attribute(:baseline_id, :string, public?: true, allow_nil?: false)
+    attribute(:realized_value, :float, public?: true, allow_nil?: false)
+    attribute(:measured_at, :utc_datetime_usec, public?: true, allow_nil?: false)
   end
 
   actions do
-    default_accept :*
-    defaults [:create, :read]
+    default_accept(:*)
+    defaults([:create, :read])
   end
 end
-

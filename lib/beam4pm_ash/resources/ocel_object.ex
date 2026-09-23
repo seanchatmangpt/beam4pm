@@ -8,15 +8,14 @@ defmodule BeamPM.Ash.Resources.OcelObject do
     validate_domain_inclusion?: false
 
   attributes do
-    uuid_primary_key :id
-    attribute :object_id, :string, public?: true, allow_nil?: false
-    attribute :object_type, :string, public?: true, allow_nil?: false
-    attribute :attributes, :map, public?: true
+    uuid_primary_key(:id)
+    attribute(:object_id, :string, public?: true, allow_nil?: false)
+    attribute(:object_type, :string, public?: true, allow_nil?: false)
+    attribute(:attributes, :map, public?: true)
   end
 
   actions do
-    default_accept :*
-    defaults [:create, :read]
+    default_accept(:*)
+    defaults([:create, :read])
   end
 end
-

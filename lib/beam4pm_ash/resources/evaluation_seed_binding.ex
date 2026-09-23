@@ -8,18 +8,17 @@ defmodule BeamPM.Ash.Resources.EvaluationSeedBinding do
     validate_domain_inclusion?: false
 
   attributes do
-    uuid_primary_key :id
-    attribute :binding_id, :string, public?: true, allow_nil?: false
-    attribute :evaluation_id, :string, public?: true, allow_nil?: false
-    attribute :seed, :string, public?: true, allow_nil?: false
-    attribute :result_digest, :string, public?: true, allow_nil?: false
-    attribute :source_digest, :string, public?: true, allow_nil?: false
-    attribute :deterministic, :boolean, public?: true, allow_nil?: false
+    uuid_primary_key(:id)
+    attribute(:binding_id, :string, public?: true, allow_nil?: false)
+    attribute(:evaluation_id, :string, public?: true, allow_nil?: false)
+    attribute(:seed, :string, public?: true, allow_nil?: false)
+    attribute(:result_digest, :string, public?: true, allow_nil?: false)
+    attribute(:source_digest, :string, public?: true, allow_nil?: false)
+    attribute(:deterministic, :boolean, public?: true, allow_nil?: false)
   end
 
   actions do
-    default_accept :*
-    defaults [:create, :read]
+    default_accept(:*)
+    defaults([:create, :read])
   end
 end
-

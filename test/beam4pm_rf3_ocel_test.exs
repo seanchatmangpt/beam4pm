@@ -12,7 +12,11 @@ defmodule BeamPM.RF3OcelTest do
   # the harness's render/run script.
   defp run_opts(extra \\ []) do
     receipts_dir =
-      Path.join([System.tmp_dir!(), "rf3_ocel_receipts", "run-#{System.unique_integer([:positive])}"])
+      Path.join([
+        System.tmp_dir!(),
+        "rf3_ocel_receipts",
+        "run-#{System.unique_integer([:positive])}"
+      ])
 
     Keyword.merge(
       [
@@ -95,7 +99,9 @@ defmodule BeamPM.RF3OcelTest do
   describe ":falsify_duplicate_object -- REAL n13-duplicate-object-id.ocel.json" do
     test "process_mining silently dedups (no crash, no refusal); this pipeline refuses" do
       assert {:error, {:refused, reason}} = RF3Ocel.run(:falsify_duplicate_object, run_opts())
-      assert {:assertion_failed, {:duplicate_object_id_silently_deduped_by_process_mining, _facts}} =
+
+      assert {:assertion_failed,
+              {:duplicate_object_id_silently_deduped_by_process_mining, _facts}} =
                reason
     end
 
@@ -105,7 +111,11 @@ defmodule BeamPM.RF3OcelTest do
       # Re-run with a fresh receipts_dir we can inspect directly (run/2's
       # {:error, _} does not itself return the receipt path).
       receipts_dir =
-        Path.join([System.tmp_dir!(), "rf3_ocel_receipts", "inspect-#{System.unique_integer([:positive])}"])
+        Path.join([
+          System.tmp_dir!(),
+          "rf3_ocel_receipts",
+          "inspect-#{System.unique_integer([:positive])}"
+        ])
 
       run_id = "n13-inspect"
       opts = run_opts(receipts_dir: receipts_dir, run_id: run_id)
@@ -135,7 +145,11 @@ defmodule BeamPM.RF3OcelTest do
 
     test "the typed refusal receipt names the real undeclared type" do
       receipts_dir =
-        Path.join([System.tmp_dir!(), "rf3_ocel_receipts", "inspect-#{System.unique_integer([:positive])}"])
+        Path.join([
+          System.tmp_dir!(),
+          "rf3_ocel_receipts",
+          "inspect-#{System.unique_integer([:positive])}"
+        ])
 
       run_id = "n14-inspect"
       opts = run_opts(receipts_dir: receipts_dir, run_id: run_id)

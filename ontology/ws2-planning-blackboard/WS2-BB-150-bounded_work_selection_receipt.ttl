@@ -1,0 +1,30 @@
+@prefix bpm: <https://beam4pm.dev/ontology/process#> .
+
+# WS2-BB-150 — bounded_work_selection_receipt
+bpm:bounded_work_selection_receipt_rt a bpm:RecordType ;
+    bpm:recordName "bounded_work_selection_receipt" ;
+    bpm:recordDoc "Receipts automatic selection of the next bounded lawful action without granting execution authority." ;
+    bpm:hasField bpm:bounded_work_selection_receipt_receipt_id_f ,
+                 bpm:bounded_work_selection_receipt_selected_work_item_id_f ,
+                 bpm:bounded_work_selection_receipt_frontier_digest_f .
+
+bpm:bounded_work_selection_receipt_receipt_id_f a bpm:Field ;
+    bpm:fieldName "receipt_id" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Selection receipt identity." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 1 .
+
+bpm:bounded_work_selection_receipt_selected_work_item_id_f a bpm:Field ;
+    bpm:fieldName "selected_work_item_id" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Automatically selected bounded work item." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 2 .
+
+bpm:bounded_work_selection_receipt_frontier_digest_f a bpm:Field ;
+    bpm:fieldName "frontier_digest" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of the evaluated lawful frontier." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 3 .

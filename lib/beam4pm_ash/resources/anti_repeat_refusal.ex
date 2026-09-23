@@ -8,17 +8,16 @@ defmodule BeamPM.Ash.Resources.AntiRepeatRefusal do
     validate_domain_inclusion?: false
 
   attributes do
-    uuid_primary_key :id
-    attribute :refusal_id, :string, public?: true, allow_nil?: false
-    attribute :candidate_action_id, :string, public?: true, allow_nil?: false
-    attribute :matching_signature_id, :string, public?: true, allow_nil?: false
-    attribute :recurrence_risk, :float, public?: true, allow_nil?: false
-    attribute :alternative_required, :boolean, public?: true, allow_nil?: false
+    uuid_primary_key(:id)
+    attribute(:refusal_id, :string, public?: true, allow_nil?: false)
+    attribute(:candidate_action_id, :string, public?: true, allow_nil?: false)
+    attribute(:matching_signature_id, :string, public?: true, allow_nil?: false)
+    attribute(:recurrence_risk, :float, public?: true, allow_nil?: false)
+    attribute(:alternative_required, :boolean, public?: true, allow_nil?: false)
   end
 
   actions do
-    default_accept :*
-    defaults [:create, :read]
+    default_accept(:*)
+    defaults([:create, :read])
   end
 end
-

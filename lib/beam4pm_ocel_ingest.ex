@@ -32,7 +32,6 @@ defmodule BeamPM.OcelIngest.Router do
     handle_ingest(conn, "ocel_event")
   end
 
-
   post("/ocel/objects") do
     handle_ingest(conn, "ocel_object")
   end
@@ -53,7 +52,10 @@ defmodule BeamPM.OcelIngest.Router do
         respond_one(conn, decode_one(single, :ocel_event))
 
       _ ->
-        send_json(conn, 422, %{"ok" => false, "error" => "expected a JSON object or {\"events\": [...]}"})
+        send_json(conn, 422, %{
+          "ok" => false,
+          "error" => "expected a JSON object or {\"events\": [...]}"
+        })
     end
   end
 
@@ -67,7 +69,10 @@ defmodule BeamPM.OcelIngest.Router do
         respond_one(conn, decode_one(single, :ocel_object))
 
       _ ->
-        send_json(conn, 422, %{"ok" => false, "error" => "expected a JSON object or {\"objects\": [...]}"})
+        send_json(conn, 422, %{
+          "ok" => false,
+          "error" => "expected a JSON object or {\"objects\": [...]}"
+        })
     end
   end
 

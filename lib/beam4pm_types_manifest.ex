@@ -3,550 +3,2544 @@ defmodule BeamPM.Types.Manifest do
   @moduledoc "Reflection manifest over the admitted bpm:RecordType graph: every admitted record name, and each record's ordered field-name list, without needing to know the individual struct modules."
 
   @spec record_names() :: [atom()]
-  def record_names, do: [:acceptance_criteria_nonweakening, :account_discovery, :account_master_match, :account_parent_scope, :account_value_realization, :action_pin_evidence, :activation_event, :add_on_bundle, :addon_activation, :admissible_action_set, :adoption_milestone, :agent_assignment, :alignment_move, :annual_subscription, :anomaly_detection_observation, :anti_repeat_refusal, :anti_repeat_signature, :approval_separation_evidence, :architecture_readiness, :architecture_review_evidence, :artifact_digest_evidence, :artifact_digest_observation, :astar_plan_candidate, :attestation_verification_evidence, :audit_chain_evidence, :authority_ceiling, :autonomic_actuation_receipt, :autonomic_actuation_replay, :autonomic_actuation_selection, :autonomic_authority_admission, :autonomic_authority_escalation, :autonomic_backpressure_admission, :autonomic_caller_local_binding, :autonomic_canary_admission, :autonomic_cancellation_receipt, :autonomic_canonical_repair_route, :autonomic_capability_token, :autonomic_circuit_breaker_transition, :autonomic_compensation_verification, :autonomic_crash_recovery, :autonomic_cross_consumer_receipt_refusal, :autonomic_deterministic_receipt_replay, :autonomic_failure_classification, :autonomic_forged_receipt_refusal, :autonomic_generated_surface_refusal, :autonomic_idempotence_fence, :autonomic_incident_recovery, :autonomic_least_authority_grant, :autonomic_model_authority_refusal, :autonomic_mutable_pack_refusal, :autonomic_output_ownership_check, :autonomic_pack_sha_authority, :autonomic_plan_construction, :autonomic_planner_authority_refusal, :autonomic_rca_hypothesis, :autonomic_receipt_authority_binding, :autonomic_receipt_chain_link, :autonomic_receipt_completeness_check, :autonomic_receipt_subject_binding, :autonomic_repair_reexecution, :autonomic_repair_selection, :autonomic_replay_divergence_refusal, :autonomic_retry_backoff, :autonomic_retry_budget, :autonomic_rollback_transition, :autonomic_saga_compensation, :autonomic_second_run_identity, :autonomic_self_healing_completion_receipt, :autonomic_stale_action_refusal, :autonomic_stale_receipt_refusal, :autonomic_state_vector, :autonomic_subject_compare_and_swap, :autonomic_supervisor_restart, :autonomic_timeout_budget, :autonomic_transition_execution, :autonomic_transition_verification, :autonomic_upgrade_transition, :availability_observation, :availability_slo_evidence, :backup_restore_evidence, :baseline_metric, :beam_search_candidate, :belief_state_snapshot, :belief_state_update, :beneficial_owner_evidence, :billable_usage_identity, :billing_account, :billing_reconciliation, :booking_readiness, :brce_actuation_receipt, :brce_actuation_request, :budget_period_alignment, :bundle_conflict, :bundle_dependency, :burst_pricing_policy, :business_continuity_evidence, :business_outcome_measurement, :business_unit_allocation, :buying_committee, :caller_local_checkout_observation, :caller_local_consumer, :caller_local_crown_identity, :canary_decision, :canary_evidence, :cancellation_policy, :canonical_source_authority_observation, :capability_bundle, :capability_gap, :capability_gap_learning, :capsule_availability, :capsule_identity, :case_stats, :catalog_release, :causal_lineage_observation, :challenger_candidate_evaluation, :change_control_evidence, :change_order_authority, :changed_surface_inference, :channel_agreement, :chargeback_rule, :cluster_quorum_state, :co_term_policy, :commercial_approval, :commercial_artifact_crown_evidence, :commercial_exception, :commercial_execution_receipt, :commercial_forecast, :commercial_outcome, :commercial_quote, :commercial_quote_line, :commercial_value_realization, :commit_check_state_observation, :committed_spend, :committed_spend_admission, :compatibility_contract, :concurrency_pricing_policy, :configuration_export, :configuration_import, :conformance_result, :consequential_state_invalidation, :consumer_equivalence_learning_guard, :consumer_equivalence_proof, :consumer_pack_pin_observation, :consumption_pool, :consumption_subscription, :container_manifest_digest_observation, :container_platform_digest_observation, :contracting_entity_identity, :cost_center_allocation, :cost_latency_reliability_tradeoff, :cost_of_delay_score, :cost_to_serve_measurement, :counterfactual_frontier, :counterfactual_replay, :crash_recovery_receipt, :credit_expiry_policy, :credit_risk_admission, :cross_sell_fit, :crown_applicable_gate_coverage, :crown_artifact_pullback_smoke, :crown_attestation_signer, :crown_autonomic_republish, :crown_capsule_toolchain, :crown_cas_promotion, :crown_check_relevance, :crown_child_publish_observation, :crown_consumer_smoke, :crown_convergence_proof, :crown_cosign_certificate, :crown_default_head_sensor, :crown_dependency_edge, :crown_execution_mode, :crown_fanin_convergence, :crown_fanout_batch, :crown_federated_phase_receipt, :crown_freshness_window, :crown_generated_source_ownership, :crown_gitlink_reconciliation, :crown_immutable_sha_tag, :crown_known_good_rollback, :crown_latency_observation, :crown_lock_reconciliation, :crown_manufacturer_identity, :crown_marketplace_pack_pin, :crown_multiarch_platform_set, :crown_oci_manifest_binding, :crown_package_pin_reconciliation, :crown_partial_checkpoint, :crown_path_skip_refusal, :crown_planner_identity, :crown_process_runtime_identity, :crown_promotion_race, :crown_provenance_binding, :crown_receipt_output_ownership, :crown_recursive_fixed_point, :crown_resume_token, :crown_runtime_identity, :crown_sbom_subject_binding, :crown_second_pass_identity, :crown_security_scan, :crown_source_capsule, :crown_stale_refusal, :crown_supply_chain_policy, :crown_topological_order, :crown_validation_pack, :crown_workflow_run_receipt, :crown_zero_unreceipted_writes, :currency_policy, :curriculum_generation, :customer_health, :customer_managed_key_evidence, :customer_signal_observation, :data_egress_evidence, :data_migration_scope_admission, :data_processing_addendum_state, :data_readiness, :data_residency_policy, :data_volume_pricing_policy, :deal_desk_packet, :decision_compression_observation, :decision_information_preservation, :deletion_proof_evidence, :demo_run, :demo_scenario, :dependency_dag, :dependency_inventory_evidence, :dependency_pin_observation, :deployment_entitlement, :developer_readiness, :dfg_edge, :disaster_recovery_evidence, :discount_schedule, :discovery_hypothesis, :dominance_witness, :dynamic_replan_trigger, :edition_definition, :edition_downgrade_path, :edition_upgrade_path, :enterprise_agreement, :enterprise_order, :enterprise_order_line, :entitlement_denial_receipt, :entitlement_event, :entitlement_evidence, :entitlement_grant, :entitlement_revocation, :entitlement_runtime_check, :entitlement_state, :entropy_reduction_score, :environment_failure_separation, :environment_identity, :environment_pricing_policy, :environment_profile, :environment_signal_observation, :error_budget_state, :evaluation_seed_binding, :event_log, :event_triggered_planning, :event_type, :event_volume_pricing_policy, :evidence_freshness_evidence, :evidence_training_sample, :exact_subject_binding, :exception_authority, :executive_business_review, :executive_sponsor, :expansion_opportunity, :expansion_option, :expansion_receipt, :expansion_signal, :experiment_learning_receipt, :failed_challenger_retention, :failure_label, :federated_dogfood_learning_crown, :forged_receipt_refusal, :frontier_benchmark, :frontier_evidence, :frontier_opportunity, :frontier_source_release, :funding_approval_chain, :fx_conversion_policy, :generated_hypothesis, :generated_output_ownership_observation, :generated_source_route, :heuristic_arc, :historical_episode_replay, :hypothesis_priority_update, :immutable_pack_selection, :implementation_fee_admission, :incident_acknowledgement, :incident_detection_event, :incident_response_evidence, :indemnity_scope_admission, :information_partition_observation, :insurance_requirement, :integration_readiness, :integration_scope_admission, :invoice_entity_identity, :invoice_line_item, :invoice_schedule, :irreversibility_budget, :k8s_object_ref, :late_arriving_usage, :latency_budget_observation, :leakage_finding, :learning_episode, :least_authority_evidence, :legal_blocker, :liability_cap_admission, :license_evidence, :log_trace, :machine_actionable_delta, :manufacture_receipt_presence_observation, :manufacture_receipt_validity_observation, :master_service_agreement_binding, :master_service_agreement_state, :mcts_plan_candidate, :meta_router, :meter_definition, :meter_dimension, :meter_rollup, :metered_usage_sample, :migration_contract, :migration_readiness, :minimum_commitment_schedule, :minimum_term_admission, :multiarch_evidence, :mutable_identity_refusal_evidence, :mutual_information_score, :negative_fixture_generation, :next_lawful_actuation, :no_authority_learning_guard, :node_failover_event, :nonproduction_discount_policy, :normalized_event_observation, :novelty_reward, :novelty_score, :object_attribute_change, :object_type, :object_volume_pricing_policy, :objection, :objection_resolution, :observation_deduplication_decision, :observation_entropy_estimate, :observation_freshness_assessment, :observation_projection_update, :observation_staleness_invalidation, :oc_declare_constraint, :ocel_attribute, :ocel_event, :ocel_object, :ocel_relationship, :oci_manifest_evidence, :offline_bundle_evidence, :operator_readiness, :opportunity_currency_contract, :opportunity_value_range, :optimization_plan_candidate, :option_generation, :order_form_admission, :order_form_version, :orthogonality_reward, :orthogonality_score, :outcome_label, :output_ownership_gate, :overage_invoice, :overage_policy, :package_release_observation, :paid_workload_outcome_receipt, :pareto_filter, :path_schema, :path_schema_query, :payment_terms, :payment_terms_admission, :performance_slo_evidence, :petri_arc, :petri_place, :petri_transition, :plan_lineage, :plan_memory, :planner_capability_profile, :planner_identity, :planner_payoff_observation, :planner_policy_comparison, :planner_portfolio, :planner_routing_update, :planning_action, :planning_state, :poc_exit_criteria, :poc_risk, :poc_scope, :poc_timeline, :policy_binding, :policy_decision, :policy_payoff_observation, :powl_choice_graph_edge, :powl_freq, :powl_leaf, :powl_partial_order_edge, :powl_projection, :ppddl_projection, :premium_connector_pricing, :prepaid_credit_balance, :price_book_version, :pricing_basis_contract, :privacy_classification_evidence, :private_offer, :private_registry_evidence, :process_variant, :process_volume_pricing_policy, :procurement_acceptance_evidence, :procurement_blocker, :procurement_channel_selection, :procurement_readiness, :production_readiness, :promotion_decision, :promotion_threshold, :proof_of_value_budget, :proof_of_value_exit_gate, :proof_of_value_package, :propagation_score, :proration_policy, :provenance_binding_evidence, :provenance_binding_observation, :psro_population, :purchase_order_binding, :purchase_order_requirement, :purchasing_entity_identity, :queue_snapshot, :quota_burst_allowance, :quota_override, :quota_policy, :ramp_commitment, :rate_card_entry, :rate_distortion_budget, :reachability_analysis, :receipt_learning_compilation, :receipt_replay_evidence, :receipt_replay_request, :receipt_required_gate, :receipt_signature, :receipt_subject_binding, :receipt_verification, :recovery_plan, :recovery_point_receipt, :recovery_time_receipt, :refund_policy, :refusal_boundary_observation, :refusal_threshold, :region_pricing_policy, :regression_detector, :regression_refusal, :remediation_sla_evidence, :renewal_evidence, :renewal_health, :renewal_option, :renewal_risk, :renewal_term_admission, :repair_effectiveness_measurement, :replay_environment_identity, :repository_ancestry_observation, :repository_default_branch_observation, :repository_exact_head_observation, :repository_worktree_state_observation, :reproducible_build_evidence, :reseller_authorization, :reserve_work_promotion, :residency_evidence, :resource_allocation, :resource_capacity_plan, :retention_policy_evidence, :retention_pricing_policy, :revenue_attribution, :revenue_contract_admission, :revenue_schedule_assumption, :reversibility_weight, :rework_cost, :rfp_response_evidence, :role_compatibility, :rollback_checkpoint, :rollback_decision, :rollback_evidence, :rollback_outcome_learning, :rolling_upgrade_plan, :root_cause_pattern, :root_cause_reuse_decision, :runtime_health_observation, :runtime_policy_decision, :sanctions_screening_result, :sandbox_entitlement, :saturation_detection, :sbom_inventory_evidence, :seat_pricing_policy, :second_pass_byte_identity_observation, :second_run_identity_objective, :secret_boundary_evidence, :security_addendum_state, :security_blocker, :security_readiness, :seeded_evaluation, :semantic_drift_observation, :service_credit, :service_credit_admission, :service_credit_ledger, :service_health_snapshot, :service_level_objective, :service_slo_contract, :service_span, :shadow_challenger_execution, :showback_allocation, :signature_evidence, :sku_definition, :sla_offer_admission, :sojourn_time, :solution_fit, :span_edge, :spend_drawdown, :stakeholder_map, :stale_plan_refusal, :stale_receipt_refusal, :stale_subject_refusal_evidence, :standing_state_observation, :stopping_criterion, :subject_failure_separation, :submodule_lock_observation, :submodule_registration_observation, :success_plan, :supervisor_restart_policy, :support_contract, :support_diagnostic_bundle, :support_escalation_evidence, :support_readiness, :support_sla_evidence, :support_tier_admission, :support_window_evidence, :sync_time, :target_metric, :tax_jurisdiction_evidence, :tax_jurisdiction_rule, :technical_blocker, :temporal_order_observation, :tenant_account, :tenant_data_partition, :tenant_key_scope, :tenant_project, :tenant_resource_quota, :tenant_runtime_boundary, :term_subscription, :termination_right_admission, :time_to_value, :toolchain_identity, :toolchain_identity_observation, :training_readiness, :training_scope_admission, :trajectory_window, :trial_entitlement, :true_up_policy, :type_edge, :uncertainty_aware_selection, :uncertainty_observation, :unit_economics_snapshot, :unsupported_capability_evidence, :upgrade_evidence, :upsell_readiness, :usage_aggregation_window, :usage_correction, :usage_event, :usage_plan, :usage_reconciliation_receipt, :usage_signal, :validation_capsule_drift_observation, :validation_capsule_identity_observation, :value_baseline, :value_driver, :value_of_information_estimate, :value_of_information_score, :value_realization, :value_realization_feedback, :value_receipt, :value_telemetry_sample, :vendor_registration_state, :vendor_risk_evidence, :verification_depth_update, :version_lifecycle_evidence, :volume_tier_admission, :vulnerability_scan_evidence, :wip_limit_gate, :workflow_definition_digest_observation, :workflow_job_state_observation, :workflow_run_state_observation, :workload_backpressure_signal, :workload_cancellation_receipt, :workload_execution_identity, :workload_idempotency_key, :workload_queue_depth, :workload_retry_policy, :workload_timeout_budget]
+  def record_names,
+    do: [
+      :acceptance_criteria_nonweakening,
+      :account_discovery,
+      :account_master_match,
+      :account_parent_scope,
+      :account_value_realization,
+      :action_eligibility_decision,
+      :action_pin_evidence,
+      :activation_event,
+      :add_on_bundle,
+      :addon_activation,
+      :admissible_action_set,
+      :adoption_milestone,
+      :agent_assignment,
+      :agent_capability_advertisement,
+      :alignment_move,
+      :annual_subscription,
+      :anomaly_detection_observation,
+      :anti_repeat_refusal,
+      :anti_repeat_signature,
+      :approval_separation_evidence,
+      :architecture_readiness,
+      :architecture_review_evidence,
+      :artifact_digest_evidence,
+      :artifact_digest_observation,
+      :astar_plan_candidate,
+      :attestation_verification_evidence,
+      :audit_chain_evidence,
+      :authority_ceiling,
+      :autonomic_actuation_receipt,
+      :autonomic_actuation_replay,
+      :autonomic_actuation_selection,
+      :autonomic_authority_admission,
+      :autonomic_authority_escalation,
+      :autonomic_backpressure_admission,
+      :autonomic_caller_local_binding,
+      :autonomic_canary_admission,
+      :autonomic_cancellation_receipt,
+      :autonomic_canonical_repair_route,
+      :autonomic_capability_token,
+      :autonomic_circuit_breaker_transition,
+      :autonomic_compensation_verification,
+      :autonomic_crash_recovery,
+      :autonomic_cross_consumer_receipt_refusal,
+      :autonomic_deterministic_receipt_replay,
+      :autonomic_failure_classification,
+      :autonomic_forged_receipt_refusal,
+      :autonomic_generated_surface_refusal,
+      :autonomic_idempotence_fence,
+      :autonomic_incident_recovery,
+      :autonomic_least_authority_grant,
+      :autonomic_model_authority_refusal,
+      :autonomic_mutable_pack_refusal,
+      :autonomic_output_ownership_check,
+      :autonomic_pack_sha_authority,
+      :autonomic_plan_construction,
+      :autonomic_planner_authority_refusal,
+      :autonomic_rca_hypothesis,
+      :autonomic_receipt_authority_binding,
+      :autonomic_receipt_chain_link,
+      :autonomic_receipt_completeness_check,
+      :autonomic_receipt_subject_binding,
+      :autonomic_repair_reexecution,
+      :autonomic_repair_selection,
+      :autonomic_replay_divergence_refusal,
+      :autonomic_retry_backoff,
+      :autonomic_retry_budget,
+      :autonomic_rollback_transition,
+      :autonomic_saga_compensation,
+      :autonomic_second_run_identity,
+      :autonomic_self_healing_completion_receipt,
+      :autonomic_stale_action_refusal,
+      :autonomic_stale_receipt_refusal,
+      :autonomic_state_vector,
+      :autonomic_subject_compare_and_swap,
+      :autonomic_supervisor_restart,
+      :autonomic_timeout_budget,
+      :autonomic_transition_execution,
+      :autonomic_transition_verification,
+      :autonomic_upgrade_transition,
+      :availability_observation,
+      :availability_slo_evidence,
+      :backup_restore_evidence,
+      :baseline_metric,
+      :beam_search_candidate,
+      :belief_state_snapshot,
+      :belief_state_update,
+      :belief_update_rule,
+      :beneficial_owner_evidence,
+      :billable_usage_identity,
+      :billing_account,
+      :billing_reconciliation,
+      :booking_readiness,
+      :bounded_work_selection_receipt,
+      :brce_actuation_receipt,
+      :brce_actuation_request,
+      :budget_period_alignment,
+      :bundle_conflict,
+      :bundle_dependency,
+      :burst_pricing_policy,
+      :business_continuity_evidence,
+      :business_outcome_measurement,
+      :business_unit_allocation,
+      :buying_committee,
+      :caller_local_checkout_observation,
+      :caller_local_consumer,
+      :caller_local_crown_identity,
+      :canary_decision,
+      :canary_evidence,
+      :cancellation_policy,
+      :canonical_source_authority_observation,
+      :capability_bundle,
+      :capability_gap,
+      :capability_gap_learning,
+      :capsule_availability,
+      :capsule_identity,
+      :case_object_binding,
+      :case_stats,
+      :catalog_release,
+      :causal_lineage_observation,
+      :challenger_candidate_evaluation,
+      :change_control_evidence,
+      :change_order_authority,
+      :changed_surface_inference,
+      :channel_agreement,
+      :chargeback_rule,
+      :cluster_quorum_state,
+      :co_term_policy,
+      :commercial_approval,
+      :commercial_artifact_crown_evidence,
+      :commercial_exception,
+      :commercial_execution_receipt,
+      :commercial_forecast,
+      :commercial_outcome,
+      :commercial_quote,
+      :commercial_quote_line,
+      :commercial_value_realization,
+      :commit_check_state_observation,
+      :committed_spend,
+      :committed_spend_admission,
+      :compatibility_contract,
+      :compound_task_expansion,
+      :concurrency_pricing_policy,
+      :configuration_export,
+      :configuration_import,
+      :conformance_result,
+      :consequential_state_invalidation,
+      :constraint_set_binding,
+      :consumer_equivalence_learning_guard,
+      :consumer_equivalence_proof,
+      :consumer_pack_pin_observation,
+      :consumption_pool,
+      :consumption_subscription,
+      :container_manifest_digest_observation,
+      :container_platform_digest_observation,
+      :contingency_branch,
+      :contracting_entity_identity,
+      :cost_center_allocation,
+      :cost_latency_reliability_tradeoff,
+      :cost_of_delay_score,
+      :cost_to_serve_measurement,
+      :counterfactual_frontier,
+      :counterfactual_replay,
+      :crash_recovery_receipt,
+      :credit_expiry_policy,
+      :credit_risk_admission,
+      :cross_sell_fit,
+      :crown_applicable_gate_coverage,
+      :crown_artifact_pullback_smoke,
+      :crown_attestation_signer,
+      :crown_autonomic_republish,
+      :crown_capsule_toolchain,
+      :crown_cas_promotion,
+      :crown_check_relevance,
+      :crown_child_publish_observation,
+      :crown_consumer_smoke,
+      :crown_convergence_proof,
+      :crown_cosign_certificate,
+      :crown_default_head_sensor,
+      :crown_dependency_edge,
+      :crown_execution_mode,
+      :crown_fanin_convergence,
+      :crown_fanout_batch,
+      :crown_federated_phase_receipt,
+      :crown_freshness_window,
+      :crown_generated_source_ownership,
+      :crown_gitlink_reconciliation,
+      :crown_immutable_sha_tag,
+      :crown_known_good_rollback,
+      :crown_latency_observation,
+      :crown_lock_reconciliation,
+      :crown_manufacturer_identity,
+      :crown_marketplace_pack_pin,
+      :crown_multiarch_platform_set,
+      :crown_oci_manifest_binding,
+      :crown_package_pin_reconciliation,
+      :crown_partial_checkpoint,
+      :crown_path_skip_refusal,
+      :crown_planner_identity,
+      :crown_process_runtime_identity,
+      :crown_promotion_race,
+      :crown_provenance_binding,
+      :crown_receipt_output_ownership,
+      :crown_recursive_fixed_point,
+      :crown_resume_token,
+      :crown_runtime_identity,
+      :crown_sbom_subject_binding,
+      :crown_second_pass_identity,
+      :crown_security_scan,
+      :crown_source_capsule,
+      :crown_stale_refusal,
+      :crown_supply_chain_policy,
+      :crown_topological_order,
+      :crown_validation_pack,
+      :crown_workflow_run_receipt,
+      :crown_zero_unreceipted_writes,
+      :currency_policy,
+      :curriculum_generation,
+      :customer_health,
+      :customer_managed_key_evidence,
+      :customer_signal_observation,
+      :data_egress_evidence,
+      :data_migration_scope_admission,
+      :data_processing_addendum_state,
+      :data_readiness,
+      :data_residency_policy,
+      :data_volume_pricing_policy,
+      :deal_desk_packet,
+      :decision_compression_observation,
+      :decision_information_preservation,
+      :deletion_proof_evidence,
+      :demo_run,
+      :demo_scenario,
+      :dependency_dag,
+      :dependency_inventory_evidence,
+      :dependency_pin_observation,
+      :deployment_entitlement,
+      :developer_readiness,
+      :deviation_repair_option,
+      :dfg_edge,
+      :disaster_recovery_evidence,
+      :discount_schedule,
+      :discovery_hypothesis,
+      :distributed_work_queue_observation,
+      :dominance_witness,
+      :dynamic_replan_trigger,
+      :edition_definition,
+      :edition_downgrade_path,
+      :edition_upgrade_path,
+      :enterprise_agreement,
+      :enterprise_order,
+      :enterprise_order_line,
+      :entitlement_denial_receipt,
+      :entitlement_event,
+      :entitlement_evidence,
+      :entitlement_grant,
+      :entitlement_revocation,
+      :entitlement_runtime_check,
+      :entitlement_state,
+      :entropy_reduction_score,
+      :environment_failure_separation,
+      :environment_identity,
+      :environment_pricing_policy,
+      :environment_profile,
+      :environment_signal_observation,
+      :error_budget_state,
+      :evaluation_seed_binding,
+      :event_log,
+      :event_triggered_planning,
+      :event_type,
+      :event_volume_pricing_policy,
+      :evidence_freshness_evidence,
+      :evidence_training_sample,
+      :exact_subject_binding,
+      :exact_world_state_admission,
+      :exception_authority,
+      :executive_business_review,
+      :executive_sponsor,
+      :expansion_opportunity,
+      :expansion_option,
+      :expansion_receipt,
+      :expansion_signal,
+      :experiment_learning_receipt,
+      :failed_challenger_retention,
+      :failure_label,
+      :fairness_assumption,
+      :federated_dogfood_learning_crown,
+      :forged_receipt_refusal,
+      :frontier_benchmark,
+      :frontier_evidence,
+      :frontier_opportunity,
+      :frontier_source_release,
+      :funding_approval_chain,
+      :fx_conversion_policy,
+      :generated_hypothesis,
+      :generated_output_ownership_observation,
+      :generated_source_route,
+      :goal_set_binding,
+      :hddl_method_candidate,
+      :hddl_task_network,
+      :heuristic_arc,
+      :historical_episode_replay,
+      :hypothesis_priority_update,
+      :immutable_pack_selection,
+      :implementation_fee_admission,
+      :incident_acknowledgement,
+      :incident_detection_event,
+      :incident_response_evidence,
+      :indemnity_scope_admission,
+      :information_partition_observation,
+      :initial_state_digest,
+      :insurance_requirement,
+      :integration_readiness,
+      :integration_scope_admission,
+      :invoice_entity_identity,
+      :invoice_line_item,
+      :invoice_schedule,
+      :irreversibility_budget,
+      :k8s_object_ref,
+      :late_arriving_usage,
+      :latency_budget_observation,
+      :leakage_finding,
+      :learning_episode,
+      :lease_expiry_replan,
+      :least_authority_evidence,
+      :legal_blocker,
+      :liability_cap_admission,
+      :license_evidence,
+      :log_trace,
+      :machine_actionable_delta,
+      :manufacture_receipt_presence_observation,
+      :manufacture_receipt_validity_observation,
+      :master_service_agreement_binding,
+      :master_service_agreement_state,
+      :mcts_plan_candidate,
+      :meta_router,
+      :meter_definition,
+      :meter_dimension,
+      :meter_rollup,
+      :metered_usage_sample,
+      :method_precondition_gate,
+      :migration_contract,
+      :migration_readiness,
+      :minimum_commitment_schedule,
+      :minimum_term_admission,
+      :multiarch_evidence,
+      :mutable_identity_refusal_evidence,
+      :mutual_information_score,
+      :negative_fixture_generation,
+      :next_event_prediction_contract,
+      :next_lawful_actuation,
+      :no_authority_learning_guard,
+      :node_failover_event,
+      :nondeterministic_effect_contract,
+      :nonproduction_discount_policy,
+      :normalized_event_observation,
+      :novelty_reward,
+      :novelty_score,
+      :object_attribute_change,
+      :object_type,
+      :object_volume_pricing_policy,
+      :objection,
+      :objection_resolution,
+      :observation_deduplication_decision,
+      :observation_entropy_estimate,
+      :observation_freshness_assessment,
+      :observation_partition,
+      :observation_projection_update,
+      :observation_staleness_invalidation,
+      :oc_declare_constraint,
+      :ocel_attribute,
+      :ocel_event,
+      :ocel_object,
+      :ocel_planning_event,
+      :ocel_relationship,
+      :oci_manifest_evidence,
+      :offline_bundle_evidence,
+      :operator_readiness,
+      :opportunity_currency_contract,
+      :opportunity_value_range,
+      :optimization_plan_candidate,
+      :option_generation,
+      :order_form_admission,
+      :order_form_version,
+      :orthogonality_reward,
+      :orthogonality_score,
+      :outcome_branch_set,
+      :outcome_label,
+      :output_ownership_gate,
+      :overage_invoice,
+      :overage_policy,
+      :package_release_observation,
+      :paid_workload_outcome_receipt,
+      :pareto_filter,
+      :path_schema,
+      :path_schema_query,
+      :payment_terms,
+      :payment_terms_admission,
+      :performance_slo_evidence,
+      :petri_arc,
+      :petri_place,
+      :petri_transition,
+      :plan_handoff_receipt,
+      :plan_lineage,
+      :plan_memory,
+      :planner_bid,
+      :planner_capability_profile,
+      :planner_identity,
+      :planner_lease,
+      :planner_payoff_observation,
+      :planner_policy_comparison,
+      :planner_portfolio,
+      :planner_routing_update,
+      :planning_action,
+      :planning_blackboard_claim,
+      :planning_blackboard_conflict,
+      :planning_blackboard_fact,
+      :planning_blackboard_resolution,
+      :planning_case_identity,
+      :planning_conformance_alignment,
+      :planning_problem_admission,
+      :planning_state,
+      :poc_exit_criteria,
+      :poc_risk,
+      :poc_scope,
+      :poc_timeline,
+      :policy_binding,
+      :policy_decision,
+      :policy_graph_edge,
+      :policy_graph_node,
+      :policy_payoff_observation,
+      :powl_choice_graph_edge,
+      :powl_choice_operator,
+      :powl_freq,
+      :powl_leaf,
+      :powl_loop_operator,
+      :powl_parallel_operator,
+      :powl_partial_order_edge,
+      :powl_partial_order_plan,
+      :powl_projection,
+      :powl_sequence_operator,
+      :ppddl_projection,
+      :prefix_alignment_frontier,
+      :premium_connector_pricing,
+      :prepaid_credit_balance,
+      :price_book_version,
+      :pricing_basis_contract,
+      :primitive_task_binding,
+      :privacy_classification_evidence,
+      :private_offer,
+      :private_registry_evidence,
+      :process_variant,
+      :process_volume_pricing_policy,
+      :procurement_acceptance_evidence,
+      :procurement_blocker,
+      :procurement_channel_selection,
+      :procurement_readiness,
+      :production_readiness,
+      :promotion_decision,
+      :promotion_threshold,
+      :proof_of_value_budget,
+      :proof_of_value_exit_gate,
+      :proof_of_value_package,
+      :propagation_score,
+      :proration_policy,
+      :provenance_binding_evidence,
+      :provenance_binding_observation,
+      :psro_population,
+      :purchase_order_binding,
+      :purchase_order_requirement,
+      :purchasing_entity_identity,
+      :queue_snapshot,
+      :quota_burst_allowance,
+      :quota_override,
+      :quota_policy,
+      :ramp_commitment,
+      :rate_card_entry,
+      :rate_distortion_budget,
+      :reachability_analysis,
+      :receipt_learning_compilation,
+      :receipt_replay_evidence,
+      :receipt_replay_request,
+      :receipt_required_gate,
+      :receipt_signature,
+      :receipt_subject_binding,
+      :receipt_verification,
+      :recovery_plan,
+      :recovery_point_receipt,
+      :recovery_subtask,
+      :recovery_time_receipt,
+      :refund_policy,
+      :refusal_boundary_observation,
+      :refusal_threshold,
+      :region_pricing_policy,
+      :regression_detector,
+      :regression_refusal,
+      :remaining_time_estimate_contract,
+      :remediation_sla_evidence,
+      :renewal_evidence,
+      :renewal_health,
+      :renewal_option,
+      :renewal_risk,
+      :renewal_term_admission,
+      :repair_effectiveness_measurement,
+      :replay_environment_identity,
+      :repository_ancestry_observation,
+      :repository_default_branch_observation,
+      :repository_exact_head_observation,
+      :repository_worktree_state_observation,
+      :reproducible_build_evidence,
+      :reseller_authorization,
+      :reserve_work_promotion,
+      :residency_evidence,
+      :resource_allocation,
+      :resource_capacity_plan,
+      :retention_policy_evidence,
+      :retention_pricing_policy,
+      :revenue_attribution,
+      :revenue_contract_admission,
+      :revenue_schedule_assumption,
+      :reversibility_weight,
+      :rework_cost,
+      :rfp_response_evidence,
+      :role_compatibility,
+      :rollback_checkpoint,
+      :rollback_decision,
+      :rollback_evidence,
+      :rollback_outcome_learning,
+      :rolling_upgrade_plan,
+      :root_cause_pattern,
+      :root_cause_reuse_decision,
+      :runtime_health_observation,
+      :runtime_policy_decision,
+      :sanctions_screening_result,
+      :sandbox_entitlement,
+      :saturation_detection,
+      :sbom_inventory_evidence,
+      :scheduling_priority_score,
+      :seat_pricing_policy,
+      :second_pass_byte_identity_observation,
+      :second_run_identity_objective,
+      :secret_boundary_evidence,
+      :security_addendum_state,
+      :security_blocker,
+      :security_readiness,
+      :seeded_evaluation,
+      :semantic_drift_observation,
+      :service_credit,
+      :service_credit_admission,
+      :service_credit_ledger,
+      :service_health_snapshot,
+      :service_level_objective,
+      :service_slo_contract,
+      :service_span,
+      :shadow_challenger_execution,
+      :showback_allocation,
+      :signature_evidence,
+      :sku_definition,
+      :sla_offer_admission,
+      :sojourn_time,
+      :solution_fit,
+      :span_edge,
+      :spend_drawdown,
+      :stakeholder_map,
+      :stale_plan_refusal,
+      :stale_receipt_refusal,
+      :stale_subject_refusal_evidence,
+      :standing_state_observation,
+      :stopping_criterion,
+      :strong_cyclic_plan_candidate,
+      :strong_plan_candidate,
+      :subject_failure_separation,
+      :submodule_lock_observation,
+      :submodule_registration_observation,
+      :success_plan,
+      :supervisor_restart_policy,
+      :support_contract,
+      :support_diagnostic_bundle,
+      :support_escalation_evidence,
+      :support_readiness,
+      :support_sla_evidence,
+      :support_tier_admission,
+      :support_window_evidence,
+      :sync_time,
+      :target_metric,
+      :task_decomposition_proof,
+      :tax_jurisdiction_evidence,
+      :tax_jurisdiction_rule,
+      :technical_blocker,
+      :temporal_order_observation,
+      :tenant_account,
+      :tenant_data_partition,
+      :tenant_key_scope,
+      :tenant_project,
+      :tenant_resource_quota,
+      :tenant_runtime_boundary,
+      :term_subscription,
+      :termination_right_admission,
+      :time_to_value,
+      :token_replay_state,
+      :toolchain_identity,
+      :toolchain_identity_observation,
+      :training_readiness,
+      :training_scope_admission,
+      :trajectory_window,
+      :trial_entitlement,
+      :true_up_policy,
+      :type_edge,
+      :uncertainty_aware_selection,
+      :uncertainty_observation,
+      :unit_economics_snapshot,
+      :unsupported_capability_evidence,
+      :upgrade_evidence,
+      :upsell_readiness,
+      :usage_aggregation_window,
+      :usage_correction,
+      :usage_event,
+      :usage_plan,
+      :usage_reconciliation_receipt,
+      :usage_signal,
+      :validation_capsule_drift_observation,
+      :validation_capsule_identity_observation,
+      :value_baseline,
+      :value_driver,
+      :value_of_information_estimate,
+      :value_of_information_score,
+      :value_realization,
+      :value_realization_feedback,
+      :value_receipt,
+      :value_telemetry_sample,
+      :vendor_registration_state,
+      :vendor_risk_evidence,
+      :verification_depth_update,
+      :version_lifecycle_evidence,
+      :volume_tier_admission,
+      :vulnerability_scan_evidence,
+      :weak_plan_candidate,
+      :wip_limit_gate,
+      :workflow_definition_digest_observation,
+      :workflow_job_state_observation,
+      :workflow_run_state_observation,
+      :workload_backpressure_signal,
+      :workload_cancellation_receipt,
+      :workload_execution_identity,
+      :workload_idempotency_key,
+      :workload_queue_depth,
+      :workload_retry_policy,
+      :workload_timeout_budget
+    ]
 
   @spec fields(atom()) :: [atom()]
-  def fields(:acceptance_criteria_nonweakening), do: [:assessment_id, :acceptance_contract_id, :prior_digest, :candidate_digest, :strength_result, :refusal_code]
-  def fields(:account_discovery), do: [:account_discovery_id, :account_id, :discovery_score, :evidence_digest, :observed_at]
-  def fields(:account_master_match), do: [:source_account_id, :canonical_account_id, :match_evidence_hash]
+  def fields(:acceptance_criteria_nonweakening),
+    do: [
+      :assessment_id,
+      :acceptance_contract_id,
+      :prior_digest,
+      :candidate_digest,
+      :strength_result,
+      :refusal_code
+    ]
+
+  def fields(:account_discovery),
+    do: [:account_discovery_id, :account_id, :discovery_score, :evidence_digest, :observed_at]
+
+  def fields(:account_master_match),
+    do: [:source_account_id, :canonical_account_id, :match_evidence_hash]
+
   def fields(:account_parent_scope), do: [:account_id, :parent_account_id, :scope_evidence_hash]
   def fields(:account_value_realization), do: [:tenant_id, :account_id, :realization_hash]
-  def fields(:action_pin_evidence), do: [:evidence_id, :subject_sha, :action_sha, :observed_result]
-  def fields(:activation_event), do: [:activation_event_id, :account_id, :activation_type, :evidence_digest, :observed_at]
+  def fields(:action_eligibility_decision), do: [:decision_id, :action_id, :standing]
+
+  def fields(:action_pin_evidence),
+    do: [:evidence_id, :subject_sha, :action_sha, :observed_result]
+
+  def fields(:activation_event),
+    do: [:activation_event_id, :account_id, :activation_type, :evidence_digest, :observed_at]
+
   def fields(:add_on_bundle), do: [:add_on_id, :name, :capability_ids, :status]
-  def fields(:addon_activation), do: [:addon_activation_id, :account_id, :addon_id, :evidence_digest, :effective_at]
+
+  def fields(:addon_activation),
+    do: [:addon_activation_id, :account_id, :addon_id, :evidence_digest, :effective_at]
+
   def fields(:admissible_action_set), do: [:state_id, :constraint_hash, :action_set_hash]
-  def fields(:adoption_milestone), do: [:adoption_milestone_id, :account_id, :milestone_name, :evidence_digest, :observed_at]
+
+  def fields(:adoption_milestone),
+    do: [:adoption_milestone_id, :account_id, :milestone_name, :evidence_digest, :observed_at]
+
   def fields(:agent_assignment), do: [:agent_id, :policy_id, :assignment_hash]
+
+  def fields(:agent_capability_advertisement),
+    do: [:agent_subject_sha, :capability_digest, :valid_until]
+
   def fields(:alignment_move), do: [:move_type, :cost]
   def fields(:annual_subscription), do: [:subscription_id, :sku, :seat_count, :renews_at]
-  def fields(:anomaly_detection_observation), do: [:subject_id, :baseline_digest, :observation_digest, :anomaly_score]
-  def fields(:anti_repeat_refusal), do: [:refusal_id, :candidate_action_id, :matching_signature_id, :recurrence_risk, :alternative_required]
-  def fields(:anti_repeat_signature), do: [:signature_id, :failure_class, :causal_features_digest, :repair_family, :first_seen_episode]
-  def fields(:approval_separation_evidence), do: [:evidence_id, :subject_sha, :approver_identity, :observed_result]
-  def fields(:architecture_readiness), do: [:architecture_readiness_id, :account_id, :architecture_score, :evidence_digest, :observed_at]
-  def fields(:architecture_review_evidence), do: [:evidence_id, :subject_sha, :review_decision, :observed_result]
-  def fields(:artifact_digest_evidence), do: [:evidence_id, :subject_sha, :digest, :observed_result]
-  def fields(:artifact_digest_observation), do: [:artifact_id, :artifact_sha256, :producer_run_id, :observed_at]
+
+  def fields(:anomaly_detection_observation),
+    do: [:subject_id, :baseline_digest, :observation_digest, :anomaly_score]
+
+  def fields(:anti_repeat_refusal),
+    do: [
+      :refusal_id,
+      :candidate_action_id,
+      :matching_signature_id,
+      :recurrence_risk,
+      :alternative_required
+    ]
+
+  def fields(:anti_repeat_signature),
+    do: [
+      :signature_id,
+      :failure_class,
+      :causal_features_digest,
+      :repair_family,
+      :first_seen_episode
+    ]
+
+  def fields(:approval_separation_evidence),
+    do: [:evidence_id, :subject_sha, :approver_identity, :observed_result]
+
+  def fields(:architecture_readiness),
+    do: [
+      :architecture_readiness_id,
+      :account_id,
+      :architecture_score,
+      :evidence_digest,
+      :observed_at
+    ]
+
+  def fields(:architecture_review_evidence),
+    do: [:evidence_id, :subject_sha, :review_decision, :observed_result]
+
+  def fields(:artifact_digest_evidence),
+    do: [:evidence_id, :subject_sha, :digest, :observed_result]
+
+  def fields(:artifact_digest_observation),
+    do: [:artifact_id, :artifact_sha256, :producer_run_id, :observed_at]
+
   def fields(:astar_plan_candidate), do: [:plan_id, :heuristic_id, :path_hash]
-  def fields(:attestation_verification_evidence), do: [:evidence_id, :subject_sha, :predicate_type, :observed_result]
-  def fields(:audit_chain_evidence), do: [:evidence_id, :subject_sha, :previous_receipt_hash, :observed_result]
+
+  def fields(:attestation_verification_evidence),
+    do: [:evidence_id, :subject_sha, :predicate_type, :observed_result]
+
+  def fields(:audit_chain_evidence),
+    do: [:evidence_id, :subject_sha, :previous_receipt_hash, :observed_result]
+
   def fields(:authority_ceiling), do: [:action_id, :grant_id, :ceiling]
-  def fields(:autonomic_actuation_receipt), do: [:actuation_id, :subject_sha, :authority_receipt_sha, :state_digest]
-  def fields(:autonomic_actuation_replay), do: [:actuation_id, :subject_sha, :authority_receipt_sha, :state_digest]
-  def fields(:autonomic_actuation_selection), do: [:actuation_id, :subject_sha, :authority_receipt_sha, :state_digest]
-  def fields(:autonomic_authority_admission), do: [:actuation_id, :subject_sha, :authority_receipt_sha, :state_digest]
-  def fields(:autonomic_authority_escalation), do: [:actuation_id, :subject_sha, :authority_receipt_sha, :state_digest]
-  def fields(:autonomic_backpressure_admission), do: [:actuation_id, :subject_sha, :authority_receipt_sha, :state_digest]
-  def fields(:autonomic_caller_local_binding), do: [:actuation_id, :subject_sha, :authority_receipt_sha, :state_digest]
-  def fields(:autonomic_canary_admission), do: [:actuation_id, :subject_sha, :authority_receipt_sha, :state_digest]
-  def fields(:autonomic_cancellation_receipt), do: [:actuation_id, :subject_sha, :authority_receipt_sha, :state_digest]
-  def fields(:autonomic_canonical_repair_route), do: [:actuation_id, :subject_sha, :authority_receipt_sha, :state_digest]
-  def fields(:autonomic_capability_token), do: [:actuation_id, :subject_sha, :authority_receipt_sha, :state_digest]
-  def fields(:autonomic_circuit_breaker_transition), do: [:actuation_id, :subject_sha, :authority_receipt_sha, :state_digest]
-  def fields(:autonomic_compensation_verification), do: [:actuation_id, :subject_sha, :authority_receipt_sha, :state_digest]
-  def fields(:autonomic_crash_recovery), do: [:actuation_id, :subject_sha, :authority_receipt_sha, :state_digest]
-  def fields(:autonomic_cross_consumer_receipt_refusal), do: [:actuation_id, :subject_sha, :authority_receipt_sha, :state_digest]
-  def fields(:autonomic_deterministic_receipt_replay), do: [:actuation_id, :subject_sha, :authority_receipt_sha, :state_digest]
-  def fields(:autonomic_failure_classification), do: [:actuation_id, :subject_sha, :authority_receipt_sha, :state_digest]
-  def fields(:autonomic_forged_receipt_refusal), do: [:actuation_id, :subject_sha, :authority_receipt_sha, :state_digest]
-  def fields(:autonomic_generated_surface_refusal), do: [:actuation_id, :subject_sha, :authority_receipt_sha, :state_digest]
-  def fields(:autonomic_idempotence_fence), do: [:actuation_id, :subject_sha, :authority_receipt_sha, :state_digest]
-  def fields(:autonomic_incident_recovery), do: [:actuation_id, :subject_sha, :authority_receipt_sha, :state_digest]
-  def fields(:autonomic_least_authority_grant), do: [:actuation_id, :subject_sha, :authority_receipt_sha, :state_digest]
-  def fields(:autonomic_model_authority_refusal), do: [:actuation_id, :subject_sha, :authority_receipt_sha, :state_digest]
-  def fields(:autonomic_mutable_pack_refusal), do: [:actuation_id, :subject_sha, :authority_receipt_sha, :state_digest]
-  def fields(:autonomic_output_ownership_check), do: [:actuation_id, :subject_sha, :authority_receipt_sha, :state_digest]
-  def fields(:autonomic_pack_sha_authority), do: [:actuation_id, :subject_sha, :authority_receipt_sha, :state_digest]
-  def fields(:autonomic_plan_construction), do: [:actuation_id, :subject_sha, :authority_receipt_sha, :state_digest]
-  def fields(:autonomic_planner_authority_refusal), do: [:actuation_id, :subject_sha, :authority_receipt_sha, :state_digest]
-  def fields(:autonomic_rca_hypothesis), do: [:actuation_id, :subject_sha, :authority_receipt_sha, :state_digest]
-  def fields(:autonomic_receipt_authority_binding), do: [:actuation_id, :subject_sha, :authority_receipt_sha, :state_digest]
-  def fields(:autonomic_receipt_chain_link), do: [:actuation_id, :subject_sha, :authority_receipt_sha, :state_digest]
-  def fields(:autonomic_receipt_completeness_check), do: [:actuation_id, :subject_sha, :authority_receipt_sha, :state_digest]
-  def fields(:autonomic_receipt_subject_binding), do: [:actuation_id, :subject_sha, :authority_receipt_sha, :state_digest]
-  def fields(:autonomic_repair_reexecution), do: [:actuation_id, :subject_sha, :authority_receipt_sha, :state_digest]
-  def fields(:autonomic_repair_selection), do: [:actuation_id, :subject_sha, :authority_receipt_sha, :state_digest]
-  def fields(:autonomic_replay_divergence_refusal), do: [:actuation_id, :subject_sha, :authority_receipt_sha, :state_digest]
-  def fields(:autonomic_retry_backoff), do: [:actuation_id, :subject_sha, :authority_receipt_sha, :state_digest]
-  def fields(:autonomic_retry_budget), do: [:actuation_id, :subject_sha, :authority_receipt_sha, :state_digest]
-  def fields(:autonomic_rollback_transition), do: [:actuation_id, :subject_sha, :authority_receipt_sha, :state_digest]
-  def fields(:autonomic_saga_compensation), do: [:actuation_id, :subject_sha, :authority_receipt_sha, :state_digest]
-  def fields(:autonomic_second_run_identity), do: [:actuation_id, :subject_sha, :authority_receipt_sha, :state_digest]
-  def fields(:autonomic_self_healing_completion_receipt), do: [:actuation_id, :subject_sha, :authority_receipt_sha, :state_digest]
-  def fields(:autonomic_stale_action_refusal), do: [:actuation_id, :subject_sha, :authority_receipt_sha, :state_digest]
-  def fields(:autonomic_stale_receipt_refusal), do: [:actuation_id, :subject_sha, :authority_receipt_sha, :state_digest]
-  def fields(:autonomic_state_vector), do: [:state_vector_id, :subject_id, :dimension_digest, :observed_at]
-  def fields(:autonomic_subject_compare_and_swap), do: [:actuation_id, :subject_sha, :authority_receipt_sha, :state_digest]
-  def fields(:autonomic_supervisor_restart), do: [:actuation_id, :subject_sha, :authority_receipt_sha, :state_digest]
-  def fields(:autonomic_timeout_budget), do: [:actuation_id, :subject_sha, :authority_receipt_sha, :state_digest]
-  def fields(:autonomic_transition_execution), do: [:actuation_id, :subject_sha, :authority_receipt_sha, :state_digest]
-  def fields(:autonomic_transition_verification), do: [:actuation_id, :subject_sha, :authority_receipt_sha, :state_digest]
-  def fields(:autonomic_upgrade_transition), do: [:actuation_id, :subject_sha, :authority_receipt_sha, :state_digest]
+
+  def fields(:autonomic_actuation_receipt),
+    do: [:actuation_id, :subject_sha, :authority_receipt_sha, :state_digest]
+
+  def fields(:autonomic_actuation_replay),
+    do: [:actuation_id, :subject_sha, :authority_receipt_sha, :state_digest]
+
+  def fields(:autonomic_actuation_selection),
+    do: [:actuation_id, :subject_sha, :authority_receipt_sha, :state_digest]
+
+  def fields(:autonomic_authority_admission),
+    do: [:actuation_id, :subject_sha, :authority_receipt_sha, :state_digest]
+
+  def fields(:autonomic_authority_escalation),
+    do: [:actuation_id, :subject_sha, :authority_receipt_sha, :state_digest]
+
+  def fields(:autonomic_backpressure_admission),
+    do: [:actuation_id, :subject_sha, :authority_receipt_sha, :state_digest]
+
+  def fields(:autonomic_caller_local_binding),
+    do: [:actuation_id, :subject_sha, :authority_receipt_sha, :state_digest]
+
+  def fields(:autonomic_canary_admission),
+    do: [:actuation_id, :subject_sha, :authority_receipt_sha, :state_digest]
+
+  def fields(:autonomic_cancellation_receipt),
+    do: [:actuation_id, :subject_sha, :authority_receipt_sha, :state_digest]
+
+  def fields(:autonomic_canonical_repair_route),
+    do: [:actuation_id, :subject_sha, :authority_receipt_sha, :state_digest]
+
+  def fields(:autonomic_capability_token),
+    do: [:actuation_id, :subject_sha, :authority_receipt_sha, :state_digest]
+
+  def fields(:autonomic_circuit_breaker_transition),
+    do: [:actuation_id, :subject_sha, :authority_receipt_sha, :state_digest]
+
+  def fields(:autonomic_compensation_verification),
+    do: [:actuation_id, :subject_sha, :authority_receipt_sha, :state_digest]
+
+  def fields(:autonomic_crash_recovery),
+    do: [:actuation_id, :subject_sha, :authority_receipt_sha, :state_digest]
+
+  def fields(:autonomic_cross_consumer_receipt_refusal),
+    do: [:actuation_id, :subject_sha, :authority_receipt_sha, :state_digest]
+
+  def fields(:autonomic_deterministic_receipt_replay),
+    do: [:actuation_id, :subject_sha, :authority_receipt_sha, :state_digest]
+
+  def fields(:autonomic_failure_classification),
+    do: [:actuation_id, :subject_sha, :authority_receipt_sha, :state_digest]
+
+  def fields(:autonomic_forged_receipt_refusal),
+    do: [:actuation_id, :subject_sha, :authority_receipt_sha, :state_digest]
+
+  def fields(:autonomic_generated_surface_refusal),
+    do: [:actuation_id, :subject_sha, :authority_receipt_sha, :state_digest]
+
+  def fields(:autonomic_idempotence_fence),
+    do: [:actuation_id, :subject_sha, :authority_receipt_sha, :state_digest]
+
+  def fields(:autonomic_incident_recovery),
+    do: [:actuation_id, :subject_sha, :authority_receipt_sha, :state_digest]
+
+  def fields(:autonomic_least_authority_grant),
+    do: [:actuation_id, :subject_sha, :authority_receipt_sha, :state_digest]
+
+  def fields(:autonomic_model_authority_refusal),
+    do: [:actuation_id, :subject_sha, :authority_receipt_sha, :state_digest]
+
+  def fields(:autonomic_mutable_pack_refusal),
+    do: [:actuation_id, :subject_sha, :authority_receipt_sha, :state_digest]
+
+  def fields(:autonomic_output_ownership_check),
+    do: [:actuation_id, :subject_sha, :authority_receipt_sha, :state_digest]
+
+  def fields(:autonomic_pack_sha_authority),
+    do: [:actuation_id, :subject_sha, :authority_receipt_sha, :state_digest]
+
+  def fields(:autonomic_plan_construction),
+    do: [:actuation_id, :subject_sha, :authority_receipt_sha, :state_digest]
+
+  def fields(:autonomic_planner_authority_refusal),
+    do: [:actuation_id, :subject_sha, :authority_receipt_sha, :state_digest]
+
+  def fields(:autonomic_rca_hypothesis),
+    do: [:actuation_id, :subject_sha, :authority_receipt_sha, :state_digest]
+
+  def fields(:autonomic_receipt_authority_binding),
+    do: [:actuation_id, :subject_sha, :authority_receipt_sha, :state_digest]
+
+  def fields(:autonomic_receipt_chain_link),
+    do: [:actuation_id, :subject_sha, :authority_receipt_sha, :state_digest]
+
+  def fields(:autonomic_receipt_completeness_check),
+    do: [:actuation_id, :subject_sha, :authority_receipt_sha, :state_digest]
+
+  def fields(:autonomic_receipt_subject_binding),
+    do: [:actuation_id, :subject_sha, :authority_receipt_sha, :state_digest]
+
+  def fields(:autonomic_repair_reexecution),
+    do: [:actuation_id, :subject_sha, :authority_receipt_sha, :state_digest]
+
+  def fields(:autonomic_repair_selection),
+    do: [:actuation_id, :subject_sha, :authority_receipt_sha, :state_digest]
+
+  def fields(:autonomic_replay_divergence_refusal),
+    do: [:actuation_id, :subject_sha, :authority_receipt_sha, :state_digest]
+
+  def fields(:autonomic_retry_backoff),
+    do: [:actuation_id, :subject_sha, :authority_receipt_sha, :state_digest]
+
+  def fields(:autonomic_retry_budget),
+    do: [:actuation_id, :subject_sha, :authority_receipt_sha, :state_digest]
+
+  def fields(:autonomic_rollback_transition),
+    do: [:actuation_id, :subject_sha, :authority_receipt_sha, :state_digest]
+
+  def fields(:autonomic_saga_compensation),
+    do: [:actuation_id, :subject_sha, :authority_receipt_sha, :state_digest]
+
+  def fields(:autonomic_second_run_identity),
+    do: [:actuation_id, :subject_sha, :authority_receipt_sha, :state_digest]
+
+  def fields(:autonomic_self_healing_completion_receipt),
+    do: [:actuation_id, :subject_sha, :authority_receipt_sha, :state_digest]
+
+  def fields(:autonomic_stale_action_refusal),
+    do: [:actuation_id, :subject_sha, :authority_receipt_sha, :state_digest]
+
+  def fields(:autonomic_stale_receipt_refusal),
+    do: [:actuation_id, :subject_sha, :authority_receipt_sha, :state_digest]
+
+  def fields(:autonomic_state_vector),
+    do: [:state_vector_id, :subject_id, :dimension_digest, :observed_at]
+
+  def fields(:autonomic_subject_compare_and_swap),
+    do: [:actuation_id, :subject_sha, :authority_receipt_sha, :state_digest]
+
+  def fields(:autonomic_supervisor_restart),
+    do: [:actuation_id, :subject_sha, :authority_receipt_sha, :state_digest]
+
+  def fields(:autonomic_timeout_budget),
+    do: [:actuation_id, :subject_sha, :authority_receipt_sha, :state_digest]
+
+  def fields(:autonomic_transition_execution),
+    do: [:actuation_id, :subject_sha, :authority_receipt_sha, :state_digest]
+
+  def fields(:autonomic_transition_verification),
+    do: [:actuation_id, :subject_sha, :authority_receipt_sha, :state_digest]
+
+  def fields(:autonomic_upgrade_transition),
+    do: [:actuation_id, :subject_sha, :authority_receipt_sha, :state_digest]
+
   def fields(:availability_observation), do: [:tenant_id, :slo_id, :observation_hash]
-  def fields(:availability_slo_evidence), do: [:evidence_id, :subject_sha, :availability_percent, :observed_result]
-  def fields(:backup_restore_evidence), do: [:evidence_id, :subject_sha, :backup_digest, :observed_result]
-  def fields(:baseline_metric), do: [:baseline_metric_id, :account_id, :baseline_value, :evidence_digest, :observed_at]
+
+  def fields(:availability_slo_evidence),
+    do: [:evidence_id, :subject_sha, :availability_percent, :observed_result]
+
+  def fields(:backup_restore_evidence),
+    do: [:evidence_id, :subject_sha, :backup_digest, :observed_result]
+
+  def fields(:baseline_metric),
+    do: [:baseline_metric_id, :account_id, :baseline_value, :evidence_digest, :observed_at]
+
   def fields(:beam_search_candidate), do: [:plan_id, :beam_width, :frontier_hash]
-  def fields(:belief_state_snapshot), do: [:belief_state_id, :subject_id, :posterior_digest, :uncertainty_status]
-  def fields(:belief_state_update), do: [:prior_belief_id, :evidence_digest, :posterior_belief_id, :update_rule]
+
+  def fields(:belief_state_snapshot),
+    do: [:belief_state_id, :subject_id, :posterior_digest, :uncertainty_status]
+
+  def fields(:belief_state_update),
+    do: [:prior_belief_id, :evidence_digest, :posterior_belief_id, :update_rule]
+
+  def fields(:belief_update_rule), do: [:rule_id, :observation_schema, :update_digest]
   def fields(:beneficial_owner_evidence), do: [:account_id, :owner_id, :evidence_hash]
   def fields(:billable_usage_identity), do: [:tenant_id, :billable_usage_id, :identity_hash]
-  def fields(:billing_account), do: [:billing_account_id, :account_id, :currency, :invoice_profile]
-  def fields(:billing_reconciliation), do: [:entitlement_id, :metric_name, :total_quantity, :applied_event_ids, :period_start, :period_end]
+
+  def fields(:billing_account),
+    do: [:billing_account_id, :account_id, :currency, :invoice_profile]
+
+  def fields(:billing_reconciliation),
+    do: [
+      :entitlement_id,
+      :metric_name,
+      :total_quantity,
+      :applied_event_ids,
+      :period_start,
+      :period_end
+    ]
+
   def fields(:booking_readiness), do: [:opportunity_id, :readiness_id, :decision]
+
+  def fields(:bounded_work_selection_receipt),
+    do: [:receipt_id, :selected_work_item_id, :frontier_digest]
+
   def fields(:brce_actuation_receipt), do: [:tenant_id, :request_id, :receipt_hash]
   def fields(:brce_actuation_request), do: [:tenant_id, :request_id, :authority_hash]
   def fields(:budget_period_alignment), do: [:opportunity_id, :budget_period, :alignment_result]
-  def fields(:bundle_conflict), do: [:bundle_conflict_id, :account_id, :conflicting_bundle_id, :evidence_digest, :effective_at]
-  def fields(:bundle_dependency), do: [:bundle_dependency_id, :account_id, :required_bundle_id, :evidence_digest, :effective_at]
-  def fields(:burst_pricing_policy), do: [:burst_pricing_policy_id, :account_id, :burst_multiplier, :evidence_digest, :effective_at]
-  def fields(:business_continuity_evidence), do: [:evidence_id, :subject_sha, :continuity_mode, :observed_result]
+
+  def fields(:bundle_conflict),
+    do: [
+      :bundle_conflict_id,
+      :account_id,
+      :conflicting_bundle_id,
+      :evidence_digest,
+      :effective_at
+    ]
+
+  def fields(:bundle_dependency),
+    do: [:bundle_dependency_id, :account_id, :required_bundle_id, :evidence_digest, :effective_at]
+
+  def fields(:burst_pricing_policy),
+    do: [
+      :burst_pricing_policy_id,
+      :account_id,
+      :burst_multiplier,
+      :evidence_digest,
+      :effective_at
+    ]
+
+  def fields(:business_continuity_evidence),
+    do: [:evidence_id, :subject_sha, :continuity_mode, :observed_result]
+
   def fields(:business_outcome_measurement), do: [:tenant_id, :outcome_id, :measurement_hash]
-  def fields(:business_unit_allocation), do: [:business_unit_allocation_id, :account_id, :business_unit_id, :evidence_digest, :effective_at]
-  def fields(:buying_committee), do: [:buying_committee_id, :account_id, :committee_coverage, :evidence_digest, :observed_at]
-  def fields(:caller_local_checkout_observation), do: [:consumer_repository_id, :checkout_sha, :checkout_path, :evidence_digest]
+
+  def fields(:business_unit_allocation),
+    do: [
+      :business_unit_allocation_id,
+      :account_id,
+      :business_unit_id,
+      :evidence_digest,
+      :effective_at
+    ]
+
+  def fields(:buying_committee),
+    do: [:buying_committee_id, :account_id, :committee_coverage, :evidence_digest, :observed_at]
+
+  def fields(:caller_local_checkout_observation),
+    do: [:consumer_repository_id, :checkout_sha, :checkout_path, :evidence_digest]
+
   def fields(:caller_local_consumer), do: [:consumer_id, :subject_sha, :consumer_hash]
-  def fields(:caller_local_crown_identity), do: [:propagation_id, :subject_sha, :consumer_subject_sha, :receipt_digest]
-  def fields(:canary_decision), do: [:canary_decision_id, :account_id, :canary_result, :evidence_digest, :observed_at]
-  def fields(:canary_evidence), do: [:evidence_id, :subject_sha, :canary_percentage, :observed_result]
-  def fields(:cancellation_policy), do: [:cancellation_policy_id, :account_id, :notice_days, :evidence_digest, :effective_at]
-  def fields(:canonical_source_authority_observation), do: [:source_path, :authority_class, :mutation_allowed, :evidence_digest]
+
+  def fields(:caller_local_crown_identity),
+    do: [:propagation_id, :subject_sha, :consumer_subject_sha, :receipt_digest]
+
+  def fields(:canary_decision),
+    do: [:canary_decision_id, :account_id, :canary_result, :evidence_digest, :observed_at]
+
+  def fields(:canary_evidence),
+    do: [:evidence_id, :subject_sha, :canary_percentage, :observed_result]
+
+  def fields(:cancellation_policy),
+    do: [:cancellation_policy_id, :account_id, :notice_days, :evidence_digest, :effective_at]
+
+  def fields(:canonical_source_authority_observation),
+    do: [:source_path, :authority_class, :mutation_allowed, :evidence_digest]
+
   def fields(:capability_bundle), do: [:bundle_id, :name, :capability_ids, :version]
-  def fields(:capability_gap), do: [:capability_gap_id, :account_id, :gap_severity, :evidence_digest, :observed_at]
-  def fields(:capability_gap_learning), do: [:learning_id, :observed_capability_id, :required_capability_id, :gap_type, :evidence_digest]
+
+  def fields(:capability_gap),
+    do: [:capability_gap_id, :account_id, :gap_severity, :evidence_digest, :observed_at]
+
+  def fields(:capability_gap_learning),
+    do: [
+      :learning_id,
+      :observed_capability_id,
+      :required_capability_id,
+      :gap_type,
+      :evidence_digest
+    ]
+
   def fields(:capsule_availability), do: [:capsule_id, :capsule_digest, :availability]
   def fields(:capsule_identity), do: [:tenant_id, :capsule_id, :identity_hash]
+  def fields(:case_object_binding), do: [:case_id, :object_id, :binding_role]
   def fields(:case_stats), do: [:case_id, :event_count, :duration_seconds]
   def fields(:catalog_release), do: [:release_id, :version, :sku_ids, :effective_at]
-  def fields(:causal_lineage_observation), do: [:cause_observation_id, :effect_observation_id, :causal_basis, :evidence_digest]
-  def fields(:challenger_candidate_evaluation), do: [:evaluation_id, :challenger_policy_id, :episode_set_digest, :evaluation_seed, :score, :refusal_code]
-  def fields(:change_control_evidence), do: [:evidence_id, :subject_sha, :change_request_id, :observed_result]
+
+  def fields(:causal_lineage_observation),
+    do: [:cause_observation_id, :effect_observation_id, :causal_basis, :evidence_digest]
+
+  def fields(:challenger_candidate_evaluation),
+    do: [
+      :evaluation_id,
+      :challenger_policy_id,
+      :episode_set_digest,
+      :evaluation_seed,
+      :score,
+      :refusal_code
+    ]
+
+  def fields(:change_control_evidence),
+    do: [:evidence_id, :subject_sha, :change_request_id, :observed_result]
+
   def fields(:change_order_authority), do: [:opportunity_id, :authority_id, :evidence_hash]
-  def fields(:changed_surface_inference), do: [:prior_tree_sha, :current_tree_sha, :changed_surface_digest, :inference_status]
+
+  def fields(:changed_surface_inference),
+    do: [:prior_tree_sha, :current_tree_sha, :changed_surface_digest, :inference_status]
+
   def fields(:channel_agreement), do: [:agreement_id, :partner_id, :territory, :valid_until]
   def fields(:chargeback_rule), do: [:rule_id, :cost_center, :metric_name, :rate]
   def fields(:cluster_quorum_state), do: [:tenant_id, :cluster_id, :quorum_hash]
-  def fields(:co_term_policy), do: [:co_term_policy_id, :account_id, :coterm_date, :evidence_digest, :effective_at]
+
+  def fields(:co_term_policy),
+    do: [:co_term_policy_id, :account_id, :coterm_date, :evidence_digest, :effective_at]
+
   def fields(:commercial_approval), do: [:approval_id, :quote_id, :authority, :status]
-  def fields(:commercial_artifact_crown_evidence), do: [:evidence_id, :subject_sha, :artifact_digest, :observed_result]
+
+  def fields(:commercial_artifact_crown_evidence),
+    do: [:evidence_id, :subject_sha, :artifact_digest, :observed_result]
+
   def fields(:commercial_exception), do: [:opportunity_id, :exception_id, :exception_state]
-  def fields(:commercial_execution_receipt), do: [:receipt_id, :subject_id, :operation, :evidence_hash]
+
+  def fields(:commercial_execution_receipt),
+    do: [:receipt_id, :subject_id, :operation, :evidence_hash]
+
   def fields(:commercial_forecast), do: [:forecast_id, :account_id, :amount, :confidence]
-  def fields(:commercial_outcome), do: [:commercial_outcome_id, :account_id, :outcome_value, :evidence_digest, :observed_at]
+
+  def fields(:commercial_outcome),
+    do: [:commercial_outcome_id, :account_id, :outcome_value, :evidence_digest, :observed_at]
+
   def fields(:commercial_quote), do: [:quote_id, :account_id, :currency, :status]
   def fields(:commercial_quote_line), do: [:quote_id, :sku, :quantity, :unit_price]
-  def fields(:commercial_value_realization), do: [:realization_id, :baseline_id, :realized_value, :measured_at]
-  def fields(:commit_check_state_observation), do: [:commit_sha, :check_name, :check_status, :observed_at]
+
+  def fields(:commercial_value_realization),
+    do: [:realization_id, :baseline_id, :realized_value, :measured_at]
+
+  def fields(:commit_check_state_observation),
+    do: [:commit_sha, :check_name, :check_status, :observed_at]
+
   def fields(:committed_spend), do: [:commitment_id, :amount, :currency, :expires_at]
   def fields(:committed_spend_admission), do: [:opportunity_id, :commitment_id, :decision]
-  def fields(:compatibility_contract), do: [:contract_id, :product_version, :schema_version, :api_version]
-  def fields(:concurrency_pricing_policy), do: [:concurrency_pricing_policy_id, :account_id, :included_concurrency, :evidence_digest, :effective_at]
-  def fields(:configuration_export), do: [:export_id, :tenant_id, :configuration_hash, :exported_at]
+
+  def fields(:compatibility_contract),
+    do: [:contract_id, :product_version, :schema_version, :api_version]
+
+  def fields(:compound_task_expansion), do: [:task_id, :selected_method_id, :alternative_digest]
+
+  def fields(:concurrency_pricing_policy),
+    do: [
+      :concurrency_pricing_policy_id,
+      :account_id,
+      :included_concurrency,
+      :evidence_digest,
+      :effective_at
+    ]
+
+  def fields(:configuration_export),
+    do: [:export_id, :tenant_id, :configuration_hash, :exported_at]
+
   def fields(:configuration_import), do: [:import_id, :tenant_id, :configuration_hash, :status]
   def fields(:conformance_result), do: [:trace_id, :fitness, :precision]
-  def fields(:consequential_state_invalidation), do: [:transition_id, :affected_state_digest, :invalidation_reason, :invalidated_at]
-  def fields(:consumer_equivalence_learning_guard), do: [:guard_id, :source_consumer_id, :target_consumer_id, :equivalence_evidence_digest, :decision, :refusal_code]
-  def fields(:consumer_equivalence_proof), do: [:consumer_set_id, :equivalence_proof_hash, :standing]
-  def fields(:consumer_pack_pin_observation), do: [:consumer_repository_id, :pack_id, :pack_sha, :evidence_digest]
+
+  def fields(:consequential_state_invalidation),
+    do: [:transition_id, :affected_state_digest, :invalidation_reason, :invalidated_at]
+
+  def fields(:constraint_set_binding), do: [:problem_id, :constraint_digest, :binding_mode]
+
+  def fields(:consumer_equivalence_learning_guard),
+    do: [
+      :guard_id,
+      :source_consumer_id,
+      :target_consumer_id,
+      :equivalence_evidence_digest,
+      :decision,
+      :refusal_code
+    ]
+
+  def fields(:consumer_equivalence_proof),
+    do: [:consumer_set_id, :equivalence_proof_hash, :standing]
+
+  def fields(:consumer_pack_pin_observation),
+    do: [:consumer_repository_id, :pack_id, :pack_sha, :evidence_digest]
+
   def fields(:consumption_pool), do: [:pool_id, :account_id, :unit, :remaining_quantity]
   def fields(:consumption_subscription), do: [:subscription_id, :account_id, :plan_id, :status]
-  def fields(:container_manifest_digest_observation), do: [:image_repository, :tag, :index_digest, :observed_at]
-  def fields(:container_platform_digest_observation), do: [:index_digest, :platform, :platform_digest, :observed_at]
-  def fields(:contracting_entity_identity), do: [:opportunity_id, :contracting_entity_id, :identity_evidence_hash]
-  def fields(:cost_center_allocation), do: [:cost_center_allocation_id, :account_id, :cost_center_id, :evidence_digest, :effective_at]
-  def fields(:cost_latency_reliability_tradeoff), do: [:assessment_id, :candidate_policy_id, :cost_score, :latency_score, :reliability_score, :utility_score]
+
+  def fields(:container_manifest_digest_observation),
+    do: [:image_repository, :tag, :index_digest, :observed_at]
+
+  def fields(:container_platform_digest_observation),
+    do: [:index_digest, :platform, :platform_digest, :observed_at]
+
+  def fields(:contingency_branch), do: [:branch_id, :observation_predicate, :next_node_id]
+
+  def fields(:contracting_entity_identity),
+    do: [:opportunity_id, :contracting_entity_id, :identity_evidence_hash]
+
+  def fields(:cost_center_allocation),
+    do: [
+      :cost_center_allocation_id,
+      :account_id,
+      :cost_center_id,
+      :evidence_digest,
+      :effective_at
+    ]
+
+  def fields(:cost_latency_reliability_tradeoff),
+    do: [
+      :assessment_id,
+      :candidate_policy_id,
+      :cost_score,
+      :latency_score,
+      :reliability_score,
+      :utility_score
+    ]
+
   def fields(:cost_of_delay_score), do: [:option_id, :horizon, :score]
   def fields(:cost_to_serve_measurement), do: [:tenant_id, :billing_period_id, :measurement_hash]
   def fields(:counterfactual_frontier), do: [:option_set_id, :world_model_hash, :frontier_hash]
-  def fields(:counterfactual_replay), do: [:replay_id, :source_episode_id, :intervention_digest, :seed, :predicted_outcome, :comparison_digest]
+
+  def fields(:counterfactual_replay),
+    do: [
+      :replay_id,
+      :source_episode_id,
+      :intervention_digest,
+      :seed,
+      :predicted_outcome,
+      :comparison_digest
+    ]
+
   def fields(:crash_recovery_receipt), do: [:tenant_id, :crash_id, :receipt_hash]
-  def fields(:credit_expiry_policy), do: [:credit_expiry_policy_id, :account_id, :expires_at, :evidence_digest, :effective_at]
+
+  def fields(:credit_expiry_policy),
+    do: [:credit_expiry_policy_id, :account_id, :expires_at, :evidence_digest, :effective_at]
+
   def fields(:credit_risk_admission), do: [:account_id, :risk_band, :decision]
-  def fields(:cross_sell_fit), do: [:cross_sell_fit_id, :account_id, :cross_sell_score, :evidence_digest, :observed_at]
-  def fields(:crown_applicable_gate_coverage), do: [:propagation_id, :subject_sha, :applicable_gate_set_digest, :receipt_digest]
-  def fields(:crown_artifact_pullback_smoke), do: [:propagation_id, :subject_sha, :pullback_digest, :receipt_digest]
-  def fields(:crown_attestation_signer), do: [:propagation_id, :subject_sha, :signer_identity, :receipt_digest]
-  def fields(:crown_autonomic_republish), do: [:propagation_id, :subject_sha, :republished_crown_digest, :receipt_digest]
-  def fields(:crown_capsule_toolchain), do: [:propagation_id, :subject_sha, :toolchain_digest, :receipt_digest]
-  def fields(:crown_cas_promotion), do: [:propagation_id, :subject_sha, :expected_previous_digest, :receipt_digest]
-  def fields(:crown_check_relevance), do: [:propagation_id, :subject_sha, :relevance_proof_digest, :receipt_digest]
-  def fields(:crown_child_publish_observation), do: [:propagation_id, :subject_sha, :child_publish_run_id, :receipt_digest]
-  def fields(:crown_consumer_smoke), do: [:propagation_id, :subject_sha, :consumer_smoke_digest, :receipt_digest]
-  def fields(:crown_convergence_proof), do: [:propagation_id, :subject_sha, :convergence_proof_digest, :receipt_digest]
-  def fields(:crown_cosign_certificate), do: [:propagation_id, :subject_sha, :certificate_identity, :receipt_digest]
-  def fields(:crown_default_head_sensor), do: [:propagation_id, :subject_sha, :default_head_sha, :receipt_digest]
-  def fields(:crown_dependency_edge), do: [:propagation_id, :subject_sha, :downstream_consumer_id, :receipt_digest]
-  def fields(:crown_execution_mode), do: [:propagation_id, :subject_sha, :execution_mode, :receipt_digest]
-  def fields(:crown_fanin_convergence), do: [:propagation_id, :subject_sha, :fanin_set_digest, :receipt_digest]
-  def fields(:crown_fanout_batch), do: [:propagation_id, :subject_sha, :fanout_set_digest, :receipt_digest]
-  def fields(:crown_federated_phase_receipt), do: [:propagation_id, :subject_sha, :selected_option_digest, :receipt_digest]
-  def fields(:crown_freshness_window), do: [:propagation_id, :subject_sha, :fresh_until, :receipt_digest]
-  def fields(:crown_generated_source_ownership), do: [:propagation_id, :subject_sha, :canonical_source_path, :receipt_digest]
-  def fields(:crown_gitlink_reconciliation), do: [:propagation_id, :subject_sha, :gitlink_commit_sha, :receipt_digest]
-  def fields(:crown_immutable_sha_tag), do: [:propagation_id, :subject_sha, :immutable_tag, :receipt_digest]
-  def fields(:crown_known_good_rollback), do: [:propagation_id, :subject_sha, :rollback_crown_digest, :receipt_digest]
-  def fields(:crown_latency_observation), do: [:propagation_id, :subject_sha, :latency_millis, :receipt_digest]
-  def fields(:crown_lock_reconciliation), do: [:propagation_id, :subject_sha, :lock_commit_sha, :receipt_digest]
-  def fields(:crown_manufacturer_identity), do: [:propagation_id, :subject_sha, :manufacturer_digest, :receipt_digest]
-  def fields(:crown_marketplace_pack_pin), do: [:propagation_id, :subject_sha, :pack_commit_sha, :receipt_digest]
-  def fields(:crown_multiarch_platform_set), do: [:propagation_id, :subject_sha, :platform_set_digest, :receipt_digest]
-  def fields(:crown_oci_manifest_binding), do: [:propagation_id, :subject_sha, :oci_index_digest, :receipt_digest]
-  def fields(:crown_package_pin_reconciliation), do: [:propagation_id, :subject_sha, :package_version_digest, :receipt_digest]
-  def fields(:crown_partial_checkpoint), do: [:propagation_id, :subject_sha, :checkpoint_digest, :receipt_digest]
-  def fields(:crown_path_skip_refusal), do: [:propagation_id, :subject_sha, :skipped_gate_id, :receipt_digest]
-  def fields(:crown_planner_identity), do: [:propagation_id, :subject_sha, :planner_digest, :receipt_digest]
-  def fields(:crown_process_runtime_identity), do: [:propagation_id, :subject_sha, :process_runtime_digest, :receipt_digest]
-  def fields(:crown_promotion_race), do: [:propagation_id, :subject_sha, :observed_previous_digest, :receipt_digest]
-  def fields(:crown_provenance_binding), do: [:propagation_id, :subject_sha, :provenance_digest, :receipt_digest]
-  def fields(:crown_receipt_output_ownership), do: [:propagation_id, :subject_sha, :output_owner, :receipt_digest]
-  def fields(:crown_recursive_fixed_point), do: [:propagation_id, :subject_sha, :fixed_point_digest, :receipt_digest]
-  def fields(:crown_resume_token), do: [:propagation_id, :subject_sha, :resume_token_digest, :receipt_digest]
-  def fields(:crown_runtime_identity), do: [:propagation_id, :subject_sha, :runtime_digest, :receipt_digest]
-  def fields(:crown_sbom_subject_binding), do: [:propagation_id, :subject_sha, :sbom_digest, :receipt_digest]
-  def fields(:crown_second_pass_identity), do: [:propagation_id, :subject_sha, :second_pass_digest, :receipt_digest]
-  def fields(:crown_security_scan), do: [:propagation_id, :subject_sha, :scan_report_digest, :receipt_digest]
-  def fields(:crown_source_capsule), do: [:propagation_id, :subject_sha, :capsule_digest, :receipt_digest]
-  def fields(:crown_stale_refusal), do: [:propagation_id, :subject_sha, :observed_age_seconds, :receipt_digest]
-  def fields(:crown_supply_chain_policy), do: [:propagation_id, :subject_sha, :policy_decision_digest, :receipt_digest]
-  def fields(:crown_topological_order), do: [:propagation_id, :subject_sha, :topological_rank, :receipt_digest]
-  def fields(:crown_validation_pack), do: [:propagation_id, :subject_sha, :validation_pack_sha, :receipt_digest]
-  def fields(:crown_workflow_run_receipt), do: [:propagation_id, :subject_sha, :workflow_run_id, :receipt_digest]
-  def fields(:crown_zero_unreceipted_writes), do: [:propagation_id, :subject_sha, :write_set_digest, :receipt_digest]
-  def fields(:currency_policy), do: [:currency_policy_id, :account_id, :currency_code, :evidence_digest, :effective_at]
-  def fields(:curriculum_generation), do: [:curriculum_id, :source_gap_set_digest, :ordered_hypotheses_digest, :diversity_score, :falsifier_coverage]
-  def fields(:customer_health), do: [:customer_health_id, :account_id, :health_score, :evidence_digest, :observed_at]
-  def fields(:customer_managed_key_evidence), do: [:evidence_id, :subject_sha, :key_identifier, :observed_result]
-  def fields(:customer_signal_observation), do: [:customer_id, :signal_type, :signal_digest, :observed_at]
-  def fields(:data_egress_evidence), do: [:evidence_id, :subject_sha, :egress_bytes, :observed_result]
-  def fields(:data_migration_scope_admission), do: [:opportunity_id, :migration_scope_id, :decision]
-  def fields(:data_processing_addendum_state), do: [:opportunity_id, :addendum_id, :addendum_state]
-  def fields(:data_readiness), do: [:data_readiness_id, :account_id, :data_quality_score, :evidence_digest, :observed_at]
+
+  def fields(:cross_sell_fit),
+    do: [:cross_sell_fit_id, :account_id, :cross_sell_score, :evidence_digest, :observed_at]
+
+  def fields(:crown_applicable_gate_coverage),
+    do: [:propagation_id, :subject_sha, :applicable_gate_set_digest, :receipt_digest]
+
+  def fields(:crown_artifact_pullback_smoke),
+    do: [:propagation_id, :subject_sha, :pullback_digest, :receipt_digest]
+
+  def fields(:crown_attestation_signer),
+    do: [:propagation_id, :subject_sha, :signer_identity, :receipt_digest]
+
+  def fields(:crown_autonomic_republish),
+    do: [:propagation_id, :subject_sha, :republished_crown_digest, :receipt_digest]
+
+  def fields(:crown_capsule_toolchain),
+    do: [:propagation_id, :subject_sha, :toolchain_digest, :receipt_digest]
+
+  def fields(:crown_cas_promotion),
+    do: [:propagation_id, :subject_sha, :expected_previous_digest, :receipt_digest]
+
+  def fields(:crown_check_relevance),
+    do: [:propagation_id, :subject_sha, :relevance_proof_digest, :receipt_digest]
+
+  def fields(:crown_child_publish_observation),
+    do: [:propagation_id, :subject_sha, :child_publish_run_id, :receipt_digest]
+
+  def fields(:crown_consumer_smoke),
+    do: [:propagation_id, :subject_sha, :consumer_smoke_digest, :receipt_digest]
+
+  def fields(:crown_convergence_proof),
+    do: [:propagation_id, :subject_sha, :convergence_proof_digest, :receipt_digest]
+
+  def fields(:crown_cosign_certificate),
+    do: [:propagation_id, :subject_sha, :certificate_identity, :receipt_digest]
+
+  def fields(:crown_default_head_sensor),
+    do: [:propagation_id, :subject_sha, :default_head_sha, :receipt_digest]
+
+  def fields(:crown_dependency_edge),
+    do: [:propagation_id, :subject_sha, :downstream_consumer_id, :receipt_digest]
+
+  def fields(:crown_execution_mode),
+    do: [:propagation_id, :subject_sha, :execution_mode, :receipt_digest]
+
+  def fields(:crown_fanin_convergence),
+    do: [:propagation_id, :subject_sha, :fanin_set_digest, :receipt_digest]
+
+  def fields(:crown_fanout_batch),
+    do: [:propagation_id, :subject_sha, :fanout_set_digest, :receipt_digest]
+
+  def fields(:crown_federated_phase_receipt),
+    do: [:propagation_id, :subject_sha, :selected_option_digest, :receipt_digest]
+
+  def fields(:crown_freshness_window),
+    do: [:propagation_id, :subject_sha, :fresh_until, :receipt_digest]
+
+  def fields(:crown_generated_source_ownership),
+    do: [:propagation_id, :subject_sha, :canonical_source_path, :receipt_digest]
+
+  def fields(:crown_gitlink_reconciliation),
+    do: [:propagation_id, :subject_sha, :gitlink_commit_sha, :receipt_digest]
+
+  def fields(:crown_immutable_sha_tag),
+    do: [:propagation_id, :subject_sha, :immutable_tag, :receipt_digest]
+
+  def fields(:crown_known_good_rollback),
+    do: [:propagation_id, :subject_sha, :rollback_crown_digest, :receipt_digest]
+
+  def fields(:crown_latency_observation),
+    do: [:propagation_id, :subject_sha, :latency_millis, :receipt_digest]
+
+  def fields(:crown_lock_reconciliation),
+    do: [:propagation_id, :subject_sha, :lock_commit_sha, :receipt_digest]
+
+  def fields(:crown_manufacturer_identity),
+    do: [:propagation_id, :subject_sha, :manufacturer_digest, :receipt_digest]
+
+  def fields(:crown_marketplace_pack_pin),
+    do: [:propagation_id, :subject_sha, :pack_commit_sha, :receipt_digest]
+
+  def fields(:crown_multiarch_platform_set),
+    do: [:propagation_id, :subject_sha, :platform_set_digest, :receipt_digest]
+
+  def fields(:crown_oci_manifest_binding),
+    do: [:propagation_id, :subject_sha, :oci_index_digest, :receipt_digest]
+
+  def fields(:crown_package_pin_reconciliation),
+    do: [:propagation_id, :subject_sha, :package_version_digest, :receipt_digest]
+
+  def fields(:crown_partial_checkpoint),
+    do: [:propagation_id, :subject_sha, :checkpoint_digest, :receipt_digest]
+
+  def fields(:crown_path_skip_refusal),
+    do: [:propagation_id, :subject_sha, :skipped_gate_id, :receipt_digest]
+
+  def fields(:crown_planner_identity),
+    do: [:propagation_id, :subject_sha, :planner_digest, :receipt_digest]
+
+  def fields(:crown_process_runtime_identity),
+    do: [:propagation_id, :subject_sha, :process_runtime_digest, :receipt_digest]
+
+  def fields(:crown_promotion_race),
+    do: [:propagation_id, :subject_sha, :observed_previous_digest, :receipt_digest]
+
+  def fields(:crown_provenance_binding),
+    do: [:propagation_id, :subject_sha, :provenance_digest, :receipt_digest]
+
+  def fields(:crown_receipt_output_ownership),
+    do: [:propagation_id, :subject_sha, :output_owner, :receipt_digest]
+
+  def fields(:crown_recursive_fixed_point),
+    do: [:propagation_id, :subject_sha, :fixed_point_digest, :receipt_digest]
+
+  def fields(:crown_resume_token),
+    do: [:propagation_id, :subject_sha, :resume_token_digest, :receipt_digest]
+
+  def fields(:crown_runtime_identity),
+    do: [:propagation_id, :subject_sha, :runtime_digest, :receipt_digest]
+
+  def fields(:crown_sbom_subject_binding),
+    do: [:propagation_id, :subject_sha, :sbom_digest, :receipt_digest]
+
+  def fields(:crown_second_pass_identity),
+    do: [:propagation_id, :subject_sha, :second_pass_digest, :receipt_digest]
+
+  def fields(:crown_security_scan),
+    do: [:propagation_id, :subject_sha, :scan_report_digest, :receipt_digest]
+
+  def fields(:crown_source_capsule),
+    do: [:propagation_id, :subject_sha, :capsule_digest, :receipt_digest]
+
+  def fields(:crown_stale_refusal),
+    do: [:propagation_id, :subject_sha, :observed_age_seconds, :receipt_digest]
+
+  def fields(:crown_supply_chain_policy),
+    do: [:propagation_id, :subject_sha, :policy_decision_digest, :receipt_digest]
+
+  def fields(:crown_topological_order),
+    do: [:propagation_id, :subject_sha, :topological_rank, :receipt_digest]
+
+  def fields(:crown_validation_pack),
+    do: [:propagation_id, :subject_sha, :validation_pack_sha, :receipt_digest]
+
+  def fields(:crown_workflow_run_receipt),
+    do: [:propagation_id, :subject_sha, :workflow_run_id, :receipt_digest]
+
+  def fields(:crown_zero_unreceipted_writes),
+    do: [:propagation_id, :subject_sha, :write_set_digest, :receipt_digest]
+
+  def fields(:currency_policy),
+    do: [:currency_policy_id, :account_id, :currency_code, :evidence_digest, :effective_at]
+
+  def fields(:curriculum_generation),
+    do: [
+      :curriculum_id,
+      :source_gap_set_digest,
+      :ordered_hypotheses_digest,
+      :diversity_score,
+      :falsifier_coverage
+    ]
+
+  def fields(:customer_health),
+    do: [:customer_health_id, :account_id, :health_score, :evidence_digest, :observed_at]
+
+  def fields(:customer_managed_key_evidence),
+    do: [:evidence_id, :subject_sha, :key_identifier, :observed_result]
+
+  def fields(:customer_signal_observation),
+    do: [:customer_id, :signal_type, :signal_digest, :observed_at]
+
+  def fields(:data_egress_evidence),
+    do: [:evidence_id, :subject_sha, :egress_bytes, :observed_result]
+
+  def fields(:data_migration_scope_admission),
+    do: [:opportunity_id, :migration_scope_id, :decision]
+
+  def fields(:data_processing_addendum_state),
+    do: [:opportunity_id, :addendum_id, :addendum_state]
+
+  def fields(:data_readiness),
+    do: [:data_readiness_id, :account_id, :data_quality_score, :evidence_digest, :observed_at]
+
   def fields(:data_residency_policy), do: [:policy_id, :tenant_id, :allowed_regions, :status]
-  def fields(:data_volume_pricing_policy), do: [:data_volume_pricing_policy_id, :account_id, :unit_gb_price, :evidence_digest, :effective_at]
+
+  def fields(:data_volume_pricing_policy),
+    do: [
+      :data_volume_pricing_policy_id,
+      :account_id,
+      :unit_gb_price,
+      :evidence_digest,
+      :effective_at
+    ]
+
   def fields(:deal_desk_packet), do: [:opportunity_id, :packet_id, :evidence_hash]
-  def fields(:decision_compression_observation), do: [:compression_id, :input_state_digest, :output_delta_digest, :loss_bound]
-  def fields(:decision_information_preservation), do: [:preservation_id, :decision_id, :source_partition_digest, :projection_digest, :preserved_question_set_digest, :loss_score]
-  def fields(:deletion_proof_evidence), do: [:evidence_id, :subject_sha, :deletion_receipt_id, :observed_result]
-  def fields(:demo_run), do: [:demo_run_id, :account_id, :demo_result, :evidence_digest, :observed_at]
-  def fields(:demo_scenario), do: [:demo_scenario_id, :account_id, :scenario_name, :evidence_digest, :observed_at]
+
+  def fields(:decision_compression_observation),
+    do: [:compression_id, :input_state_digest, :output_delta_digest, :loss_bound]
+
+  def fields(:decision_information_preservation),
+    do: [
+      :preservation_id,
+      :decision_id,
+      :source_partition_digest,
+      :projection_digest,
+      :preserved_question_set_digest,
+      :loss_score
+    ]
+
+  def fields(:deletion_proof_evidence),
+    do: [:evidence_id, :subject_sha, :deletion_receipt_id, :observed_result]
+
+  def fields(:demo_run),
+    do: [:demo_run_id, :account_id, :demo_result, :evidence_digest, :observed_at]
+
+  def fields(:demo_scenario),
+    do: [:demo_scenario_id, :account_id, :scenario_name, :evidence_digest, :observed_at]
+
   def fields(:dependency_dag), do: [:dag_id, :node_set_hash, :edge_set_hash]
-  def fields(:dependency_inventory_evidence), do: [:evidence_id, :subject_sha, :dependency_count, :observed_result]
-  def fields(:dependency_pin_observation), do: [:dependency_id, :declared_ref, :resolved_sha, :observed_at]
-  def fields(:deployment_entitlement), do: [:entitlement_id, :tenant_id, :profile_id, :valid_until]
-  def fields(:developer_readiness), do: [:developer_readiness_id, :account_id, :developer_readiness_score, :evidence_digest, :observed_at]
+
+  def fields(:dependency_inventory_evidence),
+    do: [:evidence_id, :subject_sha, :dependency_count, :observed_result]
+
+  def fields(:dependency_pin_observation),
+    do: [:dependency_id, :declared_ref, :resolved_sha, :observed_at]
+
+  def fields(:deployment_entitlement),
+    do: [:entitlement_id, :tenant_id, :profile_id, :valid_until]
+
+  def fields(:developer_readiness),
+    do: [
+      :developer_readiness_id,
+      :account_id,
+      :developer_readiness_score,
+      :evidence_digest,
+      :observed_at
+    ]
+
+  def fields(:deviation_repair_option), do: [:option_id, :deviation_id, :repair_plan_digest]
   def fields(:dfg_edge), do: [:source_activity, :target_activity, :frequency, :edge_weight]
-  def fields(:disaster_recovery_evidence), do: [:evidence_id, :subject_sha, :recovered_at, :observed_result]
+
+  def fields(:disaster_recovery_evidence),
+    do: [:evidence_id, :subject_sha, :recovered_at, :observed_result]
+
   def fields(:discount_schedule), do: [:schedule_id, :threshold, :discount_percent, :currency]
-  def fields(:discovery_hypothesis), do: [:discovery_hypothesis_id, :account_id, :expected_value, :evidence_digest, :observed_at]
+
+  def fields(:discovery_hypothesis),
+    do: [:discovery_hypothesis_id, :account_id, :expected_value, :evidence_digest, :observed_at]
+
+  def fields(:distributed_work_queue_observation),
+    do: [:consumer_subject_sha, :queue_digest, :observed_at]
+
   def fields(:dominance_witness), do: [:dominant_option_id, :dominated_option_id, :witness_hash]
   def fields(:dynamic_replan_trigger), do: [:plan_id, :event_id, :trigger_hash]
   def fields(:edition_definition), do: [:edition_id, :name, :bundle_ids, :support_tier]
-  def fields(:edition_downgrade_path), do: [:edition_downgrade_path_id, :account_id, :target_edition_id, :evidence_digest, :effective_at]
-  def fields(:edition_upgrade_path), do: [:edition_upgrade_path_id, :account_id, :target_edition_id, :evidence_digest, :effective_at]
-  def fields(:enterprise_agreement), do: [:enterprise_agreement_id, :account_id, :agreement_version, :evidence_digest, :effective_at]
+
+  def fields(:edition_downgrade_path),
+    do: [
+      :edition_downgrade_path_id,
+      :account_id,
+      :target_edition_id,
+      :evidence_digest,
+      :effective_at
+    ]
+
+  def fields(:edition_upgrade_path),
+    do: [
+      :edition_upgrade_path_id,
+      :account_id,
+      :target_edition_id,
+      :evidence_digest,
+      :effective_at
+    ]
+
+  def fields(:enterprise_agreement),
+    do: [
+      :enterprise_agreement_id,
+      :account_id,
+      :agreement_version,
+      :evidence_digest,
+      :effective_at
+    ]
+
   def fields(:enterprise_order), do: [:order_id, :account_id, :quote_id, :status]
   def fields(:enterprise_order_line), do: [:order_id, :sku, :quantity, :unit_price]
   def fields(:entitlement_denial_receipt), do: [:tenant_id, :entitlement_id, :denial_hash]
-  def fields(:entitlement_event), do: [:event_id, :entitlement_id, :event_type, :effective_at, :payload]
-  def fields(:entitlement_evidence), do: [:evidence_id, :subject_sha, :entitlement_id, :observed_result]
+
+  def fields(:entitlement_event),
+    do: [:event_id, :entitlement_id, :event_type, :effective_at, :payload]
+
+  def fields(:entitlement_evidence),
+    do: [:evidence_id, :subject_sha, :entitlement_id, :observed_result]
+
   def fields(:entitlement_grant), do: [:grant_id, :tenant_id, :capability_id, :valid_until]
   def fields(:entitlement_revocation), do: [:revocation_id, :grant_id, :reason, :revoked_at]
   def fields(:entitlement_runtime_check), do: [:tenant_id, :entitlement_id, :check_hash]
-  def fields(:entitlement_state), do: [:entitlement_id, :status, :last_applied_event_id, :updated_at]
-  def fields(:entropy_reduction_score), do: [:action_id, :prior_entropy, :expected_posterior_entropy]
-  def fields(:environment_failure_separation), do: [:assessment_id, :exact_subject_sha, :capsule_digest, :failure_signal, :classification_basis]
+
+  def fields(:entitlement_state),
+    do: [:entitlement_id, :status, :last_applied_event_id, :updated_at]
+
+  def fields(:entropy_reduction_score),
+    do: [:action_id, :prior_entropy, :expected_posterior_entropy]
+
+  def fields(:environment_failure_separation),
+    do: [
+      :assessment_id,
+      :exact_subject_sha,
+      :capsule_digest,
+      :failure_signal,
+      :classification_basis
+    ]
+
   def fields(:environment_identity), do: [:tenant_id, :environment_id, :identity_hash]
-  def fields(:environment_pricing_policy), do: [:environment_pricing_policy_id, :account_id, :environment_tier, :evidence_digest, :effective_at]
+
+  def fields(:environment_pricing_policy),
+    do: [
+      :environment_pricing_policy_id,
+      :account_id,
+      :environment_tier,
+      :evidence_digest,
+      :effective_at
+    ]
+
   def fields(:environment_profile), do: [:profile_id, :environment, :region, :configuration_hash]
-  def fields(:environment_signal_observation), do: [:environment_id, :signal_type, :signal_digest, :observed_at]
+
+  def fields(:environment_signal_observation),
+    do: [:environment_id, :signal_type, :signal_digest, :observed_at]
+
   def fields(:error_budget_state), do: [:tenant_id, :slo_id, :state_hash]
-  def fields(:evaluation_seed_binding), do: [:binding_id, :evaluation_id, :seed, :result_digest, :source_digest, :deterministic]
+
+  def fields(:evaluation_seed_binding),
+    do: [:binding_id, :evaluation_id, :seed, :result_digest, :source_digest, :deterministic]
+
   def fields(:event_log), do: [:log_id, :name, :description]
   def fields(:event_triggered_planning), do: [:event_id, :world_state_hash, :episode_id]
   def fields(:event_type), do: [:type_name, :attribute_names]
-  def fields(:event_volume_pricing_policy), do: [:event_volume_pricing_policy_id, :account_id, :unit_event_price, :evidence_digest, :effective_at]
-  def fields(:evidence_freshness_evidence), do: [:evidence_id, :subject_sha, :observed_at, :observed_result]
-  def fields(:evidence_training_sample), do: [:sample_id, :episode_id, :feature_digest, :label_id, :provenance_digest]
+
+  def fields(:event_volume_pricing_policy),
+    do: [
+      :event_volume_pricing_policy_id,
+      :account_id,
+      :unit_event_price,
+      :evidence_digest,
+      :effective_at
+    ]
+
+  def fields(:evidence_freshness_evidence),
+    do: [:evidence_id, :subject_sha, :observed_at, :observed_result]
+
+  def fields(:evidence_training_sample),
+    do: [:sample_id, :episode_id, :feature_digest, :label_id, :provenance_digest]
+
   def fields(:exact_subject_binding), do: [:subject_id, :subject_sha, :binding_hash]
+  def fields(:exact_world_state_admission), do: [:subject_sha, :state_digest, :observed_at]
   def fields(:exception_authority), do: [:exception_id, :authority_id, :decision]
-  def fields(:executive_business_review), do: [:executive_business_review_id, :account_id, :executive_outcome, :evidence_digest, :observed_at]
-  def fields(:executive_sponsor), do: [:executive_sponsor_id, :account_id, :sponsor_commitment, :evidence_digest, :observed_at]
-  def fields(:expansion_opportunity), do: [:expansion_opportunity_id, :account_id, :expansion_value, :evidence_digest, :observed_at]
+
+  def fields(:executive_business_review),
+    do: [
+      :executive_business_review_id,
+      :account_id,
+      :executive_outcome,
+      :evidence_digest,
+      :observed_at
+    ]
+
+  def fields(:executive_sponsor),
+    do: [:executive_sponsor_id, :account_id, :sponsor_commitment, :evidence_digest, :observed_at]
+
+  def fields(:expansion_opportunity),
+    do: [:expansion_opportunity_id, :account_id, :expansion_value, :evidence_digest, :observed_at]
+
   def fields(:expansion_option), do: [:option_id, :account_id, :sku, :max_quantity]
-  def fields(:expansion_receipt), do: [:expansion_receipt_id, :account_id, :receipt_value, :evidence_digest, :observed_at]
-  def fields(:expansion_signal), do: [:expansion_signal_id, :account_id, :expansion_signal_score, :evidence_digest, :observed_at]
-  def fields(:experiment_learning_receipt), do: [:receipt_id, :experiment_id, :exact_subject_sha, :evidence_digest, :result_digest, :authority_ceiling]
-  def fields(:failed_challenger_retention), do: [:retention_id, :challenger_evaluation_id, :failure_evidence_digest, :retained_at, :eligible_for_future]
-  def fields(:failure_label), do: [:failure_id, :episode_id, :failure_class, :causal_scope, :preserved_evidence_digest]
-  def fields(:federated_dogfood_learning_crown), do: [:crown_id, :exact_subject_sha, :consumer_id, :pack_sha, :capsule_digest, :manufacture_receipt_digest, :ownership_verification_digest, :second_pass_identity_digest, :workflow_sequence, :authority_ceiling]
+
+  def fields(:expansion_receipt),
+    do: [:expansion_receipt_id, :account_id, :receipt_value, :evidence_digest, :observed_at]
+
+  def fields(:expansion_signal),
+    do: [
+      :expansion_signal_id,
+      :account_id,
+      :expansion_signal_score,
+      :evidence_digest,
+      :observed_at
+    ]
+
+  def fields(:experiment_learning_receipt),
+    do: [
+      :receipt_id,
+      :experiment_id,
+      :exact_subject_sha,
+      :evidence_digest,
+      :result_digest,
+      :authority_ceiling
+    ]
+
+  def fields(:failed_challenger_retention),
+    do: [
+      :retention_id,
+      :challenger_evaluation_id,
+      :failure_evidence_digest,
+      :retained_at,
+      :eligible_for_future
+    ]
+
+  def fields(:failure_label),
+    do: [:failure_id, :episode_id, :failure_class, :causal_scope, :preserved_evidence_digest]
+
+  def fields(:fairness_assumption), do: [:assumption_id, :policy_digest, :evidence_digest]
+
+  def fields(:federated_dogfood_learning_crown),
+    do: [
+      :crown_id,
+      :exact_subject_sha,
+      :consumer_id,
+      :pack_sha,
+      :capsule_digest,
+      :manufacture_receipt_digest,
+      :ownership_verification_digest,
+      :second_pass_identity_digest,
+      :workflow_sequence,
+      :authority_ceiling
+    ]
+
   def fields(:forged_receipt_refusal), do: [:tenant_id, :receipt_id, :refusal_hash]
   def fields(:frontier_benchmark), do: [:benchmark_id, :metric, :acceptance_predicate, :falsifier]
-  def fields(:frontier_evidence), do: [:subject_identity, :verifier_identity, :receipt_ref, :replay_ref, :standing]
-  def fields(:frontier_opportunity), do: [:source_digest, :response_mode, :target_repository, :required_capability, :benchmark_id]
-  def fields(:frontier_source_release), do: [:source_url, :publisher, :published_at, :content_digest, :claims]
+
+  def fields(:frontier_evidence),
+    do: [:subject_identity, :verifier_identity, :receipt_ref, :replay_ref, :standing]
+
+  def fields(:frontier_opportunity),
+    do: [:source_digest, :response_mode, :target_repository, :required_capability, :benchmark_id]
+
+  def fields(:frontier_source_release),
+    do: [:source_url, :publisher, :published_at, :content_digest, :claims]
+
   def fields(:funding_approval_chain), do: [:opportunity_id, :approval_chain_id, :evidence_hash]
-  def fields(:fx_conversion_policy), do: [:fx_conversion_policy_id, :account_id, :rate_source, :evidence_digest, :effective_at]
-  def fields(:generated_hypothesis), do: [:hypothesis_id, :source_gap_id, :candidate_capability, :expected_value, :falsifier_contract]
-  def fields(:generated_output_ownership_observation), do: [:output_path, :ownership_marker, :source_input_digest, :standing]
+
+  def fields(:fx_conversion_policy),
+    do: [:fx_conversion_policy_id, :account_id, :rate_source, :evidence_digest, :effective_at]
+
+  def fields(:generated_hypothesis),
+    do: [
+      :hypothesis_id,
+      :source_gap_id,
+      :candidate_capability,
+      :expected_value,
+      :falsifier_contract
+    ]
+
+  def fields(:generated_output_ownership_observation),
+    do: [:output_path, :ownership_marker, :source_input_digest, :standing]
+
   def fields(:generated_source_route), do: [:projection_id, :source_coordinate, :route]
+  def fields(:goal_set_binding), do: [:problem_id, :goal_set_digest, :value_profile]
+  def fields(:hddl_method_candidate), do: [:method_id, :compound_task_id, :subnetwork_digest]
+  def fields(:hddl_task_network), do: [:network_id, :task_set_digest, :ordering_digest]
   def fields(:heuristic_arc), do: [:source_activity, :target_activity, :dependency_measure]
-  def fields(:historical_episode_replay), do: [:replay_id, :episode_id, :historical_subject_sha, :replay_seed, :divergence_code]
-  def fields(:hypothesis_priority_update), do: [:update_id, :hypothesis_id, :prior_priority, :new_priority, :payoff_evidence_digest]
+
+  def fields(:historical_episode_replay),
+    do: [:replay_id, :episode_id, :historical_subject_sha, :replay_seed, :divergence_code]
+
+  def fields(:hypothesis_priority_update),
+    do: [:update_id, :hypothesis_id, :prior_priority, :new_priority, :payoff_evidence_digest]
+
   def fields(:immutable_pack_selection), do: [:pack_id, :pack_sha, :selection_hash]
   def fields(:implementation_fee_admission), do: [:opportunity_id, :fee_id, :decision]
   def fields(:incident_acknowledgement), do: [:tenant_id, :incident_id, :acknowledgement_hash]
   def fields(:incident_detection_event), do: [:tenant_id, :incident_id, :detection_hash]
-  def fields(:incident_response_evidence), do: [:evidence_id, :subject_sha, :incident_id, :observed_result]
+
+  def fields(:incident_response_evidence),
+    do: [:evidence_id, :subject_sha, :incident_id, :observed_result]
+
   def fields(:indemnity_scope_admission), do: [:opportunity_id, :indemnity_scope_id, :decision]
-  def fields(:information_partition_observation), do: [:partition_id, :state_vector_id, :partition_key, :information_digest]
+
+  def fields(:information_partition_observation),
+    do: [:partition_id, :state_vector_id, :partition_key, :information_digest]
+
+  def fields(:initial_state_digest), do: [:problem_id, :fact_digest, :normalizer_version]
   def fields(:insurance_requirement), do: [:opportunity_id, :coverage_id, :evidence_hash]
-  def fields(:integration_readiness), do: [:integration_readiness_id, :account_id, :integration_score, :evidence_digest, :observed_at]
-  def fields(:integration_scope_admission), do: [:opportunity_id, :integration_scope_id, :decision]
-  def fields(:invoice_entity_identity), do: [:opportunity_id, :invoice_entity_id, :identity_evidence_hash]
-  def fields(:invoice_line_item), do: [:invoice_line_item_id, :account_id, :line_amount, :evidence_digest, :effective_at]
-  def fields(:invoice_schedule), do: [:schedule_id, :billing_account_id, :cadence, :next_invoice_at]
+
+  def fields(:integration_readiness),
+    do: [
+      :integration_readiness_id,
+      :account_id,
+      :integration_score,
+      :evidence_digest,
+      :observed_at
+    ]
+
+  def fields(:integration_scope_admission),
+    do: [:opportunity_id, :integration_scope_id, :decision]
+
+  def fields(:invoice_entity_identity),
+    do: [:opportunity_id, :invoice_entity_id, :identity_evidence_hash]
+
+  def fields(:invoice_line_item),
+    do: [:invoice_line_item_id, :account_id, :line_amount, :evidence_digest, :effective_at]
+
+  def fields(:invoice_schedule),
+    do: [:schedule_id, :billing_account_id, :cadence, :next_invoice_at]
+
   def fields(:irreversibility_budget), do: [:episode_id, :budget, :consumed]
   def fields(:k8s_object_ref), do: [:kind, :name, :namespace]
-  def fields(:late_arriving_usage), do: [:late_arriving_usage_id, :account_id, :occurred_at, :evidence_digest, :effective_at]
+
+  def fields(:late_arriving_usage),
+    do: [:late_arriving_usage_id, :account_id, :occurred_at, :evidence_digest, :effective_at]
+
   def fields(:latency_budget_observation), do: [:tenant_id, :workload_id, :observation_hash]
   def fields(:leakage_finding), do: [:case_id, :fitness, :precision, :amount_at_risk]
-  def fields(:learning_episode), do: [:episode_id, :exact_subject_sha, :evidence_digest, :outcome, :authority_ceiling]
-  def fields(:least_authority_evidence), do: [:evidence_id, :subject_sha, :granted_permissions, :observed_result]
+
+  def fields(:learning_episode),
+    do: [:episode_id, :exact_subject_sha, :evidence_digest, :outcome, :authority_ceiling]
+
+  def fields(:lease_expiry_replan), do: [:replan_id, :expired_lease_id, :returned_frontier_digest]
+
+  def fields(:least_authority_evidence),
+    do: [:evidence_id, :subject_sha, :granted_permissions, :observed_result]
+
   def fields(:legal_blocker), do: [:opportunity_id, :blocker_id, :refusal_code]
   def fields(:liability_cap_admission), do: [:opportunity_id, :liability_cap_id, :decision]
-  def fields(:license_evidence), do: [:evidence_id, :subject_sha, :license_expression, :observed_result]
+
+  def fields(:license_evidence),
+    do: [:evidence_id, :subject_sha, :license_expression, :observed_result]
+
   def fields(:log_trace), do: [:case_id, :activity_sequence]
-  def fields(:machine_actionable_delta), do: [:subject_id, :prior_state_digest, :delta_digest, :recommended_action]
-  def fields(:manufacture_receipt_presence_observation), do: [:subject_sha, :receipt_id, :receipt_digest, :observed_at]
-  def fields(:manufacture_receipt_validity_observation), do: [:receipt_digest, :subject_sha, :verification_status, :verifier_identity]
-  def fields(:master_service_agreement_binding), do: [:master_service_agreement_binding_id, :account_id, :msa_digest, :evidence_digest, :effective_at]
-  def fields(:master_service_agreement_state), do: [:opportunity_id, :agreement_id, :agreement_state]
+
+  def fields(:machine_actionable_delta),
+    do: [:subject_id, :prior_state_digest, :delta_digest, :recommended_action]
+
+  def fields(:manufacture_receipt_presence_observation),
+    do: [:subject_sha, :receipt_id, :receipt_digest, :observed_at]
+
+  def fields(:manufacture_receipt_validity_observation),
+    do: [:receipt_digest, :subject_sha, :verification_status, :verifier_identity]
+
+  def fields(:master_service_agreement_binding),
+    do: [
+      :master_service_agreement_binding_id,
+      :account_id,
+      :msa_digest,
+      :evidence_digest,
+      :effective_at
+    ]
+
+  def fields(:master_service_agreement_state),
+    do: [:opportunity_id, :agreement_id, :agreement_state]
+
   def fields(:mcts_plan_candidate), do: [:plan_id, :seed, :rollout_hash]
   def fields(:meta_router), do: [:portfolio_id, :observation_hash, :selected_planner_id]
-  def fields(:meter_definition), do: [:meter_definition_id, :account_id, :meter_name, :evidence_digest, :effective_at]
-  def fields(:meter_dimension), do: [:meter_dimension_id, :account_id, :dimension_name, :evidence_digest, :effective_at]
-  def fields(:meter_rollup), do: [:meter_rollup_id, :account_id, :rollup_function, :evidence_digest, :effective_at]
+
+  def fields(:meter_definition),
+    do: [:meter_definition_id, :account_id, :meter_name, :evidence_digest, :effective_at]
+
+  def fields(:meter_dimension),
+    do: [:meter_dimension_id, :account_id, :dimension_name, :evidence_digest, :effective_at]
+
+  def fields(:meter_rollup),
+    do: [:meter_rollup_id, :account_id, :rollup_function, :evidence_digest, :effective_at]
+
   def fields(:metered_usage_sample), do: [:tenant_id, :usage_sample_id, :sample_hash]
+  def fields(:method_precondition_gate), do: [:method_id, :state_digest, :decision]
   def fields(:migration_contract), do: [:migration_id, :from_version, :to_version, :rollback_plan]
-  def fields(:migration_readiness), do: [:migration_readiness_id, :account_id, :migration_effort_days, :evidence_digest, :observed_at]
-  def fields(:minimum_commitment_schedule), do: [:minimum_commitment_schedule_id, :account_id, :committed_amount, :evidence_digest, :effective_at]
+
+  def fields(:migration_readiness),
+    do: [
+      :migration_readiness_id,
+      :account_id,
+      :migration_effort_days,
+      :evidence_digest,
+      :observed_at
+    ]
+
+  def fields(:minimum_commitment_schedule),
+    do: [
+      :minimum_commitment_schedule_id,
+      :account_id,
+      :committed_amount,
+      :evidence_digest,
+      :effective_at
+    ]
+
   def fields(:minimum_term_admission), do: [:opportunity_id, :minimum_term, :decision]
   def fields(:multiarch_evidence), do: [:evidence_id, :subject_sha, :platforms, :observed_result]
-  def fields(:mutable_identity_refusal_evidence), do: [:evidence_id, :subject_sha, :mutable_reference, :observed_result]
+
+  def fields(:mutable_identity_refusal_evidence),
+    do: [:evidence_id, :subject_sha, :mutable_reference, :observed_result]
+
   def fields(:mutual_information_score), do: [:observation_id, :target_state_id, :score]
-  def fields(:negative_fixture_generation), do: [:fixture_id, :source_failure_id, :invariant_id, :generated_input_digest, :expected_refusal_code]
-  def fields(:next_lawful_actuation), do: [:episode_id, :selected_action_id, :selection_receipt_hash]
-  def fields(:no_authority_learning_guard), do: [:guard_id, :candidate_update_id, :current_authority, :requested_authority, :decision, :evidence_digest]
+
+  def fields(:negative_fixture_generation),
+    do: [
+      :fixture_id,
+      :source_failure_id,
+      :invariant_id,
+      :generated_input_digest,
+      :expected_refusal_code
+    ]
+
+  def fields(:next_event_prediction_contract),
+    do: [:prediction_id, :prefix_digest, :distribution_digest]
+
+  def fields(:next_lawful_actuation),
+    do: [:episode_id, :selected_action_id, :selection_receipt_hash]
+
+  def fields(:no_authority_learning_guard),
+    do: [
+      :guard_id,
+      :candidate_update_id,
+      :current_authority,
+      :requested_authority,
+      :decision,
+      :evidence_digest
+    ]
+
   def fields(:node_failover_event), do: [:tenant_id, :node_id, :failover_hash]
-  def fields(:nonproduction_discount_policy), do: [:nonproduction_discount_policy_id, :account_id, :discount_percent, :evidence_digest, :effective_at]
-  def fields(:normalized_event_observation), do: [:source_system, :event_id, :event_type, :event_time]
-  def fields(:novelty_reward), do: [:reward_id, :hypothesis_id, :feature_vector_digest, :nearest_prior_distance, :reward, :evidence_digest]
+
+  def fields(:nondeterministic_effect_contract),
+    do: [:action_id, :effect_set_digest, :selection_semantics]
+
+  def fields(:nonproduction_discount_policy),
+    do: [
+      :nonproduction_discount_policy_id,
+      :account_id,
+      :discount_percent,
+      :evidence_digest,
+      :effective_at
+    ]
+
+  def fields(:normalized_event_observation),
+    do: [:source_system, :event_id, :event_type, :event_time]
+
+  def fields(:novelty_reward),
+    do: [
+      :reward_id,
+      :hypothesis_id,
+      :feature_vector_digest,
+      :nearest_prior_distance,
+      :reward,
+      :evidence_digest
+    ]
+
   def fields(:novelty_score), do: [:option_id, :reference_set_hash, :score]
-  def fields(:object_attribute_change), do: [:object_id, :attribute_name, :old_value, :new_value, :changed_at]
+
+  def fields(:object_attribute_change),
+    do: [:object_id, :attribute_name, :old_value, :new_value, :changed_at]
+
   def fields(:object_type), do: [:type_name, :attribute_names]
-  def fields(:object_volume_pricing_policy), do: [:object_volume_pricing_policy_id, :account_id, :unit_object_price, :evidence_digest, :effective_at]
-  def fields(:objection), do: [:objection_id, :account_id, :objection_type, :evidence_digest, :observed_at]
-  def fields(:objection_resolution), do: [:objection_resolution_id, :account_id, :resolution_status, :evidence_digest, :observed_at]
-  def fields(:observation_deduplication_decision), do: [:event_id, :event_digest, :dedup_key, :decision]
-  def fields(:observation_entropy_estimate), do: [:state_vector_id, :entropy_method, :entropy_value, :observed_at]
-  def fields(:observation_freshness_assessment), do: [:observation_id, :observed_at, :freshness_deadline, :freshness_status]
-  def fields(:observation_projection_update), do: [:update_id, :projection_id, :prior_digest, :new_digest, :triggering_gap_id, :authority_ceiling]
-  def fields(:observation_staleness_invalidation), do: [:observation_id, :invalidated_at, :staleness_reason, :replacement_required]
-  def fields(:oc_declare_constraint), do: [:constraint_id, :source_activity, :target_activity, :constraint_type]
+
+  def fields(:object_volume_pricing_policy),
+    do: [
+      :object_volume_pricing_policy_id,
+      :account_id,
+      :unit_object_price,
+      :evidence_digest,
+      :effective_at
+    ]
+
+  def fields(:objection),
+    do: [:objection_id, :account_id, :objection_type, :evidence_digest, :observed_at]
+
+  def fields(:objection_resolution),
+    do: [
+      :objection_resolution_id,
+      :account_id,
+      :resolution_status,
+      :evidence_digest,
+      :observed_at
+    ]
+
+  def fields(:observation_deduplication_decision),
+    do: [:event_id, :event_digest, :dedup_key, :decision]
+
+  def fields(:observation_entropy_estimate),
+    do: [:state_vector_id, :entropy_method, :entropy_value, :observed_at]
+
+  def fields(:observation_freshness_assessment),
+    do: [:observation_id, :observed_at, :freshness_deadline, :freshness_status]
+
+  def fields(:observation_partition), do: [:partition_id, :state_set_digest, :observation_key]
+
+  def fields(:observation_projection_update),
+    do: [
+      :update_id,
+      :projection_id,
+      :prior_digest,
+      :new_digest,
+      :triggering_gap_id,
+      :authority_ceiling
+    ]
+
+  def fields(:observation_staleness_invalidation),
+    do: [:observation_id, :invalidated_at, :staleness_reason, :replacement_required]
+
+  def fields(:oc_declare_constraint),
+    do: [:constraint_id, :source_activity, :target_activity, :constraint_type]
+
   def fields(:ocel_attribute), do: [:attribute_name, :attribute_value, :recorded_at]
   def fields(:ocel_event), do: [:event_id, :event_type, :event_time, :attributes]
   def fields(:ocel_object), do: [:object_id, :object_type, :attributes]
+  def fields(:ocel_planning_event), do: [:event_id, :activity, :object_binding_digest]
   def fields(:ocel_relationship), do: [:qualifier, :object_id]
-  def fields(:oci_manifest_evidence), do: [:evidence_id, :subject_sha, :manifest_digest, :observed_result]
-  def fields(:offline_bundle_evidence), do: [:evidence_id, :subject_sha, :bundle_digest, :observed_result]
-  def fields(:operator_readiness), do: [:operator_readiness_id, :account_id, :operator_readiness_score, :evidence_digest, :observed_at]
+
+  def fields(:oci_manifest_evidence),
+    do: [:evidence_id, :subject_sha, :manifest_digest, :observed_result]
+
+  def fields(:offline_bundle_evidence),
+    do: [:evidence_id, :subject_sha, :bundle_digest, :observed_result]
+
+  def fields(:operator_readiness),
+    do: [
+      :operator_readiness_id,
+      :account_id,
+      :operator_readiness_score,
+      :evidence_digest,
+      :observed_at
+    ]
+
   def fields(:opportunity_currency_contract), do: [:opportunity_id, :currency_code, :fx_basis_id]
   def fields(:opportunity_value_range), do: [:opportunity_id, :minimum_value, :maximum_value]
   def fields(:optimization_plan_candidate), do: [:plan_id, :objective_id, :solver_receipt_hash]
   def fields(:option_generation), do: [:state_id, :generator_id, :option_set_hash]
   def fields(:order_form_admission), do: [:opportunity_id, :order_form_id, :decision]
-  def fields(:order_form_version), do: [:order_form_version_id, :account_id, :order_form_digest, :evidence_digest, :effective_at]
-  def fields(:orthogonality_reward), do: [:reward_id, :candidate_id, :comparison_set_digest, :minimum_semantic_distance, :reward, :independence_evidence_digest]
+
+  def fields(:order_form_version),
+    do: [:order_form_version_id, :account_id, :order_form_digest, :evidence_digest, :effective_at]
+
+  def fields(:orthogonality_reward),
+    do: [
+      :reward_id,
+      :candidate_id,
+      :comparison_set_digest,
+      :minimum_semantic_distance,
+      :reward,
+      :independence_evidence_digest
+    ]
+
   def fields(:orthogonality_score), do: [:left_option_id, :right_option_id, :score]
-  def fields(:outcome_label), do: [:label_id, :episode_id, :outcome_class, :confidence_basis, :independent_evidence_digest]
+  def fields(:outcome_branch_set), do: [:action_id, :branch_digest, :coverage_mode]
+
+  def fields(:outcome_label),
+    do: [:label_id, :episode_id, :outcome_class, :confidence_basis, :independent_evidence_digest]
+
   def fields(:output_ownership_gate), do: [:subject_id, :ownership_manifest_hash, :standing]
-  def fields(:overage_invoice), do: [:overage_invoice_id, :account_id, :overage_amount, :evidence_digest, :effective_at]
+
+  def fields(:overage_invoice),
+    do: [:overage_invoice_id, :account_id, :overage_amount, :evidence_digest, :effective_at]
+
   def fields(:overage_policy), do: [:policy_id, :quota_id, :unit_price, :behavior]
-  def fields(:package_release_observation), do: [:package_id, :version, :immutable_digest, :observed_at]
-  def fields(:paid_workload_outcome_receipt), do: [:tenant_id, :workload_id, :outcome_receipt_hash]
+
+  def fields(:package_release_observation),
+    do: [:package_id, :version, :immutable_digest, :observed_at]
+
+  def fields(:paid_workload_outcome_receipt),
+    do: [:tenant_id, :workload_id, :outcome_receipt_hash]
+
   def fields(:pareto_filter), do: [:option_set_id, :objective_set_hash, :pareto_set_hash]
   def fields(:path_schema), do: [:schema_id, :source_type, :target_type, :support]
   def fields(:path_schema_query), do: [:source_type, :target_type, :max_length]
   def fields(:payment_terms), do: [:terms_id, :net_days, :late_policy, :status]
-  def fields(:payment_terms_admission), do: [:opportunity_id, :payment_terms, :authority_evidence_hash]
-  def fields(:performance_slo_evidence), do: [:evidence_id, :subject_sha, :latency_p95_ms, :observed_result]
+
+  def fields(:payment_terms_admission),
+    do: [:opportunity_id, :payment_terms, :authority_evidence_hash]
+
+  def fields(:performance_slo_evidence),
+    do: [:evidence_id, :subject_sha, :latency_p95_ms, :observed_result]
+
   def fields(:petri_arc), do: [:source_id, :target_id, :weight]
   def fields(:petri_place), do: [:place_id, :tokens]
   def fields(:petri_transition), do: [:transition_id, :label]
+  def fields(:plan_handoff_receipt), do: [:receipt_id, :plan_digest, :receiver_subject_sha]
   def fields(:plan_lineage), do: [:plan_id, :parent_plan_id, :lineage_hash]
   def fields(:plan_memory), do: [:plan_id, :evidence_hash, :memory_hash]
+  def fields(:planner_bid), do: [:bid_id, :work_item_id, :score_digest]
   def fields(:planner_capability_profile), do: [:planner_id, :capability_set, :profile_hash]
   def fields(:planner_identity), do: [:planner_id, :planner_kind, :identity_hash]
-  def fields(:planner_payoff_observation), do: [:observation_id, :planner_id, :objective_id, :payoff, :evidence_digest, :episode_id]
-  def fields(:planner_policy_comparison), do: [:comparison_id, :planner_id, :incumbent_policy_id, :challenger_policy_id, :payoff_delta, :winner_evidence_digest]
+  def fields(:planner_lease), do: [:lease_id, :work_item_id, :expires_at]
+
+  def fields(:planner_payoff_observation),
+    do: [:observation_id, :planner_id, :objective_id, :payoff, :evidence_digest, :episode_id]
+
+  def fields(:planner_policy_comparison),
+    do: [
+      :comparison_id,
+      :planner_id,
+      :incumbent_policy_id,
+      :challenger_policy_id,
+      :payoff_delta,
+      :winner_evidence_digest
+    ]
+
   def fields(:planner_portfolio), do: [:portfolio_id, :planner_ids, :diversity_hash]
-  def fields(:planner_routing_update), do: [:update_id, :route_id, :prior_planner_id, :selected_planner_id, :payoff_basis_digest, :rollback_policy_id]
+
+  def fields(:planner_routing_update),
+    do: [
+      :update_id,
+      :route_id,
+      :prior_planner_id,
+      :selected_planner_id,
+      :payoff_basis_digest,
+      :rollback_policy_id
+    ]
+
   def fields(:planning_action), do: [:action_name, :preconditions, :effects]
+  def fields(:planning_blackboard_claim), do: [:claim_id, :work_item_id, :owner_subject_sha]
+  def fields(:planning_blackboard_conflict), do: [:conflict_id, :claim_set_digest, :conflict_type]
+  def fields(:planning_blackboard_fact), do: [:fact_id, :subject_sha, :provenance_digest]
+
+  def fields(:planning_blackboard_resolution),
+    do: [:resolution_id, :conflict_id, :preserved_option_digest]
+
+  def fields(:planning_case_identity), do: [:case_id, :subject_sha, :lineage_root]
+  def fields(:planning_conformance_alignment), do: [:alignment_id, :trace_digest, :model_digest]
+  def fields(:planning_problem_admission), do: [:problem_id, :state_digest, :authority_scope]
   def fields(:planning_state), do: [:state_id, :facts]
-  def fields(:poc_exit_criteria), do: [:poc_exit_criteria_id, :account_id, :criteria_pass_rate, :evidence_digest, :observed_at]
-  def fields(:poc_risk), do: [:poc_risk_id, :account_id, :risk_score, :evidence_digest, :observed_at]
-  def fields(:poc_scope), do: [:poc_scope_id, :account_id, :use_case_count, :evidence_digest, :observed_at]
-  def fields(:poc_timeline), do: [:poc_timeline_id, :account_id, :days_to_value, :evidence_digest, :observed_at]
+
+  def fields(:poc_exit_criteria),
+    do: [:poc_exit_criteria_id, :account_id, :criteria_pass_rate, :evidence_digest, :observed_at]
+
+  def fields(:poc_risk),
+    do: [:poc_risk_id, :account_id, :risk_score, :evidence_digest, :observed_at]
+
+  def fields(:poc_scope),
+    do: [:poc_scope_id, :account_id, :use_case_count, :evidence_digest, :observed_at]
+
+  def fields(:poc_timeline),
+    do: [:poc_timeline_id, :account_id, :days_to_value, :evidence_digest, :observed_at]
+
   def fields(:policy_binding), do: [:policy_id, :planner_id, :policy_hash]
   def fields(:policy_decision), do: [:decision_id, :verdict, :reason]
-  def fields(:policy_payoff_observation), do: [:observation_id, :policy_id, :parameter_digest, :objective_id, :payoff, :evidence_digest]
-  def fields(:powl_choice_graph_edge), do: [:from_kind, :from_child_index, :to_kind, :to_child_index]
+  def fields(:policy_graph_edge), do: [:source_node_id, :outcome_label, :target_node_id]
+  def fields(:policy_graph_node), do: [:node_id, :state_digest, :selected_action_id]
+
+  def fields(:policy_payoff_observation),
+    do: [:observation_id, :policy_id, :parameter_digest, :objective_id, :payoff, :evidence_digest]
+
+  def fields(:powl_choice_graph_edge),
+    do: [:from_kind, :from_child_index, :to_kind, :to_child_index]
+
+  def fields(:powl_choice_operator), do: [:operator_id, :branch_digest, :selection_rule]
   def fields(:powl_freq), do: [:min_freq, :max_freq]
   def fields(:powl_leaf), do: [:activity_label, :is_tau, :min_freq, :max_freq]
+  def fields(:powl_loop_operator), do: [:operator_id, :body_digest, :exit_predicate]
+  def fields(:powl_parallel_operator), do: [:operator_id, :branch_digest, :join_rule]
   def fields(:powl_partial_order_edge), do: [:from_index, :to_index]
+  def fields(:powl_partial_order_plan), do: [:plan_id, :operator_digest, :order_digest]
   def fields(:powl_projection), do: [:plan_id, :powl_hash, :projection_receipt_hash]
+  def fields(:powl_sequence_operator), do: [:operator_id, :step_digest, :predecessor_digest]
   def fields(:ppddl_projection), do: [:plan_id, :domain_hash, :problem_hash]
-  def fields(:premium_connector_pricing), do: [:premium_connector_pricing_id, :account_id, :connector_id, :evidence_digest, :effective_at]
-  def fields(:prepaid_credit_balance), do: [:prepaid_credit_balance_id, :account_id, :remaining_credit, :evidence_digest, :effective_at]
-  def fields(:price_book_version), do: [:price_book_version_id, :account_id, :version, :evidence_digest, :effective_at]
+  def fields(:prefix_alignment_frontier), do: [:frontier_id, :prefix_digest, :candidate_digest]
+
+  def fields(:premium_connector_pricing),
+    do: [
+      :premium_connector_pricing_id,
+      :account_id,
+      :connector_id,
+      :evidence_digest,
+      :effective_at
+    ]
+
+  def fields(:prepaid_credit_balance),
+    do: [
+      :prepaid_credit_balance_id,
+      :account_id,
+      :remaining_credit,
+      :evidence_digest,
+      :effective_at
+    ]
+
+  def fields(:price_book_version),
+    do: [:price_book_version_id, :account_id, :version, :evidence_digest, :effective_at]
+
   def fields(:pricing_basis_contract), do: [:opportunity_id, :pricing_basis_id, :evidence_hash]
-  def fields(:privacy_classification_evidence), do: [:evidence_id, :subject_sha, :privacy_class, :observed_result]
+  def fields(:primitive_task_binding), do: [:task_id, :action_id, :binding_digest]
+
+  def fields(:privacy_classification_evidence),
+    do: [:evidence_id, :subject_sha, :privacy_class, :observed_result]
+
   def fields(:private_offer), do: [:offer_id, :account_id, :total_price, :expires_at]
-  def fields(:private_registry_evidence), do: [:evidence_id, :subject_sha, :registry_digest, :observed_result]
+
+  def fields(:private_registry_evidence),
+    do: [:evidence_id, :subject_sha, :registry_digest, :observed_result]
+
   def fields(:process_variant), do: [:variant_id, :activity_sequence, :frequency]
-  def fields(:process_volume_pricing_policy), do: [:process_volume_pricing_policy_id, :account_id, :unit_process_price, :evidence_digest, :effective_at]
-  def fields(:procurement_acceptance_evidence), do: [:evidence_id, :subject_sha, :acceptance_decision, :observed_result]
+
+  def fields(:process_volume_pricing_policy),
+    do: [
+      :process_volume_pricing_policy_id,
+      :account_id,
+      :unit_process_price,
+      :evidence_digest,
+      :effective_at
+    ]
+
+  def fields(:procurement_acceptance_evidence),
+    do: [:evidence_id, :subject_sha, :acceptance_decision, :observed_result]
+
   def fields(:procurement_blocker), do: [:opportunity_id, :blocker_id, :refusal_code]
-  def fields(:procurement_channel_selection), do: [:opportunity_id, :channel_id, :selection_evidence_hash]
-  def fields(:procurement_readiness), do: [:procurement_readiness_id, :account_id, :procurement_stage, :evidence_digest, :observed_at]
-  def fields(:production_readiness), do: [:production_readiness_id, :account_id, :production_readiness_score, :evidence_digest, :observed_at]
-  def fields(:promotion_decision), do: [:decision_id, :candidate_policy_id, :threshold_id, :evidence_set_digest, :decision, :refusal_code]
-  def fields(:promotion_threshold), do: [:threshold_id, :objective_id, :minimum_payoff, :maximum_regression, :minimum_evidence_count, :authority_binding]
+
+  def fields(:procurement_channel_selection),
+    do: [:opportunity_id, :channel_id, :selection_evidence_hash]
+
+  def fields(:procurement_readiness),
+    do: [
+      :procurement_readiness_id,
+      :account_id,
+      :procurement_stage,
+      :evidence_digest,
+      :observed_at
+    ]
+
+  def fields(:production_readiness),
+    do: [
+      :production_readiness_id,
+      :account_id,
+      :production_readiness_score,
+      :evidence_digest,
+      :observed_at
+    ]
+
+  def fields(:promotion_decision),
+    do: [
+      :decision_id,
+      :candidate_policy_id,
+      :threshold_id,
+      :evidence_set_digest,
+      :decision,
+      :refusal_code
+    ]
+
+  def fields(:promotion_threshold),
+    do: [
+      :threshold_id,
+      :objective_id,
+      :minimum_payoff,
+      :maximum_regression,
+      :minimum_evidence_count,
+      :authority_binding
+    ]
+
   def fields(:proof_of_value_budget), do: [:opportunity_id, :budget_id, :decision]
   def fields(:proof_of_value_exit_gate), do: [:pov_id, :exit_gate_id, :decision]
-  def fields(:proof_of_value_package), do: [:proof_of_value_package_id, :account_id, :success_metric, :evidence_digest, :effective_at]
+
+  def fields(:proof_of_value_package),
+    do: [
+      :proof_of_value_package_id,
+      :account_id,
+      :success_metric,
+      :evidence_digest,
+      :effective_at
+    ]
+
   def fields(:propagation_score), do: [:option_id, :graph_hash, :score]
-  def fields(:proration_policy), do: [:proration_policy_id, :account_id, :proration_method, :evidence_digest, :effective_at]
-  def fields(:provenance_binding_evidence), do: [:evidence_id, :subject_sha, :builder_identity, :observed_result]
-  def fields(:provenance_binding_observation), do: [:observation_id, :source_capsule_digest, :evidence_digest, :binding_status]
+
+  def fields(:proration_policy),
+    do: [:proration_policy_id, :account_id, :proration_method, :evidence_digest, :effective_at]
+
+  def fields(:provenance_binding_evidence),
+    do: [:evidence_id, :subject_sha, :builder_identity, :observed_result]
+
+  def fields(:provenance_binding_observation),
+    do: [:observation_id, :source_capsule_digest, :evidence_digest, :binding_status]
+
   def fields(:psro_population), do: [:population_id, :policy_ids, :population_hash]
-  def fields(:purchase_order_binding), do: [:binding_id, :order_id, :purchase_order_number, :status]
+
+  def fields(:purchase_order_binding),
+    do: [:binding_id, :order_id, :purchase_order_number, :status]
+
   def fields(:purchase_order_requirement), do: [:opportunity_id, :requirement_id, :evidence_hash]
-  def fields(:purchasing_entity_identity), do: [:opportunity_id, :purchasing_entity_id, :identity_evidence_hash]
+
+  def fields(:purchasing_entity_identity),
+    do: [:opportunity_id, :purchasing_entity_id, :identity_evidence_hash]
+
   def fields(:queue_snapshot), do: [:queue_name, :depth, :observed_at]
-  def fields(:quota_burst_allowance), do: [:quota_burst_allowance_id, :account_id, :burst_units, :evidence_digest, :effective_at]
-  def fields(:quota_override), do: [:quota_override_id, :account_id, :override_units, :evidence_digest, :effective_at]
+
+  def fields(:quota_burst_allowance),
+    do: [:quota_burst_allowance_id, :account_id, :burst_units, :evidence_digest, :effective_at]
+
+  def fields(:quota_override),
+    do: [:quota_override_id, :account_id, :override_units, :evidence_digest, :effective_at]
+
   def fields(:quota_policy), do: [:quota_id, :metric_name, :limit, :window]
   def fields(:ramp_commitment), do: [:ramp_id, :phase, :committed_amount, :effective_at]
-  def fields(:rate_card_entry), do: [:rate_card_entry_id, :account_id, :unit_price, :evidence_digest, :effective_at]
-  def fields(:rate_distortion_budget), do: [:budget_id, :decision_id, :source_information_bits, :retained_information_bits, :maximum_distortion]
+
+  def fields(:rate_card_entry),
+    do: [:rate_card_entry_id, :account_id, :unit_price, :evidence_digest, :effective_at]
+
+  def fields(:rate_distortion_budget),
+    do: [
+      :budget_id,
+      :decision_id,
+      :source_information_bits,
+      :retained_information_bits,
+      :maximum_distortion
+    ]
+
   def fields(:reachability_analysis), do: [:state_id, :goal_id, :reachability_proof_hash]
-  def fields(:receipt_learning_compilation), do: [:compilation_id, :receipt_chain_head, :admitted_receipt_count, :rejected_receipt_count, :learning_digest]
-  def fields(:receipt_replay_evidence), do: [:evidence_id, :subject_sha, :replay_result_hash, :observed_result]
+
+  def fields(:receipt_learning_compilation),
+    do: [
+      :compilation_id,
+      :receipt_chain_head,
+      :admitted_receipt_count,
+      :rejected_receipt_count,
+      :learning_digest
+    ]
+
+  def fields(:receipt_replay_evidence),
+    do: [:evidence_id, :subject_sha, :replay_result_hash, :observed_result]
+
   def fields(:receipt_replay_request), do: [:tenant_id, :receipt_id, :replay_request_hash]
   def fields(:receipt_required_gate), do: [:action_id, :receipt_contract_id, :standing]
   def fields(:receipt_signature), do: [:tenant_id, :receipt_id, :signature_hash]
   def fields(:receipt_subject_binding), do: [:tenant_id, :workload_id, :binding_hash]
   def fields(:receipt_verification), do: [:tenant_id, :receipt_id, :verification_hash]
-  def fields(:recovery_plan), do: [:recovery_plan_id, :account_id, :recovery_time_hours, :evidence_digest, :observed_at]
+
+  def fields(:recovery_plan),
+    do: [:recovery_plan_id, :account_id, :recovery_time_hours, :evidence_digest, :observed_at]
+
   def fields(:recovery_point_receipt), do: [:tenant_id, :incident_id, :recovery_hash]
+  def fields(:recovery_subtask), do: [:subtask_id, :trigger_outcome, :recovery_goal_digest]
   def fields(:recovery_time_receipt), do: [:tenant_id, :incident_id, :recovery_hash]
-  def fields(:refund_policy), do: [:refund_policy_id, :account_id, :refund_method, :evidence_digest, :effective_at]
-  def fields(:refusal_boundary_observation), do: [:subject_id, :refusal_code, :authority_boundary, :evidence_digest]
-  def fields(:refusal_threshold), do: [:threshold_id, :refusal_class, :limit, :metric_id, :authority_binding]
-  def fields(:region_pricing_policy), do: [:region_pricing_policy_id, :account_id, :region_code, :evidence_digest, :effective_at]
-  def fields(:regression_detector), do: [:detection_id, :baseline_policy_id, :candidate_policy_id, :metric_id, :regression_delta, :evidence_digest]
-  def fields(:regression_refusal), do: [:refusal_id, :candidate_policy_id, :regression_detection_id, :acceptance_threshold, :observed_regression, :authority_ceiling]
-  def fields(:remediation_sla_evidence), do: [:evidence_id, :subject_sha, :remediation_due_at, :observed_result]
-  def fields(:renewal_evidence), do: [:renewal_evidence_id, :account_id, :renewal_value, :evidence_digest, :observed_at]
-  def fields(:renewal_health), do: [:renewal_health_id, :account_id, :renewal_health_score, :evidence_digest, :observed_at]
+
+  def fields(:refund_policy),
+    do: [:refund_policy_id, :account_id, :refund_method, :evidence_digest, :effective_at]
+
+  def fields(:refusal_boundary_observation),
+    do: [:subject_id, :refusal_code, :authority_boundary, :evidence_digest]
+
+  def fields(:refusal_threshold),
+    do: [:threshold_id, :refusal_class, :limit, :metric_id, :authority_binding]
+
+  def fields(:region_pricing_policy),
+    do: [:region_pricing_policy_id, :account_id, :region_code, :evidence_digest, :effective_at]
+
+  def fields(:regression_detector),
+    do: [
+      :detection_id,
+      :baseline_policy_id,
+      :candidate_policy_id,
+      :metric_id,
+      :regression_delta,
+      :evidence_digest
+    ]
+
+  def fields(:regression_refusal),
+    do: [
+      :refusal_id,
+      :candidate_policy_id,
+      :regression_detection_id,
+      :acceptance_threshold,
+      :observed_regression,
+      :authority_ceiling
+    ]
+
+  def fields(:remaining_time_estimate_contract),
+    do: [:estimate_id, :case_state_digest, :interval_digest]
+
+  def fields(:remediation_sla_evidence),
+    do: [:evidence_id, :subject_sha, :remediation_due_at, :observed_result]
+
+  def fields(:renewal_evidence),
+    do: [:renewal_evidence_id, :account_id, :renewal_value, :evidence_digest, :observed_at]
+
+  def fields(:renewal_health),
+    do: [:renewal_health_id, :account_id, :renewal_health_score, :evidence_digest, :observed_at]
+
   def fields(:renewal_option), do: [:option_id, :subscription_id, :term_months, :notice_by]
-  def fields(:renewal_risk), do: [:renewal_risk_id, :account_id, :renewal_risk_score, :evidence_digest, :observed_at]
+
+  def fields(:renewal_risk),
+    do: [:renewal_risk_id, :account_id, :renewal_risk_score, :evidence_digest, :observed_at]
+
   def fields(:renewal_term_admission), do: [:opportunity_id, :renewal_term, :decision]
-  def fields(:repair_effectiveness_measurement), do: [:measurement_id, :repair_id, :baseline_failure_rate, :post_repair_failure_rate, :evaluation_window_digest]
+
+  def fields(:repair_effectiveness_measurement),
+    do: [
+      :measurement_id,
+      :repair_id,
+      :baseline_failure_rate,
+      :post_repair_failure_rate,
+      :evaluation_window_digest
+    ]
+
   def fields(:replay_environment_identity), do: [:tenant_id, :environment_id, :identity_hash]
-  def fields(:repository_ancestry_observation), do: [:ancestor_sha, :descendant_sha, :relation, :evidence_digest]
-  def fields(:repository_default_branch_observation), do: [:repository_id, :default_branch, :head_sha, :observed_at]
-  def fields(:repository_exact_head_observation), do: [:repository_id, :branch_name, :head_sha, :previous_head_sha]
-  def fields(:repository_worktree_state_observation), do: [:repository_id, :worktree_hash, :dirty_path_count, :observed_at]
-  def fields(:reproducible_build_evidence), do: [:evidence_id, :subject_sha, :build_digest, :observed_result]
+
+  def fields(:repository_ancestry_observation),
+    do: [:ancestor_sha, :descendant_sha, :relation, :evidence_digest]
+
+  def fields(:repository_default_branch_observation),
+    do: [:repository_id, :default_branch, :head_sha, :observed_at]
+
+  def fields(:repository_exact_head_observation),
+    do: [:repository_id, :branch_name, :head_sha, :previous_head_sha]
+
+  def fields(:repository_worktree_state_observation),
+    do: [:repository_id, :worktree_hash, :dirty_path_count, :observed_at]
+
+  def fields(:reproducible_build_evidence),
+    do: [:evidence_id, :subject_sha, :build_digest, :observed_result]
+
   def fields(:reseller_authorization), do: [:authorization_id, :reseller_id, :sku, :status]
-  def fields(:reserve_work_promotion), do: [:blocked_work_id, :reserve_set_hash, :promoted_work_id]
+
+  def fields(:reserve_work_promotion),
+    do: [:blocked_work_id, :reserve_set_hash, :promoted_work_id]
+
   def fields(:residency_evidence), do: [:evidence_id, :subject_sha, :region, :observed_result]
   def fields(:resource_allocation), do: [:resource_id, :activity, :event_id]
   def fields(:resource_capacity_plan), do: [:episode_id, :resource_pool_hash, :allocation_hash]
-  def fields(:retention_policy_evidence), do: [:evidence_id, :subject_sha, :retention_days, :observed_result]
-  def fields(:retention_pricing_policy), do: [:retention_pricing_policy_id, :account_id, :retention_days, :evidence_digest, :effective_at]
-  def fields(:revenue_attribution), do: [:revenue_attribution_id, :account_id, :attributed_revenue, :evidence_digest, :observed_at]
-  def fields(:revenue_contract_admission), do: [:opportunity_id, :contract_id, :admission_receipt_hash]
-  def fields(:revenue_schedule_assumption), do: [:opportunity_id, :schedule_id, :assumption_evidence_hash]
+
+  def fields(:retention_policy_evidence),
+    do: [:evidence_id, :subject_sha, :retention_days, :observed_result]
+
+  def fields(:retention_pricing_policy),
+    do: [
+      :retention_pricing_policy_id,
+      :account_id,
+      :retention_days,
+      :evidence_digest,
+      :effective_at
+    ]
+
+  def fields(:revenue_attribution),
+    do: [
+      :revenue_attribution_id,
+      :account_id,
+      :attributed_revenue,
+      :evidence_digest,
+      :observed_at
+    ]
+
+  def fields(:revenue_contract_admission),
+    do: [:opportunity_id, :contract_id, :admission_receipt_hash]
+
+  def fields(:revenue_schedule_assumption),
+    do: [:opportunity_id, :schedule_id, :assumption_evidence_hash]
+
   def fields(:reversibility_weight), do: [:action_id, :rollback_id, :weight]
   def fields(:rework_cost), do: [:case_id, :loop_count, :weighted_cost]
-  def fields(:rfp_response_evidence), do: [:evidence_id, :subject_sha, :answer_set_hash, :observed_result]
+
+  def fields(:rfp_response_evidence),
+    do: [:evidence_id, :subject_sha, :answer_set_hash, :observed_result]
+
   def fields(:role_compatibility), do: [:role_id, :policy_id, :compatibility]
   def fields(:rollback_checkpoint), do: [:tenant_id, :checkpoint_id, :state_hash]
-  def fields(:rollback_decision), do: [:rollback_decision_id, :account_id, :rollback_result, :evidence_digest, :observed_at]
-  def fields(:rollback_evidence), do: [:evidence_id, :subject_sha, :rollback_digest, :observed_result]
-  def fields(:rollback_outcome_learning), do: [:learning_id, :rollback_id, :pre_rollback_state_digest, :post_rollback_state_digest, :recovery_score, :evidence_digest]
+
+  def fields(:rollback_decision),
+    do: [:rollback_decision_id, :account_id, :rollback_result, :evidence_digest, :observed_at]
+
+  def fields(:rollback_evidence),
+    do: [:evidence_id, :subject_sha, :rollback_digest, :observed_result]
+
+  def fields(:rollback_outcome_learning),
+    do: [
+      :learning_id,
+      :rollback_id,
+      :pre_rollback_state_digest,
+      :post_rollback_state_digest,
+      :recovery_score,
+      :evidence_digest
+    ]
+
   def fields(:rolling_upgrade_plan), do: [:tenant_id, :upgrade_id, :plan_hash]
-  def fields(:root_cause_pattern), do: [:pattern_id, :failure_class, :causal_graph_digest, :confirmed_reproducer_digest, :reusable_scope]
-  def fields(:root_cause_reuse_decision), do: [:decision_id, :pattern_id, :current_failure_id, :similarity_score, :applicability_evidence_digest]
-  def fields(:runtime_health_observation), do: [:runtime_id, :health_state, :evidence_digest, :observed_at]
+
+  def fields(:root_cause_pattern),
+    do: [
+      :pattern_id,
+      :failure_class,
+      :causal_graph_digest,
+      :confirmed_reproducer_digest,
+      :reusable_scope
+    ]
+
+  def fields(:root_cause_reuse_decision),
+    do: [
+      :decision_id,
+      :pattern_id,
+      :current_failure_id,
+      :similarity_score,
+      :applicability_evidence_digest
+    ]
+
+  def fields(:runtime_health_observation),
+    do: [:runtime_id, :health_state, :evidence_digest, :observed_at]
+
   def fields(:runtime_policy_decision), do: [:tenant_id, :decision_id, :policy_hash]
   def fields(:sanctions_screening_result), do: [:account_id, :screening_id, :screening_result]
-  def fields(:sandbox_entitlement), do: [:sandbox_entitlement_id, :account_id, :sandbox_limit, :evidence_digest, :effective_at]
-  def fields(:saturation_detection), do: [:detection_id, :curriculum_id, :recent_gain, :gain_slope, :novelty_floor, :coverage_digest]
-  def fields(:sbom_inventory_evidence), do: [:evidence_id, :subject_sha, :component_count, :observed_result]
-  def fields(:seat_pricing_policy), do: [:seat_pricing_policy_id, :account_id, :seat_price, :evidence_digest, :effective_at]
-  def fields(:second_pass_byte_identity_observation), do: [:first_tree_digest, :second_tree_digest, :byte_identity, :receipt_digest]
-  def fields(:second_run_identity_objective), do: [:subject_id, :first_tree_hash, :second_tree_hash]
-  def fields(:secret_boundary_evidence), do: [:evidence_id, :subject_sha, :secret_source, :observed_result]
+
+  def fields(:sandbox_entitlement),
+    do: [:sandbox_entitlement_id, :account_id, :sandbox_limit, :evidence_digest, :effective_at]
+
+  def fields(:saturation_detection),
+    do: [
+      :detection_id,
+      :curriculum_id,
+      :recent_gain,
+      :gain_slope,
+      :novelty_floor,
+      :coverage_digest
+    ]
+
+  def fields(:sbom_inventory_evidence),
+    do: [:evidence_id, :subject_sha, :component_count, :observed_result]
+
+  def fields(:scheduling_priority_score), do: [:score_id, :work_item_id, :component_digest]
+
+  def fields(:seat_pricing_policy),
+    do: [:seat_pricing_policy_id, :account_id, :seat_price, :evidence_digest, :effective_at]
+
+  def fields(:second_pass_byte_identity_observation),
+    do: [:first_tree_digest, :second_tree_digest, :byte_identity, :receipt_digest]
+
+  def fields(:second_run_identity_objective),
+    do: [:subject_id, :first_tree_hash, :second_tree_hash]
+
+  def fields(:secret_boundary_evidence),
+    do: [:evidence_id, :subject_sha, :secret_source, :observed_result]
+
   def fields(:security_addendum_state), do: [:opportunity_id, :addendum_id, :addendum_state]
   def fields(:security_blocker), do: [:opportunity_id, :blocker_id, :refusal_code]
-  def fields(:security_readiness), do: [:security_readiness_id, :account_id, :control_coverage, :evidence_digest, :observed_at]
-  def fields(:seeded_evaluation), do: [:evaluation_id, :seed, :dataset_digest, :policy_id, :score, :replay_digest]
-  def fields(:semantic_drift_observation), do: [:subject_id, :prior_semantic_digest, :current_semantic_digest, :drift_class]
+
+  def fields(:security_readiness),
+    do: [:security_readiness_id, :account_id, :control_coverage, :evidence_digest, :observed_at]
+
+  def fields(:seeded_evaluation),
+    do: [:evaluation_id, :seed, :dataset_digest, :policy_id, :score, :replay_digest]
+
+  def fields(:semantic_drift_observation),
+    do: [:subject_id, :prior_semantic_digest, :current_semantic_digest, :drift_class]
+
   def fields(:service_credit), do: [:credit_id, :slo_id, :amount, :currency]
   def fields(:service_credit_admission), do: [:opportunity_id, :service_credit_id, :decision]
-  def fields(:service_credit_ledger), do: [:service_credit_ledger_id, :account_id, :credit_amount, :evidence_digest, :effective_at]
+
+  def fields(:service_credit_ledger),
+    do: [:service_credit_ledger_id, :account_id, :credit_amount, :evidence_digest, :effective_at]
+
   def fields(:service_health_snapshot), do: [:tenant_id, :service_id, :snapshot_hash]
-  def fields(:service_level_objective), do: [:slo_id, :contract_id, :target_percent, :measurement_window]
+
+  def fields(:service_level_objective),
+    do: [:slo_id, :contract_id, :target_percent, :measurement_window]
+
   def fields(:service_slo_contract), do: [:tenant_id, :slo_id, :contract_hash]
-  def fields(:service_span), do: [:span_id, :service_name, :duration_ms, :parent_span_id, :trace_id, :start_time]
-  def fields(:shadow_challenger_execution), do: [:execution_id, :incumbent_policy_id, :challenger_policy_id, :shared_observation_digest, :shadow_receipt_digest, :authority_mode]
+
+  def fields(:service_span),
+    do: [:span_id, :service_name, :duration_ms, :parent_span_id, :trace_id, :start_time]
+
+  def fields(:shadow_challenger_execution),
+    do: [
+      :execution_id,
+      :incumbent_policy_id,
+      :challenger_policy_id,
+      :shared_observation_digest,
+      :shadow_receipt_digest,
+      :authority_mode
+    ]
+
   def fields(:showback_allocation), do: [:allocation_id, :project_id, :metric_name, :quantity]
-  def fields(:signature_evidence), do: [:evidence_id, :subject_sha, :signature_identity, :observed_result]
+
+  def fields(:signature_evidence),
+    do: [:evidence_id, :subject_sha, :signature_identity, :observed_result]
+
   def fields(:sku_definition), do: [:sku, :edition_id, :billing_model, :status]
   def fields(:sla_offer_admission), do: [:opportunity_id, :sla_offer_id, :decision]
   def fields(:sojourn_time), do: [:object_id, :event_type, :seconds]
-  def fields(:solution_fit), do: [:solution_fit_id, :account_id, :fit_score, :evidence_digest, :observed_at]
+
+  def fields(:solution_fit),
+    do: [:solution_fit_id, :account_id, :fit_score, :evidence_digest, :observed_at]
+
   def fields(:span_edge), do: [:source_service, :target_service, :frequency, :evidence]
-  def fields(:spend_drawdown), do: [:spend_drawdown_id, :account_id, :consumed_amount, :evidence_digest, :effective_at]
-  def fields(:stakeholder_map), do: [:stakeholder_map_id, :account_id, :stakeholder_count, :evidence_digest, :observed_at]
-  def fields(:stale_plan_refusal), do: [:plan_id, :admitted_preimage_hash, :observed_preimage_hash]
+
+  def fields(:spend_drawdown),
+    do: [:spend_drawdown_id, :account_id, :consumed_amount, :evidence_digest, :effective_at]
+
+  def fields(:stakeholder_map),
+    do: [:stakeholder_map_id, :account_id, :stakeholder_count, :evidence_digest, :observed_at]
+
+  def fields(:stale_plan_refusal),
+    do: [:plan_id, :admitted_preimage_hash, :observed_preimage_hash]
+
   def fields(:stale_receipt_refusal), do: [:tenant_id, :receipt_id, :refusal_hash]
-  def fields(:stale_subject_refusal_evidence), do: [:evidence_id, :subject_sha, :stale_sha, :observed_result]
-  def fields(:standing_state_observation), do: [:subject_id, :standing, :evidence_digest, :observed_at]
-  def fields(:stopping_criterion), do: [:criterion_id, :objective_id, :minimum_gain, :maximum_episodes, :evidence_window_digest, :authority_binding]
-  def fields(:subject_failure_separation), do: [:assessment_id, :exact_subject_sha, :capsule_standing, :subject_failure_code, :independent_reproducer_digest]
-  def fields(:submodule_lock_observation), do: [:submodule_path, :gitlink_sha, :lock_sha, :observed_at]
-  def fields(:submodule_registration_observation), do: [:submodule_path, :registration_state, :repository_url, :evidence_digest]
-  def fields(:success_plan), do: [:success_plan_id, :account_id, :success_target, :evidence_digest, :observed_at]
+
+  def fields(:stale_subject_refusal_evidence),
+    do: [:evidence_id, :subject_sha, :stale_sha, :observed_result]
+
+  def fields(:standing_state_observation),
+    do: [:subject_id, :standing, :evidence_digest, :observed_at]
+
+  def fields(:stopping_criterion),
+    do: [
+      :criterion_id,
+      :objective_id,
+      :minimum_gain,
+      :maximum_episodes,
+      :evidence_window_digest,
+      :authority_binding
+    ]
+
+  def fields(:strong_cyclic_plan_candidate), do: [:candidate_id, :policy_digest, :fairness_proof]
+  def fields(:strong_plan_candidate), do: [:candidate_id, :policy_digest, :coverage_proof]
+
+  def fields(:subject_failure_separation),
+    do: [
+      :assessment_id,
+      :exact_subject_sha,
+      :capsule_standing,
+      :subject_failure_code,
+      :independent_reproducer_digest
+    ]
+
+  def fields(:submodule_lock_observation),
+    do: [:submodule_path, :gitlink_sha, :lock_sha, :observed_at]
+
+  def fields(:submodule_registration_observation),
+    do: [:submodule_path, :registration_state, :repository_url, :evidence_digest]
+
+  def fields(:success_plan),
+    do: [:success_plan_id, :account_id, :success_target, :evidence_digest, :observed_at]
+
   def fields(:supervisor_restart_policy), do: [:tenant_id, :supervisor_id, :policy_hash]
   def fields(:support_contract), do: [:contract_id, :account_id, :tier, :valid_until]
   def fields(:support_diagnostic_bundle), do: [:tenant_id, :incident_id, :bundle_hash]
-  def fields(:support_escalation_evidence), do: [:evidence_id, :subject_sha, :escalation_owner, :observed_result]
-  def fields(:support_readiness), do: [:support_readiness_id, :account_id, :support_readiness_score, :evidence_digest, :observed_at]
-  def fields(:support_sla_evidence), do: [:evidence_id, :subject_sha, :response_minutes, :observed_result]
+
+  def fields(:support_escalation_evidence),
+    do: [:evidence_id, :subject_sha, :escalation_owner, :observed_result]
+
+  def fields(:support_readiness),
+    do: [
+      :support_readiness_id,
+      :account_id,
+      :support_readiness_score,
+      :evidence_digest,
+      :observed_at
+    ]
+
+  def fields(:support_sla_evidence),
+    do: [:evidence_id, :subject_sha, :response_minutes, :observed_result]
+
   def fields(:support_tier_admission), do: [:opportunity_id, :support_tier_id, :decision]
-  def fields(:support_window_evidence), do: [:evidence_id, :subject_sha, :support_channel, :observed_result]
+
+  def fields(:support_window_evidence),
+    do: [:evidence_id, :subject_sha, :support_channel, :observed_result]
+
   def fields(:sync_time), do: [:object_id, :delaying_object_id, :seconds]
-  def fields(:target_metric), do: [:target_metric_id, :account_id, :target_value, :evidence_digest, :observed_at]
-  def fields(:tax_jurisdiction_evidence), do: [:contracting_entity_id, :tax_jurisdiction, :evidence_hash]
-  def fields(:tax_jurisdiction_rule), do: [:tax_jurisdiction_rule_id, :account_id, :jurisdiction_code, :evidence_digest, :effective_at]
+
+  def fields(:target_metric),
+    do: [:target_metric_id, :account_id, :target_value, :evidence_digest, :observed_at]
+
+  def fields(:task_decomposition_proof), do: [:proof_id, :method_id, :constraint_proof_digest]
+
+  def fields(:tax_jurisdiction_evidence),
+    do: [:contracting_entity_id, :tax_jurisdiction, :evidence_hash]
+
+  def fields(:tax_jurisdiction_rule),
+    do: [
+      :tax_jurisdiction_rule_id,
+      :account_id,
+      :jurisdiction_code,
+      :evidence_digest,
+      :effective_at
+    ]
+
   def fields(:technical_blocker), do: [:opportunity_id, :blocker_id, :refusal_code]
-  def fields(:temporal_order_observation), do: [:earlier_observation_id, :later_observation_id, :ordering_basis, :evidence_digest]
+
+  def fields(:temporal_order_observation),
+    do: [:earlier_observation_id, :later_observation_id, :ordering_basis, :evidence_digest]
+
   def fields(:tenant_account), do: [:tenant_id, :account_id, :home_region, :edition_id]
   def fields(:tenant_data_partition), do: [:tenant_id, :partition_id, :isolation_hash]
   def fields(:tenant_key_scope), do: [:tenant_id, :key_scope_id, :key_attestation_hash]
@@ -554,47 +2548,145 @@ defmodule BeamPM.Types.Manifest do
   def fields(:tenant_resource_quota), do: [:tenant_id, :quota_id, :utilization_hash]
   def fields(:tenant_runtime_boundary), do: [:tenant_id, :boundary_id, :evidence_hash]
   def fields(:term_subscription), do: [:subscription_id, :sku, :starts_at, :ends_at]
-  def fields(:termination_right_admission), do: [:opportunity_id, :termination_right_id, :decision]
-  def fields(:time_to_value), do: [:time_to_value_id, :account_id, :verified_days, :evidence_digest, :observed_at]
+
+  def fields(:termination_right_admission),
+    do: [:opportunity_id, :termination_right_id, :decision]
+
+  def fields(:time_to_value),
+    do: [:time_to_value_id, :account_id, :verified_days, :evidence_digest, :observed_at]
+
+  def fields(:token_replay_state), do: [:replay_id, :prefix_digest, :marking_digest]
   def fields(:toolchain_identity), do: [:tenant_id, :toolchain_id, :identity_hash]
-  def fields(:toolchain_identity_observation), do: [:tool_name, :tool_version, :executable_digest, :observed_at]
-  def fields(:training_readiness), do: [:training_readiness_id, :account_id, :training_completion_rate, :evidence_digest, :observed_at]
+
+  def fields(:toolchain_identity_observation),
+    do: [:tool_name, :tool_version, :executable_digest, :observed_at]
+
+  def fields(:training_readiness),
+    do: [
+      :training_readiness_id,
+      :account_id,
+      :training_completion_rate,
+      :evidence_digest,
+      :observed_at
+    ]
+
   def fields(:training_scope_admission), do: [:opportunity_id, :training_scope_id, :decision]
-  def fields(:trajectory_window), do: [:window_id, :repository_id, :first_subject_sha, :last_subject_sha, :episode_count]
-  def fields(:trial_entitlement), do: [:trial_entitlement_id, :account_id, :trial_expires_at, :evidence_digest, :effective_at]
+
+  def fields(:trajectory_window),
+    do: [:window_id, :repository_id, :first_subject_sha, :last_subject_sha, :episode_count]
+
+  def fields(:trial_entitlement),
+    do: [:trial_entitlement_id, :account_id, :trial_expires_at, :evidence_digest, :effective_at]
+
   def fields(:true_up_policy), do: [:policy_id, :commitment_id, :cadence, :shortfall_behavior]
   def fields(:type_edge), do: [:source_type, :target_type, :qualifier, :direction]
-  def fields(:uncertainty_aware_selection), do: [:option_set_id, :uncertainty_model_hash, :selected_option_id]
-  def fields(:uncertainty_observation), do: [:observation_id, :uncertainty_kind, :confidence_basis, :standing]
-  def fields(:unit_economics_snapshot), do: [:unit_economics_snapshot_id, :account_id, :gross_margin, :evidence_digest, :effective_at]
-  def fields(:unsupported_capability_evidence), do: [:evidence_id, :subject_sha, :capability_name, :observed_result]
+
+  def fields(:uncertainty_aware_selection),
+    do: [:option_set_id, :uncertainty_model_hash, :selected_option_id]
+
+  def fields(:uncertainty_observation),
+    do: [:observation_id, :uncertainty_kind, :confidence_basis, :standing]
+
+  def fields(:unit_economics_snapshot),
+    do: [:unit_economics_snapshot_id, :account_id, :gross_margin, :evidence_digest, :effective_at]
+
+  def fields(:unsupported_capability_evidence),
+    do: [:evidence_id, :subject_sha, :capability_name, :observed_result]
+
   def fields(:upgrade_evidence), do: [:evidence_id, :subject_sha, :from_version, :observed_result]
-  def fields(:upsell_readiness), do: [:upsell_readiness_id, :account_id, :upsell_score, :evidence_digest, :observed_at]
-  def fields(:usage_aggregation_window), do: [:usage_aggregation_window_id, :account_id, :window_seconds, :evidence_digest, :effective_at]
-  def fields(:usage_correction), do: [:usage_correction_id, :account_id, :corrected_quantity, :evidence_digest, :effective_at]
-  def fields(:usage_event), do: [:event_id, :entitlement_id, :quantity, :metric_name, :occurred_at]
+
+  def fields(:upsell_readiness),
+    do: [:upsell_readiness_id, :account_id, :upsell_score, :evidence_digest, :observed_at]
+
+  def fields(:usage_aggregation_window),
+    do: [
+      :usage_aggregation_window_id,
+      :account_id,
+      :window_seconds,
+      :evidence_digest,
+      :effective_at
+    ]
+
+  def fields(:usage_correction),
+    do: [:usage_correction_id, :account_id, :corrected_quantity, :evidence_digest, :effective_at]
+
+  def fields(:usage_event),
+    do: [:event_id, :entitlement_id, :quantity, :metric_name, :occurred_at]
+
   def fields(:usage_plan), do: [:plan_id, :metric_name, :unit, :billing_mode]
-  def fields(:usage_reconciliation_receipt), do: [:tenant_id, :billing_period_id, :reconciliation_hash]
-  def fields(:usage_signal), do: [:usage_signal_id, :account_id, :active_user_count, :evidence_digest, :observed_at]
-  def fields(:validation_capsule_drift_observation), do: [:expected_digest, :observed_digest, :drift_status, :observed_at]
-  def fields(:validation_capsule_identity_observation), do: [:capsule_repository, :capsule_sha, :execution_mode, :image_digest]
+
+  def fields(:usage_reconciliation_receipt),
+    do: [:tenant_id, :billing_period_id, :reconciliation_hash]
+
+  def fields(:usage_signal),
+    do: [:usage_signal_id, :account_id, :active_user_count, :evidence_digest, :observed_at]
+
+  def fields(:validation_capsule_drift_observation),
+    do: [:expected_digest, :observed_digest, :drift_status, :observed_at]
+
+  def fields(:validation_capsule_identity_observation),
+    do: [:capsule_repository, :capsule_sha, :execution_mode, :image_digest]
+
   def fields(:value_baseline), do: [:baseline_id, :account_id, :metric_name, :baseline_value]
-  def fields(:value_driver), do: [:value_driver_id, :account_id, :annual_value, :evidence_digest, :observed_at]
-  def fields(:value_of_information_estimate), do: [:decision_id, :evidence_candidate_id, :expected_information_gain, :cost_basis]
+
+  def fields(:value_driver),
+    do: [:value_driver_id, :account_id, :annual_value, :evidence_digest, :observed_at]
+
+  def fields(:value_of_information_estimate),
+    do: [:decision_id, :evidence_candidate_id, :expected_information_gain, :cost_basis]
+
   def fields(:value_of_information_score), do: [:option_id, :observation_id, :score]
-  def fields(:value_realization), do: [:value_realization_id, :account_id, :realized_value, :evidence_digest, :observed_at]
-  def fields(:value_realization_feedback), do: [:feedback_id, :objective_id, :baseline_value, :realized_value, :evidence_digest, :policy_id]
-  def fields(:value_receipt), do: [:value_receipt_id, :account_id, :metric_name, :baseline_value, :observed_value, :evidence_digest, :observed_at]
+
+  def fields(:value_realization),
+    do: [:value_realization_id, :account_id, :realized_value, :evidence_digest, :observed_at]
+
+  def fields(:value_realization_feedback),
+    do: [
+      :feedback_id,
+      :objective_id,
+      :baseline_value,
+      :realized_value,
+      :evidence_digest,
+      :policy_id
+    ]
+
+  def fields(:value_receipt),
+    do: [
+      :value_receipt_id,
+      :account_id,
+      :metric_name,
+      :baseline_value,
+      :observed_value,
+      :evidence_digest,
+      :observed_at
+    ]
+
   def fields(:value_telemetry_sample), do: [:tenant_id, :outcome_id, :telemetry_hash]
   def fields(:vendor_registration_state), do: [:account_id, :registration_id, :registration_state]
-  def fields(:vendor_risk_evidence), do: [:evidence_id, :subject_sha, :risk_score, :observed_result]
-  def fields(:verification_depth_update), do: [:update_id, :verifier_id, :prior_depth, :new_depth, :risk_signal_digest, :minimum_depth]
-  def fields(:version_lifecycle_evidence), do: [:evidence_id, :subject_sha, :supported_until, :observed_result]
+
+  def fields(:vendor_risk_evidence),
+    do: [:evidence_id, :subject_sha, :risk_score, :observed_result]
+
+  def fields(:verification_depth_update),
+    do: [:update_id, :verifier_id, :prior_depth, :new_depth, :risk_signal_digest, :minimum_depth]
+
+  def fields(:version_lifecycle_evidence),
+    do: [:evidence_id, :subject_sha, :supported_until, :observed_result]
+
   def fields(:volume_tier_admission), do: [:opportunity_id, :volume_tier_id, :decision]
-  def fields(:vulnerability_scan_evidence), do: [:evidence_id, :subject_sha, :vulnerability_count, :observed_result]
+
+  def fields(:vulnerability_scan_evidence),
+    do: [:evidence_id, :subject_sha, :vulnerability_count, :observed_result]
+
+  def fields(:weak_plan_candidate), do: [:candidate_id, :policy_digest, :uncovered_digest]
   def fields(:wip_limit_gate), do: [:episode_id, :wip_limit, :standing]
-  def fields(:workflow_definition_digest_observation), do: [:workflow_path, :definition_sha256, :source_sha, :observed_at]
-  def fields(:workflow_job_state_observation), do: [:job_id, :run_id, :runner_identity, :conclusion]
+
+  def fields(:workflow_definition_digest_observation),
+    do: [:workflow_path, :definition_sha256, :source_sha, :observed_at]
+
+  def fields(:workflow_job_state_observation),
+    do: [:job_id, :run_id, :runner_identity, :conclusion]
+
   def fields(:workflow_run_state_observation), do: [:run_id, :workflow_id, :head_sha, :conclusion]
   def fields(:workload_backpressure_signal), do: [:tenant_id, :signal_id, :measurement_hash]
   def fields(:workload_cancellation_receipt), do: [:tenant_id, :execution_id, :receipt_hash]

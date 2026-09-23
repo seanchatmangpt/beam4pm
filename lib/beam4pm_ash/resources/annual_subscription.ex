@@ -8,16 +8,15 @@ defmodule BeamPM.Ash.Resources.AnnualSubscription do
     validate_domain_inclusion?: false
 
   attributes do
-    uuid_primary_key :id
-    attribute :subscription_id, :string, public?: true, allow_nil?: false
-    attribute :sku, :string, public?: true, allow_nil?: false
-    attribute :seat_count, :integer, public?: true, allow_nil?: false
-    attribute :renews_at, :utc_datetime_usec, public?: true, allow_nil?: false
+    uuid_primary_key(:id)
+    attribute(:subscription_id, :string, public?: true, allow_nil?: false)
+    attribute(:sku, :string, public?: true, allow_nil?: false)
+    attribute(:seat_count, :integer, public?: true, allow_nil?: false)
+    attribute(:renews_at, :utc_datetime_usec, public?: true, allow_nil?: false)
   end
 
   actions do
-    default_accept :*
-    defaults [:create, :read]
+    default_accept(:*)
+    defaults([:create, :read])
   end
 end
-

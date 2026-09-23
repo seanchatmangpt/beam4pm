@@ -66,7 +66,8 @@ defmodule BeamPM.Revenue.EconomicsTest do
 
   test "Xes.parse_file: sha-pinned international fixture -> 497 OcelEvents, 50 traces, " <>
          "string \"case\" wiring into Discovery, UTC normalization of real +02:00 stamps" do
-    %{events: events, trace_attrs: trace_attrs} = parse!(@international_xes, @international_sha256)
+    %{events: events, trace_attrs: trace_attrs} =
+      parse!(@international_xes, @international_sha256)
 
     assert length(events) == 497
     assert Enum.all?(events, &match?(%OcelEvent{}, &1))
@@ -99,7 +100,9 @@ defmodule BeamPM.Revenue.EconomicsTest do
 
   test "rework_cost: paid_clean never flagged, every rework_paid case flagged, pinned " <>
          "rescaled total, full-pipeline determinism across two parses" do
-    %{events: events, trace_attrs: trace_attrs} = parse!(@international_xes, @international_sha256)
+    %{events: events, trace_attrs: trace_attrs} =
+      parse!(@international_xes, @international_sha256)
+
     traces = Discovery.traces_from_events(events, "case")
     by_stratum = strata(traces)
 
@@ -205,6 +208,7 @@ defmodule BeamPM.Revenue.EconomicsTest do
 
     by_stratum = strata(traces)
     assert case_ids(by_stratum.no_payment) -- open_obligations == []
+
     assert Enum.sort(case_ids(by_stratum.rejected_only) ++ case_ids(by_stratum.no_payment)) ==
              open_obligations
 
@@ -316,7 +320,9 @@ defmodule BeamPM.Revenue.EconomicsTest do
   test "conformance_leakage: paid_clean DFG model flags every deviating case incl. all " <>
          "rework_paid, pinned first finding and rescaled amount-at-risk total, replay, " <>
          "empty-model refusal" do
-    %{events: events, trace_attrs: trace_attrs} = parse!(@international_xes, @international_sha256)
+    %{events: events, trace_attrs: trace_attrs} =
+      parse!(@international_xes, @international_sha256)
+
     traces = Discovery.traces_from_events(events, "case")
     by_stratum = strata(traces)
 
@@ -389,7 +395,9 @@ defmodule BeamPM.Revenue.EconomicsTest do
 
   test "conformance_leakage: a finding without any amount attribute is kept, unweighted, " <>
          "and excluded from the total" do
-    %{events: events, trace_attrs: trace_attrs} = parse!(@international_xes, @international_sha256)
+    %{events: events, trace_attrs: trace_attrs} =
+      parse!(@international_xes, @international_sha256)
+
     traces = Discovery.traces_from_events(events, "case")
     by_stratum = strata(traces)
     model_edges = Discovery.dfg_from_traces(by_stratum.paid_clean)
@@ -406,7 +414,12 @@ defmodule BeamPM.Revenue.EconomicsTest do
     result = Economics.conformance_leakage(model_edges, [synthetic], trace_attrs)
 
     assert [
-             %{case_id: "synthetic leak", fitness: fitness, precision: precision, amount_at_risk: nil}
+             %{
+               case_id: "synthetic leak",
+               fitness: fitness,
+               precision: precision,
+               amount_at_risk: nil
+             }
            ] = result.findings
 
     assert fitness == 0.0

@@ -8,16 +8,15 @@ defmodule BeamPM.Ash.Resources.SubmoduleLockObservation do
     validate_domain_inclusion?: false
 
   attributes do
-    uuid_primary_key :id
-    attribute :submodule_path, :string, public?: true, allow_nil?: false
-    attribute :gitlink_sha, :string, public?: true, allow_nil?: false
-    attribute :lock_sha, :string, public?: true, allow_nil?: false
-    attribute :observed_at, :utc_datetime_usec, public?: true, allow_nil?: false
+    uuid_primary_key(:id)
+    attribute(:submodule_path, :string, public?: true, allow_nil?: false)
+    attribute(:gitlink_sha, :string, public?: true, allow_nil?: false)
+    attribute(:lock_sha, :string, public?: true, allow_nil?: false)
+    attribute(:observed_at, :utc_datetime_usec, public?: true, allow_nil?: false)
   end
 
   actions do
-    default_accept :*
-    defaults [:create, :read]
+    default_accept(:*)
+    defaults([:create, :read])
   end
 end
-

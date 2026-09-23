@@ -14,6 +14,7 @@ defmodule BeamPM.Pro.TenancyTest do
   test "same-tenant viewer is denied write" do
     viewer = %{id: "u2", tenant_id: "acme", roles: [:viewer]}
     assert Tenancy.authorize(viewer, "acme", :read) == :ok
+
     assert Tenancy.authorize(viewer, "acme", :write) ==
              {:error, {:insufficient_role, [:viewer], :write}}
   end
@@ -34,6 +35,7 @@ defmodule BeamPM.Pro.TenancyTest do
 
   test "a principal with no roles at all is denied every capability" do
     no_roles = %{id: "u5", tenant_id: "acme", roles: []}
+
     assert Tenancy.authorize(no_roles, "acme", :read) ==
              {:error, {:insufficient_role, [], :read}}
   end

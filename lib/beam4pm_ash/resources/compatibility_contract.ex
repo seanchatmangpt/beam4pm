@@ -8,16 +8,15 @@ defmodule BeamPM.Ash.Resources.CompatibilityContract do
     validate_domain_inclusion?: false
 
   attributes do
-    uuid_primary_key :id
-    attribute :contract_id, :string, public?: true, allow_nil?: false
-    attribute :product_version, :string, public?: true, allow_nil?: false
-    attribute :schema_version, :string, public?: true, allow_nil?: false
-    attribute :api_version, :string, public?: true, allow_nil?: false
+    uuid_primary_key(:id)
+    attribute(:contract_id, :string, public?: true, allow_nil?: false)
+    attribute(:product_version, :string, public?: true, allow_nil?: false)
+    attribute(:schema_version, :string, public?: true, allow_nil?: false)
+    attribute(:api_version, :string, public?: true, allow_nil?: false)
   end
 
   actions do
-    default_accept :*
-    defaults [:create, :read]
+    default_accept(:*)
+    defaults([:create, :read])
   end
 end
-
