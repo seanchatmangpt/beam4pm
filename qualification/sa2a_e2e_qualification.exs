@@ -120,4 +120,34 @@ results = check.(results, "Q6 HTTP card+send",
 
 failed = Enum.reject(Enum.reverse(results), fn {_, ok} -> ok end)
 IO.puts("QUALIFICATION: #{length(results) - length(failed)}/#{length(results)} passed")
+
+# Durable receipt bound to the exact subject (BEAM4PM-26922-03): the guard
+# records the HEAD/tree it just qualified so a later reader can check the
+# receipt against the admitted subject instead of trusting a log line.
+if failed == [] do
+  {subject_sha, 0} = System.cmd("git", ["rev-parse", "HEAD"], cd: File.cwd!())
+  {subject_tree, 0} = System.cmd("git", ["rev-parse", "HEAD^{tree}"], cd: File.cwd!())
+  now = DateTime.utc_now() |> DateTime.to_iso8601()
+  receipt_dir = Path.join(["docs/jira/v26.9.22/receipts"])
+  File.mkdir_p!(receipt_dir)
+  receipt_path = Path.join(receipt_dir, "sa2a-e2e-latest.json")
+
+  File.write!(receipt_path,
+    Jason.encode!(
+      %{
+        "receipt" => "sa2a-e2e-qualification",
+        "subject_sha" => String.trim(subject_sha),
+        "subject_tree" => String.trim(subject_tree),
+        "verifier" => "mix run qualification/sa2a_e2e_qualification.exs",
+        "checks" => length(results),
+        "failed" => 0,
+        "recorded_at" => now
+      },
+      pretty: true
+    ) <> "\n"
+  )
+
+  IO.puts("receipt: #{receipt_path}")
+end
+
 if failed != [], do: exit({:shutdown, 1})
