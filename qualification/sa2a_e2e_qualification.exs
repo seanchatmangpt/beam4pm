@@ -100,9 +100,23 @@ results = check.(results, "Q5 observe skill completes",
 client = A2A.Client.new(card)
 wire =
   A2A.Client.send_message(client, msg.("read_ocel_events", %{}, Ash.UUID.generate()))
+
+# The expected skill count is derived from the domain, never hardcoded: the
+# card is built by `use AshA2A.Agent, resource_or_domain: BeamPM.Ash.Domain`
+# from exactly the capability-index enumeration (every public action of every
+# domain resource, AshA2A.CapabilityIndex.Compiler.compile/3), so any merged
+# PR that grows the domain keeps this guard true. The old literal 1194 broke
+# on the first such growth (domain now spans 647 resources).
+domain_skill_count =
+  BeamPM.Ash.Domain
+  |> Ash.Domain.Info.resources()
+  |> Enum.reduce(0, fn resource, acc ->
+    acc + length(Ash.Resource.Info.public_actions(resource))
+  end)
+
 results = check.(results, "Q6 HTTP card+send",
-  match?({:ok, %{status: %{state: :completed}}}, wire) and length(card.skills) == 1194,
-  "skills=#{length(card.skills)} wire=#{inspect(elem(wire, 0))}")
+  match?({:ok, %{status: %{state: :completed}}}, wire) and length(card.skills) == domain_skill_count,
+  "skills=#{length(card.skills)} domain=#{domain_skill_count} wire=#{inspect(elem(wire, 0))}")
 
 failed = Enum.reject(Enum.reverse(results), fn {_, ok} -> ok end)
 IO.puts("QUALIFICATION: #{length(results) - length(failed)}/#{length(results)} passed")
