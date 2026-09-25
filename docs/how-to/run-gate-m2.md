@@ -108,6 +108,23 @@ determinism on a clone, not to regenerate your working tree. If you actually wan
 regenerate manufactured files in your working tree, use `just sync` or one of the specific
 `scripts/<name>_sync.sh` scripts instead.
 
+## The bootstrap A2A agent during the gate
+
+While GATE M2 runs, `lib/beam4pm_a2a_agent.ex` compiles a different agent than usual. The
+gate touches two sentinel files at the start of its destructive window —
+`/tmp/beam4pm-a2a-gate-bootstrap` and a repository-root `.beam4pm-a2a-gate-bootstrap`
+(`scripts/gate_m2_check.sh:155-165`). `/tmp` covers host-side Igniter runs; the repo-root
+sentinel crosses the pinned GGen container mount. When either sentinel exists, the agent
+module compiles as a zero-skill agent named `beam4pm_regeneration_bootstrap` whose
+`handle_message/2` returns `{:error, %{code: :regeneration_in_progress}}`
+(`lib/beam4pm_a2a_agent.ex:25-45`) — real OTP/A2A contracts are still exercised, but no
+domain capability is claimed while the Ash domain is deleted and mid-regeneration.
+
+Without the sentinels, the same module compiles as the normal `AshA2A.Agent` over
+`BeamPM.Ash.Domain` (the 2-skill agent, `lib/beam4pm_a2a_agent.ex:47-62`). Normal
+checkouts contain neither sentinel file and are unaffected: this personality swap only
+exists inside the gate's own destructive regeneration window.
+
 ## See Also
 
 - `CLAUDE.md` — source-authority doctrine (what's generated vs. hand-editable) and the
