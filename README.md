@@ -96,6 +96,13 @@ A wide, still-growing slice, manufactured via the `beam4pm-process-model-pack`
   suites, real discovery demos in Erlang/Elixir/Gleam, and the roundtrip
   proof. Gate-by-gate standing:
   [`docs/jira/v26.8.29/16-gate-closure-m0-m6.md`](docs/jira/v26.8.29/16-gate-closure-m0-m6.md).
+- A DfCM planning crown, `BeamPM.Dfcm` (`lib/beam4pm_dfcm.ex`): pure and
+  SELECT-only with deliberately no DO surface. It preserves admitted
+  alternatives, applies explicit fences, records every exclusion with a
+  deterministic receipt and falsifier, and returns either a
+  decision-relevant observation request or a SELECT candidate. It composes
+  the WS2 FOND/HDDL contracts and is Chicago-qualified against the formal
+  HDDL/FOND fixtures (`qualification/fixtures/dfcm/`).
 
 ## Build and test
 

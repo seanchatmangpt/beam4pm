@@ -137,3 +137,10 @@ exists inside the gate's own destructive regeneration window.
   every manufactured native-engine facade op is an op the engine's crate actually dispatches.
 - `scripts/roundtrip_check.sh` — GATE M5, the companion wire-format identity check.
 - `scripts/gate_lint_truth.sh` — GATE LINT-TRUTH, the overclaiming-phrase scanner.
+- `qualification/sa2a_e2e_qualification.exs` — the SA2A guard (`mix run
+  qualification/sa2a_e2e_qualification.exs`). A passing run now writes a
+  durable receipt bound to the subject SHA at
+  `docs/jira/v26.9.22/receipts/sa2a-e2e-latest.json`, recording
+  `subject_sha`, `subject_tree`, `verifier`, and the check count — verify
+  the receipt's `subject_sha` against the admitted subject rather than
+  trusting log output.
