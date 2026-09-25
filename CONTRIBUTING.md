@@ -143,7 +143,7 @@ loop before you open a PR. All commands run from the repo root.
 
 ```sh
 # 1. Force a clean regeneration (don't trust a stale lock file).
-rm ggen.lock
+rm -f ggen.lock
 ggen sync run
 bash scripts/igniter_sync.sh      # the second manufacturing engine (Ash projection)
 bash scripts/actuation_sync.sh    # the third (Reactor BRCE actuation)
@@ -169,6 +169,9 @@ three gates as explicit steps, plus GATE M5 (`roundtrip_check.sh`) and, separate
 GATE M2 (`gate_m2_check.sh`) — but neither `make verify` nor `just verify` runs the
 determinism check itself, so always run step 3 by hand for anything that touches
 `ontology.ttl` or the pack's templates.
+
+ggen.lock is intentionally absent at this pin (deleted in 3265c20f); the
+regeneration flow re-locks from the pinned producers.
 
 Toolchain this was last verified against locally: `ggen 26.8.28`, `rebar3 3.27.0` on
 OTP 28 (erts-16.2), `mix`/Elixir 1.19.5. CI (`.github/workflows/beam4pm-ci.yml`) pins a

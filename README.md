@@ -37,10 +37,12 @@ for direct intervention.
 ## Current status
 
 A wide, still-growing slice, manufactured via the `beam4pm-process-model-pack`
-(`vendor/ggen-marketplace/packs/beam4pm-process-model-pack`) from the 290
-`bpm:RecordType` individuals currently admitted in `ontology.ttl`.
+(`vendor/ggen-marketplace/packs/beam4pm-process-model-pack`) from the
+`bpm:RecordType` individuals currently admitted in `ontology.ttl` (951 as of
+2026-09-23; the pre-WS2 slice was 290).
 
-- 290 record types. The original process-mining/runtime core is still there —
+- 951 record types admitted in the graph (647 `Ash.Resource` modules — see
+  below). The original process-mining/runtime core is still there —
   event/log identity (`ocel_event`, `ocel_object`, `ocel_relationship`,
   `event_log`, `event_type`, `object_type`, `ocel_attribute`,
   `object_attribute_change`, `log_trace`), process models (`dfg_edge`,
@@ -56,10 +58,10 @@ A wide, still-growing slice, manufactured via the `beam4pm-process-model-pack`
   such as `billing_account`, `entitlement_grant`, `tenant_resource_quota`,
   `renewal_risk`, `vulnerability_scan_evidence`). See
   `docs/reference/beam4pm_types_reference.md` (itself ggen-generated) for the
-  full, exact field-level reference of all 290.
+  full, exact field-level reference of all 951.
 - Four projections: Erlang, Elixir, Gleam (`gleam/`, with two
   disclosed type divergences noted in its generated comments), and Ash
-  (`lib/beam4pm_ash/resources/` — 290 `Ash.Resource` modules, one file per
+  (`lib/beam4pm_ash/resources/` — 647 `Ash.Resource` modules, one file per
   resource, plus the shared `lib/beam4pm_ash_domain.ex` — manufactured by a
   second, Elixir-native engine: the `ggen_igniter` hex package via
   `scripts/igniter_sync.sh`; its manifest probe renders byte-identical to the
@@ -83,7 +85,7 @@ A wide, still-growing slice, manufactured via the `beam4pm-process-model-pack`
   (`gleam/src/beam4pm/precision.gleam`), called from
   `gleam/src/beam4pm/discovery.gleam:149`.
 - Cross-language identity is proven for THREE directions:
-  `bash scripts/roundtrip_check.sh` round-trips all 290 records × full/minimal
+  `bash scripts/roundtrip_check.sh` round-trips every admitted record type × full/minimal
   variants over the JSON wire between Erlang and Elixir in both directions,
   and verifies the same Erlang-written samples through the Ash/`BeamPM.Codec`
   path a third way (Ash's identity relation is `DateTime.compare == :eq` for
@@ -94,6 +96,13 @@ A wide, still-growing slice, manufactured via the `beam4pm-process-model-pack`
   suites, real discovery demos in Erlang/Elixir/Gleam, and the roundtrip
   proof. Gate-by-gate standing:
   [`docs/jira/v26.8.29/16-gate-closure-m0-m6.md`](docs/jira/v26.8.29/16-gate-closure-m0-m6.md).
+- A DfCM planning crown, `BeamPM.Dfcm` (`lib/beam4pm_dfcm.ex`): pure and
+  SELECT-only with deliberately no DO surface. It preserves admitted
+  alternatives, applies explicit fences, records every exclusion with a
+  deterministic receipt and falsifier, and returns either a
+  decision-relevant observation request or a SELECT candidate. It composes
+  the WS2 FOND/HDDL contracts and is Chicago-qualified against the formal
+  HDDL/FOND fixtures (`qualification/fixtures/dfcm/`).
 
 ## Build and test
 
@@ -101,8 +110,8 @@ A wide, still-growing slice, manufactured via the `beam4pm-process-model-pack`
 git clone --recurse-submodules <this-repo-url>
 cd beam4pm
 source scripts/env/rust4pm_reactor_env.sh   # points RF2/RF3 tests at the built native oracle binaries
-rebar3 eunit   # 1565 EUnit tests over the generated Erlang types, manifest, and behavior
-mix test       # 2471 ExUnit tests over the generated Elixir types, manifest, and behavior
+rebar3 eunit   # EUnit tests over the generated Erlang types, manifest, and behavior (3100 at the 424d04c6 verified run; grows with the admitted graph)
+mix test       # ExUnit tests over the generated Elixir types, manifest, and behavior (1108 at the 424d04c6 verified run; grows with the admitted graph)
 ```
 
 `--recurse-submodules` is required: three git submodules manufacture or back
@@ -128,14 +137,15 @@ attempting the igniter sync, rather than failing deep into the build.
 ## Regenerating
 
 ```sh
-rm ggen.lock
+rm -f ggen.lock
 ggen sync run
 ```
 
-This re-runs the ggen pipeline against `ontology.ttl` and the vendored pack,
+(`ggen.lock` is intentionally absent at this pin — 3265c20f removed the stale
+lock for re-lock at the raised vendor pin, so `rm -f` is required in a fresh
+clone of this HEAD.) This re-runs the ggen pipeline against `ontology.ttl` and the vendored pack,
 regenerating every manufactured file (see `scripts/gate_m2_check.sh` for the
-authoritative marker-driven definition — 989 manufactured files as of the
-current admitted graph) from scratch.
+authoritative marker-driven definition and current count) from scratch.
 
 ## Full doctrine and vision
 

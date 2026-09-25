@@ -236,7 +236,7 @@ mix format lib/beam4pm_types_manifest.ex tmp_probe/beam4pm_types_manifest.ex
 if diff -u lib/beam4pm_types_manifest.ex tmp_probe/beam4pm_types_manifest.ex; then
   echo "cross-engine identity probe: BYTE-IDENTICAL"
 else
-  echo "cross-engine identity probe: DIVERGED -- the igniter and Rust ggen engines disagree on beam4pm_types_manifest.ex (see diff above)" >&2
+  echo "cross-engine identity probe: DIVERGED -- the igniter and Rust ggen engines disagree on beam4pm_types_manifest.ex beyond formatter normalization (see diff above)" >&2
   exit 1
 fi
 

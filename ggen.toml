@@ -10,6 +10,8 @@ beam4pm-pro-infra = { path = "vendor/ggen-marketplace/packs/beam4pm-pro-infra-pa
 github-actions-pack = { path = "vendor/ggen-marketplace/packs/github-actions-pack" }
 beam4pm-ai-contracts = { path = "vendor/ggen-marketplace/packs/beam4pm-ai-contracts-pack" }
 beam4pm-pro-entitlement = { path = "vendor/ggen-marketplace/packs/beam4pm-pro-entitlement-pack" }
+beam4pm-mcp-contracts = { path = "vendor/ggen-marketplace/packs/beam4pm-mcp-contracts-pack" }
+beam4pm-wasm-engine = { path = "vendor/ggen-marketplace/packs/beam4pm-wasm-engine-pack" }
 frontier-release = { path = "vendor/ggen-marketplace/packs/frontier-release-beam-pack" }
 fortune5-architecture = { path = "vendor/ggen-marketplace/packs/fortune5-architecture-pack" }
 fortune5-deployment-blocks = { path = "vendor/ggen-marketplace/packs/fortune5-deployment-blocks-pack" }
@@ -18,6 +20,34 @@ fortune5-deployment-blocks = { path = "vendor/ggen-marketplace/packs/fortune5-de
 # pollutes (families "milestones"/"labels") any second consumer's output.
 # See the "gh-terraform-pack consumption -- INVESTIGATED AND DECLINED"
 # comment block in ontology.ttl for the full, confirmed finding.
+#
+# 2026-09-18 consumption-max audit (g5 wave): every beam4pm-*, autofde-*,
+# fortune5-*, frontier-* pack in the vendored universe (299 packs @ the
+# f2ae5382e vendor raise) read (pack.toml + ontology.ttl + template
+# frontmatter). Wired +2: beam4pm-mcp-contracts (schema-only pack in the
+# ai-contracts sibling pattern; its ten mcp:MessageType consumers are
+# admitted below in ontology.ttl, verbatim from the pack's own reference
+# consumer) and beam4pm-wasm-engine (self-contained bpw: URN-namespace
+# engine ABI graph grounded in this repo's real facades; SHACL-gated;
+# manufactures the engine-manifest reflection surface). Declined with
+# findings recorded in docs/authorship_dashboard.md: beam4pm-post-llm-
+# runtime (zero rt:RuntimeContract consumers admitted; non-conventional
+# lib/post_llm/ out paths), all 9 autofde-* (project autofde-lab's own
+# repo surface -- wrong consumer; the beam4pm-autofde relationship is a
+# runtime port bridge, not in-tree manufacture), fortune5-enterprise-
+# architecture (ships zero templates), fortune5-required-capabilities
+# (renders a standalone Rust cargo project), fortune5-testing-bblock
+# (renders a Python verifier tree; ExUnit manufacture already owned
+# upstream), frontier-derivative (no `to:`/`sparql` frontmatter; option-
+# capital hypergraph this repo does not admit), frontier-release-factory
+# (superseded by wired frontier-release-beam; zero frf: consumers),
+# gh-actions-errc / gh-enterprise-architecture / github-cloud-operating-
+# doctrine / github-controloutcome-observation / github-live-evidence-
+# ingestion (strategic/observability doc packs over graphs this repo does
+# not admit; gh-enterprise-architecture additionally composes on the
+# declined gh-terraform-pack). 22 of marketplace main's 318 packs are not
+# in this vendored universe (bump = integration branch's call): inventoried,
+# not auditable for wiring here.
 
 [templates]
 dir = "templates"
