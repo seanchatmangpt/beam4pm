@@ -5,7 +5,7 @@ defmodule BeamPM.PowlConformanceTest do
   real `discover_alphappp`, real `align_trace`, real `compute_fitness`, all
   against the real rust4pm wasm engine.
   """
-  use ExUnit.Case, async: true
+  use ExUnit.Case, async: false
 
   alias BeamPM.Ferroplan
   alias BeamPM.PowlConformance
@@ -146,6 +146,7 @@ defmodule BeamPM.PowlConformanceTest do
 
     {:ok, %{"freed" => true}} = Rust4PM.free_ocel(ref_ocel)
   end
+
   describe "conform_observe_replan/6" do
     if not Ferroplan.wasm_built?() do
       @describetag skip: Ferroplan.wasm_missing_reason()
@@ -174,6 +175,7 @@ defmodule BeamPM.PowlConformanceTest do
       assert result.suffix != []
       assert result.previous_suffix == result.suffix
       assert result.plan == nil
+      assert result.surprises == []
 
       {:ok, %{"freed" => true}} = Ferroplan.session_free(session)
       {:ok, %{"freed" => true}} = Rust4PM.free_ocel(ref_ocel)
@@ -206,6 +208,7 @@ defmodule BeamPM.PowlConformanceTest do
       assert result.plan["solved"] == true
       assert is_list(result.suffix)
       assert result.suffix != []
+      assert result.surprises != []
 
       assert {:ok, %{"valid" => true}} = Ferroplan.session_valid?(session)
 
@@ -213,5 +216,4 @@ defmodule BeamPM.PowlConformanceTest do
       {:ok, %{"freed" => true}} = Rust4PM.free_ocel(ref_ocel)
     end
   end
-
 end
