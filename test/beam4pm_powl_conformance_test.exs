@@ -201,7 +201,7 @@ defmodule BeamPM.PowlConformanceTest do
                )
 
       assert result.conformance.conforms
-      assert result.decision == :replanned
+      assert result.decision in [:replanned_full, :replanned_following]
       assert result.trigger == :invalid_plan
       assert result.plan_valid == false
       assert result.previous_suffix == previous_suffix
