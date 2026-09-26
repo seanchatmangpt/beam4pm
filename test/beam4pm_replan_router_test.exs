@@ -198,6 +198,10 @@ defmodule BeamPM.ReplanRouterTest do
         {[conformance: :maybe], [:conformance]},
         {[attempt: {:session_replan, :bogus}], [:attempt]},
         {[attempt: :exhausted], [:attempt]},
+        {[attempt: {:session_replan, :error}], [:attempt]},
+        {[attempt: {:session_replan, :exhausted, :x}], [:attempt]},
+        {[observed_at: "yesterday"], [:observed_at]},
+        {[observed_at: 1_700_000_000], [:observed_at]},
         {[suffix_from: -1], [:suffix_from]},
         {[unknown_facts: "(x)"], [:unknown_facts]},
         {[event_id: 7, goal_met: "true"], [:goal_met, :event_id]}
@@ -211,6 +215,39 @@ defmodule BeamPM.ReplanRouterTest do
         assert st.rung == :none
         assert st.seen_events == s0.seen_events
         assert decision in ReplanRouter.decisions()
+      end
+    end
+
+    test "1b. an :error outcome at the held rung is refused, never climbs" do
+      {:session_replan, _, s1} = ReplanRouter.route(obs([]), state())
+      assert s1.rung == :session_replan
+
+      {decision, ev, st} = ReplanRouter.route(obs(attempt: {:session_replan, :error}), s1)
+      assert decision == :refuse_malformed
+      assert ev.fields == [:attempt]
+      assert st.rung == :session_replan
+      assert st.generation == s1.generation
+      assert st.current_plan_id == s1.current_plan_id
+    end
+
+    test "1b. a preimage carrying a field under both atom and string keys is refused" do
+      s0 = state()
+
+      for {forged, dup} <- [
+            {Map.put(@preimage, "subject", "forged"), [:subject]},
+            {Map.put(@preimage, "subject", @preimage.subject), [:subject]},
+            {Map.merge(@preimage, %{"pack" => "x", "world" => "y"}), [:pack, :world]}
+          ] do
+        {decision, ev, st} = ReplanRouter.route(obs(preimage: forged), s0)
+        assert decision == :refuse_malformed, inspect(forged)
+        assert ev.reason == :ambiguous_preimage
+        assert ev.fields == [:preimage]
+        assert ev.ambiguous_keys == dup
+        assert st.rung == :none
+      end
+
+      assert_raise ArgumentError, ~r/both atom and string keys/, fn ->
+        ReplanRouter.new(plan_id: "p", preimage: Map.put(@preimage, "world", "sha-world"))
       end
     end
 
@@ -255,7 +292,7 @@ defmodule BeamPM.ReplanRouterTest do
 
       for forged <- [
             {:hddl_replan, :exhausted},
-            {:strategic_recompile, :error},
+            {:strategic_recompile, :timeout},
             {:session_replan, :exhausted},
             {:none, :exhausted}
           ] do
@@ -349,6 +386,78 @@ defmodule BeamPM.ReplanRouterTest do
       s = %{state() | rung: :hddl_replan}
       {decision, _, _} = ReplanRouter.route(obs(event_id: "e-x", admitted: false), s)
       assert decision == :hddl_replan
+    end
+  end
+
+  describe "execute/4 without an engine" do
+    test "every non-engine decision is a noop; none raises" do
+      for d <- [:close, :refuse_stale, :refuse_malformed, :reobserve] do
+        assert d in ReplanRouter.decisions()
+
+        assert {:ok, %{rung: :none, outcome: :noop, decision: ^d}} =
+                 ReplanRouter.execute(d, 0, %{evidence: %{}})
+      end
+    end
+
+    test "a routed :refuse_malformed can be executed by a driver loop" do
+      {decision, ev, _} = ReplanRouter.route(obs(goal_met: "yes"), state())
+      assert decision == :refuse_malformed
+
+      assert {:ok, %{outcome: :noop, decision: :refuse_malformed}} =
+               ReplanRouter.execute(decision, 0, %{evidence: ev})
+    end
+
+    test "hddl_replan with missing or non-binary inputs is a typed refusal" do
+      assert {:error, {:missing_inputs, [:hddl_domain, :hddl_problem]}} =
+               ReplanRouter.execute(:hddl_replan, 0, %{evidence: %{}})
+
+      assert {:error, {:missing_inputs, [:hddl_problem]}} =
+               ReplanRouter.execute(:hddl_replan, 0, %{hddl_domain: "(d)", hddl_problem: 7})
+    end
+  end
+
+  describe "canonical digests" do
+    test "the trigger hash renders the attempt as canonical strings, not inspect/1" do
+      s1 = %{state() | rung: :session_replan}
+      a = {:session_replan, :exhausted}
+      {:hddl_replan, ev, _} = ReplanRouter.route(obs(attempt: a), s1)
+
+      expected =
+        PlanLineage.digest(%{
+          "attempt" => ["session_replan", "exhausted"],
+          "episode_id" => s1.episode_id,
+          "event_id" => nil,
+          "plan_id" => "plan-1:g1:hddl_replan",
+          "replaced_plan_id" => "plan-1",
+          "root_plan_id" => "plan-1",
+          "rung" => :hddl_replan
+        })
+
+      assert ev.trigger.trigger_hash == expected
+      assert ev.lineage.plan_id == "plan-1:g1:hddl_replan"
+
+      {:session_replan, ev0, _} = ReplanRouter.route(obs([]), state())
+
+      assert ev0.trigger.trigger_hash ==
+               PlanLineage.digest(%{
+                 "attempt" => nil,
+                 "episode_id" => state().episode_id,
+                 "event_id" => nil,
+                 "plan_id" => "plan-1:g1:session_replan",
+                 "replaced_plan_id" => "plan-1",
+                 "root_plan_id" => "plan-1",
+                 "rung" => :session_replan
+               })
+    end
+
+    test "a replay with the same :observed_at yields byte-identical OCEL events" do
+      o = obs(observed_at: "2026-09-25T12:00:00Z", event_id: "e1", admitted: true)
+      {d1, ev1, st1} = ReplanRouter.route(o, state())
+      {d2, ev2, st2} = ReplanRouter.route(o, state())
+      assert d1 == d2
+      assert ev1.ocel_event.event_time == "2026-09-25T12:00:00Z"
+      assert :erlang.term_to_binary(ev1) == :erlang.term_to_binary(ev2)
+      assert :erlang.term_to_binary(st1.events) == :erlang.term_to_binary(st2.events)
     end
   end
 

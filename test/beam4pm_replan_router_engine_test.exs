@@ -218,6 +218,41 @@ defmodule BeamPM.ReplanRouterEngineTest do
     assert {:ok, %{outcome: :solved}} = ReplanRouter.execute(:session_replan, ctx.handle, %{})
   end
 
+  test "engine not started is a host fault on every engine rung and never climbs", ctx do
+    # The engine is linked to this test process (Ferroplan.start/0 in setup).
+    Process.flag(:trap_exit, true)
+    engine = Process.whereis(BeamPM.Ferroplan.Engine)
+    ref = Process.monitor(engine)
+    Process.exit(engine, :kill)
+    assert_receive {:DOWN, ^ref, :process, ^engine, :killed}, 5_000
+    assert Process.whereis(BeamPM.Ferroplan.Engine) == nil
+
+    inputs = %{
+      hddl_domain: File.read!("native/ferroplan/domains/solve_x.hddl"),
+      hddl_problem: File.read!("native/ferroplan/domains/solve_x.problem.hddl")
+    }
+
+    assert {:error, {:host_fault, {:wasmex, {:engine_not_started, _}}}} =
+             ReplanRouter.execute(:hddl_replan, 0, inputs)
+
+    assert {:error, {:host_fault, {:wasmex, {:engine_not_started, _}}}} =
+             ReplanRouter.execute(:session_replan, ctx.handle, %{})
+
+    # a host fault is not an admissible :attempt outcome: route refuses it
+    st = %{ctx.state | rung: :hddl_replan}
+
+    assert {:refuse_malformed, %{fields: [:attempt]}, st2} =
+             ReplanRouter.route(
+               %{preimage: @preimage, conformance: :deviates, attempt: {:hddl_replan, :error}},
+               st
+             )
+
+    assert st2.rung == :hddl_replan
+
+    {:ok, _} = Ferroplan.start()
+    assert {:ok, %{outcome: :solved}} = ReplanRouter.execute(:hddl_replan, 0, inputs)
+  end
+
   # 20 objects x 3 parameters = 8000 ground methods: a real solve of several
   # seconds on the wasm engine, far beyond the 200 ms Task deadline below.
   defp grind_hddl(n) do

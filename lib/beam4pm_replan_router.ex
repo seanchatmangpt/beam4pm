@@ -18,8 +18,11 @@ defmodule BeamPM.ReplanRouter do
        `preimage.policy` (`policy_digest/1`) -> `:refuse_stale` with reason
        `:policy_digest_mismatch` -- a mutated policy is never followed;
        1b. a malformed observation (a non-boolean `:goal_met` / `:plan_valid`
-       / `:admitted`, an unknown `:conformance`, a bad `:attempt` shape, ...)
-       -> `:refuse_malformed` naming the offending fields;
+       / `:admitted`, an unknown `:conformance`, a bad `:attempt` shape or
+       outcome, ...) -> `:refuse_malformed` naming the offending fields.
+       A preimage that carries the same field under both an atom and a
+       string key is ambiguous and is refused as malformed (field
+       `:preimage`) before any digest comparison -- no key wins silently;
     2. goal met -> `:close` + `PlanMemory` (CO-046);
     3. an unknown fact (not in the grounded task) -> `:strategic_recompile`
        (world model invalid); conformance not yet observed -> `:reobserve`;
@@ -35,7 +38,10 @@ defmodule BeamPM.ReplanRouter do
   An `:attempt` counts only when its rung is the rung the state currently
   holds (`state.rung`, never `:none`); any other attempt is ignored and
   recorded as `:attempt_ignored` in the evidence, so a forged report cannot
-  skip rungs.
+  skip rungs. The only admissible outcomes are `:solved` and the planning
+  failures `:exhausted` / `:no_plan` / `:timeout`; any other outcome
+  (including `:error`) is refused as malformed, so `route/2` itself -- not
+  caller discipline -- keeps host faults off the ladder.
 
   Plan ids: `plan_id` is the root admitted plan; `current_plan_id` is the
   generation being executed. Each ladder step names the new generation
@@ -53,7 +59,9 @@ defmodule BeamPM.ReplanRouter do
   arrives with a new event.
 
   Every decision carries exactly one `BeamPM.Types.OcelEvent` (also appended
-  to `state.events`).
+  to `state.events`). Its `event_time` is the observation's `:observed_at`
+  (an ISO 8601 string) when given, so a replay that supplies the same
+  `:observed_at` produces byte-identical events; otherwise wall-clock UTC.
 
   ## Driver: `observe/3`, `execute/4`
 
@@ -92,7 +100,7 @@ defmodule BeamPM.ReplanRouter do
   @preimage_keys [:subject, :pack, :policy, :world]
 
   @rungs [:none, :session_replan, :hddl_replan, :strategic_recompile]
-  @failed_outcomes [:exhausted, :no_plan, :timeout, :error]
+  @failed_outcomes [:exhausted, :no_plan, :timeout]
   @outcomes [:solved | @failed_outcomes]
   @conformances [nil, :conforms, :deviates]
 
@@ -161,8 +169,9 @@ defmodule BeamPM.ReplanRouter do
     * `:goal_met`, `:plan_valid` -- engine booleans;
     * `:policy_state` -- abstract UniversalPlan state id the world is in;
     * `:suffix_from` -- smallest cursor offset > 0 whose suffix is valid, or nil;
-    * `:attempt` -- `{rung, :solved | :exhausted | :no_plan | :timeout | :error}`
-      reporting the previous ladder step's outcome.
+    * `:attempt` -- `{rung, :solved | :exhausted | :no_plan | :timeout}`
+      reporting the previous ladder step's outcome;
+    * `:observed_at` -- ISO 8601 timestamp used as the OCEL `event_time`.
   """
   @type observation :: map()
 
@@ -204,7 +213,14 @@ defmodule BeamPM.ReplanRouter do
   def new(opts) do
     opts = Map.new(opts)
     plan_id = Map.fetch!(opts, :plan_id)
-    preimage = opts |> Map.fetch!(:preimage) |> normalize_preimage() |> admitted_preimage!()
+    raw_preimage = Map.fetch!(opts, :preimage)
+
+    if (dup = ambiguous_preimage_keys(raw_preimage)) != [] do
+      raise ArgumentError,
+            "admitted preimage carries #{inspect(dup)} under both atom and string keys"
+    end
+
+    preimage = raw_preimage |> normalize_preimage() |> admitted_preimage!()
     universal_plan = Map.get(opts, :universal_plan)
 
     if universal_plan != nil and policy_digest(universal_plan) != preimage.policy do
@@ -262,9 +278,18 @@ defmodule BeamPM.ReplanRouter do
   @doc "Routes one observation. See the moduledoc for the ordered checks."
   @spec route(observation(), t()) :: {decision(), map(), t()}
   def route(observation, %__MODULE__{} = state) when is_map(observation) do
-    observed = observation |> Map.get(:preimage) |> normalize_preimage()
+    raw_preimage = Map.get(observation, :preimage)
+    observed = normalize_preimage(raw_preimage)
 
     cond do
+      (dup = ambiguous_preimage_keys(raw_preimage)) != [] ->
+        finish(
+          :refuse_malformed,
+          %{reason: :ambiguous_preimage, fields: [:preimage], ambiguous_keys: dup},
+          %{},
+          state
+        )
+
       observed != state.admitted_preimage ->
         refuse_stale(observed, state)
 
@@ -323,6 +348,7 @@ defmodule BeamPM.ReplanRouter do
       event_id: &(is_nil(&1) or is_binary(&1)),
       unknown_facts: &(is_nil(&1) or (is_list(&1) and Enum.all?(&1, fn f -> is_binary(f) end))),
       suffix_from: &(is_nil(&1) or (is_integer(&1) and &1 >= 0)),
+      observed_at: &valid_observed_at?/1,
       attempt: &valid_attempt?/1
     ]
 
@@ -332,6 +358,13 @@ defmodule BeamPM.ReplanRouter do
   defp valid_attempt?(nil), do: true
   defp valid_attempt?({rung, outcome}) when rung in @rungs and outcome in @outcomes, do: true
   defp valid_attempt?(_), do: false
+
+  defp valid_observed_at?(nil), do: true
+
+  defp valid_observed_at?(t) when is_binary(t),
+    do: match?({:ok, _, _}, DateTime.from_iso8601(t))
+
+  defp valid_observed_at?(_), do: false
 
   defp refuse_stale(observed, state) do
     {:ok, refusal} =
@@ -497,7 +530,7 @@ defmodule BeamPM.ReplanRouter do
     new_plan_id = "#{state.plan_id}:g#{generation}:#{rung}"
 
     trigger_payload = %{
-      "attempt" => inspect(Map.get(obs, :attempt)),
+      "attempt" => attempt_payload(Map.get(obs, :attempt)),
       "episode_id" => state.episode_id,
       "event_id" => Map.get(obs, :event_id),
       "plan_id" => new_plan_id,
@@ -527,6 +560,11 @@ defmodule BeamPM.ReplanRouter do
      }}
   end
 
+  # Canonical-JSON rendering of an attempt: `nil` or `[rung, outcome]` as
+  # strings, so the trigger hash never depends on `inspect/1` formatting.
+  defp attempt_payload(nil), do: nil
+  defp attempt_payload({rung, outcome}), do: [Atom.to_string(rung), Atom.to_string(outcome)]
+
   defp policy_action(nil, _), do: nil
   defp policy_action(_, nil), do: nil
 
@@ -543,7 +581,7 @@ defmodule BeamPM.ReplanRouter do
     ordinal = state.ordinal + 1
 
     event =
-      event(state, ordinal, "replan_router." <> Atom.to_string(decision), %{
+      event(state, ordinal, "replan_router." <> Atom.to_string(decision), event_time(obs), %{
         "decision" => Atom.to_string(decision),
         "reason" => evidence |> Map.get(:reason) |> to_string(),
         "plan_id" => state.current_plan_id,
@@ -568,19 +606,37 @@ defmodule BeamPM.ReplanRouter do
   end
 
   # Same shape as the private event helper in lib/beam4pm_actuation.ex.
-  defp event(state, ordinal, event_type, extra_attrs) do
+  defp event(state, ordinal, event_type, event_time, extra_attrs) do
     run_id = state.run_id
 
     {:ok, ev} =
       OcelEvent.new(%{
         event_id: "#{run_id}-#{ordinal}-#{event_type}",
         event_type: event_type,
-        event_time: DateTime.utc_now() |> DateTime.to_iso8601(),
+        event_time: event_time,
         attributes: Map.merge(%{"case_id" => run_id}, extra_attrs)
       })
 
     ev
   end
+
+  # Only a validated observation (`finish/4` receives `%{}` for refusals)
+  # can supply its own time.
+  defp event_time(obs) do
+    case Map.get(obs, :observed_at) do
+      t when is_binary(t) -> t
+      _ -> DateTime.utc_now() |> DateTime.to_iso8601()
+    end
+  end
+
+  # Preimage fields present under both the atom and the string key.
+  defp ambiguous_preimage_keys(preimage) when is_map(preimage) do
+    Enum.filter(@preimage_keys, fn k ->
+      Map.has_key?(preimage, k) and Map.has_key?(preimage, Atom.to_string(k))
+    end)
+  end
+
+  defp ambiguous_preimage_keys(_), do: []
 
   defp normalize_preimage(preimage) when is_map(preimage) do
     Map.new(@preimage_keys, fn k ->
@@ -666,7 +722,10 @@ defmodule BeamPM.ReplanRouter do
 
   Returns `{:ok, %{rung:, outcome:, ...}}` where `outcome` feeds the next
   observation's `:attempt`, or `{:recompile_required, evidence}` for
-  `:strategic_recompile`.
+  `:strategic_recompile`. Every decision in `decisions/0` has a clause:
+  `:close`, `:refuse_stale`, `:refuse_malformed` and `:reobserve` are
+  `:noop`. `:hddl_replan` without binary `:hddl_domain` / `:hddl_problem`
+  returns `{:error, {:missing_inputs, fields}}` and touches no engine.
   """
   @spec execute(decision(), non_neg_integer(), map(), keyword()) ::
           {:ok, map()} | {:recompile_required, map()} | {:error, term()}
@@ -694,9 +753,33 @@ defmodule BeamPM.ReplanRouter do
     end
   end
 
-  def execute(:hddl_replan, _handle, inputs, opts) do
-    domain = Map.fetch!(inputs, :hddl_domain)
-    problem = Map.fetch!(inputs, :hddl_problem)
+  def execute(:hddl_replan, handle, inputs, opts) do
+    case Enum.reject([:hddl_domain, :hddl_problem], &is_binary(Map.get(inputs, &1))) do
+      [] -> hddl_replan(handle, inputs.hddl_domain, inputs.hddl_problem, opts)
+      missing -> {:error, {:missing_inputs, missing}}
+    end
+  end
+
+  def execute(:follow_policy, _handle, inputs, opts) do
+    follow_policy(inputs, opts)
+  end
+
+  def execute(:suffix_reuse, handle, inputs, _opts) do
+    suffix_reuse(handle, inputs)
+  end
+
+  def execute(:continue, handle, _inputs, _opts) do
+    with {:ok, step} <- Ferroplan.session_step(handle) do
+      {:ok, %{rung: :none, outcome: :candidate, step: step, authority: @authority}}
+    end
+  end
+
+  def execute(decision, _handle, _inputs, _opts)
+      when decision in [:close, :refuse_stale, :refuse_malformed, :reobserve] do
+    {:ok, %{rung: :none, outcome: :noop, decision: decision}}
+  end
+
+  defp hddl_replan(_handle, domain, problem, opts) do
     timeout = Keyword.get(opts, :hddl_timeout, 30_000)
     grace = Keyword.get(opts, :task_grace_ms, 1_000)
     limits = Keyword.get(opts, :limits)
@@ -735,7 +818,7 @@ defmodule BeamPM.ReplanRouter do
     end
   end
 
-  def execute(:follow_policy, _handle, inputs, opts) do
+  defp follow_policy(inputs, opts) do
     case Map.get(inputs, :evidence, %{}) do
       %{action: action} when not is_nil(action) ->
         {:ok, %{rung: :none, outcome: :candidate, action: action, authority: @authority}}
@@ -758,7 +841,7 @@ defmodule BeamPM.ReplanRouter do
     end
   end
 
-  def execute(:suffix_reuse, handle, inputs, _opts) do
+  defp suffix_reuse(handle, inputs) do
     k = inputs |> Map.get(:evidence, %{}) |> Map.get(:suffix_from, 0)
 
     Enum.reduce_while(1..k//1, :ok, fn _, :ok ->
@@ -776,17 +859,6 @@ defmodule BeamPM.ReplanRouter do
       err ->
         err
     end
-  end
-
-  def execute(:continue, handle, _inputs, _opts) do
-    with {:ok, step} <- Ferroplan.session_step(handle) do
-      {:ok, %{rung: :none, outcome: :candidate, step: step, authority: @authority}}
-    end
-  end
-
-  def execute(decision, _handle, _inputs, _opts)
-      when decision in [:close, :refuse_stale, :reobserve] do
-    {:ok, %{rung: :none, outcome: :noop, decision: decision}}
   end
 
   @doc """
