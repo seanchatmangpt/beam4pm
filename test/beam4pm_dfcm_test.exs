@@ -22,7 +22,7 @@ defmodule BeamPM.DfcmTest do
   (define (problem three-room)
     (:domain rooms)
     (:objects a b c - room)
-    (:init (at a) (link a b) (link c b))
+    (:init (at a) (link a b) (link b c) (link c b))
     (:goal (at b)))
   """
 
@@ -56,7 +56,7 @@ defmodule BeamPM.DfcmTest do
     end
   end
 
-  defp new_session!(with_plan \\ false) do
+  defp new_session!(with_plan) do
     start_ferroplan!()
     {:ok, %{"handle" => handle}} = Ferroplan.session_new(@planning_domain, @planning_problem)
 
@@ -363,9 +363,11 @@ defmodule BeamPM.DfcmTest do
     @prefix ex: <http://example.org/> .
     ex:item1 ex:event "fired" .
     """
+
     assert {:ok, hook_res} = Dfcm.graphlaw_hooks(sample_ttl, event_ttl)
     assert hook_res["status"] == "ADMITTED"
   end
+
   describe "live DfCM Ferroplan runtime" do
     if not Ferroplan.wasm_built?() do
       @describetag skip: Ferroplan.wasm_missing_reason()
@@ -440,7 +442,11 @@ defmodule BeamPM.DfcmTest do
                      goal: "(at b)",
                      observations: [{"(at a)", false}, {"(at c)", true}]
                    },
-                   %{id: "unreachable-c", goal: "(at c)"}
+                   %{
+                     id: "unreachable-a",
+                     goal: "(at a)",
+                     observations: [{"(at a)", false}, {"(at c)", true}]
+                   }
                  ],
                  evals: 10_000,
                  mem_mb: 64
@@ -505,9 +511,13 @@ defmodule BeamPM.DfcmTest do
                Ferroplan.fond_policy(@fond_problem, @fond_problem, %{"max_wall_ms" => 0})
 
       drifted =
-        update_in(plan, ["policy", Access.at(0), "outcomes", Access.at(0), "probability_ppm"], fn _ ->
-          400_000
-        end)
+        update_in(
+          plan,
+          ["policy", Access.at(0), "outcomes", Access.at(0), "probability_ppm"],
+          fn _ ->
+            400_000
+          end
+        )
 
       assert {:error, {:fond_policy_invalid, issues}} =
                Dfcm.admit_fond_branch(@fond_problem, drifted, "s0")
@@ -526,4 +536,236 @@ defmodule BeamPM.DfcmTest do
     end
   end
 
+  describe "runtime boundary falsifiers (no engine required)" do
+    test "a self-contradictory or malformed delivery is refused before any engine call" do
+      # handle 0 is never a live session: a typed refusal here proves the
+      # guard fires before Ferroplan is consulted at all.
+      assert {:error, {:contradictory_observations, ["(at b)"]}} =
+               Dfcm.observe_and_repair_session(0, [{"(at b)", true}, {"(AT  B)", false}])
+
+      assert {:error, {:malformed_observation, 1, {"(at c)", "yes"}}} =
+               Dfcm.observe_and_repair_session(0, [{"(at a)", false}, {"(at c)", "yes"}])
+
+      assert {:error, {:malformed_observation, 0, "(at a)"}} =
+               Dfcm.observe_and_repair_session(0, ["(at a)"])
+
+      assert {:error, {:malformed_observation, 0, {"", true}}} =
+               Dfcm.observe_and_repair_session(0, [{"", true}])
+    end
+
+    test "out-of-budget search is refused before observation or repair" do
+      for {opts, field, value} <- [
+            {[evals: 0], :evals, 0},
+            {[evals: 1_000_001], :evals, 1_000_001},
+            {[evals: 1.5], :evals, 1.5},
+            {[mem_mb: 0], :mem_mb, 0},
+            {[mem_mb: 4096], :mem_mb, 4096}
+          ] do
+        assert {:error, {:budget_refused, ^field, ^value}} =
+                 Dfcm.observe_and_repair_session(0, [{"(at a)", true}], opts)
+
+        assert {:error, {:budget_refused, ^field, ^value}} = Dfcm.repair_session(0, opts)
+
+        assert {:error, {:budget_refused, ^field, ^value}} =
+                 Dfcm.probe_session(0, [%{id: "x"}], opts)
+      end
+    end
+
+    test "probe candidates need present, unique ids and well-formed observations" do
+      assert {:error, {:probe_candidate_malformed, 1}} =
+               Dfcm.probe_session(0, [%{id: "a"}, %{goal: "(at b)"}])
+
+      assert {:error, {:probe_candidate_malformed, 0}} =
+               Dfcm.probe_session(0, [%{id: nil}])
+
+      assert {:error, {:probe_candidate_malformed, 0}} =
+               Dfcm.probe_session(0, [%{id: "a", observations: [{"(at a)", :maybe}]}])
+
+      assert {:error, {:probe_candidate_duplicate_ids, ["a"]}} =
+               Dfcm.probe_session(0, [%{id: "a"}, %{id: :a}, %{id: "b"}])
+    end
+
+    test "native repair output outside the closed vocabulary fails closed to escalation" do
+      for raw <- [
+            %{"decision" => "execute", "trigger" => "none"},
+            %{"decision" => "ok", "trigger" => "none"},
+            %{"decision" => nil},
+            %{"decision" => 7, "trigger" => "invalid_plan"},
+            %{"decision" => "reuse_suffix", "trigger" => "actuate"},
+            %{}
+          ] do
+        repair = Dfcm.normalize_native_repair(raw)
+        assert repair.decision == :replan_unsolved
+        assert repair.trigger == :none
+        assert repair.escalation == [:hddl_recompile, :strategic_recompile]
+        assert repair.vocabulary_refusal.decision == Map.get(raw, "decision")
+        assert repair.authority_ceiling == :select
+      end
+    end
+
+    test "admitted native repair vocabulary maps exactly and never grants authority" do
+      steps = [%{"action" => "GO", "args" => ["C", "B"], "index" => 0}]
+
+      repair =
+        Dfcm.normalize_native_repair(%{
+          "decision" => "replanned_following",
+          "trigger" => "invalid_plan",
+          "plan_valid" => false,
+          "previous_suffix" => [%{"action" => "GO", "args" => ["A", "B"], "index" => 0}],
+          "suffix" => steps,
+          "authority_ceiling" => "do"
+        })
+
+      assert repair.decision == :replanned_following
+      assert repair.trigger == :invalid_plan
+      assert repair.vocabulary_refusal == nil
+      assert repair.escalation == []
+      assert repair.authority_ceiling == :select
+      assert repair.plan_lineage.parent_plan_id == repair.previous_plan_id
+      assert repair.plan_lineage.plan_id == repair.plan_id
+
+      malformed = Dfcm.normalize_native_repair(%{"decision" => "goal_met", "suffix" => "GO"})
+      assert malformed.suffix == []
+      assert malformed.plan_id == nil
+
+      assert Dfcm.repair_decisions() == [
+               :goal_met,
+               :replan_refused,
+               :replan_unsolved,
+               :replanned_following,
+               :replanned_full,
+               :reuse_suffix
+             ]
+    end
+
+    test "FOND policy shape is admitted before validation; ambiguity is never resolved by order" do
+      ambiguous = %{
+        "policy" => [
+          %{"state" => "s0", "action" => "flip", "outcomes" => []},
+          %{"state" => "s0", "action" => "stay", "outcomes" => []}
+        ]
+      }
+
+      assert {:error, {:fond_state_ambiguous, "s0", 2}} =
+               Dfcm.admit_fond_branch(@fond_problem, ambiguous, "s0")
+
+      assert {:error, {:fond_policy_malformed, 0}} =
+               Dfcm.admit_fond_branch(
+                 @fond_problem,
+                 %{"policy" => [%{"state" => "s0", "outcomes" => []}]},
+                 "s0"
+               )
+
+      assert {:error, {:fond_policy_malformed, {:policy_not_a_list, "flip"}}} =
+               Dfcm.admit_fond_branch(@fond_problem, %{"policy" => "flip"}, "s0")
+    end
+
+    test "an empty identity is never explicit: stale-plan check refuses instead of admitting" do
+      assert %{reason: :identity_missing, authority_ceiling: :select} =
+               Dfcm.stale_plan_refusal("plan:a", "", "")
+
+      assert %{reason: :identity_missing} = Dfcm.stale_plan_refusal("", "h", "h")
+      assert %{reason: :identity_drift} = Dfcm.stale_plan_refusal("plan:a", "h1", "h2")
+      assert Dfcm.stale_plan_refusal("plan:a", "h1", "h1") == nil
+    end
+  end
+
+  describe "live runtime adversarial falsifiers" do
+    if not Ferroplan.wasm_built?() do
+      @describetag skip: Ferroplan.wasm_missing_reason()
+    end
+
+    test "a refused delivery leaves the live world and plan slot untouched" do
+      handle = new_session!(true)
+      {:ok, suffix} = Ferroplan.session_suffix(handle)
+
+      assert {:error, {:contradictory_observations, _}} =
+               Dfcm.observe_and_repair_session(handle, [{"(at a)", false}, {"(at a)", true}])
+
+      assert {:error, {:budget_refused, :evals, 0}} =
+               Dfcm.observe_and_repair_session(handle, [{"(at a)", false}], evals: 0)
+
+      # an ungrounded fact is refused by the engine atomically
+      assert {:error, {:engine, _}} =
+               Dfcm.observe_and_repair_session(handle, [{"(at a)", false}, {"(at zz)", true}])
+
+      assert {:ok, %{"value" => true}} = Ferroplan.session_fact(handle, "(at a)")
+      assert {:ok, ^suffix} = Ferroplan.session_suffix(handle)
+      assert {:ok, %{"valid" => true}} = Ferroplan.session_valid?(handle)
+
+      {:ok, %{"freed" => true}} = Ferroplan.session_free(handle)
+    end
+
+    test "duplicate delivery of one drift event is idempotent" do
+      handle = new_session!(true)
+      drift = [{"(at a)", false}, {"(at c)", true}]
+
+      assert {:ok, first} = Dfcm.observe_and_repair_session(handle, drift, event_id: "evt-1")
+      assert first.trigger == :invalid_plan
+      assert first.plan_id != nil
+
+      assert {:ok, second} = Dfcm.observe_and_repair_session(handle, drift, event_id: "evt-1")
+      assert second.decision == :reuse_suffix
+      assert second.surprises == []
+      assert second.plan_id == first.plan_id
+      assert second.plan_lineage == nil
+      assert second.dynamic_replan_trigger == nil
+
+      {:ok, %{"freed" => true}} = Ferroplan.session_free(handle)
+    end
+
+    test "replay on independent forks is byte-identical; delivery order does not change the plan" do
+      parent = new_session!(true)
+      {:ok, %{"handle" => fork_a}} = Ferroplan.session_fork(parent)
+      {:ok, %{"handle" => fork_b}} = Ferroplan.session_fork(parent)
+      {:ok, %{"handle" => fork_c}} = Ferroplan.session_fork(parent)
+
+      # forks copy the world, not the stashed plan slot: install the same
+      # bounded plan on each so every fork starts from one admitted subject
+      for fork <- [fork_a, fork_b, fork_c] do
+        assert {:ok, %{"solved" => true}} = Ferroplan.session_think(fork, 10_000, 64)
+      end
+
+      drift = [{"(at a)", false}, {"(at c)", true}]
+      assert {:ok, a} = Dfcm.observe_and_repair_session(fork_a, drift, event_id: "evt-r")
+      assert {:ok, b} = Dfcm.observe_and_repair_session(fork_b, drift, event_id: "evt-r")
+
+      assert {:ok, c} =
+               Dfcm.observe_and_repair_session(fork_c, Enum.reverse(drift), event_id: "evt-r")
+
+      assert a.plan_id == b.plan_id
+      assert a.dynamic_replan_trigger.trigger_hash == b.dynamic_replan_trigger.trigger_hash
+      assert a.plan_memory.memory_hash == b.plan_memory.memory_hash
+      assert a.plan_lineage.lineage_hash == b.plan_lineage.lineage_hash
+
+      # reordering is a different delivery (distinct trigger evidence) but the
+      # same admitted world, so the repaired plan identity must agree
+      assert c.plan_id == a.plan_id
+      assert c.suffix == a.suffix
+      assert c.dynamic_replan_trigger.trigger_hash != a.dynamic_replan_trigger.trigger_hash
+
+      # the parent world was never touched by any fork
+      assert {:ok, %{"value" => true}} = Ferroplan.session_fact(parent, "(at a)")
+      assert {:ok, %{"valid" => true}} = Ferroplan.session_valid?(parent)
+
+      for h <- [fork_a, fork_b, fork_c, parent],
+          do: {:ok, %{"freed" => true}} = Ferroplan.session_free(h)
+    end
+
+    test "a restricted counterfactual is unsolved and cannot leak its restriction to the parent" do
+      handle = new_session!(false)
+
+      assert {:ok, result} =
+               Dfcm.probe_session(handle, [
+                 %{id: "restricted", goal: "(at b)", restrict_contains: "zzz"},
+                 %{id: "open", goal: "(at b)"}
+               ])
+
+      assert [%{id: "restricted", outcome: :unsolved}, %{id: "open", outcome: :solved}] =
+               Enum.map(result.results, &Map.take(&1, [:id, :outcome]))
+
+      assert {:ok, %{"solved" => true}} = Ferroplan.session_think(handle, 10_000, 64)
+      {:ok, %{"freed" => true}} = Ferroplan.session_free(handle)
+    end
+  end
 end

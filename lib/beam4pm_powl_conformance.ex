@@ -64,7 +64,13 @@ defmodule BeamPM.PowlConformance do
         }
 
   @typedoc "Decision produced by the process-conformance / Ferroplan runtime repair loop."
-  @type runtime_decision :: :goal_met | :reuse_suffix | :replanned | :replan_unsolved | :replan_refused
+  @type runtime_decision ::
+          :goal_met
+          | :reuse_suffix
+          | :replanned_following
+          | :replanned_full
+          | :replan_unsolved
+          | :replan_refused
 
   @typedoc "Result of evaluating one observed execution prefix against both POWL conformance and the live Ferroplan session."
   @type runtime_result :: %{

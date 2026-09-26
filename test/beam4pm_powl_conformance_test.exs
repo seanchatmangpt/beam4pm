@@ -40,7 +40,7 @@ defmodule BeamPM.PowlConformanceTest do
   (define (problem three-room)
     (:domain rooms)
     (:objects a b c - room)
-    (:init (at a) (link a b) (link c b))
+    (:init (at a) (link a b) (link b c) (link c b))
     (:goal (at b)))
   """
 
@@ -66,7 +66,9 @@ defmodule BeamPM.PowlConformanceTest do
             "#{String.pad_leading(Integer.to_string(idx), 2, "0")}:00+00:00"
 
         {:ok, _} =
-          Rust4PM.ocel_add_event(h, "e_#{meeting_id}_#{phase}", phase, ts, [[meeting_id, "meeting"]])
+          Rust4PM.ocel_add_event(h, "e_#{meeting_id}_#{phase}", phase, ts, [
+            [meeting_id, "meeting"]
+          ])
       end)
     end
 
