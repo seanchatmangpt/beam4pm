@@ -49,7 +49,7 @@ artifact is absent (`ACCEPTANCE_BLOCKED_PREREQUISITE`).
 | `test/beam4pm_ash_ai_tools_test.exs` | `f44dcd0` | 2026-12-31 | `mix test test/beam4pm_ash_ai_tools_test.exs` | - |
 | `test/beam4pm_contracts_test.exs` | `91965eb` | 2026-12-31 | `mix test test/beam4pm_contracts_test.exs` | - |
 | `test/beam4pm_deviation_admission_test.exs` | `c639d69` | 2026-12-31 | `mix test test/beam4pm_deviation_admission_test.exs` | - |
-| `test/beam4pm_dfcm_test.exs` | `d8c2f19` | 2026-12-31 | `mix test test/beam4pm_dfcm_test.exs` | - |
+| `test/beam4pm_dfcm_test.exs` | `25c31c6` | 2026-12-31 | `test -f native/ferroplan/target/wasm32-wasip1/release/ferroplan_wasm.wasm && mix test test/beam4pm_dfcm_test.exs` | - |
 | `test/beam4pm_eds_test.exs` | `4d50b4b` | 2026-12-31 | `mix test test/beam4pm_eds_test.exs` | - |
 | `test/beam4pm_ferroplan_facades_test.exs` | `f44dcd0` | 2026-12-31 | `mix test test/beam4pm_ferroplan_facades_test.exs` | native/ferroplan/target/wasm32-wasip1/release/ferroplan_wasm.wasm |
 | `test/beam4pm_ferroplan_test.exs` | `c34e275` | 2026-12-31 | `mix test test/beam4pm_ferroplan_test.exs` | native/ferroplan/target/wasm32-wasip1/release/ferroplan_wasm.wasm |
@@ -58,7 +58,7 @@ artifact is absent (`ACCEPTANCE_BLOCKED_PREREQUISITE`).
 | `test/beam4pm_petgraph_facades_test.exs` | `f44dcd0` | 2026-12-31 | `mix test test/beam4pm_petgraph_facades_test.exs` | native/petgraph-wasm/target/wasm32-wasip1/release/petgraph_wasm.wasm |
 | `test/beam4pm_petgraph_test.exs` | `f44dcd0` | 2026-12-31 | `mix test test/beam4pm_petgraph_test.exs` | native/petgraph-wasm/target/wasm32-wasip1/release/petgraph_wasm.wasm |
 | `test/beam4pm_powl_conformance_e2e_test.exs` | `51ca841` | 2026-12-31 | `mix test test/beam4pm_powl_conformance_e2e_test.exs` | native/rust4pm-wasm/target/wasm32-wasip1/release/rust4pm_wasm.wasm |
-| `test/beam4pm_powl_conformance_test.exs` | `793f946` | 2026-12-31 | `test -f native/ferroplan/target/wasm32-wasip1/release/ferroplan_wasm.wasm && mix test test/beam4pm_powl_conformance_test.exs` | native/rust4pm-wasm/target/wasm32-wasip1/release/rust4pm_wasm.wasm |
+| `test/beam4pm_powl_conformance_test.exs` | `bdae2d8` | 2026-12-31 | `test -f native/ferroplan/target/wasm32-wasip1/release/ferroplan_wasm.wasm && mix test test/beam4pm_powl_conformance_test.exs` | native/rust4pm-wasm/target/wasm32-wasip1/release/rust4pm_wasm.wasm |
 | `test/beam4pm_powl_discovery_test.exs` | `91965eb` | 2026-12-31 | `mix test test/beam4pm_powl_discovery_test.exs` | - |
 | `test/beam4pm_process_governor_k8s_test.exs` | `0107a09` | 2026-12-31 | `mix test test/beam4pm_process_governor_k8s_test.exs` | cmd:kubectl --context kind-ex4pm cluster-info |
 | `test/beam4pm_rf2_oracle_dep_task_test.exs` | `91965eb` | 2026-12-31 | `mix test test/beam4pm_rf2_oracle_dep_task_test.exs` | - |
@@ -173,8 +173,8 @@ artifact is absent (`ACCEPTANCE_BLOCKED_PREREQUISITE`).
 #### `test/beam4pm_dfcm_test.exs`
 
 - Authorizing principal: Sean Chatman (repo owner) via Claude Code session_01UiCeLuzgcK2BLocBKxXw39
-- Reason: Chicago qualification of BeamPM.Dfcm bounded option-preservation calculus, formal HDDL/FOND fixtures, and SELECT-not-DO authority ceiling.
-- Content sha256 at admission: `cc0d6eddda7ec1d9e5d47a6f26623145fc7a6eb66d7e319d3baf3b8ebb915a34`
+- Reason: Chicago qualification of BeamPM.Dfcm option calculus plus the live Ferroplan closure: valid-suffix preservation, bounded world-drift repair with deterministic lineage/trigger evidence, counterfactual fork isolation, and explicit stale-plan refusal. The suite keeps the SELECT-not-DO authority ceiling.
+- Content sha256 at admission: `b8cc636279d85bc557b2f8e87af869b469888a4fbfe8f7503afa20d25439aee8`
 - Sunset plan: Render from the same DfCM planning facts as lib/beam4pm_dfcm.ex; then delete this admission.
 
 #### `test/beam4pm_eds_test.exs`
@@ -236,8 +236,8 @@ artifact is absent (`ACCEPTANCE_BLOCKED_PREREQUISITE`).
 #### `test/beam4pm_powl_conformance_test.exs`
 
 - Authorizing principal: Sean Chatman (repo owner) via Claude Code session_018iXTYcpGbgf23MZYLe6TCU
-- Reason: Chicago qualification of the POWL-to-Ferroplan repair loop using both real WASM engines: retains a valid Ferroplan suffix despite an observed POWL deviation, then mutates the admitted session world so the prior suffix becomes invalid and proves bounded replanning returns a new valid solved candidate. Existing real POWL conformance checks remain in the same qualification. No mocks.
-- Content sha256 at admission: `d2cc135b1b476780399eef4b6db192dc12b3e16b1cee24352faf9fb99a030890`
+- Reason: Chicago qualification of POWL conformance plus DfCM/Ferroplan repair: a process deviation with unchanged planning state preserves the valid suffix, while admitted world drift invalidates it and produces a new valid bounded repair candidate. No mocks; no actuation.
+- Content sha256 at admission: `24348154916226c81c03f114ac022998b8b2abac06f8c31a7564054e379e3a6e`
 - Sunset plan: Sunsets alongside lib/beam4pm_powl_conformance.ex's own admission.
 
 #### `test/beam4pm_powl_discovery_test.exs`
@@ -336,11 +336,11 @@ artifact is absent (`ACCEPTANCE_BLOCKED_PREREQUISITE`).
 | Path | Admitted at | Expires | Acceptance command | Prerequisite |
 | --- | --- | --- | --- | --- |
 | `lib/beam4pm_deviation_admission.ex` | `c639d69` | 2026-12-31 | `mix test test/beam4pm_deviation_admission_test.exs` | - |
-| `lib/beam4pm_dfcm.ex` | `2d51358` | 2026-12-31 | `mix test test/beam4pm_dfcm_test.exs` | - |
+| `lib/beam4pm_dfcm.ex` | `8e38f7c` | 2026-12-31 | `test -f native/ferroplan/target/wasm32-wasip1/release/ferroplan_wasm.wasm && mix test test/beam4pm_dfcm_test.exs` | - |
 | `lib/beam4pm_eds.ex` | `4d50b4b` | 2026-12-31 | `mix test test/beam4pm_eds_test.exs` | - |
 | `lib/beam4pm_eds_ppcx_h1.ex` | `4d50b4b` | 2026-12-31 | `mix test test/beam4pm_eds_test.exs` | - |
 | `lib/beam4pm_ocel.ex` | `91965eb` | 2026-12-31 | `mix test test/beam4pm_ocel_test.exs` | - |
-| `lib/beam4pm_powl_conformance.ex` | `f6dd99e` | 2026-12-31 | `test -f native/ferroplan/target/wasm32-wasip1/release/ferroplan_wasm.wasm && mix test test/beam4pm_powl_conformance_test.exs test/beam4pm_powl_conformance_e2e_test.exs` | native/rust4pm-wasm/target/wasm32-wasip1/release/rust4pm_wasm.wasm |
+| `lib/beam4pm_powl_conformance.ex` | `2025b75` | 2026-12-31 | `test -f native/ferroplan/target/wasm32-wasip1/release/ferroplan_wasm.wasm && mix test test/beam4pm_powl_conformance_test.exs test/beam4pm_powl_conformance_e2e_test.exs` | native/rust4pm-wasm/target/wasm32-wasip1/release/rust4pm_wasm.wasm |
 
 
 #### `lib/beam4pm_deviation_admission.ex`
@@ -353,8 +353,8 @@ artifact is absent (`ACCEPTANCE_BLOCKED_PREREQUISITE`).
 #### `lib/beam4pm_dfcm.ex`
 
 - Authorizing principal: Sean Chatman (repo owner) via Claude Code session_01UiCeLuzgcK2BLocBKxXw39
-- Reason: Pure Design for Combinatorial Maximalism planning crown. Preserves admitted alternatives, applies explicit fences, records every exclusion with a deterministic receipt and falsifier, and returns either a decision-relevant observation request or a SELECT candidate. Authority ceiling is strictly :select with no DO surface.
-- Content sha256 at admission: `79401198d6866ef3a8e733910f77b7eeb27dbcb67486ae152400be3a56817ed5`
+- Reason: DfCM planning crown plus live Ferroplan runtime composition. Preserves admitted alternatives, fences and falsifiers; adds zero-DO observation-to-repair routing, deterministic plan lineage and memory evidence, explicit stale-plan refusal, and bounded counterfactual probes over cheap session forks. Native session_repair/session_probe are used when available; older admitted pins fall back to equivalent existing Ferroplan ops without changing the caller contract. Authority ceiling remains strictly :select.
+- Content sha256 at admission: `3daac50c1b0aebc8af8d647d99258ffd3d98aab47d33e2b7db1d63c3914e769b`
 - Sunset plan: Admit DfCM contracts as ontology facts and render the planning crown from a pack template; then delete this admission.
 
 #### `lib/beam4pm_eds.ex`
@@ -381,8 +381,8 @@ artifact is absent (`ACCEPTANCE_BLOCKED_PREREQUISITE`).
 #### `lib/beam4pm_powl_conformance.ex`
 
 - Authorizing principal: Sean Chatman (repo owner) via Claude Code session_018iXTYcpGbgf23MZYLe6TCU
-- Reason: Plan-execute-conform-repair orchestration over real rust4pm and ferroplan engine ops: discovers/checks POWL behavior from OCEL, admits live observations into a grounded Ferroplan session, closes immediately when the goal is met, reuses a still-valid plan suffix at zero search cost, and performs bounded session replanning only when no plan exists or current-world observation invalidates the suffix. POWL deviation is retained as evidence rather than authority; the module constructs candidate planning state and never actuates. Hand-authored cross-engine orchestration is retained under native_engine_facade because no current template family expresses this composition.
-- Content sha256 at admission: `1d8d0f86c22ada68609b44e59af1fd5afe2bdeb7d461c14cdada10e02c084d39`
+- Reason: Plan-execute-conform-repair orchestration over real rust4pm plus the DfCM planning crown: discovers/checks POWL behavior from OCEL and delegates admitted world observations to BeamPM.Dfcm, which preserves valid suffixes and escalates bounded repair without granting actuation authority. POWL deviation remains evidence, not authority.
+- Content sha256 at admission: `5d56fab0472de423d6bd69e2c6e258b6332530520c74d23cac49b7ae1d154c30`
 - Sunset plan: No template family fits a cross-op conformance-orchestration wrapper today; keep admitted until one is proposed upstream.
 
 ### `reference_evidence` (7 file(s), counts as debt: false)
