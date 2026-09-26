@@ -29764,3 +29764,61 @@ mcp:mcp_resource_read_result_mt a mcp:MessageType ;
 
 mcp:mcp_resource_read_result_contents_f a mcp:Field ; mcp:fieldName "contents" ; mcp:fieldType "map" ;
     mcp:fieldDoc "Wrapped array of resource content items." ; mcp:fieldRequired "true" ; mcp:fieldOrder 1 .
+
+# -- beam4pm#91 replanning ladder (5; counted as debt: 1 native_engine_facade, 4 hand_authored_qualification) -----------------------
+
+bap:hand_authored_lib_replan_router a bpm:HandAuthoredSource ;
+    bpm:sourcePath "lib/beam4pm_replan_router.ex" ;
+    bpm:authorshipKind bpm:AuthorshipKind_native_engine_facade ;
+    bpm:authorizingPrincipal "Sean Chatman (repo owner) via Claude Code v26.9.26 harden lane beam4pm#91" ;
+    bpm:admissionReason "Hand-authored replanning ladder over the generated BeamPM.Ferroplan facade (ferroplan stays mechanism-only: no session_route op). Pure route/2 orders stale-preimage and policy-digest refusal, malformed/non-atom-key refusal, goal close, unknown-fact strategic recompile, continue, follow_policy (same canonical-JSON equivalence as the admitted policy digest), suffix reuse and a monotone session_replan -> hddl_replan -> strategic_recompile ladder; event-triggered resets are bounded by max_episodes; every decision emits one OCEL event whose time is the validated observed_at (refusals included) so replay is byte-identical. The observe/execute driver classifies host faults off the ladder. Authority NONE, ceiling CONSTRUCT." ;
+    bpm:acceptanceCommand "mix test test/beam4pm_replan_router_test.exs test/beam4pm_replan_router_hardening_test.exs" ;
+    bpm:contentSha256 "f4c4051143da00640d3c6e5b5041cfc7ad1a7247d046340b6d3aa894aab886cd" ;
+    bpm:admittedAtCommit "0650513" ;
+    bpm:admissionExpires "2026-12-31" ;
+    bpm:sunsetPlan "Admit the replanning ladder (rungs, ordered checks, refusal vocabulary) as ontology facts and render route/2 from a pack template; then delete this admission." .
+
+bap:hand_authored_lib_plan_lineage a bpm:HandAuthoredSource ;
+    bpm:sourcePath "lib/beam4pm_plan_lineage.ex" ;
+    bpm:authorshipKind bpm:AuthorshipKind_hand_authored_qualification ;
+    bpm:authorizingPrincipal "Sean Chatman (repo owner) via Claude Code v26.9.26 harden lane beam4pm#91" ;
+    bpm:admissionReason "Sorted-key canonical-JSON sha256 digest and an append-only PlanLineage hash chain (derive/verify) used by BeamPM.ReplanRouter (not an engine facade, so admitted under this kind like lib/beam4pm_contracts.ex, keeping the native_engine_facade ceiling for lib/beam4pm_replan_router.ex): refuses tuple, non-string/atom keys and colliding renderings instead of merging them. Hand-authored lib/ logic over the generated PlanLineage type; no engine call, no actuation." ;
+    bpm:acceptanceCommand "mix test test/beam4pm_replan_router_test.exs test/beam4pm_replan_router_hardening_test.exs" ;
+    bpm:contentSha256 "9f61518851c28b02022750845b18b7b185965d05dfc0a755a799d16fa2fba37e" ;
+    bpm:admittedAtCommit "0650513" ;
+    bpm:admissionExpires "2026-12-31" ;
+    bpm:sunsetPlan "Move the canonical-JSON digest into a shared generated codec and render the chain from the lineage type facts; then delete this admission." .
+
+bap:hand_authored_test_replan_router a bpm:HandAuthoredSource ;
+    bpm:sourcePath "test/beam4pm_replan_router_test.exs" ;
+    bpm:authorshipKind bpm:AuthorshipKind_hand_authored_qualification ;
+    bpm:authorizingPrincipal "Sean Chatman (repo owner) via Claude Code v26.9.26 harden lane beam4pm#91" ;
+    bpm:admissionReason "Chicago qualification of the pure ReplanRouter ladder and PlanLineage chain: ordered checks, stale/policy refusal, malformed fields, monotone climb, forged-attempt resistance, canonical digests and byte-identical replay. Real structs and sha256, no doubles." ;
+    bpm:acceptanceCommand "mix test test/beam4pm_replan_router_test.exs" ;
+    bpm:contentSha256 "89a7711e55bcf09fc07413a5449e38547de2558363c77a8f891d8e8a1e25f536" ;
+    bpm:admittedAtCommit "0650513" ;
+    bpm:admissionExpires "2026-12-31" ;
+    bpm:sunsetPlan "Sunsets with lib/beam4pm_replan_router.ex's admission." .
+
+bap:hand_authored_test_replan_router_engine a bpm:HandAuthoredSource ;
+    bpm:sourcePath "test/beam4pm_replan_router_engine_test.exs" ;
+    bpm:authorshipKind bpm:AuthorshipKind_hand_authored_qualification ;
+    bpm:authorizingPrincipal "Sean Chatman (repo owner) via Claude Code v26.9.26 harden lane beam4pm#91" ;
+    bpm:admissionReason "Chicago qualification of the ReplanRouter driver (observe/3, execute/4, load_policy/3) against the real ferroplan wasm engine hosted by BeamPM.Ferroplan: real sessions, hddl_solve under a Task deadline, fond_policy digest admission, host faults kept off the ladder. A missing wasm artifact is a named skip." ;
+    bpm:acceptanceCommand "mix test test/beam4pm_replan_router_engine_test.exs" ;
+    bpm:acceptancePrerequisite "native/ferroplan/target/wasm32-wasip1/release/ferroplan_wasm.wasm" ;
+    bpm:contentSha256 "ffd9db40590e5d436d7a57c73f417c0dd6b69da545f7e6bc300e27e14d326b20" ;
+    bpm:admittedAtCommit "0650513" ;
+    bpm:admissionExpires "2026-12-31" ;
+    bpm:sunsetPlan "Sunsets with lib/beam4pm_replan_router.ex's admission." .
+
+bap:hand_authored_test_replan_router_hardening a bpm:HandAuthoredSource ;
+    bpm:sourcePath "test/beam4pm_replan_router_hardening_test.exs" ;
+    bpm:authorshipKind bpm:AuthorshipKind_hand_authored_qualification ;
+    bpm:authorizingPrincipal "Sean Chatman (repo owner) via Claude Code v26.9.26 harden lane beam4pm#91" ;
+    bpm:admissionReason "Adversarial court for ReplanRouter closing the a57d4af4 findings as permanent guards: bounded event-triggered resets (a forged fresh-event stream cannot pin the ladder low), byte-identical refusal replay, policy following under the digest's atom/string equivalence, ArgumentError for every malformed new/1 input, and refusal of non-atom observation keys; plus duplicate delivery and reordered attempts." ;
+    bpm:acceptanceCommand "mix test test/beam4pm_replan_router_hardening_test.exs" ;
+    bpm:contentSha256 "08f667107574943fdde96fcfca18f4dbc534b92fa58a243c430bf2fa6d234975" ;
+    bpm:admittedAtCommit "0650513" ;
+    bpm:admissionExpires "2026-12-31" ;
+    bpm:sunsetPlan "Sunsets with lib/beam4pm_replan_router.ex's admission." .
