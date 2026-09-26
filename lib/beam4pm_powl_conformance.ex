@@ -25,6 +25,7 @@ defmodule BeamPM.PowlConformance do
   ops (same convention as `BeamPM.PowlDiscovery`/`BeamPM.Ocel`).
   """
 
+  alias BeamPM.Ferroplan
   alias BeamPM.Rust4PM
 
   # Alpha+++'s own Rust `Default` config (`balance_thresh: 0.2,
@@ -60,6 +61,22 @@ defmodule BeamPM.PowlConformance do
           fitness: map(),
           deviations: [[String.t()]],
           conforms: boolean()
+        }
+
+  @typedoc "Decision produced by the process-conformance / Ferroplan runtime repair loop."
+  @type runtime_decision :: :goal_met | :reuse_suffix | :replanned | :replan_unsolved | :replan_refused
+
+  @typedoc "Result of evaluating one observed execution prefix against both POWL conformance and the live Ferroplan session."
+  @type runtime_result :: %{
+          conformance: conformance_result(),
+          observation: map(),
+          decision: runtime_decision(),
+          trigger: :goal_met | :none | :no_plan | :invalid_plan,
+          plan_valid: boolean() | nil,
+          previous_suffix: list(),
+          suffix: list(),
+          plan: map() | nil,
+          replan_error: map() | nil
         }
 
   @doc """
@@ -115,6 +132,187 @@ defmodule BeamPM.PowlConformance do
          deviations: deviations,
          conforms: cost == 0
        }}
+    end
+  end
+
+  @doc """
+  Closes the process-conformance -> world-observation -> plan-repair loop.
+
+  The function deliberately does not equate process deviation with plan
+  invalidity. A POWL deviation is evidence that causes the live Ferroplan
+  world to be observed and the stashed plan to be revalidated. The cheapest
+  valid continuation wins:
+
+    * goal already met -> `:goal_met`
+    * existing stashed plan still valid -> `:reuse_suffix`
+    * no plan or invalid suffix -> bounded `session_think/4` replan
+
+  `observations` is a list of `{fact_name, boolean}` pairs accepted by
+  `Ferroplan.session_observe/3`. Replanning is bounded by `:evals`
+  (default 10_000) and `:mem_mb` (default 64). This function constructs
+  and evaluates candidate planning state only; it does not execute the
+  returned action or grant authority.
+  """
+  @spec conform_observe_replan(
+          non_neg_integer(),
+          String.t(),
+          [String.t()],
+          non_neg_integer(),
+          [{String.t(), boolean()}],
+          keyword()
+        ) :: {:ok, runtime_result()} | {:error, term()}
+  def conform_observe_replan(
+        reference_ocel_handle,
+        object_type,
+        test_trace_activities,
+        ferroplan_session_handle,
+        observations,
+        opts \\ []
+      )
+      when is_integer(reference_ocel_handle) and is_binary(object_type) and
+             is_list(test_trace_activities) and is_integer(ferroplan_session_handle) and
+             is_list(observations) do
+    evals = Keyword.get(opts, :evals, 10_000)
+    mem_mb = Keyword.get(opts, :mem_mb, 64)
+
+    with {:ok, conformance} <-
+           check_conformance(reference_ocel_handle, object_type, test_trace_activities),
+         {:ok, observation} <-
+           Ferroplan.session_observe(ferroplan_session_handle, observations),
+         {:ok, %{"goal_met" => goal_met}} <-
+           Ferroplan.session_goal_met?(ferroplan_session_handle) do
+      if goal_met do
+        {:ok,
+         %{
+           conformance: conformance,
+           observation: observation,
+           decision: :goal_met,
+           trigger: :goal_met,
+           plan_valid: nil,
+           previous_suffix: [],
+           suffix: [],
+           plan: nil,
+           replan_error: nil
+         }}
+      else
+        decide_runtime_repair(
+          ferroplan_session_handle,
+          conformance,
+          observation,
+          evals,
+          mem_mb
+        )
+      end
+    end
+  end
+
+  defp decide_runtime_repair(session_handle, conformance, observation, evals, mem_mb) do
+    with {:ok, %{"has_plan" => has_plan}} <- Ferroplan.session_has_plan?(session_handle) do
+      if has_plan do
+        with {:ok, %{"valid" => valid}} <- Ferroplan.session_valid?(session_handle) do
+          if valid do
+            with {:ok, suffix} <- Ferroplan.session_suffix(session_handle) do
+              {:ok,
+               %{
+                 conformance: conformance,
+                 observation: observation,
+                 decision: :reuse_suffix,
+                 trigger: :none,
+                 plan_valid: true,
+                 previous_suffix: suffix,
+                 suffix: suffix,
+                 plan: nil,
+                 replan_error: nil
+               }}
+            end
+          else
+            replan_runtime(
+              session_handle,
+              conformance,
+              observation,
+              :invalid_plan,
+              false,
+              evals,
+              mem_mb
+            )
+          end
+        end
+      else
+        replan_runtime(
+          session_handle,
+          conformance,
+          observation,
+          :no_plan,
+          nil,
+          evals,
+          mem_mb
+        )
+      end
+    end
+  end
+
+  defp replan_runtime(
+         session_handle,
+         conformance,
+         observation,
+         trigger,
+         plan_valid,
+         evals,
+         mem_mb
+       ) do
+    previous_suffix =
+      case Ferroplan.session_suffix(session_handle) do
+        {:ok, suffix} when is_list(suffix) -> suffix
+        _ -> []
+      end
+
+    case Ferroplan.session_think(session_handle, evals, mem_mb) do
+      {:ok, %{"error" => error}} ->
+        {:ok,
+         %{
+           conformance: conformance,
+           observation: observation,
+           decision: :replan_refused,
+           trigger: trigger,
+           plan_valid: plan_valid,
+           previous_suffix: previous_suffix,
+           suffix: [],
+           plan: nil,
+           replan_error: error
+         }}
+
+      {:ok, %{"solved" => true} = plan} ->
+        with {:ok, suffix} <- Ferroplan.session_suffix(session_handle) do
+          {:ok,
+           %{
+             conformance: conformance,
+             observation: observation,
+             decision: :replanned,
+             trigger: trigger,
+             plan_valid: plan_valid,
+             previous_suffix: previous_suffix,
+             suffix: suffix,
+             plan: plan,
+             replan_error: nil
+           }}
+        end
+
+      {:ok, plan} ->
+        {:ok,
+         %{
+           conformance: conformance,
+           observation: observation,
+           decision: :replan_unsolved,
+           trigger: trigger,
+           plan_valid: plan_valid,
+           previous_suffix: previous_suffix,
+           suffix: [],
+           plan: plan,
+           replan_error: nil
+         }}
+
+      {:error, _} = error ->
+        error
     end
   end
 
