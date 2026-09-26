@@ -1,5 +1,8 @@
 defmodule BeamPM.Dfcm do
   @compile {:no_warn_undefined, AshAutofde.CascadeAllocator}
+  @compile {:no_warn_undefined, BeamPM.Ferroplan}
+
+  alias BeamPM.Ferroplan
 
   @moduledoc """
   Pure Design for Combinatorial Maximalism planning crown.
@@ -410,6 +413,414 @@ defmodule BeamPM.Dfcm do
 
   defp fond_policy(decision),
     do: %{kind: :terminal, decision: decision.kind, terminal_authority: :select}
+
+  # --- Live Ferroplan DfCM runtime -----------------------------------------
+
+  @doc """
+  Observe a bounded live-world delta and repair the current Ferroplan
+  candidate without granting DO authority.
+
+  The runtime preserves the cheapest valid option first. When the pinned
+  Ferroplan exposes the native DfCM `session_repair` operation it is used
+  directly; older admitted pins fall back to the equivalent host-side
+  ladder:
+
+      goal-met -> valid suffix reuse -> bounded full replan
+
+  Native `session_repair` inserts follow-biased tail repair between suffix
+  reuse and full replan, so upgrading the producer strengthens option
+  preservation without changing this caller contract.
+  """
+  @spec observe_and_repair_session(
+          non_neg_integer(),
+          [{String.t(), boolean()}],
+          keyword()
+        ) :: {:ok, map()} | {:error, term()}
+  def observe_and_repair_session(handle, observations, opts \\ [])
+      when is_integer(handle) and is_list(observations) do
+    event_id = Keyword.get(opts, :event_id, "event:" <> deterministic_hash(observations))
+
+    with {:ok, surprises} <- Ferroplan.session_observe(handle, observations),
+         {:ok, repair} <- repair_session(handle, opts) do
+      trigger =
+        if repair.trigger == :invalid_plan do
+          %{
+            plan_id: repair.previous_plan_id || "none",
+            event_id: event_id,
+            trigger_hash:
+              deterministic_hash({
+                repair.previous_plan_id,
+                event_id,
+                observations,
+                surprises
+              })
+          }
+        end
+
+      {:ok,
+       repair
+       |> Map.put(:surprises, surprises)
+       |> Map.put(:event_id, event_id)
+       |> Map.put(:dynamic_replan_trigger, trigger)}
+    end
+  end
+
+  @doc """
+  Repair the current stashed Ferroplan candidate while preserving option
+  value. Returns SELECT/CONSTRUCT evidence only; never advances or executes
+  the plan.
+  """
+  @spec repair_session(non_neg_integer(), keyword()) :: {:ok, map()} | {:error, term()}
+  def repair_session(handle, opts \\ []) when is_integer(handle) do
+    evals = Keyword.get(opts, :evals, 10_000)
+    mem_mb = Keyword.get(opts, :mem_mb, 64)
+
+    native =
+      if function_exported?(Ferroplan, :session_repair, 4) do
+        apply(Ferroplan, :session_repair, [handle, evals, mem_mb, []])
+      else
+        :unavailable
+      end
+
+    case native do
+      {:ok, result} when is_map(result) ->
+        {:ok, normalize_repair(result, :native_follow_before_rethink)}
+
+      :unavailable ->
+        fallback_repair_session(handle, evals, mem_mb)
+
+      {:error, _} = error ->
+        error
+    end
+  end
+
+  @doc """
+  Evaluate reversible counterfactuals over cheap Ferroplan forks.
+
+  Each candidate may provide `:goal`, `:observations` and
+  `:restrict_contains`. The parent session is never mutated. If the pinned
+  producer exposes native `session_probe`, it is preferred; otherwise the
+  same semantics are composed from `session_fork` and existing session ops.
+  """
+  @spec probe_session(non_neg_integer(), [map()], keyword()) ::
+          {:ok, map()} | {:error, term()}
+  def probe_session(handle, candidates, opts \\ [])
+      when is_integer(handle) and is_list(candidates) and candidates != [] do
+    evals = Keyword.get(opts, :evals, 10_000)
+    mem_mb = Keyword.get(opts, :mem_mb, 64)
+
+    native =
+      if function_exported?(Ferroplan, :session_probe, 5) do
+        wire_candidates =
+          Enum.map(candidates, fn candidate ->
+            %{
+              "id" => to_string(Map.fetch!(candidate, :id)),
+              "goal" => Map.get(candidate, :goal),
+              "sight" =>
+                candidate
+                |> Map.get(:observations, [])
+                |> Enum.map(&Tuple.to_list/1),
+              "restrict_contains" => Map.get(candidate, :restrict_contains)
+            }
+          end)
+
+        apply(Ferroplan, :session_probe, [handle, wire_candidates, evals, mem_mb, []])
+      else
+        :unavailable
+      end
+
+    case native do
+      {:ok, result} when is_map(result) ->
+        {:ok,
+         %{
+           candidate_count: Map.get(result, "candidate_count", length(candidates)),
+           results: Map.get(result, "results", []),
+           backend: :native_forks,
+           authority_ceiling: :select
+         }}
+
+      :unavailable ->
+        results =
+          Enum.map(candidates, &fallback_probe_candidate(handle, &1, evals, mem_mb))
+
+        {:ok,
+         %{
+           candidate_count: length(results),
+           results: results,
+           backend: :host_forks,
+           authority_ceiling: :select
+         }}
+
+      {:error, _} = error ->
+        error
+    end
+  end
+
+  @doc "Construct a stale-plan refusal only from explicit admitted and observed identities."
+  @spec stale_plan_refusal(String.t(), String.t(), String.t()) :: nil | map()
+  def stale_plan_refusal(plan_id, admitted_preimage_hash, observed_preimage_hash)
+      when is_binary(plan_id) and is_binary(admitted_preimage_hash) and
+             is_binary(observed_preimage_hash) do
+    if admitted_preimage_hash == observed_preimage_hash do
+      nil
+    else
+      %{
+        plan_id: plan_id,
+        admitted_preimage_hash: admitted_preimage_hash,
+        observed_preimage_hash: observed_preimage_hash,
+        authority_ceiling: :select
+      }
+    end
+  end
+
+  defp fallback_repair_session(handle, evals, mem_mb) do
+    with {:ok, %{"goal_met" => goal_met}} <- Ferroplan.session_goal_met?(handle) do
+      if goal_met do
+        {:ok,
+         finalize_repair(%{
+           decision: :goal_met,
+           trigger: :goal_met,
+           plan_valid: nil,
+           previous_suffix: [],
+           suffix: [],
+           plan: nil,
+           backend: :host_fallback
+         })}
+      else
+        fallback_repair_open_goal(handle, evals, mem_mb)
+      end
+    end
+  end
+
+  defp fallback_repair_open_goal(handle, evals, mem_mb) do
+    with {:ok, %{"has_plan" => has_plan}} <- Ferroplan.session_has_plan?(handle) do
+      if has_plan do
+        with {:ok, previous_suffix} <- Ferroplan.session_suffix(handle),
+             {:ok, %{"valid" => valid}} <- Ferroplan.session_valid?(handle) do
+          if valid do
+            {:ok,
+             finalize_repair(%{
+               decision: :reuse_suffix,
+               trigger: :none,
+               plan_valid: true,
+               previous_suffix: previous_suffix,
+               suffix: previous_suffix,
+               plan: nil,
+               backend: :host_fallback
+             })}
+          else
+            fallback_full_replan(handle, previous_suffix, :invalid_plan, false, evals, mem_mb)
+          end
+        end
+      else
+        fallback_full_replan(handle, [], :no_plan, nil, evals, mem_mb)
+      end
+    end
+  end
+
+  defp fallback_full_replan(handle, previous_suffix, trigger, plan_valid, evals, mem_mb) do
+    case Ferroplan.session_think(handle, evals, mem_mb) do
+      {:ok, %{"error" => error}} ->
+        {:ok,
+         finalize_repair(%{
+           decision: :replan_refused,
+           trigger: trigger,
+           plan_valid: plan_valid,
+           previous_suffix: previous_suffix,
+           suffix: [],
+           plan: nil,
+           replan_error: error,
+           backend: :host_fallback
+         })}
+
+      {:ok, %{"solved" => true} = plan} ->
+        with {:ok, suffix} <- Ferroplan.session_suffix(handle) do
+          {:ok,
+           finalize_repair(%{
+             decision: :replanned_full,
+             trigger: trigger,
+             plan_valid: plan_valid,
+             previous_suffix: previous_suffix,
+             suffix: suffix,
+             plan: plan,
+             backend: :host_fallback
+           })}
+        end
+
+      {:ok, plan} ->
+        {:ok,
+         finalize_repair(%{
+           decision: :replan_unsolved,
+           trigger: trigger,
+           plan_valid: plan_valid,
+           previous_suffix: previous_suffix,
+           suffix: [],
+           plan: plan,
+           backend: :host_fallback
+         })}
+
+      {:error, _} = error ->
+        error
+    end
+  end
+
+  defp normalize_repair(result, backend) do
+    decision =
+      result
+      |> Map.get("decision", "replan_unsolved")
+      |> String.to_existing_atom()
+
+    trigger =
+      result
+      |> Map.get("trigger", "none")
+      |> String.to_existing_atom()
+
+    finalize_repair(%{
+      decision: decision,
+      trigger: trigger,
+      plan_valid: Map.get(result, "plan_valid"),
+      previous_suffix: Map.get(result, "previous_suffix", []),
+      suffix: Map.get(result, "suffix", []),
+      plan: Map.get(result, "solution"),
+      backend: backend
+    })
+  rescue
+    ArgumentError ->
+      finalize_repair(%{
+        decision: :replan_unsolved,
+        trigger: :none,
+        plan_valid: nil,
+        previous_suffix: Map.get(result, "previous_suffix", []),
+        suffix: Map.get(result, "suffix", []),
+        plan: Map.get(result, "solution"),
+        backend: backend
+      })
+  end
+
+  defp finalize_repair(repair) do
+    previous_plan_id = plan_id(Map.get(repair, :previous_suffix, []))
+    current_plan_id = plan_id(Map.get(repair, :suffix, []))
+
+    lineage =
+      if previous_plan_id && current_plan_id && previous_plan_id != current_plan_id do
+        %{
+          plan_id: current_plan_id,
+          parent_plan_id: previous_plan_id,
+          lineage_hash: deterministic_hash({previous_plan_id, current_plan_id, repair.decision})
+        }
+      end
+
+    memory =
+      if current_plan_id do
+        evidence_hash =
+          deterministic_hash({
+            repair.decision,
+            repair.trigger,
+            Map.get(repair, :plan_valid),
+            Map.get(repair, :backend)
+          })
+
+        %{
+          plan_id: current_plan_id,
+          evidence_hash: evidence_hash,
+          memory_hash: deterministic_hash({current_plan_id, evidence_hash})
+        }
+      end
+
+    escalation =
+      if repair.decision in [:replan_unsolved, :replan_refused] do
+        [:hddl_recompile, :strategic_recompile]
+      else
+        []
+      end
+
+    repair
+    |> Map.put_new(:replan_error, nil)
+    |> Map.put(:previous_plan_id, previous_plan_id)
+    |> Map.put(:plan_id, current_plan_id)
+    |> Map.put(:plan_lineage, lineage)
+    |> Map.put(:plan_memory, memory)
+    |> Map.put(:escalation, escalation)
+    |> Map.put(:authority_ceiling, :select)
+  end
+
+  defp fallback_probe_candidate(parent_handle, candidate, evals, mem_mb) do
+    id = to_string(Map.fetch!(candidate, :id))
+
+    case Ferroplan.session_fork(parent_handle) do
+      {:ok, %{"handle" => fork}} ->
+        try do
+          with :ok <- maybe_set_goal(fork, Map.get(candidate, :goal)),
+               :ok <- maybe_restrict(fork, Map.get(candidate, :restrict_contains)),
+               {:ok, surprises} <-
+                 maybe_observe(fork, Map.get(candidate, :observations, [])),
+               {:ok, solution} <- Ferroplan.session_think(fork, evals, mem_mb),
+               {:ok, %{"bytes" => world_bytes}} <- Ferroplan.session_world_bytes(fork),
+               {:ok, %{"bytes" => mind_bytes}} <- Ferroplan.session_mind_bytes(fork) do
+            %{
+              id: id,
+              outcome: if(Map.get(solution, "solved"), do: :solved, else: :unsolved),
+              surprises: surprises,
+              solution: solution,
+              plan_id: plan_id(Map.get(solution, "plan", %{}) |> Map.get("steps", [])),
+              world_bytes: world_bytes,
+              mind_bytes: mind_bytes,
+              authority_ceiling: :select
+            }
+          else
+            {:error, reason} ->
+              %{
+                id: id,
+                outcome: :refused,
+                reason: reason,
+                authority_ceiling: :select
+              }
+          end
+        after
+          _ = Ferroplan.session_free(fork)
+        end
+
+      {:error, reason} ->
+        %{id: id, outcome: :refused, reason: reason, authority_ceiling: :select}
+    end
+  end
+
+  defp maybe_set_goal(_handle, nil), do: :ok
+
+  defp maybe_set_goal(handle, goal) when is_binary(goal) do
+    case Ferroplan.session_set_goal(handle, goal) do
+      {:ok, %{"ok" => true}} -> :ok
+      {:error, _} = error -> error
+      other -> {:error, {:set_goal, other}}
+    end
+  end
+
+  defp maybe_restrict(_handle, nil), do: :ok
+
+  defp maybe_restrict(handle, filter) when is_binary(filter) do
+    case Ferroplan.session_restrict_contains(handle, filter) do
+      {:ok, %{"ok" => true}} -> :ok
+      {:error, _} = error -> error
+      other -> {:error, {:restrict, other}}
+    end
+  end
+
+  defp maybe_observe(_handle, []), do: {:ok, []}
+
+  defp maybe_observe(handle, observations) when is_list(observations) do
+    Ferroplan.session_observe(handle, observations)
+  end
+
+  defp plan_id([]), do: nil
+
+  defp plan_id(steps) when is_list(steps) do
+    "plan:" <> deterministic_hash(steps)
+  end
+
+  defp deterministic_hash(term) do
+    :crypto.hash(:sha256, :erlang.term_to_binary(term, [:deterministic]))
+    |> Base.encode16(case: :lower)
+  end
 
   # --- Standalone AutoFDE Typer CLI Bridge (priv/bin/autofde) ---
 
