@@ -557,6 +557,53 @@ defmodule BeamPM.Dfcm do
   end
 
   @doc """
+  Recompile an explicitly supplied hierarchy only after the caller has
+  decided the local-session repair boundary was exhausted.
+
+  This is a bounded CONSTRUCT operation over exact HDDL source. It returns a
+  SELECT candidate with deterministic evidence; an unsolved hierarchy names
+  `:strategic_recompile` as the next boundary but never invokes one.
+  """
+  @spec hddl_recompile(String.t(), String.t(), map() | nil) ::
+          {:ok, map()} | {:error, term()}
+  def hddl_recompile(domain, problem, limits \\ nil)
+      when is_binary(domain) and is_binary(problem) and (is_map(limits) or is_nil(limits)) do
+    case Ferroplan.hddl_solve(domain, problem, limits) do
+      {:ok, %{"error" => error}} ->
+        {:error,
+         {:hddl_refused,
+          %{
+            error: error,
+            next_escalation: :strategic_recompile,
+            authority_ceiling: :select
+          }}}
+
+      {:ok, %{"solved" => true} = plan} ->
+        {:ok,
+         %{
+           kind: :hddl_recompile,
+           plan: plan,
+           plan_evidence_hash: deterministic_hash({domain, problem, limits, plan}),
+           next_escalation: nil,
+           authority_ceiling: :select
+         }}
+
+      {:ok, plan} ->
+        {:error,
+         {:hddl_unsolved,
+          %{
+            plan: plan,
+            plan_evidence_hash: deterministic_hash({domain, problem, limits, plan}),
+            next_escalation: :strategic_recompile,
+            authority_ceiling: :select
+          }}}
+
+      {:error, _} = error ->
+        error
+    end
+  end
+
+  @doc """
   Admit one exact FOND policy branch using Ferroplan's independent policy
   validator before exposing the action as a SELECT candidate.
 
