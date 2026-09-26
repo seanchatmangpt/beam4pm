@@ -1,9 +1,48 @@
 defmodule BeamPM.DfcmTest do
-  use ExUnit.Case, async: true
+  use ExUnit.Case, async: false
 
   alias BeamPM.Dfcm
+  alias BeamPM.Ferroplan
 
   @fixture_dir Path.expand("../qualification/fixtures/dfcm", __DIR__)
+
+  @planning_domain """
+  (define (domain rooms)
+    (:requirements :strips :typing)
+    (:types room)
+    (:predicates (at ?r - room) (link ?a - room ?b - room))
+    (:action go
+      :parameters (?a - room ?b - room)
+      :precondition (and (at ?a) (link ?a ?b))
+      :effect (and (at ?b) (not (at ?a)))))
+  )
+  """
+
+  @planning_problem """
+  (define (problem three-room)
+    (:domain rooms)
+    (:objects a b c - room)
+    (:init (at a) (link a b) (link c b))
+    (:goal (at b)))
+  """
+
+  defp start_ferroplan! do
+    case Ferroplan.start() do
+      {:ok, _pid} -> :ok
+      {:error, {:already_started, _pid}} -> :ok
+    end
+  end
+
+  defp new_session!(with_plan \\ false) do
+    start_ferroplan!()
+    {:ok, %{"handle" => handle}} = Ferroplan.session_new(@planning_domain, @planning_problem)
+
+    if with_plan do
+      {:ok, %{"solved" => true}} = Ferroplan.session_think(handle, 10_000, 64)
+    end
+
+    handle
+  end
 
   test "HDDL order is preserve through select and never DO" do
     assert Dfcm.phase_order() == [
@@ -304,4 +343,115 @@ defmodule BeamPM.DfcmTest do
     assert {:ok, hook_res} = Dfcm.graphlaw_hooks(sample_ttl, event_ttl)
     assert hook_res["status"] == "ADMITTED"
   end
+  describe "live DfCM Ferroplan runtime" do
+    if not Ferroplan.wasm_built?() do
+      @describetag skip: Ferroplan.wasm_missing_reason()
+    end
+
+    test "valid suffix is preserved before any new search" do
+      handle = new_session!(true)
+
+      assert {:ok, result} =
+               Dfcm.observe_and_repair_session(
+                 handle,
+                 [{"(at a)", true}],
+                 event_id: "evt-stable"
+               )
+
+      assert result.decision == :reuse_suffix
+      assert result.trigger == :none
+      assert result.plan_valid == true
+      assert result.previous_plan_id == result.plan_id
+      assert result.plan_lineage == nil
+      assert result.plan_memory.plan_id == result.plan_id
+      assert result.dynamic_replan_trigger == nil
+      assert result.escalation == []
+      assert result.authority_ceiling == :select
+
+      {:ok, %{"freed" => true}} = Ferroplan.session_free(handle)
+    end
+
+    test "world drift triggers bounded repair with deterministic lineage and trigger evidence" do
+      handle = new_session!(true)
+
+      assert {:ok, before_suffix} = Ferroplan.session_suffix(handle)
+      assert before_suffix != []
+
+      assert {:ok, result} =
+               Dfcm.observe_and_repair_session(
+                 handle,
+                 [{"(at a)", false}, {"(at c)", true}],
+                 event_id: "evt-drift",
+                 evals: 10_000,
+                 mem_mb: 64
+               )
+
+      assert result.decision in [:replanned_full, :replanned_following]
+      assert result.trigger == :invalid_plan
+      assert result.plan_valid == false
+      assert result.previous_plan_id != nil
+      assert result.plan_id != nil
+      assert result.plan_lineage.parent_plan_id == result.previous_plan_id
+      assert result.plan_lineage.plan_id == result.plan_id
+      assert byte_size(result.plan_lineage.lineage_hash) == 64
+      assert result.dynamic_replan_trigger.event_id == "evt-drift"
+      assert result.dynamic_replan_trigger.plan_id == result.previous_plan_id
+      assert byte_size(result.dynamic_replan_trigger.trigger_hash) == 64
+      assert result.plan_memory.plan_id == result.plan_id
+      assert result.authority_ceiling == :select
+      assert {:ok, %{"valid" => true}} = Ferroplan.session_valid?(handle)
+
+      {:ok, %{"freed" => true}} = Ferroplan.session_free(handle)
+    end
+
+    test "counterfactual probes preserve parent world and parent plan slot" do
+      handle = new_session!(false)
+
+      assert {:ok, result} =
+               Dfcm.probe_session(
+                 handle,
+                 [
+                   %{id: "baseline", goal: "(at b)"},
+                   %{
+                     id: "counterfactual-c",
+                     goal: "(at b)",
+                     observations: [{"(at a)", false}, {"(at c)", true}]
+                   },
+                   %{id: "unreachable-c", goal: "(at c)"}
+                 ],
+                 evals: 10_000,
+                 mem_mb: 64
+               )
+
+      assert result.candidate_count == 3
+      assert result.authority_ceiling == :select
+      assert result.backend in [:host_forks, :native_forks]
+
+      outcomes =
+        Enum.map(result.results, fn candidate ->
+          Map.get(candidate, :outcome) || Map.get(candidate, "outcome")
+        end)
+
+      assert Enum.at(outcomes, 0) in [:solved, "solved"]
+      assert Enum.at(outcomes, 1) in [:solved, "solved"]
+      assert Enum.at(outcomes, 2) in [:unsolved, "unsolved"]
+
+      assert {:ok, %{"has_plan" => false}} = Ferroplan.session_has_plan?(handle)
+      assert {:ok, %{"value" => true}} = Ferroplan.session_fact(handle, "(at a)")
+      assert {:ok, %{"value" => false}} = Ferroplan.session_fact(handle, "(at c)")
+
+      {:ok, %{"freed" => true}} = Ferroplan.session_free(handle)
+    end
+
+    test "stale-plan refusal requires explicit identity drift" do
+      assert Dfcm.stale_plan_refusal("plan:a", "same", "same") == nil
+
+      refusal = Dfcm.stale_plan_refusal("plan:a", "admitted", "observed")
+      assert refusal.plan_id == "plan:a"
+      assert refusal.admitted_preimage_hash == "admitted"
+      assert refusal.observed_preimage_hash == "observed"
+      assert refusal.authority_ceiling == :select
+    end
+  end
+
 end
