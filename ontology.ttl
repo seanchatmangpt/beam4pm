@@ -10438,10 +10438,10 @@ bap:hand_authored_lib_dfcm a bpm:HandAuthoredSource ;
     bpm:sourcePath "lib/beam4pm_dfcm.ex" ;
     bpm:authorshipKind bpm:AuthorshipKind_native_engine_facade ;
     bpm:authorizingPrincipal "Sean Chatman (repo owner) via Claude Code session_01UiCeLuzgcK2BLocBKxXw39" ;
-    bpm:admissionReason "DfCM planning crown plus live Ferroplan runtime composition. Preserves admitted alternatives, fences and falsifiers; adds zero-DO observation-to-repair routing, deterministic plan lineage and memory evidence, explicit stale-plan refusal, bounded counterfactual probes over cheap session forks, and independently validated FOND branch admission for exact caller-supplied policy states. Native session_repair/session_probe/fond_validate are used when available; older admitted pins use bounded existing fallbacks or return a typed unavailable state rather than inventing semantics. Authority ceiling remains strictly :select." ;
+    bpm:admissionReason "DfCM planning crown plus live Ferroplan runtime composition. Preserves admitted alternatives, fences and falsifiers; adds zero-DO observation-to-repair routing, deterministic plan lineage and memory evidence, explicit stale-plan refusal, bounded counterfactual probes over cheap session forks, and independently validated FOND branch admission for exact caller-supplied policy states. Native session_repair/session_probe/fond_validate are used when available; older admitted pins use bounded existing fallbacks or return a typed unavailable state rather than inventing semantics. Authority ceiling remains strictly :select. Hardened at the boundary: malformed, contradictory or out-of-budget deliveries, malformed or duplicate probe ids, ambiguous FOND policies and empty stale-plan identities are refused as typed errors before any engine call; native repair output passes a closed decision vocabulary and fails closed to escalation." ;
     bpm:acceptanceCommand "test -f native/ferroplan/target/wasm32-wasip1/release/ferroplan_wasm.wasm && mix test test/beam4pm_dfcm_test.exs" ;
-    bpm:contentSha256 "61de52f9ac77ec17af32abfe8553f895169440756d1c0023fe1eea340c990682" ;
-    bpm:admittedAtCommit "1238877" ;
+    bpm:contentSha256 "1123954fcf723223e86165f5789b57dc7123ca2db54f1b32886b2b4b4f7b05e4" ;
+    bpm:admittedAtCommit "f4368fc" ;
     bpm:admissionExpires "2026-12-31" ;
     bpm:sunsetPlan "Admit DfCM contracts as ontology facts and render the planning crown from a pack template; then delete this admission." .
 
@@ -10451,10 +10451,10 @@ bap:hand_authored_test_dfcm a bpm:HandAuthoredSource ;
     bpm:sourcePath "test/beam4pm_dfcm_test.exs" ;
     bpm:authorshipKind bpm:AuthorshipKind_hand_authored_qualification ;
     bpm:authorizingPrincipal "Sean Chatman (repo owner) via Claude Code session_01UiCeLuzgcK2BLocBKxXw39" ;
-    bpm:admissionReason "Chicago qualification of BeamPM.Dfcm option calculus plus live Ferroplan closure: valid-suffix preservation, bounded world-drift repair with deterministic lineage and trigger evidence, counterfactual fork isolation, explicit stale-plan refusal, and independently validated strong-cyclic FOND branch admission with invalid-policy and unknown-state falsifiers. The suite keeps the SELECT-not-DO authority ceiling." ;
+    bpm:admissionReason "Chicago qualification of BeamPM.Dfcm option calculus plus live Ferroplan closure: valid-suffix preservation, bounded world-drift repair with deterministic lineage and trigger evidence, counterfactual fork isolation, explicit stale-plan refusal, and independently validated strong-cyclic FOND branch admission with invalid-policy and unknown-state falsifiers. The suite keeps the SELECT-not-DO authority ceiling. Adds boundary and adversarial falsifiers: malformed/contradictory/out-of-budget refusal without mutation, closed native-repair vocabulary, FOND ambiguity, empty identity, duplicate-delivery idempotence, byte-identical fork replay, reorder invariance and restricted-counterfactual isolation; the drift fixture observes only grounded facts." ;
     bpm:acceptanceCommand "test -f native/ferroplan/target/wasm32-wasip1/release/ferroplan_wasm.wasm && mix test test/beam4pm_dfcm_test.exs" ;
-    bpm:contentSha256 "15fd35aded9cd04472bdb39a7f8a5c453969eb83d91ac04ea93f61cde1f03a19" ;
-    bpm:admittedAtCommit "2be69d0" ;
+    bpm:contentSha256 "80cf3051eedfbe7aab1c5c3d759da53feab0805a66fd77a4766afee37ab487b4" ;
+    bpm:admittedAtCommit "f4368fc" ;
     bpm:admissionExpires "2026-12-31" ;
     bpm:sunsetPlan "Render from the same DfCM planning facts as lib/beam4pm_dfcm.ex; then delete this admission." .
 
@@ -10616,8 +10616,8 @@ bap:hand_authored_lib_powl_conformance a bpm:HandAuthoredSource ;
     bpm:admissionReason "Plan-execute-conform-repair orchestration over real rust4pm plus the DfCM planning crown: discovers/checks POWL behavior from OCEL and delegates admitted world observations to BeamPM.Dfcm, which preserves valid suffixes and escalates bounded repair without granting actuation authority. POWL deviation remains evidence, not authority." ;
     bpm:acceptanceCommand "test -f native/ferroplan/target/wasm32-wasip1/release/ferroplan_wasm.wasm && mix test test/beam4pm_powl_conformance_test.exs test/beam4pm_powl_conformance_e2e_test.exs" ;
     bpm:acceptancePrerequisite "native/rust4pm-wasm/target/wasm32-wasip1/release/rust4pm_wasm.wasm" ;
-    bpm:contentSha256 "5d56fab0472de423d6bd69e2c6e258b6332530520c74d23cac49b7ae1d154c30" ;
-    bpm:admittedAtCommit "2025b75" ;
+    bpm:contentSha256 "e3dab6b6cb00d084fda9f96a9618a0d566089c5dff398ce65f5f8883d6e59bc6" ;
+    bpm:admittedAtCommit "f4368fc" ;
     bpm:admissionExpires "2026-12-31" ;
     bpm:sunsetPlan "No template family fits a cross-op conformance-orchestration wrapper today; keep admitted until one is proposed upstream." .
 
@@ -10625,11 +10625,11 @@ bap:hand_authored_test_powl_conformance a bpm:HandAuthoredSource ;
     bpm:sourcePath "test/beam4pm_powl_conformance_test.exs" ;
     bpm:authorshipKind bpm:AuthorshipKind_hand_authored_qualification ;
     bpm:authorizingPrincipal "Sean Chatman (repo owner) via Claude Code session_018iXTYcpGbgf23MZYLe6TCU" ;
-    bpm:admissionReason "Chicago qualification of POWL conformance plus DfCM/Ferroplan repair: a process deviation with unchanged planning state preserves the valid suffix, while admitted world drift invalidates it and produces a new valid bounded repair candidate. No mocks; no actuation." ;
+    bpm:admissionReason "Chicago qualification of POWL conformance plus DfCM/Ferroplan repair: a process deviation with unchanged planning state preserves the valid suffix, while admitted world drift invalidates it and produces a new valid bounded repair candidate. No mocks; no actuation. The drift fixture observes only grounded facts (link b c) so the replan is exercised on every admitted Ferroplan pin." ;
     bpm:acceptanceCommand "test -f native/ferroplan/target/wasm32-wasip1/release/ferroplan_wasm.wasm && mix test test/beam4pm_powl_conformance_test.exs" ;
     bpm:acceptancePrerequisite "native/rust4pm-wasm/target/wasm32-wasip1/release/rust4pm_wasm.wasm" ;
-    bpm:contentSha256 "24348154916226c81c03f114ac022998b8b2abac06f8c31a7564054e379e3a6e" ;
-    bpm:admittedAtCommit "bdae2d8" ;
+    bpm:contentSha256 "7b615a4574e4dd55024a777a8d88a073b3243f047163054d907dd8974ea93467" ;
+    bpm:admittedAtCommit "f4368fc" ;
     bpm:admissionExpires "2026-12-31" ;
     bpm:sunsetPlan "Sunsets alongside lib/beam4pm_powl_conformance.ex's own admission." .
 

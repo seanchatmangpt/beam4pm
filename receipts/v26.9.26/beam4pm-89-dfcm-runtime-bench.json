@@ -1,0 +1,104 @@
+{
+  "anti_vacuity": "reuse_suffix bound mutated to 1us -> exit 1 \"REGRESSION: court failed (guard_cheaper=true) in reuse_suffix\"",
+  "authority": "NONE",
+  "command": "MIX_ENV=test mix run --no-start bench/dfcm_runtime_bench.exs <receipt.json>",
+  "court": "min_us <= bound_min_us per case; boundary refusal p50 < cheapest engine-backed min",
+  "elixir": "1.19.5",
+  "ferroplan_pin": "e90928d7b0687a959831553c4eacca3d75ca6c88 (native/ferroplan gitlink at PR head)",
+  "ferroplan_wasm_sha256": "71fc89e97b798d3e6afa26b04616335d7f7aca0d64cb210cff8a027a166defb8",
+  "host_load_avg": "{ 171.13 133.96 158.97 }",
+  "otp": "28",
+  "pass": true,
+  "pr": "seanchatmangpt/beam4pm#89",
+  "prior_observation_same_subject": {
+    "host_load_avg": "{ 122.44 208.29 248.58 }",
+    "results": [
+      {
+        "bound_min_us": 1000,
+        "case": "boundary_refusal_contradiction",
+        "max_us": 32,
+        "min_us": 10,
+        "n": 200,
+        "p50_us": 10,
+        "p95_us": 13,
+        "within_bound": true
+      },
+      {
+        "bound_min_us": 20000,
+        "case": "reuse_suffix",
+        "max_us": 712,
+        "min_us": 284,
+        "n": 200,
+        "p50_us": 409,
+        "p95_us": 506,
+        "within_bound": true
+      },
+      {
+        "bound_min_us": 60000,
+        "case": "drift_full_replan",
+        "max_us": 1163,
+        "min_us": 410,
+        "n": 200,
+        "p50_us": 594,
+        "p95_us": 893,
+        "within_bound": true
+      },
+      {
+        "bound_min_us": 150000,
+        "case": "probe_three_counterfactuals",
+        "max_us": 3167,
+        "min_us": 1170,
+        "n": 200,
+        "p50_us": 1723,
+        "p95_us": 2520,
+        "within_bound": true
+      }
+    ]
+  },
+  "results": [
+    {
+      "bound_min_us": 1000,
+      "case": "boundary_refusal_contradiction",
+      "max_us": 74,
+      "min_us": 13,
+      "n": 200,
+      "p50_us": 13,
+      "p95_us": 17,
+      "within_bound": true
+    },
+    {
+      "bound_min_us": 20000,
+      "case": "reuse_suffix",
+      "max_us": 68780,
+      "min_us": 1161,
+      "n": 200,
+      "p50_us": 12241,
+      "p95_us": 40983,
+      "within_bound": true
+    },
+    {
+      "bound_min_us": 60000,
+      "case": "drift_full_replan",
+      "max_us": 109309,
+      "min_us": 1110,
+      "n": 200,
+      "p50_us": 12067,
+      "p95_us": 54954,
+      "within_bound": true
+    },
+    {
+      "bound_min_us": 150000,
+      "case": "probe_three_counterfactuals",
+      "max_us": 186747,
+      "min_us": 1256,
+      "n": 200,
+      "p50_us": 18172,
+      "p95_us": 81620,
+      "within_bound": true
+    }
+  ],
+  "schema": "beam4pm/dfcm-runtime-bench/1",
+  "subject": "lib/beam4pm_dfcm.ex",
+  "subject_commit": "f4368fc6ff4064f44d25afc31d8f2bdc92060324",
+  "subject_sha256": "1123954fcf723223e86165f5789b57dc7123ca2db54f1b32886b2b4b4f7b05e4"
+}

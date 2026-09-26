@@ -49,7 +49,7 @@ artifact is absent (`ACCEPTANCE_BLOCKED_PREREQUISITE`).
 | `test/beam4pm_ash_ai_tools_test.exs` | `f44dcd0` | 2026-12-31 | `mix test test/beam4pm_ash_ai_tools_test.exs` | - |
 | `test/beam4pm_contracts_test.exs` | `91965eb` | 2026-12-31 | `mix test test/beam4pm_contracts_test.exs` | - |
 | `test/beam4pm_deviation_admission_test.exs` | `c639d69` | 2026-12-31 | `mix test test/beam4pm_deviation_admission_test.exs` | - |
-| `test/beam4pm_dfcm_test.exs` | `2be69d0` | 2026-12-31 | `test -f native/ferroplan/target/wasm32-wasip1/release/ferroplan_wasm.wasm && mix test test/beam4pm_dfcm_test.exs` | - |
+| `test/beam4pm_dfcm_test.exs` | `f4368fc` | 2026-12-31 | `test -f native/ferroplan/target/wasm32-wasip1/release/ferroplan_wasm.wasm && mix test test/beam4pm_dfcm_test.exs` | - |
 | `test/beam4pm_eds_test.exs` | `4d50b4b` | 2026-12-31 | `mix test test/beam4pm_eds_test.exs` | - |
 | `test/beam4pm_ferroplan_facades_test.exs` | `f44dcd0` | 2026-12-31 | `mix test test/beam4pm_ferroplan_facades_test.exs` | native/ferroplan/target/wasm32-wasip1/release/ferroplan_wasm.wasm |
 | `test/beam4pm_ferroplan_test.exs` | `c34e275` | 2026-12-31 | `mix test test/beam4pm_ferroplan_test.exs` | native/ferroplan/target/wasm32-wasip1/release/ferroplan_wasm.wasm |
@@ -58,7 +58,7 @@ artifact is absent (`ACCEPTANCE_BLOCKED_PREREQUISITE`).
 | `test/beam4pm_petgraph_facades_test.exs` | `f44dcd0` | 2026-12-31 | `mix test test/beam4pm_petgraph_facades_test.exs` | native/petgraph-wasm/target/wasm32-wasip1/release/petgraph_wasm.wasm |
 | `test/beam4pm_petgraph_test.exs` | `f44dcd0` | 2026-12-31 | `mix test test/beam4pm_petgraph_test.exs` | native/petgraph-wasm/target/wasm32-wasip1/release/petgraph_wasm.wasm |
 | `test/beam4pm_powl_conformance_e2e_test.exs` | `51ca841` | 2026-12-31 | `mix test test/beam4pm_powl_conformance_e2e_test.exs` | native/rust4pm-wasm/target/wasm32-wasip1/release/rust4pm_wasm.wasm |
-| `test/beam4pm_powl_conformance_test.exs` | `bdae2d8` | 2026-12-31 | `test -f native/ferroplan/target/wasm32-wasip1/release/ferroplan_wasm.wasm && mix test test/beam4pm_powl_conformance_test.exs` | native/rust4pm-wasm/target/wasm32-wasip1/release/rust4pm_wasm.wasm |
+| `test/beam4pm_powl_conformance_test.exs` | `f4368fc` | 2026-12-31 | `test -f native/ferroplan/target/wasm32-wasip1/release/ferroplan_wasm.wasm && mix test test/beam4pm_powl_conformance_test.exs` | native/rust4pm-wasm/target/wasm32-wasip1/release/rust4pm_wasm.wasm |
 | `test/beam4pm_powl_discovery_test.exs` | `91965eb` | 2026-12-31 | `mix test test/beam4pm_powl_discovery_test.exs` | - |
 | `test/beam4pm_process_governor_k8s_test.exs` | `0107a09` | 2026-12-31 | `mix test test/beam4pm_process_governor_k8s_test.exs` | cmd:kubectl --context kind-ex4pm cluster-info |
 | `test/beam4pm_rf2_oracle_dep_task_test.exs` | `91965eb` | 2026-12-31 | `mix test test/beam4pm_rf2_oracle_dep_task_test.exs` | - |
@@ -173,8 +173,8 @@ artifact is absent (`ACCEPTANCE_BLOCKED_PREREQUISITE`).
 #### `test/beam4pm_dfcm_test.exs`
 
 - Authorizing principal: Sean Chatman (repo owner) via Claude Code session_01UiCeLuzgcK2BLocBKxXw39
-- Reason: Chicago qualification of BeamPM.Dfcm option calculus plus live Ferroplan closure: valid-suffix preservation, bounded world-drift repair with deterministic lineage and trigger evidence, counterfactual fork isolation, explicit stale-plan refusal, and independently validated strong-cyclic FOND branch admission with invalid-policy and unknown-state falsifiers. The suite keeps the SELECT-not-DO authority ceiling.
-- Content sha256 at admission: `15fd35aded9cd04472bdb39a7f8a5c453969eb83d91ac04ea93f61cde1f03a19`
+- Reason: Chicago qualification of BeamPM.Dfcm option calculus plus live Ferroplan closure: valid-suffix preservation, bounded world-drift repair with deterministic lineage and trigger evidence, counterfactual fork isolation, explicit stale-plan refusal, and independently validated strong-cyclic FOND branch admission with invalid-policy and unknown-state falsifiers. The suite keeps the SELECT-not-DO authority ceiling. Adds boundary and adversarial falsifiers: malformed/contradictory/out-of-budget refusal without mutation, closed native-repair vocabulary, FOND ambiguity, empty identity, duplicate-delivery idempotence, byte-identical fork replay, reorder invariance and restricted-counterfactual isolation; the drift fixture observes only grounded facts.
+- Content sha256 at admission: `80cf3051eedfbe7aab1c5c3d759da53feab0805a66fd77a4766afee37ab487b4`
 - Sunset plan: Render from the same DfCM planning facts as lib/beam4pm_dfcm.ex; then delete this admission.
 
 #### `test/beam4pm_eds_test.exs`
@@ -236,8 +236,8 @@ artifact is absent (`ACCEPTANCE_BLOCKED_PREREQUISITE`).
 #### `test/beam4pm_powl_conformance_test.exs`
 
 - Authorizing principal: Sean Chatman (repo owner) via Claude Code session_018iXTYcpGbgf23MZYLe6TCU
-- Reason: Chicago qualification of POWL conformance plus DfCM/Ferroplan repair: a process deviation with unchanged planning state preserves the valid suffix, while admitted world drift invalidates it and produces a new valid bounded repair candidate. No mocks; no actuation.
-- Content sha256 at admission: `24348154916226c81c03f114ac022998b8b2abac06f8c31a7564054e379e3a6e`
+- Reason: Chicago qualification of POWL conformance plus DfCM/Ferroplan repair: a process deviation with unchanged planning state preserves the valid suffix, while admitted world drift invalidates it and produces a new valid bounded repair candidate. No mocks; no actuation. The drift fixture observes only grounded facts (link b c) so the replan is exercised on every admitted Ferroplan pin.
+- Content sha256 at admission: `7b615a4574e4dd55024a777a8d88a073b3243f047163054d907dd8974ea93467`
 - Sunset plan: Sunsets alongside lib/beam4pm_powl_conformance.ex's own admission.
 
 #### `test/beam4pm_powl_discovery_test.exs`
@@ -336,11 +336,11 @@ artifact is absent (`ACCEPTANCE_BLOCKED_PREREQUISITE`).
 | Path | Admitted at | Expires | Acceptance command | Prerequisite |
 | --- | --- | --- | --- | --- |
 | `lib/beam4pm_deviation_admission.ex` | `c639d69` | 2026-12-31 | `mix test test/beam4pm_deviation_admission_test.exs` | - |
-| `lib/beam4pm_dfcm.ex` | `1238877` | 2026-12-31 | `test -f native/ferroplan/target/wasm32-wasip1/release/ferroplan_wasm.wasm && mix test test/beam4pm_dfcm_test.exs` | - |
+| `lib/beam4pm_dfcm.ex` | `f4368fc` | 2026-12-31 | `test -f native/ferroplan/target/wasm32-wasip1/release/ferroplan_wasm.wasm && mix test test/beam4pm_dfcm_test.exs` | - |
 | `lib/beam4pm_eds.ex` | `4d50b4b` | 2026-12-31 | `mix test test/beam4pm_eds_test.exs` | - |
 | `lib/beam4pm_eds_ppcx_h1.ex` | `4d50b4b` | 2026-12-31 | `mix test test/beam4pm_eds_test.exs` | - |
 | `lib/beam4pm_ocel.ex` | `91965eb` | 2026-12-31 | `mix test test/beam4pm_ocel_test.exs` | - |
-| `lib/beam4pm_powl_conformance.ex` | `2025b75` | 2026-12-31 | `test -f native/ferroplan/target/wasm32-wasip1/release/ferroplan_wasm.wasm && mix test test/beam4pm_powl_conformance_test.exs test/beam4pm_powl_conformance_e2e_test.exs` | native/rust4pm-wasm/target/wasm32-wasip1/release/rust4pm_wasm.wasm |
+| `lib/beam4pm_powl_conformance.ex` | `f4368fc` | 2026-12-31 | `test -f native/ferroplan/target/wasm32-wasip1/release/ferroplan_wasm.wasm && mix test test/beam4pm_powl_conformance_test.exs test/beam4pm_powl_conformance_e2e_test.exs` | native/rust4pm-wasm/target/wasm32-wasip1/release/rust4pm_wasm.wasm |
 
 
 #### `lib/beam4pm_deviation_admission.ex`
@@ -353,8 +353,8 @@ artifact is absent (`ACCEPTANCE_BLOCKED_PREREQUISITE`).
 #### `lib/beam4pm_dfcm.ex`
 
 - Authorizing principal: Sean Chatman (repo owner) via Claude Code session_01UiCeLuzgcK2BLocBKxXw39
-- Reason: DfCM planning crown plus live Ferroplan runtime composition. Preserves admitted alternatives, fences and falsifiers; adds zero-DO observation-to-repair routing, deterministic plan lineage and memory evidence, explicit stale-plan refusal, bounded counterfactual probes over cheap session forks, and independently validated FOND branch admission for exact caller-supplied policy states. Native session_repair/session_probe/fond_validate are used when available; older admitted pins use bounded existing fallbacks or return a typed unavailable state rather than inventing semantics. Authority ceiling remains strictly :select.
-- Content sha256 at admission: `61de52f9ac77ec17af32abfe8553f895169440756d1c0023fe1eea340c990682`
+- Reason: DfCM planning crown plus live Ferroplan runtime composition. Preserves admitted alternatives, fences and falsifiers; adds zero-DO observation-to-repair routing, deterministic plan lineage and memory evidence, explicit stale-plan refusal, bounded counterfactual probes over cheap session forks, and independently validated FOND branch admission for exact caller-supplied policy states. Native session_repair/session_probe/fond_validate are used when available; older admitted pins use bounded existing fallbacks or return a typed unavailable state rather than inventing semantics. Authority ceiling remains strictly :select. Hardened at the boundary: malformed, contradictory or out-of-budget deliveries, malformed or duplicate probe ids, ambiguous FOND policies and empty stale-plan identities are refused as typed errors before any engine call; native repair output passes a closed decision vocabulary and fails closed to escalation.
+- Content sha256 at admission: `1123954fcf723223e86165f5789b57dc7123ca2db54f1b32886b2b4b4f7b05e4`
 - Sunset plan: Admit DfCM contracts as ontology facts and render the planning crown from a pack template; then delete this admission.
 
 #### `lib/beam4pm_eds.ex`
@@ -382,7 +382,7 @@ artifact is absent (`ACCEPTANCE_BLOCKED_PREREQUISITE`).
 
 - Authorizing principal: Sean Chatman (repo owner) via Claude Code session_018iXTYcpGbgf23MZYLe6TCU
 - Reason: Plan-execute-conform-repair orchestration over real rust4pm plus the DfCM planning crown: discovers/checks POWL behavior from OCEL and delegates admitted world observations to BeamPM.Dfcm, which preserves valid suffixes and escalates bounded repair without granting actuation authority. POWL deviation remains evidence, not authority.
-- Content sha256 at admission: `5d56fab0472de423d6bd69e2c6e258b6332530520c74d23cac49b7ae1d154c30`
+- Content sha256 at admission: `e3dab6b6cb00d084fda9f96a9618a0d566089c5dff398ce65f5f8883d6e59bc6`
 - Sunset plan: No template family fits a cross-op conformance-orchestration wrapper today; keep admitted until one is proposed upstream.
 
 ### `reference_evidence` (7 file(s), counts as debt: false)
