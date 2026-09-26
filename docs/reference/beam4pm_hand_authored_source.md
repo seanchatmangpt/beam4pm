@@ -58,7 +58,7 @@ artifact is absent (`ACCEPTANCE_BLOCKED_PREREQUISITE`).
 | `test/beam4pm_petgraph_facades_test.exs` | `f44dcd0` | 2026-12-31 | `mix test test/beam4pm_petgraph_facades_test.exs` | native/petgraph-wasm/target/wasm32-wasip1/release/petgraph_wasm.wasm |
 | `test/beam4pm_petgraph_test.exs` | `f44dcd0` | 2026-12-31 | `mix test test/beam4pm_petgraph_test.exs` | native/petgraph-wasm/target/wasm32-wasip1/release/petgraph_wasm.wasm |
 | `test/beam4pm_powl_conformance_e2e_test.exs` | `51ca841` | 2026-12-31 | `mix test test/beam4pm_powl_conformance_e2e_test.exs` | native/rust4pm-wasm/target/wasm32-wasip1/release/rust4pm_wasm.wasm |
-| `test/beam4pm_powl_conformance_test.exs` | `8e31631` | 2026-12-31 | `mix test test/beam4pm_powl_conformance_test.exs` | native/rust4pm-wasm/target/wasm32-wasip1/release/rust4pm_wasm.wasm |
+| `test/beam4pm_powl_conformance_test.exs` | `793f946` | 2026-12-31 | `test -f native/ferroplan/target/wasm32-wasip1/release/ferroplan_wasm.wasm && mix test test/beam4pm_powl_conformance_test.exs` | native/rust4pm-wasm/target/wasm32-wasip1/release/rust4pm_wasm.wasm |
 | `test/beam4pm_powl_discovery_test.exs` | `91965eb` | 2026-12-31 | `mix test test/beam4pm_powl_discovery_test.exs` | - |
 | `test/beam4pm_process_governor_k8s_test.exs` | `0107a09` | 2026-12-31 | `mix test test/beam4pm_process_governor_k8s_test.exs` | cmd:kubectl --context kind-ex4pm cluster-info |
 | `test/beam4pm_rf2_oracle_dep_task_test.exs` | `91965eb` | 2026-12-31 | `mix test test/beam4pm_rf2_oracle_dep_task_test.exs` | - |
@@ -236,8 +236,8 @@ artifact is absent (`ACCEPTANCE_BLOCKED_PREREQUISITE`).
 #### `test/beam4pm_powl_conformance_test.exs`
 
 - Authorizing principal: Sean Chatman (repo owner) via Claude Code session_018iXTYcpGbgf23MZYLe6TCU
-- Reason: Chicago qualification of lib/beam4pm_powl_conformance.ex (admitted above): a real, small, in-test OCEL log (3 reference meetings, real 6-phase sequence), asserting a conforming trace aligns at real cost 0 and a deliberately injected skip/reorder deviation is really detected (nonzero cost, a real model-only move naming the skipped activity, fitness < 1.0) -- not just that the op runs.
-- Content sha256 at admission: `90469459a6ffb980c31333e33c35e895de8dba592325a02400483deab9386fa6`
+- Reason: Chicago qualification of the POWL-to-Ferroplan repair loop using both real WASM engines: retains a valid Ferroplan suffix despite an observed POWL deviation, then mutates the admitted session world so the prior suffix becomes invalid and proves bounded replanning returns a new valid solved candidate. Existing real POWL conformance checks remain in the same qualification. No mocks.
+- Content sha256 at admission: `d2cc135b1b476780399eef4b6db192dc12b3e16b1cee24352faf9fb99a030890`
 - Sunset plan: Sunsets alongside lib/beam4pm_powl_conformance.ex's own admission.
 
 #### `test/beam4pm_powl_discovery_test.exs`
@@ -340,7 +340,7 @@ artifact is absent (`ACCEPTANCE_BLOCKED_PREREQUISITE`).
 | `lib/beam4pm_eds.ex` | `4d50b4b` | 2026-12-31 | `mix test test/beam4pm_eds_test.exs` | - |
 | `lib/beam4pm_eds_ppcx_h1.ex` | `4d50b4b` | 2026-12-31 | `mix test test/beam4pm_eds_test.exs` | - |
 | `lib/beam4pm_ocel.ex` | `91965eb` | 2026-12-31 | `mix test test/beam4pm_ocel_test.exs` | - |
-| `lib/beam4pm_powl_conformance.ex` | `8e31631` | 2026-12-31 | `mix test test/beam4pm_powl_conformance_test.exs test/beam4pm_powl_conformance_e2e_test.exs` | native/rust4pm-wasm/target/wasm32-wasip1/release/rust4pm_wasm.wasm |
+| `lib/beam4pm_powl_conformance.ex` | `f6dd99e` | 2026-12-31 | `test -f native/ferroplan/target/wasm32-wasip1/release/ferroplan_wasm.wasm && mix test test/beam4pm_powl_conformance_test.exs test/beam4pm_powl_conformance_e2e_test.exs` | native/rust4pm-wasm/target/wasm32-wasip1/release/rust4pm_wasm.wasm |
 
 
 #### `lib/beam4pm_deviation_admission.ex`
@@ -381,8 +381,8 @@ artifact is absent (`ACCEPTANCE_BLOCKED_PREREQUISITE`).
 #### `lib/beam4pm_powl_conformance.ex`
 
 - Authorizing principal: Sean Chatman (repo owner) via Claude Code session_018iXTYcpGbgf23MZYLe6TCU
-- Reason: Step 5 (plan-execute-conform loop): combines the already-real ocel_discover_powl (BeamPM.Rust4PM, admitted above) with the already-real discover_alphappp/align_trace/compute_fitness alignment ops into one real reference-model-discovery + candidate-trace-conformance-check function. Hand-written orchestration over already-real engine ops (same convention as BeamPM.PowlDiscovery/BeamPM.Ocel), not ontology-fact-driven -- no POWL->PetriNet conversion op exists in the rust4pm engine, so this module discovers an independent alignable net from the identical flattened reference variant traces ocel_discover_powl itself uses, a disclosed real limitation stated in the module's own moduledoc. Admitted under native_engine_facade for lack of a closer-fitting closed-vocabulary kind, same precedent as lib/beam4pm_ocel.ex above (not a wasm facade itself, but hand-authored lib/ logic sitting directly on top of the real rust4pm facade).
-- Content sha256 at admission: `981ae3079b22698fc2b7ddecff07dc8f1c8672190922bfde1cdbc65933137ca6`
+- Reason: Plan-execute-conform-repair orchestration over real rust4pm and ferroplan engine ops: discovers/checks POWL behavior from OCEL, admits live observations into a grounded Ferroplan session, closes immediately when the goal is met, reuses a still-valid plan suffix at zero search cost, and performs bounded session replanning only when no plan exists or current-world observation invalidates the suffix. POWL deviation is retained as evidence rather than authority; the module constructs candidate planning state and never actuates. Hand-authored cross-engine orchestration is retained under native_engine_facade because no current template family expresses this composition.
+- Content sha256 at admission: `1d8d0f86c22ada68609b44e59af1fd5afe2bdeb7d461c14cdada10e02c084d39`
 - Sunset plan: No template family fits a cross-op conformance-orchestration wrapper today; keep admitted until one is proposed upstream.
 
 ### `reference_evidence` (7 file(s), counts as debt: false)
