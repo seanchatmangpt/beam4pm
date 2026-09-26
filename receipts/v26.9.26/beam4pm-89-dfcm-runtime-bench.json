@@ -1,104 +1,209 @@
 {
-  "anti_vacuity": "reuse_suffix bound mutated to 1us -> exit 1 \"REGRESSION: court failed (guard_cheaper=true) in reuse_suffix\"",
+  "anti_vacuity": [
+    {
+      "exit": 1,
+      "guard_roundtrips": 1.3703703703703705,
+      "mutant": "B2b: observe_and_repair_session calls Ferroplan.session_valid?/1 once before boundary admission",
+      "stderr": "REGRESSION: court failed in boundary_refusal_contradiction"
+    },
+    {
+      "exit": 1,
+      "mutant": "B2: session_suffix + session_valid? before boundary admission (the mutant that escaped the previous court)",
+      "observed": {
+        "engine_roundtrip_min_us": 72,
+        "failed_cases": [
+          "boundary_refusal_contradiction"
+        ],
+        "host_load_avg": "{ 45.66 83.20 111.63 }",
+        "min_us": {
+          "boundary_refusal_contradiction": 180,
+          "drift_full_replan": 969,
+          "engine_roundtrip": 72,
+          "evidence_refused_reuse": 1044,
+          "probe_three_counterfactuals": 1873,
+          "reuse_suffix": 680
+        },
+        "pass": false
+      },
+      "stderr": "REGRESSION: court failed in boundary_refusal_contradiction"
+    },
+    {
+      "exit": 1,
+      "mutant": "B1: Process.sleep(25) on the valid-suffix reuse branch",
+      "observed": {
+        "engine_roundtrip_min_us": 69,
+        "failed_cases": [
+          "reuse_suffix"
+        ],
+        "host_load_avg": "{ 44.28 81.02 110.36 }",
+        "min_us": {
+          "boundary_refusal_contradiction": 22,
+          "drift_full_replan": 843,
+          "engine_roundtrip": 69,
+          "evidence_refused_reuse": 881,
+          "probe_three_counterfactuals": 2176,
+          "reuse_suffix": 26181
+        },
+        "pass": false
+      },
+      "stderr": "REGRESSION: court failed in reuse_suffix"
+    },
+    {
+      "exit": 0,
+      "mutant": "B3: one extra Ferroplan.session_think on the reuse branch (earlier bound set)",
+      "reason": "a full search on the 3-room fixture costs about 2 engine round trips, inside the reuse ratio headroom; the reuse decision itself (plan == nil, suffix == previous_suffix) is asserted by test/beam4pm_dfcm_test.exs, not by this latency court",
+      "survived": true
+    }
+  ],
   "authority": "NONE",
   "command": "MIX_ENV=test mix run --no-start bench/dfcm_runtime_bench.exs <receipt.json>",
-  "court": "min_us <= bound_min_us per case; boundary refusal p50 < cheapest engine-backed min",
+  "court": "per case: min_us <= bound_min_us and min_us <= bound_roundtrip_ratio * engine_roundtrip.min_us",
   "elixir": "1.19.5",
+  "engine_roundtrip_min_us": 63,
   "ferroplan_pin": "e90928d7b0687a959831553c4eacca3d75ca6c88 (native/ferroplan gitlink at PR head)",
   "ferroplan_wasm_sha256": "71fc89e97b798d3e6afa26b04616335d7f7aca0d64cb210cff8a027a166defb8",
-  "host_load_avg": "{ 171.13 133.96 158.97 }",
+  "host_load_avg": "{ 46.10 80.79 110.10 }",
   "otp": "28",
   "pass": true,
   "pr": "seanchatmangpt/beam4pm#89",
-  "prior_observation_same_subject": {
-    "host_load_avg": "{ 122.44 208.29 248.58 }",
+  "prior_receipt_same_pr": {
+    "court": "min_us <= bound_min_us per case; boundary refusal p50 < cheapest engine-backed min",
     "results": [
       {
         "bound_min_us": 1000,
         "case": "boundary_refusal_contradiction",
-        "max_us": 32,
-        "min_us": 10,
+        "max_us": 74,
+        "min_us": 13,
         "n": 200,
-        "p50_us": 10,
-        "p95_us": 13,
+        "p50_us": 13,
+        "p95_us": 17,
         "within_bound": true
       },
       {
         "bound_min_us": 20000,
         "case": "reuse_suffix",
-        "max_us": 712,
-        "min_us": 284,
+        "max_us": 68780,
+        "min_us": 1161,
         "n": 200,
-        "p50_us": 409,
-        "p95_us": 506,
+        "p50_us": 12241,
+        "p95_us": 40983,
         "within_bound": true
       },
       {
         "bound_min_us": 60000,
         "case": "drift_full_replan",
-        "max_us": 1163,
-        "min_us": 410,
+        "max_us": 109309,
+        "min_us": 1110,
         "n": 200,
-        "p50_us": 594,
-        "p95_us": 893,
+        "p50_us": 12067,
+        "p95_us": 54954,
         "within_bound": true
       },
       {
         "bound_min_us": 150000,
         "case": "probe_three_counterfactuals",
-        "max_us": 3167,
-        "min_us": 1170,
+        "max_us": 186747,
+        "min_us": 1256,
         "n": 200,
-        "p50_us": 1723,
-        "p95_us": 2520,
+        "p50_us": 18172,
+        "p95_us": 81620,
         "within_bound": true
       }
-    ]
+    ],
+    "subject_sha256": "1123954fcf723223e86165f5789b57dc7123ca2db54f1b32886b2b4b4f7b05e4"
   },
   "results": [
     {
-      "bound_min_us": 1000,
+      "bound_min_us": 2000,
+      "bound_roundtrip_ratio": null,
+      "case": "engine_roundtrip",
+      "max_us": 3123,
+      "min_us": 63,
+      "n": 200,
+      "p50_us": 246,
+      "p95_us": 876,
+      "roundtrips": 1.0,
+      "within_bound": true
+    },
+    {
+      "bound_min_us": 150,
+      "bound_roundtrip_ratio": 0.75,
       "case": "boundary_refusal_contradiction",
-      "max_us": 74,
-      "min_us": 13,
+      "max_us": 75,
+      "min_us": 15,
       "n": 200,
-      "p50_us": 13,
-      "p95_us": 17,
+      "p50_us": 31,
+      "p95_us": 53,
+      "roundtrips": 0.24,
       "within_bound": true
     },
     {
-      "bound_min_us": 20000,
+      "bound_min_us": 5000,
+      "bound_roundtrip_ratio": 16,
       "case": "reuse_suffix",
-      "max_us": 68780,
-      "min_us": 1161,
+      "max_us": 12074,
+      "min_us": 338,
       "n": 200,
-      "p50_us": 12241,
-      "p95_us": 40983,
+      "p50_us": 1123,
+      "p95_us": 3900,
+      "roundtrips": 5.37,
       "within_bound": true
     },
     {
-      "bound_min_us": 60000,
+      "bound_min_us": 8000,
+      "bound_roundtrip_ratio": 25,
+      "case": "evidence_refused_reuse",
+      "max_us": 11016,
+      "min_us": 587,
+      "n": 200,
+      "p50_us": 1664,
+      "p95_us": 4884,
+      "roundtrips": 9.32,
+      "within_bound": true
+    },
+    {
+      "bound_min_us": 8000,
+      "bound_roundtrip_ratio": 25,
       "case": "drift_full_replan",
-      "max_us": 109309,
-      "min_us": 1110,
+      "max_us": 10675,
+      "min_us": 564,
       "n": 200,
-      "p50_us": 12067,
-      "p95_us": 54954,
+      "p50_us": 1656,
+      "p95_us": 5275,
+      "roundtrips": 8.95,
       "within_bound": true
     },
     {
-      "bound_min_us": 150000,
+      "bound_min_us": 25000,
+      "bound_roundtrip_ratio": 80,
       "case": "probe_three_counterfactuals",
-      "max_us": 186747,
-      "min_us": 1256,
+      "max_us": 32371,
+      "min_us": 1414,
       "n": 200,
-      "p50_us": 18172,
-      "p95_us": 81620,
+      "p50_us": 4650,
+      "p95_us": 14614,
+      "roundtrips": 22.44,
       "within_bound": true
     }
   ],
+  "sampling": "round-robin: each of N iterations runs every case once after a round-robin warmup, so ratios divide samples from the same load window",
   "schema": "beam4pm/dfcm-runtime-bench/1",
+  "stability_runs_same_bounds": [
+    {
+      "engine_roundtrip_min_us": 63,
+      "failed_cases": [],
+      "host_load_avg": "{ 46.10 80.79 110.10 }",
+      "min_us": {
+        "boundary_refusal_contradiction": 15,
+        "drift_full_replan": 564,
+        "engine_roundtrip": 63,
+        "evidence_refused_reuse": 587,
+        "probe_three_counterfactuals": 1414,
+        "reuse_suffix": 338
+      },
+      "pass": true
+    }
+  ],
   "subject": "lib/beam4pm_dfcm.ex",
-  "subject_commit": "f4368fc6ff4064f44d25afc31d8f2bdc92060324",
-  "subject_sha256": "1123954fcf723223e86165f5789b57dc7123ca2db54f1b32886b2b4b4f7b05e4"
+  "subject_sha256": "6c00ee4ea52095d93d9db392a2dfbc679028fc950b7be527d7c5bfdc46b9ab7d"
 }
