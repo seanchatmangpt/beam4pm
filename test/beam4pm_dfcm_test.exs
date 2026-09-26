@@ -26,6 +26,29 @@ defmodule BeamPM.DfcmTest do
     (:goal (at b)))
   """
 
+  @fond_problem JSON.encode!(%{
+                  "states" => [
+                    %{"id" => "s0"},
+                    %{"id" => "g", "facts" => ["done"]}
+                  ],
+                  "initial_states" => ["s0"],
+                  "goal" => %{"facts" => ["done"]},
+                  "transitions" => [
+                    %{
+                      "action" => "flip",
+                      "from" => "s0",
+                      "to" => "g",
+                      "probability_ppm" => 500_000
+                    },
+                    %{
+                      "action" => "flip",
+                      "from" => "s0",
+                      "to" => "s0",
+                      "probability_ppm" => 500_000
+                    }
+                  ]
+                })
+
   defp start_ferroplan! do
     case Ferroplan.start() do
       {:ok, _pid} -> :ok
@@ -451,6 +474,55 @@ defmodule BeamPM.DfcmTest do
       assert refusal.admitted_preimage_hash == "admitted"
       assert refusal.observed_preimage_hash == "observed"
       assert refusal.authority_ceiling == :select
+    end
+  end
+
+  describe "validated FOND branch admission" do
+    if not (Code.ensure_loaded?(Ferroplan) and function_exported?(Ferroplan, :fond_validate, 3)) do
+      @describetag skip: "pinned Ferroplan does not yet expose fond_validate"
+    end
+
+    test "only an independently valid policy becomes a SELECT candidate" do
+      start_ferroplan!()
+
+      assert {:ok, %{"solved" => true} = plan} =
+               Ferroplan.fond_policy(@fond_problem, @fond_problem, %{"max_wall_ms" => 0})
+
+      assert {:ok, candidate} = Dfcm.admit_fond_branch(@fond_problem, plan, "s0")
+      assert candidate.kind == :fond_policy_branch
+      assert candidate.state_id == "s0"
+      assert candidate.action == "flip"
+      assert length(candidate.outcomes) == 2
+      assert candidate.guarantee == "STRONG_CYCLIC"
+      assert byte_size(candidate.policy_evidence_hash) == 64
+      assert candidate.authority_ceiling == :select
+    end
+
+    test "policy outcome drift is excluded instead of becoming an action candidate" do
+      start_ferroplan!()
+
+      assert {:ok, %{"solved" => true} = plan} =
+               Ferroplan.fond_policy(@fond_problem, @fond_problem, %{"max_wall_ms" => 0})
+
+      drifted =
+        update_in(plan, ["policy", Access.at(0), "outcomes", Access.at(0), "probability_ppm"], fn _ ->
+          400_000
+        end)
+
+      assert {:error, {:fond_policy_invalid, issues}} =
+               Dfcm.admit_fond_branch(@fond_problem, drifted, "s0")
+
+      assert issues != []
+    end
+
+    test "an uncovered exact state is typed and never inferred" do
+      start_ferroplan!()
+
+      assert {:ok, %{"solved" => true} = plan} =
+               Ferroplan.fond_policy(@fond_problem, @fond_problem, %{"max_wall_ms" => 0})
+
+      assert {:error, {:fond_state_uncovered, "unknown"}} =
+               Dfcm.admit_fond_branch(@fond_problem, plan, "unknown")
     end
   end
 
