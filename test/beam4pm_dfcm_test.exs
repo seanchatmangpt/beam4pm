@@ -429,6 +429,110 @@ defmodule BeamPM.DfcmTest do
       {:ok, %{"freed" => true}} = Ferroplan.session_free(handle)
     end
 
+    test "an observed goal short-circuits repair: goal_met, no search, no escalation" do
+      handle = new_session!(true)
+      assert {:ok, before_suffix} = Ferroplan.session_suffix(handle)
+      assert before_suffix != []
+
+      assert {:ok, result} =
+               Dfcm.observe_and_repair_session(
+                 handle,
+                 [{"(at a)", false}, {"(at b)", true}],
+                 event_id: "evt-goal"
+               )
+
+      assert result.decision == :goal_met
+      assert result.trigger == :goal_met
+      assert result.plan_valid == nil
+      assert result.previous_suffix == []
+      assert result.suffix == []
+      assert result.plan == nil
+      assert result.plan_id == nil
+      assert result.plan_memory == nil
+      assert result.plan_lineage == nil
+      assert result.dynamic_replan_trigger == nil
+      assert result.escalation == []
+      assert result.authority_ceiling == :select
+      assert {:ok, %{"goal_met" => true}} = Ferroplan.session_goal_met?(handle)
+
+      # goal-met wins even when evidence refuses reuse: nothing is left to reuse.
+      assert {:ok, %{decision: :goal_met}} =
+               Dfcm.observe_and_repair_session(handle, [{"(at b)", true}],
+                 reuse_admissible: false
+               )
+
+      {:ok, %{"freed" => true}} = Ferroplan.session_free(handle)
+    end
+
+    test "admitted evidence is bound into event, memory, lineage and trigger hashes" do
+      run = fn opts, observations ->
+        handle = new_session!(true)
+        {:ok, result} = Dfcm.observe_and_repair_session(handle, observations, opts)
+        {:ok, %{"freed" => true}} = Ferroplan.session_free(handle)
+        result
+      end
+
+      stable = [{"(at a)", true}]
+      plain = run.([], stable)
+      ev_a = run.([evidence: %{verdict: :a}], stable)
+      ev_a2 = run.([evidence: %{verdict: :a}], stable)
+      ev_b = run.([evidence: %{verdict: :b}], stable)
+
+      # Evidence never changes the planning decision on its own ...
+      assert Enum.map([plain, ev_a, ev_b], & &1.decision) == List.duplicate(:reuse_suffix, 3)
+      assert plain.plan_id == ev_a.plan_id and ev_a.plan_id == ev_b.plan_id
+      # ... but it is carried: digest, default event id and memory hash all move.
+      assert plain.evidence_digest == nil
+      assert "evidence:" <> _ = ev_a.evidence_digest
+      assert ev_a.evidence_digest == ev_a2.evidence_digest
+      assert ev_a.evidence_digest != ev_b.evidence_digest
+      assert ev_a.event_id == ev_a2.event_id
+      assert length(Enum.uniq([plain.event_id, ev_a.event_id, ev_b.event_id])) == 3
+      assert ev_a.plan_memory == ev_a2.plan_memory
+
+      assert length(
+               Enum.uniq([
+                 plain.plan_memory.evidence_hash,
+                 ev_a.plan_memory.evidence_hash,
+                 ev_b.plan_memory.evidence_hash
+               ])
+             ) == 3
+
+      drift = [{"(at a)", false}, {"(at c)", true}]
+      d_a = run.([evidence: %{verdict: :a}, event_id: "evt"], drift)
+      d_b = run.([evidence: %{verdict: :b}, event_id: "evt"], drift)
+      assert d_a.trigger == :invalid_plan and d_b.trigger == :invalid_plan
+      assert d_a.plan_id == d_b.plan_id
+      assert d_a.dynamic_replan_trigger.trigger_hash != d_b.dynamic_replan_trigger.trigger_hash
+      assert d_a.plan_lineage.lineage_hash != d_b.plan_lineage.lineage_hash
+    end
+
+    test "evidence that refuses reuse forces a bounded replan of a still-valid suffix" do
+      handle = new_session!(true)
+      assert {:ok, previous_suffix} = Ferroplan.session_suffix(handle)
+
+      assert {:ok, result} =
+               Dfcm.observe_and_repair_session(handle, [{"(at a)", true}],
+                 evidence: %{verdict: :deviant},
+                 reuse_admissible: false,
+                 event_id: "evt-refuse"
+               )
+
+      assert result.decision == :replanned_full
+      assert result.trigger == :evidence_refused_reuse
+      assert result.plan_valid == true
+      assert result.previous_suffix == previous_suffix
+      assert result.plan["solved"] == true
+      assert result.suffix != []
+      assert result.dynamic_replan_trigger.event_id == "evt-refuse"
+      assert byte_size(result.dynamic_replan_trigger.trigger_hash) == 64
+      assert result.escalation == []
+      assert result.authority_ceiling == :select
+      assert {:ok, %{"valid" => true}} = Ferroplan.session_valid?(handle)
+
+      {:ok, %{"freed" => true}} = Ferroplan.session_free(handle)
+    end
+
     test "counterfactual probes preserve parent world and parent plan slot" do
       handle = new_session!(false)
 
@@ -480,6 +584,36 @@ defmodule BeamPM.DfcmTest do
       assert refusal.admitted_preimage_hash == "admitted"
       assert refusal.observed_preimage_hash == "observed"
       assert refusal.authority_ceiling == :select
+    end
+  end
+
+  describe "FOND branch admission on admitted pins (producer lacks fond_validate)" do
+    if not Ferroplan.wasm_built?() do
+      @describetag skip: Ferroplan.wasm_missing_reason()
+    end
+
+    if Code.ensure_loaded?(Ferroplan) and function_exported?(Ferroplan, :fond_validate, 3) do
+      @describetag skip: "pinned Ferroplan exposes fond_validate; the validated path is exercised"
+    end
+
+    test "a real, well-shaped producer policy is typed unavailable, never admitted" do
+      start_ferroplan!()
+
+      assert {:ok, %{"solved" => true} = plan} =
+               Ferroplan.fond_policy(@fond_problem, @fond_problem, %{"max_wall_ms" => 0})
+
+      assert Enum.any?(plan["policy"], &(&1["state"] == "s0"))
+
+      for state <- ["s0", "unknown"] do
+        assert {:error, :fond_validator_unavailable} =
+                 Dfcm.admit_fond_branch(@fond_problem, plan, state)
+      end
+
+      # Shape refusal still precedes the missing validator.
+      [entry | _] = plan["policy"]
+
+      assert {:error, {:fond_state_ambiguous, "s0", 2}} =
+               Dfcm.admit_fond_branch(@fond_problem, %{plan | "policy" => [entry, entry]}, "s0")
     end
   end
 
@@ -551,6 +685,13 @@ defmodule BeamPM.DfcmTest do
 
       assert {:error, {:malformed_observation, 0, {"", true}}} =
                Dfcm.observe_and_repair_session(0, [{"", true}])
+    end
+
+    test "a non-boolean reuse gate is refused before any engine call" do
+      for value <- [nil, :no, "false", 0] do
+        assert {:error, {:option_refused, :reuse_admissible, ^value}} =
+                 Dfcm.observe_and_repair_session(0, [{"(at a)", true}], reuse_admissible: value)
+      end
     end
 
     test "out-of-budget search is refused before observation or repair" do

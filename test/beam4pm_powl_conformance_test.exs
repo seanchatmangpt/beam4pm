@@ -170,6 +170,10 @@ defmodule BeamPM.PowlConformanceTest do
                )
 
       refute result.conformance.conforms
+      assert result.conformance_gate == :deviation_evidence_only
+      assert result.conformance_evidence.conforms == false
+      assert result.conformance_evidence.deviations == result.conformance.deviations
+      assert "evidence:" <> _ = result.evidence_digest
       assert result.decision == :reuse_suffix
       assert result.trigger == :none
       assert result.plan_valid == true
@@ -203,6 +207,7 @@ defmodule BeamPM.PowlConformanceTest do
                )
 
       assert result.conformance.conforms
+      assert result.conformance_gate == :conforming
       assert result.decision in [:replanned_full, :replanned_following]
       assert result.trigger == :invalid_plan
       assert result.plan_valid == false
@@ -216,6 +221,122 @@ defmodule BeamPM.PowlConformanceTest do
 
       {:ok, %{"freed" => true}} = Ferroplan.session_free(session)
       {:ok, %{"freed" => true}} = Rust4PM.free_ocel(ref_ocel)
+    end
+
+    test "the conformance verdict is consumed: swapping it changes every repair receipt hash" do
+      ref_ocel = build_reference_ocel!()
+      deviant_trace = ["open", "trust_god", "help_others", "fellowship", "close"]
+
+      run = fn trace, observations, opts ->
+        session = new_planning_session!()
+
+        {:ok, result} =
+          PowlConformance.conform_observe_replan(
+            ref_ocel,
+            "meeting",
+            trace,
+            session,
+            observations,
+            opts
+          )
+
+        {:ok, %{"freed" => true}} = Ferroplan.session_free(session)
+        result
+      end
+
+      stable = [{"(at a)", true}]
+      ok = run.(@phases, stable, [])
+      ok2 = run.(@phases, stable, [])
+      dev = run.(deviant_trace, stable, [])
+
+      # Same world, same decision and plan -- only the conformance verdict differs.
+      assert ok.decision == :reuse_suffix and dev.decision == :reuse_suffix
+      assert ok.plan_id == dev.plan_id
+      assert ok.evidence_digest == ok2.evidence_digest
+      assert ok.event_id == ok2.event_id
+      assert ok.plan_memory == ok2.plan_memory
+      assert ok.evidence_digest != dev.evidence_digest
+      assert ok.event_id != dev.event_id
+      assert ok.plan_memory.evidence_hash != dev.plan_memory.evidence_hash
+
+      # The digest is exactly the digest of the recorded conformance evidence.
+      assert BeamPM.PowlConformance.conformance_evidence(
+               "meeting",
+               deviant_trace,
+               dev.conformance
+             ) ==
+               dev.conformance_evidence
+
+      drift = [{"(at a)", false}, {"(at c)", true}]
+      d_ok = run.(@phases, drift, event_id: "evt-drift")
+      d_dev = run.(deviant_trace, drift, event_id: "evt-drift")
+      assert d_ok.trigger == :invalid_plan and d_dev.trigger == :invalid_plan
+      assert d_ok.plan_id == d_dev.plan_id
+
+      assert d_ok.dynamic_replan_trigger.trigger_hash !=
+               d_dev.dynamic_replan_trigger.trigger_hash
+
+      assert d_ok.plan_lineage.lineage_hash != d_dev.plan_lineage.lineage_hash
+
+      {:ok, %{"freed" => true}} = Rust4PM.free_ocel(ref_ocel)
+    end
+
+    test "on_deviation: :refuse_reuse turns a deviation into a bounded replan; conformance still reuses" do
+      ref_ocel = build_reference_ocel!()
+      deviant_trace = ["open", "clean_house", "trust_god", "help_others", "fellowship", "close"]
+
+      session = new_planning_session!()
+      {:ok, previous_suffix} = Ferroplan.session_suffix(session)
+
+      assert {:ok, refused} =
+               PowlConformance.conform_observe_replan(
+                 ref_ocel,
+                 "meeting",
+                 deviant_trace,
+                 session,
+                 [{"(at a)", true}],
+                 on_deviation: :refuse_reuse,
+                 event_id: "evt-deviation"
+               )
+
+      refute refused.conformance.conforms
+      assert refused.conformance_gate == :deviation_refused_reuse
+      assert refused.decision == :replanned_full
+      assert refused.trigger == :evidence_refused_reuse
+      assert refused.plan_valid == true
+      assert refused.previous_suffix == previous_suffix
+      assert refused.plan["solved"] == true
+      assert refused.dynamic_replan_trigger.event_id == "evt-deviation"
+      assert byte_size(refused.dynamic_replan_trigger.trigger_hash) == 64
+      assert refused.authority_ceiling == :select
+      {:ok, %{"freed" => true}} = Ferroplan.session_free(session)
+
+      session = new_planning_session!()
+
+      assert {:ok, conforming} =
+               PowlConformance.conform_observe_replan(
+                 ref_ocel,
+                 "meeting",
+                 @phases,
+                 session,
+                 [{"(at a)", true}],
+                 on_deviation: :refuse_reuse
+               )
+
+      assert conforming.conformance_gate == :conforming
+      assert conforming.decision == :reuse_suffix
+      assert conforming.dynamic_replan_trigger == nil
+      {:ok, %{"freed" => true}} = Ferroplan.session_free(session)
+
+      {:ok, %{"freed" => true}} = Rust4PM.free_ocel(ref_ocel)
+    end
+
+    test "an unknown deviation policy is refused before conformance or planning runs" do
+      # Handles 0/0 are never live: a typed refusal proves no engine was consulted.
+      assert {:error, {:option_refused, :on_deviation, :ignore}} =
+               PowlConformance.conform_observe_replan(0, "meeting", @phases, 0, [],
+                 on_deviation: :ignore
+               )
     end
   end
 end

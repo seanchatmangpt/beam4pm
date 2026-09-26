@@ -422,16 +422,28 @@ defmodule BeamPM.Dfcm do
   Observe a bounded live-world delta and repair the current Ferroplan
   candidate without granting DO authority.
 
-  The runtime preserves the cheapest valid option first. When the pinned
-  Ferroplan exposes the native DfCM `session_repair` operation it is used
-  directly; older admitted pins fall back to the equivalent host-side
-  ladder:
+  The runtime preserves the cheapest valid option first, through the
+  host-side ladder built from existing session ops:
 
       goal-met -> valid suffix reuse -> bounded full replan
 
-  Native `session_repair` inserts follow-biased tail repair between suffix
-  reuse and full replan, so upgrading the producer strengthens option
-  preservation without changing this caller contract.
+  A native DfCM `session_repair` op is preferred only if the generated
+  `BeamPM.Ferroplan` facade exports it. Status UNVERIFIED: no admitted
+  Ferroplan pin (e90928d7, 420974c5) exposes it, so every observed run takes
+  the host ladder; only the closed-vocabulary normalization of native output
+  is exercised (via `normalize_native_repair/1`).
+
+  Options beyond the search budget (`:evals`, `:mem_mb`):
+
+    * `:evidence` -- an admitted external evidence term (for example a POWL
+      conformance verdict). Its deterministic digest is bound into the
+      default `event_id`, the `dynamic_replan_trigger.trigger_hash`, the
+      `plan_memory` evidence hash and the `plan_lineage` hash, so different
+      evidence over the same world yields different receipts.
+    * `:reuse_admissible` (boolean, default `true`) -- when `false` the
+      evidence has refused silent reuse: a still-valid suffix is not reused
+      and a bounded full replan runs with trigger `:evidence_refused_reuse`.
+      The goal-met short-circuit is unaffected.
   """
   @spec observe_and_repair_session(
           non_neg_integer(),
@@ -440,24 +452,36 @@ defmodule BeamPM.Dfcm do
         ) :: {:ok, map()} | {:error, term()}
   def observe_and_repair_session(handle, observations, opts \\ [])
       when is_integer(handle) and is_list(observations) do
-    event_id = Keyword.get(opts, :event_id, "event:" <> deterministic_hash(observations))
+    evidence_digest = evidence_digest(opts)
+
+    event_id =
+      Keyword.get_lazy(opts, :event_id, fn ->
+        "event:" <> deterministic_hash(with_evidence(observations, evidence_digest))
+      end)
 
     with :ok <- admit_observations(observations),
          :ok <- admit_budget(opts),
          {:ok, surprises} <- Ferroplan.session_observe(handle, observations),
          {:ok, repair} <- repair_session(handle, opts) do
+      repair =
+        if evidence_digest do
+          repair |> Map.put(:evidence_digest, evidence_digest) |> finalize_repair()
+        else
+          Map.put(repair, :evidence_digest, nil)
+        end
+
       trigger =
-        if repair.trigger == :invalid_plan do
+        if repair.trigger in [:invalid_plan, :evidence_refused_reuse] do
           %{
             plan_id: repair.previous_plan_id || "none",
             event_id: event_id,
             trigger_hash:
-              deterministic_hash({
-                repair.previous_plan_id,
-                event_id,
-                observations,
-                surprises
-              })
+              deterministic_hash(
+                with_evidence(
+                  {repair.previous_plan_id, event_id, observations, surprises},
+                  evidence_digest
+                )
+              )
           }
         end
 
@@ -468,6 +492,19 @@ defmodule BeamPM.Dfcm do
        |> Map.put(:dynamic_replan_trigger, trigger)}
     end
   end
+
+  # Evidence absent -> every hash keeps its pre-evidence preimage, so receipts
+  # recorded before `:evidence` existed replay byte-identically.
+  defp evidence_digest(opts) do
+    case Keyword.fetch(opts, :evidence) do
+      {:ok, nil} -> nil
+      {:ok, evidence} -> "evidence:" <> deterministic_hash(evidence)
+      :error -> nil
+    end
+  end
+
+  defp with_evidence(term, nil), do: term
+  defp with_evidence(term, digest), do: {term, digest}
 
   @doc """
   Repair the current stashed Ferroplan candidate while preserving option
@@ -485,9 +522,13 @@ defmodule BeamPM.Dfcm do
   defp do_repair_session(handle, opts) do
     evals = Keyword.get(opts, :evals, 10_000)
     mem_mb = Keyword.get(opts, :mem_mb, 64)
+    reuse_admissible = Keyword.get(opts, :reuse_admissible, true)
 
+    # A native repair cannot be told that evidence refused reuse, so a
+    # refused reuse always takes the host ladder.
     native =
-      if Code.ensure_loaded?(Ferroplan) and function_exported?(Ferroplan, :session_repair, 4) do
+      if reuse_admissible and Code.ensure_loaded?(Ferroplan) and
+           function_exported?(Ferroplan, :session_repair, 4) do
         apply(Ferroplan, :session_repair, [handle, evals, mem_mb, []])
       else
         :unavailable
@@ -498,7 +539,7 @@ defmodule BeamPM.Dfcm do
         {:ok, normalize_repair(result, :native_follow_before_rethink)}
 
       :unavailable ->
-        fallback_repair_session(handle, evals, mem_mb)
+        fallback_repair_session(handle, evals, mem_mb, reuse_admissible)
 
       {:error, _} = error ->
         error
@@ -509,9 +550,10 @@ defmodule BeamPM.Dfcm do
   Evaluate reversible counterfactuals over cheap Ferroplan forks.
 
   Each candidate may provide `:goal`, `:observations` and
-  `:restrict_contains`. The parent session is never mutated. If the pinned
-  producer exposes native `session_probe`, it is preferred; otherwise the
-  same semantics are composed from `session_fork` and existing session ops.
+  `:restrict_contains`. The parent session is never mutated. The semantics
+  are composed from `session_fork` and existing session ops. A native
+  `session_probe` is preferred only if the generated facade exports it
+  (UNVERIFIED: no admitted Ferroplan pin does).
   """
   @spec probe_session(non_neg_integer(), [map()], keyword()) ::
           {:ok, map()} | {:error, term()}
@@ -628,6 +670,13 @@ defmodule BeamPM.Dfcm do
   No state inference is performed: callers provide the exact universal-plan
   state id. A missing validator, invalid policy, or uncovered state is typed
   rather than repaired with LLM reasoning.
+
+  Status BLOCKED(producer lacks `fond_validate`): no admitted Ferroplan pin
+  (e90928d7, 420974c5) exposes a `fond_validate` WASI op and the generated
+  facade has no `fond_validate/3`, so on every admitted pin a well-shaped
+  policy returns `{:error, :fond_validator_unavailable}` and no branch is
+  ever admitted. The validated path is UNVERIFIED until a pin and a
+  regenerated facade export the op.
   """
   @spec admit_fond_branch(String.t(), map(), String.t()) ::
           {:ok, map()} | {:error, term()}
@@ -759,12 +808,17 @@ defmodule BeamPM.Dfcm do
     evals = Keyword.get(opts, :evals, 10_000)
     mem_mb = Keyword.get(opts, :mem_mb, 64)
 
+    reuse_admissible = Keyword.get(opts, :reuse_admissible, true)
+
     cond do
       not (is_integer(evals) and evals in 1..@max_evals) ->
         {:error, {:budget_refused, :evals, evals}}
 
       not (is_integer(mem_mb) and mem_mb in 1..@max_mem_mb) ->
         {:error, {:budget_refused, :mem_mb, mem_mb}}
+
+      not is_boolean(reuse_admissible) ->
+        {:error, {:option_refused, :reuse_admissible, reuse_admissible}}
 
       true ->
         :ok
@@ -850,7 +904,7 @@ defmodule BeamPM.Dfcm do
   @spec repair_decisions() :: [atom()]
   def repair_decisions, do: @repair_decisions |> Map.values() |> Enum.sort()
 
-  defp fallback_repair_session(handle, evals, mem_mb) do
+  defp fallback_repair_session(handle, evals, mem_mb, reuse_admissible) do
     with {:ok, %{"goal_met" => goal_met}} <- Ferroplan.session_goal_met?(handle) do
       if goal_met do
         {:ok,
@@ -864,29 +918,41 @@ defmodule BeamPM.Dfcm do
            backend: :host_fallback
          })}
       else
-        fallback_repair_open_goal(handle, evals, mem_mb)
+        fallback_repair_open_goal(handle, evals, mem_mb, reuse_admissible)
       end
     end
   end
 
-  defp fallback_repair_open_goal(handle, evals, mem_mb) do
+  defp fallback_repair_open_goal(handle, evals, mem_mb, reuse_admissible) do
     with {:ok, %{"has_plan" => has_plan}} <- Ferroplan.session_has_plan?(handle) do
       if has_plan do
         with {:ok, previous_suffix} <- Ferroplan.session_suffix(handle),
              {:ok, %{"valid" => valid}} <- Ferroplan.session_valid?(handle) do
-          if valid do
-            {:ok,
-             finalize_repair(%{
-               decision: :reuse_suffix,
-               trigger: :none,
-               plan_valid: true,
-               previous_suffix: previous_suffix,
-               suffix: previous_suffix,
-               plan: nil,
-               backend: :host_fallback
-             })}
-          else
-            fallback_full_replan(handle, previous_suffix, :invalid_plan, false, evals, mem_mb)
+          cond do
+            valid and not reuse_admissible ->
+              fallback_full_replan(
+                handle,
+                previous_suffix,
+                :evidence_refused_reuse,
+                true,
+                evals,
+                mem_mb
+              )
+
+            valid ->
+              {:ok,
+               finalize_repair(%{
+                 decision: :reuse_suffix,
+                 trigger: :none,
+                 plan_valid: true,
+                 previous_suffix: previous_suffix,
+                 suffix: previous_suffix,
+                 plan: nil,
+                 backend: :host_fallback
+               })}
+
+            true ->
+              fallback_full_replan(handle, previous_suffix, :invalid_plan, false, evals, mem_mb)
           end
         end
       else
@@ -986,24 +1052,34 @@ defmodule BeamPM.Dfcm do
     previous_plan_id = plan_id(Map.get(repair, :previous_suffix, []))
     current_plan_id = plan_id(Map.get(repair, :suffix, []))
 
+    digest = Map.get(repair, :evidence_digest)
+
     lineage =
       if previous_plan_id && current_plan_id && previous_plan_id != current_plan_id do
         %{
           plan_id: current_plan_id,
           parent_plan_id: previous_plan_id,
-          lineage_hash: deterministic_hash({previous_plan_id, current_plan_id, repair.decision})
+          lineage_hash:
+            deterministic_hash(
+              with_evidence({previous_plan_id, current_plan_id, repair.decision}, digest)
+            )
         }
       end
 
     memory =
       if current_plan_id do
         evidence_hash =
-          deterministic_hash({
-            repair.decision,
-            repair.trigger,
-            Map.get(repair, :plan_valid),
-            Map.get(repair, :backend)
-          })
+          deterministic_hash(
+            with_evidence(
+              {
+                repair.decision,
+                repair.trigger,
+                Map.get(repair, :plan_valid),
+                Map.get(repair, :backend)
+              },
+              digest
+            )
+          )
 
         %{
           plan_id: current_plan_id,
