@@ -762,7 +762,13 @@ defmodule BeamPM.Dfcm do
               outcome: if(Map.get(solution, "solved"), do: :solved, else: :unsolved),
               surprises: surprises,
               solution: solution,
-              plan_id: plan_id(Map.get(solution, "plan", %{}) |> Map.get("steps", [])),
+              plan_id:
+                plan_id(
+                  case Map.get(solution, "plan") do
+                    %{"steps" => steps} when is_list(steps) -> steps
+                    _ -> []
+                  end
+                ),
               world_bytes: world_bytes,
               mind_bytes: mind_bytes,
               authority_ceiling: :select
