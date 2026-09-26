@@ -32,6 +32,9 @@ from pathlib import Path
 HERE = Path(__file__).resolve().parent
 REPO = HERE.parent.parent
 COURT = HERE / "ws2_manufacture_court.py"
+# The court runs inside the manufacture workspace, whose consequence is
+# `git add -A`; bytecode caches must never enter that patch.
+sys.dont_write_bytecode = True
 sys.path.insert(0, str(HERE))
 import blake3_digest  # noqa: E402
 

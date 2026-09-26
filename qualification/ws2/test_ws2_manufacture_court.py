@@ -26,6 +26,9 @@ HERE = Path(__file__).resolve().parent
 REPO = HERE.parent.parent
 COURT = HERE / "ws2_manufacture_court.py"
 FRAGMENTS = REPO / "ontology" / "ws2-autonomic-planning"
+# The court runs inside the manufacture workspace, whose consequence is
+# `git add -A`; bytecode caches must never enter that patch.
+sys.dont_write_bytecode = True
 sys.path.insert(0, str(HERE))
 import blake3_digest  # noqa: E402
 
@@ -168,6 +171,29 @@ class SemanticCourt(unittest.TestCase):
         path = self.file(58)
         path.rename(self.frag / "058-not_the_record_inside.ttl")
         self.assertRefused(self.semantic(), "WS2_FILENAME_IDENTITY_MISMATCH")
+
+    def test_court_leaves_no_bytecode_in_the_manufacture_workspace(self) -> None:
+        # The manufacture job diffs `git add -A`; a __pycache__ written by the
+        # court leaked into ggen-sync.patch during the host replay of 553ad4a7.
+        court_dir = self.tmp / "qualification" / "ws2"
+        court_dir.mkdir(parents=True)
+        for name in ("ws2_manufacture_court.py", "blake3_digest.py"):
+            shutil.copy2(HERE / name, court_dir / name)
+        env = {k: v for k, v in os.environ.items() if k != "PYTHONDONTWRITEBYTECODE"}
+        proc = subprocess.run(
+            [
+                sys.executable,
+                str(court_dir / "ws2_manufacture_court.py"),
+                "semantic",
+                "--root",
+                str(self.tmp),
+            ],
+            capture_output=True,
+            text=True,
+            env=env,
+        )
+        self.assertEqual(proc.returncode, 0, proc.stderr)
+        self.assertEqual(sorted(p.name for p in court_dir.rglob("__pycache__")), [])
 
     def _projection(self, names: list[str], erlang_form: str, test_form: str) -> None:
         (self.tmp / "src").mkdir(exist_ok=True)
