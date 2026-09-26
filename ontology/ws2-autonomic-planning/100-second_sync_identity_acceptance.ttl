@@ -1,0 +1,25 @@
+@prefix bpm: <https://ggen.dev/ontology/beam-process-model#> .
+@prefix b4p: <https://beam4pm.dev/ontology/instance#> .
+
+# WS2-PLAN-100 — second_sync_identity_acceptance
+b4p:second_sync_identity_acceptance_rt a bpm:RecordType ;
+    bpm:recordName "second_sync_identity_acceptance" ;
+    bpm:recordDoc "Makes byte-identical second manufacture a planning acceptance objective before generated consequences receive standing." ;
+    bpm:hasField b4p:second_sync_identity_acceptance_first_sync_digest_f,
+                 b4p:second_sync_identity_acceptance_second_sync_digest_f,
+                 b4p:second_sync_identity_acceptance_identity_receipt_hash_f .
+
+b4p:second_sync_identity_acceptance_first_sync_digest_f a bpm:Field ;
+    bpm:fieldName "first_sync_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of the first manufactured consequence set." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:second_sync_identity_acceptance_second_sync_digest_f a bpm:Field ;
+    bpm:fieldName "second_sync_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of the second manufacture over the same exact subject." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:second_sync_identity_acceptance_identity_receipt_hash_f a bpm:Field ;
+    bpm:fieldName "identity_receipt_hash" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Receipt proving byte identity between first and second manufacture." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .

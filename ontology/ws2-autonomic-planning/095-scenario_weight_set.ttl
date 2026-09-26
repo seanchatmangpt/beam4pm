@@ -1,0 +1,25 @@
+@prefix bpm: <https://ggen.dev/ontology/beam-process-model#> .
+@prefix b4p: <https://beam4pm.dev/ontology/instance#> .
+
+# WS2-PLAN-095 — scenario_weight_set
+b4p:scenario_weight_set_rt a bpm:RecordType ;
+    bpm:recordName "scenario_weight_set" ;
+    bpm:recordDoc "Binds explicit scenario probabilities or weights to counterfactual evaluation." ;
+    bpm:hasField b4p:scenario_weight_set_scenario_set_id_f,
+                 b4p:scenario_weight_set_scenario_weight_vector_f,
+                 b4p:scenario_weight_set_normalization_receipt_hash_f .
+
+b4p:scenario_weight_set_scenario_set_id_f a bpm:Field ;
+    bpm:fieldName "scenario_set_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Identity of the scenario set." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:scenario_weight_set_scenario_weight_vector_f a bpm:Field ;
+    bpm:fieldName "scenario_weight_vector" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Ordered weights assigned to scenarios." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:scenario_weight_set_normalization_receipt_hash_f a bpm:Field ;
+    bpm:fieldName "normalization_receipt_hash" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Receipt proving the admitted normalization rule." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .

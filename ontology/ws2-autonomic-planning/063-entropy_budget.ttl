@@ -1,0 +1,25 @@
+@prefix bpm: <https://ggen.dev/ontology/beam-process-model#> .
+@prefix b4p: <https://beam4pm.dev/ontology/instance#> .
+
+# WS2-PLAN-063 — entropy_budget
+b4p:entropy_budget_rt a bpm:RecordType ;
+    bpm:recordName "entropy_budget" ;
+    bpm:recordDoc "Bounds exploratory planning by an explicit uncertainty-reduction budget." ;
+    bpm:hasField b4p:entropy_budget_episode_id_f,
+                 b4p:entropy_budget_entropy_budget_bits_f,
+                 b4p:entropy_budget_consumed_entropy_bits_f .
+
+b4p:entropy_budget_episode_id_f a bpm:Field ;
+    bpm:fieldName "episode_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Planning episode governed by the budget." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:entropy_budget_entropy_budget_bits_f a bpm:Field ;
+    bpm:fieldName "entropy_budget_bits" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Maximum admitted entropy-reduction spend." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:entropy_budget_consumed_entropy_bits_f a bpm:Field ;
+    bpm:fieldName "consumed_entropy_bits" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Entropy-reduction budget already consumed." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .

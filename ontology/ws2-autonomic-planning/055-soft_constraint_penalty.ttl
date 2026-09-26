@@ -1,0 +1,25 @@
+@prefix bpm: <https://ggen.dev/ontology/beam-process-model#> .
+@prefix b4p: <https://beam4pm.dev/ontology/instance#> .
+
+# WS2-PLAN-055 — soft_constraint_penalty
+b4p:soft_constraint_penalty_rt a bpm:RecordType ;
+    bpm:recordName "soft_constraint_penalty" ;
+    bpm:recordDoc "Computes an explicit penalty contribution for satisfiable but costly soft constraints." ;
+    bpm:hasField b4p:soft_constraint_penalty_candidate_id_f,
+                 b4p:soft_constraint_penalty_penalty_vector_f,
+                 b4p:soft_constraint_penalty_scoring_evidence_hash_f .
+
+b4p:soft_constraint_penalty_candidate_id_f a bpm:Field ;
+    bpm:fieldName "candidate_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Candidate receiving a soft-constraint penalty." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:soft_constraint_penalty_penalty_vector_f a bpm:Field ;
+    bpm:fieldName "penalty_vector" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Typed vector of penalty contributions." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:soft_constraint_penalty_scoring_evidence_hash_f a bpm:Field ;
+    bpm:fieldName "scoring_evidence_hash" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Evidence digest supporting the penalty calculation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .

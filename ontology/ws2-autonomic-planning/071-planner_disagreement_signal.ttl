@@ -1,0 +1,25 @@
+@prefix bpm: <https://ggen.dev/ontology/beam-process-model#> .
+@prefix b4p: <https://beam4pm.dev/ontology/instance#> .
+
+# WS2-PLAN-071 — planner_disagreement_signal
+b4p:planner_disagreement_signal_rt a bpm:RecordType ;
+    bpm:recordName "planner_disagreement_signal" ;
+    bpm:recordDoc "Quantifies disagreement among planner outputs so disagreement can trigger more search instead of arbitrary tie-breaking." ;
+    bpm:hasField b4p:planner_disagreement_signal_episode_id_f,
+                 b4p:planner_disagreement_signal_candidate_set_digest_f,
+                 b4p:planner_disagreement_signal_disagreement_score_f .
+
+b4p:planner_disagreement_signal_episode_id_f a bpm:Field ;
+    bpm:fieldName "episode_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Planning episode containing competing planner results." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:planner_disagreement_signal_candidate_set_digest_f a bpm:Field ;
+    bpm:fieldName "candidate_set_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of compared planner candidate sets." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:planner_disagreement_signal_disagreement_score_f a bpm:Field ;
+    bpm:fieldName "disagreement_score" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Measured disagreement used to trigger meta-planning." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
