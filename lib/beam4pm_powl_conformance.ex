@@ -69,7 +69,7 @@ defmodule BeamPM.PowlConformance do
   @typedoc "Result of evaluating one observed execution prefix against both POWL conformance and the live Ferroplan session."
   @type runtime_result :: %{
           conformance: conformance_result(),
-          observation: map(),
+          surprises: [String.t()],
           decision: runtime_decision(),
           trigger: :goal_met | :none | :no_plan | :invalid_plan,
           plan_valid: boolean() | nil,
@@ -177,7 +177,7 @@ defmodule BeamPM.PowlConformance do
 
     with {:ok, conformance} <-
            check_conformance(reference_ocel_handle, object_type, test_trace_activities),
-         {:ok, observation} <-
+         {:ok, surprises} <-
            Ferroplan.session_observe(ferroplan_session_handle, observations),
          {:ok, %{"goal_met" => goal_met}} <-
            Ferroplan.session_goal_met?(ferroplan_session_handle) do
@@ -185,7 +185,7 @@ defmodule BeamPM.PowlConformance do
         {:ok,
          %{
            conformance: conformance,
-           observation: observation,
+           surprises: surprises,
            decision: :goal_met,
            trigger: :goal_met,
            plan_valid: nil,
@@ -198,7 +198,7 @@ defmodule BeamPM.PowlConformance do
         decide_runtime_repair(
           ferroplan_session_handle,
           conformance,
-          observation,
+          surprises,
           evals,
           mem_mb
         )
@@ -206,7 +206,7 @@ defmodule BeamPM.PowlConformance do
     end
   end
 
-  defp decide_runtime_repair(session_handle, conformance, observation, evals, mem_mb) do
+  defp decide_runtime_repair(session_handle, conformance, surprises, evals, mem_mb) do
     with {:ok, %{"has_plan" => has_plan}} <- Ferroplan.session_has_plan?(session_handle) do
       if has_plan do
         with {:ok, %{"valid" => valid}} <- Ferroplan.session_valid?(session_handle) do
@@ -215,7 +215,7 @@ defmodule BeamPM.PowlConformance do
               {:ok,
                %{
                  conformance: conformance,
-                 observation: observation,
+                 surprises: surprises,
                  decision: :reuse_suffix,
                  trigger: :none,
                  plan_valid: true,
@@ -229,7 +229,7 @@ defmodule BeamPM.PowlConformance do
             replan_runtime(
               session_handle,
               conformance,
-              observation,
+              surprises,
               :invalid_plan,
               false,
               evals,
@@ -241,7 +241,7 @@ defmodule BeamPM.PowlConformance do
         replan_runtime(
           session_handle,
           conformance,
-          observation,
+          surprises,
           :no_plan,
           nil,
           evals,
@@ -254,7 +254,7 @@ defmodule BeamPM.PowlConformance do
   defp replan_runtime(
          session_handle,
          conformance,
-         observation,
+         surprises,
          trigger,
          plan_valid,
          evals,
@@ -271,7 +271,7 @@ defmodule BeamPM.PowlConformance do
         {:ok,
          %{
            conformance: conformance,
-           observation: observation,
+           surprises: surprises,
            decision: :replan_refused,
            trigger: trigger,
            plan_valid: plan_valid,
@@ -286,7 +286,7 @@ defmodule BeamPM.PowlConformance do
           {:ok,
            %{
              conformance: conformance,
-             observation: observation,
+             surprises: surprises,
              decision: :replanned,
              trigger: trigger,
              plan_valid: plan_valid,
@@ -301,7 +301,7 @@ defmodule BeamPM.PowlConformance do
         {:ok,
          %{
            conformance: conformance,
-           observation: observation,
+           surprises: surprises,
            decision: :replan_unsolved,
            trigger: trigger,
            plan_valid: plan_valid,
