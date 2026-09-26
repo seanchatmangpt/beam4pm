@@ -1,0 +1,25 @@
+@prefix bpm: <https://ggen.dev/ontology/beam-process-model#> .
+@prefix b4p: <https://beam4pm.dev/ontology/instance#> .
+
+# WS2-PLAN-068 — planner_cost_budget
+b4p:planner_cost_budget_rt a bpm:RecordType ;
+    bpm:recordName "planner_cost_budget" ;
+    bpm:recordDoc "Bounds planner invocation cost independently of action execution cost." ;
+    bpm:hasField b4p:planner_cost_budget_planner_id_f,
+                 b4p:planner_cost_budget_cost_budget_units_f,
+                 b4p:planner_cost_budget_observed_cost_units_f .
+
+b4p:planner_cost_budget_planner_id_f a bpm:Field ;
+    bpm:fieldName "planner_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact planner receiving the computation-cost bound." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:planner_cost_budget_cost_budget_units_f a bpm:Field ;
+    bpm:fieldName "cost_budget_units" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Maximum admitted planning cost." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:planner_cost_budget_observed_cost_units_f a bpm:Field ;
+    bpm:fieldName "observed_cost_units" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Observed planning cost used for routing and refusal." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .

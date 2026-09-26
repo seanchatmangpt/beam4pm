@@ -17,6 +17,7 @@ on:
       - "ggen.toml"
       - "contracts/beam4pm-pro/**"
       - "vendor/ggen-marketplace"
+      - "qualification/ws2/**"
       - ".github/workflows/beam4pm-manufacture.yml"
   pull_request:
     branches: [main]
@@ -26,6 +27,7 @@ on:
       - "ggen.toml"
       - "contracts/beam4pm-pro/**"
       - "vendor/ggen-marketplace"
+      - "qualification/ws2/**"
       - ".github/workflows/beam4pm-manufacture.yml"
   workflow_dispatch:
 
@@ -132,6 +134,7 @@ jobs:
           .github/workflows/beam4pm-container.yml
           .github/workflows/beam4pm-infra-validate.yml
           docs/reference/beam4pm_types_reference.md
+          docs/reference/beam4pm_hand_authored_source.md
           gleam/gleam.toml
           gleam/src/beam4pm.gleam
           gleam/src/beam4pm/discovery.gleam
@@ -158,6 +161,7 @@ jobs:
           lib/beam4pm_types.ex
           lib/beam4pm_types_manifest.ex
           schema/beam4pm_ai_contracts.schema.json
+          schema/beam4pm_hand_authored_source.tsv
           schema/beam4pm_types.schema.json
           src/beam4pm_ai_contracts.erl
           src/beam4pm_ai_contracts_codec.erl
@@ -173,6 +177,7 @@ jobs:
           test/beam4pm_ai_contracts_codec_tests.erl
           test/beam4pm_ai_contracts_test.exs
           test/beam4pm_ai_contracts_tests.erl
+          test/beam4pm_authorship_gate_test.exs
           test/beam4pm_billing_test.exs
           test/beam4pm_billing_tests.erl
           test/beam4pm_codec_test.exs
@@ -191,6 +196,37 @@ jobs:
           test/beam4pm_types_tests.erl
           test/test_helper.exs
           TARGETS
+          # Receipted secondary outputs: manufactured by the same `ggen sync run`
+          # (fortune5/frontier/engine packs) but outside the primary delete census.
+          # They are owned (receipt + digest + second-sync identity) yet never
+          # deleted pre-sync and not required to carry the header marker.
+          cat > "$evidence/secondary-ggen-targets.txt" <<'SECONDARY'
+          .ggen-v2/github-local/runtime-manifest.json
+          docs/FORTUNE5_ARCHITECTURE_CATALOG.md
+          docs/FORTUNE5_ARCHITECTURE_DAG.dot
+          docs/FORTUNE5_CONTROL_MATRIX.md
+          docs/FORTUNE5_DEPLOYMENT_BLOCKS_CATALOG.md
+          docs/FORTUNE5_WORKFLOW_PATTERN_COVERAGE.md
+          docs/reference/frontier_release_beam_pack.md
+          gleam/src/beam4pm/ferroplan.gleam
+          gleam/src/beam4pm/petgraph.gleam
+          gleam/src/beam4pm/rust4pm.gleam
+          gleam/src/beam4pm/tract.gleam
+          lib/beam4pm_ferroplan.ex
+          lib/beam4pm_petgraph.ex
+          lib/beam4pm_rust4pm.ex
+          lib/beam4pm_tract.ex
+          schema/beam4pm_engine_ops.tsv
+          schema/pddl/k8s_scaling_governed.domain.pddl
+          schema/pddl/k8s_scaling_governed.problem.pddl
+          schema/pddl/toy_counter_governed.domain.pddl
+          schema/pddl/toy_counter_governed.problem.pddl
+          src/beam4pm_ferroplan.erl
+          src/beam4pm_petgraph.erl
+          src/beam4pm_rust4pm.erl
+          src/beam4pm_tract.erl
+          test/beam4pm_engine_dispatch_gate_test.exs
+          SECONDARY
           deleted=0
           while IFS= read -r path; do
             [[ -f "$path" ]] || continue
@@ -216,6 +252,39 @@ jobs:
           set -e
           echo "exit_code=$exit_code" >> "$GITHUB_OUTPUT"
           echo "$exit_code" > "$evidence/sync-exit-code.txt"
+
+      - name: Qualify WS2 planner semantic projections and falsifiers
+        if: steps.sync.outputs.exit_code == '0'
+        shell: bash
+        run: |
+          set -euo pipefail
+          # Hand-authored court; its refusals are proven by
+          # qualification/ws2/test_ws2_manufacture_court.py (Chicago, real files).
+          python3 qualification/ws2/ws2_manufacture_court.py semantic --first 51 --last 100 --require-projection
+
+      - name: Verify first receipt, output ownership, and second-sync byte identity
+        if: steps.sync.outputs.exit_code == '0'
+        shell: bash
+        run: |
+          set -euo pipefail
+          evidence="$RUNNER_TEMP/beam4pm-manufacture"
+          test -s .ggen-v2/receipt.json || { echo 'REFUSED[MISSING_GGEN_RECEIPT]' >&2; exit 2; }
+          cp .ggen-v2/receipt.json "$evidence/ggen-receipt-first.json"
+          python3 qualification/ws2/ws2_manufacture_court.py receipt-first --evidence "$evidence"
+
+          set +e
+          ggen sync run > >(tee "$evidence/second-stdout.log") 2> >(tee "$evidence/second-stderr.log" >&2)
+          second_exit=$?
+          set -e
+          echo "$second_exit" > "$evidence/second-sync-exit-code.txt"
+          if [[ "$second_exit" -ne 0 ]]; then
+            echo "BUILD_BROKEN[SECOND_GGEN_SYNC_FAILED]:$second_exit" >&2
+            exit 1
+          fi
+
+          test -s .ggen-v2/receipt.json || { echo 'REFUSED[MISSING_SECOND_GGEN_RECEIPT]' >&2; exit 2; }
+          cp .ggen-v2/receipt.json "$evidence/ggen-receipt-second.json"
+          python3 qualification/ws2/ws2_manufacture_court.py receipt-second --evidence "$evidence"
 
       - name: Restore canonical source and bind generated consequence
         if: always()
@@ -247,8 +316,13 @@ jobs:
                   for chunk in iter(lambda: fh.read(1048576), b''):
                       h.update(chunk)
               return h.hexdigest()
+          def optional_digest(name):
+              path = root / name
+              return digest(path) if path.is_file() else None
+
+          second_exit_path = root / 'second-sync-exit-code.txt'
           receipt = {
-              'schema': 'https://beam4pm.dev/receipts/composed-ggen-sync/v2',
+              'schema': 'https://beam4pm.dev/receipts/composed-ggen-sync/v3',
               'repository': os.environ['GITHUB_REPOSITORY'],
               'source_sha': os.environ['CANDIDATE_SHA'],
               'run_id': os.environ['GITHUB_RUN_ID'],
@@ -258,6 +332,17 @@ jobs:
               'marketplace_sha': os.environ['MARKETPLACE_SHA'],
               'sync_command': 'ggen sync run',
               'sync_exit_code': os.environ.get('SYNC_EXIT_CODE'),
+              'second_sync_exit_code': second_exit_path.read_text().strip() if second_exit_path.is_file() else None,
+              'first_sync_identity_sha256': optional_digest('first-sync-identity.json'),
+              'second_sync_identity_sha256': optional_digest('second-sync-identity.json'),
+              'second_sync_identity_equal': (
+                  (root / 'first-sync-identity.json').is_file()
+                  and (root / 'second-sync-identity.json').is_file()
+                  and (root / 'first-sync-identity.json').read_bytes()
+                      == (root / 'second-sync-identity.json').read_bytes()
+              ),
+              'first_ggen_receipt_sha256': optional_digest('ggen-receipt-first.json'),
+              'second_ggen_receipt_sha256': optional_digest('ggen-receipt-second.json'),
               'ontology_inputs_sha256': (root / 'ontology-inputs.sha256').read_text().splitlines(),
               'primary_target_census_sha256': digest(root / 'primary-ggen-targets.txt'),
               'primary_tree_sha256': digest(root / 'primary-ggen-tree.tar'),
@@ -267,7 +352,18 @@ jobs:
           }
           (root / 'beam4pm-manufacture-receipt.json').write_text(json.dumps(receipt, indent=2, sort_keys=True) + '\n')
           PY
-          sha256sum "$evidence/ggen-sync.patch" "$evidence/primary-ggen-tree.tar" "$evidence/beam4pm-manufacture-receipt.json" "$evidence/packs.json" "$evidence/ontology-inputs.sha256" "$evidence/primary-ggen-targets.txt" > "$evidence/SHA256SUMS"
+          receipt_files=(
+            "$evidence/ggen-sync.patch"
+            "$evidence/primary-ggen-tree.tar"
+            "$evidence/beam4pm-manufacture-receipt.json"
+            "$evidence/packs.json"
+            "$evidence/ontology-inputs.sha256"
+            "$evidence/primary-ggen-targets.txt"
+          )
+          for optional in first-sync-identity.json second-sync-identity.json ggen-receipt-first.json ggen-receipt-second.json second-sync-exit-code.txt; do
+            [[ -f "$evidence/$optional" ]] && receipt_files+=("$evidence/$optional")
+          done
+          sha256sum "${receipt_files[@]}" > "$evidence/SHA256SUMS"
 
       - name: Upload deterministic replay evidence
         if: always()

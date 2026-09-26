@@ -1,0 +1,25 @@
+@prefix bpm: <https://ggen.dev/ontology/beam-process-model#> .
+@prefix b4p: <https://beam4pm.dev/ontology/instance#> .
+
+# WS2-PLAN-070 — portfolio_diversity_score
+b4p:portfolio_diversity_score_rt a bpm:RecordType ;
+    bpm:recordName "portfolio_diversity_score" ;
+    bpm:recordDoc "Measures semantic diversity across active planners so the portfolio does not collapse to redundant search." ;
+    bpm:hasField b4p:portfolio_diversity_score_portfolio_id_f,
+                 b4p:portfolio_diversity_score_pairwise_distance_digest_f,
+                 b4p:portfolio_diversity_score_diversity_score_f .
+
+b4p:portfolio_diversity_score_portfolio_id_f a bpm:Field ;
+    bpm:fieldName "portfolio_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Planner portfolio being assessed." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:portfolio_diversity_score_pairwise_distance_digest_f a bpm:Field ;
+    bpm:fieldName "pairwise_distance_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of pairwise semantic distances." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:portfolio_diversity_score_diversity_score_f a bpm:Field ;
+    bpm:fieldName "diversity_score" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Aggregate diversity used by portfolio maintenance." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .

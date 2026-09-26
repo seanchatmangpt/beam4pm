@@ -1,0 +1,25 @@
+@prefix bpm: <https://ggen.dev/ontology/beam-process-model#> .
+@prefix b4p: <https://beam4pm.dev/ontology/instance#> .
+
+# WS2-PLAN-072 — planner_switch_decision
+b4p:planner_switch_decision_rt a bpm:RecordType ;
+    bpm:recordName "planner_switch_decision" ;
+    bpm:recordDoc "Selects a replacement planner from explicit health, budget, and expected-value evidence." ;
+    bpm:hasField b4p:planner_switch_decision_from_planner_id_f,
+                 b4p:planner_switch_decision_to_planner_id_f,
+                 b4p:planner_switch_decision_switch_receipt_hash_f .
+
+b4p:planner_switch_decision_from_planner_id_f a bpm:Field ;
+    bpm:fieldName "from_planner_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Planner being retired for the current episode." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:planner_switch_decision_to_planner_id_f a bpm:Field ;
+    bpm:fieldName "to_planner_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Planner selected as the lawful replacement." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:planner_switch_decision_switch_receipt_hash_f a bpm:Field ;
+    bpm:fieldName "switch_receipt_hash" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Receipt binding switch reasons and evidence." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .

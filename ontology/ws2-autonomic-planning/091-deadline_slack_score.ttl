@@ -1,0 +1,25 @@
+@prefix bpm: <https://ggen.dev/ontology/beam-process-model#> .
+@prefix b4p: <https://beam4pm.dev/ontology/instance#> .
+
+# WS2-PLAN-091 — deadline_slack_score
+b4p:deadline_slack_score_rt a bpm:RecordType ;
+    bpm:recordName "deadline_slack_score" ;
+    bpm:recordDoc "Measures remaining schedule slack so urgency is explicit rather than encoded as manual priority." ;
+    bpm:hasField b4p:deadline_slack_score_candidate_id_f,
+                 b4p:deadline_slack_score_deadline_identity_f,
+                 b4p:deadline_slack_score_slack_score_f .
+
+b4p:deadline_slack_score_candidate_id_f a bpm:Field ;
+    bpm:fieldName "candidate_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Candidate with a bounded completion deadline." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:deadline_slack_score_deadline_identity_f a bpm:Field ;
+    bpm:fieldName "deadline_identity" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact deadline or service-window identity." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:deadline_slack_score_slack_score_f a bpm:Field ;
+    bpm:fieldName "slack_score" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Computed slack available before delay becomes consequential." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .

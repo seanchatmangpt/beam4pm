@@ -1,0 +1,25 @@
+@prefix bpm: <https://ggen.dev/ontology/beam-process-model#> .
+@prefix b4p: <https://beam4pm.dev/ontology/instance#> .
+
+# WS2-PLAN-080 — irreversible_action_guard
+b4p:irreversible_action_guard_rt a bpm:RecordType ;
+    bpm:recordName "irreversible_action_guard" ;
+    bpm:recordDoc "Blocks irreversible candidates until evidence pressure and explicit authority meet the admitted threshold." ;
+    bpm:hasField b4p:irreversible_action_guard_candidate_id_f,
+                 b4p:irreversible_action_guard_irreversibility_class_f,
+                 b4p:irreversible_action_guard_guard_receipt_hash_f .
+
+b4p:irreversible_action_guard_candidate_id_f a bpm:Field ;
+    bpm:fieldName "candidate_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Candidate subjected to the irreversible-action gate." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:irreversible_action_guard_irreversibility_class_f a bpm:Field ;
+    bpm:fieldName "irreversibility_class" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Typed permanence class of the candidate consequence." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:irreversible_action_guard_guard_receipt_hash_f a bpm:Field ;
+    bpm:fieldName "guard_receipt_hash" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Receipt proving threshold and authority checks were applied." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
