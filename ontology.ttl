@@ -10616,8 +10616,8 @@ bap:hand_authored_lib_powl_conformance a bpm:HandAuthoredSource ;
     bpm:admissionReason "Step 5 (plan-execute-conform loop): combines the already-real ocel_discover_powl (BeamPM.Rust4PM, admitted above) with the already-real discover_alphappp/align_trace/compute_fitness alignment ops into one real reference-model-discovery + candidate-trace-conformance-check function. Hand-written orchestration over already-real engine ops (same convention as BeamPM.PowlDiscovery/BeamPM.Ocel), not ontology-fact-driven -- no POWL->PetriNet conversion op exists in the rust4pm engine, so this module discovers an independent alignable net from the identical flattened reference variant traces ocel_discover_powl itself uses, a disclosed real limitation stated in the module's own moduledoc. Admitted under native_engine_facade for lack of a closer-fitting closed-vocabulary kind, same precedent as lib/beam4pm_ocel.ex above (not a wasm facade itself, but hand-authored lib/ logic sitting directly on top of the real rust4pm facade)." ;
     bpm:acceptanceCommand "mix test test/beam4pm_powl_conformance_test.exs test/beam4pm_powl_conformance_e2e_test.exs" ;
     bpm:acceptancePrerequisite "native/rust4pm-wasm/target/wasm32-wasip1/release/rust4pm_wasm.wasm" ;
-    bpm:contentSha256 "adf57169a41ef5e74a214e60aebfa2869525a2baf1ffde499fcbf5c63d371823" ;
-    bpm:admittedAtCommit "d61f415" ;
+    bpm:contentSha256 "1d8d0f86c22ada68609b44e59af1fd5afe2bdeb7d461c14cdada10e02c084d39" ;
+    bpm:admittedAtCommit "f6dd99e" ;
     bpm:admissionExpires "2026-12-31" ;
     bpm:sunsetPlan "No template family fits a cross-op conformance-orchestration wrapper today; keep admitted until one is proposed upstream." .
 
@@ -10628,8 +10628,8 @@ bap:hand_authored_test_powl_conformance a bpm:HandAuthoredSource ;
     bpm:admissionReason "Chicago qualification of lib/beam4pm_powl_conformance.ex (admitted above): a real, small, in-test OCEL log (3 reference meetings, real 6-phase sequence), asserting a conforming trace aligns at real cost 0 and a deliberately injected skip/reorder deviation is really detected (nonzero cost, a real model-only move naming the skipped activity, fitness < 1.0) -- not just that the op runs." ;
     bpm:acceptanceCommand "mix test test/beam4pm_powl_conformance_test.exs" ;
     bpm:acceptancePrerequisite "native/rust4pm-wasm/target/wasm32-wasip1/release/rust4pm_wasm.wasm" ;
-    bpm:contentSha256 "371545e596907246c6b950a19bedaf26bfaaa97979c2a9876c4989a5e60d5ed7" ;
-    bpm:admittedAtCommit "1099f3d" ;
+    bpm:contentSha256 "d2cc135b1b476780399eef4b6db192dc12b3e16b1cee24352faf9fb99a030890" ;
+    bpm:admittedAtCommit "793f946" ;
     bpm:admissionExpires "2026-12-31" ;
     bpm:sunsetPlan "Sunsets alongside lib/beam4pm_powl_conformance.ex's own admission." .
 
