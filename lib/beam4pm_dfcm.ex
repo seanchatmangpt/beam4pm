@@ -556,6 +556,64 @@ defmodule BeamPM.Dfcm do
     end
   end
 
+  @doc """
+  Admit one exact FOND policy branch using Ferroplan's independent policy
+  validator before exposing the action as a SELECT candidate.
+
+  No state inference is performed: callers provide the exact universal-plan
+  state id. A missing validator, invalid policy, or uncovered state is typed
+  rather than repaired with LLM reasoning.
+  """
+  @spec admit_fond_branch(String.t(), map(), String.t()) ::
+          {:ok, map()} | {:error, term()}
+  def admit_fond_branch(problem_json, plan, state_id)
+      when is_binary(problem_json) and is_map(plan) and is_binary(state_id) do
+    if Code.ensure_loaded?(Ferroplan) and function_exported?(Ferroplan, :fond_validate, 3) do
+      case apply(Ferroplan, :fond_validate, [problem_json, plan, []]) do
+        {:ok, %{"valid" => true, "guarantee" => guarantee} = validation} ->
+          case Enum.find(Map.get(plan, "policy", []), &(Map.get(&1, "state") == state_id)) do
+            %{"action" => action, "outcomes" => outcomes} ->
+              evidence_hash =
+                deterministic_hash({
+                  state_id,
+                  action,
+                  outcomes,
+                  guarantee,
+                  Map.get(validation, "reachable_states", [])
+                })
+
+              {:ok,
+               %{
+                 kind: :fond_policy_branch,
+                 state_id: state_id,
+                 action: action,
+                 outcomes: outcomes,
+                 guarantee: guarantee,
+                 policy_evidence_hash: evidence_hash,
+                 authority_ceiling: :select
+               }}
+
+            nil ->
+              {:error, {:fond_state_uncovered, state_id}}
+          end
+
+        {:ok, %{"valid" => false} = validation} ->
+          {:error, {:fond_policy_invalid, Map.get(validation, "issues", [])}}
+
+        {:ok, %{"error" => error}} ->
+          {:error, {:fond_validation_refused, error}}
+
+        {:error, _} = error ->
+          error
+
+        other ->
+          {:error, {:fond_validation_unexpected, other}}
+      end
+    else
+      {:error, :fond_validator_unavailable}
+    end
+  end
+
   @doc "Construct a stale-plan refusal only from explicit admitted and observed identities."
   @spec stale_plan_refusal(String.t(), String.t(), String.t()) :: nil | map()
   def stale_plan_refusal(plan_id, admitted_preimage_hash, observed_preimage_hash)
