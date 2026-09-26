@@ -49,7 +49,7 @@ artifact is absent (`ACCEPTANCE_BLOCKED_PREREQUISITE`).
 | `test/beam4pm_ash_ai_tools_test.exs` | `f44dcd0` | 2026-12-31 | `mix test test/beam4pm_ash_ai_tools_test.exs` | - |
 | `test/beam4pm_contracts_test.exs` | `91965eb` | 2026-12-31 | `mix test test/beam4pm_contracts_test.exs` | - |
 | `test/beam4pm_deviation_admission_test.exs` | `c639d69` | 2026-12-31 | `mix test test/beam4pm_deviation_admission_test.exs` | - |
-| `test/beam4pm_dfcm_test.exs` | `25c31c6` | 2026-12-31 | `test -f native/ferroplan/target/wasm32-wasip1/release/ferroplan_wasm.wasm && mix test test/beam4pm_dfcm_test.exs` | - |
+| `test/beam4pm_dfcm_test.exs` | `2be69d0` | 2026-12-31 | `test -f native/ferroplan/target/wasm32-wasip1/release/ferroplan_wasm.wasm && mix test test/beam4pm_dfcm_test.exs` | - |
 | `test/beam4pm_eds_test.exs` | `4d50b4b` | 2026-12-31 | `mix test test/beam4pm_eds_test.exs` | - |
 | `test/beam4pm_ferroplan_facades_test.exs` | `f44dcd0` | 2026-12-31 | `mix test test/beam4pm_ferroplan_facades_test.exs` | native/ferroplan/target/wasm32-wasip1/release/ferroplan_wasm.wasm |
 | `test/beam4pm_ferroplan_test.exs` | `c34e275` | 2026-12-31 | `mix test test/beam4pm_ferroplan_test.exs` | native/ferroplan/target/wasm32-wasip1/release/ferroplan_wasm.wasm |
@@ -173,8 +173,8 @@ artifact is absent (`ACCEPTANCE_BLOCKED_PREREQUISITE`).
 #### `test/beam4pm_dfcm_test.exs`
 
 - Authorizing principal: Sean Chatman (repo owner) via Claude Code session_01UiCeLuzgcK2BLocBKxXw39
-- Reason: Chicago qualification of BeamPM.Dfcm option calculus plus the live Ferroplan closure: valid-suffix preservation, bounded world-drift repair with deterministic lineage/trigger evidence, counterfactual fork isolation, and explicit stale-plan refusal. The suite keeps the SELECT-not-DO authority ceiling.
-- Content sha256 at admission: `b8cc636279d85bc557b2f8e87af869b469888a4fbfe8f7503afa20d25439aee8`
+- Reason: Chicago qualification of BeamPM.Dfcm option calculus plus live Ferroplan closure: valid-suffix preservation, bounded world-drift repair with deterministic lineage and trigger evidence, counterfactual fork isolation, explicit stale-plan refusal, and independently validated strong-cyclic FOND branch admission with invalid-policy and unknown-state falsifiers. The suite keeps the SELECT-not-DO authority ceiling.
+- Content sha256 at admission: `15fd35aded9cd04472bdb39a7f8a5c453969eb83d91ac04ea93f61cde1f03a19`
 - Sunset plan: Render from the same DfCM planning facts as lib/beam4pm_dfcm.ex; then delete this admission.
 
 #### `test/beam4pm_eds_test.exs`
@@ -336,7 +336,7 @@ artifact is absent (`ACCEPTANCE_BLOCKED_PREREQUISITE`).
 | Path | Admitted at | Expires | Acceptance command | Prerequisite |
 | --- | --- | --- | --- | --- |
 | `lib/beam4pm_deviation_admission.ex` | `c639d69` | 2026-12-31 | `mix test test/beam4pm_deviation_admission_test.exs` | - |
-| `lib/beam4pm_dfcm.ex` | `8e38f7c` | 2026-12-31 | `test -f native/ferroplan/target/wasm32-wasip1/release/ferroplan_wasm.wasm && mix test test/beam4pm_dfcm_test.exs` | - |
+| `lib/beam4pm_dfcm.ex` | `1238877` | 2026-12-31 | `test -f native/ferroplan/target/wasm32-wasip1/release/ferroplan_wasm.wasm && mix test test/beam4pm_dfcm_test.exs` | - |
 | `lib/beam4pm_eds.ex` | `4d50b4b` | 2026-12-31 | `mix test test/beam4pm_eds_test.exs` | - |
 | `lib/beam4pm_eds_ppcx_h1.ex` | `4d50b4b` | 2026-12-31 | `mix test test/beam4pm_eds_test.exs` | - |
 | `lib/beam4pm_ocel.ex` | `91965eb` | 2026-12-31 | `mix test test/beam4pm_ocel_test.exs` | - |
@@ -353,8 +353,8 @@ artifact is absent (`ACCEPTANCE_BLOCKED_PREREQUISITE`).
 #### `lib/beam4pm_dfcm.ex`
 
 - Authorizing principal: Sean Chatman (repo owner) via Claude Code session_01UiCeLuzgcK2BLocBKxXw39
-- Reason: DfCM planning crown plus live Ferroplan runtime composition. Preserves admitted alternatives, fences and falsifiers; adds zero-DO observation-to-repair routing, deterministic plan lineage and memory evidence, explicit stale-plan refusal, and bounded counterfactual probes over cheap session forks. Native session_repair/session_probe are used when available; older admitted pins fall back to equivalent existing Ferroplan ops without changing the caller contract. Authority ceiling remains strictly :select.
-- Content sha256 at admission: `3daac50c1b0aebc8af8d647d99258ffd3d98aab47d33e2b7db1d63c3914e769b`
+- Reason: DfCM planning crown plus live Ferroplan runtime composition. Preserves admitted alternatives, fences and falsifiers; adds zero-DO observation-to-repair routing, deterministic plan lineage and memory evidence, explicit stale-plan refusal, bounded counterfactual probes over cheap session forks, and independently validated FOND branch admission for exact caller-supplied policy states. Native session_repair/session_probe/fond_validate are used when available; older admitted pins use bounded existing fallbacks or return a typed unavailable state rather than inventing semantics. Authority ceiling remains strictly :select.
+- Content sha256 at admission: `61de52f9ac77ec17af32abfe8553f895169440756d1c0023fe1eea340c990682`
 - Sunset plan: Admit DfCM contracts as ontology facts and render the planning crown from a pack template; then delete this admission.
 
 #### `lib/beam4pm_eds.ex`
