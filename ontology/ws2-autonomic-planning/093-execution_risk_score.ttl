@@ -1,4 +1,4 @@
-@prefix bpm: <https://beam4pm.dev/ontology/process#> .
+@prefix bpm: <https://ggen.dev/ontology/beam-process-model#> .
 @prefix b4p: <https://beam4pm.dev/ontology/instance#> .
 
 # WS2-PLAN-093 — execution_risk_score

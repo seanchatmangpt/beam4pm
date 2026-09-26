@@ -9,6 +9,7 @@ on:
       - "lib/beam4pm_dfcm.ex"
       - "test/beam4pm_dfcm_test.exs"
       - "qualification/fixtures/dfcm/**"
+      - "qualification/ws2/**"
       - ".github/workflows/ws2-dfcm-qualification.yml"
   workflow_dispatch:
 
@@ -40,6 +41,13 @@ jobs:
           set -euo pipefail
           test "$(git rev-parse HEAD)" = "$EXPECTED_HEAD"
           echo "EXACT_HEAD_ALIVE=$EXPECTED_HEAD"
+
+      - name: WS2 manufacture court (pre-sync semantic + Chicago falsifiers + regression bound)
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 qualification/ws2/ws2_manufacture_court.py semantic --first 51 --last 100
+          python3 -m unittest discover -s qualification/ws2 -p 'test_*.py' -v
 
       - name: Set up BEAM
         uses: erlef/setup-beam@54075bcc5e249e4758d363f27d099f55d843f124 # v1.24.1
