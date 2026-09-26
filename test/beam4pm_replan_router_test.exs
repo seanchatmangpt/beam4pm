@@ -42,6 +42,16 @@ defmodule BeamPM.ReplanRouterTest do
     Map.merge(%{preimage: @preimage, conformance: :deviates, plan_valid: false}, Map.new(extra))
   end
 
+  # A state whose admitted preimage.policy is the digest of @universal_plan.
+  defp policy_state do
+    pre = %{@preimage | policy: ReplanRouter.policy_digest(@universal_plan)}
+
+    ReplanRouter.new(plan_id: "plan-1", preimage: pre, universal_plan: @universal_plan)
+  end
+
+  defp policy_obs(st, extra),
+    do: Map.merge(obs(extra), %{preimage: st.admitted_preimage})
+
   describe "ordered checks" do
     test "1. a drifted preimage is refused with a StalePlanRefusal naming the drifted keys" do
       drifted = %{@preimage | pack: "sha-pack-2", world: "sha-world-2"}
@@ -123,15 +133,90 @@ defmodule BeamPM.ReplanRouterTest do
     end
 
     test "5. a covering UniversalPlan is followed; an uncovered state is not" do
-      s0 = state(universal_plan: @universal_plan)
+      s0 = policy_state()
 
       assert {:follow_policy, ev, _} =
-               ReplanRouter.route(obs(policy_state: "s0", suffix_from: 1), s0)
+               ReplanRouter.route(policy_obs(s0, policy_state: "s0", suffix_from: 1), s0)
 
       assert ev.action == "flip"
 
       assert {:suffix_reuse, _, _} =
-               ReplanRouter.route(obs(policy_state: "s9", suffix_from: 1), s0)
+               ReplanRouter.route(policy_obs(s0, policy_state: "s9", suffix_from: 1), s0)
+    end
+
+    test "1a. a mutated UniversalPlan is refused, never followed" do
+      s0 = policy_state()
+
+      mutated =
+        put_in(s0.universal_plan["policy"], [%{"state" => "s0", "action" => "launch_everything"}])
+
+      s1 = %{s0 | universal_plan: mutated}
+
+      {decision, ev, st} = ReplanRouter.route(policy_obs(s1, policy_state: "s0"), s1)
+
+      assert decision == :refuse_stale
+      assert ev.reason == :policy_digest_mismatch
+      assert ev.drifted == [:policy]
+      assert ev.held_policy_digest == ReplanRouter.policy_digest(mutated)
+      refute Map.has_key?(ev, :action)
+      assert %StalePlanRefusal{} = ev.refusal
+      refute ev.refusal.admitted_preimage_hash == ev.refusal.observed_preimage_hash
+      assert st.rung == :none
+
+      # the admitted plan on the same preimage is still followed
+      assert {:follow_policy, %{action: "flip"}, _} =
+               ReplanRouter.route(policy_obs(s0, policy_state: "s0"), s0)
+    end
+
+    test "1a. new/1 refuses a UniversalPlan that does not match the admitted policy digest" do
+      assert_raise ArgumentError, ~r/admitted preimage.policy/, fn ->
+        state(universal_plan: @universal_plan)
+      end
+    end
+
+    test "1. an empty or partial admitted preimage is refused at construction" do
+      for bad <- [%{}, Map.delete(@preimage, :world), %{@preimage | subject: ""}] do
+        assert_raise ArgumentError, ~r/admitted preimage/, fn ->
+          ReplanRouter.new(plan_id: "p", preimage: bad)
+        end
+      end
+    end
+
+    test "1. an observation without a preimage fails closed" do
+      {decision, ev, _} =
+        ReplanRouter.route(%{conformance: :conforms, plan_valid: true}, state())
+
+      assert decision == :refuse_stale
+      assert ev.drifted == [:subject, :pack, :policy, :world]
+    end
+
+    test "1b. malformed observation fields are refused, never coerced" do
+      cases = [
+        {[goal_met: "false"], [:goal_met]},
+        {[admitted: "yes", event_id: "e1"], [:admitted]},
+        {[plan_valid: 1, conformance: :conforms], [:plan_valid]},
+        {[conformance: :maybe], [:conformance]},
+        {[attempt: {:session_replan, :bogus}], [:attempt]},
+        {[attempt: :exhausted], [:attempt]},
+        {[suffix_from: -1], [:suffix_from]},
+        {[unknown_facts: "(x)"], [:unknown_facts]},
+        {[event_id: 7, goal_met: "true"], [:goal_met, :event_id]}
+      ]
+
+      for {extra, fields} <- cases do
+        s0 = state()
+        {decision, ev, st} = ReplanRouter.route(obs(extra), s0)
+        assert decision == :refuse_malformed, inspect(extra)
+        assert Enum.sort(ev.fields) == Enum.sort(fields), inspect(extra)
+        assert st.rung == :none
+        assert st.seen_events == s0.seen_events
+        assert decision in ReplanRouter.decisions()
+      end
+    end
+
+    test "6. suffix_from 0 is not a later suffix" do
+      {decision, _, _} = ReplanRouter.route(obs(suffix_from: 0), state())
+      assert decision == :session_replan
     end
 
     test "6. a valid later suffix is reused" do
@@ -163,6 +248,54 @@ defmodule BeamPM.ReplanRouterTest do
       assert s3.rung == :strategic_recompile
       assert length(PlanLineage.links(s3.lineage)) == 4
       assert PlanLineage.verify(s3.lineage) == :ok
+    end
+
+    test "a forged attempt for a rung not held cannot skip rungs" do
+      s0 = state()
+
+      for forged <- [
+            {:hddl_replan, :exhausted},
+            {:strategic_recompile, :error},
+            {:session_replan, :exhausted},
+            {:none, :exhausted}
+          ] do
+        {decision, ev, st} = ReplanRouter.route(obs(attempt: forged), s0)
+        assert decision == :session_replan, inspect(forged)
+        assert ev.attempt_ignored == forged
+        assert st.rung == :session_replan
+      end
+
+      # held at session_replan, a report about hddl_replan is still ignored
+      {:session_replan, _, s1} = ReplanRouter.route(obs([]), s0)
+
+      assert {:session_replan, %{attempt_ignored: {:hddl_replan, :no_plan}}, _} =
+               ReplanRouter.route(obs(attempt: {:hddl_replan, :no_plan}), s1)
+
+      {:hddl_replan, ev2, _} =
+        ReplanRouter.route(obs(attempt: {:session_replan, :exhausted}), s1)
+
+      refute Map.has_key?(ev2, :attempt_ignored)
+    end
+
+    test "each generation names the plan it replaces and advances current_plan_id" do
+      s0 = state()
+      assert s0.current_plan_id == "plan-1"
+
+      {:session_replan, ev1, s1} = ReplanRouter.route(obs([]), s0)
+      assert ev1.trigger.plan_id == "plan-1"
+      assert s1.current_plan_id == ev1.lineage.plan_id
+      assert s1.plan_id == "plan-1"
+
+      {:hddl_replan, ev2, s2} =
+        ReplanRouter.route(obs(attempt: {:session_replan, :exhausted}), s1)
+
+      assert ev2.trigger.plan_id == ev1.lineage.plan_id
+      assert ev2.lineage.parent_plan_id == ev1.lineage.plan_id
+      assert s2.current_plan_id == ev2.lineage.plan_id
+
+      {:close, cev, _} = ReplanRouter.route(obs(goal_met: true), s2)
+      assert cev.plan_memory.plan_id == s2.current_plan_id
+      assert cev.ocel_event.attributes["root_plan_id"] == "plan-1"
     end
 
     test "hddl timeout also climbs" do
@@ -275,6 +408,29 @@ defmodule BeamPM.ReplanRouterTest do
       assert PlanLineage.digest(a) ==
                :crypto.hash(:sha256, ~s({"a":{"c":"s","z":[3,{"x":true,"y":null}]},"b":1}))
                |> Base.encode16(case: :lower)
+    end
+
+    test "keys are sorted explicitly even for maps large enough to iterate unsorted" do
+      keys = for i <- 0..39, do: "k" <> String.pad_leading(Integer.to_string(i), 2, "0")
+      map = Map.new(keys, &{&1, 1})
+      # >32 keys: Elixir's own iteration order is not sorted, so this pins the sort
+      refute Map.keys(map) == Enum.sort(keys)
+
+      expected = "{" <> Enum.map_join(Enum.sort(keys), ",", &~s("#{&1}":1)) <> "}"
+      assert PlanLineage.canonical_json(map) == expected
+    end
+
+    test "inputs that would collide are refused, not silently merged" do
+      assert_raise ArgumentError, ~r/two keys/, fn ->
+        PlanLineage.canonical_json(%{:a => 1, "a" => 2})
+      end
+
+      assert_raise ArgumentError, ~r/keys must be strings or atoms/, fn ->
+        PlanLineage.digest(%{1 => "x"})
+      end
+
+      assert_raise ArgumentError, ~r/tuple/, fn -> PlanLineage.digest({:a, :b}) end
+      assert PlanLineage.digest(%{"1" => "x"}) == PlanLineage.digest(%{:"1" => "x"})
     end
 
     test "list order is significant" do

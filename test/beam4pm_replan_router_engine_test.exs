@@ -183,13 +183,110 @@ defmodule BeamPM.ReplanRouterEngineTest do
   end
 
   test "load_policy uses the real fond_policy op and the policy is then followed", ctx do
-    assert {:ok, st} = ReplanRouter.load_policy(ctx.state, @retry_loop)
+    # The admitted preimage.policy is the digest of the policy the real op
+    # synthesizes for this problem; load_policy re-derives and checks it.
+    {:ok, synthesized} = Ferroplan.fond_policy("", @retry_loop)
+    pre = %{@preimage | policy: ReplanRouter.policy_digest(synthesized)}
+    st0 = ReplanRouter.new(plan_id: "rooms-1", preimage: pre, run_id: "eng")
+
+    assert {:ok, st} = ReplanRouter.load_policy(st0, @retry_loop)
     assert [%{"state" => "s0", "action" => "flip"}] = st.universal_plan["policy"]
 
     {:follow_policy, ev, _} =
-      ReplanRouter.route(%{preimage: @preimage, conformance: :deviates, policy_state: "s0"}, st)
+      ReplanRouter.route(%{preimage: pre, conformance: :deviates, policy_state: "s0"}, st)
 
     assert {:ok, %{outcome: :candidate, action: "flip", authority: "NONE"}} =
              ReplanRouter.execute(:follow_policy, ctx.handle, %{evidence: ev})
+  end
+
+  test "load_policy refuses a synthesized policy that is not the admitted one", ctx do
+    assert {:error, {:policy_digest_mismatch, %{admitted: "q", observed: observed}}} =
+             ReplanRouter.load_policy(ctx.state, @retry_loop)
+
+    assert is_binary(observed) and byte_size(observed) == 64
+    assert ctx.state.universal_plan == nil
+  end
+
+  test "a session fault is a host fault, not a planning outcome, and does not climb", ctx do
+    bogus = ctx.handle + 987_654
+
+    assert {:error, {:host_fault, reason}} =
+             ReplanRouter.execute(:session_replan, bogus, %{})
+
+    refute match?({:wasmex, {:engine_restarted, _}}, reason)
+    # the live session is untouched and still replans
+    assert {:ok, %{outcome: :solved}} = ReplanRouter.execute(:session_replan, ctx.handle, %{})
+  end
+
+  # 20 objects x 3 parameters = 8000 ground methods: a real solve of several
+  # seconds on the wasm engine, far beyond the 200 ms Task deadline below.
+  defp grind_hddl(n) do
+    objs = Enum.map_join(1..n, " ", &"o#{&1}")
+
+    domain = """
+    (define (domain grind)
+      (:types obj)
+      (:predicates (m ?a - obj ?b - obj ?c - obj) (done))
+      (:task solve :parameters ())
+      (:action mark :parameters (?a - obj ?b - obj ?c - obj)
+        :precondition (not (m ?a ?b ?c)) :effect (m ?a ?b ?c))
+      (:action finish :parameters () :precondition () :effect (done))
+      (:method m-solve :parameters (?a - obj ?b - obj ?c - obj) :task (solve)
+        :ordered-subtasks (and (s1 (mark ?a ?b ?c)) (s2 (finish)))))
+    """
+
+    problem = """
+    (define (problem grind-p) (:domain grind) (:objects #{objs} - obj)
+      (:htn :parameters () :ordered-subtasks (and (root (solve))))
+      (:init) (:goal (and (done))))
+    """
+
+    {domain, problem}
+  end
+
+  test "hddl_replan's Task deadline governs: a long real solve times out and the engine is discarded",
+       ctx do
+    # The engine is linked to this test process (Ferroplan.start/0 in setup);
+    # discarding it on the deadline must not take the test down with it.
+    Process.flag(:trap_exit, true)
+    {domain, problem} = grind_hddl(20)
+    old_engine = Process.whereis(BeamPM.Ferroplan.Engine)
+
+    t0 = System.monotonic_time(:millisecond)
+
+    # task_grace_ms pushes the facade's own call timeout 10 s past the Task
+    # deadline, so only the Task deadline can end this call in time.
+    result =
+      ReplanRouter.execute(
+        :hddl_replan,
+        ctx.handle,
+        %{hddl_domain: domain, hddl_problem: problem},
+        hddl_timeout: 200,
+        task_grace_ms: 10_000
+      )
+
+    elapsed = System.monotonic_time(:millisecond) - t0
+
+    assert {:ok, %{outcome: :timeout, timeout_ms: 200, engine_restarted: true}} = result
+    assert elapsed < 2_000
+    refute Process.alive?(old_engine)
+
+    # the timeout outcome climbs the ladder from the held rung
+    st = %{ctx.state | rung: :hddl_replan}
+
+    assert {:strategic_recompile, _, _} =
+             ReplanRouter.route(
+               %{preimage: @preimage, conformance: :deviates, attempt: {:hddl_replan, :timeout}},
+               st
+             )
+
+    # a fresh engine starts and solves again
+    {:ok, _} = Ferroplan.start()
+
+    assert {:ok, %{outcome: :solved}} =
+             ReplanRouter.execute(:hddl_replan, 0, %{
+               hddl_domain: File.read!("native/ferroplan/domains/solve_x.hddl"),
+               hddl_problem: File.read!("native/ferroplan/domains/solve_x.problem.hddl")
+             })
   end
 end

@@ -4,9 +4,20 @@ defmodule BeamPM.PlanLineage do
   `BeamPM.Types.PlanLineage` struct (CO-047) per link.
 
   Digests are `sha256` (lowercase hex) of a canonical JSON rendering: map keys
-  are stringified and sorted, lists keep their order, atoms render as strings,
-  and there is no insignificant whitespace. The same term therefore always
-  digests to the same value regardless of map construction order.
+  are stringified and sorted by byte order at every depth (explicitly, not by
+  relying on small-map iteration order), lists keep their order, atoms render
+  as strings, and there is no insignificant whitespace. The same term
+  therefore always digests to the same value regardless of map construction
+  order.
+
+  The domain is JSON-shaped terms, where an atom is an alias for the string
+  of its name (`digest(:x) == digest("x")`, by design). Within that domain
+  the rendering is injective; anything that would break injectivity raises
+  `ArgumentError` rather than silently colliding:
+
+    * a map key that is neither a string nor an atom (`1` vs `"1"`);
+    * two keys of one map that render to the same string (`:a` and `"a"`);
+    * a tuple (it would render like the list of its elements).
 
   Each link's `lineage_hash` is the digest of
   `%{"parent_lineage_hash", "parent_plan_id", "payload_digest", "plan_id"}`,
@@ -128,24 +139,53 @@ defmodule BeamPM.PlanLineage do
   defp encode(map) when is_map(map) do
     pairs =
       map
-      |> Enum.map(fn {k, v} -> {key(k), v} end)
+      |> Enum.map(fn {k, v} -> {key!(k), v} end)
       |> Enum.sort_by(&elem(&1, 0))
+
+    ensure_unique_keys!(pairs)
+
+    body =
+      pairs
       |> Enum.map(fn {k, v} -> [JSON.encode!(k), ?:, encode(v)] end)
       |> Enum.intersperse(?,)
 
-    [?{, pairs, ?}]
+    [?{, body, ?}]
   end
 
   defp encode(list) when is_list(list),
     do: [?[, list |> Enum.map(&encode/1) |> Enum.intersperse(?,), ?]]
 
-  defp encode(tuple) when is_tuple(tuple), do: tuple |> Tuple.to_list() |> encode()
+  defp encode(tuple) when is_tuple(tuple) do
+    raise ArgumentError,
+          "canonical JSON has no tuple form (it would collide with a list): #{inspect(tuple)}"
+  end
+
   defp encode(nil), do: "null"
   defp encode(bool) when is_boolean(bool), do: JSON.encode!(bool)
   defp encode(atom) when is_atom(atom), do: JSON.encode!(Atom.to_string(atom))
   defp encode(other), do: JSON.encode!(other)
 
-  defp key(k) when is_binary(k), do: k
-  defp key(k) when is_atom(k), do: Atom.to_string(k)
-  defp key(k), do: canonical_json(k)
+  defp key!(k) when is_binary(k), do: k
+  defp key!(k) when is_atom(k), do: Atom.to_string(k)
+
+  defp key!(k) do
+    raise ArgumentError,
+          "canonical JSON object keys must be strings or atoms, got: #{inspect(k)}"
+  end
+
+  # Keys are already sorted, so a collision (e.g. :a and "a") is adjacent.
+  defp ensure_unique_keys!(pairs) do
+    pairs
+    |> Enum.map(&elem(&1, 0))
+    |> Enum.chunk_every(2, 1, :discard)
+    |> Enum.find(fn [a, b] -> a == b end)
+    |> case do
+      nil ->
+        :ok
+
+      [dup, _] ->
+        raise ArgumentError,
+              "canonical JSON object has two keys rendering as #{inspect(dup)}"
+    end
+  end
 end

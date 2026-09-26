@@ -9,7 +9,17 @@ defmodule BeamPM.ReplanRouter do
   `route(observation, state) :: {decision, evidence, state}` checks, in order:
 
     1. stale preimage -- the observed subject/pack/policy/world digests differ
-       from the admitted ones -> `:refuse_stale` + `StalePlanRefusal` (CO-044);
+       from the admitted ones -> `:refuse_stale` + `StalePlanRefusal` (CO-044).
+       This fails closed: an observation without a `:preimage` (or missing a
+       key) normalizes to `nil` digests, and `new/1` refuses an admitted
+       preimage whose four digests are not all non-empty strings, so a
+       missing preimage can never match;
+       1a. the held UniversalPlan does not digest to the admitted
+       `preimage.policy` (`policy_digest/1`) -> `:refuse_stale` with reason
+       `:policy_digest_mismatch` -- a mutated policy is never followed;
+       1b. a malformed observation (a non-boolean `:goal_met` / `:plan_valid`
+       / `:admitted`, an unknown `:conformance`, a bad `:attempt` shape, ...)
+       -> `:refuse_malformed` naming the offending fields;
     2. goal met -> `:close` + `PlanMemory` (CO-046);
     3. an unknown fact (not in the grounded task) -> `:strategic_recompile`
        (world model invalid); conformance not yet observed -> `:reobserve`;
@@ -21,6 +31,20 @@ defmodule BeamPM.ReplanRouter do
        (when the previous rung reported `:exhausted` / `:no_plan` /
        `:timeout`) -> `:strategic_recompile`, emitting `DynamicReplanTrigger`
        (CO-043) and a `PlanLineage` link (CO-047).
+
+  An `:attempt` counts only when its rung is the rung the state currently
+  holds (`state.rung`, never `:none`); any other attempt is ignored and
+  recorded as `:attempt_ignored` in the evidence, so a forged report cannot
+  skip rungs.
+
+  Plan ids: `plan_id` is the root admitted plan; `current_plan_id` is the
+  generation being executed. Each ladder step names the new generation
+  `"<root>:g<N>:<rung>"`, links it to `current_plan_id` in the lineage, emits
+  the `DynamicReplanTrigger` for the plan being REPLACED (`current_plan_id`),
+  and then advances `current_plan_id`. The lineage head hash commits to the
+  whole chain but is only as trustworthy as where it is anchored: a full
+  chain rewrite verifies `:ok` with a different head, so consumers compare
+  the head against an externally recorded value.
 
   The rung never moves down within an episode. A new admitted event (an
   `event_id` not seen before with `admitted: true`) opens a new episode and
@@ -40,6 +64,12 @@ defmodule BeamPM.ReplanRouter do
   `session_think` (evals <= 1_000_000, mem <= 2048 MB), `hddl_solve` under a
   `Task` timeout, `fond_policy`, `session_advance`. `:strategic_recompile`
   returns `{:recompile_required, evidence}` and never regenerates anything.
+
+  Only planning failures become an outcome that feeds `:attempt`
+  (`:exhausted` / `:no_plan` / `:timeout`). A host or session fault (a bad
+  handle, the engine not started, a wasmex failure other than a call
+  timeout) is returned as `{:error, {:host_fault, reason}}` and must not be
+  fed back as an attempt, so infrastructure trouble never climbs the ladder.
 
   Authority: NONE; ceiling CONSTRUCT. Nothing here actuates the world -- the
   `:continue` / `:follow_policy` results are candidate steps only.
@@ -63,12 +93,20 @@ defmodule BeamPM.ReplanRouter do
 
   @rungs [:none, :session_replan, :hddl_replan, :strategic_recompile]
   @failed_outcomes [:exhausted, :no_plan, :timeout, :error]
+  @outcomes [:solved | @failed_outcomes]
+  @conformances [nil, :conforms, :deviates]
+
+  # Registered name of the facade's wasmex engine (its child_spec id). Used
+  # only to discard an engine whose hddl_solve outlived the Task deadline --
+  # the same stop-and-discard the facade itself performs on a call timeout.
+  @engine BeamPM.Ferroplan.Engine
 
   @max_evals 1_000_000
   @max_mem_mb 2048
 
   @decisions [
     :refuse_stale,
+    :refuse_malformed,
     :close,
     :strategic_recompile,
     :reobserve,
@@ -80,6 +118,7 @@ defmodule BeamPM.ReplanRouter do
   ]
 
   defstruct plan_id: nil,
+            current_plan_id: nil,
             admitted_preimage: %{},
             universal_plan: nil,
             rung: :none,
@@ -93,6 +132,7 @@ defmodule BeamPM.ReplanRouter do
 
   @type decision ::
           :refuse_stale
+          | :refuse_malformed
           | :close
           | :strategic_recompile
           | :reobserve
@@ -128,6 +168,7 @@ defmodule BeamPM.ReplanRouter do
 
   @type t :: %__MODULE__{
           plan_id: String.t() | nil,
+          current_plan_id: String.t() | nil,
           admitted_preimage: preimage(),
           universal_plan: map() | nil,
           rung: rung(),
@@ -153,23 +194,61 @@ defmodule BeamPM.ReplanRouter do
   `:plan_id` (required), `:preimage` (required, subject/pack/policy/world
   digests), `:universal_plan` (a UniversalPlan map), `:run_id`,
   `:episode_id`.
+
+  Raises `ArgumentError` when any of the four admitted digests is missing or
+  not a non-empty string (an empty admitted preimage would otherwise match an
+  observation that carries none), or when `:universal_plan` does not digest
+  to the admitted `preimage.policy`.
   """
   @spec new(keyword() | map()) :: t()
   def new(opts) do
     opts = Map.new(opts)
     plan_id = Map.fetch!(opts, :plan_id)
-    preimage = opts |> Map.fetch!(:preimage) |> normalize_preimage()
+    preimage = opts |> Map.fetch!(:preimage) |> normalize_preimage() |> admitted_preimage!()
+    universal_plan = Map.get(opts, :universal_plan)
+
+    if universal_plan != nil and policy_digest(universal_plan) != preimage.policy do
+      raise ArgumentError,
+            "universal_plan digests to #{policy_digest(universal_plan)}, " <>
+              "not the admitted preimage.policy #{preimage.policy}"
+    end
+
     run_id = Map.get(opts, :run_id, "replan-" <> String.slice(PlanLineage.digest(plan_id), 0, 12))
     {_link, lineage} = PlanLineage.derive(PlanLineage.new(), plan_id, %{"admitted" => preimage})
 
     %__MODULE__{
       plan_id: plan_id,
+      current_plan_id: plan_id,
       admitted_preimage: preimage,
-      universal_plan: Map.get(opts, :universal_plan),
+      universal_plan: universal_plan,
       episode_id: Map.get(opts, :episode_id, run_id <> "-ep0"),
       lineage: lineage,
       run_id: run_id
     }
+  end
+
+  @doc """
+  Digest a UniversalPlan must have to be followed: the canonical-JSON sha256
+  of the plan map. The admitted `preimage.policy` is this value.
+  """
+  @spec policy_digest(map()) :: String.t()
+  def policy_digest(universal_plan) when is_map(universal_plan),
+    do: PlanLineage.digest(universal_plan)
+
+  defp admitted_preimage!(preimage) do
+    Enum.each(@preimage_keys, fn k ->
+      case Map.get(preimage, k) do
+        v when is_binary(v) and byte_size(v) > 0 ->
+          :ok
+
+        other ->
+          raise ArgumentError,
+                "admitted preimage #{inspect(k)} must be a non-empty digest string, " <>
+                  "got: #{inspect(other)}"
+      end
+    end)
+
+    preimage
   end
 
   @doc "Digest of a preimage map (sorted-key canonical JSON sha256)."
@@ -183,26 +262,81 @@ defmodule BeamPM.ReplanRouter do
   @doc "Routes one observation. See the moduledoc for the ordered checks."
   @spec route(observation(), t()) :: {decision(), map(), t()}
   def route(observation, %__MODULE__{} = state) when is_map(observation) do
-    observed = observation |> Map.get(:preimage, %{}) |> normalize_preimage()
+    observed = observation |> Map.get(:preimage) |> normalize_preimage()
 
-    if observed != state.admitted_preimage do
-      refuse_stale(observed, state)
-    else
-      {reset_evidence, state} = maybe_reset(observation, state)
+    cond do
+      observed != state.admitted_preimage ->
+        refuse_stale(observed, state)
 
-      {decision, evidence, state} = route_admitted(observation, state)
+      not policy_admitted?(state) ->
+        refuse_policy(state)
 
-      evidence =
-        if reset_evidence, do: Map.put(evidence, :episode, reset_evidence), else: evidence
+      (bad = malformed_fields(observation)) != [] ->
+        finish(:refuse_malformed, %{reason: :malformed_observation, fields: bad}, %{}, state)
 
-      finish(decision, evidence, observation, state)
+      true ->
+        {reset_evidence, state} = maybe_reset(observation, state)
+
+        {decision, evidence, state} = route_admitted(observation, state)
+
+        evidence =
+          if reset_evidence, do: Map.put(evidence, :episode, reset_evidence), else: evidence
+
+        finish(decision, evidence, observation, state)
     end
   end
+
+  defp policy_admitted?(%__MODULE__{universal_plan: nil}), do: true
+
+  defp policy_admitted?(%__MODULE__{universal_plan: plan, admitted_preimage: pre})
+       when is_map(plan),
+       do: policy_digest(plan) == pre.policy
+
+  defp policy_admitted?(_), do: false
+
+  defp refuse_policy(state) do
+    held = if is_map(state.universal_plan), do: policy_digest(state.universal_plan)
+
+    {:ok, refusal} =
+      StalePlanRefusal.new(%{
+        plan_id: state.current_plan_id,
+        admitted_preimage_hash: PlanLineage.digest(state.admitted_preimage),
+        observed_preimage_hash: PlanLineage.digest(%{state.admitted_preimage | policy: held})
+      })
+
+    evidence = %{
+      reason: :policy_digest_mismatch,
+      refusal: refusal,
+      drifted: [:policy],
+      held_policy_digest: held
+    }
+
+    finish(:refuse_stale, evidence, %{}, state)
+  end
+
+  defp malformed_fields(obs) do
+    checks = [
+      goal_met: &(is_nil(&1) or is_boolean(&1)),
+      plan_valid: &(is_nil(&1) or is_boolean(&1)),
+      admitted: &(is_nil(&1) or is_boolean(&1)),
+      conformance: &(&1 in @conformances),
+      event_id: &(is_nil(&1) or is_binary(&1)),
+      unknown_facts: &(is_nil(&1) or (is_list(&1) and Enum.all?(&1, fn f -> is_binary(f) end))),
+      suffix_from: &(is_nil(&1) or (is_integer(&1) and &1 >= 0)),
+      attempt: &valid_attempt?/1
+    ]
+
+    for {field, ok?} <- checks, not ok?.(Map.get(obs, field)), do: field
+  end
+
+  defp valid_attempt?(nil), do: true
+  defp valid_attempt?({rung, outcome}) when rung in @rungs and outcome in @outcomes, do: true
+  defp valid_attempt?(_), do: false
 
   defp refuse_stale(observed, state) do
     {:ok, refusal} =
       StalePlanRefusal.new(%{
-        plan_id: state.plan_id,
+        plan_id: state.current_plan_id,
         admitted_preimage_hash: PlanLineage.digest(state.admitted_preimage),
         observed_preimage_hash: PlanLineage.digest(observed)
       })
@@ -219,7 +353,7 @@ defmodule BeamPM.ReplanRouter do
   defp maybe_reset(observation, state) do
     event_id = Map.get(observation, :event_id)
 
-    if Map.get(observation, :admitted, false) and is_binary(event_id) and
+    if Map.get(observation, :admitted) == true and is_binary(event_id) and
          not MapSet.member?(state.seen_events, event_id) do
       episode_id = "#{state.run_id}-ep#{MapSet.size(state.seen_events) + 1}"
 
@@ -243,17 +377,17 @@ defmodule BeamPM.ReplanRouter do
   end
 
   defp route_admitted(obs, state) do
-    unknown = Map.get(obs, :unknown_facts, [])
+    unknown = Map.get(obs, :unknown_facts) || []
     conformance = Map.get(obs, :conformance)
 
     cond do
-      Map.get(obs, :goal_met, false) ->
+      Map.get(obs, :goal_met) == true ->
         close(obs, state)
 
       unknown != [] ->
         world_invalid = %{
           kind: "WorldModelInvalid",
-          plan_id: state.plan_id,
+          plan_id: state.current_plan_id,
           unknown_facts: Enum.sort(unknown),
           unknown_facts_hash: PlanLineage.digest(Enum.sort(unknown))
         }
@@ -268,7 +402,7 @@ defmodule BeamPM.ReplanRouter do
       is_nil(conformance) ->
         {:reobserve, %{reason: :missing_conformance}, state}
 
-      conformance == :conforms and Map.get(obs, :plan_valid, false) ->
+      conformance == :conforms and Map.get(obs, :plan_valid) == true ->
         {:continue, %{reason: :conforms_plan_valid}, state}
 
       (action = policy_action(state.universal_plan, Map.get(obs, :policy_state))) != nil ->
@@ -283,19 +417,21 @@ defmodule BeamPM.ReplanRouter do
         {:suffix_reuse, %{reason: :suffix_valid, suffix_from: Map.get(obs, :suffix_from)}, state}
 
       true ->
-        ladder_step(
-          next_rung(state, Map.get(obs, :attempt)),
-          %{reason: :replan_required},
-          obs,
-          state
-        )
+        attempt = Map.get(obs, :attempt)
+
+        evidence =
+          if attempt != nil and honored_attempt(state, attempt) == nil,
+            do: %{reason: :replan_required, attempt_ignored: attempt},
+            else: %{reason: :replan_required}
+
+        ladder_step(next_rung(state, attempt), evidence, obs, state)
     end
   end
 
   defp close(obs, state) do
     evidence_hash =
       PlanLineage.digest(%{
-        "plan_id" => state.plan_id,
+        "plan_id" => state.current_plan_id,
         "preimage" => state.admitted_preimage,
         "event_id" => Map.get(obs, :event_id),
         "episode_id" => state.episode_id
@@ -303,13 +439,13 @@ defmodule BeamPM.ReplanRouter do
 
     {:ok, memory} =
       PlanMemory.new(%{
-        plan_id: state.plan_id,
+        plan_id: state.current_plan_id,
         evidence_hash: evidence_hash,
         memory_hash:
           PlanLineage.digest(%{
             "evidence_hash" => evidence_hash,
             "lineage_hash" => PlanLineage.head_hash(state.lineage),
-            "plan_id" => state.plan_id
+            "plan_id" => state.current_plan_id
           })
       })
 
@@ -318,19 +454,32 @@ defmodule BeamPM.ReplanRouter do
 
   @doc """
   Next rung given the current rung and the last attempt outcome. Monotone:
-  never returns a rung below `state.rung`.
+  never returns a rung below `state.rung`. Only an attempt at the rung the
+  state currently holds can climb (see `honored_attempt/2`); any other
+  attempt is ignored.
   """
   @spec next_rung(t(), {rung(), atom()} | nil) :: rung()
-  def next_rung(%__MODULE__{rung: current}, attempt) do
+  def next_rung(%__MODULE__{rung: current} = state, attempt) do
     failed_at =
-      case attempt do
-        {rung, outcome} when rung in @rungs and outcome in @failed_outcomes -> rung
+      case honored_attempt(state, attempt) do
+        {rung, outcome} when outcome in @failed_outcomes -> rung
         _ -> nil
       end
 
     base = max_rung(current, failed_at && succ(failed_at))
     if base == :none, do: :session_replan, else: base
   end
+
+  @doc """
+  The attempt if it reports on the rung `state` currently holds (a real
+  ladder step, not `:none`), else `nil`.
+  """
+  @spec honored_attempt(t(), term()) :: {rung(), atom()} | nil
+  def honored_attempt(%__MODULE__{rung: current}, {current, outcome} = attempt)
+      when current != :none and outcome in @outcomes,
+      do: attempt
+
+  def honored_attempt(%__MODULE__{}, _attempt), do: nil
 
   defp succ(:none), do: :session_replan
   defp succ(:session_replan), do: :hddl_replan
@@ -351,13 +500,15 @@ defmodule BeamPM.ReplanRouter do
       "attempt" => inspect(Map.get(obs, :attempt)),
       "episode_id" => state.episode_id,
       "event_id" => Map.get(obs, :event_id),
-      "plan_id" => state.plan_id,
+      "plan_id" => new_plan_id,
+      "replaced_plan_id" => state.current_plan_id,
+      "root_plan_id" => state.plan_id,
       "rung" => rung
     }
 
     {:ok, trigger} =
       DynamicReplanTrigger.new(%{
-        plan_id: state.plan_id,
+        plan_id: state.current_plan_id,
         event_id: Map.get(obs, :event_id),
         trigger_hash: PlanLineage.digest(trigger_payload)
       })
@@ -365,7 +516,15 @@ defmodule BeamPM.ReplanRouter do
     {link, lineage} = PlanLineage.derive(state.lineage, new_plan_id, trigger_payload)
 
     evidence = Map.merge(evidence, %{rung: rung, trigger: trigger, lineage: link})
-    {rung, evidence, %{state | rung: rung, generation: generation, lineage: lineage}}
+
+    {rung, evidence,
+     %{
+       state
+       | rung: rung,
+         generation: generation,
+         lineage: lineage,
+         current_plan_id: new_plan_id
+     }}
   end
 
   defp policy_action(nil, _), do: nil
@@ -387,7 +546,8 @@ defmodule BeamPM.ReplanRouter do
       event(state, ordinal, "replan_router." <> Atom.to_string(decision), %{
         "decision" => Atom.to_string(decision),
         "reason" => evidence |> Map.get(:reason) |> to_string(),
-        "plan_id" => state.plan_id,
+        "plan_id" => state.current_plan_id,
+        "root_plan_id" => state.plan_id,
         "episode_id" => state.episode_id,
         "rung" => Atom.to_string(state.rung),
         "observed_event_id" => Map.get(obs, :event_id),
@@ -427,6 +587,8 @@ defmodule BeamPM.ReplanRouter do
       {k, Map.get(preimage, k, Map.get(preimage, Atom.to_string(k)))}
     end)
   end
+
+  defp normalize_preimage(_missing), do: Map.new(@preimage_keys, &{&1, nil})
 
   # ---------------------------------------------------------------------
   # Driver over the generated facade
@@ -517,15 +679,18 @@ defmodule BeamPM.ReplanRouter do
   def execute(:session_replan, handle, _inputs, opts) do
     evals = opts |> Keyword.get(:evals, 100_000) |> min(@max_evals) |> max(1)
     mem = opts |> Keyword.get(:mem_mb, 64) |> min(@max_mem_mb) |> max(1)
+    think_opts = if t = Keyword.get(opts, :think_timeout), do: [timeout: t], else: []
+    base = %{rung: :session_replan, evals: evals, mem_mb: mem}
 
-    with {:ok, _} <- Ferroplan.session_drop_plan(handle),
-         {:ok, sol} <- Ferroplan.session_think(handle, evals, mem) do
+    # A drop_plan failure is a session fault (bad handle, engine gone), never
+    # a planning outcome.
+    with {:dropped, {:ok, _}} <- {:dropped, Ferroplan.session_drop_plan(handle)},
+         {:ok, sol} <- Ferroplan.session_think(handle, evals, mem, think_opts) do
       outcome = if sol["solved"] == true, do: :solved, else: :exhausted
-
-      {:ok,
-       %{rung: :session_replan, outcome: outcome, plan: sol["plan"], evals: evals, mem_mb: mem}}
+      {:ok, Map.merge(base, %{outcome: outcome, plan: sol["plan"]})}
     else
-      {:error, reason} -> {:ok, %{rung: :session_replan, outcome: :exhausted, error: reason}}
+      {:dropped, {:error, reason}} -> {:error, {:host_fault, reason}}
+      {:error, reason} -> classify_failure(base, :exhausted, reason)
     end
   end
 
@@ -533,28 +698,40 @@ defmodule BeamPM.ReplanRouter do
     domain = Map.fetch!(inputs, :hddl_domain)
     problem = Map.fetch!(inputs, :hddl_problem)
     timeout = Keyword.get(opts, :hddl_timeout, 30_000)
+    grace = Keyword.get(opts, :task_grace_ms, 1_000)
     limits = Keyword.get(opts, :limits)
+    base = %{rung: :hddl_replan}
 
-    task = Task.async(fn -> Ferroplan.hddl_solve(domain, problem, limits, timeout: timeout) end)
+    # The Task deadline (`timeout`) is the governing wall bound: the facade's
+    # own call timeout is set `grace` ms later so it never pre-empts it. On
+    # the deadline the Task is killed and the engine discarded (the solve is
+    # not preemptible inside the guest), exactly like the facade's own
+    # call-timeout path: every session handle is invalid afterwards.
+    task =
+      Task.async(fn ->
+        Ferroplan.hddl_solve(domain, problem, limits, timeout: timeout + grace)
+      end)
 
-    case Task.yield(task, timeout + 1_000) || Task.shutdown(task, :brutal_kill) do
+    case Task.yield(task, timeout) || Task.shutdown(task, :brutal_kill) do
       {:ok, {:ok, %{"solved" => true} = plan}} ->
-        {:ok, %{rung: :hddl_replan, outcome: :solved, universal_plan: plan}}
+        {:ok, Map.merge(base, %{outcome: :solved, universal_plan: plan})}
 
       {:ok, {:ok, %{"error" => error}}} ->
-        {:ok, %{rung: :hddl_replan, outcome: :no_plan, error: error}}
+        {:ok, Map.merge(base, %{outcome: :no_plan, error: error})}
 
       {:ok, {:ok, other}} ->
-        {:ok, %{rung: :hddl_replan, outcome: :no_plan, error: other}}
+        {:ok, Map.merge(base, %{outcome: :no_plan, error: other})}
 
       {:ok, {:error, reason}} ->
-        {:ok, %{rung: :hddl_replan, outcome: :no_plan, error: reason}}
+        classify_failure(base, :no_plan, reason)
 
       nil ->
-        {:ok, %{rung: :hddl_replan, outcome: :timeout, timeout_ms: timeout}}
+        discard_engine()
+
+        {:ok, Map.merge(base, %{outcome: :timeout, timeout_ms: timeout, engine_restarted: true})}
 
       {:exit, reason} ->
-        {:ok, %{rung: :hddl_replan, outcome: :error, error: reason}}
+        {:error, {:host_fault, {:exit, reason}}}
     end
   end
 
@@ -567,7 +744,13 @@ defmodule BeamPM.ReplanRouter do
         with {:ok, problem} <- Map.fetch(inputs, :fond_problem) |> ok_or(:missing_fond_problem),
              {:ok, %{"solved" => true} = plan} <-
                Ferroplan.fond_policy("", problem, Keyword.get(opts, :limits)) do
-          {:ok, %{rung: :none, outcome: :policy_loaded, universal_plan: plan}}
+          {:ok,
+           %{
+             rung: :none,
+             outcome: :policy_loaded,
+             universal_plan: plan,
+             policy_digest: policy_digest(plan)
+           }}
         else
           {:ok, other} -> {:ok, %{rung: :none, outcome: :no_plan, error: other}}
           {:error, _} = err -> err
@@ -608,14 +791,62 @@ defmodule BeamPM.ReplanRouter do
 
   @doc """
   Loads a UniversalPlan into `state` via the real `fond_policy` op
-  (`problem` = PlanningProblem JSON text).
+  (`problem` = PlanningProblem JSON text). The synthesized plan is admitted
+  only if it digests to the admitted `preimage.policy`; otherwise
+  `{:error, {:policy_digest_mismatch, %{admitted: _, observed: _}}}` and the
+  state is unchanged.
   """
   @spec load_policy(t(), String.t(), map() | nil) :: {:ok, t()} | {:error, term()}
   def load_policy(%__MODULE__{} = state, problem, limits \\ nil) when is_binary(problem) do
     case Ferroplan.fond_policy("", problem, limits) do
-      {:ok, %{"solved" => true} = plan} -> {:ok, %{state | universal_plan: plan}}
-      {:ok, other} -> {:error, {:no_policy, other}}
-      {:error, _} = err -> err
+      {:ok, %{"solved" => true} = plan} ->
+        observed = policy_digest(plan)
+
+        if observed == state.admitted_preimage.policy,
+          do: {:ok, %{state | universal_plan: plan}},
+          else:
+            {:error,
+             {:policy_digest_mismatch,
+              %{admitted: state.admitted_preimage.policy, observed: observed}}}
+
+      {:ok, other} ->
+        {:error, {:no_policy, other}}
+
+      {:error, _} = err ->
+        err
+    end
+  end
+
+  # Engine-reported refusals are planning failures; a wasmex call timeout is
+  # a :timeout outcome; anything else is a host fault that must not climb.
+  defp classify_failure(base, _planning_outcome, {:wasmex, {:engine_restarted, reason}} = err) do
+    if call_timeout?(reason),
+      do: {:ok, Map.merge(base, %{outcome: :timeout, engine_restarted: true, error: err})},
+      else: {:error, {:host_fault, err}}
+  end
+
+  defp classify_failure(base, planning_outcome, {:engine, _} = err),
+    do: {:ok, Map.merge(base, %{outcome: planning_outcome, error: err})}
+
+  defp classify_failure(_base, _planning_outcome, reason), do: {:error, {:host_fault, reason}}
+
+  defp call_timeout?({:call_exit, {:timeout, _}}), do: true
+  defp call_timeout?(_), do: false
+
+  defp discard_engine do
+    case Process.whereis(@engine) do
+      nil ->
+        :ok
+
+      pid ->
+        ref = Process.monitor(pid)
+        Process.exit(pid, :kill)
+
+        receive do
+          {:DOWN, ^ref, :process, ^pid, _} -> :ok
+        after
+          5_000 -> :ok
+        end
     end
   end
 
