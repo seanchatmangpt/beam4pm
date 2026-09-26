@@ -1,0 +1,49 @@
+@prefix ce: <urn:chatman:equilibrium:> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+
+ce:Planner a ce:ControlKind .
+ce:Policy a ce:ControlKind .
+ce:Role a ce:ControlKind .
+ce:Agent a ce:ControlKind .
+ce:Authority a ce:ControlKind .
+ce:Standing a ce:ControlKind .
+ce:DO a ce:IrreversibleBoundary .
+ce:Observe ce:rank 0 .
+ce:Select ce:rank 1 .
+ce:Construct ce:rank 2 .
+ce:DO ce:rank 3 .
+
+ce:HDDLPlanner a ce:Planner ; ce:authorityCeiling ce:Select .
+ce:FONDPlanner a ce:Planner ; ce:authorityCeiling ce:Select .
+ce:POWLPlanner a ce:Planner ; ce:authorityCeiling ce:Select .
+ce:FerroplanProvider a ce:Provider ; ce:provides ce:HDDLPlanner .
+ce:AutofdeProvider a ce:Provider ; ce:provides ce:FONDPlanner .
+ce:Rust4pmProvider a ce:Provider ; ce:provides ce:POWLPlanner .
+
+ce:ControlCommand a ce:CommandShape ;
+  ce:requires ce:ExactSubject, ce:Role, ce:Policy, ce:CapabilityProjection,
+              ce:Epoch, ce:PositiveStepBound, ce:AuthorityCeiling ;
+  ce:refuses ce:SubjectMismatch, ce:UnknownRole, ce:UnknownPolicy,
+             ce:CapabilityNotProjected, ce:StaleEpoch, ce:UnboundedWork,
+             ce:AuthorityLaundering .
+
+ce:BRCE a ce:ActuationBoundary ; ce:exclusiveAuthority ce:DO .
+ce:Planner ce:mustNotGrant ce:DO .
+ce:Policy ce:mustNotGrant ce:DO .
+ce:Role ce:authorityBoundBy ce:Authority .
+ce:Agent ce:actsUnder ce:Role .
+ce:Standing ce:derivedFrom ce:Receipt .
+ce:Receipt ce:binds ce:ExactSubject, ce:Authority, ce:Consequence, ce:ReplayIdentity .
+
+ce:ProviderRegistry a ce:RuntimeControl ;
+  ce:semantics ce:DisposableProvider, ce:ProviderExtinction, ce:LeaseReclaim,
+               ce:ContentAddressedHandoff .
+ce:BoundedQueue a ce:RuntimeControl ;
+  ce:semantics ce:Backpressure, ce:IdempotentEnqueue, ce:Cancellation,
+               ce:CrashReconciliation .
+ce:Replay a ce:RuntimeControl ; ce:requires ce:DeterministicReceiptChain .
+
+ce:InvariantCandidateNotAuthority a ce:Invariant .
+ce:InvariantSelectNotDo a ce:Invariant .
+ce:InvariantAuthorityConservation a ce:Invariant .
+ce:InvariantStandingRequiresReceipt a ce:Invariant .
