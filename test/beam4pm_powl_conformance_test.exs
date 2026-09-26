@@ -7,6 +7,7 @@ defmodule BeamPM.PowlConformanceTest do
   """
   use ExUnit.Case, async: true
 
+  alias BeamPM.Ferroplan
   alias BeamPM.PowlConformance
   alias BeamPM.Rust4PM
 
@@ -22,6 +23,26 @@ defmodule BeamPM.PowlConformanceTest do
   # Real 6-phase meeting sequence (Step 3's HDDL-solved FreedomGym plan):
   # open -> trust_god -> clean_house -> help_others -> fellowship -> close.
   @phases ["open", "trust_god", "clean_house", "help_others", "fellowship", "close"]
+
+  @planning_domain """
+  (define (domain rooms)
+    (:requirements :strips :typing)
+    (:types room)
+    (:predicates (at ?r - room) (link ?a - room ?b - room))
+    (:action go
+      :parameters (?a - room ?b - room)
+      :precondition (and (at ?a) (link ?a ?b))
+      :effect (and (at ?b) (not (at ?a)))))
+  )
+  """
+
+  @planning_problem """
+  (define (problem three-room)
+    (:domain rooms)
+    (:objects a b c - room)
+    (:init (at a) (link a b) (link c b))
+    (:goal (at b)))
+  """
 
   defp build_reference_ocel! do
     assert_ok = fn {:ok, v} -> v end
@@ -51,6 +72,20 @@ defmodule BeamPM.PowlConformanceTest do
 
     assert_ok.({:ok, h})
     h
+  end
+
+  defp start_ferroplan! do
+    case Ferroplan.start() do
+      {:ok, _pid} -> :ok
+      {:error, {:already_started, _pid}} -> :ok
+    end
+  end
+
+  defp new_planning_session! do
+    start_ferroplan!()
+    {:ok, %{"handle" => handle}} = Ferroplan.session_new(@planning_domain, @planning_problem)
+    {:ok, %{"solved" => true}} = Ferroplan.session_think(handle, 10_000, 64)
+    handle
   end
 
   test "reference model + a conforming trace -> zero-cost alignment, no deviations" do
@@ -111,4 +146,72 @@ defmodule BeamPM.PowlConformanceTest do
 
     {:ok, %{"freed" => true}} = Rust4PM.free_ocel(ref_ocel)
   end
+  describe "conform_observe_replan/6" do
+    if not Ferroplan.wasm_built?() do
+      @describetag skip: Ferroplan.wasm_missing_reason()
+    end
+
+    test "a POWL deviation is evidence, not authority: a still-valid Ferroplan suffix is reused" do
+      ref_ocel = build_reference_ocel!()
+      session = new_planning_session!()
+
+      deviant_trace = ["open", "trust_god", "help_others", "fellowship", "close"]
+
+      assert {:ok, result} =
+               PowlConformance.conform_observe_replan(
+                 ref_ocel,
+                 "meeting",
+                 deviant_trace,
+                 session,
+                 [{"(at a)", true}]
+               )
+
+      refute result.conformance.conforms
+      assert result.decision == :reuse_suffix
+      assert result.trigger == :none
+      assert result.plan_valid == true
+      assert is_list(result.suffix)
+      assert result.suffix != []
+      assert result.previous_suffix == result.suffix
+      assert result.plan == nil
+
+      {:ok, %{"freed" => true}} = Ferroplan.session_free(session)
+      {:ok, %{"freed" => true}} = Rust4PM.free_ocel(ref_ocel)
+    end
+
+    test "an observed world change invalidates the suffix and triggers a bounded Ferroplan replan" do
+      ref_ocel = build_reference_ocel!()
+      session = new_planning_session!()
+
+      assert {:ok, %{"valid" => true}} = Ferroplan.session_valid?(session)
+      assert {:ok, previous_suffix} = Ferroplan.session_suffix(session)
+      assert previous_suffix != []
+
+      assert {:ok, result} =
+               PowlConformance.conform_observe_replan(
+                 ref_ocel,
+                 "meeting",
+                 @phases,
+                 session,
+                 [{"(at a)", false}, {"(at c)", true}],
+                 evals: 10_000,
+                 mem_mb: 64
+               )
+
+      assert result.conformance.conforms
+      assert result.decision == :replanned
+      assert result.trigger == :invalid_plan
+      assert result.plan_valid == false
+      assert result.previous_suffix == previous_suffix
+      assert result.plan["solved"] == true
+      assert is_list(result.suffix)
+      assert result.suffix != []
+
+      assert {:ok, %{"valid" => true}} = Ferroplan.session_valid?(session)
+
+      {:ok, %{"freed" => true}} = Ferroplan.session_free(session)
+      {:ok, %{"freed" => true}} = Rust4PM.free_ocel(ref_ocel)
+    end
+  end
+
 end
