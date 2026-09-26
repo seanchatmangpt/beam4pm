@@ -10440,8 +10440,8 @@ bap:hand_authored_lib_dfcm a bpm:HandAuthoredSource ;
     bpm:authorizingPrincipal "Sean Chatman (repo owner) via Claude Code session_01UiCeLuzgcK2BLocBKxXw39" ;
     bpm:admissionReason "DfCM planning crown plus live Ferroplan runtime composition. Preserves admitted alternatives, fences and falsifiers; adds zero-DO observation-to-repair routing, deterministic plan lineage and memory evidence, explicit stale-plan refusal, and bounded counterfactual probes over cheap session forks. Native session_repair/session_probe are used when available; older admitted pins fall back to equivalent existing Ferroplan ops without changing the caller contract. Authority ceiling remains strictly :select." ;
     bpm:acceptanceCommand "test -f native/ferroplan/target/wasm32-wasip1/release/ferroplan_wasm.wasm && mix test test/beam4pm_dfcm_test.exs" ;
-    bpm:contentSha256 "287c19711f407dff8e6759d7afeb0526cc374f542588c2b54bc2a2246ecdc85b" ;
-    bpm:admittedAtCommit "21166f3" ;
+    bpm:contentSha256 "3daac50c1b0aebc8af8d647d99258ffd3d98aab47d33e2b7db1d63c3914e769b" ;
+    bpm:admittedAtCommit "8e38f7c" ;
     bpm:admissionExpires "2026-12-31" ;
     bpm:sunsetPlan "Admit DfCM contracts as ontology facts and render the planning crown from a pack template; then delete this admission." .
 
