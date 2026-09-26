@@ -476,7 +476,7 @@ defmodule BeamPM.Dfcm do
     mem_mb = Keyword.get(opts, :mem_mb, 64)
 
     native =
-      if function_exported?(Ferroplan, :session_repair, 4) do
+      if Code.ensure_loaded?(Ferroplan) and function_exported?(Ferroplan, :session_repair, 4) do
         apply(Ferroplan, :session_repair, [handle, evals, mem_mb, []])
       else
         :unavailable
@@ -510,7 +510,7 @@ defmodule BeamPM.Dfcm do
     mem_mb = Keyword.get(opts, :mem_mb, 64)
 
     native =
-      if function_exported?(Ferroplan, :session_probe, 5) do
+      if Code.ensure_loaded?(Ferroplan) and function_exported?(Ferroplan, :session_probe, 5) do
         wire_candidates =
           Enum.map(candidates, fn candidate ->
             %{
