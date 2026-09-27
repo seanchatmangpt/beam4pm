@@ -74,16 +74,6 @@ jobs:
           test -s native/rust4pm-wasm/target/wasm32-wasip1/release/rust4pm_wasm.wasm
           test -s native/ferroplan/target/wasm32-wasip1/release/ferroplan_wasm.wasm
 
-      - name: Re-run the existing component courts against the real engines
-        shell: bash
-        run: |
-          set -euo pipefail
-          mix test \
-            test/beam4pm_process_governor_test.exs \
-            test/beam4pm_powl_conformance_test.exs \
-            test/beam4pm_replan_router_engine_test.exs \
-            --max-requires 1
-
       - name: Execute the single closed-loop falsifier
         env:
           CLOSED_LOOP_SUBJECT_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
@@ -116,6 +106,16 @@ jobs:
           assert r["receipt_chain_length"] == 2
           print("ALIVE[CLOSED_LOOP_PROOF_RECEIPT_VERIFIED]")
           PY
+
+      - name: Re-run the existing component courts against the real engines
+        shell: bash
+        run: |
+          set -euo pipefail
+          mix test \
+            test/beam4pm_process_governor_test.exs \
+            test/beam4pm_powl_conformance_test.exs \
+            test/beam4pm_replan_router_engine_test.exs \
+            --max-requires 1
 
       - name: Preserve proof and consequence receipts
         if: always()
