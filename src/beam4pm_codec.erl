@@ -25,6 +25,36 @@
     beam4pm_types:agent_assignment() |
     beam4pm_types:agent_capability_advertisement() |
     beam4pm_types:alignment_move() |
+    beam4pm_types:aloop_actuate() |
+    beam4pm_types:aloop_benchmark_run() |
+    beam4pm_types:aloop_candidate_admit() |
+    beam4pm_types:aloop_candidate_construct() |
+    beam4pm_types:aloop_checkpoint() |
+    beam4pm_types:aloop_commit() |
+    beam4pm_types:aloop_episode_start() |
+    beam4pm_types:aloop_episode_terminal() |
+    beam4pm_types:aloop_execution_crash() |
+    beam4pm_types:aloop_execution_start() |
+    beam4pm_types:aloop_failure_detect() |
+    beam4pm_types:aloop_falsifier_run() |
+    beam4pm_types:aloop_gap_detect() |
+    beam4pm_types:aloop_goal_blocked() |
+    beam4pm_types:aloop_goal_satisfied() |
+    beam4pm_types:aloop_merge() |
+    beam4pm_types:aloop_model_edge() |
+    beam4pm_types:aloop_object() |
+    beam4pm_types:aloop_observe() |
+    beam4pm_types:aloop_plan_select() |
+    beam4pm_types:aloop_provider_replace() |
+    beam4pm_types:aloop_provider_select() |
+    beam4pm_types:aloop_receipt_persist() |
+    beam4pm_types:aloop_reconcile() |
+    beam4pm_types:aloop_reobserve() |
+    beam4pm_types:aloop_replan() |
+    beam4pm_types:aloop_tool_admit() |
+    beam4pm_types:aloop_verify() |
+    beam4pm_types:aloop_worker_claim() |
+    beam4pm_types:aloop_workorder_issue() |
     beam4pm_types:annual_subscription() |
     beam4pm_types:anomaly_detection_observation() |
     beam4pm_types:anti_repeat_refusal() |
@@ -763,6 +793,221 @@ to_map(R) when element(1, R) =:= alignment_move ->
     pairs_to_map([
         {<<"move_type">>, atom, element(2, R)},
         {<<"cost">>, plain, element(3, R)}
+    ]);
+to_map(R) when element(1, R) =:= aloop_actuate ->
+    pairs_to_map([
+        {<<"event_id">>, plain, element(2, R)},
+        {<<"event_time">>, plain, element(3, R)},
+        {<<"episode_id">>, plain, element(4, R)},
+        {<<"attributes">>, plain, element(5, R)},
+        {<<"consequence">>, plain, element(6, R)}
+    ]);
+to_map(R) when element(1, R) =:= aloop_benchmark_run ->
+    pairs_to_map([
+        {<<"event_id">>, plain, element(2, R)},
+        {<<"event_time">>, plain, element(3, R)},
+        {<<"episode_id">>, plain, element(4, R)},
+        {<<"attributes">>, plain, element(5, R)}
+    ]);
+to_map(R) when element(1, R) =:= aloop_candidate_admit ->
+    pairs_to_map([
+        {<<"event_id">>, plain, element(2, R)},
+        {<<"event_time">>, plain, element(3, R)},
+        {<<"episode_id">>, plain, element(4, R)},
+        {<<"attributes">>, plain, element(5, R)}
+    ]);
+to_map(R) when element(1, R) =:= aloop_candidate_construct ->
+    pairs_to_map([
+        {<<"event_id">>, plain, element(2, R)},
+        {<<"event_time">>, plain, element(3, R)},
+        {<<"episode_id">>, plain, element(4, R)},
+        {<<"attributes">>, plain, element(5, R)},
+        {<<"origin_authority">>, plain, element(6, R)}
+    ]);
+to_map(R) when element(1, R) =:= aloop_checkpoint ->
+    pairs_to_map([
+        {<<"event_id">>, plain, element(2, R)},
+        {<<"event_time">>, plain, element(3, R)},
+        {<<"episode_id">>, plain, element(4, R)},
+        {<<"attributes">>, plain, element(5, R)}
+    ]);
+to_map(R) when element(1, R) =:= aloop_commit ->
+    pairs_to_map([
+        {<<"event_id">>, plain, element(2, R)},
+        {<<"event_time">>, plain, element(3, R)},
+        {<<"episode_id">>, plain, element(4, R)},
+        {<<"attributes">>, plain, element(5, R)}
+    ]);
+to_map(R) when element(1, R) =:= aloop_episode_start ->
+    pairs_to_map([
+        {<<"event_id">>, plain, element(2, R)},
+        {<<"event_time">>, plain, element(3, R)},
+        {<<"episode_id">>, plain, element(4, R)},
+        {<<"attributes">>, plain, element(5, R)}
+    ]);
+to_map(R) when element(1, R) =:= aloop_episode_terminal ->
+    pairs_to_map([
+        {<<"event_id">>, plain, element(2, R)},
+        {<<"event_time">>, plain, element(3, R)},
+        {<<"episode_id">>, plain, element(4, R)},
+        {<<"attributes">>, plain, element(5, R)}
+    ]);
+to_map(R) when element(1, R) =:= aloop_execution_crash ->
+    pairs_to_map([
+        {<<"event_id">>, plain, element(2, R)},
+        {<<"event_time">>, plain, element(3, R)},
+        {<<"episode_id">>, plain, element(4, R)},
+        {<<"attributes">>, plain, element(5, R)}
+    ]);
+to_map(R) when element(1, R) =:= aloop_execution_start ->
+    pairs_to_map([
+        {<<"event_id">>, plain, element(2, R)},
+        {<<"event_time">>, plain, element(3, R)},
+        {<<"episode_id">>, plain, element(4, R)},
+        {<<"attributes">>, plain, element(5, R)}
+    ]);
+to_map(R) when element(1, R) =:= aloop_failure_detect ->
+    pairs_to_map([
+        {<<"event_id">>, plain, element(2, R)},
+        {<<"event_time">>, plain, element(3, R)},
+        {<<"episode_id">>, plain, element(4, R)},
+        {<<"attributes">>, plain, element(5, R)}
+    ]);
+to_map(R) when element(1, R) =:= aloop_falsifier_run ->
+    pairs_to_map([
+        {<<"event_id">>, plain, element(2, R)},
+        {<<"event_time">>, plain, element(3, R)},
+        {<<"episode_id">>, plain, element(4, R)},
+        {<<"attributes">>, plain, element(5, R)}
+    ]);
+to_map(R) when element(1, R) =:= aloop_gap_detect ->
+    pairs_to_map([
+        {<<"event_id">>, plain, element(2, R)},
+        {<<"event_time">>, plain, element(3, R)},
+        {<<"episode_id">>, plain, element(4, R)},
+        {<<"attributes">>, plain, element(5, R)}
+    ]);
+to_map(R) when element(1, R) =:= aloop_goal_blocked ->
+    pairs_to_map([
+        {<<"event_id">>, plain, element(2, R)},
+        {<<"event_time">>, plain, element(3, R)},
+        {<<"episode_id">>, plain, element(4, R)},
+        {<<"attributes">>, plain, element(5, R)}
+    ]);
+to_map(R) when element(1, R) =:= aloop_goal_satisfied ->
+    pairs_to_map([
+        {<<"event_id">>, plain, element(2, R)},
+        {<<"event_time">>, plain, element(3, R)},
+        {<<"episode_id">>, plain, element(4, R)},
+        {<<"attributes">>, plain, element(5, R)}
+    ]);
+to_map(R) when element(1, R) =:= aloop_merge ->
+    pairs_to_map([
+        {<<"event_id">>, plain, element(2, R)},
+        {<<"event_time">>, plain, element(3, R)},
+        {<<"episode_id">>, plain, element(4, R)},
+        {<<"attributes">>, plain, element(5, R)}
+    ]);
+to_map(R) when element(1, R) =:= aloop_model_edge ->
+    pairs_to_map([
+        {<<"from_activity">>, plain, element(2, R)},
+        {<<"to_activity">>, plain, element(3, R)},
+        {<<"observed_count">>, plain, element(4, R)}
+    ]);
+to_map(R) when element(1, R) =:= aloop_object ->
+    pairs_to_map([
+        {<<"object_id">>, plain, element(2, R)},
+        {<<"object_type">>, plain, element(3, R)},
+        {<<"attributes">>, plain, element(4, R)}
+    ]);
+to_map(R) when element(1, R) =:= aloop_observe ->
+    pairs_to_map([
+        {<<"event_id">>, plain, element(2, R)},
+        {<<"event_time">>, plain, element(3, R)},
+        {<<"episode_id">>, plain, element(4, R)},
+        {<<"attributes">>, plain, element(5, R)}
+    ]);
+to_map(R) when element(1, R) =:= aloop_plan_select ->
+    pairs_to_map([
+        {<<"event_id">>, plain, element(2, R)},
+        {<<"event_time">>, plain, element(3, R)},
+        {<<"episode_id">>, plain, element(4, R)},
+        {<<"attributes">>, plain, element(5, R)}
+    ]);
+to_map(R) when element(1, R) =:= aloop_provider_replace ->
+    pairs_to_map([
+        {<<"event_id">>, plain, element(2, R)},
+        {<<"event_time">>, plain, element(3, R)},
+        {<<"episode_id">>, plain, element(4, R)},
+        {<<"attributes">>, plain, element(5, R)},
+        {<<"from_provider">>, plain, element(6, R)},
+        {<<"to_provider">>, plain, element(7, R)}
+    ]);
+to_map(R) when element(1, R) =:= aloop_provider_select ->
+    pairs_to_map([
+        {<<"event_id">>, plain, element(2, R)},
+        {<<"event_time">>, plain, element(3, R)},
+        {<<"episode_id">>, plain, element(4, R)},
+        {<<"attributes">>, plain, element(5, R)},
+        {<<"provider">>, plain, element(6, R)}
+    ]);
+to_map(R) when element(1, R) =:= aloop_receipt_persist ->
+    pairs_to_map([
+        {<<"event_id">>, plain, element(2, R)},
+        {<<"event_time">>, plain, element(3, R)},
+        {<<"episode_id">>, plain, element(4, R)},
+        {<<"attributes">>, plain, element(5, R)},
+        {<<"receipt">>, plain, element(6, R)}
+    ]);
+to_map(R) when element(1, R) =:= aloop_reconcile ->
+    pairs_to_map([
+        {<<"event_id">>, plain, element(2, R)},
+        {<<"event_time">>, plain, element(3, R)},
+        {<<"episode_id">>, plain, element(4, R)},
+        {<<"attributes">>, plain, element(5, R)}
+    ]);
+to_map(R) when element(1, R) =:= aloop_reobserve ->
+    pairs_to_map([
+        {<<"event_id">>, plain, element(2, R)},
+        {<<"event_time">>, plain, element(3, R)},
+        {<<"episode_id">>, plain, element(4, R)},
+        {<<"attributes">>, plain, element(5, R)}
+    ]);
+to_map(R) when element(1, R) =:= aloop_replan ->
+    pairs_to_map([
+        {<<"event_id">>, plain, element(2, R)},
+        {<<"event_time">>, plain, element(3, R)},
+        {<<"episode_id">>, plain, element(4, R)},
+        {<<"attributes">>, plain, element(5, R)}
+    ]);
+to_map(R) when element(1, R) =:= aloop_tool_admit ->
+    pairs_to_map([
+        {<<"event_id">>, plain, element(2, R)},
+        {<<"event_time">>, plain, element(3, R)},
+        {<<"episode_id">>, plain, element(4, R)},
+        {<<"attributes">>, plain, element(5, R)}
+    ]);
+to_map(R) when element(1, R) =:= aloop_verify ->
+    pairs_to_map([
+        {<<"event_id">>, plain, element(2, R)},
+        {<<"event_time">>, plain, element(3, R)},
+        {<<"episode_id">>, plain, element(4, R)},
+        {<<"attributes">>, plain, element(5, R)}
+    ]);
+to_map(R) when element(1, R) =:= aloop_worker_claim ->
+    pairs_to_map([
+        {<<"event_id">>, plain, element(2, R)},
+        {<<"event_time">>, plain, element(3, R)},
+        {<<"episode_id">>, plain, element(4, R)},
+        {<<"attributes">>, plain, element(5, R)},
+        {<<"worker">>, plain, element(6, R)}
+    ]);
+to_map(R) when element(1, R) =:= aloop_workorder_issue ->
+    pairs_to_map([
+        {<<"event_id">>, plain, element(2, R)},
+        {<<"event_time">>, plain, element(3, R)},
+        {<<"episode_id">>, plain, element(4, R)},
+        {<<"attributes">>, plain, element(5, R)}
     ]);
 to_map(R) when element(1, R) =:= annual_subscription ->
     pairs_to_map([
@@ -5261,6 +5506,221 @@ from_map(alignment_move, Map) when is_map(Map) ->
     beam4pm_types:new_alignment_move(take_known(Map, [
         {<<"move_type">>, move_type, atom},
         {<<"cost">>, cost, plain}
+    ]));
+from_map(aloop_actuate, Map) when is_map(Map) ->
+    beam4pm_types:new_aloop_actuate(take_known(Map, [
+        {<<"event_id">>, event_id, plain},
+        {<<"event_time">>, event_time, plain},
+        {<<"episode_id">>, episode_id, plain},
+        {<<"attributes">>, attributes, plain},
+        {<<"consequence">>, consequence, plain}
+    ]));
+from_map(aloop_benchmark_run, Map) when is_map(Map) ->
+    beam4pm_types:new_aloop_benchmark_run(take_known(Map, [
+        {<<"event_id">>, event_id, plain},
+        {<<"event_time">>, event_time, plain},
+        {<<"episode_id">>, episode_id, plain},
+        {<<"attributes">>, attributes, plain}
+    ]));
+from_map(aloop_candidate_admit, Map) when is_map(Map) ->
+    beam4pm_types:new_aloop_candidate_admit(take_known(Map, [
+        {<<"event_id">>, event_id, plain},
+        {<<"event_time">>, event_time, plain},
+        {<<"episode_id">>, episode_id, plain},
+        {<<"attributes">>, attributes, plain}
+    ]));
+from_map(aloop_candidate_construct, Map) when is_map(Map) ->
+    beam4pm_types:new_aloop_candidate_construct(take_known(Map, [
+        {<<"event_id">>, event_id, plain},
+        {<<"event_time">>, event_time, plain},
+        {<<"episode_id">>, episode_id, plain},
+        {<<"attributes">>, attributes, plain},
+        {<<"origin_authority">>, origin_authority, plain}
+    ]));
+from_map(aloop_checkpoint, Map) when is_map(Map) ->
+    beam4pm_types:new_aloop_checkpoint(take_known(Map, [
+        {<<"event_id">>, event_id, plain},
+        {<<"event_time">>, event_time, plain},
+        {<<"episode_id">>, episode_id, plain},
+        {<<"attributes">>, attributes, plain}
+    ]));
+from_map(aloop_commit, Map) when is_map(Map) ->
+    beam4pm_types:new_aloop_commit(take_known(Map, [
+        {<<"event_id">>, event_id, plain},
+        {<<"event_time">>, event_time, plain},
+        {<<"episode_id">>, episode_id, plain},
+        {<<"attributes">>, attributes, plain}
+    ]));
+from_map(aloop_episode_start, Map) when is_map(Map) ->
+    beam4pm_types:new_aloop_episode_start(take_known(Map, [
+        {<<"event_id">>, event_id, plain},
+        {<<"event_time">>, event_time, plain},
+        {<<"episode_id">>, episode_id, plain},
+        {<<"attributes">>, attributes, plain}
+    ]));
+from_map(aloop_episode_terminal, Map) when is_map(Map) ->
+    beam4pm_types:new_aloop_episode_terminal(take_known(Map, [
+        {<<"event_id">>, event_id, plain},
+        {<<"event_time">>, event_time, plain},
+        {<<"episode_id">>, episode_id, plain},
+        {<<"attributes">>, attributes, plain}
+    ]));
+from_map(aloop_execution_crash, Map) when is_map(Map) ->
+    beam4pm_types:new_aloop_execution_crash(take_known(Map, [
+        {<<"event_id">>, event_id, plain},
+        {<<"event_time">>, event_time, plain},
+        {<<"episode_id">>, episode_id, plain},
+        {<<"attributes">>, attributes, plain}
+    ]));
+from_map(aloop_execution_start, Map) when is_map(Map) ->
+    beam4pm_types:new_aloop_execution_start(take_known(Map, [
+        {<<"event_id">>, event_id, plain},
+        {<<"event_time">>, event_time, plain},
+        {<<"episode_id">>, episode_id, plain},
+        {<<"attributes">>, attributes, plain}
+    ]));
+from_map(aloop_failure_detect, Map) when is_map(Map) ->
+    beam4pm_types:new_aloop_failure_detect(take_known(Map, [
+        {<<"event_id">>, event_id, plain},
+        {<<"event_time">>, event_time, plain},
+        {<<"episode_id">>, episode_id, plain},
+        {<<"attributes">>, attributes, plain}
+    ]));
+from_map(aloop_falsifier_run, Map) when is_map(Map) ->
+    beam4pm_types:new_aloop_falsifier_run(take_known(Map, [
+        {<<"event_id">>, event_id, plain},
+        {<<"event_time">>, event_time, plain},
+        {<<"episode_id">>, episode_id, plain},
+        {<<"attributes">>, attributes, plain}
+    ]));
+from_map(aloop_gap_detect, Map) when is_map(Map) ->
+    beam4pm_types:new_aloop_gap_detect(take_known(Map, [
+        {<<"event_id">>, event_id, plain},
+        {<<"event_time">>, event_time, plain},
+        {<<"episode_id">>, episode_id, plain},
+        {<<"attributes">>, attributes, plain}
+    ]));
+from_map(aloop_goal_blocked, Map) when is_map(Map) ->
+    beam4pm_types:new_aloop_goal_blocked(take_known(Map, [
+        {<<"event_id">>, event_id, plain},
+        {<<"event_time">>, event_time, plain},
+        {<<"episode_id">>, episode_id, plain},
+        {<<"attributes">>, attributes, plain}
+    ]));
+from_map(aloop_goal_satisfied, Map) when is_map(Map) ->
+    beam4pm_types:new_aloop_goal_satisfied(take_known(Map, [
+        {<<"event_id">>, event_id, plain},
+        {<<"event_time">>, event_time, plain},
+        {<<"episode_id">>, episode_id, plain},
+        {<<"attributes">>, attributes, plain}
+    ]));
+from_map(aloop_merge, Map) when is_map(Map) ->
+    beam4pm_types:new_aloop_merge(take_known(Map, [
+        {<<"event_id">>, event_id, plain},
+        {<<"event_time">>, event_time, plain},
+        {<<"episode_id">>, episode_id, plain},
+        {<<"attributes">>, attributes, plain}
+    ]));
+from_map(aloop_model_edge, Map) when is_map(Map) ->
+    beam4pm_types:new_aloop_model_edge(take_known(Map, [
+        {<<"from_activity">>, from_activity, plain},
+        {<<"to_activity">>, to_activity, plain},
+        {<<"observed_count">>, observed_count, plain}
+    ]));
+from_map(aloop_object, Map) when is_map(Map) ->
+    beam4pm_types:new_aloop_object(take_known(Map, [
+        {<<"object_id">>, object_id, plain},
+        {<<"object_type">>, object_type, plain},
+        {<<"attributes">>, attributes, plain}
+    ]));
+from_map(aloop_observe, Map) when is_map(Map) ->
+    beam4pm_types:new_aloop_observe(take_known(Map, [
+        {<<"event_id">>, event_id, plain},
+        {<<"event_time">>, event_time, plain},
+        {<<"episode_id">>, episode_id, plain},
+        {<<"attributes">>, attributes, plain}
+    ]));
+from_map(aloop_plan_select, Map) when is_map(Map) ->
+    beam4pm_types:new_aloop_plan_select(take_known(Map, [
+        {<<"event_id">>, event_id, plain},
+        {<<"event_time">>, event_time, plain},
+        {<<"episode_id">>, episode_id, plain},
+        {<<"attributes">>, attributes, plain}
+    ]));
+from_map(aloop_provider_replace, Map) when is_map(Map) ->
+    beam4pm_types:new_aloop_provider_replace(take_known(Map, [
+        {<<"event_id">>, event_id, plain},
+        {<<"event_time">>, event_time, plain},
+        {<<"episode_id">>, episode_id, plain},
+        {<<"attributes">>, attributes, plain},
+        {<<"from_provider">>, from_provider, plain},
+        {<<"to_provider">>, to_provider, plain}
+    ]));
+from_map(aloop_provider_select, Map) when is_map(Map) ->
+    beam4pm_types:new_aloop_provider_select(take_known(Map, [
+        {<<"event_id">>, event_id, plain},
+        {<<"event_time">>, event_time, plain},
+        {<<"episode_id">>, episode_id, plain},
+        {<<"attributes">>, attributes, plain},
+        {<<"provider">>, provider, plain}
+    ]));
+from_map(aloop_receipt_persist, Map) when is_map(Map) ->
+    beam4pm_types:new_aloop_receipt_persist(take_known(Map, [
+        {<<"event_id">>, event_id, plain},
+        {<<"event_time">>, event_time, plain},
+        {<<"episode_id">>, episode_id, plain},
+        {<<"attributes">>, attributes, plain},
+        {<<"receipt">>, receipt, plain}
+    ]));
+from_map(aloop_reconcile, Map) when is_map(Map) ->
+    beam4pm_types:new_aloop_reconcile(take_known(Map, [
+        {<<"event_id">>, event_id, plain},
+        {<<"event_time">>, event_time, plain},
+        {<<"episode_id">>, episode_id, plain},
+        {<<"attributes">>, attributes, plain}
+    ]));
+from_map(aloop_reobserve, Map) when is_map(Map) ->
+    beam4pm_types:new_aloop_reobserve(take_known(Map, [
+        {<<"event_id">>, event_id, plain},
+        {<<"event_time">>, event_time, plain},
+        {<<"episode_id">>, episode_id, plain},
+        {<<"attributes">>, attributes, plain}
+    ]));
+from_map(aloop_replan, Map) when is_map(Map) ->
+    beam4pm_types:new_aloop_replan(take_known(Map, [
+        {<<"event_id">>, event_id, plain},
+        {<<"event_time">>, event_time, plain},
+        {<<"episode_id">>, episode_id, plain},
+        {<<"attributes">>, attributes, plain}
+    ]));
+from_map(aloop_tool_admit, Map) when is_map(Map) ->
+    beam4pm_types:new_aloop_tool_admit(take_known(Map, [
+        {<<"event_id">>, event_id, plain},
+        {<<"event_time">>, event_time, plain},
+        {<<"episode_id">>, episode_id, plain},
+        {<<"attributes">>, attributes, plain}
+    ]));
+from_map(aloop_verify, Map) when is_map(Map) ->
+    beam4pm_types:new_aloop_verify(take_known(Map, [
+        {<<"event_id">>, event_id, plain},
+        {<<"event_time">>, event_time, plain},
+        {<<"episode_id">>, episode_id, plain},
+        {<<"attributes">>, attributes, plain}
+    ]));
+from_map(aloop_worker_claim, Map) when is_map(Map) ->
+    beam4pm_types:new_aloop_worker_claim(take_known(Map, [
+        {<<"event_id">>, event_id, plain},
+        {<<"event_time">>, event_time, plain},
+        {<<"episode_id">>, episode_id, plain},
+        {<<"attributes">>, attributes, plain},
+        {<<"worker">>, worker, plain}
+    ]));
+from_map(aloop_workorder_issue, Map) when is_map(Map) ->
+    beam4pm_types:new_aloop_workorder_issue(take_known(Map, [
+        {<<"event_id">>, event_id, plain},
+        {<<"event_time">>, event_time, plain},
+        {<<"episode_id">>, episode_id, plain},
+        {<<"attributes">>, attributes, plain}
     ]));
 from_map(annual_subscription, Map) when is_map(Map) ->
     beam4pm_types:new_annual_subscription(take_known(Map, [

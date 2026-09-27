@@ -29,6 +29,36 @@ record_names() ->
         agent_assignment,
         agent_capability_advertisement,
         alignment_move,
+        aloop_actuate,
+        aloop_benchmark_run,
+        aloop_candidate_admit,
+        aloop_candidate_construct,
+        aloop_checkpoint,
+        aloop_commit,
+        aloop_episode_start,
+        aloop_episode_terminal,
+        aloop_execution_crash,
+        aloop_execution_start,
+        aloop_failure_detect,
+        aloop_falsifier_run,
+        aloop_gap_detect,
+        aloop_goal_blocked,
+        aloop_goal_satisfied,
+        aloop_merge,
+        aloop_model_edge,
+        aloop_object,
+        aloop_observe,
+        aloop_plan_select,
+        aloop_provider_replace,
+        aloop_provider_select,
+        aloop_receipt_persist,
+        aloop_reconcile,
+        aloop_reobserve,
+        aloop_replan,
+        aloop_tool_admit,
+        aloop_verify,
+        aloop_worker_claim,
+        aloop_workorder_issue,
         annual_subscription,
         anomaly_detection_observation,
         anti_repeat_refusal,
@@ -875,6 +905,399 @@ sample(alignment_move, minimal) ->
     beam4pm_types:new_alignment_move(#{
         move_type => sample_atom,
         cost => 42
+    });
+sample(aloop_actuate, full) ->
+    beam4pm_types:new_aloop_actuate(#{
+        event_id => <<"sample_event_id">>,
+        event_time => <<"2026-08-29T12:00:00.123456Z">>,
+        episode_id => <<"sample_episode_id">>,
+        attributes => #{<<"k">> => <<"v">>},
+        consequence => <<"sample_consequence">>
+    });
+sample(aloop_actuate, minimal) ->
+    beam4pm_types:new_aloop_actuate(#{
+        event_id => <<"sample_event_id">>,
+        event_time => <<"2026-08-29T12:00:00.123456Z">>,
+        episode_id => <<"sample_episode_id">>
+    });
+sample(aloop_benchmark_run, full) ->
+    beam4pm_types:new_aloop_benchmark_run(#{
+        event_id => <<"sample_event_id">>,
+        event_time => <<"2026-08-29T12:00:00.123456Z">>,
+        episode_id => <<"sample_episode_id">>,
+        attributes => #{<<"k">> => <<"v">>}
+    });
+sample(aloop_benchmark_run, minimal) ->
+    beam4pm_types:new_aloop_benchmark_run(#{
+        event_id => <<"sample_event_id">>,
+        event_time => <<"2026-08-29T12:00:00.123456Z">>,
+        episode_id => <<"sample_episode_id">>
+    });
+sample(aloop_candidate_admit, full) ->
+    beam4pm_types:new_aloop_candidate_admit(#{
+        event_id => <<"sample_event_id">>,
+        event_time => <<"2026-08-29T12:00:00.123456Z">>,
+        episode_id => <<"sample_episode_id">>,
+        attributes => #{<<"k">> => <<"v">>}
+    });
+sample(aloop_candidate_admit, minimal) ->
+    beam4pm_types:new_aloop_candidate_admit(#{
+        event_id => <<"sample_event_id">>,
+        event_time => <<"2026-08-29T12:00:00.123456Z">>,
+        episode_id => <<"sample_episode_id">>
+    });
+sample(aloop_candidate_construct, full) ->
+    beam4pm_types:new_aloop_candidate_construct(#{
+        event_id => <<"sample_event_id">>,
+        event_time => <<"2026-08-29T12:00:00.123456Z">>,
+        episode_id => <<"sample_episode_id">>,
+        attributes => #{<<"k">> => <<"v">>},
+        origin_authority => <<"sample_origin_authority">>
+    });
+sample(aloop_candidate_construct, minimal) ->
+    beam4pm_types:new_aloop_candidate_construct(#{
+        event_id => <<"sample_event_id">>,
+        event_time => <<"2026-08-29T12:00:00.123456Z">>,
+        episode_id => <<"sample_episode_id">>
+    });
+sample(aloop_checkpoint, full) ->
+    beam4pm_types:new_aloop_checkpoint(#{
+        event_id => <<"sample_event_id">>,
+        event_time => <<"2026-08-29T12:00:00.123456Z">>,
+        episode_id => <<"sample_episode_id">>,
+        attributes => #{<<"k">> => <<"v">>}
+    });
+sample(aloop_checkpoint, minimal) ->
+    beam4pm_types:new_aloop_checkpoint(#{
+        event_id => <<"sample_event_id">>,
+        event_time => <<"2026-08-29T12:00:00.123456Z">>,
+        episode_id => <<"sample_episode_id">>
+    });
+sample(aloop_commit, full) ->
+    beam4pm_types:new_aloop_commit(#{
+        event_id => <<"sample_event_id">>,
+        event_time => <<"2026-08-29T12:00:00.123456Z">>,
+        episode_id => <<"sample_episode_id">>,
+        attributes => #{<<"k">> => <<"v">>}
+    });
+sample(aloop_commit, minimal) ->
+    beam4pm_types:new_aloop_commit(#{
+        event_id => <<"sample_event_id">>,
+        event_time => <<"2026-08-29T12:00:00.123456Z">>,
+        episode_id => <<"sample_episode_id">>
+    });
+sample(aloop_episode_start, full) ->
+    beam4pm_types:new_aloop_episode_start(#{
+        event_id => <<"sample_event_id">>,
+        event_time => <<"2026-08-29T12:00:00.123456Z">>,
+        episode_id => <<"sample_episode_id">>,
+        attributes => #{<<"k">> => <<"v">>}
+    });
+sample(aloop_episode_start, minimal) ->
+    beam4pm_types:new_aloop_episode_start(#{
+        event_id => <<"sample_event_id">>,
+        event_time => <<"2026-08-29T12:00:00.123456Z">>,
+        episode_id => <<"sample_episode_id">>
+    });
+sample(aloop_episode_terminal, full) ->
+    beam4pm_types:new_aloop_episode_terminal(#{
+        event_id => <<"sample_event_id">>,
+        event_time => <<"2026-08-29T12:00:00.123456Z">>,
+        episode_id => <<"sample_episode_id">>,
+        attributes => #{<<"k">> => <<"v">>}
+    });
+sample(aloop_episode_terminal, minimal) ->
+    beam4pm_types:new_aloop_episode_terminal(#{
+        event_id => <<"sample_event_id">>,
+        event_time => <<"2026-08-29T12:00:00.123456Z">>,
+        episode_id => <<"sample_episode_id">>
+    });
+sample(aloop_execution_crash, full) ->
+    beam4pm_types:new_aloop_execution_crash(#{
+        event_id => <<"sample_event_id">>,
+        event_time => <<"2026-08-29T12:00:00.123456Z">>,
+        episode_id => <<"sample_episode_id">>,
+        attributes => #{<<"k">> => <<"v">>}
+    });
+sample(aloop_execution_crash, minimal) ->
+    beam4pm_types:new_aloop_execution_crash(#{
+        event_id => <<"sample_event_id">>,
+        event_time => <<"2026-08-29T12:00:00.123456Z">>,
+        episode_id => <<"sample_episode_id">>
+    });
+sample(aloop_execution_start, full) ->
+    beam4pm_types:new_aloop_execution_start(#{
+        event_id => <<"sample_event_id">>,
+        event_time => <<"2026-08-29T12:00:00.123456Z">>,
+        episode_id => <<"sample_episode_id">>,
+        attributes => #{<<"k">> => <<"v">>}
+    });
+sample(aloop_execution_start, minimal) ->
+    beam4pm_types:new_aloop_execution_start(#{
+        event_id => <<"sample_event_id">>,
+        event_time => <<"2026-08-29T12:00:00.123456Z">>,
+        episode_id => <<"sample_episode_id">>
+    });
+sample(aloop_failure_detect, full) ->
+    beam4pm_types:new_aloop_failure_detect(#{
+        event_id => <<"sample_event_id">>,
+        event_time => <<"2026-08-29T12:00:00.123456Z">>,
+        episode_id => <<"sample_episode_id">>,
+        attributes => #{<<"k">> => <<"v">>}
+    });
+sample(aloop_failure_detect, minimal) ->
+    beam4pm_types:new_aloop_failure_detect(#{
+        event_id => <<"sample_event_id">>,
+        event_time => <<"2026-08-29T12:00:00.123456Z">>,
+        episode_id => <<"sample_episode_id">>
+    });
+sample(aloop_falsifier_run, full) ->
+    beam4pm_types:new_aloop_falsifier_run(#{
+        event_id => <<"sample_event_id">>,
+        event_time => <<"2026-08-29T12:00:00.123456Z">>,
+        episode_id => <<"sample_episode_id">>,
+        attributes => #{<<"k">> => <<"v">>}
+    });
+sample(aloop_falsifier_run, minimal) ->
+    beam4pm_types:new_aloop_falsifier_run(#{
+        event_id => <<"sample_event_id">>,
+        event_time => <<"2026-08-29T12:00:00.123456Z">>,
+        episode_id => <<"sample_episode_id">>
+    });
+sample(aloop_gap_detect, full) ->
+    beam4pm_types:new_aloop_gap_detect(#{
+        event_id => <<"sample_event_id">>,
+        event_time => <<"2026-08-29T12:00:00.123456Z">>,
+        episode_id => <<"sample_episode_id">>,
+        attributes => #{<<"k">> => <<"v">>}
+    });
+sample(aloop_gap_detect, minimal) ->
+    beam4pm_types:new_aloop_gap_detect(#{
+        event_id => <<"sample_event_id">>,
+        event_time => <<"2026-08-29T12:00:00.123456Z">>,
+        episode_id => <<"sample_episode_id">>
+    });
+sample(aloop_goal_blocked, full) ->
+    beam4pm_types:new_aloop_goal_blocked(#{
+        event_id => <<"sample_event_id">>,
+        event_time => <<"2026-08-29T12:00:00.123456Z">>,
+        episode_id => <<"sample_episode_id">>,
+        attributes => #{<<"k">> => <<"v">>}
+    });
+sample(aloop_goal_blocked, minimal) ->
+    beam4pm_types:new_aloop_goal_blocked(#{
+        event_id => <<"sample_event_id">>,
+        event_time => <<"2026-08-29T12:00:00.123456Z">>,
+        episode_id => <<"sample_episode_id">>
+    });
+sample(aloop_goal_satisfied, full) ->
+    beam4pm_types:new_aloop_goal_satisfied(#{
+        event_id => <<"sample_event_id">>,
+        event_time => <<"2026-08-29T12:00:00.123456Z">>,
+        episode_id => <<"sample_episode_id">>,
+        attributes => #{<<"k">> => <<"v">>}
+    });
+sample(aloop_goal_satisfied, minimal) ->
+    beam4pm_types:new_aloop_goal_satisfied(#{
+        event_id => <<"sample_event_id">>,
+        event_time => <<"2026-08-29T12:00:00.123456Z">>,
+        episode_id => <<"sample_episode_id">>
+    });
+sample(aloop_merge, full) ->
+    beam4pm_types:new_aloop_merge(#{
+        event_id => <<"sample_event_id">>,
+        event_time => <<"2026-08-29T12:00:00.123456Z">>,
+        episode_id => <<"sample_episode_id">>,
+        attributes => #{<<"k">> => <<"v">>}
+    });
+sample(aloop_merge, minimal) ->
+    beam4pm_types:new_aloop_merge(#{
+        event_id => <<"sample_event_id">>,
+        event_time => <<"2026-08-29T12:00:00.123456Z">>,
+        episode_id => <<"sample_episode_id">>
+    });
+sample(aloop_model_edge, full) ->
+    beam4pm_types:new_aloop_model_edge(#{
+        from_activity => <<"sample_from_activity">>,
+        to_activity => <<"sample_to_activity">>,
+        observed_count => 42
+    });
+sample(aloop_model_edge, minimal) ->
+    beam4pm_types:new_aloop_model_edge(#{
+        from_activity => <<"sample_from_activity">>,
+        to_activity => <<"sample_to_activity">>
+    });
+sample(aloop_object, full) ->
+    beam4pm_types:new_aloop_object(#{
+        object_id => <<"sample_object_id">>,
+        object_type => <<"sample_object_type">>,
+        attributes => #{<<"k">> => <<"v">>}
+    });
+sample(aloop_object, minimal) ->
+    beam4pm_types:new_aloop_object(#{
+        object_id => <<"sample_object_id">>,
+        object_type => <<"sample_object_type">>
+    });
+sample(aloop_observe, full) ->
+    beam4pm_types:new_aloop_observe(#{
+        event_id => <<"sample_event_id">>,
+        event_time => <<"2026-08-29T12:00:00.123456Z">>,
+        episode_id => <<"sample_episode_id">>,
+        attributes => #{<<"k">> => <<"v">>}
+    });
+sample(aloop_observe, minimal) ->
+    beam4pm_types:new_aloop_observe(#{
+        event_id => <<"sample_event_id">>,
+        event_time => <<"2026-08-29T12:00:00.123456Z">>,
+        episode_id => <<"sample_episode_id">>
+    });
+sample(aloop_plan_select, full) ->
+    beam4pm_types:new_aloop_plan_select(#{
+        event_id => <<"sample_event_id">>,
+        event_time => <<"2026-08-29T12:00:00.123456Z">>,
+        episode_id => <<"sample_episode_id">>,
+        attributes => #{<<"k">> => <<"v">>}
+    });
+sample(aloop_plan_select, minimal) ->
+    beam4pm_types:new_aloop_plan_select(#{
+        event_id => <<"sample_event_id">>,
+        event_time => <<"2026-08-29T12:00:00.123456Z">>,
+        episode_id => <<"sample_episode_id">>
+    });
+sample(aloop_provider_replace, full) ->
+    beam4pm_types:new_aloop_provider_replace(#{
+        event_id => <<"sample_event_id">>,
+        event_time => <<"2026-08-29T12:00:00.123456Z">>,
+        episode_id => <<"sample_episode_id">>,
+        attributes => #{<<"k">> => <<"v">>},
+        from_provider => <<"sample_from_provider">>,
+        to_provider => <<"sample_to_provider">>
+    });
+sample(aloop_provider_replace, minimal) ->
+    beam4pm_types:new_aloop_provider_replace(#{
+        event_id => <<"sample_event_id">>,
+        event_time => <<"2026-08-29T12:00:00.123456Z">>,
+        episode_id => <<"sample_episode_id">>
+    });
+sample(aloop_provider_select, full) ->
+    beam4pm_types:new_aloop_provider_select(#{
+        event_id => <<"sample_event_id">>,
+        event_time => <<"2026-08-29T12:00:00.123456Z">>,
+        episode_id => <<"sample_episode_id">>,
+        attributes => #{<<"k">> => <<"v">>},
+        provider => <<"sample_provider">>
+    });
+sample(aloop_provider_select, minimal) ->
+    beam4pm_types:new_aloop_provider_select(#{
+        event_id => <<"sample_event_id">>,
+        event_time => <<"2026-08-29T12:00:00.123456Z">>,
+        episode_id => <<"sample_episode_id">>
+    });
+sample(aloop_receipt_persist, full) ->
+    beam4pm_types:new_aloop_receipt_persist(#{
+        event_id => <<"sample_event_id">>,
+        event_time => <<"2026-08-29T12:00:00.123456Z">>,
+        episode_id => <<"sample_episode_id">>,
+        attributes => #{<<"k">> => <<"v">>},
+        receipt => <<"sample_receipt">>
+    });
+sample(aloop_receipt_persist, minimal) ->
+    beam4pm_types:new_aloop_receipt_persist(#{
+        event_id => <<"sample_event_id">>,
+        event_time => <<"2026-08-29T12:00:00.123456Z">>,
+        episode_id => <<"sample_episode_id">>
+    });
+sample(aloop_reconcile, full) ->
+    beam4pm_types:new_aloop_reconcile(#{
+        event_id => <<"sample_event_id">>,
+        event_time => <<"2026-08-29T12:00:00.123456Z">>,
+        episode_id => <<"sample_episode_id">>,
+        attributes => #{<<"k">> => <<"v">>}
+    });
+sample(aloop_reconcile, minimal) ->
+    beam4pm_types:new_aloop_reconcile(#{
+        event_id => <<"sample_event_id">>,
+        event_time => <<"2026-08-29T12:00:00.123456Z">>,
+        episode_id => <<"sample_episode_id">>
+    });
+sample(aloop_reobserve, full) ->
+    beam4pm_types:new_aloop_reobserve(#{
+        event_id => <<"sample_event_id">>,
+        event_time => <<"2026-08-29T12:00:00.123456Z">>,
+        episode_id => <<"sample_episode_id">>,
+        attributes => #{<<"k">> => <<"v">>}
+    });
+sample(aloop_reobserve, minimal) ->
+    beam4pm_types:new_aloop_reobserve(#{
+        event_id => <<"sample_event_id">>,
+        event_time => <<"2026-08-29T12:00:00.123456Z">>,
+        episode_id => <<"sample_episode_id">>
+    });
+sample(aloop_replan, full) ->
+    beam4pm_types:new_aloop_replan(#{
+        event_id => <<"sample_event_id">>,
+        event_time => <<"2026-08-29T12:00:00.123456Z">>,
+        episode_id => <<"sample_episode_id">>,
+        attributes => #{<<"k">> => <<"v">>}
+    });
+sample(aloop_replan, minimal) ->
+    beam4pm_types:new_aloop_replan(#{
+        event_id => <<"sample_event_id">>,
+        event_time => <<"2026-08-29T12:00:00.123456Z">>,
+        episode_id => <<"sample_episode_id">>
+    });
+sample(aloop_tool_admit, full) ->
+    beam4pm_types:new_aloop_tool_admit(#{
+        event_id => <<"sample_event_id">>,
+        event_time => <<"2026-08-29T12:00:00.123456Z">>,
+        episode_id => <<"sample_episode_id">>,
+        attributes => #{<<"k">> => <<"v">>}
+    });
+sample(aloop_tool_admit, minimal) ->
+    beam4pm_types:new_aloop_tool_admit(#{
+        event_id => <<"sample_event_id">>,
+        event_time => <<"2026-08-29T12:00:00.123456Z">>,
+        episode_id => <<"sample_episode_id">>
+    });
+sample(aloop_verify, full) ->
+    beam4pm_types:new_aloop_verify(#{
+        event_id => <<"sample_event_id">>,
+        event_time => <<"2026-08-29T12:00:00.123456Z">>,
+        episode_id => <<"sample_episode_id">>,
+        attributes => #{<<"k">> => <<"v">>}
+    });
+sample(aloop_verify, minimal) ->
+    beam4pm_types:new_aloop_verify(#{
+        event_id => <<"sample_event_id">>,
+        event_time => <<"2026-08-29T12:00:00.123456Z">>,
+        episode_id => <<"sample_episode_id">>
+    });
+sample(aloop_worker_claim, full) ->
+    beam4pm_types:new_aloop_worker_claim(#{
+        event_id => <<"sample_event_id">>,
+        event_time => <<"2026-08-29T12:00:00.123456Z">>,
+        episode_id => <<"sample_episode_id">>,
+        attributes => #{<<"k">> => <<"v">>},
+        worker => <<"sample_worker">>
+    });
+sample(aloop_worker_claim, minimal) ->
+    beam4pm_types:new_aloop_worker_claim(#{
+        event_id => <<"sample_event_id">>,
+        event_time => <<"2026-08-29T12:00:00.123456Z">>,
+        episode_id => <<"sample_episode_id">>
+    });
+sample(aloop_workorder_issue, full) ->
+    beam4pm_types:new_aloop_workorder_issue(#{
+        event_id => <<"sample_event_id">>,
+        event_time => <<"2026-08-29T12:00:00.123456Z">>,
+        episode_id => <<"sample_episode_id">>,
+        attributes => #{<<"k">> => <<"v">>}
+    });
+sample(aloop_workorder_issue, minimal) ->
+    beam4pm_types:new_aloop_workorder_issue(#{
+        event_id => <<"sample_event_id">>,
+        event_time => <<"2026-08-29T12:00:00.123456Z">>,
+        episode_id => <<"sample_episode_id">>
     });
 sample(annual_subscription, full) ->
     beam4pm_types:new_annual_subscription(#{

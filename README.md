@@ -62,8 +62,8 @@ A wide, still-growing slice, manufactured via the `beam4pm-process-model-pack`
 - Four projections: Erlang, Elixir, Gleam (`gleam/`, with two
   disclosed type divergences noted in its generated comments), and Ash
   (`lib/beam4pm_ash/resources/` — 647 `Ash.Resource` modules, one file per
-  resource, plus the shared `lib/beam4pm_ash_domain.ex` — manufactured by a
-  second, Elixir-native engine: the `ggen_igniter` hex package via
+  resource — manufactured by a second, Elixir-native engine: the
+  `ggen_igniter` hex package via
   `scripts/igniter_sync.sh`; its manifest probe renders byte-identical to the
   Rust ggen output).
 - Each type is a data structure plus a validating constructor
@@ -103,6 +103,19 @@ A wide, still-growing slice, manufactured via the `beam4pm-process-model-pack`
   decision-relevant observation request or a SELECT candidate. It composes
   the WS2 FOND/HDDL contracts and is Chicago-qualified against the formal
   HDDL/FOND fixtures (`qualification/fixtures/dfcm/`).
+- A replanning ladder, `BeamPM.ReplanRouter`
+  (`lib/beam4pm_replan_router.ex`): pure `route/2` checks, in order, the
+  stale preimage (`:refuse_stale` — including `policy_digest` enforcement,
+  so a plan that does not digest to the admitted policy is never followed)
+  and malformed observations (`:refuse_malformed`), then climbs a monotone
+  ladder `:close` → `:reobserve` → `:follow_policy` → `:suffix_reuse` →
+  `:session_replan` → `:hddl_replan` → `:strategic_recompile`; the rung
+  never moves down within an episode. Giving the observation's optional
+  `:observed_at` makes a replay produce byte-identical events. Each ladder
+  step is linked by `BeamPM.PlanLineage` (`lib/beam4pm_plan_lineage.ex`), a
+  sha256 hash chain over plan generations (digests of a canonical JSON
+  rendering) whose `verify/1` recomputes the chain and refuses the first
+  link that does not match.
 
 ## Build and test
 

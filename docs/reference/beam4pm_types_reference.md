@@ -164,6 +164,341 @@
 | `move_type` | `atom` | true | One of: sync \| model \| log \| silent. |
 | `cost` | `integer` | true | Non-negative cost assigned to this move. |
 
+## aloop_actuate
+
+> ALOOP event class `actuate`: a DO: an actuation against the world; must be followed by receipt.persist.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `event_id` | `string` | true | Unique event identifier. |
+| `event_time` | `datetime` | true | ISO8601 timestamp the event occurred. |
+| `episode_id` | `string` | true | Identifier of the ALOOP Episode object this event belongs to. |
+| `attributes` | `map` | false | Arbitrary named event attributes (the OCEL payload). |
+| `consequence` | `string` | false | The consequence qualifier (ALOOP contract): the consequence identifier produced by this actuation. |
+
+## aloop_benchmark_run
+
+> ALOOP event class `benchmark.run`: a benchmark runs.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `event_id` | `string` | true | Unique event identifier. |
+| `event_time` | `datetime` | true | ISO8601 timestamp the event occurred. |
+| `episode_id` | `string` | true | Identifier of the ALOOP Episode object this event belongs to. |
+| `attributes` | `map` | false | Arbitrary named event attributes (the OCEL payload). |
+
+## aloop_candidate_admit
+
+> ALOOP event class `candidate.admit`: a candidate passes admission.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `event_id` | `string` | true | Unique event identifier. |
+| `event_time` | `datetime` | true | ISO8601 timestamp the event occurred. |
+| `episode_id` | `string` | true | Identifier of the ALOOP Episode object this event belongs to. |
+| `attributes` | `map` | false | Arbitrary named event attributes (the OCEL payload). |
+
+## aloop_candidate_construct
+
+> ALOOP event class `candidate.construct`: a candidate is constructed.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `event_id` | `string` | true | Unique event identifier. |
+| `event_time` | `datetime` | true | ISO8601 timestamp the event occurred. |
+| `episode_id` | `string` | true | Identifier of the ALOOP Episode object this event belongs to. |
+| `attributes` | `map` | false | Arbitrary named event attributes (the OCEL payload). |
+| `origin_authority` | `string` | false | The origin authority qualifier (ALOOP contract): who constructed the candidate, e.g. autonomous or human. A human value makes the next directly-follows edge a human causal edge. |
+
+## aloop_checkpoint
+
+> ALOOP event class `checkpoint`: an execution checkpoint.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `event_id` | `string` | true | Unique event identifier. |
+| `event_time` | `datetime` | true | ISO8601 timestamp the event occurred. |
+| `episode_id` | `string` | true | Identifier of the ALOOP Episode object this event belongs to. |
+| `attributes` | `map` | false | Arbitrary named event attributes (the OCEL payload). |
+
+## aloop_commit
+
+> ALOOP event class `commit`: work is committed.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `event_id` | `string` | true | Unique event identifier. |
+| `event_time` | `datetime` | true | ISO8601 timestamp the event occurred. |
+| `episode_id` | `string` | true | Identifier of the ALOOP Episode object this event belongs to. |
+| `attributes` | `map` | false | Arbitrary named event attributes (the OCEL payload). |
+
+## aloop_episode_start
+
+> ALOOP event class `episode.start`: opens an autonomous episode.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `event_id` | `string` | true | Unique event identifier. |
+| `event_time` | `datetime` | true | ISO8601 timestamp the event occurred. |
+| `episode_id` | `string` | true | Identifier of the ALOOP Episode object this event belongs to. |
+| `attributes` | `map` | false | Arbitrary named event attributes (the OCEL payload). |
+
+## aloop_episode_terminal
+
+> ALOOP event class `episode.terminal`: the episode reaches a terminal state.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `event_id` | `string` | true | Unique event identifier. |
+| `event_time` | `datetime` | true | ISO8601 timestamp the event occurred. |
+| `episode_id` | `string` | true | Identifier of the ALOOP Episode object this event belongs to. |
+| `attributes` | `map` | false | Arbitrary named event attributes (the OCEL payload). |
+
+## aloop_execution_crash
+
+> ALOOP event class `execution.crash`: execution crashed.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `event_id` | `string` | true | Unique event identifier. |
+| `event_time` | `datetime` | true | ISO8601 timestamp the event occurred. |
+| `episode_id` | `string` | true | Identifier of the ALOOP Episode object this event belongs to. |
+| `attributes` | `map` | false | Arbitrary named event attributes (the OCEL payload). |
+
+## aloop_execution_start
+
+> ALOOP event class `execution.start`: execution begins.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `event_id` | `string` | true | Unique event identifier. |
+| `event_time` | `datetime` | true | ISO8601 timestamp the event occurred. |
+| `episode_id` | `string` | true | Identifier of the ALOOP Episode object this event belongs to. |
+| `attributes` | `map` | false | Arbitrary named event attributes (the OCEL payload). |
+
+## aloop_failure_detect
+
+> ALOOP event class `failure.detect`: a failure is detected.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `event_id` | `string` | true | Unique event identifier. |
+| `event_time` | `datetime` | true | ISO8601 timestamp the event occurred. |
+| `episode_id` | `string` | true | Identifier of the ALOOP Episode object this event belongs to. |
+| `attributes` | `map` | false | Arbitrary named event attributes (the OCEL payload). |
+
+## aloop_falsifier_run
+
+> ALOOP event class `falsifier.run`: a falsifier runs against a claim.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `event_id` | `string` | true | Unique event identifier. |
+| `event_time` | `datetime` | true | ISO8601 timestamp the event occurred. |
+| `episode_id` | `string` | true | Identifier of the ALOOP Episode object this event belongs to. |
+| `attributes` | `map` | false | Arbitrary named event attributes (the OCEL payload). |
+
+## aloop_gap_detect
+
+> ALOOP event class `gap.detect`: a gap between goal and observation; each occurrence is one loop iteration.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `event_id` | `string` | true | Unique event identifier. |
+| `event_time` | `datetime` | true | ISO8601 timestamp the event occurred. |
+| `episode_id` | `string` | true | Identifier of the ALOOP Episode object this event belongs to. |
+| `attributes` | `map` | false | Arbitrary named event attributes (the OCEL payload). |
+
+## aloop_goal_blocked
+
+> ALOOP event class `goal.blocked`: the episode goal is blocked.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `event_id` | `string` | true | Unique event identifier. |
+| `event_time` | `datetime` | true | ISO8601 timestamp the event occurred. |
+| `episode_id` | `string` | true | Identifier of the ALOOP Episode object this event belongs to. |
+| `attributes` | `map` | false | Arbitrary named event attributes (the OCEL payload). |
+
+## aloop_goal_satisfied
+
+> ALOOP event class `goal.satisfied`: the episode goal is satisfied.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `event_id` | `string` | true | Unique event identifier. |
+| `event_time` | `datetime` | true | ISO8601 timestamp the event occurred. |
+| `episode_id` | `string` | true | Identifier of the ALOOP Episode object this event belongs to. |
+| `attributes` | `map` | false | Arbitrary named event attributes (the OCEL payload). |
+
+## aloop_merge
+
+> ALOOP event class `merge`: branches are merged.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `event_id` | `string` | true | Unique event identifier. |
+| `event_time` | `datetime` | true | ISO8601 timestamp the event occurred. |
+| `episode_id` | `string` | true | Identifier of the ALOOP Episode object this event belongs to. |
+| `attributes` | `map` | false | Arbitrary named event attributes (the OCEL payload). |
+
+## aloop_model_edge
+
+> One admitted directly-follows edge of the ALOOP model (from_activity -> to_activity), frequency-annotated when projected from an observed log.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `from_activity` | `string` | true | The source ALOOP event class name. |
+| `to_activity` | `string` | true | The target ALOOP event class name. |
+| `observed_count` | `integer` | false | How often the edge was observed in a log (absent for a pure model edge). |
+
+## aloop_object
+
+> An ALOOP OCEL object. The bpm:object_type attribute admits exactly the 19 ALOOP object types: Episode, Objective, Requirement, WorkOrder, Authority, Repository, Subject, Provider, Worker, WorkerRun, Plan, Capability, Candidate, Consequence, Evidence, Receipt, Failure, Benchmark, Release.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `object_id` | `string` | true | Unique object identifier. |
+| `object_type` | `string` | true | One of the 19 admitted ALOOP object type names (see recordDoc). |
+| `attributes` | `map` | false | Named current attribute values. |
+
+## aloop_observe
+
+> ALOOP event class `observe`: an observation of the world entering the loop.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `event_id` | `string` | true | Unique event identifier. |
+| `event_time` | `datetime` | true | ISO8601 timestamp the event occurred. |
+| `episode_id` | `string` | true | Identifier of the ALOOP Episode object this event belongs to. |
+| `attributes` | `map` | false | Arbitrary named event attributes (the OCEL payload). |
+
+## aloop_plan_select
+
+> ALOOP event class `plan.select`: a plan is selected.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `event_id` | `string` | true | Unique event identifier. |
+| `event_time` | `datetime` | true | ISO8601 timestamp the event occurred. |
+| `episode_id` | `string` | true | Identifier of the ALOOP Episode object this event belongs to. |
+| `attributes` | `map` | false | Arbitrary named event attributes (the OCEL payload). |
+
+## aloop_provider_replace
+
+> ALOOP event class `provider.replace`: one provider replaces another mid-episode.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `event_id` | `string` | true | Unique event identifier. |
+| `event_time` | `datetime` | true | ISO8601 timestamp the event occurred. |
+| `episode_id` | `string` | true | Identifier of the ALOOP Episode object this event belongs to. |
+| `attributes` | `map` | false | Arbitrary named event attributes (the OCEL payload). |
+| `from_provider` | `string` | false | The provider being replaced. |
+| `to_provider` | `string` | false | The replacement provider. |
+
+## aloop_provider_select
+
+> ALOOP event class `provider.select`: a provider is selected.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `event_id` | `string` | true | Unique event identifier. |
+| `event_time` | `datetime` | true | ISO8601 timestamp the event occurred. |
+| `episode_id` | `string` | true | Identifier of the ALOOP Episode object this event belongs to. |
+| `attributes` | `map` | false | Arbitrary named event attributes (the OCEL payload). |
+| `provider` | `string` | false | The provider qualifier (ALOOP contract): the selected provider identifier. |
+
+## aloop_receipt_persist
+
+> ALOOP event class `receipt.persist`: an execution receipt is persisted.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `event_id` | `string` | true | Unique event identifier. |
+| `event_time` | `datetime` | true | ISO8601 timestamp the event occurred. |
+| `episode_id` | `string` | true | Identifier of the ALOOP Episode object this event belongs to. |
+| `attributes` | `map` | false | Arbitrary named event attributes (the OCEL payload). |
+| `receipt` | `string` | false | The receipt qualifier (ALOOP contract): the persisted receipt identifier. |
+
+## aloop_reconcile
+
+> ALOOP event class `reconcile`: state is reconciled.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `event_id` | `string` | true | Unique event identifier. |
+| `event_time` | `datetime` | true | ISO8601 timestamp the event occurred. |
+| `episode_id` | `string` | true | Identifier of the ALOOP Episode object this event belongs to. |
+| `attributes` | `map` | false | Arbitrary named event attributes (the OCEL payload). |
+
+## aloop_reobserve
+
+> ALOOP event class `reobserve`: the world is re-observed after actuation.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `event_id` | `string` | true | Unique event identifier. |
+| `event_time` | `datetime` | true | ISO8601 timestamp the event occurred. |
+| `episode_id` | `string` | true | Identifier of the ALOOP Episode object this event belongs to. |
+| `attributes` | `map` | false | Arbitrary named event attributes (the OCEL payload). |
+
+## aloop_replan
+
+> ALOOP event class `replan`: the plan is replaced.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `event_id` | `string` | true | Unique event identifier. |
+| `event_time` | `datetime` | true | ISO8601 timestamp the event occurred. |
+| `episode_id` | `string` | true | Identifier of the ALOOP Episode object this event belongs to. |
+| `attributes` | `map` | false | Arbitrary named event attributes (the OCEL payload). |
+
+## aloop_tool_admit
+
+> ALOOP event class `tool.admit`: a tool is admitted for use.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `event_id` | `string` | true | Unique event identifier. |
+| `event_time` | `datetime` | true | ISO8601 timestamp the event occurred. |
+| `episode_id` | `string` | true | Identifier of the ALOOP Episode object this event belongs to. |
+| `attributes` | `map` | false | Arbitrary named event attributes (the OCEL payload). |
+
+## aloop_verify
+
+> ALOOP event class `verify`: a verification runs.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `event_id` | `string` | true | Unique event identifier. |
+| `event_time` | `datetime` | true | ISO8601 timestamp the event occurred. |
+| `episode_id` | `string` | true | Identifier of the ALOOP Episode object this event belongs to. |
+| `attributes` | `map` | false | Arbitrary named event attributes (the OCEL payload). |
+
+## aloop_worker_claim
+
+> ALOOP event class `worker.claim`: a worker claims the work order.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `event_id` | `string` | true | Unique event identifier. |
+| `event_time` | `datetime` | true | ISO8601 timestamp the event occurred. |
+| `episode_id` | `string` | true | Identifier of the ALOOP Episode object this event belongs to. |
+| `attributes` | `map` | false | Arbitrary named event attributes (the OCEL payload). |
+| `worker` | `string` | false | The worker qualifier (ALOOP contract): the claiming worker identifier. |
+
+## aloop_workorder_issue
+
+> ALOOP event class `workorder.issue`: a work order is issued.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `event_id` | `string` | true | Unique event identifier. |
+| `event_time` | `datetime` | true | ISO8601 timestamp the event occurred. |
+| `episode_id` | `string` | true | Identifier of the ALOOP Episode object this event belongs to. |
+| `attributes` | `map` | false | Arbitrary named event attributes (the OCEL payload). |
+
 ## annual_subscription
 
 > Annual package binding SKU, seats, and renewal date.

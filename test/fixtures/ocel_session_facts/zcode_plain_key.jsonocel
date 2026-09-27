@@ -1,0 +1,56 @@
+{
+  "objectTypes": [
+    { "name": "meeting", "attributes": [] }
+  ],
+  "eventTypes": [
+    { "name": "open", "attributes": [] },
+    { "name": "plan", "attributes": [] },
+    { "name": "review", "attributes": [] },
+    { "name": "close", "attributes": [] }
+  ],
+  "objects": [
+    { "id": "m1", "type": "meeting", "attributes": [], "relationships": [] }
+  ],
+  "events": [
+    {
+      "id": "zc-e1",
+      "type": "open",
+      "time": "2026-01-01T10:00:00+00:00",
+      "attributes": [
+        { "name": "authorized", "value": "true" }
+      ],
+      "relationships": [
+        { "objectId": "m1", "qualifier": "meeting" }
+      ]
+    },
+    {
+      "id": "zc-e2",
+      "type": "plan",
+      "time": "2026-01-01T10:05:00+00:00",
+      "attributes": [],
+      "relationships": [
+        { "objectId": "m1", "qualifier": "meeting" }
+      ]
+    },
+    {
+      "id": "zc-e3",
+      "type": "review",
+      "time": "2026-01-01T10:10:00+00:00",
+      "attributes": [
+        { "name": "duration_ms", "value": "4200" }
+      ],
+      "relationships": [
+        { "objectId": "m1", "qualifier": "meeting" }
+      ]
+    },
+    {
+      "id": "zc-e4",
+      "type": "close",
+      "time": "2026-01-01T10:15:00+00:00",
+      "attributes": [],
+      "relationships": [
+        { "objectId": "m1", "qualifier": "meeting" }
+      ]
+    }
+  ]
+}

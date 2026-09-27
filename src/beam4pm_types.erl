@@ -18,6 +18,36 @@
     new_agent_assignment/1,
     new_agent_capability_advertisement/1,
     new_alignment_move/1,
+    new_aloop_actuate/1,
+    new_aloop_benchmark_run/1,
+    new_aloop_candidate_admit/1,
+    new_aloop_candidate_construct/1,
+    new_aloop_checkpoint/1,
+    new_aloop_commit/1,
+    new_aloop_episode_start/1,
+    new_aloop_episode_terminal/1,
+    new_aloop_execution_crash/1,
+    new_aloop_execution_start/1,
+    new_aloop_failure_detect/1,
+    new_aloop_falsifier_run/1,
+    new_aloop_gap_detect/1,
+    new_aloop_goal_blocked/1,
+    new_aloop_goal_satisfied/1,
+    new_aloop_merge/1,
+    new_aloop_model_edge/1,
+    new_aloop_object/1,
+    new_aloop_observe/1,
+    new_aloop_plan_select/1,
+    new_aloop_provider_replace/1,
+    new_aloop_provider_select/1,
+    new_aloop_receipt_persist/1,
+    new_aloop_reconcile/1,
+    new_aloop_reobserve/1,
+    new_aloop_replan/1,
+    new_aloop_tool_admit/1,
+    new_aloop_verify/1,
+    new_aloop_worker_claim/1,
+    new_aloop_workorder_issue/1,
     new_annual_subscription/1,
     new_anomaly_detection_observation/1,
     new_anti_repeat_refusal/1,
@@ -668,6 +698,36 @@
     agent_assignment/0,
     agent_capability_advertisement/0,
     alignment_move/0,
+    aloop_actuate/0,
+    aloop_benchmark_run/0,
+    aloop_candidate_admit/0,
+    aloop_candidate_construct/0,
+    aloop_checkpoint/0,
+    aloop_commit/0,
+    aloop_episode_start/0,
+    aloop_episode_terminal/0,
+    aloop_execution_crash/0,
+    aloop_execution_start/0,
+    aloop_failure_detect/0,
+    aloop_falsifier_run/0,
+    aloop_gap_detect/0,
+    aloop_goal_blocked/0,
+    aloop_goal_satisfied/0,
+    aloop_merge/0,
+    aloop_model_edge/0,
+    aloop_object/0,
+    aloop_observe/0,
+    aloop_plan_select/0,
+    aloop_provider_replace/0,
+    aloop_provider_select/0,
+    aloop_receipt_persist/0,
+    aloop_reconcile/0,
+    aloop_reobserve/0,
+    aloop_replan/0,
+    aloop_tool_admit/0,
+    aloop_verify/0,
+    aloop_worker_claim/0,
+    aloop_workorder_issue/0,
     annual_subscription/0,
     anomaly_detection_observation/0,
     anti_repeat_refusal/0,
@@ -1806,6 +1866,938 @@ new_alignment_move(Map) ->
         move_type = maps:get(move_type, Map, undefined),
         cost = maps:get(cost, Map, undefined)
     }}
+    end
+    end.
+
+%% ALOOP event class `actuate`: a DO: an actuation against the world; must be followed by receipt.persist.
+-record(aloop_actuate, {
+    event_id :: binary(), %% event_id: Unique event identifier.
+    event_time :: binary(), %% event_time: ISO8601 timestamp the event occurred.
+    episode_id :: binary(), %% episode_id: Identifier of the ALOOP Episode object this event belongs to.
+    attributes :: map() | undefined, %% attributes: Arbitrary named event attributes (the OCEL payload).
+    consequence :: binary() | undefined %% consequence: The consequence qualifier (ALOOP contract): the consequence identifier produced by this actuation.
+}).
+
+-type aloop_actuate() :: #aloop_actuate{}.
+
+-spec new_aloop_actuate(map()) -> {ok, aloop_actuate()} | {error, {missing_field, atom()}}.
+new_aloop_actuate(Map) ->
+    case maps:is_key(event_id, Map) of
+        false -> {error, {missing_field, event_id}};
+        true ->
+    case maps:is_key(event_time, Map) of
+        false -> {error, {missing_field, event_time}};
+        true ->
+    case maps:is_key(episode_id, Map) of
+        false -> {error, {missing_field, episode_id}};
+        true ->
+    {ok, #aloop_actuate{
+        event_id = maps:get(event_id, Map, undefined),
+        event_time = maps:get(event_time, Map, undefined),
+        episode_id = maps:get(episode_id, Map, undefined),
+        attributes = maps:get(attributes, Map, undefined),
+        consequence = maps:get(consequence, Map, undefined)
+    }}
+    end
+    end
+    end.
+
+%% ALOOP event class `benchmark.run`: a benchmark runs.
+-record(aloop_benchmark_run, {
+    event_id :: binary(), %% event_id: Unique event identifier.
+    event_time :: binary(), %% event_time: ISO8601 timestamp the event occurred.
+    episode_id :: binary(), %% episode_id: Identifier of the ALOOP Episode object this event belongs to.
+    attributes :: map() | undefined %% attributes: Arbitrary named event attributes (the OCEL payload).
+}).
+
+-type aloop_benchmark_run() :: #aloop_benchmark_run{}.
+
+-spec new_aloop_benchmark_run(map()) -> {ok, aloop_benchmark_run()} | {error, {missing_field, atom()}}.
+new_aloop_benchmark_run(Map) ->
+    case maps:is_key(event_id, Map) of
+        false -> {error, {missing_field, event_id}};
+        true ->
+    case maps:is_key(event_time, Map) of
+        false -> {error, {missing_field, event_time}};
+        true ->
+    case maps:is_key(episode_id, Map) of
+        false -> {error, {missing_field, episode_id}};
+        true ->
+    {ok, #aloop_benchmark_run{
+        event_id = maps:get(event_id, Map, undefined),
+        event_time = maps:get(event_time, Map, undefined),
+        episode_id = maps:get(episode_id, Map, undefined),
+        attributes = maps:get(attributes, Map, undefined)
+    }}
+    end
+    end
+    end.
+
+%% ALOOP event class `candidate.admit`: a candidate passes admission.
+-record(aloop_candidate_admit, {
+    event_id :: binary(), %% event_id: Unique event identifier.
+    event_time :: binary(), %% event_time: ISO8601 timestamp the event occurred.
+    episode_id :: binary(), %% episode_id: Identifier of the ALOOP Episode object this event belongs to.
+    attributes :: map() | undefined %% attributes: Arbitrary named event attributes (the OCEL payload).
+}).
+
+-type aloop_candidate_admit() :: #aloop_candidate_admit{}.
+
+-spec new_aloop_candidate_admit(map()) -> {ok, aloop_candidate_admit()} | {error, {missing_field, atom()}}.
+new_aloop_candidate_admit(Map) ->
+    case maps:is_key(event_id, Map) of
+        false -> {error, {missing_field, event_id}};
+        true ->
+    case maps:is_key(event_time, Map) of
+        false -> {error, {missing_field, event_time}};
+        true ->
+    case maps:is_key(episode_id, Map) of
+        false -> {error, {missing_field, episode_id}};
+        true ->
+    {ok, #aloop_candidate_admit{
+        event_id = maps:get(event_id, Map, undefined),
+        event_time = maps:get(event_time, Map, undefined),
+        episode_id = maps:get(episode_id, Map, undefined),
+        attributes = maps:get(attributes, Map, undefined)
+    }}
+    end
+    end
+    end.
+
+%% ALOOP event class `candidate.construct`: a candidate is constructed.
+-record(aloop_candidate_construct, {
+    event_id :: binary(), %% event_id: Unique event identifier.
+    event_time :: binary(), %% event_time: ISO8601 timestamp the event occurred.
+    episode_id :: binary(), %% episode_id: Identifier of the ALOOP Episode object this event belongs to.
+    attributes :: map() | undefined, %% attributes: Arbitrary named event attributes (the OCEL payload).
+    origin_authority :: binary() | undefined %% origin_authority: The origin authority qualifier (ALOOP contract): who constructed the candidate, e.g. autonomous or human. A human value makes the next directly-follows edge a human causal edge.
+}).
+
+-type aloop_candidate_construct() :: #aloop_candidate_construct{}.
+
+-spec new_aloop_candidate_construct(map()) -> {ok, aloop_candidate_construct()} | {error, {missing_field, atom()}}.
+new_aloop_candidate_construct(Map) ->
+    case maps:is_key(event_id, Map) of
+        false -> {error, {missing_field, event_id}};
+        true ->
+    case maps:is_key(event_time, Map) of
+        false -> {error, {missing_field, event_time}};
+        true ->
+    case maps:is_key(episode_id, Map) of
+        false -> {error, {missing_field, episode_id}};
+        true ->
+    {ok, #aloop_candidate_construct{
+        event_id = maps:get(event_id, Map, undefined),
+        event_time = maps:get(event_time, Map, undefined),
+        episode_id = maps:get(episode_id, Map, undefined),
+        attributes = maps:get(attributes, Map, undefined),
+        origin_authority = maps:get(origin_authority, Map, undefined)
+    }}
+    end
+    end
+    end.
+
+%% ALOOP event class `checkpoint`: an execution checkpoint.
+-record(aloop_checkpoint, {
+    event_id :: binary(), %% event_id: Unique event identifier.
+    event_time :: binary(), %% event_time: ISO8601 timestamp the event occurred.
+    episode_id :: binary(), %% episode_id: Identifier of the ALOOP Episode object this event belongs to.
+    attributes :: map() | undefined %% attributes: Arbitrary named event attributes (the OCEL payload).
+}).
+
+-type aloop_checkpoint() :: #aloop_checkpoint{}.
+
+-spec new_aloop_checkpoint(map()) -> {ok, aloop_checkpoint()} | {error, {missing_field, atom()}}.
+new_aloop_checkpoint(Map) ->
+    case maps:is_key(event_id, Map) of
+        false -> {error, {missing_field, event_id}};
+        true ->
+    case maps:is_key(event_time, Map) of
+        false -> {error, {missing_field, event_time}};
+        true ->
+    case maps:is_key(episode_id, Map) of
+        false -> {error, {missing_field, episode_id}};
+        true ->
+    {ok, #aloop_checkpoint{
+        event_id = maps:get(event_id, Map, undefined),
+        event_time = maps:get(event_time, Map, undefined),
+        episode_id = maps:get(episode_id, Map, undefined),
+        attributes = maps:get(attributes, Map, undefined)
+    }}
+    end
+    end
+    end.
+
+%% ALOOP event class `commit`: work is committed.
+-record(aloop_commit, {
+    event_id :: binary(), %% event_id: Unique event identifier.
+    event_time :: binary(), %% event_time: ISO8601 timestamp the event occurred.
+    episode_id :: binary(), %% episode_id: Identifier of the ALOOP Episode object this event belongs to.
+    attributes :: map() | undefined %% attributes: Arbitrary named event attributes (the OCEL payload).
+}).
+
+-type aloop_commit() :: #aloop_commit{}.
+
+-spec new_aloop_commit(map()) -> {ok, aloop_commit()} | {error, {missing_field, atom()}}.
+new_aloop_commit(Map) ->
+    case maps:is_key(event_id, Map) of
+        false -> {error, {missing_field, event_id}};
+        true ->
+    case maps:is_key(event_time, Map) of
+        false -> {error, {missing_field, event_time}};
+        true ->
+    case maps:is_key(episode_id, Map) of
+        false -> {error, {missing_field, episode_id}};
+        true ->
+    {ok, #aloop_commit{
+        event_id = maps:get(event_id, Map, undefined),
+        event_time = maps:get(event_time, Map, undefined),
+        episode_id = maps:get(episode_id, Map, undefined),
+        attributes = maps:get(attributes, Map, undefined)
+    }}
+    end
+    end
+    end.
+
+%% ALOOP event class `episode.start`: opens an autonomous episode.
+-record(aloop_episode_start, {
+    event_id :: binary(), %% event_id: Unique event identifier.
+    event_time :: binary(), %% event_time: ISO8601 timestamp the event occurred.
+    episode_id :: binary(), %% episode_id: Identifier of the ALOOP Episode object this event belongs to.
+    attributes :: map() | undefined %% attributes: Arbitrary named event attributes (the OCEL payload).
+}).
+
+-type aloop_episode_start() :: #aloop_episode_start{}.
+
+-spec new_aloop_episode_start(map()) -> {ok, aloop_episode_start()} | {error, {missing_field, atom()}}.
+new_aloop_episode_start(Map) ->
+    case maps:is_key(event_id, Map) of
+        false -> {error, {missing_field, event_id}};
+        true ->
+    case maps:is_key(event_time, Map) of
+        false -> {error, {missing_field, event_time}};
+        true ->
+    case maps:is_key(episode_id, Map) of
+        false -> {error, {missing_field, episode_id}};
+        true ->
+    {ok, #aloop_episode_start{
+        event_id = maps:get(event_id, Map, undefined),
+        event_time = maps:get(event_time, Map, undefined),
+        episode_id = maps:get(episode_id, Map, undefined),
+        attributes = maps:get(attributes, Map, undefined)
+    }}
+    end
+    end
+    end.
+
+%% ALOOP event class `episode.terminal`: the episode reaches a terminal state.
+-record(aloop_episode_terminal, {
+    event_id :: binary(), %% event_id: Unique event identifier.
+    event_time :: binary(), %% event_time: ISO8601 timestamp the event occurred.
+    episode_id :: binary(), %% episode_id: Identifier of the ALOOP Episode object this event belongs to.
+    attributes :: map() | undefined %% attributes: Arbitrary named event attributes (the OCEL payload).
+}).
+
+-type aloop_episode_terminal() :: #aloop_episode_terminal{}.
+
+-spec new_aloop_episode_terminal(map()) -> {ok, aloop_episode_terminal()} | {error, {missing_field, atom()}}.
+new_aloop_episode_terminal(Map) ->
+    case maps:is_key(event_id, Map) of
+        false -> {error, {missing_field, event_id}};
+        true ->
+    case maps:is_key(event_time, Map) of
+        false -> {error, {missing_field, event_time}};
+        true ->
+    case maps:is_key(episode_id, Map) of
+        false -> {error, {missing_field, episode_id}};
+        true ->
+    {ok, #aloop_episode_terminal{
+        event_id = maps:get(event_id, Map, undefined),
+        event_time = maps:get(event_time, Map, undefined),
+        episode_id = maps:get(episode_id, Map, undefined),
+        attributes = maps:get(attributes, Map, undefined)
+    }}
+    end
+    end
+    end.
+
+%% ALOOP event class `execution.crash`: execution crashed.
+-record(aloop_execution_crash, {
+    event_id :: binary(), %% event_id: Unique event identifier.
+    event_time :: binary(), %% event_time: ISO8601 timestamp the event occurred.
+    episode_id :: binary(), %% episode_id: Identifier of the ALOOP Episode object this event belongs to.
+    attributes :: map() | undefined %% attributes: Arbitrary named event attributes (the OCEL payload).
+}).
+
+-type aloop_execution_crash() :: #aloop_execution_crash{}.
+
+-spec new_aloop_execution_crash(map()) -> {ok, aloop_execution_crash()} | {error, {missing_field, atom()}}.
+new_aloop_execution_crash(Map) ->
+    case maps:is_key(event_id, Map) of
+        false -> {error, {missing_field, event_id}};
+        true ->
+    case maps:is_key(event_time, Map) of
+        false -> {error, {missing_field, event_time}};
+        true ->
+    case maps:is_key(episode_id, Map) of
+        false -> {error, {missing_field, episode_id}};
+        true ->
+    {ok, #aloop_execution_crash{
+        event_id = maps:get(event_id, Map, undefined),
+        event_time = maps:get(event_time, Map, undefined),
+        episode_id = maps:get(episode_id, Map, undefined),
+        attributes = maps:get(attributes, Map, undefined)
+    }}
+    end
+    end
+    end.
+
+%% ALOOP event class `execution.start`: execution begins.
+-record(aloop_execution_start, {
+    event_id :: binary(), %% event_id: Unique event identifier.
+    event_time :: binary(), %% event_time: ISO8601 timestamp the event occurred.
+    episode_id :: binary(), %% episode_id: Identifier of the ALOOP Episode object this event belongs to.
+    attributes :: map() | undefined %% attributes: Arbitrary named event attributes (the OCEL payload).
+}).
+
+-type aloop_execution_start() :: #aloop_execution_start{}.
+
+-spec new_aloop_execution_start(map()) -> {ok, aloop_execution_start()} | {error, {missing_field, atom()}}.
+new_aloop_execution_start(Map) ->
+    case maps:is_key(event_id, Map) of
+        false -> {error, {missing_field, event_id}};
+        true ->
+    case maps:is_key(event_time, Map) of
+        false -> {error, {missing_field, event_time}};
+        true ->
+    case maps:is_key(episode_id, Map) of
+        false -> {error, {missing_field, episode_id}};
+        true ->
+    {ok, #aloop_execution_start{
+        event_id = maps:get(event_id, Map, undefined),
+        event_time = maps:get(event_time, Map, undefined),
+        episode_id = maps:get(episode_id, Map, undefined),
+        attributes = maps:get(attributes, Map, undefined)
+    }}
+    end
+    end
+    end.
+
+%% ALOOP event class `failure.detect`: a failure is detected.
+-record(aloop_failure_detect, {
+    event_id :: binary(), %% event_id: Unique event identifier.
+    event_time :: binary(), %% event_time: ISO8601 timestamp the event occurred.
+    episode_id :: binary(), %% episode_id: Identifier of the ALOOP Episode object this event belongs to.
+    attributes :: map() | undefined %% attributes: Arbitrary named event attributes (the OCEL payload).
+}).
+
+-type aloop_failure_detect() :: #aloop_failure_detect{}.
+
+-spec new_aloop_failure_detect(map()) -> {ok, aloop_failure_detect()} | {error, {missing_field, atom()}}.
+new_aloop_failure_detect(Map) ->
+    case maps:is_key(event_id, Map) of
+        false -> {error, {missing_field, event_id}};
+        true ->
+    case maps:is_key(event_time, Map) of
+        false -> {error, {missing_field, event_time}};
+        true ->
+    case maps:is_key(episode_id, Map) of
+        false -> {error, {missing_field, episode_id}};
+        true ->
+    {ok, #aloop_failure_detect{
+        event_id = maps:get(event_id, Map, undefined),
+        event_time = maps:get(event_time, Map, undefined),
+        episode_id = maps:get(episode_id, Map, undefined),
+        attributes = maps:get(attributes, Map, undefined)
+    }}
+    end
+    end
+    end.
+
+%% ALOOP event class `falsifier.run`: a falsifier runs against a claim.
+-record(aloop_falsifier_run, {
+    event_id :: binary(), %% event_id: Unique event identifier.
+    event_time :: binary(), %% event_time: ISO8601 timestamp the event occurred.
+    episode_id :: binary(), %% episode_id: Identifier of the ALOOP Episode object this event belongs to.
+    attributes :: map() | undefined %% attributes: Arbitrary named event attributes (the OCEL payload).
+}).
+
+-type aloop_falsifier_run() :: #aloop_falsifier_run{}.
+
+-spec new_aloop_falsifier_run(map()) -> {ok, aloop_falsifier_run()} | {error, {missing_field, atom()}}.
+new_aloop_falsifier_run(Map) ->
+    case maps:is_key(event_id, Map) of
+        false -> {error, {missing_field, event_id}};
+        true ->
+    case maps:is_key(event_time, Map) of
+        false -> {error, {missing_field, event_time}};
+        true ->
+    case maps:is_key(episode_id, Map) of
+        false -> {error, {missing_field, episode_id}};
+        true ->
+    {ok, #aloop_falsifier_run{
+        event_id = maps:get(event_id, Map, undefined),
+        event_time = maps:get(event_time, Map, undefined),
+        episode_id = maps:get(episode_id, Map, undefined),
+        attributes = maps:get(attributes, Map, undefined)
+    }}
+    end
+    end
+    end.
+
+%% ALOOP event class `gap.detect`: a gap between goal and observation; each occurrence is one loop iteration.
+-record(aloop_gap_detect, {
+    event_id :: binary(), %% event_id: Unique event identifier.
+    event_time :: binary(), %% event_time: ISO8601 timestamp the event occurred.
+    episode_id :: binary(), %% episode_id: Identifier of the ALOOP Episode object this event belongs to.
+    attributes :: map() | undefined %% attributes: Arbitrary named event attributes (the OCEL payload).
+}).
+
+-type aloop_gap_detect() :: #aloop_gap_detect{}.
+
+-spec new_aloop_gap_detect(map()) -> {ok, aloop_gap_detect()} | {error, {missing_field, atom()}}.
+new_aloop_gap_detect(Map) ->
+    case maps:is_key(event_id, Map) of
+        false -> {error, {missing_field, event_id}};
+        true ->
+    case maps:is_key(event_time, Map) of
+        false -> {error, {missing_field, event_time}};
+        true ->
+    case maps:is_key(episode_id, Map) of
+        false -> {error, {missing_field, episode_id}};
+        true ->
+    {ok, #aloop_gap_detect{
+        event_id = maps:get(event_id, Map, undefined),
+        event_time = maps:get(event_time, Map, undefined),
+        episode_id = maps:get(episode_id, Map, undefined),
+        attributes = maps:get(attributes, Map, undefined)
+    }}
+    end
+    end
+    end.
+
+%% ALOOP event class `goal.blocked`: the episode goal is blocked.
+-record(aloop_goal_blocked, {
+    event_id :: binary(), %% event_id: Unique event identifier.
+    event_time :: binary(), %% event_time: ISO8601 timestamp the event occurred.
+    episode_id :: binary(), %% episode_id: Identifier of the ALOOP Episode object this event belongs to.
+    attributes :: map() | undefined %% attributes: Arbitrary named event attributes (the OCEL payload).
+}).
+
+-type aloop_goal_blocked() :: #aloop_goal_blocked{}.
+
+-spec new_aloop_goal_blocked(map()) -> {ok, aloop_goal_blocked()} | {error, {missing_field, atom()}}.
+new_aloop_goal_blocked(Map) ->
+    case maps:is_key(event_id, Map) of
+        false -> {error, {missing_field, event_id}};
+        true ->
+    case maps:is_key(event_time, Map) of
+        false -> {error, {missing_field, event_time}};
+        true ->
+    case maps:is_key(episode_id, Map) of
+        false -> {error, {missing_field, episode_id}};
+        true ->
+    {ok, #aloop_goal_blocked{
+        event_id = maps:get(event_id, Map, undefined),
+        event_time = maps:get(event_time, Map, undefined),
+        episode_id = maps:get(episode_id, Map, undefined),
+        attributes = maps:get(attributes, Map, undefined)
+    }}
+    end
+    end
+    end.
+
+%% ALOOP event class `goal.satisfied`: the episode goal is satisfied.
+-record(aloop_goal_satisfied, {
+    event_id :: binary(), %% event_id: Unique event identifier.
+    event_time :: binary(), %% event_time: ISO8601 timestamp the event occurred.
+    episode_id :: binary(), %% episode_id: Identifier of the ALOOP Episode object this event belongs to.
+    attributes :: map() | undefined %% attributes: Arbitrary named event attributes (the OCEL payload).
+}).
+
+-type aloop_goal_satisfied() :: #aloop_goal_satisfied{}.
+
+-spec new_aloop_goal_satisfied(map()) -> {ok, aloop_goal_satisfied()} | {error, {missing_field, atom()}}.
+new_aloop_goal_satisfied(Map) ->
+    case maps:is_key(event_id, Map) of
+        false -> {error, {missing_field, event_id}};
+        true ->
+    case maps:is_key(event_time, Map) of
+        false -> {error, {missing_field, event_time}};
+        true ->
+    case maps:is_key(episode_id, Map) of
+        false -> {error, {missing_field, episode_id}};
+        true ->
+    {ok, #aloop_goal_satisfied{
+        event_id = maps:get(event_id, Map, undefined),
+        event_time = maps:get(event_time, Map, undefined),
+        episode_id = maps:get(episode_id, Map, undefined),
+        attributes = maps:get(attributes, Map, undefined)
+    }}
+    end
+    end
+    end.
+
+%% ALOOP event class `merge`: branches are merged.
+-record(aloop_merge, {
+    event_id :: binary(), %% event_id: Unique event identifier.
+    event_time :: binary(), %% event_time: ISO8601 timestamp the event occurred.
+    episode_id :: binary(), %% episode_id: Identifier of the ALOOP Episode object this event belongs to.
+    attributes :: map() | undefined %% attributes: Arbitrary named event attributes (the OCEL payload).
+}).
+
+-type aloop_merge() :: #aloop_merge{}.
+
+-spec new_aloop_merge(map()) -> {ok, aloop_merge()} | {error, {missing_field, atom()}}.
+new_aloop_merge(Map) ->
+    case maps:is_key(event_id, Map) of
+        false -> {error, {missing_field, event_id}};
+        true ->
+    case maps:is_key(event_time, Map) of
+        false -> {error, {missing_field, event_time}};
+        true ->
+    case maps:is_key(episode_id, Map) of
+        false -> {error, {missing_field, episode_id}};
+        true ->
+    {ok, #aloop_merge{
+        event_id = maps:get(event_id, Map, undefined),
+        event_time = maps:get(event_time, Map, undefined),
+        episode_id = maps:get(episode_id, Map, undefined),
+        attributes = maps:get(attributes, Map, undefined)
+    }}
+    end
+    end
+    end.
+
+%% One admitted directly-follows edge of the ALOOP model (from_activity -> to_activity), frequency-annotated when projected from an observed log.
+-record(aloop_model_edge, {
+    from_activity :: binary(), %% from_activity: The source ALOOP event class name.
+    to_activity :: binary(), %% to_activity: The target ALOOP event class name.
+    observed_count :: integer() | undefined %% observed_count: How often the edge was observed in a log (absent for a pure model edge).
+}).
+
+-type aloop_model_edge() :: #aloop_model_edge{}.
+
+-spec new_aloop_model_edge(map()) -> {ok, aloop_model_edge()} | {error, {missing_field, atom()}}.
+new_aloop_model_edge(Map) ->
+    case maps:is_key(from_activity, Map) of
+        false -> {error, {missing_field, from_activity}};
+        true ->
+    case maps:is_key(to_activity, Map) of
+        false -> {error, {missing_field, to_activity}};
+        true ->
+    {ok, #aloop_model_edge{
+        from_activity = maps:get(from_activity, Map, undefined),
+        to_activity = maps:get(to_activity, Map, undefined),
+        observed_count = maps:get(observed_count, Map, undefined)
+    }}
+    end
+    end.
+
+%% An ALOOP OCEL object. The bpm:object_type attribute admits exactly the 19 ALOOP object types: Episode, Objective, Requirement, WorkOrder, Authority, Repository, Subject, Provider, Worker, WorkerRun, Plan, Capability, Candidate, Consequence, Evidence, Receipt, Failure, Benchmark, Release.
+-record(aloop_object, {
+    object_id :: binary(), %% object_id: Unique object identifier.
+    object_type :: binary(), %% object_type: One of the 19 admitted ALOOP object type names (see recordDoc).
+    attributes :: map() | undefined %% attributes: Named current attribute values.
+}).
+
+-type aloop_object() :: #aloop_object{}.
+
+-spec new_aloop_object(map()) -> {ok, aloop_object()} | {error, {missing_field, atom()}}.
+new_aloop_object(Map) ->
+    case maps:is_key(object_id, Map) of
+        false -> {error, {missing_field, object_id}};
+        true ->
+    case maps:is_key(object_type, Map) of
+        false -> {error, {missing_field, object_type}};
+        true ->
+    {ok, #aloop_object{
+        object_id = maps:get(object_id, Map, undefined),
+        object_type = maps:get(object_type, Map, undefined),
+        attributes = maps:get(attributes, Map, undefined)
+    }}
+    end
+    end.
+
+%% ALOOP event class `observe`: an observation of the world entering the loop.
+-record(aloop_observe, {
+    event_id :: binary(), %% event_id: Unique event identifier.
+    event_time :: binary(), %% event_time: ISO8601 timestamp the event occurred.
+    episode_id :: binary(), %% episode_id: Identifier of the ALOOP Episode object this event belongs to.
+    attributes :: map() | undefined %% attributes: Arbitrary named event attributes (the OCEL payload).
+}).
+
+-type aloop_observe() :: #aloop_observe{}.
+
+-spec new_aloop_observe(map()) -> {ok, aloop_observe()} | {error, {missing_field, atom()}}.
+new_aloop_observe(Map) ->
+    case maps:is_key(event_id, Map) of
+        false -> {error, {missing_field, event_id}};
+        true ->
+    case maps:is_key(event_time, Map) of
+        false -> {error, {missing_field, event_time}};
+        true ->
+    case maps:is_key(episode_id, Map) of
+        false -> {error, {missing_field, episode_id}};
+        true ->
+    {ok, #aloop_observe{
+        event_id = maps:get(event_id, Map, undefined),
+        event_time = maps:get(event_time, Map, undefined),
+        episode_id = maps:get(episode_id, Map, undefined),
+        attributes = maps:get(attributes, Map, undefined)
+    }}
+    end
+    end
+    end.
+
+%% ALOOP event class `plan.select`: a plan is selected.
+-record(aloop_plan_select, {
+    event_id :: binary(), %% event_id: Unique event identifier.
+    event_time :: binary(), %% event_time: ISO8601 timestamp the event occurred.
+    episode_id :: binary(), %% episode_id: Identifier of the ALOOP Episode object this event belongs to.
+    attributes :: map() | undefined %% attributes: Arbitrary named event attributes (the OCEL payload).
+}).
+
+-type aloop_plan_select() :: #aloop_plan_select{}.
+
+-spec new_aloop_plan_select(map()) -> {ok, aloop_plan_select()} | {error, {missing_field, atom()}}.
+new_aloop_plan_select(Map) ->
+    case maps:is_key(event_id, Map) of
+        false -> {error, {missing_field, event_id}};
+        true ->
+    case maps:is_key(event_time, Map) of
+        false -> {error, {missing_field, event_time}};
+        true ->
+    case maps:is_key(episode_id, Map) of
+        false -> {error, {missing_field, episode_id}};
+        true ->
+    {ok, #aloop_plan_select{
+        event_id = maps:get(event_id, Map, undefined),
+        event_time = maps:get(event_time, Map, undefined),
+        episode_id = maps:get(episode_id, Map, undefined),
+        attributes = maps:get(attributes, Map, undefined)
+    }}
+    end
+    end
+    end.
+
+%% ALOOP event class `provider.replace`: one provider replaces another mid-episode.
+-record(aloop_provider_replace, {
+    event_id :: binary(), %% event_id: Unique event identifier.
+    event_time :: binary(), %% event_time: ISO8601 timestamp the event occurred.
+    episode_id :: binary(), %% episode_id: Identifier of the ALOOP Episode object this event belongs to.
+    attributes :: map() | undefined, %% attributes: Arbitrary named event attributes (the OCEL payload).
+    from_provider :: binary() | undefined, %% from_provider: The provider being replaced.
+    to_provider :: binary() | undefined %% to_provider: The replacement provider.
+}).
+
+-type aloop_provider_replace() :: #aloop_provider_replace{}.
+
+-spec new_aloop_provider_replace(map()) -> {ok, aloop_provider_replace()} | {error, {missing_field, atom()}}.
+new_aloop_provider_replace(Map) ->
+    case maps:is_key(event_id, Map) of
+        false -> {error, {missing_field, event_id}};
+        true ->
+    case maps:is_key(event_time, Map) of
+        false -> {error, {missing_field, event_time}};
+        true ->
+    case maps:is_key(episode_id, Map) of
+        false -> {error, {missing_field, episode_id}};
+        true ->
+    {ok, #aloop_provider_replace{
+        event_id = maps:get(event_id, Map, undefined),
+        event_time = maps:get(event_time, Map, undefined),
+        episode_id = maps:get(episode_id, Map, undefined),
+        attributes = maps:get(attributes, Map, undefined),
+        from_provider = maps:get(from_provider, Map, undefined),
+        to_provider = maps:get(to_provider, Map, undefined)
+    }}
+    end
+    end
+    end.
+
+%% ALOOP event class `provider.select`: a provider is selected.
+-record(aloop_provider_select, {
+    event_id :: binary(), %% event_id: Unique event identifier.
+    event_time :: binary(), %% event_time: ISO8601 timestamp the event occurred.
+    episode_id :: binary(), %% episode_id: Identifier of the ALOOP Episode object this event belongs to.
+    attributes :: map() | undefined, %% attributes: Arbitrary named event attributes (the OCEL payload).
+    provider :: binary() | undefined %% provider: The provider qualifier (ALOOP contract): the selected provider identifier.
+}).
+
+-type aloop_provider_select() :: #aloop_provider_select{}.
+
+-spec new_aloop_provider_select(map()) -> {ok, aloop_provider_select()} | {error, {missing_field, atom()}}.
+new_aloop_provider_select(Map) ->
+    case maps:is_key(event_id, Map) of
+        false -> {error, {missing_field, event_id}};
+        true ->
+    case maps:is_key(event_time, Map) of
+        false -> {error, {missing_field, event_time}};
+        true ->
+    case maps:is_key(episode_id, Map) of
+        false -> {error, {missing_field, episode_id}};
+        true ->
+    {ok, #aloop_provider_select{
+        event_id = maps:get(event_id, Map, undefined),
+        event_time = maps:get(event_time, Map, undefined),
+        episode_id = maps:get(episode_id, Map, undefined),
+        attributes = maps:get(attributes, Map, undefined),
+        provider = maps:get(provider, Map, undefined)
+    }}
+    end
+    end
+    end.
+
+%% ALOOP event class `receipt.persist`: an execution receipt is persisted.
+-record(aloop_receipt_persist, {
+    event_id :: binary(), %% event_id: Unique event identifier.
+    event_time :: binary(), %% event_time: ISO8601 timestamp the event occurred.
+    episode_id :: binary(), %% episode_id: Identifier of the ALOOP Episode object this event belongs to.
+    attributes :: map() | undefined, %% attributes: Arbitrary named event attributes (the OCEL payload).
+    receipt :: binary() | undefined %% receipt: The receipt qualifier (ALOOP contract): the persisted receipt identifier.
+}).
+
+-type aloop_receipt_persist() :: #aloop_receipt_persist{}.
+
+-spec new_aloop_receipt_persist(map()) -> {ok, aloop_receipt_persist()} | {error, {missing_field, atom()}}.
+new_aloop_receipt_persist(Map) ->
+    case maps:is_key(event_id, Map) of
+        false -> {error, {missing_field, event_id}};
+        true ->
+    case maps:is_key(event_time, Map) of
+        false -> {error, {missing_field, event_time}};
+        true ->
+    case maps:is_key(episode_id, Map) of
+        false -> {error, {missing_field, episode_id}};
+        true ->
+    {ok, #aloop_receipt_persist{
+        event_id = maps:get(event_id, Map, undefined),
+        event_time = maps:get(event_time, Map, undefined),
+        episode_id = maps:get(episode_id, Map, undefined),
+        attributes = maps:get(attributes, Map, undefined),
+        receipt = maps:get(receipt, Map, undefined)
+    }}
+    end
+    end
+    end.
+
+%% ALOOP event class `reconcile`: state is reconciled.
+-record(aloop_reconcile, {
+    event_id :: binary(), %% event_id: Unique event identifier.
+    event_time :: binary(), %% event_time: ISO8601 timestamp the event occurred.
+    episode_id :: binary(), %% episode_id: Identifier of the ALOOP Episode object this event belongs to.
+    attributes :: map() | undefined %% attributes: Arbitrary named event attributes (the OCEL payload).
+}).
+
+-type aloop_reconcile() :: #aloop_reconcile{}.
+
+-spec new_aloop_reconcile(map()) -> {ok, aloop_reconcile()} | {error, {missing_field, atom()}}.
+new_aloop_reconcile(Map) ->
+    case maps:is_key(event_id, Map) of
+        false -> {error, {missing_field, event_id}};
+        true ->
+    case maps:is_key(event_time, Map) of
+        false -> {error, {missing_field, event_time}};
+        true ->
+    case maps:is_key(episode_id, Map) of
+        false -> {error, {missing_field, episode_id}};
+        true ->
+    {ok, #aloop_reconcile{
+        event_id = maps:get(event_id, Map, undefined),
+        event_time = maps:get(event_time, Map, undefined),
+        episode_id = maps:get(episode_id, Map, undefined),
+        attributes = maps:get(attributes, Map, undefined)
+    }}
+    end
+    end
+    end.
+
+%% ALOOP event class `reobserve`: the world is re-observed after actuation.
+-record(aloop_reobserve, {
+    event_id :: binary(), %% event_id: Unique event identifier.
+    event_time :: binary(), %% event_time: ISO8601 timestamp the event occurred.
+    episode_id :: binary(), %% episode_id: Identifier of the ALOOP Episode object this event belongs to.
+    attributes :: map() | undefined %% attributes: Arbitrary named event attributes (the OCEL payload).
+}).
+
+-type aloop_reobserve() :: #aloop_reobserve{}.
+
+-spec new_aloop_reobserve(map()) -> {ok, aloop_reobserve()} | {error, {missing_field, atom()}}.
+new_aloop_reobserve(Map) ->
+    case maps:is_key(event_id, Map) of
+        false -> {error, {missing_field, event_id}};
+        true ->
+    case maps:is_key(event_time, Map) of
+        false -> {error, {missing_field, event_time}};
+        true ->
+    case maps:is_key(episode_id, Map) of
+        false -> {error, {missing_field, episode_id}};
+        true ->
+    {ok, #aloop_reobserve{
+        event_id = maps:get(event_id, Map, undefined),
+        event_time = maps:get(event_time, Map, undefined),
+        episode_id = maps:get(episode_id, Map, undefined),
+        attributes = maps:get(attributes, Map, undefined)
+    }}
+    end
+    end
+    end.
+
+%% ALOOP event class `replan`: the plan is replaced.
+-record(aloop_replan, {
+    event_id :: binary(), %% event_id: Unique event identifier.
+    event_time :: binary(), %% event_time: ISO8601 timestamp the event occurred.
+    episode_id :: binary(), %% episode_id: Identifier of the ALOOP Episode object this event belongs to.
+    attributes :: map() | undefined %% attributes: Arbitrary named event attributes (the OCEL payload).
+}).
+
+-type aloop_replan() :: #aloop_replan{}.
+
+-spec new_aloop_replan(map()) -> {ok, aloop_replan()} | {error, {missing_field, atom()}}.
+new_aloop_replan(Map) ->
+    case maps:is_key(event_id, Map) of
+        false -> {error, {missing_field, event_id}};
+        true ->
+    case maps:is_key(event_time, Map) of
+        false -> {error, {missing_field, event_time}};
+        true ->
+    case maps:is_key(episode_id, Map) of
+        false -> {error, {missing_field, episode_id}};
+        true ->
+    {ok, #aloop_replan{
+        event_id = maps:get(event_id, Map, undefined),
+        event_time = maps:get(event_time, Map, undefined),
+        episode_id = maps:get(episode_id, Map, undefined),
+        attributes = maps:get(attributes, Map, undefined)
+    }}
+    end
+    end
+    end.
+
+%% ALOOP event class `tool.admit`: a tool is admitted for use.
+-record(aloop_tool_admit, {
+    event_id :: binary(), %% event_id: Unique event identifier.
+    event_time :: binary(), %% event_time: ISO8601 timestamp the event occurred.
+    episode_id :: binary(), %% episode_id: Identifier of the ALOOP Episode object this event belongs to.
+    attributes :: map() | undefined %% attributes: Arbitrary named event attributes (the OCEL payload).
+}).
+
+-type aloop_tool_admit() :: #aloop_tool_admit{}.
+
+-spec new_aloop_tool_admit(map()) -> {ok, aloop_tool_admit()} | {error, {missing_field, atom()}}.
+new_aloop_tool_admit(Map) ->
+    case maps:is_key(event_id, Map) of
+        false -> {error, {missing_field, event_id}};
+        true ->
+    case maps:is_key(event_time, Map) of
+        false -> {error, {missing_field, event_time}};
+        true ->
+    case maps:is_key(episode_id, Map) of
+        false -> {error, {missing_field, episode_id}};
+        true ->
+    {ok, #aloop_tool_admit{
+        event_id = maps:get(event_id, Map, undefined),
+        event_time = maps:get(event_time, Map, undefined),
+        episode_id = maps:get(episode_id, Map, undefined),
+        attributes = maps:get(attributes, Map, undefined)
+    }}
+    end
+    end
+    end.
+
+%% ALOOP event class `verify`: a verification runs.
+-record(aloop_verify, {
+    event_id :: binary(), %% event_id: Unique event identifier.
+    event_time :: binary(), %% event_time: ISO8601 timestamp the event occurred.
+    episode_id :: binary(), %% episode_id: Identifier of the ALOOP Episode object this event belongs to.
+    attributes :: map() | undefined %% attributes: Arbitrary named event attributes (the OCEL payload).
+}).
+
+-type aloop_verify() :: #aloop_verify{}.
+
+-spec new_aloop_verify(map()) -> {ok, aloop_verify()} | {error, {missing_field, atom()}}.
+new_aloop_verify(Map) ->
+    case maps:is_key(event_id, Map) of
+        false -> {error, {missing_field, event_id}};
+        true ->
+    case maps:is_key(event_time, Map) of
+        false -> {error, {missing_field, event_time}};
+        true ->
+    case maps:is_key(episode_id, Map) of
+        false -> {error, {missing_field, episode_id}};
+        true ->
+    {ok, #aloop_verify{
+        event_id = maps:get(event_id, Map, undefined),
+        event_time = maps:get(event_time, Map, undefined),
+        episode_id = maps:get(episode_id, Map, undefined),
+        attributes = maps:get(attributes, Map, undefined)
+    }}
+    end
+    end
+    end.
+
+%% ALOOP event class `worker.claim`: a worker claims the work order.
+-record(aloop_worker_claim, {
+    event_id :: binary(), %% event_id: Unique event identifier.
+    event_time :: binary(), %% event_time: ISO8601 timestamp the event occurred.
+    episode_id :: binary(), %% episode_id: Identifier of the ALOOP Episode object this event belongs to.
+    attributes :: map() | undefined, %% attributes: Arbitrary named event attributes (the OCEL payload).
+    worker :: binary() | undefined %% worker: The worker qualifier (ALOOP contract): the claiming worker identifier.
+}).
+
+-type aloop_worker_claim() :: #aloop_worker_claim{}.
+
+-spec new_aloop_worker_claim(map()) -> {ok, aloop_worker_claim()} | {error, {missing_field, atom()}}.
+new_aloop_worker_claim(Map) ->
+    case maps:is_key(event_id, Map) of
+        false -> {error, {missing_field, event_id}};
+        true ->
+    case maps:is_key(event_time, Map) of
+        false -> {error, {missing_field, event_time}};
+        true ->
+    case maps:is_key(episode_id, Map) of
+        false -> {error, {missing_field, episode_id}};
+        true ->
+    {ok, #aloop_worker_claim{
+        event_id = maps:get(event_id, Map, undefined),
+        event_time = maps:get(event_time, Map, undefined),
+        episode_id = maps:get(episode_id, Map, undefined),
+        attributes = maps:get(attributes, Map, undefined),
+        worker = maps:get(worker, Map, undefined)
+    }}
+    end
+    end
+    end.
+
+%% ALOOP event class `workorder.issue`: a work order is issued.
+-record(aloop_workorder_issue, {
+    event_id :: binary(), %% event_id: Unique event identifier.
+    event_time :: binary(), %% event_time: ISO8601 timestamp the event occurred.
+    episode_id :: binary(), %% episode_id: Identifier of the ALOOP Episode object this event belongs to.
+    attributes :: map() | undefined %% attributes: Arbitrary named event attributes (the OCEL payload).
+}).
+
+-type aloop_workorder_issue() :: #aloop_workorder_issue{}.
+
+-spec new_aloop_workorder_issue(map()) -> {ok, aloop_workorder_issue()} | {error, {missing_field, atom()}}.
+new_aloop_workorder_issue(Map) ->
+    case maps:is_key(event_id, Map) of
+        false -> {error, {missing_field, event_id}};
+        true ->
+    case maps:is_key(event_time, Map) of
+        false -> {error, {missing_field, event_time}};
+        true ->
+    case maps:is_key(episode_id, Map) of
+        false -> {error, {missing_field, episode_id}};
+        true ->
+    {ok, #aloop_workorder_issue{
+        event_id = maps:get(event_id, Map, undefined),
+        event_time = maps:get(event_time, Map, undefined),
+        episode_id = maps:get(episode_id, Map, undefined),
+        attributes = maps:get(attributes, Map, undefined)
+    }}
+    end
     end
     end.
 

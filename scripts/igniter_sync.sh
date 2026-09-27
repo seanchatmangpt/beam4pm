@@ -23,6 +23,15 @@
 # reconciliation manifest at .ggen_igniter/manifest.json (repo root), and
 # step 0b writes the merged consumer+pack graph to tmp_probe/ontology_merged.ttl
 # (gitignored scratch, reproducible path).
+#
+# Sentinel name (fixed 2026-09-25, ALOOP-ZCODE-DOGFOOD-001 lane 9): the
+# bootstrap sentinel below MUST match the one lib/beam4pm_a2a_agent.ex
+# actually checks (/tmp/beam4pm-a2a-gate-bootstrap; renamed in 51a7f30f).
+# The old /tmp/beam4pm-a2a-igniter-bootstrap name is not read by the adapter,
+# so a standalone run of this script compiled the real agent against the
+# deleted domain and died in "`BeamPM.Ash.Domain` is not a Spark DSL module"
+# before any template rendered. Witnessed firing: three consecutive standalone
+# failures 2026-09-25, then green with the corrected name.
 set -euo pipefail
 
 PACK="${PACK:-vendor/ggen-marketplace/packs/beam4pm-process-model-pack}"
@@ -33,7 +42,7 @@ IGN="$PACK/igniter"
 # that generated domain before rebuilding it, so compile the adapter's explicit
 # bootstrap stub until the new domain has been generated and compiled.
 mkdir -p tmp_probe
-A2A_BOOTSTRAP_SENTINEL="/tmp/beam4pm-a2a-igniter-bootstrap"
+A2A_BOOTSTRAP_SENTINEL="/tmp/beam4pm-a2a-gate-bootstrap"
 touch "$A2A_BOOTSTRAP_SENTINEL"
 trap 'rm -f "$A2A_BOOTSTRAP_SENTINEL"' EXIT
 

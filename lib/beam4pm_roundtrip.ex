@@ -24,6 +24,36 @@ defmodule BeamPM.Roundtrip do
     :agent_assignment,
     :agent_capability_advertisement,
     :alignment_move,
+    :aloop_actuate,
+    :aloop_benchmark_run,
+    :aloop_candidate_admit,
+    :aloop_candidate_construct,
+    :aloop_checkpoint,
+    :aloop_commit,
+    :aloop_episode_start,
+    :aloop_episode_terminal,
+    :aloop_execution_crash,
+    :aloop_execution_start,
+    :aloop_failure_detect,
+    :aloop_falsifier_run,
+    :aloop_gap_detect,
+    :aloop_goal_blocked,
+    :aloop_goal_satisfied,
+    :aloop_merge,
+    :aloop_model_edge,
+    :aloop_object,
+    :aloop_observe,
+    :aloop_plan_select,
+    :aloop_provider_replace,
+    :aloop_provider_select,
+    :aloop_receipt_persist,
+    :aloop_reconcile,
+    :aloop_reobserve,
+    :aloop_replan,
+    :aloop_tool_admit,
+    :aloop_verify,
+    :aloop_worker_claim,
+    :aloop_workorder_issue,
     :annual_subscription,
     :anomaly_detection_observation,
     :anti_repeat_refusal,
@@ -934,6 +964,519 @@ defmodule BeamPM.Roundtrip do
     BeamPM.Types.AlignmentMove.new(%{
       move_type: :sample_atom,
       cost: 42
+    })
+  end
+
+  def sample(:aloop_actuate, :full) do
+    BeamPM.Types.AloopActuate.new(%{
+      event_id: "sample_event_id",
+      event_time: "2026-08-29T12:00:00.123456Z",
+      episode_id: "sample_episode_id",
+      attributes: %{"k" => "v"},
+      consequence: "sample_consequence"
+    })
+  end
+
+  def sample(:aloop_actuate, :minimal) do
+    BeamPM.Types.AloopActuate.new(%{
+      event_id: "sample_event_id",
+      event_time: "2026-08-29T12:00:00.123456Z",
+      episode_id: "sample_episode_id"
+    })
+  end
+
+  def sample(:aloop_benchmark_run, :full) do
+    BeamPM.Types.AloopBenchmarkRun.new(%{
+      event_id: "sample_event_id",
+      event_time: "2026-08-29T12:00:00.123456Z",
+      episode_id: "sample_episode_id",
+      attributes: %{"k" => "v"}
+    })
+  end
+
+  def sample(:aloop_benchmark_run, :minimal) do
+    BeamPM.Types.AloopBenchmarkRun.new(%{
+      event_id: "sample_event_id",
+      event_time: "2026-08-29T12:00:00.123456Z",
+      episode_id: "sample_episode_id"
+    })
+  end
+
+  def sample(:aloop_candidate_admit, :full) do
+    BeamPM.Types.AloopCandidateAdmit.new(%{
+      event_id: "sample_event_id",
+      event_time: "2026-08-29T12:00:00.123456Z",
+      episode_id: "sample_episode_id",
+      attributes: %{"k" => "v"}
+    })
+  end
+
+  def sample(:aloop_candidate_admit, :minimal) do
+    BeamPM.Types.AloopCandidateAdmit.new(%{
+      event_id: "sample_event_id",
+      event_time: "2026-08-29T12:00:00.123456Z",
+      episode_id: "sample_episode_id"
+    })
+  end
+
+  def sample(:aloop_candidate_construct, :full) do
+    BeamPM.Types.AloopCandidateConstruct.new(%{
+      event_id: "sample_event_id",
+      event_time: "2026-08-29T12:00:00.123456Z",
+      episode_id: "sample_episode_id",
+      attributes: %{"k" => "v"},
+      origin_authority: "sample_origin_authority"
+    })
+  end
+
+  def sample(:aloop_candidate_construct, :minimal) do
+    BeamPM.Types.AloopCandidateConstruct.new(%{
+      event_id: "sample_event_id",
+      event_time: "2026-08-29T12:00:00.123456Z",
+      episode_id: "sample_episode_id"
+    })
+  end
+
+  def sample(:aloop_checkpoint, :full) do
+    BeamPM.Types.AloopCheckpoint.new(%{
+      event_id: "sample_event_id",
+      event_time: "2026-08-29T12:00:00.123456Z",
+      episode_id: "sample_episode_id",
+      attributes: %{"k" => "v"}
+    })
+  end
+
+  def sample(:aloop_checkpoint, :minimal) do
+    BeamPM.Types.AloopCheckpoint.new(%{
+      event_id: "sample_event_id",
+      event_time: "2026-08-29T12:00:00.123456Z",
+      episode_id: "sample_episode_id"
+    })
+  end
+
+  def sample(:aloop_commit, :full) do
+    BeamPM.Types.AloopCommit.new(%{
+      event_id: "sample_event_id",
+      event_time: "2026-08-29T12:00:00.123456Z",
+      episode_id: "sample_episode_id",
+      attributes: %{"k" => "v"}
+    })
+  end
+
+  def sample(:aloop_commit, :minimal) do
+    BeamPM.Types.AloopCommit.new(%{
+      event_id: "sample_event_id",
+      event_time: "2026-08-29T12:00:00.123456Z",
+      episode_id: "sample_episode_id"
+    })
+  end
+
+  def sample(:aloop_episode_start, :full) do
+    BeamPM.Types.AloopEpisodeStart.new(%{
+      event_id: "sample_event_id",
+      event_time: "2026-08-29T12:00:00.123456Z",
+      episode_id: "sample_episode_id",
+      attributes: %{"k" => "v"}
+    })
+  end
+
+  def sample(:aloop_episode_start, :minimal) do
+    BeamPM.Types.AloopEpisodeStart.new(%{
+      event_id: "sample_event_id",
+      event_time: "2026-08-29T12:00:00.123456Z",
+      episode_id: "sample_episode_id"
+    })
+  end
+
+  def sample(:aloop_episode_terminal, :full) do
+    BeamPM.Types.AloopEpisodeTerminal.new(%{
+      event_id: "sample_event_id",
+      event_time: "2026-08-29T12:00:00.123456Z",
+      episode_id: "sample_episode_id",
+      attributes: %{"k" => "v"}
+    })
+  end
+
+  def sample(:aloop_episode_terminal, :minimal) do
+    BeamPM.Types.AloopEpisodeTerminal.new(%{
+      event_id: "sample_event_id",
+      event_time: "2026-08-29T12:00:00.123456Z",
+      episode_id: "sample_episode_id"
+    })
+  end
+
+  def sample(:aloop_execution_crash, :full) do
+    BeamPM.Types.AloopExecutionCrash.new(%{
+      event_id: "sample_event_id",
+      event_time: "2026-08-29T12:00:00.123456Z",
+      episode_id: "sample_episode_id",
+      attributes: %{"k" => "v"}
+    })
+  end
+
+  def sample(:aloop_execution_crash, :minimal) do
+    BeamPM.Types.AloopExecutionCrash.new(%{
+      event_id: "sample_event_id",
+      event_time: "2026-08-29T12:00:00.123456Z",
+      episode_id: "sample_episode_id"
+    })
+  end
+
+  def sample(:aloop_execution_start, :full) do
+    BeamPM.Types.AloopExecutionStart.new(%{
+      event_id: "sample_event_id",
+      event_time: "2026-08-29T12:00:00.123456Z",
+      episode_id: "sample_episode_id",
+      attributes: %{"k" => "v"}
+    })
+  end
+
+  def sample(:aloop_execution_start, :minimal) do
+    BeamPM.Types.AloopExecutionStart.new(%{
+      event_id: "sample_event_id",
+      event_time: "2026-08-29T12:00:00.123456Z",
+      episode_id: "sample_episode_id"
+    })
+  end
+
+  def sample(:aloop_failure_detect, :full) do
+    BeamPM.Types.AloopFailureDetect.new(%{
+      event_id: "sample_event_id",
+      event_time: "2026-08-29T12:00:00.123456Z",
+      episode_id: "sample_episode_id",
+      attributes: %{"k" => "v"}
+    })
+  end
+
+  def sample(:aloop_failure_detect, :minimal) do
+    BeamPM.Types.AloopFailureDetect.new(%{
+      event_id: "sample_event_id",
+      event_time: "2026-08-29T12:00:00.123456Z",
+      episode_id: "sample_episode_id"
+    })
+  end
+
+  def sample(:aloop_falsifier_run, :full) do
+    BeamPM.Types.AloopFalsifierRun.new(%{
+      event_id: "sample_event_id",
+      event_time: "2026-08-29T12:00:00.123456Z",
+      episode_id: "sample_episode_id",
+      attributes: %{"k" => "v"}
+    })
+  end
+
+  def sample(:aloop_falsifier_run, :minimal) do
+    BeamPM.Types.AloopFalsifierRun.new(%{
+      event_id: "sample_event_id",
+      event_time: "2026-08-29T12:00:00.123456Z",
+      episode_id: "sample_episode_id"
+    })
+  end
+
+  def sample(:aloop_gap_detect, :full) do
+    BeamPM.Types.AloopGapDetect.new(%{
+      event_id: "sample_event_id",
+      event_time: "2026-08-29T12:00:00.123456Z",
+      episode_id: "sample_episode_id",
+      attributes: %{"k" => "v"}
+    })
+  end
+
+  def sample(:aloop_gap_detect, :minimal) do
+    BeamPM.Types.AloopGapDetect.new(%{
+      event_id: "sample_event_id",
+      event_time: "2026-08-29T12:00:00.123456Z",
+      episode_id: "sample_episode_id"
+    })
+  end
+
+  def sample(:aloop_goal_blocked, :full) do
+    BeamPM.Types.AloopGoalBlocked.new(%{
+      event_id: "sample_event_id",
+      event_time: "2026-08-29T12:00:00.123456Z",
+      episode_id: "sample_episode_id",
+      attributes: %{"k" => "v"}
+    })
+  end
+
+  def sample(:aloop_goal_blocked, :minimal) do
+    BeamPM.Types.AloopGoalBlocked.new(%{
+      event_id: "sample_event_id",
+      event_time: "2026-08-29T12:00:00.123456Z",
+      episode_id: "sample_episode_id"
+    })
+  end
+
+  def sample(:aloop_goal_satisfied, :full) do
+    BeamPM.Types.AloopGoalSatisfied.new(%{
+      event_id: "sample_event_id",
+      event_time: "2026-08-29T12:00:00.123456Z",
+      episode_id: "sample_episode_id",
+      attributes: %{"k" => "v"}
+    })
+  end
+
+  def sample(:aloop_goal_satisfied, :minimal) do
+    BeamPM.Types.AloopGoalSatisfied.new(%{
+      event_id: "sample_event_id",
+      event_time: "2026-08-29T12:00:00.123456Z",
+      episode_id: "sample_episode_id"
+    })
+  end
+
+  def sample(:aloop_merge, :full) do
+    BeamPM.Types.AloopMerge.new(%{
+      event_id: "sample_event_id",
+      event_time: "2026-08-29T12:00:00.123456Z",
+      episode_id: "sample_episode_id",
+      attributes: %{"k" => "v"}
+    })
+  end
+
+  def sample(:aloop_merge, :minimal) do
+    BeamPM.Types.AloopMerge.new(%{
+      event_id: "sample_event_id",
+      event_time: "2026-08-29T12:00:00.123456Z",
+      episode_id: "sample_episode_id"
+    })
+  end
+
+  def sample(:aloop_model_edge, :full) do
+    BeamPM.Types.AloopModelEdge.new(%{
+      from_activity: "sample_from_activity",
+      to_activity: "sample_to_activity",
+      observed_count: 42
+    })
+  end
+
+  def sample(:aloop_model_edge, :minimal) do
+    BeamPM.Types.AloopModelEdge.new(%{
+      from_activity: "sample_from_activity",
+      to_activity: "sample_to_activity"
+    })
+  end
+
+  def sample(:aloop_object, :full) do
+    BeamPM.Types.AloopObject.new(%{
+      object_id: "sample_object_id",
+      object_type: "sample_object_type",
+      attributes: %{"k" => "v"}
+    })
+  end
+
+  def sample(:aloop_object, :minimal) do
+    BeamPM.Types.AloopObject.new(%{
+      object_id: "sample_object_id",
+      object_type: "sample_object_type"
+    })
+  end
+
+  def sample(:aloop_observe, :full) do
+    BeamPM.Types.AloopObserve.new(%{
+      event_id: "sample_event_id",
+      event_time: "2026-08-29T12:00:00.123456Z",
+      episode_id: "sample_episode_id",
+      attributes: %{"k" => "v"}
+    })
+  end
+
+  def sample(:aloop_observe, :minimal) do
+    BeamPM.Types.AloopObserve.new(%{
+      event_id: "sample_event_id",
+      event_time: "2026-08-29T12:00:00.123456Z",
+      episode_id: "sample_episode_id"
+    })
+  end
+
+  def sample(:aloop_plan_select, :full) do
+    BeamPM.Types.AloopPlanSelect.new(%{
+      event_id: "sample_event_id",
+      event_time: "2026-08-29T12:00:00.123456Z",
+      episode_id: "sample_episode_id",
+      attributes: %{"k" => "v"}
+    })
+  end
+
+  def sample(:aloop_plan_select, :minimal) do
+    BeamPM.Types.AloopPlanSelect.new(%{
+      event_id: "sample_event_id",
+      event_time: "2026-08-29T12:00:00.123456Z",
+      episode_id: "sample_episode_id"
+    })
+  end
+
+  def sample(:aloop_provider_replace, :full) do
+    BeamPM.Types.AloopProviderReplace.new(%{
+      event_id: "sample_event_id",
+      event_time: "2026-08-29T12:00:00.123456Z",
+      episode_id: "sample_episode_id",
+      attributes: %{"k" => "v"},
+      from_provider: "sample_from_provider",
+      to_provider: "sample_to_provider"
+    })
+  end
+
+  def sample(:aloop_provider_replace, :minimal) do
+    BeamPM.Types.AloopProviderReplace.new(%{
+      event_id: "sample_event_id",
+      event_time: "2026-08-29T12:00:00.123456Z",
+      episode_id: "sample_episode_id"
+    })
+  end
+
+  def sample(:aloop_provider_select, :full) do
+    BeamPM.Types.AloopProviderSelect.new(%{
+      event_id: "sample_event_id",
+      event_time: "2026-08-29T12:00:00.123456Z",
+      episode_id: "sample_episode_id",
+      attributes: %{"k" => "v"},
+      provider: "sample_provider"
+    })
+  end
+
+  def sample(:aloop_provider_select, :minimal) do
+    BeamPM.Types.AloopProviderSelect.new(%{
+      event_id: "sample_event_id",
+      event_time: "2026-08-29T12:00:00.123456Z",
+      episode_id: "sample_episode_id"
+    })
+  end
+
+  def sample(:aloop_receipt_persist, :full) do
+    BeamPM.Types.AloopReceiptPersist.new(%{
+      event_id: "sample_event_id",
+      event_time: "2026-08-29T12:00:00.123456Z",
+      episode_id: "sample_episode_id",
+      attributes: %{"k" => "v"},
+      receipt: "sample_receipt"
+    })
+  end
+
+  def sample(:aloop_receipt_persist, :minimal) do
+    BeamPM.Types.AloopReceiptPersist.new(%{
+      event_id: "sample_event_id",
+      event_time: "2026-08-29T12:00:00.123456Z",
+      episode_id: "sample_episode_id"
+    })
+  end
+
+  def sample(:aloop_reconcile, :full) do
+    BeamPM.Types.AloopReconcile.new(%{
+      event_id: "sample_event_id",
+      event_time: "2026-08-29T12:00:00.123456Z",
+      episode_id: "sample_episode_id",
+      attributes: %{"k" => "v"}
+    })
+  end
+
+  def sample(:aloop_reconcile, :minimal) do
+    BeamPM.Types.AloopReconcile.new(%{
+      event_id: "sample_event_id",
+      event_time: "2026-08-29T12:00:00.123456Z",
+      episode_id: "sample_episode_id"
+    })
+  end
+
+  def sample(:aloop_reobserve, :full) do
+    BeamPM.Types.AloopReobserve.new(%{
+      event_id: "sample_event_id",
+      event_time: "2026-08-29T12:00:00.123456Z",
+      episode_id: "sample_episode_id",
+      attributes: %{"k" => "v"}
+    })
+  end
+
+  def sample(:aloop_reobserve, :minimal) do
+    BeamPM.Types.AloopReobserve.new(%{
+      event_id: "sample_event_id",
+      event_time: "2026-08-29T12:00:00.123456Z",
+      episode_id: "sample_episode_id"
+    })
+  end
+
+  def sample(:aloop_replan, :full) do
+    BeamPM.Types.AloopReplan.new(%{
+      event_id: "sample_event_id",
+      event_time: "2026-08-29T12:00:00.123456Z",
+      episode_id: "sample_episode_id",
+      attributes: %{"k" => "v"}
+    })
+  end
+
+  def sample(:aloop_replan, :minimal) do
+    BeamPM.Types.AloopReplan.new(%{
+      event_id: "sample_event_id",
+      event_time: "2026-08-29T12:00:00.123456Z",
+      episode_id: "sample_episode_id"
+    })
+  end
+
+  def sample(:aloop_tool_admit, :full) do
+    BeamPM.Types.AloopToolAdmit.new(%{
+      event_id: "sample_event_id",
+      event_time: "2026-08-29T12:00:00.123456Z",
+      episode_id: "sample_episode_id",
+      attributes: %{"k" => "v"}
+    })
+  end
+
+  def sample(:aloop_tool_admit, :minimal) do
+    BeamPM.Types.AloopToolAdmit.new(%{
+      event_id: "sample_event_id",
+      event_time: "2026-08-29T12:00:00.123456Z",
+      episode_id: "sample_episode_id"
+    })
+  end
+
+  def sample(:aloop_verify, :full) do
+    BeamPM.Types.AloopVerify.new(%{
+      event_id: "sample_event_id",
+      event_time: "2026-08-29T12:00:00.123456Z",
+      episode_id: "sample_episode_id",
+      attributes: %{"k" => "v"}
+    })
+  end
+
+  def sample(:aloop_verify, :minimal) do
+    BeamPM.Types.AloopVerify.new(%{
+      event_id: "sample_event_id",
+      event_time: "2026-08-29T12:00:00.123456Z",
+      episode_id: "sample_episode_id"
+    })
+  end
+
+  def sample(:aloop_worker_claim, :full) do
+    BeamPM.Types.AloopWorkerClaim.new(%{
+      event_id: "sample_event_id",
+      event_time: "2026-08-29T12:00:00.123456Z",
+      episode_id: "sample_episode_id",
+      attributes: %{"k" => "v"},
+      worker: "sample_worker"
+    })
+  end
+
+  def sample(:aloop_worker_claim, :minimal) do
+    BeamPM.Types.AloopWorkerClaim.new(%{
+      event_id: "sample_event_id",
+      event_time: "2026-08-29T12:00:00.123456Z",
+      episode_id: "sample_episode_id"
+    })
+  end
+
+  def sample(:aloop_workorder_issue, :full) do
+    BeamPM.Types.AloopWorkorderIssue.new(%{
+      event_id: "sample_event_id",
+      event_time: "2026-08-29T12:00:00.123456Z",
+      episode_id: "sample_episode_id",
+      attributes: %{"k" => "v"}
+    })
+  end
+
+  def sample(:aloop_workorder_issue, :minimal) do
+    BeamPM.Types.AloopWorkorderIssue.new(%{
+      event_id: "sample_event_id",
+      event_time: "2026-08-29T12:00:00.123456Z",
+      episode_id: "sample_episode_id"
     })
   end
 

@@ -366,6 +366,776 @@
       ]
 
     },
+    "aloop_actuate": {
+      "type": "object",
+      "description": "ALOOP event class `actuate`: a DO: an actuation against the world; must be followed by receipt.persist.",
+      "properties": {
+        "event_id": {
+          "type": "string",
+          "description": "Unique event identifier."
+        },
+        "event_time": {
+          "type": "string",
+          "description": "ISO8601 timestamp the event occurred."
+        },
+        "episode_id": {
+          "type": "string",
+          "description": "Identifier of the ALOOP Episode object this event belongs to."
+        },
+        "attributes": {
+          "type": "object",
+          "description": "Arbitrary named event attributes (the OCEL payload)."
+        },
+        "consequence": {
+          "type": "string",
+          "description": "The consequence qualifier (ALOOP contract): the consequence identifier produced by this actuation."
+        }
+      },
+      "required": ["event_id", "event_time", "episode_id"
+      ]
+
+    },
+    "aloop_benchmark_run": {
+      "type": "object",
+      "description": "ALOOP event class `benchmark.run`: a benchmark runs.",
+      "properties": {
+        "event_id": {
+          "type": "string",
+          "description": "Unique event identifier."
+        },
+        "event_time": {
+          "type": "string",
+          "description": "ISO8601 timestamp the event occurred."
+        },
+        "episode_id": {
+          "type": "string",
+          "description": "Identifier of the ALOOP Episode object this event belongs to."
+        },
+        "attributes": {
+          "type": "object",
+          "description": "Arbitrary named event attributes (the OCEL payload)."
+        }
+      },
+      "required": ["event_id", "event_time", "episode_id"
+      ]
+
+    },
+    "aloop_candidate_admit": {
+      "type": "object",
+      "description": "ALOOP event class `candidate.admit`: a candidate passes admission.",
+      "properties": {
+        "event_id": {
+          "type": "string",
+          "description": "Unique event identifier."
+        },
+        "event_time": {
+          "type": "string",
+          "description": "ISO8601 timestamp the event occurred."
+        },
+        "episode_id": {
+          "type": "string",
+          "description": "Identifier of the ALOOP Episode object this event belongs to."
+        },
+        "attributes": {
+          "type": "object",
+          "description": "Arbitrary named event attributes (the OCEL payload)."
+        }
+      },
+      "required": ["event_id", "event_time", "episode_id"
+      ]
+
+    },
+    "aloop_candidate_construct": {
+      "type": "object",
+      "description": "ALOOP event class `candidate.construct`: a candidate is constructed.",
+      "properties": {
+        "event_id": {
+          "type": "string",
+          "description": "Unique event identifier."
+        },
+        "event_time": {
+          "type": "string",
+          "description": "ISO8601 timestamp the event occurred."
+        },
+        "episode_id": {
+          "type": "string",
+          "description": "Identifier of the ALOOP Episode object this event belongs to."
+        },
+        "attributes": {
+          "type": "object",
+          "description": "Arbitrary named event attributes (the OCEL payload)."
+        },
+        "origin_authority": {
+          "type": "string",
+          "description": "The origin authority qualifier (ALOOP contract): who constructed the candidate, e.g. autonomous or human. A human value makes the next directly-follows edge a human causal edge."
+        }
+      },
+      "required": ["event_id", "event_time", "episode_id"
+      ]
+
+    },
+    "aloop_checkpoint": {
+      "type": "object",
+      "description": "ALOOP event class `checkpoint`: an execution checkpoint.",
+      "properties": {
+        "event_id": {
+          "type": "string",
+          "description": "Unique event identifier."
+        },
+        "event_time": {
+          "type": "string",
+          "description": "ISO8601 timestamp the event occurred."
+        },
+        "episode_id": {
+          "type": "string",
+          "description": "Identifier of the ALOOP Episode object this event belongs to."
+        },
+        "attributes": {
+          "type": "object",
+          "description": "Arbitrary named event attributes (the OCEL payload)."
+        }
+      },
+      "required": ["event_id", "event_time", "episode_id"
+      ]
+
+    },
+    "aloop_commit": {
+      "type": "object",
+      "description": "ALOOP event class `commit`: work is committed.",
+      "properties": {
+        "event_id": {
+          "type": "string",
+          "description": "Unique event identifier."
+        },
+        "event_time": {
+          "type": "string",
+          "description": "ISO8601 timestamp the event occurred."
+        },
+        "episode_id": {
+          "type": "string",
+          "description": "Identifier of the ALOOP Episode object this event belongs to."
+        },
+        "attributes": {
+          "type": "object",
+          "description": "Arbitrary named event attributes (the OCEL payload)."
+        }
+      },
+      "required": ["event_id", "event_time", "episode_id"
+      ]
+
+    },
+    "aloop_episode_start": {
+      "type": "object",
+      "description": "ALOOP event class `episode.start`: opens an autonomous episode.",
+      "properties": {
+        "event_id": {
+          "type": "string",
+          "description": "Unique event identifier."
+        },
+        "event_time": {
+          "type": "string",
+          "description": "ISO8601 timestamp the event occurred."
+        },
+        "episode_id": {
+          "type": "string",
+          "description": "Identifier of the ALOOP Episode object this event belongs to."
+        },
+        "attributes": {
+          "type": "object",
+          "description": "Arbitrary named event attributes (the OCEL payload)."
+        }
+      },
+      "required": ["event_id", "event_time", "episode_id"
+      ]
+
+    },
+    "aloop_episode_terminal": {
+      "type": "object",
+      "description": "ALOOP event class `episode.terminal`: the episode reaches a terminal state.",
+      "properties": {
+        "event_id": {
+          "type": "string",
+          "description": "Unique event identifier."
+        },
+        "event_time": {
+          "type": "string",
+          "description": "ISO8601 timestamp the event occurred."
+        },
+        "episode_id": {
+          "type": "string",
+          "description": "Identifier of the ALOOP Episode object this event belongs to."
+        },
+        "attributes": {
+          "type": "object",
+          "description": "Arbitrary named event attributes (the OCEL payload)."
+        }
+      },
+      "required": ["event_id", "event_time", "episode_id"
+      ]
+
+    },
+    "aloop_execution_crash": {
+      "type": "object",
+      "description": "ALOOP event class `execution.crash`: execution crashed.",
+      "properties": {
+        "event_id": {
+          "type": "string",
+          "description": "Unique event identifier."
+        },
+        "event_time": {
+          "type": "string",
+          "description": "ISO8601 timestamp the event occurred."
+        },
+        "episode_id": {
+          "type": "string",
+          "description": "Identifier of the ALOOP Episode object this event belongs to."
+        },
+        "attributes": {
+          "type": "object",
+          "description": "Arbitrary named event attributes (the OCEL payload)."
+        }
+      },
+      "required": ["event_id", "event_time", "episode_id"
+      ]
+
+    },
+    "aloop_execution_start": {
+      "type": "object",
+      "description": "ALOOP event class `execution.start`: execution begins.",
+      "properties": {
+        "event_id": {
+          "type": "string",
+          "description": "Unique event identifier."
+        },
+        "event_time": {
+          "type": "string",
+          "description": "ISO8601 timestamp the event occurred."
+        },
+        "episode_id": {
+          "type": "string",
+          "description": "Identifier of the ALOOP Episode object this event belongs to."
+        },
+        "attributes": {
+          "type": "object",
+          "description": "Arbitrary named event attributes (the OCEL payload)."
+        }
+      },
+      "required": ["event_id", "event_time", "episode_id"
+      ]
+
+    },
+    "aloop_failure_detect": {
+      "type": "object",
+      "description": "ALOOP event class `failure.detect`: a failure is detected.",
+      "properties": {
+        "event_id": {
+          "type": "string",
+          "description": "Unique event identifier."
+        },
+        "event_time": {
+          "type": "string",
+          "description": "ISO8601 timestamp the event occurred."
+        },
+        "episode_id": {
+          "type": "string",
+          "description": "Identifier of the ALOOP Episode object this event belongs to."
+        },
+        "attributes": {
+          "type": "object",
+          "description": "Arbitrary named event attributes (the OCEL payload)."
+        }
+      },
+      "required": ["event_id", "event_time", "episode_id"
+      ]
+
+    },
+    "aloop_falsifier_run": {
+      "type": "object",
+      "description": "ALOOP event class `falsifier.run`: a falsifier runs against a claim.",
+      "properties": {
+        "event_id": {
+          "type": "string",
+          "description": "Unique event identifier."
+        },
+        "event_time": {
+          "type": "string",
+          "description": "ISO8601 timestamp the event occurred."
+        },
+        "episode_id": {
+          "type": "string",
+          "description": "Identifier of the ALOOP Episode object this event belongs to."
+        },
+        "attributes": {
+          "type": "object",
+          "description": "Arbitrary named event attributes (the OCEL payload)."
+        }
+      },
+      "required": ["event_id", "event_time", "episode_id"
+      ]
+
+    },
+    "aloop_gap_detect": {
+      "type": "object",
+      "description": "ALOOP event class `gap.detect`: a gap between goal and observation; each occurrence is one loop iteration.",
+      "properties": {
+        "event_id": {
+          "type": "string",
+          "description": "Unique event identifier."
+        },
+        "event_time": {
+          "type": "string",
+          "description": "ISO8601 timestamp the event occurred."
+        },
+        "episode_id": {
+          "type": "string",
+          "description": "Identifier of the ALOOP Episode object this event belongs to."
+        },
+        "attributes": {
+          "type": "object",
+          "description": "Arbitrary named event attributes (the OCEL payload)."
+        }
+      },
+      "required": ["event_id", "event_time", "episode_id"
+      ]
+
+    },
+    "aloop_goal_blocked": {
+      "type": "object",
+      "description": "ALOOP event class `goal.blocked`: the episode goal is blocked.",
+      "properties": {
+        "event_id": {
+          "type": "string",
+          "description": "Unique event identifier."
+        },
+        "event_time": {
+          "type": "string",
+          "description": "ISO8601 timestamp the event occurred."
+        },
+        "episode_id": {
+          "type": "string",
+          "description": "Identifier of the ALOOP Episode object this event belongs to."
+        },
+        "attributes": {
+          "type": "object",
+          "description": "Arbitrary named event attributes (the OCEL payload)."
+        }
+      },
+      "required": ["event_id", "event_time", "episode_id"
+      ]
+
+    },
+    "aloop_goal_satisfied": {
+      "type": "object",
+      "description": "ALOOP event class `goal.satisfied`: the episode goal is satisfied.",
+      "properties": {
+        "event_id": {
+          "type": "string",
+          "description": "Unique event identifier."
+        },
+        "event_time": {
+          "type": "string",
+          "description": "ISO8601 timestamp the event occurred."
+        },
+        "episode_id": {
+          "type": "string",
+          "description": "Identifier of the ALOOP Episode object this event belongs to."
+        },
+        "attributes": {
+          "type": "object",
+          "description": "Arbitrary named event attributes (the OCEL payload)."
+        }
+      },
+      "required": ["event_id", "event_time", "episode_id"
+      ]
+
+    },
+    "aloop_merge": {
+      "type": "object",
+      "description": "ALOOP event class `merge`: branches are merged.",
+      "properties": {
+        "event_id": {
+          "type": "string",
+          "description": "Unique event identifier."
+        },
+        "event_time": {
+          "type": "string",
+          "description": "ISO8601 timestamp the event occurred."
+        },
+        "episode_id": {
+          "type": "string",
+          "description": "Identifier of the ALOOP Episode object this event belongs to."
+        },
+        "attributes": {
+          "type": "object",
+          "description": "Arbitrary named event attributes (the OCEL payload)."
+        }
+      },
+      "required": ["event_id", "event_time", "episode_id"
+      ]
+
+    },
+    "aloop_model_edge": {
+      "type": "object",
+      "description": "One admitted directly-follows edge of the ALOOP model (from_activity -> to_activity), frequency-annotated when projected from an observed log.",
+      "properties": {
+        "from_activity": {
+          "type": "string",
+          "description": "The source ALOOP event class name."
+        },
+        "to_activity": {
+          "type": "string",
+          "description": "The target ALOOP event class name."
+        },
+        "observed_count": {
+          "type": "integer",
+          "description": "How often the edge was observed in a log (absent for a pure model edge)."
+        }
+      },
+      "required": ["from_activity", "to_activity"
+      ]
+
+    },
+    "aloop_object": {
+      "type": "object",
+      "description": "An ALOOP OCEL object. The bpm:object_type attribute admits exactly the 19 ALOOP object types: Episode, Objective, Requirement, WorkOrder, Authority, Repository, Subject, Provider, Worker, WorkerRun, Plan, Capability, Candidate, Consequence, Evidence, Receipt, Failure, Benchmark, Release.",
+      "properties": {
+        "object_id": {
+          "type": "string",
+          "description": "Unique object identifier."
+        },
+        "object_type": {
+          "type": "string",
+          "description": "One of the 19 admitted ALOOP object type names (see recordDoc)."
+        },
+        "attributes": {
+          "type": "object",
+          "description": "Named current attribute values."
+        }
+      },
+      "required": ["object_id", "object_type"
+      ]
+
+    },
+    "aloop_observe": {
+      "type": "object",
+      "description": "ALOOP event class `observe`: an observation of the world entering the loop.",
+      "properties": {
+        "event_id": {
+          "type": "string",
+          "description": "Unique event identifier."
+        },
+        "event_time": {
+          "type": "string",
+          "description": "ISO8601 timestamp the event occurred."
+        },
+        "episode_id": {
+          "type": "string",
+          "description": "Identifier of the ALOOP Episode object this event belongs to."
+        },
+        "attributes": {
+          "type": "object",
+          "description": "Arbitrary named event attributes (the OCEL payload)."
+        }
+      },
+      "required": ["event_id", "event_time", "episode_id"
+      ]
+
+    },
+    "aloop_plan_select": {
+      "type": "object",
+      "description": "ALOOP event class `plan.select`: a plan is selected.",
+      "properties": {
+        "event_id": {
+          "type": "string",
+          "description": "Unique event identifier."
+        },
+        "event_time": {
+          "type": "string",
+          "description": "ISO8601 timestamp the event occurred."
+        },
+        "episode_id": {
+          "type": "string",
+          "description": "Identifier of the ALOOP Episode object this event belongs to."
+        },
+        "attributes": {
+          "type": "object",
+          "description": "Arbitrary named event attributes (the OCEL payload)."
+        }
+      },
+      "required": ["event_id", "event_time", "episode_id"
+      ]
+
+    },
+    "aloop_provider_replace": {
+      "type": "object",
+      "description": "ALOOP event class `provider.replace`: one provider replaces another mid-episode.",
+      "properties": {
+        "event_id": {
+          "type": "string",
+          "description": "Unique event identifier."
+        },
+        "event_time": {
+          "type": "string",
+          "description": "ISO8601 timestamp the event occurred."
+        },
+        "episode_id": {
+          "type": "string",
+          "description": "Identifier of the ALOOP Episode object this event belongs to."
+        },
+        "attributes": {
+          "type": "object",
+          "description": "Arbitrary named event attributes (the OCEL payload)."
+        },
+        "from_provider": {
+          "type": "string",
+          "description": "The provider being replaced."
+        },
+        "to_provider": {
+          "type": "string",
+          "description": "The replacement provider."
+        }
+      },
+      "required": ["event_id", "event_time", "episode_id"
+      ]
+
+    },
+    "aloop_provider_select": {
+      "type": "object",
+      "description": "ALOOP event class `provider.select`: a provider is selected.",
+      "properties": {
+        "event_id": {
+          "type": "string",
+          "description": "Unique event identifier."
+        },
+        "event_time": {
+          "type": "string",
+          "description": "ISO8601 timestamp the event occurred."
+        },
+        "episode_id": {
+          "type": "string",
+          "description": "Identifier of the ALOOP Episode object this event belongs to."
+        },
+        "attributes": {
+          "type": "object",
+          "description": "Arbitrary named event attributes (the OCEL payload)."
+        },
+        "provider": {
+          "type": "string",
+          "description": "The provider qualifier (ALOOP contract): the selected provider identifier."
+        }
+      },
+      "required": ["event_id", "event_time", "episode_id"
+      ]
+
+    },
+    "aloop_receipt_persist": {
+      "type": "object",
+      "description": "ALOOP event class `receipt.persist`: an execution receipt is persisted.",
+      "properties": {
+        "event_id": {
+          "type": "string",
+          "description": "Unique event identifier."
+        },
+        "event_time": {
+          "type": "string",
+          "description": "ISO8601 timestamp the event occurred."
+        },
+        "episode_id": {
+          "type": "string",
+          "description": "Identifier of the ALOOP Episode object this event belongs to."
+        },
+        "attributes": {
+          "type": "object",
+          "description": "Arbitrary named event attributes (the OCEL payload)."
+        },
+        "receipt": {
+          "type": "string",
+          "description": "The receipt qualifier (ALOOP contract): the persisted receipt identifier."
+        }
+      },
+      "required": ["event_id", "event_time", "episode_id"
+      ]
+
+    },
+    "aloop_reconcile": {
+      "type": "object",
+      "description": "ALOOP event class `reconcile`: state is reconciled.",
+      "properties": {
+        "event_id": {
+          "type": "string",
+          "description": "Unique event identifier."
+        },
+        "event_time": {
+          "type": "string",
+          "description": "ISO8601 timestamp the event occurred."
+        },
+        "episode_id": {
+          "type": "string",
+          "description": "Identifier of the ALOOP Episode object this event belongs to."
+        },
+        "attributes": {
+          "type": "object",
+          "description": "Arbitrary named event attributes (the OCEL payload)."
+        }
+      },
+      "required": ["event_id", "event_time", "episode_id"
+      ]
+
+    },
+    "aloop_reobserve": {
+      "type": "object",
+      "description": "ALOOP event class `reobserve`: the world is re-observed after actuation.",
+      "properties": {
+        "event_id": {
+          "type": "string",
+          "description": "Unique event identifier."
+        },
+        "event_time": {
+          "type": "string",
+          "description": "ISO8601 timestamp the event occurred."
+        },
+        "episode_id": {
+          "type": "string",
+          "description": "Identifier of the ALOOP Episode object this event belongs to."
+        },
+        "attributes": {
+          "type": "object",
+          "description": "Arbitrary named event attributes (the OCEL payload)."
+        }
+      },
+      "required": ["event_id", "event_time", "episode_id"
+      ]
+
+    },
+    "aloop_replan": {
+      "type": "object",
+      "description": "ALOOP event class `replan`: the plan is replaced.",
+      "properties": {
+        "event_id": {
+          "type": "string",
+          "description": "Unique event identifier."
+        },
+        "event_time": {
+          "type": "string",
+          "description": "ISO8601 timestamp the event occurred."
+        },
+        "episode_id": {
+          "type": "string",
+          "description": "Identifier of the ALOOP Episode object this event belongs to."
+        },
+        "attributes": {
+          "type": "object",
+          "description": "Arbitrary named event attributes (the OCEL payload)."
+        }
+      },
+      "required": ["event_id", "event_time", "episode_id"
+      ]
+
+    },
+    "aloop_tool_admit": {
+      "type": "object",
+      "description": "ALOOP event class `tool.admit`: a tool is admitted for use.",
+      "properties": {
+        "event_id": {
+          "type": "string",
+          "description": "Unique event identifier."
+        },
+        "event_time": {
+          "type": "string",
+          "description": "ISO8601 timestamp the event occurred."
+        },
+        "episode_id": {
+          "type": "string",
+          "description": "Identifier of the ALOOP Episode object this event belongs to."
+        },
+        "attributes": {
+          "type": "object",
+          "description": "Arbitrary named event attributes (the OCEL payload)."
+        }
+      },
+      "required": ["event_id", "event_time", "episode_id"
+      ]
+
+    },
+    "aloop_verify": {
+      "type": "object",
+      "description": "ALOOP event class `verify`: a verification runs.",
+      "properties": {
+        "event_id": {
+          "type": "string",
+          "description": "Unique event identifier."
+        },
+        "event_time": {
+          "type": "string",
+          "description": "ISO8601 timestamp the event occurred."
+        },
+        "episode_id": {
+          "type": "string",
+          "description": "Identifier of the ALOOP Episode object this event belongs to."
+        },
+        "attributes": {
+          "type": "object",
+          "description": "Arbitrary named event attributes (the OCEL payload)."
+        }
+      },
+      "required": ["event_id", "event_time", "episode_id"
+      ]
+
+    },
+    "aloop_worker_claim": {
+      "type": "object",
+      "description": "ALOOP event class `worker.claim`: a worker claims the work order.",
+      "properties": {
+        "event_id": {
+          "type": "string",
+          "description": "Unique event identifier."
+        },
+        "event_time": {
+          "type": "string",
+          "description": "ISO8601 timestamp the event occurred."
+        },
+        "episode_id": {
+          "type": "string",
+          "description": "Identifier of the ALOOP Episode object this event belongs to."
+        },
+        "attributes": {
+          "type": "object",
+          "description": "Arbitrary named event attributes (the OCEL payload)."
+        },
+        "worker": {
+          "type": "string",
+          "description": "The worker qualifier (ALOOP contract): the claiming worker identifier."
+        }
+      },
+      "required": ["event_id", "event_time", "episode_id"
+      ]
+
+    },
+    "aloop_workorder_issue": {
+      "type": "object",
+      "description": "ALOOP event class `workorder.issue`: a work order is issued.",
+      "properties": {
+        "event_id": {
+          "type": "string",
+          "description": "Unique event identifier."
+        },
+        "event_time": {
+          "type": "string",
+          "description": "ISO8601 timestamp the event occurred."
+        },
+        "episode_id": {
+          "type": "string",
+          "description": "Identifier of the ALOOP Episode object this event belongs to."
+        },
+        "attributes": {
+          "type": "object",
+          "description": "Arbitrary named event attributes (the OCEL payload)."
+        }
+      },
+      "required": ["event_id", "event_time", "episode_id"
+      ]
+
+    },
     "annual_subscription": {
       "type": "object",
       "description": "Annual package binding SKU, seats, and renewal date.",

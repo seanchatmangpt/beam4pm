@@ -1,0 +1,43 @@
+{
+  "objects": [
+    { "object_id": "m1", "object_type": "meeting", "attributes": {}, "relationships": [] }
+  ],
+  "events": [
+    {
+      "event_id": "ing-e1",
+      "event_type": "open",
+      "event_time": "2026-01-03T10:00:00+00:00",
+      "attributes": { "authorized": true },
+      "relationships": [
+        { "qualifier": "meeting", "object_id": "m1" }
+      ]
+    },
+    {
+      "event_id": "ing-e2",
+      "event_type": "plan",
+      "event_time": "2026-01-03T10:05:00+00:00",
+      "attributes": {},
+      "relationships": [
+        { "qualifier": "meeting", "object_id": "m1" }
+      ]
+    },
+    {
+      "event_id": "ing-e3",
+      "event_type": "review",
+      "event_time": "2026-01-03T10:10:00+00:00",
+      "attributes": { "duration_ms": 42 },
+      "relationships": [
+        { "qualifier": "meeting", "object_id": "m1" }
+      ]
+    },
+    {
+      "event_id": "ing-e4",
+      "event_type": "close",
+      "event_time": "2026-01-03T10:15:00+00:00",
+      "attributes": {},
+      "relationships": [
+        { "qualifier": "meeting", "object_id": "m1" }
+      ]
+    }
+  ]
+}

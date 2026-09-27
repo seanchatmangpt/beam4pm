@@ -3,6 +3,18 @@ name = "beam4pm"
 
 [ontology]
 source = "ontology.ttl"
+# Import closure (lane W9, 2026-09-25): vendor public vocabularies + the
+# post-LLM runtime contract ontology. Paths repo-root-relative, matching
+# the wasm4pm exemplar convention. Files verified present; ggen sync runs
+# at integration by the coordinator.
+imports = [
+  "vendor/ggen-marketplace/ontologies/public/prov-o.ttl",
+  "vendor/ggen-marketplace/ontologies/public/org.ttl",
+  "vendor/ggen-marketplace/ontologies/public/owl-time.ttl",
+  "vendor/ggen-marketplace/ontologies/public/sosa.ttl",
+  "vendor/ggen-marketplace/ontologies/public/ssn.ttl",
+  "contracts/post-llm-runtime/ontology.ttl",
+]
 
 [packs]
 beam4pm-process-model = { path = "vendor/ggen-marketplace/packs/beam4pm-process-model-pack" }
