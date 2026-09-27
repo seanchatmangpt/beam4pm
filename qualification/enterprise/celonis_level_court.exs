@@ -178,7 +178,11 @@ defmodule BeamPM.Qualification.EnterpriseCelonisCourt do
             "replan_trigger" => Atom.to_string(repair.trigger),
             "conformance_evidence_digest" => repair.evidence_digest,
             "replan_trigger_hash" => repair.dynamic_replan_trigger.trigger_hash,
-            "plan_lineage_hash" => get_in(repair, [:plan_lineage, :lineage_hash]),
+            "plan_lineage_hash" =>
+              case repair.plan_lineage do
+                %{lineage_hash: hash} -> hash
+                _ -> nil
+              end,
             "plan_memory_hash" => repair.plan_memory.memory_hash,
             "repaired_trace" => repaired_trace,
             "repaired_alignment_cost" => after_repair.alignment["cost"],
