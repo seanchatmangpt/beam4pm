@@ -118,7 +118,7 @@ defmodule BeamPM.Qualification.EnterpriseCelonisCourt do
         ensure!(repair.authority_ceiling == :select, "planning crossed the SELECT/DO boundary")
         ensure!(repair.plan["solved"] == true, "replanned candidate is unsolved")
         ensure!(repair.dynamic_replan_trigger != nil, "replan emitted no trigger evidence")
-        ensure!(repair.plan_lineage != nil, "replan emitted no plan lineage")
+        ensure!(repair.plan_memory != nil, "replan emitted no plan memory evidence")
 
         repaired_chain = "enterprise-repaired"
         execute_planner_through_brce!(planner, repaired_chain, @reference_actions)
@@ -153,7 +153,7 @@ defmodule BeamPM.Qualification.EnterpriseCelonisCourt do
           "planner_candidate_crossed_brce" => true,
           "post_repair_conformance_zero_cost" => true,
           "receipt_chain_replay" => true,
-          "plan_lineage_emitted" => true
+          "plan_identity_evidence_emitted" => true
         }
 
         gaps =
@@ -178,7 +178,8 @@ defmodule BeamPM.Qualification.EnterpriseCelonisCourt do
             "replan_trigger" => Atom.to_string(repair.trigger),
             "conformance_evidence_digest" => repair.evidence_digest,
             "replan_trigger_hash" => repair.dynamic_replan_trigger.trigger_hash,
-            "plan_lineage_hash" => repair.plan_lineage.lineage_hash,
+            "plan_lineage_hash" => get_in(repair, [:plan_lineage, :lineage_hash]),
+            "plan_memory_hash" => repair.plan_memory.memory_hash,
             "repaired_trace" => repaired_trace,
             "repaired_alignment_cost" => after_repair.alignment["cost"],
             "deviant_receipt_chain" => deviant_chain_receipt,
