@@ -39,3 +39,6 @@ native/*/target/
 # committed; the .tf files themselves ARE ggen output and are committed)
 infra/**/.terraform/
 infra/**/.terraform.lock.hcl
+
+# SA2A gate bootstrap scratch (committed by accident in e80f0eb; never again)
+.beam4pm-a2a-gate-bootstrap

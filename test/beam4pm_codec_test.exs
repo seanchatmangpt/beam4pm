@@ -399,6 +399,764 @@ defmodule BeamPM.Codec.GeneratedTest do
     },
 
     %{
+      name: :aloop_actuate,
+      mod: BeamPM.Types.AloopActuate,
+      full_attrs: %{
+        event_id: "sample_event_id",
+        event_time: "2026-08-29T12:00:00.123456Z",
+        episode_id: "sample_episode_id",
+        attributes: %{"k" => "v"},
+        consequence: "sample_consequence"
+      },
+      expected_map: %{
+        "event_id" => "sample_event_id",
+        "event_time" => "2026-08-29T12:00:00.123456Z",
+        "episode_id" => "sample_episode_id",
+        "attributes" => %{"k" => "v"},
+        "consequence" => "sample_consequence"
+      },
+      req_attrs: %{
+        event_id: "sample_event_id",
+        event_time: "2026-08-29T12:00:00.123456Z",
+        episode_id: "sample_episode_id"
+      },
+      req_count: 3,
+      opt_field_names: ["attributes", "consequence"],
+      first_required: :event_id
+    },
+
+    %{
+      name: :aloop_benchmark_run,
+      mod: BeamPM.Types.AloopBenchmarkRun,
+      full_attrs: %{
+        event_id: "sample_event_id",
+        event_time: "2026-08-29T12:00:00.123456Z",
+        episode_id: "sample_episode_id",
+        attributes: %{"k" => "v"}
+      },
+      expected_map: %{
+        "event_id" => "sample_event_id",
+        "event_time" => "2026-08-29T12:00:00.123456Z",
+        "episode_id" => "sample_episode_id",
+        "attributes" => %{"k" => "v"}
+      },
+      req_attrs: %{
+        event_id: "sample_event_id",
+        event_time: "2026-08-29T12:00:00.123456Z",
+        episode_id: "sample_episode_id"
+      },
+      req_count: 3,
+      opt_field_names: ["attributes"],
+      first_required: :event_id
+    },
+
+    %{
+      name: :aloop_candidate_admit,
+      mod: BeamPM.Types.AloopCandidateAdmit,
+      full_attrs: %{
+        event_id: "sample_event_id",
+        event_time: "2026-08-29T12:00:00.123456Z",
+        episode_id: "sample_episode_id",
+        attributes: %{"k" => "v"}
+      },
+      expected_map: %{
+        "event_id" => "sample_event_id",
+        "event_time" => "2026-08-29T12:00:00.123456Z",
+        "episode_id" => "sample_episode_id",
+        "attributes" => %{"k" => "v"}
+      },
+      req_attrs: %{
+        event_id: "sample_event_id",
+        event_time: "2026-08-29T12:00:00.123456Z",
+        episode_id: "sample_episode_id"
+      },
+      req_count: 3,
+      opt_field_names: ["attributes"],
+      first_required: :event_id
+    },
+
+    %{
+      name: :aloop_candidate_construct,
+      mod: BeamPM.Types.AloopCandidateConstruct,
+      full_attrs: %{
+        event_id: "sample_event_id",
+        event_time: "2026-08-29T12:00:00.123456Z",
+        episode_id: "sample_episode_id",
+        attributes: %{"k" => "v"},
+        origin_authority: "sample_origin_authority"
+      },
+      expected_map: %{
+        "event_id" => "sample_event_id",
+        "event_time" => "2026-08-29T12:00:00.123456Z",
+        "episode_id" => "sample_episode_id",
+        "attributes" => %{"k" => "v"},
+        "origin_authority" => "sample_origin_authority"
+      },
+      req_attrs: %{
+        event_id: "sample_event_id",
+        event_time: "2026-08-29T12:00:00.123456Z",
+        episode_id: "sample_episode_id"
+      },
+      req_count: 3,
+      opt_field_names: ["attributes", "origin_authority"],
+      first_required: :event_id
+    },
+
+    %{
+      name: :aloop_checkpoint,
+      mod: BeamPM.Types.AloopCheckpoint,
+      full_attrs: %{
+        event_id: "sample_event_id",
+        event_time: "2026-08-29T12:00:00.123456Z",
+        episode_id: "sample_episode_id",
+        attributes: %{"k" => "v"}
+      },
+      expected_map: %{
+        "event_id" => "sample_event_id",
+        "event_time" => "2026-08-29T12:00:00.123456Z",
+        "episode_id" => "sample_episode_id",
+        "attributes" => %{"k" => "v"}
+      },
+      req_attrs: %{
+        event_id: "sample_event_id",
+        event_time: "2026-08-29T12:00:00.123456Z",
+        episode_id: "sample_episode_id"
+      },
+      req_count: 3,
+      opt_field_names: ["attributes"],
+      first_required: :event_id
+    },
+
+    %{
+      name: :aloop_commit,
+      mod: BeamPM.Types.AloopCommit,
+      full_attrs: %{
+        event_id: "sample_event_id",
+        event_time: "2026-08-29T12:00:00.123456Z",
+        episode_id: "sample_episode_id",
+        attributes: %{"k" => "v"}
+      },
+      expected_map: %{
+        "event_id" => "sample_event_id",
+        "event_time" => "2026-08-29T12:00:00.123456Z",
+        "episode_id" => "sample_episode_id",
+        "attributes" => %{"k" => "v"}
+      },
+      req_attrs: %{
+        event_id: "sample_event_id",
+        event_time: "2026-08-29T12:00:00.123456Z",
+        episode_id: "sample_episode_id"
+      },
+      req_count: 3,
+      opt_field_names: ["attributes"],
+      first_required: :event_id
+    },
+
+    %{
+      name: :aloop_episode_start,
+      mod: BeamPM.Types.AloopEpisodeStart,
+      full_attrs: %{
+        event_id: "sample_event_id",
+        event_time: "2026-08-29T12:00:00.123456Z",
+        episode_id: "sample_episode_id",
+        attributes: %{"k" => "v"}
+      },
+      expected_map: %{
+        "event_id" => "sample_event_id",
+        "event_time" => "2026-08-29T12:00:00.123456Z",
+        "episode_id" => "sample_episode_id",
+        "attributes" => %{"k" => "v"}
+      },
+      req_attrs: %{
+        event_id: "sample_event_id",
+        event_time: "2026-08-29T12:00:00.123456Z",
+        episode_id: "sample_episode_id"
+      },
+      req_count: 3,
+      opt_field_names: ["attributes"],
+      first_required: :event_id
+    },
+
+    %{
+      name: :aloop_episode_terminal,
+      mod: BeamPM.Types.AloopEpisodeTerminal,
+      full_attrs: %{
+        event_id: "sample_event_id",
+        event_time: "2026-08-29T12:00:00.123456Z",
+        episode_id: "sample_episode_id",
+        attributes: %{"k" => "v"}
+      },
+      expected_map: %{
+        "event_id" => "sample_event_id",
+        "event_time" => "2026-08-29T12:00:00.123456Z",
+        "episode_id" => "sample_episode_id",
+        "attributes" => %{"k" => "v"}
+      },
+      req_attrs: %{
+        event_id: "sample_event_id",
+        event_time: "2026-08-29T12:00:00.123456Z",
+        episode_id: "sample_episode_id"
+      },
+      req_count: 3,
+      opt_field_names: ["attributes"],
+      first_required: :event_id
+    },
+
+    %{
+      name: :aloop_execution_crash,
+      mod: BeamPM.Types.AloopExecutionCrash,
+      full_attrs: %{
+        event_id: "sample_event_id",
+        event_time: "2026-08-29T12:00:00.123456Z",
+        episode_id: "sample_episode_id",
+        attributes: %{"k" => "v"}
+      },
+      expected_map: %{
+        "event_id" => "sample_event_id",
+        "event_time" => "2026-08-29T12:00:00.123456Z",
+        "episode_id" => "sample_episode_id",
+        "attributes" => %{"k" => "v"}
+      },
+      req_attrs: %{
+        event_id: "sample_event_id",
+        event_time: "2026-08-29T12:00:00.123456Z",
+        episode_id: "sample_episode_id"
+      },
+      req_count: 3,
+      opt_field_names: ["attributes"],
+      first_required: :event_id
+    },
+
+    %{
+      name: :aloop_execution_start,
+      mod: BeamPM.Types.AloopExecutionStart,
+      full_attrs: %{
+        event_id: "sample_event_id",
+        event_time: "2026-08-29T12:00:00.123456Z",
+        episode_id: "sample_episode_id",
+        attributes: %{"k" => "v"}
+      },
+      expected_map: %{
+        "event_id" => "sample_event_id",
+        "event_time" => "2026-08-29T12:00:00.123456Z",
+        "episode_id" => "sample_episode_id",
+        "attributes" => %{"k" => "v"}
+      },
+      req_attrs: %{
+        event_id: "sample_event_id",
+        event_time: "2026-08-29T12:00:00.123456Z",
+        episode_id: "sample_episode_id"
+      },
+      req_count: 3,
+      opt_field_names: ["attributes"],
+      first_required: :event_id
+    },
+
+    %{
+      name: :aloop_failure_detect,
+      mod: BeamPM.Types.AloopFailureDetect,
+      full_attrs: %{
+        event_id: "sample_event_id",
+        event_time: "2026-08-29T12:00:00.123456Z",
+        episode_id: "sample_episode_id",
+        attributes: %{"k" => "v"}
+      },
+      expected_map: %{
+        "event_id" => "sample_event_id",
+        "event_time" => "2026-08-29T12:00:00.123456Z",
+        "episode_id" => "sample_episode_id",
+        "attributes" => %{"k" => "v"}
+      },
+      req_attrs: %{
+        event_id: "sample_event_id",
+        event_time: "2026-08-29T12:00:00.123456Z",
+        episode_id: "sample_episode_id"
+      },
+      req_count: 3,
+      opt_field_names: ["attributes"],
+      first_required: :event_id
+    },
+
+    %{
+      name: :aloop_falsifier_run,
+      mod: BeamPM.Types.AloopFalsifierRun,
+      full_attrs: %{
+        event_id: "sample_event_id",
+        event_time: "2026-08-29T12:00:00.123456Z",
+        episode_id: "sample_episode_id",
+        attributes: %{"k" => "v"}
+      },
+      expected_map: %{
+        "event_id" => "sample_event_id",
+        "event_time" => "2026-08-29T12:00:00.123456Z",
+        "episode_id" => "sample_episode_id",
+        "attributes" => %{"k" => "v"}
+      },
+      req_attrs: %{
+        event_id: "sample_event_id",
+        event_time: "2026-08-29T12:00:00.123456Z",
+        episode_id: "sample_episode_id"
+      },
+      req_count: 3,
+      opt_field_names: ["attributes"],
+      first_required: :event_id
+    },
+
+    %{
+      name: :aloop_gap_detect,
+      mod: BeamPM.Types.AloopGapDetect,
+      full_attrs: %{
+        event_id: "sample_event_id",
+        event_time: "2026-08-29T12:00:00.123456Z",
+        episode_id: "sample_episode_id",
+        attributes: %{"k" => "v"}
+      },
+      expected_map: %{
+        "event_id" => "sample_event_id",
+        "event_time" => "2026-08-29T12:00:00.123456Z",
+        "episode_id" => "sample_episode_id",
+        "attributes" => %{"k" => "v"}
+      },
+      req_attrs: %{
+        event_id: "sample_event_id",
+        event_time: "2026-08-29T12:00:00.123456Z",
+        episode_id: "sample_episode_id"
+      },
+      req_count: 3,
+      opt_field_names: ["attributes"],
+      first_required: :event_id
+    },
+
+    %{
+      name: :aloop_goal_blocked,
+      mod: BeamPM.Types.AloopGoalBlocked,
+      full_attrs: %{
+        event_id: "sample_event_id",
+        event_time: "2026-08-29T12:00:00.123456Z",
+        episode_id: "sample_episode_id",
+        attributes: %{"k" => "v"}
+      },
+      expected_map: %{
+        "event_id" => "sample_event_id",
+        "event_time" => "2026-08-29T12:00:00.123456Z",
+        "episode_id" => "sample_episode_id",
+        "attributes" => %{"k" => "v"}
+      },
+      req_attrs: %{
+        event_id: "sample_event_id",
+        event_time: "2026-08-29T12:00:00.123456Z",
+        episode_id: "sample_episode_id"
+      },
+      req_count: 3,
+      opt_field_names: ["attributes"],
+      first_required: :event_id
+    },
+
+    %{
+      name: :aloop_goal_satisfied,
+      mod: BeamPM.Types.AloopGoalSatisfied,
+      full_attrs: %{
+        event_id: "sample_event_id",
+        event_time: "2026-08-29T12:00:00.123456Z",
+        episode_id: "sample_episode_id",
+        attributes: %{"k" => "v"}
+      },
+      expected_map: %{
+        "event_id" => "sample_event_id",
+        "event_time" => "2026-08-29T12:00:00.123456Z",
+        "episode_id" => "sample_episode_id",
+        "attributes" => %{"k" => "v"}
+      },
+      req_attrs: %{
+        event_id: "sample_event_id",
+        event_time: "2026-08-29T12:00:00.123456Z",
+        episode_id: "sample_episode_id"
+      },
+      req_count: 3,
+      opt_field_names: ["attributes"],
+      first_required: :event_id
+    },
+
+    %{
+      name: :aloop_merge,
+      mod: BeamPM.Types.AloopMerge,
+      full_attrs: %{
+        event_id: "sample_event_id",
+        event_time: "2026-08-29T12:00:00.123456Z",
+        episode_id: "sample_episode_id",
+        attributes: %{"k" => "v"}
+      },
+      expected_map: %{
+        "event_id" => "sample_event_id",
+        "event_time" => "2026-08-29T12:00:00.123456Z",
+        "episode_id" => "sample_episode_id",
+        "attributes" => %{"k" => "v"}
+      },
+      req_attrs: %{
+        event_id: "sample_event_id",
+        event_time: "2026-08-29T12:00:00.123456Z",
+        episode_id: "sample_episode_id"
+      },
+      req_count: 3,
+      opt_field_names: ["attributes"],
+      first_required: :event_id
+    },
+
+    %{
+      name: :aloop_model_edge,
+      mod: BeamPM.Types.AloopModelEdge,
+      full_attrs: %{
+        from_activity: "sample_from_activity",
+        to_activity: "sample_to_activity",
+        observed_count: 42
+      },
+      expected_map: %{
+        "from_activity" => "sample_from_activity",
+        "to_activity" => "sample_to_activity",
+        "observed_count" => 42
+      },
+      req_attrs: %{
+        from_activity: "sample_from_activity",
+        to_activity: "sample_to_activity"
+      },
+      req_count: 2,
+      opt_field_names: ["observed_count"],
+      first_required: :from_activity
+    },
+
+    %{
+      name: :aloop_object,
+      mod: BeamPM.Types.AloopObject,
+      full_attrs: %{
+        object_id: "sample_object_id",
+        object_type: "sample_object_type",
+        attributes: %{"k" => "v"}
+      },
+      expected_map: %{
+        "object_id" => "sample_object_id",
+        "object_type" => "sample_object_type",
+        "attributes" => %{"k" => "v"}
+      },
+      req_attrs: %{
+        object_id: "sample_object_id",
+        object_type: "sample_object_type"
+      },
+      req_count: 2,
+      opt_field_names: ["attributes"],
+      first_required: :object_id
+    },
+
+    %{
+      name: :aloop_observe,
+      mod: BeamPM.Types.AloopObserve,
+      full_attrs: %{
+        event_id: "sample_event_id",
+        event_time: "2026-08-29T12:00:00.123456Z",
+        episode_id: "sample_episode_id",
+        attributes: %{"k" => "v"}
+      },
+      expected_map: %{
+        "event_id" => "sample_event_id",
+        "event_time" => "2026-08-29T12:00:00.123456Z",
+        "episode_id" => "sample_episode_id",
+        "attributes" => %{"k" => "v"}
+      },
+      req_attrs: %{
+        event_id: "sample_event_id",
+        event_time: "2026-08-29T12:00:00.123456Z",
+        episode_id: "sample_episode_id"
+      },
+      req_count: 3,
+      opt_field_names: ["attributes"],
+      first_required: :event_id
+    },
+
+    %{
+      name: :aloop_plan_select,
+      mod: BeamPM.Types.AloopPlanSelect,
+      full_attrs: %{
+        event_id: "sample_event_id",
+        event_time: "2026-08-29T12:00:00.123456Z",
+        episode_id: "sample_episode_id",
+        attributes: %{"k" => "v"}
+      },
+      expected_map: %{
+        "event_id" => "sample_event_id",
+        "event_time" => "2026-08-29T12:00:00.123456Z",
+        "episode_id" => "sample_episode_id",
+        "attributes" => %{"k" => "v"}
+      },
+      req_attrs: %{
+        event_id: "sample_event_id",
+        event_time: "2026-08-29T12:00:00.123456Z",
+        episode_id: "sample_episode_id"
+      },
+      req_count: 3,
+      opt_field_names: ["attributes"],
+      first_required: :event_id
+    },
+
+    %{
+      name: :aloop_provider_replace,
+      mod: BeamPM.Types.AloopProviderReplace,
+      full_attrs: %{
+        event_id: "sample_event_id",
+        event_time: "2026-08-29T12:00:00.123456Z",
+        episode_id: "sample_episode_id",
+        attributes: %{"k" => "v"},
+        from_provider: "sample_from_provider",
+        to_provider: "sample_to_provider"
+      },
+      expected_map: %{
+        "event_id" => "sample_event_id",
+        "event_time" => "2026-08-29T12:00:00.123456Z",
+        "episode_id" => "sample_episode_id",
+        "attributes" => %{"k" => "v"},
+        "from_provider" => "sample_from_provider",
+        "to_provider" => "sample_to_provider"
+      },
+      req_attrs: %{
+        event_id: "sample_event_id",
+        event_time: "2026-08-29T12:00:00.123456Z",
+        episode_id: "sample_episode_id"
+      },
+      req_count: 3,
+      opt_field_names: ["attributes", "from_provider", "to_provider"],
+      first_required: :event_id
+    },
+
+    %{
+      name: :aloop_provider_select,
+      mod: BeamPM.Types.AloopProviderSelect,
+      full_attrs: %{
+        event_id: "sample_event_id",
+        event_time: "2026-08-29T12:00:00.123456Z",
+        episode_id: "sample_episode_id",
+        attributes: %{"k" => "v"},
+        provider: "sample_provider"
+      },
+      expected_map: %{
+        "event_id" => "sample_event_id",
+        "event_time" => "2026-08-29T12:00:00.123456Z",
+        "episode_id" => "sample_episode_id",
+        "attributes" => %{"k" => "v"},
+        "provider" => "sample_provider"
+      },
+      req_attrs: %{
+        event_id: "sample_event_id",
+        event_time: "2026-08-29T12:00:00.123456Z",
+        episode_id: "sample_episode_id"
+      },
+      req_count: 3,
+      opt_field_names: ["attributes", "provider"],
+      first_required: :event_id
+    },
+
+    %{
+      name: :aloop_receipt_persist,
+      mod: BeamPM.Types.AloopReceiptPersist,
+      full_attrs: %{
+        event_id: "sample_event_id",
+        event_time: "2026-08-29T12:00:00.123456Z",
+        episode_id: "sample_episode_id",
+        attributes: %{"k" => "v"},
+        receipt: "sample_receipt"
+      },
+      expected_map: %{
+        "event_id" => "sample_event_id",
+        "event_time" => "2026-08-29T12:00:00.123456Z",
+        "episode_id" => "sample_episode_id",
+        "attributes" => %{"k" => "v"},
+        "receipt" => "sample_receipt"
+      },
+      req_attrs: %{
+        event_id: "sample_event_id",
+        event_time: "2026-08-29T12:00:00.123456Z",
+        episode_id: "sample_episode_id"
+      },
+      req_count: 3,
+      opt_field_names: ["attributes", "receipt"],
+      first_required: :event_id
+    },
+
+    %{
+      name: :aloop_reconcile,
+      mod: BeamPM.Types.AloopReconcile,
+      full_attrs: %{
+        event_id: "sample_event_id",
+        event_time: "2026-08-29T12:00:00.123456Z",
+        episode_id: "sample_episode_id",
+        attributes: %{"k" => "v"}
+      },
+      expected_map: %{
+        "event_id" => "sample_event_id",
+        "event_time" => "2026-08-29T12:00:00.123456Z",
+        "episode_id" => "sample_episode_id",
+        "attributes" => %{"k" => "v"}
+      },
+      req_attrs: %{
+        event_id: "sample_event_id",
+        event_time: "2026-08-29T12:00:00.123456Z",
+        episode_id: "sample_episode_id"
+      },
+      req_count: 3,
+      opt_field_names: ["attributes"],
+      first_required: :event_id
+    },
+
+    %{
+      name: :aloop_reobserve,
+      mod: BeamPM.Types.AloopReobserve,
+      full_attrs: %{
+        event_id: "sample_event_id",
+        event_time: "2026-08-29T12:00:00.123456Z",
+        episode_id: "sample_episode_id",
+        attributes: %{"k" => "v"}
+      },
+      expected_map: %{
+        "event_id" => "sample_event_id",
+        "event_time" => "2026-08-29T12:00:00.123456Z",
+        "episode_id" => "sample_episode_id",
+        "attributes" => %{"k" => "v"}
+      },
+      req_attrs: %{
+        event_id: "sample_event_id",
+        event_time: "2026-08-29T12:00:00.123456Z",
+        episode_id: "sample_episode_id"
+      },
+      req_count: 3,
+      opt_field_names: ["attributes"],
+      first_required: :event_id
+    },
+
+    %{
+      name: :aloop_replan,
+      mod: BeamPM.Types.AloopReplan,
+      full_attrs: %{
+        event_id: "sample_event_id",
+        event_time: "2026-08-29T12:00:00.123456Z",
+        episode_id: "sample_episode_id",
+        attributes: %{"k" => "v"}
+      },
+      expected_map: %{
+        "event_id" => "sample_event_id",
+        "event_time" => "2026-08-29T12:00:00.123456Z",
+        "episode_id" => "sample_episode_id",
+        "attributes" => %{"k" => "v"}
+      },
+      req_attrs: %{
+        event_id: "sample_event_id",
+        event_time: "2026-08-29T12:00:00.123456Z",
+        episode_id: "sample_episode_id"
+      },
+      req_count: 3,
+      opt_field_names: ["attributes"],
+      first_required: :event_id
+    },
+
+    %{
+      name: :aloop_tool_admit,
+      mod: BeamPM.Types.AloopToolAdmit,
+      full_attrs: %{
+        event_id: "sample_event_id",
+        event_time: "2026-08-29T12:00:00.123456Z",
+        episode_id: "sample_episode_id",
+        attributes: %{"k" => "v"}
+      },
+      expected_map: %{
+        "event_id" => "sample_event_id",
+        "event_time" => "2026-08-29T12:00:00.123456Z",
+        "episode_id" => "sample_episode_id",
+        "attributes" => %{"k" => "v"}
+      },
+      req_attrs: %{
+        event_id: "sample_event_id",
+        event_time: "2026-08-29T12:00:00.123456Z",
+        episode_id: "sample_episode_id"
+      },
+      req_count: 3,
+      opt_field_names: ["attributes"],
+      first_required: :event_id
+    },
+
+    %{
+      name: :aloop_verify,
+      mod: BeamPM.Types.AloopVerify,
+      full_attrs: %{
+        event_id: "sample_event_id",
+        event_time: "2026-08-29T12:00:00.123456Z",
+        episode_id: "sample_episode_id",
+        attributes: %{"k" => "v"}
+      },
+      expected_map: %{
+        "event_id" => "sample_event_id",
+        "event_time" => "2026-08-29T12:00:00.123456Z",
+        "episode_id" => "sample_episode_id",
+        "attributes" => %{"k" => "v"}
+      },
+      req_attrs: %{
+        event_id: "sample_event_id",
+        event_time: "2026-08-29T12:00:00.123456Z",
+        episode_id: "sample_episode_id"
+      },
+      req_count: 3,
+      opt_field_names: ["attributes"],
+      first_required: :event_id
+    },
+
+    %{
+      name: :aloop_worker_claim,
+      mod: BeamPM.Types.AloopWorkerClaim,
+      full_attrs: %{
+        event_id: "sample_event_id",
+        event_time: "2026-08-29T12:00:00.123456Z",
+        episode_id: "sample_episode_id",
+        attributes: %{"k" => "v"},
+        worker: "sample_worker"
+      },
+      expected_map: %{
+        "event_id" => "sample_event_id",
+        "event_time" => "2026-08-29T12:00:00.123456Z",
+        "episode_id" => "sample_episode_id",
+        "attributes" => %{"k" => "v"},
+        "worker" => "sample_worker"
+      },
+      req_attrs: %{
+        event_id: "sample_event_id",
+        event_time: "2026-08-29T12:00:00.123456Z",
+        episode_id: "sample_episode_id"
+      },
+      req_count: 3,
+      opt_field_names: ["attributes", "worker"],
+      first_required: :event_id
+    },
+
+    %{
+      name: :aloop_workorder_issue,
+      mod: BeamPM.Types.AloopWorkorderIssue,
+      full_attrs: %{
+        event_id: "sample_event_id",
+        event_time: "2026-08-29T12:00:00.123456Z",
+        episode_id: "sample_episode_id",
+        attributes: %{"k" => "v"}
+      },
+      expected_map: %{
+        "event_id" => "sample_event_id",
+        "event_time" => "2026-08-29T12:00:00.123456Z",
+        "episode_id" => "sample_episode_id",
+        "attributes" => %{"k" => "v"}
+      },
+      req_attrs: %{
+        event_id: "sample_event_id",
+        event_time: "2026-08-29T12:00:00.123456Z",
+        episode_id: "sample_episode_id"
+      },
+      req_count: 3,
+      opt_field_names: ["attributes"],
+      first_required: :event_id
+    },
+
+    %{
       name: :annual_subscription,
       mod: BeamPM.Types.AnnualSubscription,
       full_attrs: %{

@@ -428,6 +428,861 @@ alignment_move_json_roundtrip_test() ->
     {ok, Rec2} = beam4pm_codec:decode(alignment_move, Json),
     ?assertEqual(Rec, Rec2).
 
+aloop_actuate_map_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_aloop_actuate(#{
+        event_id => <<"sample_event_id">>,
+        event_time => <<"2026-08-29T12:00:00.123456Z">>,
+        episode_id => <<"sample_episode_id">>,
+        attributes => #{<<"k">> => <<"v">>},
+        consequence => <<"sample_consequence">>
+    }),
+    Map = beam4pm_codec:to_map(Rec),
+    ?assertEqual(<<"sample_event_id">>, maps:get(<<"event_id">>, Map)),
+    ?assertEqual(<<"2026-08-29T12:00:00.123456Z">>, maps:get(<<"event_time">>, Map)),
+    ?assertEqual(<<"sample_episode_id">>, maps:get(<<"episode_id">>, Map)),
+    ?assertEqual(#{<<"k">> => <<"v">>}, maps:get(<<"attributes">>, Map)),
+    ?assertEqual(<<"sample_consequence">>, maps:get(<<"consequence">>, Map)),
+    {ok, Rec2} = beam4pm_codec:from_map(aloop_actuate,
+        Map#{<<"totally_unknown_key_zz">> => <<"dropped">>}),
+    ?assertEqual(Rec, Rec2).
+
+aloop_actuate_json_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_aloop_actuate(#{
+        event_id => <<"sample_event_id">>,
+        event_time => <<"2026-08-29T12:00:00.123456Z">>,
+        episode_id => <<"sample_episode_id">>,
+        attributes => #{<<"k">> => <<"v">>},
+        consequence => <<"sample_consequence">>
+    }),
+    Json = beam4pm_codec:encode(Rec),
+    ?assert(is_binary(Json)),
+    {ok, Rec2} = beam4pm_codec:decode(aloop_actuate, Json),
+    ?assertEqual(Rec, Rec2).
+
+aloop_benchmark_run_map_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_aloop_benchmark_run(#{
+        event_id => <<"sample_event_id">>,
+        event_time => <<"2026-08-29T12:00:00.123456Z">>,
+        episode_id => <<"sample_episode_id">>,
+        attributes => #{<<"k">> => <<"v">>}
+    }),
+    Map = beam4pm_codec:to_map(Rec),
+    ?assertEqual(<<"sample_event_id">>, maps:get(<<"event_id">>, Map)),
+    ?assertEqual(<<"2026-08-29T12:00:00.123456Z">>, maps:get(<<"event_time">>, Map)),
+    ?assertEqual(<<"sample_episode_id">>, maps:get(<<"episode_id">>, Map)),
+    ?assertEqual(#{<<"k">> => <<"v">>}, maps:get(<<"attributes">>, Map)),
+    {ok, Rec2} = beam4pm_codec:from_map(aloop_benchmark_run,
+        Map#{<<"totally_unknown_key_zz">> => <<"dropped">>}),
+    ?assertEqual(Rec, Rec2).
+
+aloop_benchmark_run_json_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_aloop_benchmark_run(#{
+        event_id => <<"sample_event_id">>,
+        event_time => <<"2026-08-29T12:00:00.123456Z">>,
+        episode_id => <<"sample_episode_id">>,
+        attributes => #{<<"k">> => <<"v">>}
+    }),
+    Json = beam4pm_codec:encode(Rec),
+    ?assert(is_binary(Json)),
+    {ok, Rec2} = beam4pm_codec:decode(aloop_benchmark_run, Json),
+    ?assertEqual(Rec, Rec2).
+
+aloop_candidate_admit_map_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_aloop_candidate_admit(#{
+        event_id => <<"sample_event_id">>,
+        event_time => <<"2026-08-29T12:00:00.123456Z">>,
+        episode_id => <<"sample_episode_id">>,
+        attributes => #{<<"k">> => <<"v">>}
+    }),
+    Map = beam4pm_codec:to_map(Rec),
+    ?assertEqual(<<"sample_event_id">>, maps:get(<<"event_id">>, Map)),
+    ?assertEqual(<<"2026-08-29T12:00:00.123456Z">>, maps:get(<<"event_time">>, Map)),
+    ?assertEqual(<<"sample_episode_id">>, maps:get(<<"episode_id">>, Map)),
+    ?assertEqual(#{<<"k">> => <<"v">>}, maps:get(<<"attributes">>, Map)),
+    {ok, Rec2} = beam4pm_codec:from_map(aloop_candidate_admit,
+        Map#{<<"totally_unknown_key_zz">> => <<"dropped">>}),
+    ?assertEqual(Rec, Rec2).
+
+aloop_candidate_admit_json_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_aloop_candidate_admit(#{
+        event_id => <<"sample_event_id">>,
+        event_time => <<"2026-08-29T12:00:00.123456Z">>,
+        episode_id => <<"sample_episode_id">>,
+        attributes => #{<<"k">> => <<"v">>}
+    }),
+    Json = beam4pm_codec:encode(Rec),
+    ?assert(is_binary(Json)),
+    {ok, Rec2} = beam4pm_codec:decode(aloop_candidate_admit, Json),
+    ?assertEqual(Rec, Rec2).
+
+aloop_candidate_construct_map_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_aloop_candidate_construct(#{
+        event_id => <<"sample_event_id">>,
+        event_time => <<"2026-08-29T12:00:00.123456Z">>,
+        episode_id => <<"sample_episode_id">>,
+        attributes => #{<<"k">> => <<"v">>},
+        origin_authority => <<"sample_origin_authority">>
+    }),
+    Map = beam4pm_codec:to_map(Rec),
+    ?assertEqual(<<"sample_event_id">>, maps:get(<<"event_id">>, Map)),
+    ?assertEqual(<<"2026-08-29T12:00:00.123456Z">>, maps:get(<<"event_time">>, Map)),
+    ?assertEqual(<<"sample_episode_id">>, maps:get(<<"episode_id">>, Map)),
+    ?assertEqual(#{<<"k">> => <<"v">>}, maps:get(<<"attributes">>, Map)),
+    ?assertEqual(<<"sample_origin_authority">>, maps:get(<<"origin_authority">>, Map)),
+    {ok, Rec2} = beam4pm_codec:from_map(aloop_candidate_construct,
+        Map#{<<"totally_unknown_key_zz">> => <<"dropped">>}),
+    ?assertEqual(Rec, Rec2).
+
+aloop_candidate_construct_json_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_aloop_candidate_construct(#{
+        event_id => <<"sample_event_id">>,
+        event_time => <<"2026-08-29T12:00:00.123456Z">>,
+        episode_id => <<"sample_episode_id">>,
+        attributes => #{<<"k">> => <<"v">>},
+        origin_authority => <<"sample_origin_authority">>
+    }),
+    Json = beam4pm_codec:encode(Rec),
+    ?assert(is_binary(Json)),
+    {ok, Rec2} = beam4pm_codec:decode(aloop_candidate_construct, Json),
+    ?assertEqual(Rec, Rec2).
+
+aloop_checkpoint_map_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_aloop_checkpoint(#{
+        event_id => <<"sample_event_id">>,
+        event_time => <<"2026-08-29T12:00:00.123456Z">>,
+        episode_id => <<"sample_episode_id">>,
+        attributes => #{<<"k">> => <<"v">>}
+    }),
+    Map = beam4pm_codec:to_map(Rec),
+    ?assertEqual(<<"sample_event_id">>, maps:get(<<"event_id">>, Map)),
+    ?assertEqual(<<"2026-08-29T12:00:00.123456Z">>, maps:get(<<"event_time">>, Map)),
+    ?assertEqual(<<"sample_episode_id">>, maps:get(<<"episode_id">>, Map)),
+    ?assertEqual(#{<<"k">> => <<"v">>}, maps:get(<<"attributes">>, Map)),
+    {ok, Rec2} = beam4pm_codec:from_map(aloop_checkpoint,
+        Map#{<<"totally_unknown_key_zz">> => <<"dropped">>}),
+    ?assertEqual(Rec, Rec2).
+
+aloop_checkpoint_json_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_aloop_checkpoint(#{
+        event_id => <<"sample_event_id">>,
+        event_time => <<"2026-08-29T12:00:00.123456Z">>,
+        episode_id => <<"sample_episode_id">>,
+        attributes => #{<<"k">> => <<"v">>}
+    }),
+    Json = beam4pm_codec:encode(Rec),
+    ?assert(is_binary(Json)),
+    {ok, Rec2} = beam4pm_codec:decode(aloop_checkpoint, Json),
+    ?assertEqual(Rec, Rec2).
+
+aloop_commit_map_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_aloop_commit(#{
+        event_id => <<"sample_event_id">>,
+        event_time => <<"2026-08-29T12:00:00.123456Z">>,
+        episode_id => <<"sample_episode_id">>,
+        attributes => #{<<"k">> => <<"v">>}
+    }),
+    Map = beam4pm_codec:to_map(Rec),
+    ?assertEqual(<<"sample_event_id">>, maps:get(<<"event_id">>, Map)),
+    ?assertEqual(<<"2026-08-29T12:00:00.123456Z">>, maps:get(<<"event_time">>, Map)),
+    ?assertEqual(<<"sample_episode_id">>, maps:get(<<"episode_id">>, Map)),
+    ?assertEqual(#{<<"k">> => <<"v">>}, maps:get(<<"attributes">>, Map)),
+    {ok, Rec2} = beam4pm_codec:from_map(aloop_commit,
+        Map#{<<"totally_unknown_key_zz">> => <<"dropped">>}),
+    ?assertEqual(Rec, Rec2).
+
+aloop_commit_json_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_aloop_commit(#{
+        event_id => <<"sample_event_id">>,
+        event_time => <<"2026-08-29T12:00:00.123456Z">>,
+        episode_id => <<"sample_episode_id">>,
+        attributes => #{<<"k">> => <<"v">>}
+    }),
+    Json = beam4pm_codec:encode(Rec),
+    ?assert(is_binary(Json)),
+    {ok, Rec2} = beam4pm_codec:decode(aloop_commit, Json),
+    ?assertEqual(Rec, Rec2).
+
+aloop_episode_start_map_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_aloop_episode_start(#{
+        event_id => <<"sample_event_id">>,
+        event_time => <<"2026-08-29T12:00:00.123456Z">>,
+        episode_id => <<"sample_episode_id">>,
+        attributes => #{<<"k">> => <<"v">>}
+    }),
+    Map = beam4pm_codec:to_map(Rec),
+    ?assertEqual(<<"sample_event_id">>, maps:get(<<"event_id">>, Map)),
+    ?assertEqual(<<"2026-08-29T12:00:00.123456Z">>, maps:get(<<"event_time">>, Map)),
+    ?assertEqual(<<"sample_episode_id">>, maps:get(<<"episode_id">>, Map)),
+    ?assertEqual(#{<<"k">> => <<"v">>}, maps:get(<<"attributes">>, Map)),
+    {ok, Rec2} = beam4pm_codec:from_map(aloop_episode_start,
+        Map#{<<"totally_unknown_key_zz">> => <<"dropped">>}),
+    ?assertEqual(Rec, Rec2).
+
+aloop_episode_start_json_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_aloop_episode_start(#{
+        event_id => <<"sample_event_id">>,
+        event_time => <<"2026-08-29T12:00:00.123456Z">>,
+        episode_id => <<"sample_episode_id">>,
+        attributes => #{<<"k">> => <<"v">>}
+    }),
+    Json = beam4pm_codec:encode(Rec),
+    ?assert(is_binary(Json)),
+    {ok, Rec2} = beam4pm_codec:decode(aloop_episode_start, Json),
+    ?assertEqual(Rec, Rec2).
+
+aloop_episode_terminal_map_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_aloop_episode_terminal(#{
+        event_id => <<"sample_event_id">>,
+        event_time => <<"2026-08-29T12:00:00.123456Z">>,
+        episode_id => <<"sample_episode_id">>,
+        attributes => #{<<"k">> => <<"v">>}
+    }),
+    Map = beam4pm_codec:to_map(Rec),
+    ?assertEqual(<<"sample_event_id">>, maps:get(<<"event_id">>, Map)),
+    ?assertEqual(<<"2026-08-29T12:00:00.123456Z">>, maps:get(<<"event_time">>, Map)),
+    ?assertEqual(<<"sample_episode_id">>, maps:get(<<"episode_id">>, Map)),
+    ?assertEqual(#{<<"k">> => <<"v">>}, maps:get(<<"attributes">>, Map)),
+    {ok, Rec2} = beam4pm_codec:from_map(aloop_episode_terminal,
+        Map#{<<"totally_unknown_key_zz">> => <<"dropped">>}),
+    ?assertEqual(Rec, Rec2).
+
+aloop_episode_terminal_json_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_aloop_episode_terminal(#{
+        event_id => <<"sample_event_id">>,
+        event_time => <<"2026-08-29T12:00:00.123456Z">>,
+        episode_id => <<"sample_episode_id">>,
+        attributes => #{<<"k">> => <<"v">>}
+    }),
+    Json = beam4pm_codec:encode(Rec),
+    ?assert(is_binary(Json)),
+    {ok, Rec2} = beam4pm_codec:decode(aloop_episode_terminal, Json),
+    ?assertEqual(Rec, Rec2).
+
+aloop_execution_crash_map_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_aloop_execution_crash(#{
+        event_id => <<"sample_event_id">>,
+        event_time => <<"2026-08-29T12:00:00.123456Z">>,
+        episode_id => <<"sample_episode_id">>,
+        attributes => #{<<"k">> => <<"v">>}
+    }),
+    Map = beam4pm_codec:to_map(Rec),
+    ?assertEqual(<<"sample_event_id">>, maps:get(<<"event_id">>, Map)),
+    ?assertEqual(<<"2026-08-29T12:00:00.123456Z">>, maps:get(<<"event_time">>, Map)),
+    ?assertEqual(<<"sample_episode_id">>, maps:get(<<"episode_id">>, Map)),
+    ?assertEqual(#{<<"k">> => <<"v">>}, maps:get(<<"attributes">>, Map)),
+    {ok, Rec2} = beam4pm_codec:from_map(aloop_execution_crash,
+        Map#{<<"totally_unknown_key_zz">> => <<"dropped">>}),
+    ?assertEqual(Rec, Rec2).
+
+aloop_execution_crash_json_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_aloop_execution_crash(#{
+        event_id => <<"sample_event_id">>,
+        event_time => <<"2026-08-29T12:00:00.123456Z">>,
+        episode_id => <<"sample_episode_id">>,
+        attributes => #{<<"k">> => <<"v">>}
+    }),
+    Json = beam4pm_codec:encode(Rec),
+    ?assert(is_binary(Json)),
+    {ok, Rec2} = beam4pm_codec:decode(aloop_execution_crash, Json),
+    ?assertEqual(Rec, Rec2).
+
+aloop_execution_start_map_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_aloop_execution_start(#{
+        event_id => <<"sample_event_id">>,
+        event_time => <<"2026-08-29T12:00:00.123456Z">>,
+        episode_id => <<"sample_episode_id">>,
+        attributes => #{<<"k">> => <<"v">>}
+    }),
+    Map = beam4pm_codec:to_map(Rec),
+    ?assertEqual(<<"sample_event_id">>, maps:get(<<"event_id">>, Map)),
+    ?assertEqual(<<"2026-08-29T12:00:00.123456Z">>, maps:get(<<"event_time">>, Map)),
+    ?assertEqual(<<"sample_episode_id">>, maps:get(<<"episode_id">>, Map)),
+    ?assertEqual(#{<<"k">> => <<"v">>}, maps:get(<<"attributes">>, Map)),
+    {ok, Rec2} = beam4pm_codec:from_map(aloop_execution_start,
+        Map#{<<"totally_unknown_key_zz">> => <<"dropped">>}),
+    ?assertEqual(Rec, Rec2).
+
+aloop_execution_start_json_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_aloop_execution_start(#{
+        event_id => <<"sample_event_id">>,
+        event_time => <<"2026-08-29T12:00:00.123456Z">>,
+        episode_id => <<"sample_episode_id">>,
+        attributes => #{<<"k">> => <<"v">>}
+    }),
+    Json = beam4pm_codec:encode(Rec),
+    ?assert(is_binary(Json)),
+    {ok, Rec2} = beam4pm_codec:decode(aloop_execution_start, Json),
+    ?assertEqual(Rec, Rec2).
+
+aloop_failure_detect_map_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_aloop_failure_detect(#{
+        event_id => <<"sample_event_id">>,
+        event_time => <<"2026-08-29T12:00:00.123456Z">>,
+        episode_id => <<"sample_episode_id">>,
+        attributes => #{<<"k">> => <<"v">>}
+    }),
+    Map = beam4pm_codec:to_map(Rec),
+    ?assertEqual(<<"sample_event_id">>, maps:get(<<"event_id">>, Map)),
+    ?assertEqual(<<"2026-08-29T12:00:00.123456Z">>, maps:get(<<"event_time">>, Map)),
+    ?assertEqual(<<"sample_episode_id">>, maps:get(<<"episode_id">>, Map)),
+    ?assertEqual(#{<<"k">> => <<"v">>}, maps:get(<<"attributes">>, Map)),
+    {ok, Rec2} = beam4pm_codec:from_map(aloop_failure_detect,
+        Map#{<<"totally_unknown_key_zz">> => <<"dropped">>}),
+    ?assertEqual(Rec, Rec2).
+
+aloop_failure_detect_json_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_aloop_failure_detect(#{
+        event_id => <<"sample_event_id">>,
+        event_time => <<"2026-08-29T12:00:00.123456Z">>,
+        episode_id => <<"sample_episode_id">>,
+        attributes => #{<<"k">> => <<"v">>}
+    }),
+    Json = beam4pm_codec:encode(Rec),
+    ?assert(is_binary(Json)),
+    {ok, Rec2} = beam4pm_codec:decode(aloop_failure_detect, Json),
+    ?assertEqual(Rec, Rec2).
+
+aloop_falsifier_run_map_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_aloop_falsifier_run(#{
+        event_id => <<"sample_event_id">>,
+        event_time => <<"2026-08-29T12:00:00.123456Z">>,
+        episode_id => <<"sample_episode_id">>,
+        attributes => #{<<"k">> => <<"v">>}
+    }),
+    Map = beam4pm_codec:to_map(Rec),
+    ?assertEqual(<<"sample_event_id">>, maps:get(<<"event_id">>, Map)),
+    ?assertEqual(<<"2026-08-29T12:00:00.123456Z">>, maps:get(<<"event_time">>, Map)),
+    ?assertEqual(<<"sample_episode_id">>, maps:get(<<"episode_id">>, Map)),
+    ?assertEqual(#{<<"k">> => <<"v">>}, maps:get(<<"attributes">>, Map)),
+    {ok, Rec2} = beam4pm_codec:from_map(aloop_falsifier_run,
+        Map#{<<"totally_unknown_key_zz">> => <<"dropped">>}),
+    ?assertEqual(Rec, Rec2).
+
+aloop_falsifier_run_json_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_aloop_falsifier_run(#{
+        event_id => <<"sample_event_id">>,
+        event_time => <<"2026-08-29T12:00:00.123456Z">>,
+        episode_id => <<"sample_episode_id">>,
+        attributes => #{<<"k">> => <<"v">>}
+    }),
+    Json = beam4pm_codec:encode(Rec),
+    ?assert(is_binary(Json)),
+    {ok, Rec2} = beam4pm_codec:decode(aloop_falsifier_run, Json),
+    ?assertEqual(Rec, Rec2).
+
+aloop_gap_detect_map_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_aloop_gap_detect(#{
+        event_id => <<"sample_event_id">>,
+        event_time => <<"2026-08-29T12:00:00.123456Z">>,
+        episode_id => <<"sample_episode_id">>,
+        attributes => #{<<"k">> => <<"v">>}
+    }),
+    Map = beam4pm_codec:to_map(Rec),
+    ?assertEqual(<<"sample_event_id">>, maps:get(<<"event_id">>, Map)),
+    ?assertEqual(<<"2026-08-29T12:00:00.123456Z">>, maps:get(<<"event_time">>, Map)),
+    ?assertEqual(<<"sample_episode_id">>, maps:get(<<"episode_id">>, Map)),
+    ?assertEqual(#{<<"k">> => <<"v">>}, maps:get(<<"attributes">>, Map)),
+    {ok, Rec2} = beam4pm_codec:from_map(aloop_gap_detect,
+        Map#{<<"totally_unknown_key_zz">> => <<"dropped">>}),
+    ?assertEqual(Rec, Rec2).
+
+aloop_gap_detect_json_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_aloop_gap_detect(#{
+        event_id => <<"sample_event_id">>,
+        event_time => <<"2026-08-29T12:00:00.123456Z">>,
+        episode_id => <<"sample_episode_id">>,
+        attributes => #{<<"k">> => <<"v">>}
+    }),
+    Json = beam4pm_codec:encode(Rec),
+    ?assert(is_binary(Json)),
+    {ok, Rec2} = beam4pm_codec:decode(aloop_gap_detect, Json),
+    ?assertEqual(Rec, Rec2).
+
+aloop_goal_blocked_map_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_aloop_goal_blocked(#{
+        event_id => <<"sample_event_id">>,
+        event_time => <<"2026-08-29T12:00:00.123456Z">>,
+        episode_id => <<"sample_episode_id">>,
+        attributes => #{<<"k">> => <<"v">>}
+    }),
+    Map = beam4pm_codec:to_map(Rec),
+    ?assertEqual(<<"sample_event_id">>, maps:get(<<"event_id">>, Map)),
+    ?assertEqual(<<"2026-08-29T12:00:00.123456Z">>, maps:get(<<"event_time">>, Map)),
+    ?assertEqual(<<"sample_episode_id">>, maps:get(<<"episode_id">>, Map)),
+    ?assertEqual(#{<<"k">> => <<"v">>}, maps:get(<<"attributes">>, Map)),
+    {ok, Rec2} = beam4pm_codec:from_map(aloop_goal_blocked,
+        Map#{<<"totally_unknown_key_zz">> => <<"dropped">>}),
+    ?assertEqual(Rec, Rec2).
+
+aloop_goal_blocked_json_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_aloop_goal_blocked(#{
+        event_id => <<"sample_event_id">>,
+        event_time => <<"2026-08-29T12:00:00.123456Z">>,
+        episode_id => <<"sample_episode_id">>,
+        attributes => #{<<"k">> => <<"v">>}
+    }),
+    Json = beam4pm_codec:encode(Rec),
+    ?assert(is_binary(Json)),
+    {ok, Rec2} = beam4pm_codec:decode(aloop_goal_blocked, Json),
+    ?assertEqual(Rec, Rec2).
+
+aloop_goal_satisfied_map_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_aloop_goal_satisfied(#{
+        event_id => <<"sample_event_id">>,
+        event_time => <<"2026-08-29T12:00:00.123456Z">>,
+        episode_id => <<"sample_episode_id">>,
+        attributes => #{<<"k">> => <<"v">>}
+    }),
+    Map = beam4pm_codec:to_map(Rec),
+    ?assertEqual(<<"sample_event_id">>, maps:get(<<"event_id">>, Map)),
+    ?assertEqual(<<"2026-08-29T12:00:00.123456Z">>, maps:get(<<"event_time">>, Map)),
+    ?assertEqual(<<"sample_episode_id">>, maps:get(<<"episode_id">>, Map)),
+    ?assertEqual(#{<<"k">> => <<"v">>}, maps:get(<<"attributes">>, Map)),
+    {ok, Rec2} = beam4pm_codec:from_map(aloop_goal_satisfied,
+        Map#{<<"totally_unknown_key_zz">> => <<"dropped">>}),
+    ?assertEqual(Rec, Rec2).
+
+aloop_goal_satisfied_json_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_aloop_goal_satisfied(#{
+        event_id => <<"sample_event_id">>,
+        event_time => <<"2026-08-29T12:00:00.123456Z">>,
+        episode_id => <<"sample_episode_id">>,
+        attributes => #{<<"k">> => <<"v">>}
+    }),
+    Json = beam4pm_codec:encode(Rec),
+    ?assert(is_binary(Json)),
+    {ok, Rec2} = beam4pm_codec:decode(aloop_goal_satisfied, Json),
+    ?assertEqual(Rec, Rec2).
+
+aloop_merge_map_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_aloop_merge(#{
+        event_id => <<"sample_event_id">>,
+        event_time => <<"2026-08-29T12:00:00.123456Z">>,
+        episode_id => <<"sample_episode_id">>,
+        attributes => #{<<"k">> => <<"v">>}
+    }),
+    Map = beam4pm_codec:to_map(Rec),
+    ?assertEqual(<<"sample_event_id">>, maps:get(<<"event_id">>, Map)),
+    ?assertEqual(<<"2026-08-29T12:00:00.123456Z">>, maps:get(<<"event_time">>, Map)),
+    ?assertEqual(<<"sample_episode_id">>, maps:get(<<"episode_id">>, Map)),
+    ?assertEqual(#{<<"k">> => <<"v">>}, maps:get(<<"attributes">>, Map)),
+    {ok, Rec2} = beam4pm_codec:from_map(aloop_merge,
+        Map#{<<"totally_unknown_key_zz">> => <<"dropped">>}),
+    ?assertEqual(Rec, Rec2).
+
+aloop_merge_json_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_aloop_merge(#{
+        event_id => <<"sample_event_id">>,
+        event_time => <<"2026-08-29T12:00:00.123456Z">>,
+        episode_id => <<"sample_episode_id">>,
+        attributes => #{<<"k">> => <<"v">>}
+    }),
+    Json = beam4pm_codec:encode(Rec),
+    ?assert(is_binary(Json)),
+    {ok, Rec2} = beam4pm_codec:decode(aloop_merge, Json),
+    ?assertEqual(Rec, Rec2).
+
+aloop_model_edge_map_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_aloop_model_edge(#{
+        from_activity => <<"sample_from_activity">>,
+        to_activity => <<"sample_to_activity">>,
+        observed_count => 42
+    }),
+    Map = beam4pm_codec:to_map(Rec),
+    ?assertEqual(<<"sample_from_activity">>, maps:get(<<"from_activity">>, Map)),
+    ?assertEqual(<<"sample_to_activity">>, maps:get(<<"to_activity">>, Map)),
+    ?assertEqual(42, maps:get(<<"observed_count">>, Map)),
+    {ok, Rec2} = beam4pm_codec:from_map(aloop_model_edge,
+        Map#{<<"totally_unknown_key_zz">> => <<"dropped">>}),
+    ?assertEqual(Rec, Rec2).
+
+aloop_model_edge_json_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_aloop_model_edge(#{
+        from_activity => <<"sample_from_activity">>,
+        to_activity => <<"sample_to_activity">>,
+        observed_count => 42
+    }),
+    Json = beam4pm_codec:encode(Rec),
+    ?assert(is_binary(Json)),
+    {ok, Rec2} = beam4pm_codec:decode(aloop_model_edge, Json),
+    ?assertEqual(Rec, Rec2).
+
+aloop_object_map_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_aloop_object(#{
+        object_id => <<"sample_object_id">>,
+        object_type => <<"sample_object_type">>,
+        attributes => #{<<"k">> => <<"v">>}
+    }),
+    Map = beam4pm_codec:to_map(Rec),
+    ?assertEqual(<<"sample_object_id">>, maps:get(<<"object_id">>, Map)),
+    ?assertEqual(<<"sample_object_type">>, maps:get(<<"object_type">>, Map)),
+    ?assertEqual(#{<<"k">> => <<"v">>}, maps:get(<<"attributes">>, Map)),
+    {ok, Rec2} = beam4pm_codec:from_map(aloop_object,
+        Map#{<<"totally_unknown_key_zz">> => <<"dropped">>}),
+    ?assertEqual(Rec, Rec2).
+
+aloop_object_json_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_aloop_object(#{
+        object_id => <<"sample_object_id">>,
+        object_type => <<"sample_object_type">>,
+        attributes => #{<<"k">> => <<"v">>}
+    }),
+    Json = beam4pm_codec:encode(Rec),
+    ?assert(is_binary(Json)),
+    {ok, Rec2} = beam4pm_codec:decode(aloop_object, Json),
+    ?assertEqual(Rec, Rec2).
+
+aloop_observe_map_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_aloop_observe(#{
+        event_id => <<"sample_event_id">>,
+        event_time => <<"2026-08-29T12:00:00.123456Z">>,
+        episode_id => <<"sample_episode_id">>,
+        attributes => #{<<"k">> => <<"v">>}
+    }),
+    Map = beam4pm_codec:to_map(Rec),
+    ?assertEqual(<<"sample_event_id">>, maps:get(<<"event_id">>, Map)),
+    ?assertEqual(<<"2026-08-29T12:00:00.123456Z">>, maps:get(<<"event_time">>, Map)),
+    ?assertEqual(<<"sample_episode_id">>, maps:get(<<"episode_id">>, Map)),
+    ?assertEqual(#{<<"k">> => <<"v">>}, maps:get(<<"attributes">>, Map)),
+    {ok, Rec2} = beam4pm_codec:from_map(aloop_observe,
+        Map#{<<"totally_unknown_key_zz">> => <<"dropped">>}),
+    ?assertEqual(Rec, Rec2).
+
+aloop_observe_json_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_aloop_observe(#{
+        event_id => <<"sample_event_id">>,
+        event_time => <<"2026-08-29T12:00:00.123456Z">>,
+        episode_id => <<"sample_episode_id">>,
+        attributes => #{<<"k">> => <<"v">>}
+    }),
+    Json = beam4pm_codec:encode(Rec),
+    ?assert(is_binary(Json)),
+    {ok, Rec2} = beam4pm_codec:decode(aloop_observe, Json),
+    ?assertEqual(Rec, Rec2).
+
+aloop_plan_select_map_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_aloop_plan_select(#{
+        event_id => <<"sample_event_id">>,
+        event_time => <<"2026-08-29T12:00:00.123456Z">>,
+        episode_id => <<"sample_episode_id">>,
+        attributes => #{<<"k">> => <<"v">>}
+    }),
+    Map = beam4pm_codec:to_map(Rec),
+    ?assertEqual(<<"sample_event_id">>, maps:get(<<"event_id">>, Map)),
+    ?assertEqual(<<"2026-08-29T12:00:00.123456Z">>, maps:get(<<"event_time">>, Map)),
+    ?assertEqual(<<"sample_episode_id">>, maps:get(<<"episode_id">>, Map)),
+    ?assertEqual(#{<<"k">> => <<"v">>}, maps:get(<<"attributes">>, Map)),
+    {ok, Rec2} = beam4pm_codec:from_map(aloop_plan_select,
+        Map#{<<"totally_unknown_key_zz">> => <<"dropped">>}),
+    ?assertEqual(Rec, Rec2).
+
+aloop_plan_select_json_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_aloop_plan_select(#{
+        event_id => <<"sample_event_id">>,
+        event_time => <<"2026-08-29T12:00:00.123456Z">>,
+        episode_id => <<"sample_episode_id">>,
+        attributes => #{<<"k">> => <<"v">>}
+    }),
+    Json = beam4pm_codec:encode(Rec),
+    ?assert(is_binary(Json)),
+    {ok, Rec2} = beam4pm_codec:decode(aloop_plan_select, Json),
+    ?assertEqual(Rec, Rec2).
+
+aloop_provider_replace_map_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_aloop_provider_replace(#{
+        event_id => <<"sample_event_id">>,
+        event_time => <<"2026-08-29T12:00:00.123456Z">>,
+        episode_id => <<"sample_episode_id">>,
+        attributes => #{<<"k">> => <<"v">>},
+        from_provider => <<"sample_from_provider">>,
+        to_provider => <<"sample_to_provider">>
+    }),
+    Map = beam4pm_codec:to_map(Rec),
+    ?assertEqual(<<"sample_event_id">>, maps:get(<<"event_id">>, Map)),
+    ?assertEqual(<<"2026-08-29T12:00:00.123456Z">>, maps:get(<<"event_time">>, Map)),
+    ?assertEqual(<<"sample_episode_id">>, maps:get(<<"episode_id">>, Map)),
+    ?assertEqual(#{<<"k">> => <<"v">>}, maps:get(<<"attributes">>, Map)),
+    ?assertEqual(<<"sample_from_provider">>, maps:get(<<"from_provider">>, Map)),
+    ?assertEqual(<<"sample_to_provider">>, maps:get(<<"to_provider">>, Map)),
+    {ok, Rec2} = beam4pm_codec:from_map(aloop_provider_replace,
+        Map#{<<"totally_unknown_key_zz">> => <<"dropped">>}),
+    ?assertEqual(Rec, Rec2).
+
+aloop_provider_replace_json_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_aloop_provider_replace(#{
+        event_id => <<"sample_event_id">>,
+        event_time => <<"2026-08-29T12:00:00.123456Z">>,
+        episode_id => <<"sample_episode_id">>,
+        attributes => #{<<"k">> => <<"v">>},
+        from_provider => <<"sample_from_provider">>,
+        to_provider => <<"sample_to_provider">>
+    }),
+    Json = beam4pm_codec:encode(Rec),
+    ?assert(is_binary(Json)),
+    {ok, Rec2} = beam4pm_codec:decode(aloop_provider_replace, Json),
+    ?assertEqual(Rec, Rec2).
+
+aloop_provider_select_map_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_aloop_provider_select(#{
+        event_id => <<"sample_event_id">>,
+        event_time => <<"2026-08-29T12:00:00.123456Z">>,
+        episode_id => <<"sample_episode_id">>,
+        attributes => #{<<"k">> => <<"v">>},
+        provider => <<"sample_provider">>
+    }),
+    Map = beam4pm_codec:to_map(Rec),
+    ?assertEqual(<<"sample_event_id">>, maps:get(<<"event_id">>, Map)),
+    ?assertEqual(<<"2026-08-29T12:00:00.123456Z">>, maps:get(<<"event_time">>, Map)),
+    ?assertEqual(<<"sample_episode_id">>, maps:get(<<"episode_id">>, Map)),
+    ?assertEqual(#{<<"k">> => <<"v">>}, maps:get(<<"attributes">>, Map)),
+    ?assertEqual(<<"sample_provider">>, maps:get(<<"provider">>, Map)),
+    {ok, Rec2} = beam4pm_codec:from_map(aloop_provider_select,
+        Map#{<<"totally_unknown_key_zz">> => <<"dropped">>}),
+    ?assertEqual(Rec, Rec2).
+
+aloop_provider_select_json_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_aloop_provider_select(#{
+        event_id => <<"sample_event_id">>,
+        event_time => <<"2026-08-29T12:00:00.123456Z">>,
+        episode_id => <<"sample_episode_id">>,
+        attributes => #{<<"k">> => <<"v">>},
+        provider => <<"sample_provider">>
+    }),
+    Json = beam4pm_codec:encode(Rec),
+    ?assert(is_binary(Json)),
+    {ok, Rec2} = beam4pm_codec:decode(aloop_provider_select, Json),
+    ?assertEqual(Rec, Rec2).
+
+aloop_receipt_persist_map_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_aloop_receipt_persist(#{
+        event_id => <<"sample_event_id">>,
+        event_time => <<"2026-08-29T12:00:00.123456Z">>,
+        episode_id => <<"sample_episode_id">>,
+        attributes => #{<<"k">> => <<"v">>},
+        receipt => <<"sample_receipt">>
+    }),
+    Map = beam4pm_codec:to_map(Rec),
+    ?assertEqual(<<"sample_event_id">>, maps:get(<<"event_id">>, Map)),
+    ?assertEqual(<<"2026-08-29T12:00:00.123456Z">>, maps:get(<<"event_time">>, Map)),
+    ?assertEqual(<<"sample_episode_id">>, maps:get(<<"episode_id">>, Map)),
+    ?assertEqual(#{<<"k">> => <<"v">>}, maps:get(<<"attributes">>, Map)),
+    ?assertEqual(<<"sample_receipt">>, maps:get(<<"receipt">>, Map)),
+    {ok, Rec2} = beam4pm_codec:from_map(aloop_receipt_persist,
+        Map#{<<"totally_unknown_key_zz">> => <<"dropped">>}),
+    ?assertEqual(Rec, Rec2).
+
+aloop_receipt_persist_json_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_aloop_receipt_persist(#{
+        event_id => <<"sample_event_id">>,
+        event_time => <<"2026-08-29T12:00:00.123456Z">>,
+        episode_id => <<"sample_episode_id">>,
+        attributes => #{<<"k">> => <<"v">>},
+        receipt => <<"sample_receipt">>
+    }),
+    Json = beam4pm_codec:encode(Rec),
+    ?assert(is_binary(Json)),
+    {ok, Rec2} = beam4pm_codec:decode(aloop_receipt_persist, Json),
+    ?assertEqual(Rec, Rec2).
+
+aloop_reconcile_map_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_aloop_reconcile(#{
+        event_id => <<"sample_event_id">>,
+        event_time => <<"2026-08-29T12:00:00.123456Z">>,
+        episode_id => <<"sample_episode_id">>,
+        attributes => #{<<"k">> => <<"v">>}
+    }),
+    Map = beam4pm_codec:to_map(Rec),
+    ?assertEqual(<<"sample_event_id">>, maps:get(<<"event_id">>, Map)),
+    ?assertEqual(<<"2026-08-29T12:00:00.123456Z">>, maps:get(<<"event_time">>, Map)),
+    ?assertEqual(<<"sample_episode_id">>, maps:get(<<"episode_id">>, Map)),
+    ?assertEqual(#{<<"k">> => <<"v">>}, maps:get(<<"attributes">>, Map)),
+    {ok, Rec2} = beam4pm_codec:from_map(aloop_reconcile,
+        Map#{<<"totally_unknown_key_zz">> => <<"dropped">>}),
+    ?assertEqual(Rec, Rec2).
+
+aloop_reconcile_json_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_aloop_reconcile(#{
+        event_id => <<"sample_event_id">>,
+        event_time => <<"2026-08-29T12:00:00.123456Z">>,
+        episode_id => <<"sample_episode_id">>,
+        attributes => #{<<"k">> => <<"v">>}
+    }),
+    Json = beam4pm_codec:encode(Rec),
+    ?assert(is_binary(Json)),
+    {ok, Rec2} = beam4pm_codec:decode(aloop_reconcile, Json),
+    ?assertEqual(Rec, Rec2).
+
+aloop_reobserve_map_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_aloop_reobserve(#{
+        event_id => <<"sample_event_id">>,
+        event_time => <<"2026-08-29T12:00:00.123456Z">>,
+        episode_id => <<"sample_episode_id">>,
+        attributes => #{<<"k">> => <<"v">>}
+    }),
+    Map = beam4pm_codec:to_map(Rec),
+    ?assertEqual(<<"sample_event_id">>, maps:get(<<"event_id">>, Map)),
+    ?assertEqual(<<"2026-08-29T12:00:00.123456Z">>, maps:get(<<"event_time">>, Map)),
+    ?assertEqual(<<"sample_episode_id">>, maps:get(<<"episode_id">>, Map)),
+    ?assertEqual(#{<<"k">> => <<"v">>}, maps:get(<<"attributes">>, Map)),
+    {ok, Rec2} = beam4pm_codec:from_map(aloop_reobserve,
+        Map#{<<"totally_unknown_key_zz">> => <<"dropped">>}),
+    ?assertEqual(Rec, Rec2).
+
+aloop_reobserve_json_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_aloop_reobserve(#{
+        event_id => <<"sample_event_id">>,
+        event_time => <<"2026-08-29T12:00:00.123456Z">>,
+        episode_id => <<"sample_episode_id">>,
+        attributes => #{<<"k">> => <<"v">>}
+    }),
+    Json = beam4pm_codec:encode(Rec),
+    ?assert(is_binary(Json)),
+    {ok, Rec2} = beam4pm_codec:decode(aloop_reobserve, Json),
+    ?assertEqual(Rec, Rec2).
+
+aloop_replan_map_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_aloop_replan(#{
+        event_id => <<"sample_event_id">>,
+        event_time => <<"2026-08-29T12:00:00.123456Z">>,
+        episode_id => <<"sample_episode_id">>,
+        attributes => #{<<"k">> => <<"v">>}
+    }),
+    Map = beam4pm_codec:to_map(Rec),
+    ?assertEqual(<<"sample_event_id">>, maps:get(<<"event_id">>, Map)),
+    ?assertEqual(<<"2026-08-29T12:00:00.123456Z">>, maps:get(<<"event_time">>, Map)),
+    ?assertEqual(<<"sample_episode_id">>, maps:get(<<"episode_id">>, Map)),
+    ?assertEqual(#{<<"k">> => <<"v">>}, maps:get(<<"attributes">>, Map)),
+    {ok, Rec2} = beam4pm_codec:from_map(aloop_replan,
+        Map#{<<"totally_unknown_key_zz">> => <<"dropped">>}),
+    ?assertEqual(Rec, Rec2).
+
+aloop_replan_json_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_aloop_replan(#{
+        event_id => <<"sample_event_id">>,
+        event_time => <<"2026-08-29T12:00:00.123456Z">>,
+        episode_id => <<"sample_episode_id">>,
+        attributes => #{<<"k">> => <<"v">>}
+    }),
+    Json = beam4pm_codec:encode(Rec),
+    ?assert(is_binary(Json)),
+    {ok, Rec2} = beam4pm_codec:decode(aloop_replan, Json),
+    ?assertEqual(Rec, Rec2).
+
+aloop_tool_admit_map_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_aloop_tool_admit(#{
+        event_id => <<"sample_event_id">>,
+        event_time => <<"2026-08-29T12:00:00.123456Z">>,
+        episode_id => <<"sample_episode_id">>,
+        attributes => #{<<"k">> => <<"v">>}
+    }),
+    Map = beam4pm_codec:to_map(Rec),
+    ?assertEqual(<<"sample_event_id">>, maps:get(<<"event_id">>, Map)),
+    ?assertEqual(<<"2026-08-29T12:00:00.123456Z">>, maps:get(<<"event_time">>, Map)),
+    ?assertEqual(<<"sample_episode_id">>, maps:get(<<"episode_id">>, Map)),
+    ?assertEqual(#{<<"k">> => <<"v">>}, maps:get(<<"attributes">>, Map)),
+    {ok, Rec2} = beam4pm_codec:from_map(aloop_tool_admit,
+        Map#{<<"totally_unknown_key_zz">> => <<"dropped">>}),
+    ?assertEqual(Rec, Rec2).
+
+aloop_tool_admit_json_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_aloop_tool_admit(#{
+        event_id => <<"sample_event_id">>,
+        event_time => <<"2026-08-29T12:00:00.123456Z">>,
+        episode_id => <<"sample_episode_id">>,
+        attributes => #{<<"k">> => <<"v">>}
+    }),
+    Json = beam4pm_codec:encode(Rec),
+    ?assert(is_binary(Json)),
+    {ok, Rec2} = beam4pm_codec:decode(aloop_tool_admit, Json),
+    ?assertEqual(Rec, Rec2).
+
+aloop_verify_map_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_aloop_verify(#{
+        event_id => <<"sample_event_id">>,
+        event_time => <<"2026-08-29T12:00:00.123456Z">>,
+        episode_id => <<"sample_episode_id">>,
+        attributes => #{<<"k">> => <<"v">>}
+    }),
+    Map = beam4pm_codec:to_map(Rec),
+    ?assertEqual(<<"sample_event_id">>, maps:get(<<"event_id">>, Map)),
+    ?assertEqual(<<"2026-08-29T12:00:00.123456Z">>, maps:get(<<"event_time">>, Map)),
+    ?assertEqual(<<"sample_episode_id">>, maps:get(<<"episode_id">>, Map)),
+    ?assertEqual(#{<<"k">> => <<"v">>}, maps:get(<<"attributes">>, Map)),
+    {ok, Rec2} = beam4pm_codec:from_map(aloop_verify,
+        Map#{<<"totally_unknown_key_zz">> => <<"dropped">>}),
+    ?assertEqual(Rec, Rec2).
+
+aloop_verify_json_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_aloop_verify(#{
+        event_id => <<"sample_event_id">>,
+        event_time => <<"2026-08-29T12:00:00.123456Z">>,
+        episode_id => <<"sample_episode_id">>,
+        attributes => #{<<"k">> => <<"v">>}
+    }),
+    Json = beam4pm_codec:encode(Rec),
+    ?assert(is_binary(Json)),
+    {ok, Rec2} = beam4pm_codec:decode(aloop_verify, Json),
+    ?assertEqual(Rec, Rec2).
+
+aloop_worker_claim_map_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_aloop_worker_claim(#{
+        event_id => <<"sample_event_id">>,
+        event_time => <<"2026-08-29T12:00:00.123456Z">>,
+        episode_id => <<"sample_episode_id">>,
+        attributes => #{<<"k">> => <<"v">>},
+        worker => <<"sample_worker">>
+    }),
+    Map = beam4pm_codec:to_map(Rec),
+    ?assertEqual(<<"sample_event_id">>, maps:get(<<"event_id">>, Map)),
+    ?assertEqual(<<"2026-08-29T12:00:00.123456Z">>, maps:get(<<"event_time">>, Map)),
+    ?assertEqual(<<"sample_episode_id">>, maps:get(<<"episode_id">>, Map)),
+    ?assertEqual(#{<<"k">> => <<"v">>}, maps:get(<<"attributes">>, Map)),
+    ?assertEqual(<<"sample_worker">>, maps:get(<<"worker">>, Map)),
+    {ok, Rec2} = beam4pm_codec:from_map(aloop_worker_claim,
+        Map#{<<"totally_unknown_key_zz">> => <<"dropped">>}),
+    ?assertEqual(Rec, Rec2).
+
+aloop_worker_claim_json_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_aloop_worker_claim(#{
+        event_id => <<"sample_event_id">>,
+        event_time => <<"2026-08-29T12:00:00.123456Z">>,
+        episode_id => <<"sample_episode_id">>,
+        attributes => #{<<"k">> => <<"v">>},
+        worker => <<"sample_worker">>
+    }),
+    Json = beam4pm_codec:encode(Rec),
+    ?assert(is_binary(Json)),
+    {ok, Rec2} = beam4pm_codec:decode(aloop_worker_claim, Json),
+    ?assertEqual(Rec, Rec2).
+
+aloop_workorder_issue_map_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_aloop_workorder_issue(#{
+        event_id => <<"sample_event_id">>,
+        event_time => <<"2026-08-29T12:00:00.123456Z">>,
+        episode_id => <<"sample_episode_id">>,
+        attributes => #{<<"k">> => <<"v">>}
+    }),
+    Map = beam4pm_codec:to_map(Rec),
+    ?assertEqual(<<"sample_event_id">>, maps:get(<<"event_id">>, Map)),
+    ?assertEqual(<<"2026-08-29T12:00:00.123456Z">>, maps:get(<<"event_time">>, Map)),
+    ?assertEqual(<<"sample_episode_id">>, maps:get(<<"episode_id">>, Map)),
+    ?assertEqual(#{<<"k">> => <<"v">>}, maps:get(<<"attributes">>, Map)),
+    {ok, Rec2} = beam4pm_codec:from_map(aloop_workorder_issue,
+        Map#{<<"totally_unknown_key_zz">> => <<"dropped">>}),
+    ?assertEqual(Rec, Rec2).
+
+aloop_workorder_issue_json_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_aloop_workorder_issue(#{
+        event_id => <<"sample_event_id">>,
+        event_time => <<"2026-08-29T12:00:00.123456Z">>,
+        episode_id => <<"sample_episode_id">>,
+        attributes => #{<<"k">> => <<"v">>}
+    }),
+    Json = beam4pm_codec:encode(Rec),
+    ?assert(is_binary(Json)),
+    {ok, Rec2} = beam4pm_codec:decode(aloop_workorder_issue, Json),
+    ?assertEqual(Rec, Rec2).
+
 annual_subscription_map_roundtrip_test() ->
     {ok, Rec} = beam4pm_types:new_annual_subscription(#{
         subscription_id => <<"sample_subscription_id">>,

@@ -171,6 +171,341 @@ alignment_move_ok_test() ->
 alignment_move_missing_field_test() ->
     ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_alignment_move(#{})).
 
+aloop_actuate_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_aloop_actuate(#{
+        event_id => <<"x">>,
+        event_time => <<"2026-01-01T00:00:00Z">>,
+        episode_id => <<"x">>,
+        attributes => #{},
+        consequence => <<"x">>
+    })).
+
+aloop_actuate_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_aloop_actuate(#{})).
+
+aloop_benchmark_run_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_aloop_benchmark_run(#{
+        event_id => <<"x">>,
+        event_time => <<"2026-01-01T00:00:00Z">>,
+        episode_id => <<"x">>,
+        attributes => #{}
+    })).
+
+aloop_benchmark_run_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_aloop_benchmark_run(#{})).
+
+aloop_candidate_admit_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_aloop_candidate_admit(#{
+        event_id => <<"x">>,
+        event_time => <<"2026-01-01T00:00:00Z">>,
+        episode_id => <<"x">>,
+        attributes => #{}
+    })).
+
+aloop_candidate_admit_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_aloop_candidate_admit(#{})).
+
+aloop_candidate_construct_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_aloop_candidate_construct(#{
+        event_id => <<"x">>,
+        event_time => <<"2026-01-01T00:00:00Z">>,
+        episode_id => <<"x">>,
+        attributes => #{},
+        origin_authority => <<"x">>
+    })).
+
+aloop_candidate_construct_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_aloop_candidate_construct(#{})).
+
+aloop_checkpoint_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_aloop_checkpoint(#{
+        event_id => <<"x">>,
+        event_time => <<"2026-01-01T00:00:00Z">>,
+        episode_id => <<"x">>,
+        attributes => #{}
+    })).
+
+aloop_checkpoint_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_aloop_checkpoint(#{})).
+
+aloop_commit_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_aloop_commit(#{
+        event_id => <<"x">>,
+        event_time => <<"2026-01-01T00:00:00Z">>,
+        episode_id => <<"x">>,
+        attributes => #{}
+    })).
+
+aloop_commit_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_aloop_commit(#{})).
+
+aloop_episode_start_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_aloop_episode_start(#{
+        event_id => <<"x">>,
+        event_time => <<"2026-01-01T00:00:00Z">>,
+        episode_id => <<"x">>,
+        attributes => #{}
+    })).
+
+aloop_episode_start_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_aloop_episode_start(#{})).
+
+aloop_episode_terminal_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_aloop_episode_terminal(#{
+        event_id => <<"x">>,
+        event_time => <<"2026-01-01T00:00:00Z">>,
+        episode_id => <<"x">>,
+        attributes => #{}
+    })).
+
+aloop_episode_terminal_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_aloop_episode_terminal(#{})).
+
+aloop_execution_crash_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_aloop_execution_crash(#{
+        event_id => <<"x">>,
+        event_time => <<"2026-01-01T00:00:00Z">>,
+        episode_id => <<"x">>,
+        attributes => #{}
+    })).
+
+aloop_execution_crash_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_aloop_execution_crash(#{})).
+
+aloop_execution_start_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_aloop_execution_start(#{
+        event_id => <<"x">>,
+        event_time => <<"2026-01-01T00:00:00Z">>,
+        episode_id => <<"x">>,
+        attributes => #{}
+    })).
+
+aloop_execution_start_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_aloop_execution_start(#{})).
+
+aloop_failure_detect_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_aloop_failure_detect(#{
+        event_id => <<"x">>,
+        event_time => <<"2026-01-01T00:00:00Z">>,
+        episode_id => <<"x">>,
+        attributes => #{}
+    })).
+
+aloop_failure_detect_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_aloop_failure_detect(#{})).
+
+aloop_falsifier_run_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_aloop_falsifier_run(#{
+        event_id => <<"x">>,
+        event_time => <<"2026-01-01T00:00:00Z">>,
+        episode_id => <<"x">>,
+        attributes => #{}
+    })).
+
+aloop_falsifier_run_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_aloop_falsifier_run(#{})).
+
+aloop_gap_detect_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_aloop_gap_detect(#{
+        event_id => <<"x">>,
+        event_time => <<"2026-01-01T00:00:00Z">>,
+        episode_id => <<"x">>,
+        attributes => #{}
+    })).
+
+aloop_gap_detect_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_aloop_gap_detect(#{})).
+
+aloop_goal_blocked_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_aloop_goal_blocked(#{
+        event_id => <<"x">>,
+        event_time => <<"2026-01-01T00:00:00Z">>,
+        episode_id => <<"x">>,
+        attributes => #{}
+    })).
+
+aloop_goal_blocked_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_aloop_goal_blocked(#{})).
+
+aloop_goal_satisfied_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_aloop_goal_satisfied(#{
+        event_id => <<"x">>,
+        event_time => <<"2026-01-01T00:00:00Z">>,
+        episode_id => <<"x">>,
+        attributes => #{}
+    })).
+
+aloop_goal_satisfied_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_aloop_goal_satisfied(#{})).
+
+aloop_merge_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_aloop_merge(#{
+        event_id => <<"x">>,
+        event_time => <<"2026-01-01T00:00:00Z">>,
+        episode_id => <<"x">>,
+        attributes => #{}
+    })).
+
+aloop_merge_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_aloop_merge(#{})).
+
+aloop_model_edge_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_aloop_model_edge(#{
+        from_activity => <<"x">>,
+        to_activity => <<"x">>,
+        observed_count => 1
+    })).
+
+aloop_model_edge_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_aloop_model_edge(#{})).
+
+aloop_object_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_aloop_object(#{
+        object_id => <<"x">>,
+        object_type => <<"x">>,
+        attributes => #{}
+    })).
+
+aloop_object_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_aloop_object(#{})).
+
+aloop_observe_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_aloop_observe(#{
+        event_id => <<"x">>,
+        event_time => <<"2026-01-01T00:00:00Z">>,
+        episode_id => <<"x">>,
+        attributes => #{}
+    })).
+
+aloop_observe_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_aloop_observe(#{})).
+
+aloop_plan_select_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_aloop_plan_select(#{
+        event_id => <<"x">>,
+        event_time => <<"2026-01-01T00:00:00Z">>,
+        episode_id => <<"x">>,
+        attributes => #{}
+    })).
+
+aloop_plan_select_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_aloop_plan_select(#{})).
+
+aloop_provider_replace_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_aloop_provider_replace(#{
+        event_id => <<"x">>,
+        event_time => <<"2026-01-01T00:00:00Z">>,
+        episode_id => <<"x">>,
+        attributes => #{},
+        from_provider => <<"x">>,
+        to_provider => <<"x">>
+    })).
+
+aloop_provider_replace_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_aloop_provider_replace(#{})).
+
+aloop_provider_select_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_aloop_provider_select(#{
+        event_id => <<"x">>,
+        event_time => <<"2026-01-01T00:00:00Z">>,
+        episode_id => <<"x">>,
+        attributes => #{},
+        provider => <<"x">>
+    })).
+
+aloop_provider_select_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_aloop_provider_select(#{})).
+
+aloop_receipt_persist_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_aloop_receipt_persist(#{
+        event_id => <<"x">>,
+        event_time => <<"2026-01-01T00:00:00Z">>,
+        episode_id => <<"x">>,
+        attributes => #{},
+        receipt => <<"x">>
+    })).
+
+aloop_receipt_persist_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_aloop_receipt_persist(#{})).
+
+aloop_reconcile_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_aloop_reconcile(#{
+        event_id => <<"x">>,
+        event_time => <<"2026-01-01T00:00:00Z">>,
+        episode_id => <<"x">>,
+        attributes => #{}
+    })).
+
+aloop_reconcile_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_aloop_reconcile(#{})).
+
+aloop_reobserve_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_aloop_reobserve(#{
+        event_id => <<"x">>,
+        event_time => <<"2026-01-01T00:00:00Z">>,
+        episode_id => <<"x">>,
+        attributes => #{}
+    })).
+
+aloop_reobserve_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_aloop_reobserve(#{})).
+
+aloop_replan_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_aloop_replan(#{
+        event_id => <<"x">>,
+        event_time => <<"2026-01-01T00:00:00Z">>,
+        episode_id => <<"x">>,
+        attributes => #{}
+    })).
+
+aloop_replan_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_aloop_replan(#{})).
+
+aloop_tool_admit_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_aloop_tool_admit(#{
+        event_id => <<"x">>,
+        event_time => <<"2026-01-01T00:00:00Z">>,
+        episode_id => <<"x">>,
+        attributes => #{}
+    })).
+
+aloop_tool_admit_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_aloop_tool_admit(#{})).
+
+aloop_verify_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_aloop_verify(#{
+        event_id => <<"x">>,
+        event_time => <<"2026-01-01T00:00:00Z">>,
+        episode_id => <<"x">>,
+        attributes => #{}
+    })).
+
+aloop_verify_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_aloop_verify(#{})).
+
+aloop_worker_claim_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_aloop_worker_claim(#{
+        event_id => <<"x">>,
+        event_time => <<"2026-01-01T00:00:00Z">>,
+        episode_id => <<"x">>,
+        attributes => #{},
+        worker => <<"x">>
+    })).
+
+aloop_worker_claim_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_aloop_worker_claim(#{})).
+
+aloop_workorder_issue_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_aloop_workorder_issue(#{
+        event_id => <<"x">>,
+        event_time => <<"2026-01-01T00:00:00Z">>,
+        episode_id => <<"x">>,
+        attributes => #{}
+    })).
+
+aloop_workorder_issue_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_aloop_workorder_issue(#{})).
+
 annual_subscription_ok_test() ->
     ?assertMatch({ok, _}, beam4pm_types:new_annual_subscription(#{
         subscription_id => <<"x">>,

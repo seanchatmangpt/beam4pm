@@ -441,6 +441,884 @@ defmodule BeamPM.Types.AlignmentMove do
   end
 end
 
+defmodule BeamPM.Types.AloopActuate do
+  @moduledoc "ALOOP event class `actuate`: a DO: an actuation against the world; must be followed by receipt.persist."
+
+  defstruct [:event_id, :event_time, :episode_id, :attributes, :consequence]
+
+  @type t :: %__MODULE__{
+    event_id: String.t() | nil,
+    event_time: String.t() | nil,
+    episode_id: String.t() | nil,
+    attributes: map() | nil,
+    consequence: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :event_id) -> {:error, {:missing_field, :event_id}}
+      not Map.has_key?(attrs, :event_time) -> {:error, {:missing_field, :event_time}}
+      not Map.has_key?(attrs, :episode_id) -> {:error, {:missing_field, :episode_id}}
+      true ->
+        {:ok, %__MODULE__{
+          event_id: Map.get(attrs, :event_id),
+          event_time: Map.get(attrs, :event_time),
+          episode_id: Map.get(attrs, :episode_id),
+          attributes: Map.get(attrs, :attributes),
+          consequence: Map.get(attrs, :consequence)
+        }}
+    end
+  end
+end
+
+defmodule BeamPM.Types.AloopBenchmarkRun do
+  @moduledoc "ALOOP event class `benchmark.run`: a benchmark runs."
+
+  defstruct [:event_id, :event_time, :episode_id, :attributes]
+
+  @type t :: %__MODULE__{
+    event_id: String.t() | nil,
+    event_time: String.t() | nil,
+    episode_id: String.t() | nil,
+    attributes: map() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :event_id) -> {:error, {:missing_field, :event_id}}
+      not Map.has_key?(attrs, :event_time) -> {:error, {:missing_field, :event_time}}
+      not Map.has_key?(attrs, :episode_id) -> {:error, {:missing_field, :episode_id}}
+      true ->
+        {:ok, %__MODULE__{
+          event_id: Map.get(attrs, :event_id),
+          event_time: Map.get(attrs, :event_time),
+          episode_id: Map.get(attrs, :episode_id),
+          attributes: Map.get(attrs, :attributes)
+        }}
+    end
+  end
+end
+
+defmodule BeamPM.Types.AloopCandidateAdmit do
+  @moduledoc "ALOOP event class `candidate.admit`: a candidate passes admission."
+
+  defstruct [:event_id, :event_time, :episode_id, :attributes]
+
+  @type t :: %__MODULE__{
+    event_id: String.t() | nil,
+    event_time: String.t() | nil,
+    episode_id: String.t() | nil,
+    attributes: map() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :event_id) -> {:error, {:missing_field, :event_id}}
+      not Map.has_key?(attrs, :event_time) -> {:error, {:missing_field, :event_time}}
+      not Map.has_key?(attrs, :episode_id) -> {:error, {:missing_field, :episode_id}}
+      true ->
+        {:ok, %__MODULE__{
+          event_id: Map.get(attrs, :event_id),
+          event_time: Map.get(attrs, :event_time),
+          episode_id: Map.get(attrs, :episode_id),
+          attributes: Map.get(attrs, :attributes)
+        }}
+    end
+  end
+end
+
+defmodule BeamPM.Types.AloopCandidateConstruct do
+  @moduledoc "ALOOP event class `candidate.construct`: a candidate is constructed."
+
+  defstruct [:event_id, :event_time, :episode_id, :attributes, :origin_authority]
+
+  @type t :: %__MODULE__{
+    event_id: String.t() | nil,
+    event_time: String.t() | nil,
+    episode_id: String.t() | nil,
+    attributes: map() | nil,
+    origin_authority: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :event_id) -> {:error, {:missing_field, :event_id}}
+      not Map.has_key?(attrs, :event_time) -> {:error, {:missing_field, :event_time}}
+      not Map.has_key?(attrs, :episode_id) -> {:error, {:missing_field, :episode_id}}
+      true ->
+        {:ok, %__MODULE__{
+          event_id: Map.get(attrs, :event_id),
+          event_time: Map.get(attrs, :event_time),
+          episode_id: Map.get(attrs, :episode_id),
+          attributes: Map.get(attrs, :attributes),
+          origin_authority: Map.get(attrs, :origin_authority)
+        }}
+    end
+  end
+end
+
+defmodule BeamPM.Types.AloopCheckpoint do
+  @moduledoc "ALOOP event class `checkpoint`: an execution checkpoint."
+
+  defstruct [:event_id, :event_time, :episode_id, :attributes]
+
+  @type t :: %__MODULE__{
+    event_id: String.t() | nil,
+    event_time: String.t() | nil,
+    episode_id: String.t() | nil,
+    attributes: map() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :event_id) -> {:error, {:missing_field, :event_id}}
+      not Map.has_key?(attrs, :event_time) -> {:error, {:missing_field, :event_time}}
+      not Map.has_key?(attrs, :episode_id) -> {:error, {:missing_field, :episode_id}}
+      true ->
+        {:ok, %__MODULE__{
+          event_id: Map.get(attrs, :event_id),
+          event_time: Map.get(attrs, :event_time),
+          episode_id: Map.get(attrs, :episode_id),
+          attributes: Map.get(attrs, :attributes)
+        }}
+    end
+  end
+end
+
+defmodule BeamPM.Types.AloopCommit do
+  @moduledoc "ALOOP event class `commit`: work is committed."
+
+  defstruct [:event_id, :event_time, :episode_id, :attributes]
+
+  @type t :: %__MODULE__{
+    event_id: String.t() | nil,
+    event_time: String.t() | nil,
+    episode_id: String.t() | nil,
+    attributes: map() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :event_id) -> {:error, {:missing_field, :event_id}}
+      not Map.has_key?(attrs, :event_time) -> {:error, {:missing_field, :event_time}}
+      not Map.has_key?(attrs, :episode_id) -> {:error, {:missing_field, :episode_id}}
+      true ->
+        {:ok, %__MODULE__{
+          event_id: Map.get(attrs, :event_id),
+          event_time: Map.get(attrs, :event_time),
+          episode_id: Map.get(attrs, :episode_id),
+          attributes: Map.get(attrs, :attributes)
+        }}
+    end
+  end
+end
+
+defmodule BeamPM.Types.AloopEpisodeStart do
+  @moduledoc "ALOOP event class `episode.start`: opens an autonomous episode."
+
+  defstruct [:event_id, :event_time, :episode_id, :attributes]
+
+  @type t :: %__MODULE__{
+    event_id: String.t() | nil,
+    event_time: String.t() | nil,
+    episode_id: String.t() | nil,
+    attributes: map() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :event_id) -> {:error, {:missing_field, :event_id}}
+      not Map.has_key?(attrs, :event_time) -> {:error, {:missing_field, :event_time}}
+      not Map.has_key?(attrs, :episode_id) -> {:error, {:missing_field, :episode_id}}
+      true ->
+        {:ok, %__MODULE__{
+          event_id: Map.get(attrs, :event_id),
+          event_time: Map.get(attrs, :event_time),
+          episode_id: Map.get(attrs, :episode_id),
+          attributes: Map.get(attrs, :attributes)
+        }}
+    end
+  end
+end
+
+defmodule BeamPM.Types.AloopEpisodeTerminal do
+  @moduledoc "ALOOP event class `episode.terminal`: the episode reaches a terminal state."
+
+  defstruct [:event_id, :event_time, :episode_id, :attributes]
+
+  @type t :: %__MODULE__{
+    event_id: String.t() | nil,
+    event_time: String.t() | nil,
+    episode_id: String.t() | nil,
+    attributes: map() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :event_id) -> {:error, {:missing_field, :event_id}}
+      not Map.has_key?(attrs, :event_time) -> {:error, {:missing_field, :event_time}}
+      not Map.has_key?(attrs, :episode_id) -> {:error, {:missing_field, :episode_id}}
+      true ->
+        {:ok, %__MODULE__{
+          event_id: Map.get(attrs, :event_id),
+          event_time: Map.get(attrs, :event_time),
+          episode_id: Map.get(attrs, :episode_id),
+          attributes: Map.get(attrs, :attributes)
+        }}
+    end
+  end
+end
+
+defmodule BeamPM.Types.AloopExecutionCrash do
+  @moduledoc "ALOOP event class `execution.crash`: execution crashed."
+
+  defstruct [:event_id, :event_time, :episode_id, :attributes]
+
+  @type t :: %__MODULE__{
+    event_id: String.t() | nil,
+    event_time: String.t() | nil,
+    episode_id: String.t() | nil,
+    attributes: map() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :event_id) -> {:error, {:missing_field, :event_id}}
+      not Map.has_key?(attrs, :event_time) -> {:error, {:missing_field, :event_time}}
+      not Map.has_key?(attrs, :episode_id) -> {:error, {:missing_field, :episode_id}}
+      true ->
+        {:ok, %__MODULE__{
+          event_id: Map.get(attrs, :event_id),
+          event_time: Map.get(attrs, :event_time),
+          episode_id: Map.get(attrs, :episode_id),
+          attributes: Map.get(attrs, :attributes)
+        }}
+    end
+  end
+end
+
+defmodule BeamPM.Types.AloopExecutionStart do
+  @moduledoc "ALOOP event class `execution.start`: execution begins."
+
+  defstruct [:event_id, :event_time, :episode_id, :attributes]
+
+  @type t :: %__MODULE__{
+    event_id: String.t() | nil,
+    event_time: String.t() | nil,
+    episode_id: String.t() | nil,
+    attributes: map() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :event_id) -> {:error, {:missing_field, :event_id}}
+      not Map.has_key?(attrs, :event_time) -> {:error, {:missing_field, :event_time}}
+      not Map.has_key?(attrs, :episode_id) -> {:error, {:missing_field, :episode_id}}
+      true ->
+        {:ok, %__MODULE__{
+          event_id: Map.get(attrs, :event_id),
+          event_time: Map.get(attrs, :event_time),
+          episode_id: Map.get(attrs, :episode_id),
+          attributes: Map.get(attrs, :attributes)
+        }}
+    end
+  end
+end
+
+defmodule BeamPM.Types.AloopFailureDetect do
+  @moduledoc "ALOOP event class `failure.detect`: a failure is detected."
+
+  defstruct [:event_id, :event_time, :episode_id, :attributes]
+
+  @type t :: %__MODULE__{
+    event_id: String.t() | nil,
+    event_time: String.t() | nil,
+    episode_id: String.t() | nil,
+    attributes: map() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :event_id) -> {:error, {:missing_field, :event_id}}
+      not Map.has_key?(attrs, :event_time) -> {:error, {:missing_field, :event_time}}
+      not Map.has_key?(attrs, :episode_id) -> {:error, {:missing_field, :episode_id}}
+      true ->
+        {:ok, %__MODULE__{
+          event_id: Map.get(attrs, :event_id),
+          event_time: Map.get(attrs, :event_time),
+          episode_id: Map.get(attrs, :episode_id),
+          attributes: Map.get(attrs, :attributes)
+        }}
+    end
+  end
+end
+
+defmodule BeamPM.Types.AloopFalsifierRun do
+  @moduledoc "ALOOP event class `falsifier.run`: a falsifier runs against a claim."
+
+  defstruct [:event_id, :event_time, :episode_id, :attributes]
+
+  @type t :: %__MODULE__{
+    event_id: String.t() | nil,
+    event_time: String.t() | nil,
+    episode_id: String.t() | nil,
+    attributes: map() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :event_id) -> {:error, {:missing_field, :event_id}}
+      not Map.has_key?(attrs, :event_time) -> {:error, {:missing_field, :event_time}}
+      not Map.has_key?(attrs, :episode_id) -> {:error, {:missing_field, :episode_id}}
+      true ->
+        {:ok, %__MODULE__{
+          event_id: Map.get(attrs, :event_id),
+          event_time: Map.get(attrs, :event_time),
+          episode_id: Map.get(attrs, :episode_id),
+          attributes: Map.get(attrs, :attributes)
+        }}
+    end
+  end
+end
+
+defmodule BeamPM.Types.AloopGapDetect do
+  @moduledoc "ALOOP event class `gap.detect`: a gap between goal and observation; each occurrence is one loop iteration."
+
+  defstruct [:event_id, :event_time, :episode_id, :attributes]
+
+  @type t :: %__MODULE__{
+    event_id: String.t() | nil,
+    event_time: String.t() | nil,
+    episode_id: String.t() | nil,
+    attributes: map() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :event_id) -> {:error, {:missing_field, :event_id}}
+      not Map.has_key?(attrs, :event_time) -> {:error, {:missing_field, :event_time}}
+      not Map.has_key?(attrs, :episode_id) -> {:error, {:missing_field, :episode_id}}
+      true ->
+        {:ok, %__MODULE__{
+          event_id: Map.get(attrs, :event_id),
+          event_time: Map.get(attrs, :event_time),
+          episode_id: Map.get(attrs, :episode_id),
+          attributes: Map.get(attrs, :attributes)
+        }}
+    end
+  end
+end
+
+defmodule BeamPM.Types.AloopGoalBlocked do
+  @moduledoc "ALOOP event class `goal.blocked`: the episode goal is blocked."
+
+  defstruct [:event_id, :event_time, :episode_id, :attributes]
+
+  @type t :: %__MODULE__{
+    event_id: String.t() | nil,
+    event_time: String.t() | nil,
+    episode_id: String.t() | nil,
+    attributes: map() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :event_id) -> {:error, {:missing_field, :event_id}}
+      not Map.has_key?(attrs, :event_time) -> {:error, {:missing_field, :event_time}}
+      not Map.has_key?(attrs, :episode_id) -> {:error, {:missing_field, :episode_id}}
+      true ->
+        {:ok, %__MODULE__{
+          event_id: Map.get(attrs, :event_id),
+          event_time: Map.get(attrs, :event_time),
+          episode_id: Map.get(attrs, :episode_id),
+          attributes: Map.get(attrs, :attributes)
+        }}
+    end
+  end
+end
+
+defmodule BeamPM.Types.AloopGoalSatisfied do
+  @moduledoc "ALOOP event class `goal.satisfied`: the episode goal is satisfied."
+
+  defstruct [:event_id, :event_time, :episode_id, :attributes]
+
+  @type t :: %__MODULE__{
+    event_id: String.t() | nil,
+    event_time: String.t() | nil,
+    episode_id: String.t() | nil,
+    attributes: map() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :event_id) -> {:error, {:missing_field, :event_id}}
+      not Map.has_key?(attrs, :event_time) -> {:error, {:missing_field, :event_time}}
+      not Map.has_key?(attrs, :episode_id) -> {:error, {:missing_field, :episode_id}}
+      true ->
+        {:ok, %__MODULE__{
+          event_id: Map.get(attrs, :event_id),
+          event_time: Map.get(attrs, :event_time),
+          episode_id: Map.get(attrs, :episode_id),
+          attributes: Map.get(attrs, :attributes)
+        }}
+    end
+  end
+end
+
+defmodule BeamPM.Types.AloopMerge do
+  @moduledoc "ALOOP event class `merge`: branches are merged."
+
+  defstruct [:event_id, :event_time, :episode_id, :attributes]
+
+  @type t :: %__MODULE__{
+    event_id: String.t() | nil,
+    event_time: String.t() | nil,
+    episode_id: String.t() | nil,
+    attributes: map() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :event_id) -> {:error, {:missing_field, :event_id}}
+      not Map.has_key?(attrs, :event_time) -> {:error, {:missing_field, :event_time}}
+      not Map.has_key?(attrs, :episode_id) -> {:error, {:missing_field, :episode_id}}
+      true ->
+        {:ok, %__MODULE__{
+          event_id: Map.get(attrs, :event_id),
+          event_time: Map.get(attrs, :event_time),
+          episode_id: Map.get(attrs, :episode_id),
+          attributes: Map.get(attrs, :attributes)
+        }}
+    end
+  end
+end
+
+defmodule BeamPM.Types.AloopModelEdge do
+  @moduledoc "One admitted directly-follows edge of the ALOOP model (from_activity -> to_activity), frequency-annotated when projected from an observed log."
+
+  defstruct [:from_activity, :to_activity, :observed_count]
+
+  @type t :: %__MODULE__{
+    from_activity: String.t() | nil,
+    to_activity: String.t() | nil,
+    observed_count: integer() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :from_activity) -> {:error, {:missing_field, :from_activity}}
+      not Map.has_key?(attrs, :to_activity) -> {:error, {:missing_field, :to_activity}}
+      true ->
+        {:ok, %__MODULE__{
+          from_activity: Map.get(attrs, :from_activity),
+          to_activity: Map.get(attrs, :to_activity),
+          observed_count: Map.get(attrs, :observed_count)
+        }}
+    end
+  end
+end
+
+defmodule BeamPM.Types.AloopObject do
+  @moduledoc "An ALOOP OCEL object. The bpm:object_type attribute admits exactly the 19 ALOOP object types: Episode, Objective, Requirement, WorkOrder, Authority, Repository, Subject, Provider, Worker, WorkerRun, Plan, Capability, Candidate, Consequence, Evidence, Receipt, Failure, Benchmark, Release."
+
+  defstruct [:object_id, :object_type, :attributes]
+
+  @type t :: %__MODULE__{
+    object_id: String.t() | nil,
+    object_type: String.t() | nil,
+    attributes: map() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :object_id) -> {:error, {:missing_field, :object_id}}
+      not Map.has_key?(attrs, :object_type) -> {:error, {:missing_field, :object_type}}
+      true ->
+        {:ok, %__MODULE__{
+          object_id: Map.get(attrs, :object_id),
+          object_type: Map.get(attrs, :object_type),
+          attributes: Map.get(attrs, :attributes)
+        }}
+    end
+  end
+end
+
+defmodule BeamPM.Types.AloopObserve do
+  @moduledoc "ALOOP event class `observe`: an observation of the world entering the loop."
+
+  defstruct [:event_id, :event_time, :episode_id, :attributes]
+
+  @type t :: %__MODULE__{
+    event_id: String.t() | nil,
+    event_time: String.t() | nil,
+    episode_id: String.t() | nil,
+    attributes: map() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :event_id) -> {:error, {:missing_field, :event_id}}
+      not Map.has_key?(attrs, :event_time) -> {:error, {:missing_field, :event_time}}
+      not Map.has_key?(attrs, :episode_id) -> {:error, {:missing_field, :episode_id}}
+      true ->
+        {:ok, %__MODULE__{
+          event_id: Map.get(attrs, :event_id),
+          event_time: Map.get(attrs, :event_time),
+          episode_id: Map.get(attrs, :episode_id),
+          attributes: Map.get(attrs, :attributes)
+        }}
+    end
+  end
+end
+
+defmodule BeamPM.Types.AloopPlanSelect do
+  @moduledoc "ALOOP event class `plan.select`: a plan is selected."
+
+  defstruct [:event_id, :event_time, :episode_id, :attributes]
+
+  @type t :: %__MODULE__{
+    event_id: String.t() | nil,
+    event_time: String.t() | nil,
+    episode_id: String.t() | nil,
+    attributes: map() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :event_id) -> {:error, {:missing_field, :event_id}}
+      not Map.has_key?(attrs, :event_time) -> {:error, {:missing_field, :event_time}}
+      not Map.has_key?(attrs, :episode_id) -> {:error, {:missing_field, :episode_id}}
+      true ->
+        {:ok, %__MODULE__{
+          event_id: Map.get(attrs, :event_id),
+          event_time: Map.get(attrs, :event_time),
+          episode_id: Map.get(attrs, :episode_id),
+          attributes: Map.get(attrs, :attributes)
+        }}
+    end
+  end
+end
+
+defmodule BeamPM.Types.AloopProviderReplace do
+  @moduledoc "ALOOP event class `provider.replace`: one provider replaces another mid-episode."
+
+  defstruct [:event_id, :event_time, :episode_id, :attributes, :from_provider, :to_provider]
+
+  @type t :: %__MODULE__{
+    event_id: String.t() | nil,
+    event_time: String.t() | nil,
+    episode_id: String.t() | nil,
+    attributes: map() | nil,
+    from_provider: String.t() | nil,
+    to_provider: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :event_id) -> {:error, {:missing_field, :event_id}}
+      not Map.has_key?(attrs, :event_time) -> {:error, {:missing_field, :event_time}}
+      not Map.has_key?(attrs, :episode_id) -> {:error, {:missing_field, :episode_id}}
+      true ->
+        {:ok, %__MODULE__{
+          event_id: Map.get(attrs, :event_id),
+          event_time: Map.get(attrs, :event_time),
+          episode_id: Map.get(attrs, :episode_id),
+          attributes: Map.get(attrs, :attributes),
+          from_provider: Map.get(attrs, :from_provider),
+          to_provider: Map.get(attrs, :to_provider)
+        }}
+    end
+  end
+end
+
+defmodule BeamPM.Types.AloopProviderSelect do
+  @moduledoc "ALOOP event class `provider.select`: a provider is selected."
+
+  defstruct [:event_id, :event_time, :episode_id, :attributes, :provider]
+
+  @type t :: %__MODULE__{
+    event_id: String.t() | nil,
+    event_time: String.t() | nil,
+    episode_id: String.t() | nil,
+    attributes: map() | nil,
+    provider: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :event_id) -> {:error, {:missing_field, :event_id}}
+      not Map.has_key?(attrs, :event_time) -> {:error, {:missing_field, :event_time}}
+      not Map.has_key?(attrs, :episode_id) -> {:error, {:missing_field, :episode_id}}
+      true ->
+        {:ok, %__MODULE__{
+          event_id: Map.get(attrs, :event_id),
+          event_time: Map.get(attrs, :event_time),
+          episode_id: Map.get(attrs, :episode_id),
+          attributes: Map.get(attrs, :attributes),
+          provider: Map.get(attrs, :provider)
+        }}
+    end
+  end
+end
+
+defmodule BeamPM.Types.AloopReceiptPersist do
+  @moduledoc "ALOOP event class `receipt.persist`: an execution receipt is persisted."
+
+  defstruct [:event_id, :event_time, :episode_id, :attributes, :receipt]
+
+  @type t :: %__MODULE__{
+    event_id: String.t() | nil,
+    event_time: String.t() | nil,
+    episode_id: String.t() | nil,
+    attributes: map() | nil,
+    receipt: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :event_id) -> {:error, {:missing_field, :event_id}}
+      not Map.has_key?(attrs, :event_time) -> {:error, {:missing_field, :event_time}}
+      not Map.has_key?(attrs, :episode_id) -> {:error, {:missing_field, :episode_id}}
+      true ->
+        {:ok, %__MODULE__{
+          event_id: Map.get(attrs, :event_id),
+          event_time: Map.get(attrs, :event_time),
+          episode_id: Map.get(attrs, :episode_id),
+          attributes: Map.get(attrs, :attributes),
+          receipt: Map.get(attrs, :receipt)
+        }}
+    end
+  end
+end
+
+defmodule BeamPM.Types.AloopReconcile do
+  @moduledoc "ALOOP event class `reconcile`: state is reconciled."
+
+  defstruct [:event_id, :event_time, :episode_id, :attributes]
+
+  @type t :: %__MODULE__{
+    event_id: String.t() | nil,
+    event_time: String.t() | nil,
+    episode_id: String.t() | nil,
+    attributes: map() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :event_id) -> {:error, {:missing_field, :event_id}}
+      not Map.has_key?(attrs, :event_time) -> {:error, {:missing_field, :event_time}}
+      not Map.has_key?(attrs, :episode_id) -> {:error, {:missing_field, :episode_id}}
+      true ->
+        {:ok, %__MODULE__{
+          event_id: Map.get(attrs, :event_id),
+          event_time: Map.get(attrs, :event_time),
+          episode_id: Map.get(attrs, :episode_id),
+          attributes: Map.get(attrs, :attributes)
+        }}
+    end
+  end
+end
+
+defmodule BeamPM.Types.AloopReobserve do
+  @moduledoc "ALOOP event class `reobserve`: the world is re-observed after actuation."
+
+  defstruct [:event_id, :event_time, :episode_id, :attributes]
+
+  @type t :: %__MODULE__{
+    event_id: String.t() | nil,
+    event_time: String.t() | nil,
+    episode_id: String.t() | nil,
+    attributes: map() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :event_id) -> {:error, {:missing_field, :event_id}}
+      not Map.has_key?(attrs, :event_time) -> {:error, {:missing_field, :event_time}}
+      not Map.has_key?(attrs, :episode_id) -> {:error, {:missing_field, :episode_id}}
+      true ->
+        {:ok, %__MODULE__{
+          event_id: Map.get(attrs, :event_id),
+          event_time: Map.get(attrs, :event_time),
+          episode_id: Map.get(attrs, :episode_id),
+          attributes: Map.get(attrs, :attributes)
+        }}
+    end
+  end
+end
+
+defmodule BeamPM.Types.AloopReplan do
+  @moduledoc "ALOOP event class `replan`: the plan is replaced."
+
+  defstruct [:event_id, :event_time, :episode_id, :attributes]
+
+  @type t :: %__MODULE__{
+    event_id: String.t() | nil,
+    event_time: String.t() | nil,
+    episode_id: String.t() | nil,
+    attributes: map() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :event_id) -> {:error, {:missing_field, :event_id}}
+      not Map.has_key?(attrs, :event_time) -> {:error, {:missing_field, :event_time}}
+      not Map.has_key?(attrs, :episode_id) -> {:error, {:missing_field, :episode_id}}
+      true ->
+        {:ok, %__MODULE__{
+          event_id: Map.get(attrs, :event_id),
+          event_time: Map.get(attrs, :event_time),
+          episode_id: Map.get(attrs, :episode_id),
+          attributes: Map.get(attrs, :attributes)
+        }}
+    end
+  end
+end
+
+defmodule BeamPM.Types.AloopToolAdmit do
+  @moduledoc "ALOOP event class `tool.admit`: a tool is admitted for use."
+
+  defstruct [:event_id, :event_time, :episode_id, :attributes]
+
+  @type t :: %__MODULE__{
+    event_id: String.t() | nil,
+    event_time: String.t() | nil,
+    episode_id: String.t() | nil,
+    attributes: map() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :event_id) -> {:error, {:missing_field, :event_id}}
+      not Map.has_key?(attrs, :event_time) -> {:error, {:missing_field, :event_time}}
+      not Map.has_key?(attrs, :episode_id) -> {:error, {:missing_field, :episode_id}}
+      true ->
+        {:ok, %__MODULE__{
+          event_id: Map.get(attrs, :event_id),
+          event_time: Map.get(attrs, :event_time),
+          episode_id: Map.get(attrs, :episode_id),
+          attributes: Map.get(attrs, :attributes)
+        }}
+    end
+  end
+end
+
+defmodule BeamPM.Types.AloopVerify do
+  @moduledoc "ALOOP event class `verify`: a verification runs."
+
+  defstruct [:event_id, :event_time, :episode_id, :attributes]
+
+  @type t :: %__MODULE__{
+    event_id: String.t() | nil,
+    event_time: String.t() | nil,
+    episode_id: String.t() | nil,
+    attributes: map() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :event_id) -> {:error, {:missing_field, :event_id}}
+      not Map.has_key?(attrs, :event_time) -> {:error, {:missing_field, :event_time}}
+      not Map.has_key?(attrs, :episode_id) -> {:error, {:missing_field, :episode_id}}
+      true ->
+        {:ok, %__MODULE__{
+          event_id: Map.get(attrs, :event_id),
+          event_time: Map.get(attrs, :event_time),
+          episode_id: Map.get(attrs, :episode_id),
+          attributes: Map.get(attrs, :attributes)
+        }}
+    end
+  end
+end
+
+defmodule BeamPM.Types.AloopWorkerClaim do
+  @moduledoc "ALOOP event class `worker.claim`: a worker claims the work order."
+
+  defstruct [:event_id, :event_time, :episode_id, :attributes, :worker]
+
+  @type t :: %__MODULE__{
+    event_id: String.t() | nil,
+    event_time: String.t() | nil,
+    episode_id: String.t() | nil,
+    attributes: map() | nil,
+    worker: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :event_id) -> {:error, {:missing_field, :event_id}}
+      not Map.has_key?(attrs, :event_time) -> {:error, {:missing_field, :event_time}}
+      not Map.has_key?(attrs, :episode_id) -> {:error, {:missing_field, :episode_id}}
+      true ->
+        {:ok, %__MODULE__{
+          event_id: Map.get(attrs, :event_id),
+          event_time: Map.get(attrs, :event_time),
+          episode_id: Map.get(attrs, :episode_id),
+          attributes: Map.get(attrs, :attributes),
+          worker: Map.get(attrs, :worker)
+        }}
+    end
+  end
+end
+
+defmodule BeamPM.Types.AloopWorkorderIssue do
+  @moduledoc "ALOOP event class `workorder.issue`: a work order is issued."
+
+  defstruct [:event_id, :event_time, :episode_id, :attributes]
+
+  @type t :: %__MODULE__{
+    event_id: String.t() | nil,
+    event_time: String.t() | nil,
+    episode_id: String.t() | nil,
+    attributes: map() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :event_id) -> {:error, {:missing_field, :event_id}}
+      not Map.has_key?(attrs, :event_time) -> {:error, {:missing_field, :event_time}}
+      not Map.has_key?(attrs, :episode_id) -> {:error, {:missing_field, :episode_id}}
+      true ->
+        {:ok, %__MODULE__{
+          event_id: Map.get(attrs, :event_id),
+          event_time: Map.get(attrs, :event_time),
+          episode_id: Map.get(attrs, :episode_id),
+          attributes: Map.get(attrs, :attributes)
+        }}
+    end
+  end
+end
+
 defmodule BeamPM.Types.AnnualSubscription do
   @moduledoc "Annual package binding SKU, seats, and renewal date."
 

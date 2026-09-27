@@ -1,0 +1,47 @@
+@prefix bpm: <https://ggen.dev/ontology/beam-process-model#> .
+@prefix bap: <https://ggen.dev/projects/beam4pm#> .
+
+# WS2-PLAN-051 -- strategic-autonomic-loop engine ops (fond_policy_validate,
+# session_install_plan). Lane W2 (v26.9.25 strategic-autonomic-loop wave 2),
+# 2026-09-25. Repo-local overlay fragment in the ws2-autonomic-planning
+# family: the ferroplan EngineOps it extends live inline in the composed
+# ontology.ttl engine-sunset block (bpm:Engine/bpm:EngineOp facts at the end
+# of that file), which is the source the vendored pack's
+# templates/beam4pm_engine.{ex,erl,gleam}.tmpl render the three facades
+# from. THIS fragment adds two ops to that surface without touching the
+# composed file: the coordinator composes it (same
+# "# ---- composed canonical fragment:" mechanism as 001..050) and re-renders
+# lib/beam4pm_ferroplan.ex at integration. Until that re-render lands, the
+# generated facade does NOT export these ops and every BEAM call site goes
+# through the guarded bridge BeamPM.Ferroplan.Bridge
+# (function_exported?/3 + {:error, {:engine_op_unavailable, op}} fallback).
+#
+# opOrder continues the ferroplan sequence (33 = hddl_solve). Wire names are
+# pinned cross-lane: the ferroplan crate implements the same two string
+# literals in crates/ferroplan-wasm/src/wasi_abi.rs (scripts/
+# gate_engine_dispatch_check.sh will diff the declared ops against the
+# crate's dispatch arms once both land).
+
+# -- fond_policy_validate: re-validate a FOND plan without spending search --
+
+bap:engine_ferroplan_op_fond_policy_validate a bpm:EngineOp ;
+    bpm:opEngine bap:engine_ferroplan ; bpm:opName "fond_policy_validate" ; bpm:opOrder 34 ;
+    bpm:opDoc "`{\"op\":\"fond_policy_validate\",\"domain\":d,\"problem\":p,\"plan\":plan}` -- re-validates an ALREADY-COMPUTED FOND plan against the given domain/problem without spending search: the plan is replayed over the reachable state space and checked as a strong plan (strong-cyclic accepted and reported additively). `domain`/`problem` are the same PDDL text `fond_policy` takes; `plan` is a decoded `UniversalPlan` map (not a JSON string), the same shape `fond_policy`/`htn_plan` return. Returns `{:ok, %{\"valid\" => bool}}` -- the pinned minimal contract, mirroring `session_valid`'s return shape; richer diagnostic keys (strong/strong-cyclic witnesses) may be added additively but `valid` stays the sole load-bearing field. Declared by the strategic-autonomic-loop overlay (W2 2026-09-25); implemented by the ferroplan crate (same wave). The autonomic loop calls this through `BeamPM.Ferroplan.Bridge` (guarded) to re-check a stashed plan when the observed world or the admitted doctrine has moved, before any replan is spent." ;
+    bpm:opTimeoutClass bpm:TimeoutClass_heavy ; bpm:opKind bpm:EngineOpKind_wire .
+bap:engine_ferroplan_op_fond_policy_validate_domain a bpm:EngineArg ;
+    bpm:argOp bap:engine_ferroplan_op_fond_policy_validate ; bpm:argName "domain" ; bpm:argOrder 1 ; bpm:argType bpm:EngineArgType_string .
+bap:engine_ferroplan_op_fond_policy_validate_problem a bpm:EngineArg ;
+    bpm:argOp bap:engine_ferroplan_op_fond_policy_validate ; bpm:argName "problem" ; bpm:argOrder 2 ; bpm:argType bpm:EngineArgType_string .
+bap:engine_ferroplan_op_fond_policy_validate_plan a bpm:EngineArg ;
+    bpm:argOp bap:engine_ferroplan_op_fond_policy_validate ; bpm:argName "plan" ; bpm:argOrder 3 ; bpm:argType bpm:EngineArgType_map .
+
+# -- session_install_plan: install a computed plan without re-search --------
+
+bap:engine_ferroplan_op_session_install_plan a bpm:EngineOp ;
+    bpm:opEngine bap:engine_ferroplan ; bpm:opName "session_install_plan" ; bpm:opOrder 35 ;
+    bpm:opDoc "`{\"op\":\"session_install_plan\",\"handle\":h,\"plan\":plan}` -- installs `plan` (a decoded `UniversalPlan` map, the return shape of `fond_policy`/`htn_plan`/`hddl_solve`) as this session's stashed plan and resets the plan cursor to its start -- the counterpart of `session_drop_plan`: a host installs a plan computed by a different op or a different session (forks share the grounded world, so a plan from a sibling session is installable) without re-search inside THIS session. No search is spent, so the op is cheap. Returns `{:ok, %{\"installed\" => true}}`. A plan that does not apply to this session's grounded world surfaces as `{:ok, %{\"error\" => %{\"code\" => \"FP_MODEL\", ...}}}` (error-in-envelope, never a bare `{:error, _}` -- bpm:ErrorCollapse_single_key_inspect). Declared by the strategic-autonomic-loop overlay (W2 2026-09-25); implemented by the ferroplan crate (same wave); called through the guarded bridge until the facade re-render lands." ;
+    bpm:opTimeoutClass bpm:TimeoutClass_cheap ; bpm:opKind bpm:EngineOpKind_wire .
+bap:engine_ferroplan_op_session_install_plan_handle a bpm:EngineArg ;
+    bpm:argOp bap:engine_ferroplan_op_session_install_plan ; bpm:argName "handle" ; bpm:argOrder 1 ; bpm:argType bpm:EngineArgType_handle .
+bap:engine_ferroplan_op_session_install_plan_plan a bpm:EngineArg ;
+    bpm:argOp bap:engine_ferroplan_op_session_install_plan ; bpm:argName "plan" ; bpm:argOrder 2 ; bpm:argType bpm:EngineArgType_map .

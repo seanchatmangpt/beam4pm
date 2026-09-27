@@ -20,7 +20,7 @@ lines 47-49.
 The second engine is `ggen_igniter`, an Elixir-native generator invoked via
 `scripts/igniter_sync.sh`, which internally runs `mix ggen_igniter.sync`
 (`gate_m2_check.sh:100-102, 116`). It reads the same `ontology.ttl` but produces
-something the Rust/Tera pipeline does not: `lib/beam4pm_ash/resources/*.ex`, 290
+something the Rust/Tera pipeline does not: `lib/beam4pm_ash/resources/*.ex`, 647
 `Ash.Resource` modules, one per record type (plus `lib/beam4pm_ash_domain.ex` and
 `lib/beam4pm_ash_roundtrip.ex`), each declaring `use Ash.Resource, domain:
 BeamPM.Ash.Domain, data_layer: Ash.DataLayer.Ets` with an `attributes do ... end` block

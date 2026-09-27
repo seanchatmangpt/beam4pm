@@ -79,7 +79,8 @@ ggen ... Do not edit.`, direct edits are refused, regardless of what directory i
 sits in. If the generated output is wrong, the fix is upstream — in `ontology.ttl`
 or in the vendored pack's templates under
 `vendor/ggen-marketplace/packs/beam4pm-process-model-pack` — followed by a
-regeneration (`rm ggen.lock && ggen sync run`).
+regeneration (`rm -f ggen.lock && ggen sync run`; `ggen.lock` is absent at
+the current vendor pin, so use `rm -f`).
 
 Everything else is a legitimate manufacturing input, hand-editable by design:
 `ontology.ttl` itself, `ggen.toml`, `rebar.config`, `mix.exs`,

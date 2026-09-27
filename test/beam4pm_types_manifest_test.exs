@@ -3,7 +3,7 @@ defmodule BeamPM.Types.ManifestTest do
   use ExUnit.Case, async: true
 
   test "record_names/0 lists every admitted record type" do
-    assert length(BeamPM.Types.Manifest.record_names()) == 647
+    assert length(BeamPM.Types.Manifest.record_names()) == 677
   end
 
   test "fields/1 returns the ordered field-name list for acceptance_criteria_nonweakening" do
@@ -64,6 +64,126 @@ defmodule BeamPM.Types.ManifestTest do
 
   test "fields/1 returns the ordered field-name list for alignment_move" do
     assert BeamPM.Types.Manifest.fields(:alignment_move) == [:move_type, :cost]
+  end
+
+  test "fields/1 returns the ordered field-name list for aloop_actuate" do
+    assert BeamPM.Types.Manifest.fields(:aloop_actuate) == [:event_id, :event_time, :episode_id, :attributes, :consequence]
+  end
+
+  test "fields/1 returns the ordered field-name list for aloop_benchmark_run" do
+    assert BeamPM.Types.Manifest.fields(:aloop_benchmark_run) == [:event_id, :event_time, :episode_id, :attributes]
+  end
+
+  test "fields/1 returns the ordered field-name list for aloop_candidate_admit" do
+    assert BeamPM.Types.Manifest.fields(:aloop_candidate_admit) == [:event_id, :event_time, :episode_id, :attributes]
+  end
+
+  test "fields/1 returns the ordered field-name list for aloop_candidate_construct" do
+    assert BeamPM.Types.Manifest.fields(:aloop_candidate_construct) == [:event_id, :event_time, :episode_id, :attributes, :origin_authority]
+  end
+
+  test "fields/1 returns the ordered field-name list for aloop_checkpoint" do
+    assert BeamPM.Types.Manifest.fields(:aloop_checkpoint) == [:event_id, :event_time, :episode_id, :attributes]
+  end
+
+  test "fields/1 returns the ordered field-name list for aloop_commit" do
+    assert BeamPM.Types.Manifest.fields(:aloop_commit) == [:event_id, :event_time, :episode_id, :attributes]
+  end
+
+  test "fields/1 returns the ordered field-name list for aloop_episode_start" do
+    assert BeamPM.Types.Manifest.fields(:aloop_episode_start) == [:event_id, :event_time, :episode_id, :attributes]
+  end
+
+  test "fields/1 returns the ordered field-name list for aloop_episode_terminal" do
+    assert BeamPM.Types.Manifest.fields(:aloop_episode_terminal) == [:event_id, :event_time, :episode_id, :attributes]
+  end
+
+  test "fields/1 returns the ordered field-name list for aloop_execution_crash" do
+    assert BeamPM.Types.Manifest.fields(:aloop_execution_crash) == [:event_id, :event_time, :episode_id, :attributes]
+  end
+
+  test "fields/1 returns the ordered field-name list for aloop_execution_start" do
+    assert BeamPM.Types.Manifest.fields(:aloop_execution_start) == [:event_id, :event_time, :episode_id, :attributes]
+  end
+
+  test "fields/1 returns the ordered field-name list for aloop_failure_detect" do
+    assert BeamPM.Types.Manifest.fields(:aloop_failure_detect) == [:event_id, :event_time, :episode_id, :attributes]
+  end
+
+  test "fields/1 returns the ordered field-name list for aloop_falsifier_run" do
+    assert BeamPM.Types.Manifest.fields(:aloop_falsifier_run) == [:event_id, :event_time, :episode_id, :attributes]
+  end
+
+  test "fields/1 returns the ordered field-name list for aloop_gap_detect" do
+    assert BeamPM.Types.Manifest.fields(:aloop_gap_detect) == [:event_id, :event_time, :episode_id, :attributes]
+  end
+
+  test "fields/1 returns the ordered field-name list for aloop_goal_blocked" do
+    assert BeamPM.Types.Manifest.fields(:aloop_goal_blocked) == [:event_id, :event_time, :episode_id, :attributes]
+  end
+
+  test "fields/1 returns the ordered field-name list for aloop_goal_satisfied" do
+    assert BeamPM.Types.Manifest.fields(:aloop_goal_satisfied) == [:event_id, :event_time, :episode_id, :attributes]
+  end
+
+  test "fields/1 returns the ordered field-name list for aloop_merge" do
+    assert BeamPM.Types.Manifest.fields(:aloop_merge) == [:event_id, :event_time, :episode_id, :attributes]
+  end
+
+  test "fields/1 returns the ordered field-name list for aloop_model_edge" do
+    assert BeamPM.Types.Manifest.fields(:aloop_model_edge) == [:from_activity, :to_activity, :observed_count]
+  end
+
+  test "fields/1 returns the ordered field-name list for aloop_object" do
+    assert BeamPM.Types.Manifest.fields(:aloop_object) == [:object_id, :object_type, :attributes]
+  end
+
+  test "fields/1 returns the ordered field-name list for aloop_observe" do
+    assert BeamPM.Types.Manifest.fields(:aloop_observe) == [:event_id, :event_time, :episode_id, :attributes]
+  end
+
+  test "fields/1 returns the ordered field-name list for aloop_plan_select" do
+    assert BeamPM.Types.Manifest.fields(:aloop_plan_select) == [:event_id, :event_time, :episode_id, :attributes]
+  end
+
+  test "fields/1 returns the ordered field-name list for aloop_provider_replace" do
+    assert BeamPM.Types.Manifest.fields(:aloop_provider_replace) == [:event_id, :event_time, :episode_id, :attributes, :from_provider, :to_provider]
+  end
+
+  test "fields/1 returns the ordered field-name list for aloop_provider_select" do
+    assert BeamPM.Types.Manifest.fields(:aloop_provider_select) == [:event_id, :event_time, :episode_id, :attributes, :provider]
+  end
+
+  test "fields/1 returns the ordered field-name list for aloop_receipt_persist" do
+    assert BeamPM.Types.Manifest.fields(:aloop_receipt_persist) == [:event_id, :event_time, :episode_id, :attributes, :receipt]
+  end
+
+  test "fields/1 returns the ordered field-name list for aloop_reconcile" do
+    assert BeamPM.Types.Manifest.fields(:aloop_reconcile) == [:event_id, :event_time, :episode_id, :attributes]
+  end
+
+  test "fields/1 returns the ordered field-name list for aloop_reobserve" do
+    assert BeamPM.Types.Manifest.fields(:aloop_reobserve) == [:event_id, :event_time, :episode_id, :attributes]
+  end
+
+  test "fields/1 returns the ordered field-name list for aloop_replan" do
+    assert BeamPM.Types.Manifest.fields(:aloop_replan) == [:event_id, :event_time, :episode_id, :attributes]
+  end
+
+  test "fields/1 returns the ordered field-name list for aloop_tool_admit" do
+    assert BeamPM.Types.Manifest.fields(:aloop_tool_admit) == [:event_id, :event_time, :episode_id, :attributes]
+  end
+
+  test "fields/1 returns the ordered field-name list for aloop_verify" do
+    assert BeamPM.Types.Manifest.fields(:aloop_verify) == [:event_id, :event_time, :episode_id, :attributes]
+  end
+
+  test "fields/1 returns the ordered field-name list for aloop_worker_claim" do
+    assert BeamPM.Types.Manifest.fields(:aloop_worker_claim) == [:event_id, :event_time, :episode_id, :attributes, :worker]
+  end
+
+  test "fields/1 returns the ordered field-name list for aloop_workorder_issue" do
+    assert BeamPM.Types.Manifest.fields(:aloop_workorder_issue) == [:event_id, :event_time, :episode_id, :attributes]
   end
 
   test "fields/1 returns the ordered field-name list for annual_subscription" do

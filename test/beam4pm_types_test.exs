@@ -199,6 +199,371 @@ defmodule BeamPM.Types.GeneratedTest do
     },
 
     %{
+      name: "aloop_actuate",
+      mod: BeamPM.Types.AloopActuate,
+      has_required: true,
+      full_attrs: %{
+        event_id: "x",
+        event_time: "2026-01-01T00:00:00Z",
+        episode_id: "x",
+        attributes: %{},
+        consequence: "x"
+      }
+    },
+
+    %{
+      name: "aloop_benchmark_run",
+      mod: BeamPM.Types.AloopBenchmarkRun,
+      has_required: true,
+      full_attrs: %{
+        event_id: "x",
+        event_time: "2026-01-01T00:00:00Z",
+        episode_id: "x",
+        attributes: %{}
+      }
+    },
+
+    %{
+      name: "aloop_candidate_admit",
+      mod: BeamPM.Types.AloopCandidateAdmit,
+      has_required: true,
+      full_attrs: %{
+        event_id: "x",
+        event_time: "2026-01-01T00:00:00Z",
+        episode_id: "x",
+        attributes: %{}
+      }
+    },
+
+    %{
+      name: "aloop_candidate_construct",
+      mod: BeamPM.Types.AloopCandidateConstruct,
+      has_required: true,
+      full_attrs: %{
+        event_id: "x",
+        event_time: "2026-01-01T00:00:00Z",
+        episode_id: "x",
+        attributes: %{},
+        origin_authority: "x"
+      }
+    },
+
+    %{
+      name: "aloop_checkpoint",
+      mod: BeamPM.Types.AloopCheckpoint,
+      has_required: true,
+      full_attrs: %{
+        event_id: "x",
+        event_time: "2026-01-01T00:00:00Z",
+        episode_id: "x",
+        attributes: %{}
+      }
+    },
+
+    %{
+      name: "aloop_commit",
+      mod: BeamPM.Types.AloopCommit,
+      has_required: true,
+      full_attrs: %{
+        event_id: "x",
+        event_time: "2026-01-01T00:00:00Z",
+        episode_id: "x",
+        attributes: %{}
+      }
+    },
+
+    %{
+      name: "aloop_episode_start",
+      mod: BeamPM.Types.AloopEpisodeStart,
+      has_required: true,
+      full_attrs: %{
+        event_id: "x",
+        event_time: "2026-01-01T00:00:00Z",
+        episode_id: "x",
+        attributes: %{}
+      }
+    },
+
+    %{
+      name: "aloop_episode_terminal",
+      mod: BeamPM.Types.AloopEpisodeTerminal,
+      has_required: true,
+      full_attrs: %{
+        event_id: "x",
+        event_time: "2026-01-01T00:00:00Z",
+        episode_id: "x",
+        attributes: %{}
+      }
+    },
+
+    %{
+      name: "aloop_execution_crash",
+      mod: BeamPM.Types.AloopExecutionCrash,
+      has_required: true,
+      full_attrs: %{
+        event_id: "x",
+        event_time: "2026-01-01T00:00:00Z",
+        episode_id: "x",
+        attributes: %{}
+      }
+    },
+
+    %{
+      name: "aloop_execution_start",
+      mod: BeamPM.Types.AloopExecutionStart,
+      has_required: true,
+      full_attrs: %{
+        event_id: "x",
+        event_time: "2026-01-01T00:00:00Z",
+        episode_id: "x",
+        attributes: %{}
+      }
+    },
+
+    %{
+      name: "aloop_failure_detect",
+      mod: BeamPM.Types.AloopFailureDetect,
+      has_required: true,
+      full_attrs: %{
+        event_id: "x",
+        event_time: "2026-01-01T00:00:00Z",
+        episode_id: "x",
+        attributes: %{}
+      }
+    },
+
+    %{
+      name: "aloop_falsifier_run",
+      mod: BeamPM.Types.AloopFalsifierRun,
+      has_required: true,
+      full_attrs: %{
+        event_id: "x",
+        event_time: "2026-01-01T00:00:00Z",
+        episode_id: "x",
+        attributes: %{}
+      }
+    },
+
+    %{
+      name: "aloop_gap_detect",
+      mod: BeamPM.Types.AloopGapDetect,
+      has_required: true,
+      full_attrs: %{
+        event_id: "x",
+        event_time: "2026-01-01T00:00:00Z",
+        episode_id: "x",
+        attributes: %{}
+      }
+    },
+
+    %{
+      name: "aloop_goal_blocked",
+      mod: BeamPM.Types.AloopGoalBlocked,
+      has_required: true,
+      full_attrs: %{
+        event_id: "x",
+        event_time: "2026-01-01T00:00:00Z",
+        episode_id: "x",
+        attributes: %{}
+      }
+    },
+
+    %{
+      name: "aloop_goal_satisfied",
+      mod: BeamPM.Types.AloopGoalSatisfied,
+      has_required: true,
+      full_attrs: %{
+        event_id: "x",
+        event_time: "2026-01-01T00:00:00Z",
+        episode_id: "x",
+        attributes: %{}
+      }
+    },
+
+    %{
+      name: "aloop_merge",
+      mod: BeamPM.Types.AloopMerge,
+      has_required: true,
+      full_attrs: %{
+        event_id: "x",
+        event_time: "2026-01-01T00:00:00Z",
+        episode_id: "x",
+        attributes: %{}
+      }
+    },
+
+    %{
+      name: "aloop_model_edge",
+      mod: BeamPM.Types.AloopModelEdge,
+      has_required: true,
+      full_attrs: %{
+        from_activity: "x",
+        to_activity: "x",
+        observed_count: 1
+      }
+    },
+
+    %{
+      name: "aloop_object",
+      mod: BeamPM.Types.AloopObject,
+      has_required: true,
+      full_attrs: %{
+        object_id: "x",
+        object_type: "x",
+        attributes: %{}
+      }
+    },
+
+    %{
+      name: "aloop_observe",
+      mod: BeamPM.Types.AloopObserve,
+      has_required: true,
+      full_attrs: %{
+        event_id: "x",
+        event_time: "2026-01-01T00:00:00Z",
+        episode_id: "x",
+        attributes: %{}
+      }
+    },
+
+    %{
+      name: "aloop_plan_select",
+      mod: BeamPM.Types.AloopPlanSelect,
+      has_required: true,
+      full_attrs: %{
+        event_id: "x",
+        event_time: "2026-01-01T00:00:00Z",
+        episode_id: "x",
+        attributes: %{}
+      }
+    },
+
+    %{
+      name: "aloop_provider_replace",
+      mod: BeamPM.Types.AloopProviderReplace,
+      has_required: true,
+      full_attrs: %{
+        event_id: "x",
+        event_time: "2026-01-01T00:00:00Z",
+        episode_id: "x",
+        attributes: %{},
+        from_provider: "x",
+        to_provider: "x"
+      }
+    },
+
+    %{
+      name: "aloop_provider_select",
+      mod: BeamPM.Types.AloopProviderSelect,
+      has_required: true,
+      full_attrs: %{
+        event_id: "x",
+        event_time: "2026-01-01T00:00:00Z",
+        episode_id: "x",
+        attributes: %{},
+        provider: "x"
+      }
+    },
+
+    %{
+      name: "aloop_receipt_persist",
+      mod: BeamPM.Types.AloopReceiptPersist,
+      has_required: true,
+      full_attrs: %{
+        event_id: "x",
+        event_time: "2026-01-01T00:00:00Z",
+        episode_id: "x",
+        attributes: %{},
+        receipt: "x"
+      }
+    },
+
+    %{
+      name: "aloop_reconcile",
+      mod: BeamPM.Types.AloopReconcile,
+      has_required: true,
+      full_attrs: %{
+        event_id: "x",
+        event_time: "2026-01-01T00:00:00Z",
+        episode_id: "x",
+        attributes: %{}
+      }
+    },
+
+    %{
+      name: "aloop_reobserve",
+      mod: BeamPM.Types.AloopReobserve,
+      has_required: true,
+      full_attrs: %{
+        event_id: "x",
+        event_time: "2026-01-01T00:00:00Z",
+        episode_id: "x",
+        attributes: %{}
+      }
+    },
+
+    %{
+      name: "aloop_replan",
+      mod: BeamPM.Types.AloopReplan,
+      has_required: true,
+      full_attrs: %{
+        event_id: "x",
+        event_time: "2026-01-01T00:00:00Z",
+        episode_id: "x",
+        attributes: %{}
+      }
+    },
+
+    %{
+      name: "aloop_tool_admit",
+      mod: BeamPM.Types.AloopToolAdmit,
+      has_required: true,
+      full_attrs: %{
+        event_id: "x",
+        event_time: "2026-01-01T00:00:00Z",
+        episode_id: "x",
+        attributes: %{}
+      }
+    },
+
+    %{
+      name: "aloop_verify",
+      mod: BeamPM.Types.AloopVerify,
+      has_required: true,
+      full_attrs: %{
+        event_id: "x",
+        event_time: "2026-01-01T00:00:00Z",
+        episode_id: "x",
+        attributes: %{}
+      }
+    },
+
+    %{
+      name: "aloop_worker_claim",
+      mod: BeamPM.Types.AloopWorkerClaim,
+      has_required: true,
+      full_attrs: %{
+        event_id: "x",
+        event_time: "2026-01-01T00:00:00Z",
+        episode_id: "x",
+        attributes: %{},
+        worker: "x"
+      }
+    },
+
+    %{
+      name: "aloop_workorder_issue",
+      mod: BeamPM.Types.AloopWorkorderIssue,
+      has_required: true,
+      full_attrs: %{
+        event_id: "x",
+        event_time: "2026-01-01T00:00:00Z",
+        episode_id: "x",
+        attributes: %{}
+      }
+    },
+
+    %{
       name: "annual_subscription",
       mod: BeamPM.Types.AnnualSubscription,
       has_required: true,

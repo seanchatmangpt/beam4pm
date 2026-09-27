@@ -146,6 +146,281 @@ defmodule BeamPM.Codec do
     ])
   end
 
+  def to_map(%BeamPM.Types.AloopActuate{} = r) do
+    to_known_map([
+      {"event_id", r.event_id, :passthrough},
+      {"event_time", r.event_time, :passthrough},
+      {"episode_id", r.episode_id, :passthrough},
+      {"attributes", r.attributes, :passthrough},
+      {"consequence", r.consequence, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.AloopBenchmarkRun{} = r) do
+    to_known_map([
+      {"event_id", r.event_id, :passthrough},
+      {"event_time", r.event_time, :passthrough},
+      {"episode_id", r.episode_id, :passthrough},
+      {"attributes", r.attributes, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.AloopCandidateAdmit{} = r) do
+    to_known_map([
+      {"event_id", r.event_id, :passthrough},
+      {"event_time", r.event_time, :passthrough},
+      {"episode_id", r.episode_id, :passthrough},
+      {"attributes", r.attributes, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.AloopCandidateConstruct{} = r) do
+    to_known_map([
+      {"event_id", r.event_id, :passthrough},
+      {"event_time", r.event_time, :passthrough},
+      {"episode_id", r.episode_id, :passthrough},
+      {"attributes", r.attributes, :passthrough},
+      {"origin_authority", r.origin_authority, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.AloopCheckpoint{} = r) do
+    to_known_map([
+      {"event_id", r.event_id, :passthrough},
+      {"event_time", r.event_time, :passthrough},
+      {"episode_id", r.episode_id, :passthrough},
+      {"attributes", r.attributes, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.AloopCommit{} = r) do
+    to_known_map([
+      {"event_id", r.event_id, :passthrough},
+      {"event_time", r.event_time, :passthrough},
+      {"episode_id", r.episode_id, :passthrough},
+      {"attributes", r.attributes, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.AloopEpisodeStart{} = r) do
+    to_known_map([
+      {"event_id", r.event_id, :passthrough},
+      {"event_time", r.event_time, :passthrough},
+      {"episode_id", r.episode_id, :passthrough},
+      {"attributes", r.attributes, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.AloopEpisodeTerminal{} = r) do
+    to_known_map([
+      {"event_id", r.event_id, :passthrough},
+      {"event_time", r.event_time, :passthrough},
+      {"episode_id", r.episode_id, :passthrough},
+      {"attributes", r.attributes, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.AloopExecutionCrash{} = r) do
+    to_known_map([
+      {"event_id", r.event_id, :passthrough},
+      {"event_time", r.event_time, :passthrough},
+      {"episode_id", r.episode_id, :passthrough},
+      {"attributes", r.attributes, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.AloopExecutionStart{} = r) do
+    to_known_map([
+      {"event_id", r.event_id, :passthrough},
+      {"event_time", r.event_time, :passthrough},
+      {"episode_id", r.episode_id, :passthrough},
+      {"attributes", r.attributes, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.AloopFailureDetect{} = r) do
+    to_known_map([
+      {"event_id", r.event_id, :passthrough},
+      {"event_time", r.event_time, :passthrough},
+      {"episode_id", r.episode_id, :passthrough},
+      {"attributes", r.attributes, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.AloopFalsifierRun{} = r) do
+    to_known_map([
+      {"event_id", r.event_id, :passthrough},
+      {"event_time", r.event_time, :passthrough},
+      {"episode_id", r.episode_id, :passthrough},
+      {"attributes", r.attributes, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.AloopGapDetect{} = r) do
+    to_known_map([
+      {"event_id", r.event_id, :passthrough},
+      {"event_time", r.event_time, :passthrough},
+      {"episode_id", r.episode_id, :passthrough},
+      {"attributes", r.attributes, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.AloopGoalBlocked{} = r) do
+    to_known_map([
+      {"event_id", r.event_id, :passthrough},
+      {"event_time", r.event_time, :passthrough},
+      {"episode_id", r.episode_id, :passthrough},
+      {"attributes", r.attributes, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.AloopGoalSatisfied{} = r) do
+    to_known_map([
+      {"event_id", r.event_id, :passthrough},
+      {"event_time", r.event_time, :passthrough},
+      {"episode_id", r.episode_id, :passthrough},
+      {"attributes", r.attributes, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.AloopMerge{} = r) do
+    to_known_map([
+      {"event_id", r.event_id, :passthrough},
+      {"event_time", r.event_time, :passthrough},
+      {"episode_id", r.episode_id, :passthrough},
+      {"attributes", r.attributes, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.AloopModelEdge{} = r) do
+    to_known_map([
+      {"from_activity", r.from_activity, :passthrough},
+      {"to_activity", r.to_activity, :passthrough},
+      {"observed_count", r.observed_count, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.AloopObject{} = r) do
+    to_known_map([
+      {"object_id", r.object_id, :passthrough},
+      {"object_type", r.object_type, :passthrough},
+      {"attributes", r.attributes, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.AloopObserve{} = r) do
+    to_known_map([
+      {"event_id", r.event_id, :passthrough},
+      {"event_time", r.event_time, :passthrough},
+      {"episode_id", r.episode_id, :passthrough},
+      {"attributes", r.attributes, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.AloopPlanSelect{} = r) do
+    to_known_map([
+      {"event_id", r.event_id, :passthrough},
+      {"event_time", r.event_time, :passthrough},
+      {"episode_id", r.episode_id, :passthrough},
+      {"attributes", r.attributes, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.AloopProviderReplace{} = r) do
+    to_known_map([
+      {"event_id", r.event_id, :passthrough},
+      {"event_time", r.event_time, :passthrough},
+      {"episode_id", r.episode_id, :passthrough},
+      {"attributes", r.attributes, :passthrough},
+      {"from_provider", r.from_provider, :passthrough},
+      {"to_provider", r.to_provider, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.AloopProviderSelect{} = r) do
+    to_known_map([
+      {"event_id", r.event_id, :passthrough},
+      {"event_time", r.event_time, :passthrough},
+      {"episode_id", r.episode_id, :passthrough},
+      {"attributes", r.attributes, :passthrough},
+      {"provider", r.provider, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.AloopReceiptPersist{} = r) do
+    to_known_map([
+      {"event_id", r.event_id, :passthrough},
+      {"event_time", r.event_time, :passthrough},
+      {"episode_id", r.episode_id, :passthrough},
+      {"attributes", r.attributes, :passthrough},
+      {"receipt", r.receipt, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.AloopReconcile{} = r) do
+    to_known_map([
+      {"event_id", r.event_id, :passthrough},
+      {"event_time", r.event_time, :passthrough},
+      {"episode_id", r.episode_id, :passthrough},
+      {"attributes", r.attributes, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.AloopReobserve{} = r) do
+    to_known_map([
+      {"event_id", r.event_id, :passthrough},
+      {"event_time", r.event_time, :passthrough},
+      {"episode_id", r.episode_id, :passthrough},
+      {"attributes", r.attributes, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.AloopReplan{} = r) do
+    to_known_map([
+      {"event_id", r.event_id, :passthrough},
+      {"event_time", r.event_time, :passthrough},
+      {"episode_id", r.episode_id, :passthrough},
+      {"attributes", r.attributes, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.AloopToolAdmit{} = r) do
+    to_known_map([
+      {"event_id", r.event_id, :passthrough},
+      {"event_time", r.event_time, :passthrough},
+      {"episode_id", r.episode_id, :passthrough},
+      {"attributes", r.attributes, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.AloopVerify{} = r) do
+    to_known_map([
+      {"event_id", r.event_id, :passthrough},
+      {"event_time", r.event_time, :passthrough},
+      {"episode_id", r.episode_id, :passthrough},
+      {"attributes", r.attributes, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.AloopWorkerClaim{} = r) do
+    to_known_map([
+      {"event_id", r.event_id, :passthrough},
+      {"event_time", r.event_time, :passthrough},
+      {"episode_id", r.episode_id, :passthrough},
+      {"attributes", r.attributes, :passthrough},
+      {"worker", r.worker, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.AloopWorkorderIssue{} = r) do
+    to_known_map([
+      {"event_id", r.event_id, :passthrough},
+      {"event_time", r.event_time, :passthrough},
+      {"episode_id", r.episode_id, :passthrough},
+      {"attributes", r.attributes, :passthrough}
+    ])
+  end
+
   def to_map(%BeamPM.Types.AnnualSubscription{} = r) do
     to_known_map([
       {"subscription_id", r.subscription_id, :passthrough},
@@ -5988,6 +6263,401 @@ defmodule BeamPM.Codec do
         {"cost", :cost, :passthrough}
       ],
       &BeamPM.Types.AlignmentMove.new/1
+    )
+  end
+
+  def from_map(:aloop_actuate, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"event_id", :event_id, :passthrough},
+        {"event_time", :event_time, :passthrough},
+        {"episode_id", :episode_id, :passthrough},
+        {"attributes", :attributes, :passthrough},
+        {"consequence", :consequence, :passthrough}
+      ],
+      &BeamPM.Types.AloopActuate.new/1
+    )
+  end
+
+  def from_map(:aloop_benchmark_run, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"event_id", :event_id, :passthrough},
+        {"event_time", :event_time, :passthrough},
+        {"episode_id", :episode_id, :passthrough},
+        {"attributes", :attributes, :passthrough}
+      ],
+      &BeamPM.Types.AloopBenchmarkRun.new/1
+    )
+  end
+
+  def from_map(:aloop_candidate_admit, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"event_id", :event_id, :passthrough},
+        {"event_time", :event_time, :passthrough},
+        {"episode_id", :episode_id, :passthrough},
+        {"attributes", :attributes, :passthrough}
+      ],
+      &BeamPM.Types.AloopCandidateAdmit.new/1
+    )
+  end
+
+  def from_map(:aloop_candidate_construct, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"event_id", :event_id, :passthrough},
+        {"event_time", :event_time, :passthrough},
+        {"episode_id", :episode_id, :passthrough},
+        {"attributes", :attributes, :passthrough},
+        {"origin_authority", :origin_authority, :passthrough}
+      ],
+      &BeamPM.Types.AloopCandidateConstruct.new/1
+    )
+  end
+
+  def from_map(:aloop_checkpoint, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"event_id", :event_id, :passthrough},
+        {"event_time", :event_time, :passthrough},
+        {"episode_id", :episode_id, :passthrough},
+        {"attributes", :attributes, :passthrough}
+      ],
+      &BeamPM.Types.AloopCheckpoint.new/1
+    )
+  end
+
+  def from_map(:aloop_commit, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"event_id", :event_id, :passthrough},
+        {"event_time", :event_time, :passthrough},
+        {"episode_id", :episode_id, :passthrough},
+        {"attributes", :attributes, :passthrough}
+      ],
+      &BeamPM.Types.AloopCommit.new/1
+    )
+  end
+
+  def from_map(:aloop_episode_start, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"event_id", :event_id, :passthrough},
+        {"event_time", :event_time, :passthrough},
+        {"episode_id", :episode_id, :passthrough},
+        {"attributes", :attributes, :passthrough}
+      ],
+      &BeamPM.Types.AloopEpisodeStart.new/1
+    )
+  end
+
+  def from_map(:aloop_episode_terminal, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"event_id", :event_id, :passthrough},
+        {"event_time", :event_time, :passthrough},
+        {"episode_id", :episode_id, :passthrough},
+        {"attributes", :attributes, :passthrough}
+      ],
+      &BeamPM.Types.AloopEpisodeTerminal.new/1
+    )
+  end
+
+  def from_map(:aloop_execution_crash, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"event_id", :event_id, :passthrough},
+        {"event_time", :event_time, :passthrough},
+        {"episode_id", :episode_id, :passthrough},
+        {"attributes", :attributes, :passthrough}
+      ],
+      &BeamPM.Types.AloopExecutionCrash.new/1
+    )
+  end
+
+  def from_map(:aloop_execution_start, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"event_id", :event_id, :passthrough},
+        {"event_time", :event_time, :passthrough},
+        {"episode_id", :episode_id, :passthrough},
+        {"attributes", :attributes, :passthrough}
+      ],
+      &BeamPM.Types.AloopExecutionStart.new/1
+    )
+  end
+
+  def from_map(:aloop_failure_detect, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"event_id", :event_id, :passthrough},
+        {"event_time", :event_time, :passthrough},
+        {"episode_id", :episode_id, :passthrough},
+        {"attributes", :attributes, :passthrough}
+      ],
+      &BeamPM.Types.AloopFailureDetect.new/1
+    )
+  end
+
+  def from_map(:aloop_falsifier_run, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"event_id", :event_id, :passthrough},
+        {"event_time", :event_time, :passthrough},
+        {"episode_id", :episode_id, :passthrough},
+        {"attributes", :attributes, :passthrough}
+      ],
+      &BeamPM.Types.AloopFalsifierRun.new/1
+    )
+  end
+
+  def from_map(:aloop_gap_detect, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"event_id", :event_id, :passthrough},
+        {"event_time", :event_time, :passthrough},
+        {"episode_id", :episode_id, :passthrough},
+        {"attributes", :attributes, :passthrough}
+      ],
+      &BeamPM.Types.AloopGapDetect.new/1
+    )
+  end
+
+  def from_map(:aloop_goal_blocked, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"event_id", :event_id, :passthrough},
+        {"event_time", :event_time, :passthrough},
+        {"episode_id", :episode_id, :passthrough},
+        {"attributes", :attributes, :passthrough}
+      ],
+      &BeamPM.Types.AloopGoalBlocked.new/1
+    )
+  end
+
+  def from_map(:aloop_goal_satisfied, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"event_id", :event_id, :passthrough},
+        {"event_time", :event_time, :passthrough},
+        {"episode_id", :episode_id, :passthrough},
+        {"attributes", :attributes, :passthrough}
+      ],
+      &BeamPM.Types.AloopGoalSatisfied.new/1
+    )
+  end
+
+  def from_map(:aloop_merge, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"event_id", :event_id, :passthrough},
+        {"event_time", :event_time, :passthrough},
+        {"episode_id", :episode_id, :passthrough},
+        {"attributes", :attributes, :passthrough}
+      ],
+      &BeamPM.Types.AloopMerge.new/1
+    )
+  end
+
+  def from_map(:aloop_model_edge, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"from_activity", :from_activity, :passthrough},
+        {"to_activity", :to_activity, :passthrough},
+        {"observed_count", :observed_count, :passthrough}
+      ],
+      &BeamPM.Types.AloopModelEdge.new/1
+    )
+  end
+
+  def from_map(:aloop_object, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"object_id", :object_id, :passthrough},
+        {"object_type", :object_type, :passthrough},
+        {"attributes", :attributes, :passthrough}
+      ],
+      &BeamPM.Types.AloopObject.new/1
+    )
+  end
+
+  def from_map(:aloop_observe, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"event_id", :event_id, :passthrough},
+        {"event_time", :event_time, :passthrough},
+        {"episode_id", :episode_id, :passthrough},
+        {"attributes", :attributes, :passthrough}
+      ],
+      &BeamPM.Types.AloopObserve.new/1
+    )
+  end
+
+  def from_map(:aloop_plan_select, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"event_id", :event_id, :passthrough},
+        {"event_time", :event_time, :passthrough},
+        {"episode_id", :episode_id, :passthrough},
+        {"attributes", :attributes, :passthrough}
+      ],
+      &BeamPM.Types.AloopPlanSelect.new/1
+    )
+  end
+
+  def from_map(:aloop_provider_replace, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"event_id", :event_id, :passthrough},
+        {"event_time", :event_time, :passthrough},
+        {"episode_id", :episode_id, :passthrough},
+        {"attributes", :attributes, :passthrough},
+        {"from_provider", :from_provider, :passthrough},
+        {"to_provider", :to_provider, :passthrough}
+      ],
+      &BeamPM.Types.AloopProviderReplace.new/1
+    )
+  end
+
+  def from_map(:aloop_provider_select, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"event_id", :event_id, :passthrough},
+        {"event_time", :event_time, :passthrough},
+        {"episode_id", :episode_id, :passthrough},
+        {"attributes", :attributes, :passthrough},
+        {"provider", :provider, :passthrough}
+      ],
+      &BeamPM.Types.AloopProviderSelect.new/1
+    )
+  end
+
+  def from_map(:aloop_receipt_persist, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"event_id", :event_id, :passthrough},
+        {"event_time", :event_time, :passthrough},
+        {"episode_id", :episode_id, :passthrough},
+        {"attributes", :attributes, :passthrough},
+        {"receipt", :receipt, :passthrough}
+      ],
+      &BeamPM.Types.AloopReceiptPersist.new/1
+    )
+  end
+
+  def from_map(:aloop_reconcile, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"event_id", :event_id, :passthrough},
+        {"event_time", :event_time, :passthrough},
+        {"episode_id", :episode_id, :passthrough},
+        {"attributes", :attributes, :passthrough}
+      ],
+      &BeamPM.Types.AloopReconcile.new/1
+    )
+  end
+
+  def from_map(:aloop_reobserve, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"event_id", :event_id, :passthrough},
+        {"event_time", :event_time, :passthrough},
+        {"episode_id", :episode_id, :passthrough},
+        {"attributes", :attributes, :passthrough}
+      ],
+      &BeamPM.Types.AloopReobserve.new/1
+    )
+  end
+
+  def from_map(:aloop_replan, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"event_id", :event_id, :passthrough},
+        {"event_time", :event_time, :passthrough},
+        {"episode_id", :episode_id, :passthrough},
+        {"attributes", :attributes, :passthrough}
+      ],
+      &BeamPM.Types.AloopReplan.new/1
+    )
+  end
+
+  def from_map(:aloop_tool_admit, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"event_id", :event_id, :passthrough},
+        {"event_time", :event_time, :passthrough},
+        {"episode_id", :episode_id, :passthrough},
+        {"attributes", :attributes, :passthrough}
+      ],
+      &BeamPM.Types.AloopToolAdmit.new/1
+    )
+  end
+
+  def from_map(:aloop_verify, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"event_id", :event_id, :passthrough},
+        {"event_time", :event_time, :passthrough},
+        {"episode_id", :episode_id, :passthrough},
+        {"attributes", :attributes, :passthrough}
+      ],
+      &BeamPM.Types.AloopVerify.new/1
+    )
+  end
+
+  def from_map(:aloop_worker_claim, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"event_id", :event_id, :passthrough},
+        {"event_time", :event_time, :passthrough},
+        {"episode_id", :episode_id, :passthrough},
+        {"attributes", :attributes, :passthrough},
+        {"worker", :worker, :passthrough}
+      ],
+      &BeamPM.Types.AloopWorkerClaim.new/1
+    )
+  end
+
+  def from_map(:aloop_workorder_issue, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"event_id", :event_id, :passthrough},
+        {"event_time", :event_time, :passthrough},
+        {"episode_id", :episode_id, :passthrough},
+        {"attributes", :attributes, :passthrough}
+      ],
+      &BeamPM.Types.AloopWorkorderIssue.new/1
     )
   end
 

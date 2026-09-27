@@ -15,7 +15,7 @@
 %% would become a hard failure under warnings_as_errors).
 
 record_names_count_test() ->
-    ?assertEqual(647, length(beam4pm_types_manifest:record_names())).
+    ?assertEqual(677, length(beam4pm_types_manifest:record_names())).
 
 acceptance_criteria_nonweakening_fields_test() ->
     ?assertEqual([assessment_id, acceptance_contract_id, prior_digest, candidate_digest, strength_result, refusal_code], beam4pm_types_manifest:fields(acceptance_criteria_nonweakening)).
@@ -61,6 +61,96 @@ agent_capability_advertisement_fields_test() ->
 
 alignment_move_fields_test() ->
     ?assertEqual([move_type, cost], beam4pm_types_manifest:fields(alignment_move)).
+
+aloop_actuate_fields_test() ->
+    ?assertEqual([event_id, event_time, episode_id, attributes, consequence], beam4pm_types_manifest:fields(aloop_actuate)).
+
+aloop_benchmark_run_fields_test() ->
+    ?assertEqual([event_id, event_time, episode_id, attributes], beam4pm_types_manifest:fields(aloop_benchmark_run)).
+
+aloop_candidate_admit_fields_test() ->
+    ?assertEqual([event_id, event_time, episode_id, attributes], beam4pm_types_manifest:fields(aloop_candidate_admit)).
+
+aloop_candidate_construct_fields_test() ->
+    ?assertEqual([event_id, event_time, episode_id, attributes, origin_authority], beam4pm_types_manifest:fields(aloop_candidate_construct)).
+
+aloop_checkpoint_fields_test() ->
+    ?assertEqual([event_id, event_time, episode_id, attributes], beam4pm_types_manifest:fields(aloop_checkpoint)).
+
+aloop_commit_fields_test() ->
+    ?assertEqual([event_id, event_time, episode_id, attributes], beam4pm_types_manifest:fields(aloop_commit)).
+
+aloop_episode_start_fields_test() ->
+    ?assertEqual([event_id, event_time, episode_id, attributes], beam4pm_types_manifest:fields(aloop_episode_start)).
+
+aloop_episode_terminal_fields_test() ->
+    ?assertEqual([event_id, event_time, episode_id, attributes], beam4pm_types_manifest:fields(aloop_episode_terminal)).
+
+aloop_execution_crash_fields_test() ->
+    ?assertEqual([event_id, event_time, episode_id, attributes], beam4pm_types_manifest:fields(aloop_execution_crash)).
+
+aloop_execution_start_fields_test() ->
+    ?assertEqual([event_id, event_time, episode_id, attributes], beam4pm_types_manifest:fields(aloop_execution_start)).
+
+aloop_failure_detect_fields_test() ->
+    ?assertEqual([event_id, event_time, episode_id, attributes], beam4pm_types_manifest:fields(aloop_failure_detect)).
+
+aloop_falsifier_run_fields_test() ->
+    ?assertEqual([event_id, event_time, episode_id, attributes], beam4pm_types_manifest:fields(aloop_falsifier_run)).
+
+aloop_gap_detect_fields_test() ->
+    ?assertEqual([event_id, event_time, episode_id, attributes], beam4pm_types_manifest:fields(aloop_gap_detect)).
+
+aloop_goal_blocked_fields_test() ->
+    ?assertEqual([event_id, event_time, episode_id, attributes], beam4pm_types_manifest:fields(aloop_goal_blocked)).
+
+aloop_goal_satisfied_fields_test() ->
+    ?assertEqual([event_id, event_time, episode_id, attributes], beam4pm_types_manifest:fields(aloop_goal_satisfied)).
+
+aloop_merge_fields_test() ->
+    ?assertEqual([event_id, event_time, episode_id, attributes], beam4pm_types_manifest:fields(aloop_merge)).
+
+aloop_model_edge_fields_test() ->
+    ?assertEqual([from_activity, to_activity, observed_count], beam4pm_types_manifest:fields(aloop_model_edge)).
+
+aloop_object_fields_test() ->
+    ?assertEqual([object_id, object_type, attributes], beam4pm_types_manifest:fields(aloop_object)).
+
+aloop_observe_fields_test() ->
+    ?assertEqual([event_id, event_time, episode_id, attributes], beam4pm_types_manifest:fields(aloop_observe)).
+
+aloop_plan_select_fields_test() ->
+    ?assertEqual([event_id, event_time, episode_id, attributes], beam4pm_types_manifest:fields(aloop_plan_select)).
+
+aloop_provider_replace_fields_test() ->
+    ?assertEqual([event_id, event_time, episode_id, attributes, from_provider, to_provider], beam4pm_types_manifest:fields(aloop_provider_replace)).
+
+aloop_provider_select_fields_test() ->
+    ?assertEqual([event_id, event_time, episode_id, attributes, provider], beam4pm_types_manifest:fields(aloop_provider_select)).
+
+aloop_receipt_persist_fields_test() ->
+    ?assertEqual([event_id, event_time, episode_id, attributes, receipt], beam4pm_types_manifest:fields(aloop_receipt_persist)).
+
+aloop_reconcile_fields_test() ->
+    ?assertEqual([event_id, event_time, episode_id, attributes], beam4pm_types_manifest:fields(aloop_reconcile)).
+
+aloop_reobserve_fields_test() ->
+    ?assertEqual([event_id, event_time, episode_id, attributes], beam4pm_types_manifest:fields(aloop_reobserve)).
+
+aloop_replan_fields_test() ->
+    ?assertEqual([event_id, event_time, episode_id, attributes], beam4pm_types_manifest:fields(aloop_replan)).
+
+aloop_tool_admit_fields_test() ->
+    ?assertEqual([event_id, event_time, episode_id, attributes], beam4pm_types_manifest:fields(aloop_tool_admit)).
+
+aloop_verify_fields_test() ->
+    ?assertEqual([event_id, event_time, episode_id, attributes], beam4pm_types_manifest:fields(aloop_verify)).
+
+aloop_worker_claim_fields_test() ->
+    ?assertEqual([event_id, event_time, episode_id, attributes, worker], beam4pm_types_manifest:fields(aloop_worker_claim)).
+
+aloop_workorder_issue_fields_test() ->
+    ?assertEqual([event_id, event_time, episode_id, attributes], beam4pm_types_manifest:fields(aloop_workorder_issue)).
 
 annual_subscription_fields_test() ->
     ?assertEqual([subscription_id, sku, seat_count, renews_at], beam4pm_types_manifest:fields(annual_subscription)).

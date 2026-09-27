@@ -110,7 +110,7 @@ marker on the first line — never by which directory it lives in:
   docs, and the `scripts/*.sh` sync scripts.
 
 `ontology.ttl` is beam4pm's own RDF instance data using the `bpm:`
-vocabulary (`bpm:RecordType`, `bpm:Field`) defined by the vendored pack — 290 admitted
+vocabulary (`bpm:RecordType`, `bpm:Field`) defined by the vendored pack — 951 admitted
 record types manufactured into all four language projections (Erlang, Elixir, Gleam,
 and the Ash resources under `lib/beam4pm_ash/resources/`, one file per record type).
 

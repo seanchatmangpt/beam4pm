@@ -29605,3 +29605,700 @@ bap:hand_authored_task_eds_ledger a bpm:HandAuthoredSource ;
     bpm:admittedAtCommit "51ca841" ;
     bpm:admissionExpires "2026-12-31" ;
     bpm:sunsetPlan "No template family fits an ad hoc ledger-printing mix task today; keep admitted until one is proposed upstream." .
+
+
+# =============================================================================
+# beam4pm-mcp-contracts-pack instance data (2026-09-18, g5 consumption-max wave)
+# =============================================================================
+# The pack is schema+templates+gates complete; only the mcp:MessageType /
+# mcp:Field instance individuals are consumer-supplied, the same division as
+# the aic: block above for beam4pm-ai-contracts-pack. These ten wire-message
+# shapes (JSON-RPC 2.0 envelope + tools/resources payloads) are transcribed
+# verbatim from the pack's own reference consumer
+# vendor/ggen-marketplace/packs/beam4pm-mcp-contracts-pack/qualification/consumer.ttl,
+# which transcribes them verbatim from the real MCP specification
+# https://modelcontextprotocol.org/specification/2025-06-18/ -- nothing
+# invented here. Pack disclosure: JSON-RPC `id` modeled as string; the
+# tools/call and resources/read array payloads are single wrapped `map`
+# fields (see the pack README's disclosed-simplifications section).
+# =============================================================================
+# The ten individuals below are the pack's own README.md "The ten message
+# shapes and their fields" table, transcribed verbatim (messageName, field
+# names/types/order/required, and the five wireName overrides), not
+# invented -- this is the pack's own reference consumer.
+@prefix mcp: <https://ggen.dev/ontology/beam4pm-mcp#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+mcp:rpc_request_mt a mcp:MessageType ;
+    mcp:messageName "rpc_request" ;
+    mcp:messageDoc "A JSON-RPC 2.0 request message." ;
+    mcp:hasField mcp:rpc_request_jsonrpc_f, mcp:rpc_request_id_f,
+                 mcp:rpc_request_method_f, mcp:rpc_request_params_f .
+
+mcp:rpc_request_jsonrpc_f a mcp:Field ; mcp:fieldName "jsonrpc" ; mcp:fieldType "string" ;
+    mcp:fieldDoc "JSON-RPC protocol version, always \"2.0\"." ; mcp:fieldRequired "true" ; mcp:fieldOrder 1 .
+mcp:rpc_request_id_f a mcp:Field ; mcp:fieldName "id" ; mcp:fieldType "string" ;
+    mcp:fieldDoc "Request correlation id." ; mcp:fieldRequired "true" ; mcp:fieldOrder 2 .
+mcp:rpc_request_method_f a mcp:Field ; mcp:fieldName "method" ; mcp:fieldType "string" ;
+    mcp:fieldDoc "The invoked method name." ; mcp:fieldRequired "true" ; mcp:fieldOrder 3 .
+mcp:rpc_request_params_f a mcp:Field ; mcp:fieldName "params" ; mcp:fieldType "map" ;
+    mcp:fieldDoc "Method parameters." ; mcp:fieldRequired "false" ; mcp:fieldOrder 4 .
+
+mcp:rpc_result_response_mt a mcp:MessageType ;
+    mcp:messageName "rpc_result_response" ;
+    mcp:messageDoc "A JSON-RPC 2.0 success response message." ;
+    mcp:hasField mcp:rpc_result_response_jsonrpc_f, mcp:rpc_result_response_id_f,
+                 mcp:rpc_result_response_result_f .
+
+mcp:rpc_result_response_jsonrpc_f a mcp:Field ; mcp:fieldName "jsonrpc" ; mcp:fieldType "string" ;
+    mcp:fieldDoc "JSON-RPC protocol version, always \"2.0\"." ; mcp:fieldRequired "true" ; mcp:fieldOrder 1 .
+mcp:rpc_result_response_id_f a mcp:Field ; mcp:fieldName "id" ; mcp:fieldType "string" ;
+    mcp:fieldDoc "Correlation id matching the originating request." ; mcp:fieldRequired "true" ; mcp:fieldOrder 2 .
+mcp:rpc_result_response_result_f a mcp:Field ; mcp:fieldName "result" ; mcp:fieldType "map" ;
+    mcp:fieldDoc "The method's result payload." ; mcp:fieldRequired "true" ; mcp:fieldOrder 3 .
+
+mcp:rpc_error_response_mt a mcp:MessageType ;
+    mcp:messageName "rpc_error_response" ;
+    mcp:messageDoc "A JSON-RPC 2.0 error response message." ;
+    mcp:hasField mcp:rpc_error_response_jsonrpc_f, mcp:rpc_error_response_id_f,
+                 mcp:rpc_error_response_error_f .
+
+mcp:rpc_error_response_jsonrpc_f a mcp:Field ; mcp:fieldName "jsonrpc" ; mcp:fieldType "string" ;
+    mcp:fieldDoc "JSON-RPC protocol version, always \"2.0\"." ; mcp:fieldRequired "true" ; mcp:fieldOrder 1 .
+mcp:rpc_error_response_id_f a mcp:Field ; mcp:fieldName "id" ; mcp:fieldType "string" ;
+    mcp:fieldDoc "Correlation id matching the originating request." ; mcp:fieldRequired "true" ; mcp:fieldOrder 2 .
+mcp:rpc_error_response_error_f a mcp:Field ; mcp:fieldName "error" ; mcp:fieldType "map" ;
+    mcp:fieldDoc "The wrapped {code, message, data?} error object." ; mcp:fieldRequired "true" ; mcp:fieldOrder 3 .
+
+mcp:rpc_notification_mt a mcp:MessageType ;
+    mcp:messageName "rpc_notification" ;
+    mcp:messageDoc "A JSON-RPC 2.0 notification message (no id)." ;
+    mcp:hasField mcp:rpc_notification_jsonrpc_f, mcp:rpc_notification_method_f,
+                 mcp:rpc_notification_params_f .
+
+mcp:rpc_notification_jsonrpc_f a mcp:Field ; mcp:fieldName "jsonrpc" ; mcp:fieldType "string" ;
+    mcp:fieldDoc "JSON-RPC protocol version, always \"2.0\"." ; mcp:fieldRequired "true" ; mcp:fieldOrder 1 .
+mcp:rpc_notification_method_f a mcp:Field ; mcp:fieldName "method" ; mcp:fieldType "string" ;
+    mcp:fieldDoc "The notified method name." ; mcp:fieldRequired "true" ; mcp:fieldOrder 2 .
+mcp:rpc_notification_params_f a mcp:Field ; mcp:fieldName "params" ; mcp:fieldType "map" ;
+    mcp:fieldDoc "Notification parameters." ; mcp:fieldRequired "false" ; mcp:fieldOrder 3 .
+
+mcp:mcp_tool_mt a mcp:MessageType ;
+    mcp:messageName "mcp_tool" ;
+    mcp:messageDoc "A tool definition advertised by an MCP server." ;
+    mcp:hasField mcp:mcp_tool_name_f, mcp:mcp_tool_title_f, mcp:mcp_tool_description_f,
+                 mcp:mcp_tool_input_schema_f, mcp:mcp_tool_output_schema_f .
+
+mcp:mcp_tool_name_f a mcp:Field ; mcp:fieldName "name" ; mcp:fieldType "string" ;
+    mcp:fieldDoc "Tool name." ; mcp:fieldRequired "true" ; mcp:fieldOrder 1 .
+mcp:mcp_tool_title_f a mcp:Field ; mcp:fieldName "title" ; mcp:fieldType "string" ;
+    mcp:fieldDoc "Human-readable tool title." ; mcp:fieldRequired "false" ; mcp:fieldOrder 2 .
+mcp:mcp_tool_description_f a mcp:Field ; mcp:fieldName "description" ; mcp:fieldType "string" ;
+    mcp:fieldDoc "Tool description." ; mcp:fieldRequired "false" ; mcp:fieldOrder 3 .
+mcp:mcp_tool_input_schema_f a mcp:Field ; mcp:fieldName "input_schema" ; mcp:fieldType "map" ;
+    mcp:wireName "inputSchema" ;
+    mcp:fieldDoc "JSON Schema for the tool's input." ; mcp:fieldRequired "true" ; mcp:fieldOrder 4 .
+mcp:mcp_tool_output_schema_f a mcp:Field ; mcp:fieldName "output_schema" ; mcp:fieldType "map" ;
+    mcp:wireName "outputSchema" ;
+    mcp:fieldDoc "JSON Schema for the tool's output." ; mcp:fieldRequired "false" ; mcp:fieldOrder 5 .
+
+mcp:mcp_tool_call_request_mt a mcp:MessageType ;
+    mcp:messageName "mcp_tool_call_request" ;
+    mcp:messageDoc "A tools/call request payload." ;
+    mcp:hasField mcp:mcp_tool_call_request_name_f, mcp:mcp_tool_call_request_arguments_f .
+
+mcp:mcp_tool_call_request_name_f a mcp:Field ; mcp:fieldName "name" ; mcp:fieldType "string" ;
+    mcp:fieldDoc "Name of the tool to invoke." ; mcp:fieldRequired "true" ; mcp:fieldOrder 1 .
+mcp:mcp_tool_call_request_arguments_f a mcp:Field ; mcp:fieldName "arguments" ; mcp:fieldType "map" ;
+    mcp:fieldDoc "Arguments passed to the tool." ; mcp:fieldRequired "false" ; mcp:fieldOrder 2 .
+
+mcp:mcp_tool_call_result_mt a mcp:MessageType ;
+    mcp:messageName "mcp_tool_call_result" ;
+    mcp:messageDoc "A tools/call result payload." ;
+    mcp:hasField mcp:mcp_tool_call_result_content_f, mcp:mcp_tool_call_result_is_error_f,
+                 mcp:mcp_tool_call_result_structured_content_f .
+
+mcp:mcp_tool_call_result_content_f a mcp:Field ; mcp:fieldName "content" ; mcp:fieldType "map" ;
+    mcp:fieldDoc "Wrapped array of typed content blocks." ; mcp:fieldRequired "true" ; mcp:fieldOrder 1 .
+mcp:mcp_tool_call_result_is_error_f a mcp:Field ; mcp:fieldName "is_error" ; mcp:fieldType "boolean" ;
+    mcp:wireName "isError" ;
+    mcp:fieldDoc "Whether the tool call resulted in an error." ; mcp:fieldRequired "false" ; mcp:fieldOrder 2 .
+mcp:mcp_tool_call_result_structured_content_f a mcp:Field ; mcp:fieldName "structured_content" ; mcp:fieldType "map" ;
+    mcp:wireName "structuredContent" ;
+    mcp:fieldDoc "Optional structured result content." ; mcp:fieldRequired "false" ; mcp:fieldOrder 3 .
+
+mcp:mcp_resource_mt a mcp:MessageType ;
+    mcp:messageName "mcp_resource" ;
+    mcp:messageDoc "A resource definition advertised by an MCP server." ;
+    mcp:hasField mcp:mcp_resource_uri_f, mcp:mcp_resource_name_f, mcp:mcp_resource_title_f,
+                 mcp:mcp_resource_description_f, mcp:mcp_resource_mime_type_f, mcp:mcp_resource_size_f .
+
+mcp:mcp_resource_uri_f a mcp:Field ; mcp:fieldName "uri" ; mcp:fieldType "string" ;
+    mcp:fieldDoc "Resource URI." ; mcp:fieldRequired "true" ; mcp:fieldOrder 1 .
+mcp:mcp_resource_name_f a mcp:Field ; mcp:fieldName "name" ; mcp:fieldType "string" ;
+    mcp:fieldDoc "Resource name." ; mcp:fieldRequired "true" ; mcp:fieldOrder 2 .
+mcp:mcp_resource_title_f a mcp:Field ; mcp:fieldName "title" ; mcp:fieldType "string" ;
+    mcp:fieldDoc "Human-readable resource title." ; mcp:fieldRequired "false" ; mcp:fieldOrder 3 .
+mcp:mcp_resource_description_f a mcp:Field ; mcp:fieldName "description" ; mcp:fieldType "string" ;
+    mcp:fieldDoc "Resource description." ; mcp:fieldRequired "false" ; mcp:fieldOrder 4 .
+mcp:mcp_resource_mime_type_f a mcp:Field ; mcp:fieldName "mime_type" ; mcp:fieldType "string" ;
+    mcp:wireName "mimeType" ;
+    mcp:fieldDoc "Resource MIME type." ; mcp:fieldRequired "false" ; mcp:fieldOrder 5 .
+mcp:mcp_resource_size_f a mcp:Field ; mcp:fieldName "size" ; mcp:fieldType "integer" ;
+    mcp:fieldDoc "Resource size in bytes." ; mcp:fieldRequired "false" ; mcp:fieldOrder 6 .
+
+mcp:mcp_resource_read_request_mt a mcp:MessageType ;
+    mcp:messageName "mcp_resource_read_request" ;
+    mcp:messageDoc "A resources/read request payload." ;
+    mcp:hasField mcp:mcp_resource_read_request_uri_f .
+
+mcp:mcp_resource_read_request_uri_f a mcp:Field ; mcp:fieldName "uri" ; mcp:fieldType "string" ;
+    mcp:fieldDoc "URI of the resource to read." ; mcp:fieldRequired "true" ; mcp:fieldOrder 1 .
+
+mcp:mcp_resource_read_result_mt a mcp:MessageType ;
+    mcp:messageName "mcp_resource_read_result" ;
+    mcp:messageDoc "A resources/read result payload." ;
+    mcp:hasField mcp:mcp_resource_read_result_contents_f .
+
+mcp:mcp_resource_read_result_contents_f a mcp:Field ; mcp:fieldName "contents" ; mcp:fieldType "map" ;
+    mcp:fieldDoc "Wrapped array of resource content items." ; mcp:fieldRequired "true" ; mcp:fieldOrder 1 .
+
+# ---------------------------------------------------------------------------
+# ALOOP vocabulary (ALOOP-ZCODE-DOGFOOD-001, lane 9, 2026-09-25)
+#
+# The autonomous-loop (ALOOP) contract vocabulary as canonical generated
+# process types: one bpm:RecordType per ALOOP event class (the 28-class
+# event vocabulary), plus aloop_object (the OCEL object carrier whose
+# bpm:object_type admits the 19 ALOOP object types: Episode, Objective,
+# Requirement, WorkOrder, Authority, Repository, Subject, Provider, Worker,
+# WorkerRun, Plan, Capability, Candidate, Consequence, Evidence, Receipt,
+# Failure, Benchmark, Release) and aloop_model_edge (one admitted
+# directly-follows edge of the ALOOP model).
+#
+# No competing OCEL truth model is introduced: every ALOOP event is an
+# ocel_event-shaped occurrence typed by one of these record types, and the
+# OCEL vocabulary above (ocel_event, ocel_object, ocel_relationship) stays
+# the canonical carrier.
+# ---------------------------------------------------------------------------
+
+# -- aloop event class: episode.start -----------------------------------------------
+bpm:aloop_episode_start_rt a bpm:RecordType ;
+    bpm:recordName "aloop_episode_start" ;
+    bpm:recordDoc "ALOOP event class `episode.start`: opens an autonomous episode." ;
+    bpm:hasField bpm:aloop_episode_start_event_id_f,
+                 bpm:aloop_episode_start_event_time_f,
+                 bpm:aloop_episode_start_episode_id_f,
+                 bpm:aloop_episode_start_attributes_f .
+bpm:aloop_episode_start_event_id_f a bpm:Field ; bpm:fieldName "event_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Unique event identifier." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+bpm:aloop_episode_start_event_time_f a bpm:Field ; bpm:fieldName "event_time" ; bpm:fieldType "datetime" ;
+    bpm:fieldDoc "ISO8601 timestamp the event occurred." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+bpm:aloop_episode_start_episode_id_f a bpm:Field ; bpm:fieldName "episode_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Identifier of the ALOOP Episode object this event belongs to." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+bpm:aloop_episode_start_attributes_f a bpm:Field ; bpm:fieldName "attributes" ; bpm:fieldType "map" ;
+    bpm:fieldDoc "Arbitrary named event attributes (the OCEL payload)." ; bpm:fieldRequired "false" ; bpm:fieldOrder 4 .
+
+# -- aloop event class: observe -----------------------------------------------------
+bpm:aloop_observe_rt a bpm:RecordType ;
+    bpm:recordName "aloop_observe" ;
+    bpm:recordDoc "ALOOP event class `observe`: an observation of the world entering the loop." ;
+    bpm:hasField bpm:aloop_observe_event_id_f,
+                 bpm:aloop_observe_event_time_f,
+                 bpm:aloop_observe_episode_id_f,
+                 bpm:aloop_observe_attributes_f .
+bpm:aloop_observe_event_id_f a bpm:Field ; bpm:fieldName "event_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Unique event identifier." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+bpm:aloop_observe_event_time_f a bpm:Field ; bpm:fieldName "event_time" ; bpm:fieldType "datetime" ;
+    bpm:fieldDoc "ISO8601 timestamp the event occurred." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+bpm:aloop_observe_episode_id_f a bpm:Field ; bpm:fieldName "episode_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Identifier of the ALOOP Episode object this event belongs to." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+bpm:aloop_observe_attributes_f a bpm:Field ; bpm:fieldName "attributes" ; bpm:fieldType "map" ;
+    bpm:fieldDoc "Arbitrary named event attributes (the OCEL payload)." ; bpm:fieldRequired "false" ; bpm:fieldOrder 4 .
+
+# -- aloop event class: gap.detect --------------------------------------------------
+bpm:aloop_gap_detect_rt a bpm:RecordType ;
+    bpm:recordName "aloop_gap_detect" ;
+    bpm:recordDoc "ALOOP event class `gap.detect`: a gap between goal and observation; each occurrence is one loop iteration." ;
+    bpm:hasField bpm:aloop_gap_detect_event_id_f,
+                 bpm:aloop_gap_detect_event_time_f,
+                 bpm:aloop_gap_detect_episode_id_f,
+                 bpm:aloop_gap_detect_attributes_f .
+bpm:aloop_gap_detect_event_id_f a bpm:Field ; bpm:fieldName "event_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Unique event identifier." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+bpm:aloop_gap_detect_event_time_f a bpm:Field ; bpm:fieldName "event_time" ; bpm:fieldType "datetime" ;
+    bpm:fieldDoc "ISO8601 timestamp the event occurred." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+bpm:aloop_gap_detect_episode_id_f a bpm:Field ; bpm:fieldName "episode_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Identifier of the ALOOP Episode object this event belongs to." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+bpm:aloop_gap_detect_attributes_f a bpm:Field ; bpm:fieldName "attributes" ; bpm:fieldType "map" ;
+    bpm:fieldDoc "Arbitrary named event attributes (the OCEL payload)." ; bpm:fieldRequired "false" ; bpm:fieldOrder 4 .
+
+# -- aloop event class: candidate.construct -----------------------------------------
+bpm:aloop_candidate_construct_rt a bpm:RecordType ;
+    bpm:recordName "aloop_candidate_construct" ;
+    bpm:recordDoc "ALOOP event class `candidate.construct`: a candidate is constructed." ;
+    bpm:hasField bpm:aloop_candidate_construct_event_id_f,
+                 bpm:aloop_candidate_construct_event_time_f,
+                 bpm:aloop_candidate_construct_episode_id_f,
+                 bpm:aloop_candidate_construct_attributes_f,
+                 bpm:aloop_candidate_construct_origin_authority_f .
+bpm:aloop_candidate_construct_event_id_f a bpm:Field ; bpm:fieldName "event_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Unique event identifier." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+bpm:aloop_candidate_construct_event_time_f a bpm:Field ; bpm:fieldName "event_time" ; bpm:fieldType "datetime" ;
+    bpm:fieldDoc "ISO8601 timestamp the event occurred." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+bpm:aloop_candidate_construct_episode_id_f a bpm:Field ; bpm:fieldName "episode_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Identifier of the ALOOP Episode object this event belongs to." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+bpm:aloop_candidate_construct_attributes_f a bpm:Field ; bpm:fieldName "attributes" ; bpm:fieldType "map" ;
+    bpm:fieldDoc "Arbitrary named event attributes (the OCEL payload)." ; bpm:fieldRequired "false" ; bpm:fieldOrder 4 .
+bpm:aloop_candidate_construct_origin_authority_f a bpm:Field ; bpm:fieldName "origin_authority" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "The origin authority qualifier (ALOOP contract): who constructed the candidate, e.g. autonomous or human. A human value makes the next directly-follows edge a human causal edge." ; bpm:fieldRequired "false" ; bpm:fieldOrder 5 .
+
+# -- aloop event class: candidate.admit ---------------------------------------------
+bpm:aloop_candidate_admit_rt a bpm:RecordType ;
+    bpm:recordName "aloop_candidate_admit" ;
+    bpm:recordDoc "ALOOP event class `candidate.admit`: a candidate passes admission." ;
+    bpm:hasField bpm:aloop_candidate_admit_event_id_f,
+                 bpm:aloop_candidate_admit_event_time_f,
+                 bpm:aloop_candidate_admit_episode_id_f,
+                 bpm:aloop_candidate_admit_attributes_f .
+bpm:aloop_candidate_admit_event_id_f a bpm:Field ; bpm:fieldName "event_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Unique event identifier." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+bpm:aloop_candidate_admit_event_time_f a bpm:Field ; bpm:fieldName "event_time" ; bpm:fieldType "datetime" ;
+    bpm:fieldDoc "ISO8601 timestamp the event occurred." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+bpm:aloop_candidate_admit_episode_id_f a bpm:Field ; bpm:fieldName "episode_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Identifier of the ALOOP Episode object this event belongs to." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+bpm:aloop_candidate_admit_attributes_f a bpm:Field ; bpm:fieldName "attributes" ; bpm:fieldType "map" ;
+    bpm:fieldDoc "Arbitrary named event attributes (the OCEL payload)." ; bpm:fieldRequired "false" ; bpm:fieldOrder 4 .
+
+# -- aloop event class: plan.select -------------------------------------------------
+bpm:aloop_plan_select_rt a bpm:RecordType ;
+    bpm:recordName "aloop_plan_select" ;
+    bpm:recordDoc "ALOOP event class `plan.select`: a plan is selected." ;
+    bpm:hasField bpm:aloop_plan_select_event_id_f,
+                 bpm:aloop_plan_select_event_time_f,
+                 bpm:aloop_plan_select_episode_id_f,
+                 bpm:aloop_plan_select_attributes_f .
+bpm:aloop_plan_select_event_id_f a bpm:Field ; bpm:fieldName "event_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Unique event identifier." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+bpm:aloop_plan_select_event_time_f a bpm:Field ; bpm:fieldName "event_time" ; bpm:fieldType "datetime" ;
+    bpm:fieldDoc "ISO8601 timestamp the event occurred." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+bpm:aloop_plan_select_episode_id_f a bpm:Field ; bpm:fieldName "episode_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Identifier of the ALOOP Episode object this event belongs to." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+bpm:aloop_plan_select_attributes_f a bpm:Field ; bpm:fieldName "attributes" ; bpm:fieldType "map" ;
+    bpm:fieldDoc "Arbitrary named event attributes (the OCEL payload)." ; bpm:fieldRequired "false" ; bpm:fieldOrder 4 .
+
+# -- aloop event class: workorder.issue ---------------------------------------------
+bpm:aloop_workorder_issue_rt a bpm:RecordType ;
+    bpm:recordName "aloop_workorder_issue" ;
+    bpm:recordDoc "ALOOP event class `workorder.issue`: a work order is issued." ;
+    bpm:hasField bpm:aloop_workorder_issue_event_id_f,
+                 bpm:aloop_workorder_issue_event_time_f,
+                 bpm:aloop_workorder_issue_episode_id_f,
+                 bpm:aloop_workorder_issue_attributes_f .
+bpm:aloop_workorder_issue_event_id_f a bpm:Field ; bpm:fieldName "event_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Unique event identifier." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+bpm:aloop_workorder_issue_event_time_f a bpm:Field ; bpm:fieldName "event_time" ; bpm:fieldType "datetime" ;
+    bpm:fieldDoc "ISO8601 timestamp the event occurred." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+bpm:aloop_workorder_issue_episode_id_f a bpm:Field ; bpm:fieldName "episode_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Identifier of the ALOOP Episode object this event belongs to." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+bpm:aloop_workorder_issue_attributes_f a bpm:Field ; bpm:fieldName "attributes" ; bpm:fieldType "map" ;
+    bpm:fieldDoc "Arbitrary named event attributes (the OCEL payload)." ; bpm:fieldRequired "false" ; bpm:fieldOrder 4 .
+
+# -- aloop event class: provider.select ---------------------------------------------
+bpm:aloop_provider_select_rt a bpm:RecordType ;
+    bpm:recordName "aloop_provider_select" ;
+    bpm:recordDoc "ALOOP event class `provider.select`: a provider is selected." ;
+    bpm:hasField bpm:aloop_provider_select_event_id_f,
+                 bpm:aloop_provider_select_event_time_f,
+                 bpm:aloop_provider_select_episode_id_f,
+                 bpm:aloop_provider_select_attributes_f,
+                 bpm:aloop_provider_select_provider_f .
+bpm:aloop_provider_select_event_id_f a bpm:Field ; bpm:fieldName "event_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Unique event identifier." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+bpm:aloop_provider_select_event_time_f a bpm:Field ; bpm:fieldName "event_time" ; bpm:fieldType "datetime" ;
+    bpm:fieldDoc "ISO8601 timestamp the event occurred." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+bpm:aloop_provider_select_episode_id_f a bpm:Field ; bpm:fieldName "episode_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Identifier of the ALOOP Episode object this event belongs to." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+bpm:aloop_provider_select_attributes_f a bpm:Field ; bpm:fieldName "attributes" ; bpm:fieldType "map" ;
+    bpm:fieldDoc "Arbitrary named event attributes (the OCEL payload)." ; bpm:fieldRequired "false" ; bpm:fieldOrder 4 .
+bpm:aloop_provider_select_provider_f a bpm:Field ; bpm:fieldName "provider" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "The provider qualifier (ALOOP contract): the selected provider identifier." ; bpm:fieldRequired "false" ; bpm:fieldOrder 5 .
+
+# -- aloop event class: worker.claim ------------------------------------------------
+bpm:aloop_worker_claim_rt a bpm:RecordType ;
+    bpm:recordName "aloop_worker_claim" ;
+    bpm:recordDoc "ALOOP event class `worker.claim`: a worker claims the work order." ;
+    bpm:hasField bpm:aloop_worker_claim_event_id_f,
+                 bpm:aloop_worker_claim_event_time_f,
+                 bpm:aloop_worker_claim_episode_id_f,
+                 bpm:aloop_worker_claim_attributes_f,
+                 bpm:aloop_worker_claim_worker_f .
+bpm:aloop_worker_claim_event_id_f a bpm:Field ; bpm:fieldName "event_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Unique event identifier." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+bpm:aloop_worker_claim_event_time_f a bpm:Field ; bpm:fieldName "event_time" ; bpm:fieldType "datetime" ;
+    bpm:fieldDoc "ISO8601 timestamp the event occurred." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+bpm:aloop_worker_claim_episode_id_f a bpm:Field ; bpm:fieldName "episode_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Identifier of the ALOOP Episode object this event belongs to." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+bpm:aloop_worker_claim_attributes_f a bpm:Field ; bpm:fieldName "attributes" ; bpm:fieldType "map" ;
+    bpm:fieldDoc "Arbitrary named event attributes (the OCEL payload)." ; bpm:fieldRequired "false" ; bpm:fieldOrder 4 .
+bpm:aloop_worker_claim_worker_f a bpm:Field ; bpm:fieldName "worker" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "The worker qualifier (ALOOP contract): the claiming worker identifier." ; bpm:fieldRequired "false" ; bpm:fieldOrder 5 .
+
+# -- aloop event class: execution.start ---------------------------------------------
+bpm:aloop_execution_start_rt a bpm:RecordType ;
+    bpm:recordName "aloop_execution_start" ;
+    bpm:recordDoc "ALOOP event class `execution.start`: execution begins." ;
+    bpm:hasField bpm:aloop_execution_start_event_id_f,
+                 bpm:aloop_execution_start_event_time_f,
+                 bpm:aloop_execution_start_episode_id_f,
+                 bpm:aloop_execution_start_attributes_f .
+bpm:aloop_execution_start_event_id_f a bpm:Field ; bpm:fieldName "event_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Unique event identifier." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+bpm:aloop_execution_start_event_time_f a bpm:Field ; bpm:fieldName "event_time" ; bpm:fieldType "datetime" ;
+    bpm:fieldDoc "ISO8601 timestamp the event occurred." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+bpm:aloop_execution_start_episode_id_f a bpm:Field ; bpm:fieldName "episode_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Identifier of the ALOOP Episode object this event belongs to." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+bpm:aloop_execution_start_attributes_f a bpm:Field ; bpm:fieldName "attributes" ; bpm:fieldType "map" ;
+    bpm:fieldDoc "Arbitrary named event attributes (the OCEL payload)." ; bpm:fieldRequired "false" ; bpm:fieldOrder 4 .
+
+# -- aloop event class: tool.admit --------------------------------------------------
+bpm:aloop_tool_admit_rt a bpm:RecordType ;
+    bpm:recordName "aloop_tool_admit" ;
+    bpm:recordDoc "ALOOP event class `tool.admit`: a tool is admitted for use." ;
+    bpm:hasField bpm:aloop_tool_admit_event_id_f,
+                 bpm:aloop_tool_admit_event_time_f,
+                 bpm:aloop_tool_admit_episode_id_f,
+                 bpm:aloop_tool_admit_attributes_f .
+bpm:aloop_tool_admit_event_id_f a bpm:Field ; bpm:fieldName "event_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Unique event identifier." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+bpm:aloop_tool_admit_event_time_f a bpm:Field ; bpm:fieldName "event_time" ; bpm:fieldType "datetime" ;
+    bpm:fieldDoc "ISO8601 timestamp the event occurred." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+bpm:aloop_tool_admit_episode_id_f a bpm:Field ; bpm:fieldName "episode_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Identifier of the ALOOP Episode object this event belongs to." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+bpm:aloop_tool_admit_attributes_f a bpm:Field ; bpm:fieldName "attributes" ; bpm:fieldType "map" ;
+    bpm:fieldDoc "Arbitrary named event attributes (the OCEL payload)." ; bpm:fieldRequired "false" ; bpm:fieldOrder 4 .
+
+# -- aloop event class: actuate -----------------------------------------------------
+bpm:aloop_actuate_rt a bpm:RecordType ;
+    bpm:recordName "aloop_actuate" ;
+    bpm:recordDoc "ALOOP event class `actuate`: a DO: an actuation against the world; must be followed by receipt.persist." ;
+    bpm:hasField bpm:aloop_actuate_event_id_f,
+                 bpm:aloop_actuate_event_time_f,
+                 bpm:aloop_actuate_episode_id_f,
+                 bpm:aloop_actuate_attributes_f,
+                 bpm:aloop_actuate_consequence_f .
+bpm:aloop_actuate_event_id_f a bpm:Field ; bpm:fieldName "event_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Unique event identifier." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+bpm:aloop_actuate_event_time_f a bpm:Field ; bpm:fieldName "event_time" ; bpm:fieldType "datetime" ;
+    bpm:fieldDoc "ISO8601 timestamp the event occurred." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+bpm:aloop_actuate_episode_id_f a bpm:Field ; bpm:fieldName "episode_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Identifier of the ALOOP Episode object this event belongs to." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+bpm:aloop_actuate_attributes_f a bpm:Field ; bpm:fieldName "attributes" ; bpm:fieldType "map" ;
+    bpm:fieldDoc "Arbitrary named event attributes (the OCEL payload)." ; bpm:fieldRequired "false" ; bpm:fieldOrder 4 .
+bpm:aloop_actuate_consequence_f a bpm:Field ; bpm:fieldName "consequence" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "The consequence qualifier (ALOOP contract): the consequence identifier produced by this actuation." ; bpm:fieldRequired "false" ; bpm:fieldOrder 5 .
+
+# -- aloop event class: checkpoint --------------------------------------------------
+bpm:aloop_checkpoint_rt a bpm:RecordType ;
+    bpm:recordName "aloop_checkpoint" ;
+    bpm:recordDoc "ALOOP event class `checkpoint`: an execution checkpoint." ;
+    bpm:hasField bpm:aloop_checkpoint_event_id_f,
+                 bpm:aloop_checkpoint_event_time_f,
+                 bpm:aloop_checkpoint_episode_id_f,
+                 bpm:aloop_checkpoint_attributes_f .
+bpm:aloop_checkpoint_event_id_f a bpm:Field ; bpm:fieldName "event_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Unique event identifier." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+bpm:aloop_checkpoint_event_time_f a bpm:Field ; bpm:fieldName "event_time" ; bpm:fieldType "datetime" ;
+    bpm:fieldDoc "ISO8601 timestamp the event occurred." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+bpm:aloop_checkpoint_episode_id_f a bpm:Field ; bpm:fieldName "episode_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Identifier of the ALOOP Episode object this event belongs to." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+bpm:aloop_checkpoint_attributes_f a bpm:Field ; bpm:fieldName "attributes" ; bpm:fieldType "map" ;
+    bpm:fieldDoc "Arbitrary named event attributes (the OCEL payload)." ; bpm:fieldRequired "false" ; bpm:fieldOrder 4 .
+
+# -- aloop event class: execution.crash ---------------------------------------------
+bpm:aloop_execution_crash_rt a bpm:RecordType ;
+    bpm:recordName "aloop_execution_crash" ;
+    bpm:recordDoc "ALOOP event class `execution.crash`: execution crashed." ;
+    bpm:hasField bpm:aloop_execution_crash_event_id_f,
+                 bpm:aloop_execution_crash_event_time_f,
+                 bpm:aloop_execution_crash_episode_id_f,
+                 bpm:aloop_execution_crash_attributes_f .
+bpm:aloop_execution_crash_event_id_f a bpm:Field ; bpm:fieldName "event_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Unique event identifier." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+bpm:aloop_execution_crash_event_time_f a bpm:Field ; bpm:fieldName "event_time" ; bpm:fieldType "datetime" ;
+    bpm:fieldDoc "ISO8601 timestamp the event occurred." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+bpm:aloop_execution_crash_episode_id_f a bpm:Field ; bpm:fieldName "episode_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Identifier of the ALOOP Episode object this event belongs to." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+bpm:aloop_execution_crash_attributes_f a bpm:Field ; bpm:fieldName "attributes" ; bpm:fieldType "map" ;
+    bpm:fieldDoc "Arbitrary named event attributes (the OCEL payload)." ; bpm:fieldRequired "false" ; bpm:fieldOrder 4 .
+
+# -- aloop event class: receipt.persist ---------------------------------------------
+bpm:aloop_receipt_persist_rt a bpm:RecordType ;
+    bpm:recordName "aloop_receipt_persist" ;
+    bpm:recordDoc "ALOOP event class `receipt.persist`: an execution receipt is persisted." ;
+    bpm:hasField bpm:aloop_receipt_persist_event_id_f,
+                 bpm:aloop_receipt_persist_event_time_f,
+                 bpm:aloop_receipt_persist_episode_id_f,
+                 bpm:aloop_receipt_persist_attributes_f,
+                 bpm:aloop_receipt_persist_receipt_f .
+bpm:aloop_receipt_persist_event_id_f a bpm:Field ; bpm:fieldName "event_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Unique event identifier." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+bpm:aloop_receipt_persist_event_time_f a bpm:Field ; bpm:fieldName "event_time" ; bpm:fieldType "datetime" ;
+    bpm:fieldDoc "ISO8601 timestamp the event occurred." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+bpm:aloop_receipt_persist_episode_id_f a bpm:Field ; bpm:fieldName "episode_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Identifier of the ALOOP Episode object this event belongs to." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+bpm:aloop_receipt_persist_attributes_f a bpm:Field ; bpm:fieldName "attributes" ; bpm:fieldType "map" ;
+    bpm:fieldDoc "Arbitrary named event attributes (the OCEL payload)." ; bpm:fieldRequired "false" ; bpm:fieldOrder 4 .
+bpm:aloop_receipt_persist_receipt_f a bpm:Field ; bpm:fieldName "receipt" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "The receipt qualifier (ALOOP contract): the persisted receipt identifier." ; bpm:fieldRequired "false" ; bpm:fieldOrder 5 .
+
+# -- aloop event class: verify ------------------------------------------------------
+bpm:aloop_verify_rt a bpm:RecordType ;
+    bpm:recordName "aloop_verify" ;
+    bpm:recordDoc "ALOOP event class `verify`: a verification runs." ;
+    bpm:hasField bpm:aloop_verify_event_id_f,
+                 bpm:aloop_verify_event_time_f,
+                 bpm:aloop_verify_episode_id_f,
+                 bpm:aloop_verify_attributes_f .
+bpm:aloop_verify_event_id_f a bpm:Field ; bpm:fieldName "event_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Unique event identifier." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+bpm:aloop_verify_event_time_f a bpm:Field ; bpm:fieldName "event_time" ; bpm:fieldType "datetime" ;
+    bpm:fieldDoc "ISO8601 timestamp the event occurred." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+bpm:aloop_verify_episode_id_f a bpm:Field ; bpm:fieldName "episode_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Identifier of the ALOOP Episode object this event belongs to." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+bpm:aloop_verify_attributes_f a bpm:Field ; bpm:fieldName "attributes" ; bpm:fieldType "map" ;
+    bpm:fieldDoc "Arbitrary named event attributes (the OCEL payload)." ; bpm:fieldRequired "false" ; bpm:fieldOrder 4 .
+
+# -- aloop event class: falsifier.run -----------------------------------------------
+bpm:aloop_falsifier_run_rt a bpm:RecordType ;
+    bpm:recordName "aloop_falsifier_run" ;
+    bpm:recordDoc "ALOOP event class `falsifier.run`: a falsifier runs against a claim." ;
+    bpm:hasField bpm:aloop_falsifier_run_event_id_f,
+                 bpm:aloop_falsifier_run_event_time_f,
+                 bpm:aloop_falsifier_run_episode_id_f,
+                 bpm:aloop_falsifier_run_attributes_f .
+bpm:aloop_falsifier_run_event_id_f a bpm:Field ; bpm:fieldName "event_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Unique event identifier." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+bpm:aloop_falsifier_run_event_time_f a bpm:Field ; bpm:fieldName "event_time" ; bpm:fieldType "datetime" ;
+    bpm:fieldDoc "ISO8601 timestamp the event occurred." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+bpm:aloop_falsifier_run_episode_id_f a bpm:Field ; bpm:fieldName "episode_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Identifier of the ALOOP Episode object this event belongs to." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+bpm:aloop_falsifier_run_attributes_f a bpm:Field ; bpm:fieldName "attributes" ; bpm:fieldType "map" ;
+    bpm:fieldDoc "Arbitrary named event attributes (the OCEL payload)." ; bpm:fieldRequired "false" ; bpm:fieldOrder 4 .
+
+# -- aloop event class: benchmark.run -----------------------------------------------
+bpm:aloop_benchmark_run_rt a bpm:RecordType ;
+    bpm:recordName "aloop_benchmark_run" ;
+    bpm:recordDoc "ALOOP event class `benchmark.run`: a benchmark runs." ;
+    bpm:hasField bpm:aloop_benchmark_run_event_id_f,
+                 bpm:aloop_benchmark_run_event_time_f,
+                 bpm:aloop_benchmark_run_episode_id_f,
+                 bpm:aloop_benchmark_run_attributes_f .
+bpm:aloop_benchmark_run_event_id_f a bpm:Field ; bpm:fieldName "event_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Unique event identifier." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+bpm:aloop_benchmark_run_event_time_f a bpm:Field ; bpm:fieldName "event_time" ; bpm:fieldType "datetime" ;
+    bpm:fieldDoc "ISO8601 timestamp the event occurred." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+bpm:aloop_benchmark_run_episode_id_f a bpm:Field ; bpm:fieldName "episode_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Identifier of the ALOOP Episode object this event belongs to." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+bpm:aloop_benchmark_run_attributes_f a bpm:Field ; bpm:fieldName "attributes" ; bpm:fieldType "map" ;
+    bpm:fieldDoc "Arbitrary named event attributes (the OCEL payload)." ; bpm:fieldRequired "false" ; bpm:fieldOrder 4 .
+
+# -- aloop event class: failure.detect ----------------------------------------------
+bpm:aloop_failure_detect_rt a bpm:RecordType ;
+    bpm:recordName "aloop_failure_detect" ;
+    bpm:recordDoc "ALOOP event class `failure.detect`: a failure is detected." ;
+    bpm:hasField bpm:aloop_failure_detect_event_id_f,
+                 bpm:aloop_failure_detect_event_time_f,
+                 bpm:aloop_failure_detect_episode_id_f,
+                 bpm:aloop_failure_detect_attributes_f .
+bpm:aloop_failure_detect_event_id_f a bpm:Field ; bpm:fieldName "event_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Unique event identifier." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+bpm:aloop_failure_detect_event_time_f a bpm:Field ; bpm:fieldName "event_time" ; bpm:fieldType "datetime" ;
+    bpm:fieldDoc "ISO8601 timestamp the event occurred." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+bpm:aloop_failure_detect_episode_id_f a bpm:Field ; bpm:fieldName "episode_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Identifier of the ALOOP Episode object this event belongs to." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+bpm:aloop_failure_detect_attributes_f a bpm:Field ; bpm:fieldName "attributes" ; bpm:fieldType "map" ;
+    bpm:fieldDoc "Arbitrary named event attributes (the OCEL payload)." ; bpm:fieldRequired "false" ; bpm:fieldOrder 4 .
+
+# -- aloop event class: reconcile ---------------------------------------------------
+bpm:aloop_reconcile_rt a bpm:RecordType ;
+    bpm:recordName "aloop_reconcile" ;
+    bpm:recordDoc "ALOOP event class `reconcile`: state is reconciled." ;
+    bpm:hasField bpm:aloop_reconcile_event_id_f,
+                 bpm:aloop_reconcile_event_time_f,
+                 bpm:aloop_reconcile_episode_id_f,
+                 bpm:aloop_reconcile_attributes_f .
+bpm:aloop_reconcile_event_id_f a bpm:Field ; bpm:fieldName "event_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Unique event identifier." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+bpm:aloop_reconcile_event_time_f a bpm:Field ; bpm:fieldName "event_time" ; bpm:fieldType "datetime" ;
+    bpm:fieldDoc "ISO8601 timestamp the event occurred." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+bpm:aloop_reconcile_episode_id_f a bpm:Field ; bpm:fieldName "episode_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Identifier of the ALOOP Episode object this event belongs to." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+bpm:aloop_reconcile_attributes_f a bpm:Field ; bpm:fieldName "attributes" ; bpm:fieldType "map" ;
+    bpm:fieldDoc "Arbitrary named event attributes (the OCEL payload)." ; bpm:fieldRequired "false" ; bpm:fieldOrder 4 .
+
+# -- aloop event class: replan ------------------------------------------------------
+bpm:aloop_replan_rt a bpm:RecordType ;
+    bpm:recordName "aloop_replan" ;
+    bpm:recordDoc "ALOOP event class `replan`: the plan is replaced." ;
+    bpm:hasField bpm:aloop_replan_event_id_f,
+                 bpm:aloop_replan_event_time_f,
+                 bpm:aloop_replan_episode_id_f,
+                 bpm:aloop_replan_attributes_f .
+bpm:aloop_replan_event_id_f a bpm:Field ; bpm:fieldName "event_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Unique event identifier." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+bpm:aloop_replan_event_time_f a bpm:Field ; bpm:fieldName "event_time" ; bpm:fieldType "datetime" ;
+    bpm:fieldDoc "ISO8601 timestamp the event occurred." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+bpm:aloop_replan_episode_id_f a bpm:Field ; bpm:fieldName "episode_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Identifier of the ALOOP Episode object this event belongs to." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+bpm:aloop_replan_attributes_f a bpm:Field ; bpm:fieldName "attributes" ; bpm:fieldType "map" ;
+    bpm:fieldDoc "Arbitrary named event attributes (the OCEL payload)." ; bpm:fieldRequired "false" ; bpm:fieldOrder 4 .
+
+# -- aloop event class: provider.replace --------------------------------------------
+bpm:aloop_provider_replace_rt a bpm:RecordType ;
+    bpm:recordName "aloop_provider_replace" ;
+    bpm:recordDoc "ALOOP event class `provider.replace`: one provider replaces another mid-episode." ;
+    bpm:hasField bpm:aloop_provider_replace_event_id_f,
+                 bpm:aloop_provider_replace_event_time_f,
+                 bpm:aloop_provider_replace_episode_id_f,
+                 bpm:aloop_provider_replace_attributes_f,
+                 bpm:aloop_provider_replace_from_provider_f,
+                 bpm:aloop_provider_replace_to_provider_f .
+bpm:aloop_provider_replace_event_id_f a bpm:Field ; bpm:fieldName "event_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Unique event identifier." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+bpm:aloop_provider_replace_event_time_f a bpm:Field ; bpm:fieldName "event_time" ; bpm:fieldType "datetime" ;
+    bpm:fieldDoc "ISO8601 timestamp the event occurred." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+bpm:aloop_provider_replace_episode_id_f a bpm:Field ; bpm:fieldName "episode_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Identifier of the ALOOP Episode object this event belongs to." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+bpm:aloop_provider_replace_attributes_f a bpm:Field ; bpm:fieldName "attributes" ; bpm:fieldType "map" ;
+    bpm:fieldDoc "Arbitrary named event attributes (the OCEL payload)." ; bpm:fieldRequired "false" ; bpm:fieldOrder 4 .
+bpm:aloop_provider_replace_from_provider_f a bpm:Field ; bpm:fieldName "from_provider" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "The provider being replaced." ; bpm:fieldRequired "false" ; bpm:fieldOrder 5 .
+bpm:aloop_provider_replace_to_provider_f a bpm:Field ; bpm:fieldName "to_provider" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "The replacement provider." ; bpm:fieldRequired "false" ; bpm:fieldOrder 6 .
+
+# -- aloop event class: commit ------------------------------------------------------
+bpm:aloop_commit_rt a bpm:RecordType ;
+    bpm:recordName "aloop_commit" ;
+    bpm:recordDoc "ALOOP event class `commit`: work is committed." ;
+    bpm:hasField bpm:aloop_commit_event_id_f,
+                 bpm:aloop_commit_event_time_f,
+                 bpm:aloop_commit_episode_id_f,
+                 bpm:aloop_commit_attributes_f .
+bpm:aloop_commit_event_id_f a bpm:Field ; bpm:fieldName "event_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Unique event identifier." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+bpm:aloop_commit_event_time_f a bpm:Field ; bpm:fieldName "event_time" ; bpm:fieldType "datetime" ;
+    bpm:fieldDoc "ISO8601 timestamp the event occurred." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+bpm:aloop_commit_episode_id_f a bpm:Field ; bpm:fieldName "episode_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Identifier of the ALOOP Episode object this event belongs to." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+bpm:aloop_commit_attributes_f a bpm:Field ; bpm:fieldName "attributes" ; bpm:fieldType "map" ;
+    bpm:fieldDoc "Arbitrary named event attributes (the OCEL payload)." ; bpm:fieldRequired "false" ; bpm:fieldOrder 4 .
+
+# -- aloop event class: merge -------------------------------------------------------
+bpm:aloop_merge_rt a bpm:RecordType ;
+    bpm:recordName "aloop_merge" ;
+    bpm:recordDoc "ALOOP event class `merge`: branches are merged." ;
+    bpm:hasField bpm:aloop_merge_event_id_f,
+                 bpm:aloop_merge_event_time_f,
+                 bpm:aloop_merge_episode_id_f,
+                 bpm:aloop_merge_attributes_f .
+bpm:aloop_merge_event_id_f a bpm:Field ; bpm:fieldName "event_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Unique event identifier." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+bpm:aloop_merge_event_time_f a bpm:Field ; bpm:fieldName "event_time" ; bpm:fieldType "datetime" ;
+    bpm:fieldDoc "ISO8601 timestamp the event occurred." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+bpm:aloop_merge_episode_id_f a bpm:Field ; bpm:fieldName "episode_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Identifier of the ALOOP Episode object this event belongs to." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+bpm:aloop_merge_attributes_f a bpm:Field ; bpm:fieldName "attributes" ; bpm:fieldType "map" ;
+    bpm:fieldDoc "Arbitrary named event attributes (the OCEL payload)." ; bpm:fieldRequired "false" ; bpm:fieldOrder 4 .
+
+# -- aloop event class: reobserve ---------------------------------------------------
+bpm:aloop_reobserve_rt a bpm:RecordType ;
+    bpm:recordName "aloop_reobserve" ;
+    bpm:recordDoc "ALOOP event class `reobserve`: the world is re-observed after actuation." ;
+    bpm:hasField bpm:aloop_reobserve_event_id_f,
+                 bpm:aloop_reobserve_event_time_f,
+                 bpm:aloop_reobserve_episode_id_f,
+                 bpm:aloop_reobserve_attributes_f .
+bpm:aloop_reobserve_event_id_f a bpm:Field ; bpm:fieldName "event_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Unique event identifier." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+bpm:aloop_reobserve_event_time_f a bpm:Field ; bpm:fieldName "event_time" ; bpm:fieldType "datetime" ;
+    bpm:fieldDoc "ISO8601 timestamp the event occurred." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+bpm:aloop_reobserve_episode_id_f a bpm:Field ; bpm:fieldName "episode_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Identifier of the ALOOP Episode object this event belongs to." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+bpm:aloop_reobserve_attributes_f a bpm:Field ; bpm:fieldName "attributes" ; bpm:fieldType "map" ;
+    bpm:fieldDoc "Arbitrary named event attributes (the OCEL payload)." ; bpm:fieldRequired "false" ; bpm:fieldOrder 4 .
+
+# -- aloop event class: goal.satisfied ----------------------------------------------
+bpm:aloop_goal_satisfied_rt a bpm:RecordType ;
+    bpm:recordName "aloop_goal_satisfied" ;
+    bpm:recordDoc "ALOOP event class `goal.satisfied`: the episode goal is satisfied." ;
+    bpm:hasField bpm:aloop_goal_satisfied_event_id_f,
+                 bpm:aloop_goal_satisfied_event_time_f,
+                 bpm:aloop_goal_satisfied_episode_id_f,
+                 bpm:aloop_goal_satisfied_attributes_f .
+bpm:aloop_goal_satisfied_event_id_f a bpm:Field ; bpm:fieldName "event_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Unique event identifier." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+bpm:aloop_goal_satisfied_event_time_f a bpm:Field ; bpm:fieldName "event_time" ; bpm:fieldType "datetime" ;
+    bpm:fieldDoc "ISO8601 timestamp the event occurred." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+bpm:aloop_goal_satisfied_episode_id_f a bpm:Field ; bpm:fieldName "episode_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Identifier of the ALOOP Episode object this event belongs to." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+bpm:aloop_goal_satisfied_attributes_f a bpm:Field ; bpm:fieldName "attributes" ; bpm:fieldType "map" ;
+    bpm:fieldDoc "Arbitrary named event attributes (the OCEL payload)." ; bpm:fieldRequired "false" ; bpm:fieldOrder 4 .
+
+# -- aloop event class: goal.blocked ------------------------------------------------
+bpm:aloop_goal_blocked_rt a bpm:RecordType ;
+    bpm:recordName "aloop_goal_blocked" ;
+    bpm:recordDoc "ALOOP event class `goal.blocked`: the episode goal is blocked." ;
+    bpm:hasField bpm:aloop_goal_blocked_event_id_f,
+                 bpm:aloop_goal_blocked_event_time_f,
+                 bpm:aloop_goal_blocked_episode_id_f,
+                 bpm:aloop_goal_blocked_attributes_f .
+bpm:aloop_goal_blocked_event_id_f a bpm:Field ; bpm:fieldName "event_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Unique event identifier." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+bpm:aloop_goal_blocked_event_time_f a bpm:Field ; bpm:fieldName "event_time" ; bpm:fieldType "datetime" ;
+    bpm:fieldDoc "ISO8601 timestamp the event occurred." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+bpm:aloop_goal_blocked_episode_id_f a bpm:Field ; bpm:fieldName "episode_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Identifier of the ALOOP Episode object this event belongs to." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+bpm:aloop_goal_blocked_attributes_f a bpm:Field ; bpm:fieldName "attributes" ; bpm:fieldType "map" ;
+    bpm:fieldDoc "Arbitrary named event attributes (the OCEL payload)." ; bpm:fieldRequired "false" ; bpm:fieldOrder 4 .
+
+# -- aloop event class: episode.terminal --------------------------------------------
+bpm:aloop_episode_terminal_rt a bpm:RecordType ;
+    bpm:recordName "aloop_episode_terminal" ;
+    bpm:recordDoc "ALOOP event class `episode.terminal`: the episode reaches a terminal state." ;
+    bpm:hasField bpm:aloop_episode_terminal_event_id_f,
+                 bpm:aloop_episode_terminal_event_time_f,
+                 bpm:aloop_episode_terminal_episode_id_f,
+                 bpm:aloop_episode_terminal_attributes_f .
+bpm:aloop_episode_terminal_event_id_f a bpm:Field ; bpm:fieldName "event_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Unique event identifier." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+bpm:aloop_episode_terminal_event_time_f a bpm:Field ; bpm:fieldName "event_time" ; bpm:fieldType "datetime" ;
+    bpm:fieldDoc "ISO8601 timestamp the event occurred." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+bpm:aloop_episode_terminal_episode_id_f a bpm:Field ; bpm:fieldName "episode_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Identifier of the ALOOP Episode object this event belongs to." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+bpm:aloop_episode_terminal_attributes_f a bpm:Field ; bpm:fieldName "attributes" ; bpm:fieldType "map" ;
+    bpm:fieldDoc "Arbitrary named event attributes (the OCEL payload)." ; bpm:fieldRequired "false" ; bpm:fieldOrder 4 .
+
+# -- aloop object carrier -------------------------------------------------------
+bpm:aloop_object_rt a bpm:RecordType ;
+    bpm:recordName "aloop_object" ;
+    bpm:recordDoc "An ALOOP OCEL object. The bpm:object_type attribute admits exactly the 19 ALOOP object types: Episode, Objective, Requirement, WorkOrder, Authority, Repository, Subject, Provider, Worker, WorkerRun, Plan, Capability, Candidate, Consequence, Evidence, Receipt, Failure, Benchmark, Release." ;
+    bpm:hasField bpm:aloop_object_object_id_f, bpm:aloop_object_object_type_f, bpm:aloop_object_attributes_f .
+bpm:aloop_object_object_id_f a bpm:Field ; bpm:fieldName "object_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Unique object identifier." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+bpm:aloop_object_object_type_f a bpm:Field ; bpm:fieldName "object_type" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "One of the 19 admitted ALOOP object type names (see recordDoc)." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+bpm:aloop_object_attributes_f a bpm:Field ; bpm:fieldName "attributes" ; bpm:fieldType "map" ;
+    bpm:fieldDoc "Named current attribute values." ; bpm:fieldRequired "false" ; bpm:fieldOrder 3 .
+
+# -- aloop model edge -----------------------------------------------------------
+bpm:aloop_model_edge_rt a bpm:RecordType ;
+    bpm:recordName "aloop_model_edge" ;
+    bpm:recordDoc "One admitted directly-follows edge of the ALOOP model (from_activity -> to_activity), frequency-annotated when projected from an observed log." ;
+    bpm:hasField bpm:aloop_model_edge_from_activity_f, bpm:aloop_model_edge_to_activity_f, bpm:aloop_model_edge_observed_count_f .
+bpm:aloop_model_edge_from_activity_f a bpm:Field ; bpm:fieldName "from_activity" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "The source ALOOP event class name." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+bpm:aloop_model_edge_to_activity_f a bpm:Field ; bpm:fieldName "to_activity" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "The target ALOOP event class name." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+bpm:aloop_model_edge_observed_count_f a bpm:Field ; bpm:fieldName "observed_count" ; bpm:fieldType "integer" ;
+    bpm:fieldDoc "How often the edge was observed in a log (absent for a pure model edge)." ; bpm:fieldRequired "false" ; bpm:fieldOrder 3 .
+

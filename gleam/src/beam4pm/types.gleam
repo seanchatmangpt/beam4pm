@@ -213,6 +213,436 @@ pub type AlignmentMove {
   )
 }
 
+/// ALOOP event class `actuate`: a DO: an actuation against the world; must be followed by receipt.persist.
+pub type AloopActuate {
+  AloopActuate(
+    /// Unique event identifier.
+    event_id: String,
+    /// ISO8601 timestamp the event occurred.
+    event_time: String,
+    /// Identifier of the ALOOP Episode object this event belongs to.
+    episode_id: String,
+    /// Arbitrary named event attributes (the OCEL payload).
+    attributes: option.Option(dict.Dict(String, String)),
+    /// The consequence qualifier (ALOOP contract): the consequence identifier produced by this actuation.
+    consequence: option.Option(String),
+  )
+}
+
+/// ALOOP event class `benchmark.run`: a benchmark runs.
+pub type AloopBenchmarkRun {
+  AloopBenchmarkRun(
+    /// Unique event identifier.
+    event_id: String,
+    /// ISO8601 timestamp the event occurred.
+    event_time: String,
+    /// Identifier of the ALOOP Episode object this event belongs to.
+    episode_id: String,
+    /// Arbitrary named event attributes (the OCEL payload).
+    attributes: option.Option(dict.Dict(String, String)),
+  )
+}
+
+/// ALOOP event class `candidate.admit`: a candidate passes admission.
+pub type AloopCandidateAdmit {
+  AloopCandidateAdmit(
+    /// Unique event identifier.
+    event_id: String,
+    /// ISO8601 timestamp the event occurred.
+    event_time: String,
+    /// Identifier of the ALOOP Episode object this event belongs to.
+    episode_id: String,
+    /// Arbitrary named event attributes (the OCEL payload).
+    attributes: option.Option(dict.Dict(String, String)),
+  )
+}
+
+/// ALOOP event class `candidate.construct`: a candidate is constructed.
+pub type AloopCandidateConstruct {
+  AloopCandidateConstruct(
+    /// Unique event identifier.
+    event_id: String,
+    /// ISO8601 timestamp the event occurred.
+    event_time: String,
+    /// Identifier of the ALOOP Episode object this event belongs to.
+    episode_id: String,
+    /// Arbitrary named event attributes (the OCEL payload).
+    attributes: option.Option(dict.Dict(String, String)),
+    /// The origin authority qualifier (ALOOP contract): who constructed the candidate, e.g. autonomous or human. A human value makes the next directly-follows edge a human causal edge.
+    origin_authority: option.Option(String),
+  )
+}
+
+/// ALOOP event class `checkpoint`: an execution checkpoint.
+pub type AloopCheckpoint {
+  AloopCheckpoint(
+    /// Unique event identifier.
+    event_id: String,
+    /// ISO8601 timestamp the event occurred.
+    event_time: String,
+    /// Identifier of the ALOOP Episode object this event belongs to.
+    episode_id: String,
+    /// Arbitrary named event attributes (the OCEL payload).
+    attributes: option.Option(dict.Dict(String, String)),
+  )
+}
+
+/// ALOOP event class `commit`: work is committed.
+pub type AloopCommit {
+  AloopCommit(
+    /// Unique event identifier.
+    event_id: String,
+    /// ISO8601 timestamp the event occurred.
+    event_time: String,
+    /// Identifier of the ALOOP Episode object this event belongs to.
+    episode_id: String,
+    /// Arbitrary named event attributes (the OCEL payload).
+    attributes: option.Option(dict.Dict(String, String)),
+  )
+}
+
+/// ALOOP event class `episode.start`: opens an autonomous episode.
+pub type AloopEpisodeStart {
+  AloopEpisodeStart(
+    /// Unique event identifier.
+    event_id: String,
+    /// ISO8601 timestamp the event occurred.
+    event_time: String,
+    /// Identifier of the ALOOP Episode object this event belongs to.
+    episode_id: String,
+    /// Arbitrary named event attributes (the OCEL payload).
+    attributes: option.Option(dict.Dict(String, String)),
+  )
+}
+
+/// ALOOP event class `episode.terminal`: the episode reaches a terminal state.
+pub type AloopEpisodeTerminal {
+  AloopEpisodeTerminal(
+    /// Unique event identifier.
+    event_id: String,
+    /// ISO8601 timestamp the event occurred.
+    event_time: String,
+    /// Identifier of the ALOOP Episode object this event belongs to.
+    episode_id: String,
+    /// Arbitrary named event attributes (the OCEL payload).
+    attributes: option.Option(dict.Dict(String, String)),
+  )
+}
+
+/// ALOOP event class `execution.crash`: execution crashed.
+pub type AloopExecutionCrash {
+  AloopExecutionCrash(
+    /// Unique event identifier.
+    event_id: String,
+    /// ISO8601 timestamp the event occurred.
+    event_time: String,
+    /// Identifier of the ALOOP Episode object this event belongs to.
+    episode_id: String,
+    /// Arbitrary named event attributes (the OCEL payload).
+    attributes: option.Option(dict.Dict(String, String)),
+  )
+}
+
+/// ALOOP event class `execution.start`: execution begins.
+pub type AloopExecutionStart {
+  AloopExecutionStart(
+    /// Unique event identifier.
+    event_id: String,
+    /// ISO8601 timestamp the event occurred.
+    event_time: String,
+    /// Identifier of the ALOOP Episode object this event belongs to.
+    episode_id: String,
+    /// Arbitrary named event attributes (the OCEL payload).
+    attributes: option.Option(dict.Dict(String, String)),
+  )
+}
+
+/// ALOOP event class `failure.detect`: a failure is detected.
+pub type AloopFailureDetect {
+  AloopFailureDetect(
+    /// Unique event identifier.
+    event_id: String,
+    /// ISO8601 timestamp the event occurred.
+    event_time: String,
+    /// Identifier of the ALOOP Episode object this event belongs to.
+    episode_id: String,
+    /// Arbitrary named event attributes (the OCEL payload).
+    attributes: option.Option(dict.Dict(String, String)),
+  )
+}
+
+/// ALOOP event class `falsifier.run`: a falsifier runs against a claim.
+pub type AloopFalsifierRun {
+  AloopFalsifierRun(
+    /// Unique event identifier.
+    event_id: String,
+    /// ISO8601 timestamp the event occurred.
+    event_time: String,
+    /// Identifier of the ALOOP Episode object this event belongs to.
+    episode_id: String,
+    /// Arbitrary named event attributes (the OCEL payload).
+    attributes: option.Option(dict.Dict(String, String)),
+  )
+}
+
+/// ALOOP event class `gap.detect`: a gap between goal and observation; each occurrence is one loop iteration.
+pub type AloopGapDetect {
+  AloopGapDetect(
+    /// Unique event identifier.
+    event_id: String,
+    /// ISO8601 timestamp the event occurred.
+    event_time: String,
+    /// Identifier of the ALOOP Episode object this event belongs to.
+    episode_id: String,
+    /// Arbitrary named event attributes (the OCEL payload).
+    attributes: option.Option(dict.Dict(String, String)),
+  )
+}
+
+/// ALOOP event class `goal.blocked`: the episode goal is blocked.
+pub type AloopGoalBlocked {
+  AloopGoalBlocked(
+    /// Unique event identifier.
+    event_id: String,
+    /// ISO8601 timestamp the event occurred.
+    event_time: String,
+    /// Identifier of the ALOOP Episode object this event belongs to.
+    episode_id: String,
+    /// Arbitrary named event attributes (the OCEL payload).
+    attributes: option.Option(dict.Dict(String, String)),
+  )
+}
+
+/// ALOOP event class `goal.satisfied`: the episode goal is satisfied.
+pub type AloopGoalSatisfied {
+  AloopGoalSatisfied(
+    /// Unique event identifier.
+    event_id: String,
+    /// ISO8601 timestamp the event occurred.
+    event_time: String,
+    /// Identifier of the ALOOP Episode object this event belongs to.
+    episode_id: String,
+    /// Arbitrary named event attributes (the OCEL payload).
+    attributes: option.Option(dict.Dict(String, String)),
+  )
+}
+
+/// ALOOP event class `merge`: branches are merged.
+pub type AloopMerge {
+  AloopMerge(
+    /// Unique event identifier.
+    event_id: String,
+    /// ISO8601 timestamp the event occurred.
+    event_time: String,
+    /// Identifier of the ALOOP Episode object this event belongs to.
+    episode_id: String,
+    /// Arbitrary named event attributes (the OCEL payload).
+    attributes: option.Option(dict.Dict(String, String)),
+  )
+}
+
+/// One admitted directly-follows edge of the ALOOP model (from_activity -> to_activity), frequency-annotated when projected from an observed log.
+pub type AloopModelEdge {
+  AloopModelEdge(
+    /// The source ALOOP event class name.
+    from_activity: String,
+    /// The target ALOOP event class name.
+    to_activity: String,
+    /// How often the edge was observed in a log (absent for a pure model edge).
+    observed_count: option.Option(Int),
+  )
+}
+
+/// An ALOOP OCEL object. The bpm:object_type attribute admits exactly the 19 ALOOP object types: Episode, Objective, Requirement, WorkOrder, Authority, Repository, Subject, Provider, Worker, WorkerRun, Plan, Capability, Candidate, Consequence, Evidence, Receipt, Failure, Benchmark, Release.
+pub type AloopObject {
+  AloopObject(
+    /// Unique object identifier.
+    object_id: String,
+    /// One of the 19 admitted ALOOP object type names (see recordDoc).
+    object_type: String,
+    /// Named current attribute values.
+    attributes: option.Option(dict.Dict(String, String)),
+  )
+}
+
+/// ALOOP event class `observe`: an observation of the world entering the loop.
+pub type AloopObserve {
+  AloopObserve(
+    /// Unique event identifier.
+    event_id: String,
+    /// ISO8601 timestamp the event occurred.
+    event_time: String,
+    /// Identifier of the ALOOP Episode object this event belongs to.
+    episode_id: String,
+    /// Arbitrary named event attributes (the OCEL payload).
+    attributes: option.Option(dict.Dict(String, String)),
+  )
+}
+
+/// ALOOP event class `plan.select`: a plan is selected.
+pub type AloopPlanSelect {
+  AloopPlanSelect(
+    /// Unique event identifier.
+    event_id: String,
+    /// ISO8601 timestamp the event occurred.
+    event_time: String,
+    /// Identifier of the ALOOP Episode object this event belongs to.
+    episode_id: String,
+    /// Arbitrary named event attributes (the OCEL payload).
+    attributes: option.Option(dict.Dict(String, String)),
+  )
+}
+
+/// ALOOP event class `provider.replace`: one provider replaces another mid-episode.
+pub type AloopProviderReplace {
+  AloopProviderReplace(
+    /// Unique event identifier.
+    event_id: String,
+    /// ISO8601 timestamp the event occurred.
+    event_time: String,
+    /// Identifier of the ALOOP Episode object this event belongs to.
+    episode_id: String,
+    /// Arbitrary named event attributes (the OCEL payload).
+    attributes: option.Option(dict.Dict(String, String)),
+    /// The provider being replaced.
+    from_provider: option.Option(String),
+    /// The replacement provider.
+    to_provider: option.Option(String),
+  )
+}
+
+/// ALOOP event class `provider.select`: a provider is selected.
+pub type AloopProviderSelect {
+  AloopProviderSelect(
+    /// Unique event identifier.
+    event_id: String,
+    /// ISO8601 timestamp the event occurred.
+    event_time: String,
+    /// Identifier of the ALOOP Episode object this event belongs to.
+    episode_id: String,
+    /// Arbitrary named event attributes (the OCEL payload).
+    attributes: option.Option(dict.Dict(String, String)),
+    /// The provider qualifier (ALOOP contract): the selected provider identifier.
+    provider: option.Option(String),
+  )
+}
+
+/// ALOOP event class `receipt.persist`: an execution receipt is persisted.
+pub type AloopReceiptPersist {
+  AloopReceiptPersist(
+    /// Unique event identifier.
+    event_id: String,
+    /// ISO8601 timestamp the event occurred.
+    event_time: String,
+    /// Identifier of the ALOOP Episode object this event belongs to.
+    episode_id: String,
+    /// Arbitrary named event attributes (the OCEL payload).
+    attributes: option.Option(dict.Dict(String, String)),
+    /// The receipt qualifier (ALOOP contract): the persisted receipt identifier.
+    receipt: option.Option(String),
+  )
+}
+
+/// ALOOP event class `reconcile`: state is reconciled.
+pub type AloopReconcile {
+  AloopReconcile(
+    /// Unique event identifier.
+    event_id: String,
+    /// ISO8601 timestamp the event occurred.
+    event_time: String,
+    /// Identifier of the ALOOP Episode object this event belongs to.
+    episode_id: String,
+    /// Arbitrary named event attributes (the OCEL payload).
+    attributes: option.Option(dict.Dict(String, String)),
+  )
+}
+
+/// ALOOP event class `reobserve`: the world is re-observed after actuation.
+pub type AloopReobserve {
+  AloopReobserve(
+    /// Unique event identifier.
+    event_id: String,
+    /// ISO8601 timestamp the event occurred.
+    event_time: String,
+    /// Identifier of the ALOOP Episode object this event belongs to.
+    episode_id: String,
+    /// Arbitrary named event attributes (the OCEL payload).
+    attributes: option.Option(dict.Dict(String, String)),
+  )
+}
+
+/// ALOOP event class `replan`: the plan is replaced.
+pub type AloopReplan {
+  AloopReplan(
+    /// Unique event identifier.
+    event_id: String,
+    /// ISO8601 timestamp the event occurred.
+    event_time: String,
+    /// Identifier of the ALOOP Episode object this event belongs to.
+    episode_id: String,
+    /// Arbitrary named event attributes (the OCEL payload).
+    attributes: option.Option(dict.Dict(String, String)),
+  )
+}
+
+/// ALOOP event class `tool.admit`: a tool is admitted for use.
+pub type AloopToolAdmit {
+  AloopToolAdmit(
+    /// Unique event identifier.
+    event_id: String,
+    /// ISO8601 timestamp the event occurred.
+    event_time: String,
+    /// Identifier of the ALOOP Episode object this event belongs to.
+    episode_id: String,
+    /// Arbitrary named event attributes (the OCEL payload).
+    attributes: option.Option(dict.Dict(String, String)),
+  )
+}
+
+/// ALOOP event class `verify`: a verification runs.
+pub type AloopVerify {
+  AloopVerify(
+    /// Unique event identifier.
+    event_id: String,
+    /// ISO8601 timestamp the event occurred.
+    event_time: String,
+    /// Identifier of the ALOOP Episode object this event belongs to.
+    episode_id: String,
+    /// Arbitrary named event attributes (the OCEL payload).
+    attributes: option.Option(dict.Dict(String, String)),
+  )
+}
+
+/// ALOOP event class `worker.claim`: a worker claims the work order.
+pub type AloopWorkerClaim {
+  AloopWorkerClaim(
+    /// Unique event identifier.
+    event_id: String,
+    /// ISO8601 timestamp the event occurred.
+    event_time: String,
+    /// Identifier of the ALOOP Episode object this event belongs to.
+    episode_id: String,
+    /// Arbitrary named event attributes (the OCEL payload).
+    attributes: option.Option(dict.Dict(String, String)),
+    /// The worker qualifier (ALOOP contract): the claiming worker identifier.
+    worker: option.Option(String),
+  )
+}
+
+/// ALOOP event class `workorder.issue`: a work order is issued.
+pub type AloopWorkorderIssue {
+  AloopWorkorderIssue(
+    /// Unique event identifier.
+    event_id: String,
+    /// ISO8601 timestamp the event occurred.
+    event_time: String,
+    /// Identifier of the ALOOP Episode object this event belongs to.
+    episode_id: String,
+    /// Arbitrary named event attributes (the OCEL payload).
+    attributes: option.Option(dict.Dict(String, String)),
+  )
+}
+
 /// Annual package binding SKU, seats, and renewal date.
 pub type AnnualSubscription {
   AnnualSubscription(
