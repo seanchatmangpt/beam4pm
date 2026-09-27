@@ -25,6 +25,7 @@ defmodule BeamPM.PowlConformance do
   ops (same convention as `BeamPM.PowlDiscovery`/`BeamPM.Ocel`).
   """
 
+  alias BeamPM.Dfcm
   alias BeamPM.Rust4PM
 
   # Alpha+++'s own Rust `Default` config (`balance_thresh: 0.2,
@@ -60,6 +61,36 @@ defmodule BeamPM.PowlConformance do
           fitness: map(),
           deviations: [[String.t()]],
           conforms: boolean()
+        }
+
+  @typedoc "How a POWL deviation gates suffix reuse in `conform_observe_replan/6`."
+  @type deviation_policy :: :evidence_only | :refuse_reuse
+
+  @deviation_policies [:evidence_only, :refuse_reuse]
+
+  @typedoc "Decision produced by the process-conformance / Ferroplan runtime repair loop."
+  @type runtime_decision ::
+          :goal_met
+          | :reuse_suffix
+          | :replanned_following
+          | :replanned_full
+          | :replan_unsolved
+          | :replan_refused
+
+  @typedoc "Result of evaluating one observed execution prefix against both POWL conformance and the live Ferroplan session."
+  @type runtime_result :: %{
+          conformance: conformance_result(),
+          conformance_evidence: map(),
+          conformance_gate: :conforming | :deviation_evidence_only | :deviation_refused_reuse,
+          evidence_digest: String.t(),
+          surprises: [String.t()],
+          decision: runtime_decision(),
+          trigger: :goal_met | :none | :no_plan | :invalid_plan | :evidence_refused_reuse,
+          plan_valid: boolean() | nil,
+          previous_suffix: list(),
+          suffix: list(),
+          plan: map() | nil,
+          replan_error: map() | nil
         }
 
   @doc """
@@ -117,6 +148,101 @@ defmodule BeamPM.PowlConformance do
        }}
     end
   end
+
+  @doc """
+  Closes process conformance into the DfCM live-planning crown.
+
+  The conformance verdict is a consumed input of the repair, not a
+  decoration on its result:
+
+    * its evidence (`conforms`, alignment cost, deviating moves, fitness,
+      the checked trace and object type) is passed to
+      `BeamPM.Dfcm.observe_and_repair_session/3` as `:evidence`, so its
+      digest is bound into the default `event_id`, the
+      `dynamic_replan_trigger.trigger_hash`, the `plan_memory` evidence hash
+      and the `plan_lineage` hash -- swapping the verdict changes the repair
+      receipt;
+    * with `on_deviation: :refuse_reuse` a nonconforming trace refuses
+      silent reuse of a still-valid suffix and forces a bounded full replan
+      (trigger `:evidence_refused_reuse`). The default
+      `on_deviation: :evidence_only` keeps a deviation as evidence only: the
+      valid suffix may be reused, but the receipt still carries the
+      deviation digest.
+
+  The observed facts are admitted into the live Ferroplan session and
+  `BeamPM.Dfcm` preserves the cheapest valid continuation before escalating
+  search. An unknown `:on_deviation` value is refused before any engine
+  call. This function never executes the returned plan.
+  """
+  @spec conform_observe_replan(
+          non_neg_integer(),
+          String.t(),
+          [String.t()],
+          non_neg_integer(),
+          [{String.t(), boolean()}],
+          keyword()
+        ) :: {:ok, map()} | {:error, term()}
+  def conform_observe_replan(
+        reference_ocel_handle,
+        object_type,
+        test_trace_activities,
+        ferroplan_session_handle,
+        observations,
+        opts \\ []
+      )
+      when is_integer(reference_ocel_handle) and is_binary(object_type) and
+             is_list(test_trace_activities) and is_integer(ferroplan_session_handle) and
+             is_list(observations) do
+    {on_deviation, repair_opts} = Keyword.pop(opts, :on_deviation, :evidence_only)
+
+    with :ok <- admit_deviation_policy(on_deviation),
+         {:ok, conformance} <-
+           check_conformance(reference_ocel_handle, object_type, test_trace_activities) do
+      evidence = conformance_evidence(object_type, test_trace_activities, conformance)
+      reuse_admissible = conformance.conforms or on_deviation == :evidence_only
+
+      gate =
+        cond do
+          conformance.conforms -> :conforming
+          reuse_admissible -> :deviation_evidence_only
+          true -> :deviation_refused_reuse
+        end
+
+      repair_opts =
+        repair_opts
+        |> Keyword.put(:evidence, evidence)
+        |> Keyword.put(:reuse_admissible, reuse_admissible)
+
+      with {:ok, repair} <-
+             Dfcm.observe_and_repair_session(ferroplan_session_handle, observations, repair_opts) do
+        {:ok,
+         repair
+         |> Map.put(:conformance, conformance)
+         |> Map.put(:conformance_evidence, evidence)
+         |> Map.put(:conformance_gate, gate)}
+      end
+    end
+  end
+
+  @doc false
+  # The exact evidence term bound into the repair receipt. Public so a caller
+  # (and the qualification) can recompute the digest from a conformance
+  # result without re-running the repair.
+  @spec conformance_evidence(String.t(), [String.t()], conformance_result()) :: map()
+  def conformance_evidence(object_type, trace, conformance) do
+    %{
+      kind: :powl_conformance,
+      object_type: object_type,
+      trace: trace,
+      conforms: conformance.conforms,
+      cost: conformance.alignment["cost"],
+      deviations: conformance.deviations,
+      fitness: conformance.fitness
+    }
+  end
+
+  defp admit_deviation_policy(policy) when policy in @deviation_policies, do: :ok
+  defp admit_deviation_policy(policy), do: {:error, {:option_refused, :on_deviation, policy}}
 
   # Builds a real, minimal, valid XES 1.0 log from rust4pm's own
   # `{"activities" => [...], "count" => n}` variant shape (one XES <trace>

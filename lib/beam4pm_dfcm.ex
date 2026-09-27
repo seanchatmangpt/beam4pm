@@ -1,5 +1,8 @@
 defmodule BeamPM.Dfcm do
   @compile {:no_warn_undefined, AshAutofde.CascadeAllocator}
+  @compile {:no_warn_undefined, BeamPM.Ferroplan}
+
+  alias BeamPM.Ferroplan
 
   @moduledoc """
   Pure Design for Combinatorial Maximalism planning crown.
@@ -167,6 +170,7 @@ defmodule BeamPM.Dfcm do
       candidates =
         Enum.map(active, fn opt ->
           norm = normalize_option(opt)
+
           %{
             "branch_id" => norm.id,
             "option_entropy" => max(1.0, norm.goal_progress * 1.0),
@@ -190,6 +194,7 @@ defmodule BeamPM.Dfcm do
         {:error, _fallback} ->
           # Uniform option-preserving fallback
           share = 1.0 / length(active)
+
           %{
             "plan_id" => "dfcm_plan",
             "total_option_value_preserved" => 1.0,
@@ -411,6 +416,779 @@ defmodule BeamPM.Dfcm do
   defp fond_policy(decision),
     do: %{kind: :terminal, decision: decision.kind, terminal_authority: :select}
 
+  # --- Live Ferroplan DfCM runtime -----------------------------------------
+
+  @doc """
+  Observe a bounded live-world delta and repair the current Ferroplan
+  candidate without granting DO authority.
+
+  The runtime preserves the cheapest valid option first, through the
+  host-side ladder built from existing session ops:
+
+      goal-met -> valid suffix reuse -> bounded full replan
+
+  A native DfCM `session_repair` op is preferred only if the generated
+  `BeamPM.Ferroplan` facade exports it. Status UNVERIFIED: no admitted
+  Ferroplan pin (e90928d7, 420974c5) exposes it, so every observed run takes
+  the host ladder; only the closed-vocabulary normalization of native output
+  is exercised (via `normalize_native_repair/1`).
+
+  Options beyond the search budget (`:evals`, `:mem_mb`):
+
+    * `:evidence` -- an admitted external evidence term (for example a POWL
+      conformance verdict). Its deterministic digest is bound into the
+      default `event_id`, the `dynamic_replan_trigger.trigger_hash`, the
+      `plan_memory` evidence hash and the `plan_lineage` hash, so different
+      evidence over the same world yields different receipts.
+    * `:reuse_admissible` (boolean, default `true`) -- when `false` the
+      evidence has refused silent reuse: a still-valid suffix is not reused
+      and a bounded full replan runs with trigger `:evidence_refused_reuse`.
+      The goal-met short-circuit is unaffected.
+  """
+  @spec observe_and_repair_session(
+          non_neg_integer(),
+          [{String.t(), boolean()}],
+          keyword()
+        ) :: {:ok, map()} | {:error, term()}
+  def observe_and_repair_session(handle, observations, opts \\ [])
+      when is_integer(handle) and is_list(observations) do
+    evidence_digest = evidence_digest(opts)
+
+    event_id =
+      Keyword.get_lazy(opts, :event_id, fn ->
+        "event:" <> deterministic_hash(with_evidence(observations, evidence_digest))
+      end)
+
+    with :ok <- admit_observations(observations),
+         :ok <- admit_budget(opts),
+         {:ok, surprises} <- Ferroplan.session_observe(handle, observations),
+         {:ok, repair} <- repair_session(handle, opts) do
+      repair =
+        if evidence_digest do
+          repair |> Map.put(:evidence_digest, evidence_digest) |> finalize_repair()
+        else
+          Map.put(repair, :evidence_digest, nil)
+        end
+
+      trigger =
+        if repair.trigger in [:invalid_plan, :evidence_refused_reuse] do
+          %{
+            plan_id: repair.previous_plan_id || "none",
+            event_id: event_id,
+            trigger_hash:
+              deterministic_hash(
+                with_evidence(
+                  {repair.previous_plan_id, event_id, observations, surprises},
+                  evidence_digest
+                )
+              )
+          }
+        end
+
+      {:ok,
+       repair
+       |> Map.put(:surprises, surprises)
+       |> Map.put(:event_id, event_id)
+       |> Map.put(:dynamic_replan_trigger, trigger)}
+    end
+  end
+
+  # Evidence absent -> every hash keeps its pre-evidence preimage, so receipts
+  # recorded before `:evidence` existed replay byte-identically.
+  defp evidence_digest(opts) do
+    case Keyword.fetch(opts, :evidence) do
+      {:ok, nil} -> nil
+      {:ok, evidence} -> "evidence:" <> deterministic_hash(evidence)
+      :error -> nil
+    end
+  end
+
+  defp with_evidence(term, nil), do: term
+  defp with_evidence(term, digest), do: {term, digest}
+
+  @doc """
+  Repair the current stashed Ferroplan candidate while preserving option
+  value. Returns SELECT/CONSTRUCT evidence only; never advances or executes
+  the plan.
+  """
+  @spec repair_session(non_neg_integer(), keyword()) :: {:ok, map()} | {:error, term()}
+  def repair_session(handle, opts \\ []) when is_integer(handle) do
+    case admit_budget(opts) do
+      :ok -> do_repair_session(handle, opts)
+      {:error, _} = refusal -> refusal
+    end
+  end
+
+  defp do_repair_session(handle, opts) do
+    evals = Keyword.get(opts, :evals, 10_000)
+    mem_mb = Keyword.get(opts, :mem_mb, 64)
+    reuse_admissible = Keyword.get(opts, :reuse_admissible, true)
+
+    # A native repair cannot be told that evidence refused reuse, so a
+    # refused reuse always takes the host ladder.
+    native =
+      if reuse_admissible and Code.ensure_loaded?(Ferroplan) and
+           function_exported?(Ferroplan, :session_repair, 4) do
+        apply(Ferroplan, :session_repair, [handle, evals, mem_mb, []])
+      else
+        :unavailable
+      end
+
+    case native do
+      {:ok, result} when is_map(result) ->
+        {:ok, normalize_repair(result, :native_follow_before_rethink)}
+
+      :unavailable ->
+        fallback_repair_session(handle, evals, mem_mb, reuse_admissible)
+
+      {:error, _} = error ->
+        error
+    end
+  end
+
+  @doc """
+  Evaluate reversible counterfactuals over cheap Ferroplan forks.
+
+  Each candidate may provide `:goal`, `:observations` and
+  `:restrict_contains`. The parent session is never mutated. The semantics
+  are composed from `session_fork` and existing session ops. A native
+  `session_probe` is preferred only if the generated facade exports it
+  (UNVERIFIED: no admitted Ferroplan pin does).
+  """
+  @spec probe_session(non_neg_integer(), [map()], keyword()) ::
+          {:ok, map()} | {:error, term()}
+  def probe_session(handle, candidates, opts \\ [])
+      when is_integer(handle) and is_list(candidates) and candidates != [] do
+    with :ok <- admit_probe_candidates(candidates),
+         :ok <- admit_budget(opts) do
+      do_probe_session(handle, candidates, opts)
+    end
+  end
+
+  defp do_probe_session(handle, candidates, opts) do
+    evals = Keyword.get(opts, :evals, 10_000)
+    mem_mb = Keyword.get(opts, :mem_mb, 64)
+
+    native =
+      if Code.ensure_loaded?(Ferroplan) and function_exported?(Ferroplan, :session_probe, 5) do
+        wire_candidates =
+          Enum.map(candidates, fn candidate ->
+            %{
+              "id" => to_string(Map.fetch!(candidate, :id)),
+              "goal" => Map.get(candidate, :goal),
+              "sight" =>
+                candidate
+                |> Map.get(:observations, [])
+                |> Enum.map(&Tuple.to_list/1),
+              "restrict_contains" => Map.get(candidate, :restrict_contains)
+            }
+          end)
+
+        apply(Ferroplan, :session_probe, [handle, wire_candidates, evals, mem_mb, []])
+      else
+        :unavailable
+      end
+
+    case native do
+      {:ok, result} when is_map(result) ->
+        {:ok,
+         %{
+           candidate_count: Map.get(result, "candidate_count", length(candidates)),
+           results: Map.get(result, "results", []),
+           backend: :native_forks,
+           authority_ceiling: :select
+         }}
+
+      :unavailable ->
+        results =
+          Enum.map(candidates, &fallback_probe_candidate(handle, &1, evals, mem_mb))
+
+        {:ok,
+         %{
+           candidate_count: length(results),
+           results: results,
+           backend: :host_forks,
+           authority_ceiling: :select
+         }}
+
+      {:error, _} = error ->
+        error
+    end
+  end
+
+  @doc """
+  Recompile an explicitly supplied hierarchy only after the caller has
+  decided the local-session repair boundary was exhausted.
+
+  This is a bounded CONSTRUCT operation over exact HDDL source. It returns a
+  SELECT candidate with deterministic evidence; an unsolved hierarchy names
+  `:strategic_recompile` as the next boundary but never invokes one.
+  """
+  @spec hddl_recompile(String.t(), String.t(), map() | nil) ::
+          {:ok, map()} | {:error, term()}
+  def hddl_recompile(domain, problem, limits \\ nil)
+      when is_binary(domain) and is_binary(problem) and (is_map(limits) or is_nil(limits)) do
+    case Ferroplan.hddl_solve(domain, problem, limits) do
+      {:ok, %{"error" => error}} ->
+        {:error,
+         {:hddl_refused,
+          %{
+            error: error,
+            next_escalation: :strategic_recompile,
+            authority_ceiling: :select
+          }}}
+
+      {:ok, %{"solved" => true} = plan} ->
+        {:ok,
+         %{
+           kind: :hddl_recompile,
+           plan: plan,
+           plan_evidence_hash: deterministic_hash({domain, problem, limits, plan}),
+           next_escalation: nil,
+           authority_ceiling: :select
+         }}
+
+      {:ok, plan} ->
+        {:error,
+         {:hddl_unsolved,
+          %{
+            plan: plan,
+            plan_evidence_hash: deterministic_hash({domain, problem, limits, plan}),
+            next_escalation: :strategic_recompile,
+            authority_ceiling: :select
+          }}}
+
+      {:error, _} = error ->
+        error
+    end
+  end
+
+  @doc """
+  Admit one exact FOND policy branch using Ferroplan's independent policy
+  validator before exposing the action as a SELECT candidate.
+
+  No state inference is performed: callers provide the exact universal-plan
+  state id. A missing validator, invalid policy, or uncovered state is typed
+  rather than repaired with LLM reasoning.
+
+  Status BLOCKED(producer lacks `fond_validate`): no admitted Ferroplan pin
+  (e90928d7, 420974c5) exposes a `fond_validate` WASI op and the generated
+  facade has no `fond_validate/3`, so on every admitted pin a well-shaped
+  policy returns `{:error, :fond_validator_unavailable}` and no branch is
+  ever admitted. The validated path is UNVERIFIED until a pin and a
+  regenerated facade export the op.
+  """
+  @spec admit_fond_branch(String.t(), map(), String.t()) ::
+          {:ok, map()} | {:error, term()}
+  def admit_fond_branch(problem_json, plan, state_id)
+      when is_binary(problem_json) and is_map(plan) and is_binary(state_id) do
+    case admit_fond_policy_shape(plan, state_id) do
+      :ok -> validate_fond_branch(problem_json, plan, state_id)
+      {:error, _} = refusal -> refusal
+    end
+  end
+
+  defp validate_fond_branch(problem_json, plan, state_id) do
+    if Code.ensure_loaded?(Ferroplan) and function_exported?(Ferroplan, :fond_validate, 3) do
+      case apply(Ferroplan, :fond_validate, [problem_json, plan, []]) do
+        {:ok, %{"valid" => true, "guarantee" => guarantee} = validation} ->
+          case Enum.find(Map.get(plan, "policy", []), &(Map.get(&1, "state") == state_id)) do
+            %{"action" => action, "outcomes" => outcomes} ->
+              evidence_hash =
+                deterministic_hash({
+                  state_id,
+                  action,
+                  outcomes,
+                  guarantee,
+                  Map.get(validation, "reachable_states", [])
+                })
+
+              {:ok,
+               %{
+                 kind: :fond_policy_branch,
+                 state_id: state_id,
+                 action: action,
+                 outcomes: outcomes,
+                 guarantee: guarantee,
+                 policy_evidence_hash: evidence_hash,
+                 authority_ceiling: :select
+               }}
+
+            nil ->
+              {:error, {:fond_state_uncovered, state_id}}
+          end
+
+        {:ok, %{"valid" => false} = validation} ->
+          {:error, {:fond_policy_invalid, Map.get(validation, "issues", [])}}
+
+        {:ok, %{"error" => error}} ->
+          {:error, {:fond_validation_refused, error}}
+
+        {:error, _} = error ->
+          error
+
+        other ->
+          {:error, {:fond_validation_unexpected, other}}
+      end
+    else
+      {:error, :fond_validator_unavailable}
+    end
+  end
+
+  @doc "Construct a stale-plan refusal only from explicit admitted and observed identities."
+  @spec stale_plan_refusal(String.t(), String.t(), String.t()) :: nil | map()
+  def stale_plan_refusal(plan_id, admitted_preimage_hash, observed_preimage_hash)
+      when is_binary(plan_id) and is_binary(admitted_preimage_hash) and
+             is_binary(observed_preimage_hash) do
+    cond do
+      plan_id == "" or admitted_preimage_hash == "" or observed_preimage_hash == "" ->
+        %{
+          plan_id: plan_id,
+          admitted_preimage_hash: admitted_preimage_hash,
+          observed_preimage_hash: observed_preimage_hash,
+          reason: :identity_missing,
+          authority_ceiling: :select
+        }
+
+      admitted_preimage_hash == observed_preimage_hash ->
+        nil
+
+      true ->
+        %{
+          plan_id: plan_id,
+          admitted_preimage_hash: admitted_preimage_hash,
+          observed_preimage_hash: observed_preimage_hash,
+          reason: :identity_drift,
+          authority_ceiling: :select
+        }
+    end
+  end
+
+  # --- Boundary admission (typed refusal before any engine call) -----------
+
+  # Observations are exactly `{fact_name :: non-empty binary, value :: boolean}`.
+  # Anything else is refused before the live session is touched, so a
+  # malformed delivery can never partially mutate the admitted world.
+  defp admit_observations(observations) do
+    case Enum.find_index(observations, &(not observation?(&1))) do
+      nil -> admit_consistent_observations(observations)
+      index -> {:error, {:malformed_observation, index, Enum.at(observations, index)}}
+    end
+  end
+
+  # One delivery must not assert a fact both true and false: the engine
+  # applies a batch in order (last write wins), so a self-contradictory batch
+  # would make the admitted world depend on delivery order. PDDL names are
+  # case-insensitive, so contradiction is detected on the folded name.
+  defp admit_consistent_observations(observations) do
+    contradicted =
+      observations
+      |> Enum.group_by(fn {name, _value} -> fold_fact(name) end, fn {_name, value} -> value end)
+      |> Enum.filter(fn {_name, values} -> values |> Enum.uniq() |> length() > 1 end)
+      |> Enum.map(fn {name, _values} -> name end)
+      |> Enum.sort()
+
+    case contradicted do
+      [] -> :ok
+      names -> {:error, {:contradictory_observations, names}}
+    end
+  end
+
+  defp fold_fact(name) do
+    name |> String.downcase() |> String.split() |> Enum.join(" ")
+  end
+
+  # The WASI adapter's production budget (evals 1..1_000_000, mem_mb
+  # 1..2048). Checked before observing so an out-of-budget request can never
+  # commit an observation and then fail the repair half-way.
+  @max_evals 1_000_000
+  @max_mem_mb 2048
+
+  defp admit_budget(opts) do
+    evals = Keyword.get(opts, :evals, 10_000)
+    mem_mb = Keyword.get(opts, :mem_mb, 64)
+
+    reuse_admissible = Keyword.get(opts, :reuse_admissible, true)
+
+    cond do
+      not (is_integer(evals) and evals in 1..@max_evals) ->
+        {:error, {:budget_refused, :evals, evals}}
+
+      not (is_integer(mem_mb) and mem_mb in 1..@max_mem_mb) ->
+        {:error, {:budget_refused, :mem_mb, mem_mb}}
+
+      not is_boolean(reuse_admissible) ->
+        {:error, {:option_refused, :reuse_admissible, reuse_admissible}}
+
+      true ->
+        :ok
+    end
+  end
+
+  defp observation?({name, value})
+       when is_binary(name) and byte_size(name) > 0 and is_boolean(value),
+       do: true
+
+  defp observation?(_), do: false
+
+  # Probe candidates need a present, unique id: results are keyed by id and a
+  # duplicate would make two counterfactual outcomes indistinguishable.
+  defp admit_probe_candidates(candidates) do
+    malformed =
+      Enum.find_index(candidates, fn candidate ->
+        not (is_map(candidate) and Map.has_key?(candidate, :id) and
+               not is_nil(Map.get(candidate, :id)) and
+               Enum.all?(Map.get(candidate, :observations, []), &observation?/1))
+      end)
+
+    ids =
+      if is_nil(malformed), do: Enum.map(candidates, &to_string(Map.fetch!(&1, :id))), else: []
+
+    duplicates = ids -- Enum.uniq(ids)
+
+    cond do
+      not is_nil(malformed) ->
+        {:error, {:probe_candidate_malformed, malformed}}
+
+      duplicates != [] ->
+        {:error, {:probe_candidate_duplicate_ids, Enum.uniq(duplicates)}}
+
+      true ->
+        :ok
+    end
+  end
+
+  # A FOND policy must be a list of state entries with exactly one entry per
+  # state id, each naming an action and a list of outcomes. Ambiguous or
+  # malformed policies are refused before independent validation so no
+  # branch is ever selected by list order.
+  defp admit_fond_policy_shape(plan, state_id) do
+    case Map.get(plan, "policy", []) do
+      policy when is_list(policy) ->
+        malformed =
+          Enum.find_index(policy, fn entry ->
+            not (is_map(entry) and is_binary(Map.get(entry, "state")) and
+                   is_binary(Map.get(entry, "action")) and is_list(Map.get(entry, "outcomes")))
+          end)
+
+        matching = Enum.count(policy, &(is_map(&1) and Map.get(&1, "state") == state_id))
+
+        cond do
+          not is_nil(malformed) -> {:error, {:fond_policy_malformed, malformed}}
+          matching > 1 -> {:error, {:fond_state_ambiguous, state_id, matching}}
+          true -> :ok
+        end
+
+      other ->
+        {:error, {:fond_policy_malformed, {:policy_not_a_list, other}}}
+    end
+  end
+
+  @repair_decisions %{
+    "goal_met" => :goal_met,
+    "reuse_suffix" => :reuse_suffix,
+    "replanned_following" => :replanned_following,
+    "replanned_full" => :replanned_full,
+    "replan_unsolved" => :replan_unsolved,
+    "replan_refused" => :replan_refused
+  }
+
+  @repair_triggers %{
+    "goal_met" => :goal_met,
+    "none" => :none,
+    "no_plan" => :no_plan,
+    "invalid_plan" => :invalid_plan
+  }
+
+  @doc "Closed decision vocabulary of the live repair ladder."
+  @spec repair_decisions() :: [atom()]
+  def repair_decisions, do: @repair_decisions |> Map.values() |> Enum.sort()
+
+  defp fallback_repair_session(handle, evals, mem_mb, reuse_admissible) do
+    with {:ok, %{"goal_met" => goal_met}} <- Ferroplan.session_goal_met?(handle) do
+      if goal_met do
+        {:ok,
+         finalize_repair(%{
+           decision: :goal_met,
+           trigger: :goal_met,
+           plan_valid: nil,
+           previous_suffix: [],
+           suffix: [],
+           plan: nil,
+           backend: :host_fallback
+         })}
+      else
+        fallback_repair_open_goal(handle, evals, mem_mb, reuse_admissible)
+      end
+    end
+  end
+
+  defp fallback_repair_open_goal(handle, evals, mem_mb, reuse_admissible) do
+    with {:ok, %{"has_plan" => has_plan}} <- Ferroplan.session_has_plan?(handle) do
+      if has_plan do
+        with {:ok, previous_suffix} <- Ferroplan.session_suffix(handle),
+             {:ok, %{"valid" => valid}} <- Ferroplan.session_valid?(handle) do
+          cond do
+            valid and not reuse_admissible ->
+              fallback_full_replan(
+                handle,
+                previous_suffix,
+                :evidence_refused_reuse,
+                true,
+                evals,
+                mem_mb
+              )
+
+            valid ->
+              {:ok,
+               finalize_repair(%{
+                 decision: :reuse_suffix,
+                 trigger: :none,
+                 plan_valid: true,
+                 previous_suffix: previous_suffix,
+                 suffix: previous_suffix,
+                 plan: nil,
+                 backend: :host_fallback
+               })}
+
+            true ->
+              fallback_full_replan(handle, previous_suffix, :invalid_plan, false, evals, mem_mb)
+          end
+        end
+      else
+        fallback_full_replan(handle, [], :no_plan, nil, evals, mem_mb)
+      end
+    end
+  end
+
+  defp fallback_full_replan(handle, previous_suffix, trigger, plan_valid, evals, mem_mb) do
+    case Ferroplan.session_think(handle, evals, mem_mb) do
+      {:ok, %{"error" => error}} ->
+        {:ok,
+         finalize_repair(%{
+           decision: :replan_refused,
+           trigger: trigger,
+           plan_valid: plan_valid,
+           previous_suffix: previous_suffix,
+           suffix: [],
+           plan: nil,
+           replan_error: error,
+           backend: :host_fallback
+         })}
+
+      {:ok, %{"solved" => true} = plan} ->
+        with {:ok, suffix} <- Ferroplan.session_suffix(handle) do
+          {:ok,
+           finalize_repair(%{
+             decision: :replanned_full,
+             trigger: trigger,
+             plan_valid: plan_valid,
+             previous_suffix: previous_suffix,
+             suffix: suffix,
+             plan: plan,
+             backend: :host_fallback
+           })}
+        end
+
+      {:ok, plan} ->
+        {:ok,
+         finalize_repair(%{
+           decision: :replan_unsolved,
+           trigger: trigger,
+           plan_valid: plan_valid,
+           previous_suffix: previous_suffix,
+           suffix: [],
+           plan: plan,
+           backend: :host_fallback
+         })}
+
+      {:error, _} = error ->
+        error
+    end
+  end
+
+  # Native producer output is O, not O*: decision/trigger strings are mapped
+  # through a closed vocabulary. Anything outside it (unknown string, nil,
+  # non-string) fails closed to :replan_unsolved, which forces escalation,
+  # and the raw value is preserved as `vocabulary_refusal` evidence instead
+  # of being interned as an arbitrary existing atom.
+  defp normalize_repair(result, backend) do
+    raw_decision = Map.get(result, "decision")
+    raw_trigger = Map.get(result, "trigger", "none")
+    decision = lookup_vocab(@repair_decisions, raw_decision)
+    trigger = lookup_vocab(@repair_triggers, raw_trigger)
+
+    refusal =
+      if is_nil(decision) or is_nil(trigger) do
+        %{decision: raw_decision, trigger: raw_trigger}
+      end
+
+    finalize_repair(%{
+      decision: if(refusal, do: :replan_unsolved, else: decision),
+      trigger: if(refusal, do: :none, else: trigger),
+      plan_valid: Map.get(result, "plan_valid"),
+      previous_suffix: list_or_empty(Map.get(result, "previous_suffix", [])),
+      suffix: list_or_empty(Map.get(result, "suffix", [])),
+      plan: Map.get(result, "solution"),
+      vocabulary_refusal: refusal,
+      backend: backend
+    })
+  end
+
+  @doc false
+  # Falsifier seam: exercises the native-output admission path on pins whose
+  # producer does not yet export session_repair (real function, real input).
+  @spec normalize_native_repair(map()) :: map()
+  def normalize_native_repair(result) when is_map(result),
+    do: normalize_repair(result, :native_follow_before_rethink)
+
+  defp lookup_vocab(vocab, raw) when is_binary(raw), do: Map.get(vocab, raw)
+  defp lookup_vocab(_vocab, _raw), do: nil
+
+  defp list_or_empty(value) when is_list(value), do: value
+  defp list_or_empty(_), do: []
+
+  defp finalize_repair(repair) do
+    previous_plan_id = plan_id(Map.get(repair, :previous_suffix, []))
+    current_plan_id = plan_id(Map.get(repair, :suffix, []))
+
+    digest = Map.get(repair, :evidence_digest)
+
+    lineage =
+      if previous_plan_id && current_plan_id && previous_plan_id != current_plan_id do
+        %{
+          plan_id: current_plan_id,
+          parent_plan_id: previous_plan_id,
+          lineage_hash:
+            deterministic_hash(
+              with_evidence({previous_plan_id, current_plan_id, repair.decision}, digest)
+            )
+        }
+      end
+
+    memory =
+      if current_plan_id do
+        evidence_hash =
+          deterministic_hash(
+            with_evidence(
+              {
+                repair.decision,
+                repair.trigger,
+                Map.get(repair, :plan_valid),
+                Map.get(repair, :backend)
+              },
+              digest
+            )
+          )
+
+        %{
+          plan_id: current_plan_id,
+          evidence_hash: evidence_hash,
+          memory_hash: deterministic_hash({current_plan_id, evidence_hash})
+        }
+      end
+
+    escalation =
+      if repair.decision in [:replan_unsolved, :replan_refused] do
+        [:hddl_recompile, :strategic_recompile]
+      else
+        []
+      end
+
+    repair
+    |> Map.put_new(:replan_error, nil)
+    |> Map.put(:previous_plan_id, previous_plan_id)
+    |> Map.put(:plan_id, current_plan_id)
+    |> Map.put(:plan_lineage, lineage)
+    |> Map.put(:plan_memory, memory)
+    |> Map.put(:escalation, escalation)
+    |> Map.put(:authority_ceiling, :select)
+  end
+
+  defp fallback_probe_candidate(parent_handle, candidate, evals, mem_mb) do
+    id = to_string(Map.fetch!(candidate, :id))
+
+    case Ferroplan.session_fork(parent_handle) do
+      {:ok, %{"handle" => fork}} ->
+        try do
+          with :ok <- maybe_set_goal(fork, Map.get(candidate, :goal)),
+               :ok <- maybe_restrict(fork, Map.get(candidate, :restrict_contains)),
+               {:ok, surprises} <-
+                 maybe_observe(fork, Map.get(candidate, :observations, [])),
+               {:ok, solution} <- Ferroplan.session_think(fork, evals, mem_mb),
+               {:ok, %{"bytes" => world_bytes}} <- Ferroplan.session_world_bytes(fork),
+               {:ok, %{"bytes" => mind_bytes}} <- Ferroplan.session_mind_bytes(fork) do
+            %{
+              id: id,
+              outcome: if(Map.get(solution, "solved"), do: :solved, else: :unsolved),
+              surprises: surprises,
+              solution: solution,
+              plan_id:
+                plan_id(
+                  case Map.get(solution, "plan") do
+                    %{"steps" => steps} when is_list(steps) -> steps
+                    _ -> []
+                  end
+                ),
+              world_bytes: world_bytes,
+              mind_bytes: mind_bytes,
+              authority_ceiling: :select
+            }
+          else
+            {:error, reason} ->
+              %{
+                id: id,
+                outcome: :refused,
+                reason: reason,
+                authority_ceiling: :select
+              }
+          end
+        after
+          _ = Ferroplan.session_free(fork)
+        end
+
+      {:error, reason} ->
+        %{id: id, outcome: :refused, reason: reason, authority_ceiling: :select}
+    end
+  end
+
+  defp maybe_set_goal(_handle, nil), do: :ok
+
+  defp maybe_set_goal(handle, goal) when is_binary(goal) do
+    case Ferroplan.session_set_goal(handle, goal) do
+      {:ok, %{"ok" => true}} -> :ok
+      {:error, _} = error -> error
+      other -> {:error, {:set_goal, other}}
+    end
+  end
+
+  defp maybe_restrict(_handle, nil), do: :ok
+
+  defp maybe_restrict(handle, filter) when is_binary(filter) do
+    case Ferroplan.session_restrict_contains(handle, filter) do
+      {:ok, %{"ok" => true}} -> :ok
+      {:error, _} = error -> error
+      other -> {:error, {:restrict, other}}
+    end
+  end
+
+  defp maybe_observe(_handle, []), do: {:ok, []}
+
+  defp maybe_observe(handle, observations) when is_list(observations) do
+    Ferroplan.session_observe(handle, observations)
+  end
+
+  defp plan_id([]), do: nil
+
+  defp plan_id(steps) when is_list(steps) do
+    "plan:" <> deterministic_hash(steps)
+  end
+
+  defp deterministic_hash(term) do
+    :crypto.hash(:sha256, :erlang.term_to_binary(term, [:deterministic]))
+    |> Base.encode16(case: :lower)
+  end
+
   # --- Standalone AutoFDE Typer CLI Bridge (priv/bin/autofde) ---
 
   @doc "Locate the standalone autofde CLI executable."
@@ -504,11 +1282,18 @@ defmodule BeamPM.Dfcm do
   @doc "Execute Knowledge Hooks transition against base graph via standalone GraphLaw WASM engine."
   @spec graphlaw_hooks(String.t(), String.t()) :: {:ok, map()} | {:error, term()}
   def graphlaw_hooks(base_ttl, event_ttl) do
-    case run_autofde_cli(["sa2a", "graphlaw", "hooks", "--ttl", base_ttl, "--event-ttl", event_ttl]) do
+    case run_autofde_cli([
+           "sa2a",
+           "graphlaw",
+           "hooks",
+           "--ttl",
+           base_ttl,
+           "--event-ttl",
+           event_ttl
+         ]) do
       {:ok, %{"action" => "hooks", "result" => res}} -> {:ok, res}
       {:ok, %{"error" => err}} -> {:error, {:graphlaw_error, err}}
       other -> other
     end
   end
 end
-
