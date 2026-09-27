@@ -61,6 +61,21 @@ start_engine!.(Ferroplan)
 process_id = "toy_counter_governed"
 expected_trace = ["plan", "admit", "execute", "observe", "plan", "admit", "execute", "observe"]
 
+# ProcessGovernor event_type intentionally repeats across transitions.  For
+# conformance, preserve those observed names while qualifying them by their
+# real transition position.  This is a deterministic projection of replayed
+# evidence, and avoids accidentally asking Alpha+++ to infer a loop merely
+# because two different governed transitions share the generic "plan" etc.
+qualify_trace = fn trace ->
+  trace
+  |> Enum.with_index()
+  |> Enum.map(fn {activity, index} ->
+    "t#{div(index, 4) + 1}.#{activity}"
+  end)
+end
+
+expected_conformance_trace = qualify_trace.(expected_trace)
+
 reference_runs =
   for n <- 1..3 do
     receipts_dir = Path.join(root, "reference-#{n}")
@@ -94,6 +109,7 @@ reference_runs =
     %{
       ordinal: n,
       trace: trace,
+      conformance_trace: qualify_trace.(trace),
       process_receipts: Enum.reverse(final.receipts)
     }
   end
@@ -128,6 +144,7 @@ deviant_replay =
 
 deviant_trace = deviant_replay.mined_trace.activity_sequence
 assert!.(deviant_trace == ["plan", "admit", "execute"], "DEVIANT_TRACE_BOUNDARY")
+deviant_conformance_trace = qualify_trace.(deviant_trace)
 
 failed_process_receipt = hd(failed_receipts)
 assert!.(not is_nil(failed_process_receipt.actuation), "DEVIANT_BRCE_REFERENCE_MISSING")
@@ -143,7 +160,7 @@ assert!.(failed_brce["execution"]["performed"] == false, "DEVIANT_WAS_PERFORMED"
 # reference log.  Nothing below uses a fixture trace or an in-memory fake.
 {:ok, %{"ocel_handle" => reference_ocel}} = Rust4PM.ocel_new()
 
-expected_trace
+expected_conformance_trace
 |> Enum.uniq()
 |> Enum.each(fn activity ->
   {:ok, _} = Rust4PM.ocel_add_event_type(reference_ocel, activity)
@@ -152,7 +169,7 @@ end)
 {:ok, _} = Rust4PM.ocel_add_object_type(reference_ocel, "process_run")
 epoch = ~U[2026-09-27 00:00:00Z]
 
-Enum.each(reference_runs, fn %{ordinal: run_n, trace: trace} ->
+Enum.each(reference_runs, fn %{ordinal: run_n, conformance_trace: trace} ->
   object_id = "reference-run-#{run_n}"
   {:ok, _} = Rust4PM.ocel_add_object(reference_ocel, object_id, "process_run")
 
@@ -208,7 +225,7 @@ try do
     case PowlConformance.conform_observe_replan(
            reference_ocel,
            "process_run",
-           deviant_trace,
+           deviant_conformance_trace,
            session,
            [{"(counter_ready)", true}],
            on_deviation: :refuse_reuse,
@@ -314,7 +331,9 @@ try do
     "subject_sha" => subject_sha,
     "reference_runs" => length(reference_runs),
     "reference_trace" => expected_trace,
+    "reference_conformance_trace" => expected_conformance_trace,
     "deviant_trace" => deviant_trace,
+    "deviant_conformance_trace" => deviant_conformance_trace,
     "deviant_failure" => inspect(failure_reason),
     "deviant_brce_receipt" => failed_brce_path,
     "deviant_brce_sha256" => sha256_file!.(failed_brce_path),
