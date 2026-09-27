@@ -68,6 +68,9 @@ defmodule BeamPM.Powl.HddlPowl do
   def from_network(%{tasks: tasks, ordering: ordering}),
     do: from_network(%Network{tasks: tasks, ordering: ordering})
 
+  def from_network(opts) when is_list(opts),
+    do: from_network(Map.new(opts))
+
   def from_network(other), do: {:error, {:invalid_network, other}}
 
   @doc """
@@ -98,7 +101,15 @@ defmodule BeamPM.Powl.HddlPowl do
       true ->
         with :ok <- check_indices(ordering, length(tasks)),
              :ok <- check_antisymmetric(ordering) do
-          children = Enum.map(tasks, &%PowlLeaf{activity_label: &1, is_tau: false, min_freq: 1, max_freq: 1})
+          # Children must be the wrapped Node variant: Model.validate/1 and
+          # the engine emitters operate on Model.Node.t(), not bare leaves.
+          children =
+            Enum.map(tasks, fn task ->
+              %BeamPM.Powl.Model.Node{
+                variant: :leaf,
+                leaf: %PowlLeaf{activity_label: task, is_tau: false, min_freq: 1, max_freq: 1}
+              }
+            end)
 
           order =
             ordering

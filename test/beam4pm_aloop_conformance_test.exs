@@ -84,9 +84,12 @@ defmodule BeamPM.AloopConformanceTest do
 
   defp record_name(class), do: ("aloop_" <> String.replace(class, ".", "_")) |> String.to_atom()
 
+  # Generated ALOOP types carry the Aloop prefix (BeamPM.Types.AloopEpisodeStart,
+  # per lib/beam4pm_types.ex), matching record names aloop_episode_start.
+  # Module.concat (NOT String.to_atom on the bare name): the module atom
+  # must carry the "Elixir." prefix or it names a different, non-module atom.
   defp type_module(class) do
-    "BeamPM.Types." <> (String.replace(class, ".", "_") |> String.split("_") |> Enum.map(&String.capitalize/1) |> Enum.join())
-    |> String.to_atom()
+    Module.concat(BeamPM.Types, "Aloop" <> (class |> String.replace(".", "_") |> String.split("_") |> Enum.map(&String.capitalize/1) |> Enum.join()))
   end
 
   describe "vocabulary representability through generated types" do

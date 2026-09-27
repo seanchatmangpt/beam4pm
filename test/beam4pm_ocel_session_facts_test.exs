@@ -146,7 +146,7 @@ defmodule BeamPM.OcelSessionFactsTest do
           "type" => "b",
           "time" => "2026-01-01T00:05:00+00:00",
           "attributes" => [%{"name" => "ok", "value" => "false"}],
-          "relationships" => [%{"objectId" => "o1", "qualifier": "role"}]
+          "relationships" => [%{"objectId" => "o1", "qualifier" => "role"}]
         },
         %{
           "id" => "e1",

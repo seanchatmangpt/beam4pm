@@ -212,12 +212,12 @@ defmodule BeamPM.OcelAccumulator do
       Enum.flat_map(acc_events, fn {%OcelEvent{event_id: eid}, rels} ->
         for %OcelRelationship{object_id: rid} <- rels,
             not MapSet.member?(known, rid),
-            do: {:event, eid, rid}
+            do: {{:event, eid}, rid}
       end) ++
         Enum.flat_map(acc_objects, fn {%OcelObject{object_id: oid}, rels} ->
           for %OcelRelationship{object_id: rid} <- rels,
               not MapSet.member?(known, rid),
-              do: {:object, oid, rid}
+              do: {{:object, oid}, rid}
         end)
 
     nil_qualifiers =

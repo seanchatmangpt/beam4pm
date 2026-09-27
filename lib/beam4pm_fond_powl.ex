@@ -103,8 +103,8 @@ defmodule BeamPM.Powl.FondPowl do
     end
   end
 
-  def from_policy_outcomes(outcomes) when outcomes == %{},
-    do: {:error, {:invalid_policy_outcomes, :empty}}
+  def from_policy_outcomes(outcomes) when outcomes == %{} or outcomes == [],
+    do: {:error, {:invalid_policy_outcomes, outcomes}}
 
   def from_policy_outcomes(other), do: {:error, {:invalid_policy_outcomes, other}}
 
@@ -146,7 +146,10 @@ defmodule BeamPM.Powl.FondPowl do
   defp build_choice(key, branches) do
     children =
       Enum.map(branches, fn branch ->
-        %PowlLeaf{activity_label: key <> "/" <> branch, is_tau: false, min_freq: 1, max_freq: 1}
+        %BeamPM.Powl.Model.Node{
+          variant: :leaf,
+          leaf: %PowlLeaf{activity_label: key <> "/" <> branch, is_tau: false, min_freq: 1, max_freq: 1}
+        }
       end)
 
     n = length(branches)

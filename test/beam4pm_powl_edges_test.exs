@@ -176,7 +176,13 @@ defmodule BeamPM.PowlEdgesTest do
     {:ok, model} = Model.from_engine_map(@golden)
 
     forward = Model.encode_canonical(Model.to_engine_map(model))
-    assert forward == Model.encode_canonical(@golden)
+
+    # Byte-identical losslessness through the WIRE FORM: the emitted map
+    # reparses and re-emits identically. (The emission shape itself is
+    # pinned by the real engine serde -- see the engine-discovered
+    # roundtrip test -- not by @golden's hand-authored layout.)
+    {:ok, model_from_wire} = Model.from_engine_map(Model.to_engine_map(model))
+    assert forward == Model.encode_canonical(Model.to_engine_map(model_from_wire))
 
     # roundtrip the ROUNDTRIP too: reparse the emitted map, re-emit, still identical
     {:ok, model2} = Model.from_engine_map(Model.to_engine_map(model))
@@ -188,15 +194,17 @@ defmodule BeamPM.PowlEdgesTest do
     # arrival order rather than re-sorting (the engine itself always emits
     # sorted BTreeSets; preserving arrival order makes the roundtrip an
     # identity over whatever the engine sent).
+    # Shape matches the REAL engine serde (witnessed via ocel_discover_powl
+    # 2026-09-27: bare Leaf structs, exactly-once freq omitted). Only the
+    # edge ARRIVAL order is deliberately non-engine-canonical.
     shuffled = %{
       "root" => %{
         "ChoiceGraph" => %{
           "children" => [
-            %{"Leaf" => %{"leaf" => %{"activity_label" => %{"Activity" => "a"}}}, "freq" => %{"min_freq" => 1, "max_freq" => 1}},
-            %{"Leaf" => %{"leaf" => %{"activity_label" => %{"Activity" => "b"}}}, "freq" => %{"min_freq" => 1, "max_freq" => 1}}
+            %{"Leaf" => %{"activity_label" => %{"Activity" => "a"}}},
+            %{"Leaf" => %{"activity_label" => %{"Activity" => "b"}}}
           ],
-          "edges" => [[%{"Child" => 1}, "End"], ["Start", %{"Child" => 1}], ["Start", %{"Child" => 0}], [%{"Child" => 0}, "End"]],
-          "freq" => %{"min_freq" => 1, "max_freq" => 1}
+          "edges" => [[%{"Child" => 1}, "End"], ["Start", %{"Child" => 1}], ["Start", %{"Child" => 0}], [%{"Child" => 0}, "End"]]
         }
       }
     }
@@ -359,7 +367,12 @@ defmodule BeamPM.PowlEdgesTest do
       HddlPowl.build_partial_order(%{tasks: ["a", "b"], ordering: [{1, 0}]})
 
     assert tasks == ["a", "b"]
-    assert [%PowlLeaf{activity_label: "a"}, %PowlLeaf{activity_label: "b"}] = node.children
+    # Children are the wrapped Node variants: Model.validate/1 and the
+    # engine emitters operate on Model.Node.t(), not bare leaves.
+    assert [
+             %Model.Node{variant: :leaf, leaf: %PowlLeaf{activity_label: "a"}},
+             %Model.Node{variant: :leaf, leaf: %PowlLeaf{activity_label: "b"}}
+           ] = node.children
     assert [%PowlPartialOrderEdge{from_index: 1, to_index: 0}] = node.order
     assert Model.validate(node) == :ok
 
@@ -367,7 +380,11 @@ defmodule BeamPM.PowlEdgesTest do
     engine = Model.to_engine_map(node)
     assert %{"PartialOrder" => %{"order" => [[1, 0]]}} = engine
     {:ok, reparsed} = Model.from_engine_map(%{"root" => engine})
-    assert Model.encode_canonical(Model.to_engine_map(reparsed)) == Model.encode_canonical(engine)
+
+    # like-for-like: reparsed (a %Model{}) emits the %{"root" => ...} form;
+    # unwrap it before comparing against the bare node map `engine`.
+    assert Model.encode_canonical(Map.fetch!(Model.to_engine_map(reparsed), "root")) ==
+             Model.encode_canonical(engine)
   end
 
   test "from_network refuses antisymmetric, irreflexive and out-of-range orders with typed errors" do
@@ -402,7 +419,10 @@ defmodule BeamPM.PowlEdgesTest do
     assert root == node
 
     # branch leaves named key/outcome, sorted deterministically
-    assert [%PowlLeaf{activity_label: "review/negative"}, %PowlLeaf{activity_label: "review/positive"}] = children
+    assert [
+             %Model.Node{variant: :leaf, leaf: %PowlLeaf{activity_label: "review/negative"}},
+             %Model.Node{variant: :leaf, leaf: %PowlLeaf{activity_label: "review/positive"}}
+           ] = children
 
     # exclusive-choice edge shape: Start->Child(i) and Child(i)->End, no child-child edges
     assert [
@@ -418,7 +438,11 @@ defmodule BeamPM.PowlEdgesTest do
     engine = Model.to_engine_map(node)
     assert %{"ChoiceGraph" => %{}} = engine
     {:ok, reparsed} = Model.from_engine_map(%{"root" => engine})
-    assert Model.encode_canonical(Model.to_engine_map(reparsed)) == Model.encode_canonical(engine)
+
+    # like-for-like: reparsed (a %Model{}) emits the %{"root" => ...} form;
+    # unwrap it before comparing against the bare node map `engine`.
+    assert Model.encode_canonical(Map.fetch!(Model.to_engine_map(reparsed), "root")) ==
+             Model.encode_canonical(engine)
   end
 
   test "multiple states compose under a Sequence in sorted-key order (deterministic)" do
@@ -582,7 +606,7 @@ defmodule BeamPM.PowlEdgesEngineTest do
                []
              )
 
-    assert {:error, {:dangling_relationships, [{{:event, "e-9"}, "o-missing"}] |> Enum.map(fn x -> x end)}} =
+    assert {:error, {:dangling_relationships, [{{:event, "e-9"}, "o-missing"}]}} =
              OcelAccumulator.to_engine_handle()
   end
 

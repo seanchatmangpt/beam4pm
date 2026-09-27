@@ -78,7 +78,8 @@ defmodule BeamPM.OcelSessionFacts do
   Inputs are assumed POST-REDACTION: the upstream tap redacts attribute
   values at ingest, BEFORE hashing, so this module never receives and
   never needs raw sensitive values. Corollary obligations enforced here:
-  this module performs NO logging at all (no `Logger`, no `IO`), and its
+  this module performs NO logging at all (no logging facilities of any
+  kind, no direct output), and its
   error details carry STRUCTURAL information only (dialect atoms, reason
   atoms, indices) -- never raw attribute values, event ids, or object
   ids. Attribute values reach facts ONLY through the boolean-token
@@ -228,9 +229,13 @@ defmodule BeamPM.OcelSessionFacts do
 
   defp internal_event?(_), do: false
 
+  # Detection is STRUCTURAL only (id/type/time binary, attributes a list).
+  # Deeper well-formedness (attribute pair keys, relationship shapes) is
+  # reported by the per-event parser so the refusal can name the dialect
+  # and the offending event index.
   defp zcode_event?(%{"id" => id, "type" => t, "time" => time, "attributes" => attrs})
        when is_binary(id) and is_binary(t) and is_binary(time) and is_list(attrs),
-       do: Enum.all?(attrs, &match?(%{"name" => n, "value" => _} when is_binary(n), &1))
+       do: true
 
   defp zcode_event?(_), do: false
 
@@ -440,7 +445,7 @@ defmodule BeamPM.OcelSessionFacts do
     {attr_facts, skipped} = attribute_facts(Keyword.get(opts, :attributes, %{}))
 
     facts =
-      %{"conforms" => result.conforms == true}
+      %{"conforms" => Map.get(result, :conforms) == true}
       |> Map.merge(move_facts(deviations_of(result)))
       |> Map.merge(attr_facts)
       |> Enum.to_list()

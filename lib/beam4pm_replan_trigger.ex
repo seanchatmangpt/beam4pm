@@ -94,7 +94,7 @@ defmodule BeamPM.ReplanTrigger do
           {:ok, :conformant}
           | {:ok, BeamPM.Ash.Resources.DynamicReplanTrigger.t()}
           | {:error, term()}
-  def from_conformance(result, opts) when is_map(result) and is_list(opts) do
+  def from_conformance(result, opts) when is_list(opts) do
     case result do
       %{conforms: true} ->
         {:ok, :conformant}
@@ -105,6 +105,7 @@ defmodule BeamPM.ReplanTrigger do
       %{conforms: false, deviations: [[log_side, model_side] | _]} ->
         build_trigger(opts, "#{log_side}/#{model_side}")
 
+      # Non-map results and unrecognized shapes both refuse typed.
       _ ->
         {:error, :malformed_conformance_result}
     end

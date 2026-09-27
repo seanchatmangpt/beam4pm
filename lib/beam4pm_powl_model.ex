@@ -117,8 +117,8 @@ defmodule BeamPM.Powl.Model do
   atom-keyed. Returns `{:ok, %BeamPM.Powl.Model{}}` or `{:error, term()}`.
   """
   @spec from_engine_map(map()) :: {:ok, t()} | {:error, term()}
-  def from_engine_map(%{"powl" => %{} = inner}) when not is_map_key(inner, "root") and not is_map_key(inner, :root),
-    do: from_engine_map(inner)
+  def from_engine_map(%{"powl" => %{} = inner}), do: from_engine_map(inner)
+  def from_engine_map(%{powl: %{} = inner}), do: from_engine_map(inner)
 
   def from_engine_map(%{} = model) do
     case fetch(model, "root") do
@@ -136,9 +136,10 @@ defmodule BeamPM.Powl.Model do
   def from_engine_map(other), do: {:error, {:invalid_model, other}}
 
   defp parse_node(%{} = m) when is_map_key(m, "Leaf") or is_map_key(m, :Leaf) do
-    with {:ok, leaf} <- fetch_map(m, "Leaf"),
+    with {:ok, wrapper} <- fetch_map(m, "Leaf"),
+         {:ok, leaf} <- leaf_struct_view(wrapper),
          {:ok, activity_label, is_tau} <- parse_leaf_label(fetch(leaf, "activity_label")),
-         {:ok, freq} <- parse_freq(fetch(leaf, "freq")) do
+         {:ok, freq} <- parse_freq(freq_view(wrapper, m)) do
       {:ok,
        %Node{variant: :leaf,
              leaf: %PowlLeaf{activity_label: activity_label, is_tau: is_tau,
@@ -146,6 +147,32 @@ defmodule BeamPM.Powl.Model do
     else
       {:error, _} = err -> err
       other -> {:error, {:invalid_leaf_node, other}}
+    end
+  end
+
+  # Engine serde (process_tree_struct.rs) nests the leaf struct beside the
+  # freq: %{"Leaf" => %{"leaf" => %{"activity_label" => ...}, "freq" => ...}}
+  # (mirrors node_to_engine/1). The bare leaf struct
+  # (%{"activity_label" => ...}) is accepted for symmetry with the Rust
+  # Leaf variant shape.
+  defp leaf_struct_view(%{} = wrapper) do
+    case fetch(wrapper, "leaf") do
+      {:ok, inner} when is_map(inner) -> {:ok, inner}
+      _ -> {:ok, wrapper}
+    end
+  end
+
+  defp leaf_struct_view(other), do: {:error, {:invalid_leaf_node, other}}
+
+  # Freq sits beside the leaf struct in the engine serde
+  # (%{"Leaf" => %{"leaf" => ..., "freq" => ...}}); some emitted shapes
+  # carry it one level up beside the "Leaf" variant tag instead. Accept
+  # both, wrapper level first.
+  defp freq_view(wrapper, node_m) do
+    case fetch(wrapper, "freq") do
+      {:ok, _} = found -> found
+      :error -> fetch(node_m, "freq")
+      {:error, _} = err -> err
     end
   end
 
@@ -161,7 +188,9 @@ defmodule BeamPM.Powl.Model do
 
       {:ok, %Node{variant: :operator, operator: op_struct, freq: freq, children: children}}
     else
-      {:error, _} = err -> err
+      # Inner operator failures keep their typed reason, wrapped once so
+      # callers can distinguish the operator layer.
+      {:error, _} = err -> {:error, {:invalid_operator_node, err}}
       other -> {:error, {:invalid_operator_node, other}}
     end
   end
@@ -226,7 +255,10 @@ defmodule BeamPM.Powl.Model do
     end
   end
 
-  defp parse_freq(:error), do: {:error, {:missing_field, :freq}}
+  # The engine omits freq entirely when it is the default (exactly-once) --
+  # witnessed in the real serde dump (ocel_discover_powl, 2026-09-27) --
+  # so absence parses as the default rather than a refusal.
+  defp parse_freq(:error), do: {:ok, %PowlFreq{min_freq: 1, max_freq: 1}}
   defp parse_freq({:ok, other}), do: {:error, {:invalid_freq, other}}
 
   defp check_max(:error), do: :ok
@@ -376,31 +408,49 @@ defmodule BeamPM.Powl.Model do
         %{"Activity" => leaf.activity_label}
       end
 
-    %{"Leaf" =>
-        %{"leaf" => %{"activity_label" => label},
-          "freq" => %{"min_freq" => leaf.min_freq, "max_freq" => leaf.max_freq}}}
+    # Engine serde (witnessed 2026-09-27): the Leaf variant carries the
+    # bare leaf struct, and freq is omitted when it is the exactly-once
+    # default.
+    base = %{"activity_label" => label}
+
+    if leaf.min_freq == 1 and leaf.max_freq == 1 do
+      %{"Leaf" => base}
+    else
+      %{"Leaf" =>
+          Map.put(base, "freq", %{"min_freq" => leaf.min_freq, "max_freq" => leaf.max_freq})}
+    end
   end
 
   defp node_to_engine(%Node{variant: :operator, operator: op, freq: freq, children: children}) do
-    %{"Operator" =>
-        %{"operator_type" => operator_type_of(op),
-          "children" => Enum.map(children, &node_to_engine/1),
-          "freq" => freq_to_engine(freq)}}
+    body =
+      %{"operator_type" => operator_type_of(op),
+        "children" => Enum.map(children, &node_to_engine/1)}
+      |> maybe_freq(freq)
+
+    %{"Operator" => body}
   end
 
   defp node_to_engine(%Node{variant: :partial_order, children: children, order: order, freq: freq}) do
-    %{"PartialOrder" =>
-        %{"children" => Enum.map(children, &node_to_engine/1),
-          "order" => Enum.map(order, fn %PowlPartialOrderEdge{from_index: f, to_index: t} -> [f, t] end),
-          "freq" => freq_to_engine(freq)}}
+    body =
+      %{"children" => Enum.map(children, &node_to_engine/1),
+        "order" => Enum.map(order, fn %PowlPartialOrderEdge{from_index: f, to_index: t} -> [f, t] end)}
+      |> maybe_freq(freq)
+
+    %{"PartialOrder" => body}
   end
 
   defp node_to_engine(%Node{variant: :choice_graph, children: children, edges: edges, freq: freq}) do
-    %{"ChoiceGraph" =>
-        %{"children" => Enum.map(children, &node_to_engine/1),
-          "edges" => Enum.map(edges, &edge_to_engine/1),
-          "freq" => freq_to_engine(freq)}}
+    body =
+      %{"children" => Enum.map(children, &node_to_engine/1),
+        "edges" => Enum.map(edges, &edge_to_engine/1)}
+      |> maybe_freq(freq)
+
+    %{"ChoiceGraph" => body}
   end
+
+  # Engine serde omits freq when exactly-once (witnessed 2026-09-27).
+  defp maybe_freq(body, %PowlFreq{min_freq: 1, max_freq: 1}), do: body
+  defp maybe_freq(body, %PowlFreq{} = freq), do: Map.put(body, "freq", freq_to_engine(freq))
 
   defp operator_type_of(%PowlSequenceOperator{}), do: "Sequence"
   defp operator_type_of(%PowlChoiceOperator{}), do: "ExclusiveChoice"
@@ -437,6 +487,15 @@ defmodule BeamPM.Powl.Model do
   @spec validate(t() | Node.t()) :: :ok | {:error, term()}
   def validate(%__MODULE__{root: root}), do: validate_node(root)
   def validate(%Node{} = node), do: validate_node(node)
+
+  # A raw engine map is validated by parsing it first: the full typed
+  # validation runs either way, nothing is weakened.
+  def validate(%{} = m) do
+    case from_engine_map(m) do
+      {:ok, model} -> validate(model)
+      {:error, _} = err -> err
+    end
+  end
 
   defp validate_node(%Node{variant: :leaf, leaf: %PowlLeaf{} = leaf}) do
     cond do
@@ -555,8 +614,8 @@ defmodule BeamPM.Powl.Model do
             {:error, {:end_has_outgoing_edge, :end}}
 
           true ->
-            from_start = reachable(:start, edge_set, :forward)
-            to_end = reachable(:end, edge_set, :backward)
+            from_start = reachable({:start, nil}, edge_set, :forward)
+            to_end = reachable({:end, nil}, edge_set, :backward)
             on_path = MapSet.intersection(from_start, to_end)
 
             missing =
