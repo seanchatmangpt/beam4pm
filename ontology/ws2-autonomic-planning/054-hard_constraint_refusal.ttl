@@ -1,0 +1,25 @@
+@prefix bpm: <https://ggen.dev/ontology/beam-process-model#> .
+@prefix b4p: <https://beam4pm.dev/ontology/instance#> .
+
+# WS2-PLAN-054 — hard_constraint_refusal
+b4p:hard_constraint_refusal_rt a bpm:RecordType ;
+    bpm:recordName "hard_constraint_refusal" ;
+    bpm:recordDoc "Refuses any candidate whose hard-constraint witness is unsatisfied." ;
+    bpm:hasField b4p:hard_constraint_refusal_candidate_id_f,
+                 b4p:hard_constraint_refusal_violated_constraint_id_f,
+                 b4p:hard_constraint_refusal_refusal_receipt_hash_f .
+
+b4p:hard_constraint_refusal_candidate_id_f a bpm:Field ;
+    bpm:fieldName "candidate_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Candidate refused before selection." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:hard_constraint_refusal_violated_constraint_id_f a bpm:Field ;
+    bpm:fieldName "violated_constraint_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact hard constraint proving inadmissibility." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:hard_constraint_refusal_refusal_receipt_hash_f a bpm:Field ;
+    bpm:fieldName "refusal_receipt_hash" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Receipt hash proving the refusal decision." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .

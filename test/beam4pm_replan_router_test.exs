@@ -457,7 +457,9 @@ defmodule BeamPM.ReplanRouterTest do
       assert d1 == d2
       assert ev1.ocel_event.event_time == "2026-09-25T12:00:00Z"
       assert :erlang.term_to_binary(ev1) == :erlang.term_to_binary(ev2)
-      assert :erlang.term_to_binary(st1.events) == :erlang.term_to_binary(st2.events)
+
+      assert :erlang.term_to_binary(ReplanRouter.events(st1)) ==
+               :erlang.term_to_binary(ReplanRouter.events(st2))
     end
   end
 
@@ -479,8 +481,8 @@ defmodule BeamPM.ReplanRouterTest do
           assert ev.ocel_event.event_type == "replan_router.#{d}"
           assert ev.authority == "NONE"
           assert ev.ceiling == "CONSTRUCT"
-          assert length(st2.events) == length(st.events) + 1
-          assert List.last(st2.events) == ev.ocel_event
+          assert length(ReplanRouter.events(st2)) == length(ReplanRouter.events(st)) + 1
+          assert List.last(ReplanRouter.events(st2)) == ev.ocel_event
           {st2, acc ++ [d]}
         end)
 
@@ -493,9 +495,9 @@ defmodule BeamPM.ReplanRouterTest do
                :session_replan
              ]
 
-      ids = Enum.map(st.events, & &1.event_id)
+      ids = Enum.map(ReplanRouter.events(st), & &1.event_id)
       assert ids == Enum.uniq(ids)
-      assert Enum.all?(st.events, &(&1.attributes["case_id"] == "run-t"))
+      assert Enum.all?(ReplanRouter.events(st), &(&1.attributes["case_id"] == "run-t"))
     end
 
     test "every decision is a declared decision" do

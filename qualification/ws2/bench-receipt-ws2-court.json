@@ -1,0 +1,67 @@
+{
+  "authority": "NONE",
+  "blake3_mib_per_s": {
+    "b3sum": 141.9234,
+    "pure-python": 0.3105,
+    "python-blake3": 186.0132
+  },
+  "host": {
+    "machine": "arm64",
+    "platform": "macOS-26.2-arm64-arm-64bit-Mach-O",
+    "python": "3.14.3"
+  },
+  "measured_on": "2026-09-26, host load average ~130 on 16 cores (concurrent executors); numbers are an upper envelope",
+  "post_sync_tree": {
+    "generator": "ggen 26.9.18 (host); its consequence patch equals the pinned v26.8.28 CI artifact byte-for-byte at 23769be5 (run 35559050448)",
+    "receipt_outputs": 90
+  },
+  "receipt_first_real_pure-python": {
+    "max_s": 25.706592,
+    "median_s": 25.706592,
+    "min_s": 25.706592,
+    "runs": 1
+  },
+  "receipt_first_real_python-blake3": {
+    "max_s": 0.197806,
+    "median_s": 0.160159,
+    "min_s": 0.149548,
+    "runs": 5
+  },
+  "regression_bounds": {
+    "pure_python_blake3_min_mib_per_s": 0.05,
+    "rationale": ">=10x headroom over the loaded-host measurement; asserted by test_ws2_manufacture_court.RegressionBound",
+    "semantic_court_real50_median_s": 3.0
+  },
+  "schema": "https://beam4pm.dev/receipts/ws2-court-bench/v1",
+  "semantic_court_real50": {
+    "max_s": 0.235284,
+    "median_s": 0.147478,
+    "min_s": 0.126844,
+    "runs": 5
+  },
+  "semantic_court_synthetic": {
+    "200": {
+      "max_s": 0.214618,
+      "median_s": 0.160124,
+      "min_s": 0.138185,
+      "runs": 5
+    },
+    "400": {
+      "max_s": 0.375022,
+      "median_s": 0.251665,
+      "min_s": 0.214075,
+      "runs": 5
+    },
+    "50": {
+      "max_s": 0.227905,
+      "median_s": 0.128453,
+      "min_s": 0.105947,
+      "runs": 5
+    }
+  },
+  "subject": {
+    "parent_head": "23769be5d112b686c83fdf4d3414e480b7ecb932",
+    "pr": 81,
+    "repository": "seanchatmangpt/beam4pm"
+  }
+}

@@ -1,0 +1,25 @@
+@prefix bpm: <https://ggen.dev/ontology/beam-process-model#> .
+@prefix b4p: <https://beam4pm.dev/ontology/instance#> .
+
+# WS2-PLAN-062 — information_gain_estimate
+b4p:information_gain_estimate_rt a bpm:RecordType ;
+    bpm:recordName "information_gain_estimate" ;
+    bpm:recordDoc "Estimates expected information gain for an option before spending execution budget." ;
+    bpm:hasField b4p:information_gain_estimate_option_id_f,
+                 b4p:information_gain_estimate_prior_uncertainty_digest_f,
+                 b4p:information_gain_estimate_expected_information_gain_f .
+
+b4p:information_gain_estimate_option_id_f a bpm:Field ;
+    bpm:fieldName "option_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Option considered as an information-producing move." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:information_gain_estimate_prior_uncertainty_digest_f a bpm:Field ;
+    bpm:fieldName "prior_uncertainty_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of uncertainty before the move." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:information_gain_estimate_expected_information_gain_f a bpm:Field ;
+    bpm:fieldName "expected_information_gain" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Expected reduction in uncertainty from the move." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .

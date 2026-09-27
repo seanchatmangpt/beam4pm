@@ -1,0 +1,25 @@
+@prefix bpm: <https://ggen.dev/ontology/beam-process-model#> .
+@prefix b4p: <https://beam4pm.dev/ontology/instance#> .
+
+# WS2-PLAN-083 — prepared_receipt_requirement
+b4p:prepared_receipt_requirement_rt a bpm:RecordType ;
+    bpm:recordName "prepared_receipt_requirement" ;
+    bpm:recordDoc "Requires a prepared receipt identity before any selected action can cross from SELECT toward DO." ;
+    bpm:hasField b4p:prepared_receipt_requirement_action_id_f,
+                 b4p:prepared_receipt_requirement_receipt_schema_f,
+                 b4p:prepared_receipt_requirement_receipt_subject_digest_f .
+
+b4p:prepared_receipt_requirement_action_id_f a bpm:Field ;
+    bpm:fieldName "action_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Selected action requiring a prepared receipt." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:prepared_receipt_requirement_receipt_schema_f a bpm:Field ;
+    bpm:fieldName "receipt_schema" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact receipt schema required before actuation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:prepared_receipt_requirement_receipt_subject_digest_f a bpm:Field ;
+    bpm:fieldName "receipt_subject_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest binding the receipt to the exact action subject." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .

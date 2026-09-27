@@ -1,0 +1,25 @@
+@prefix bpm: <https://ggen.dev/ontology/beam-process-model#> .
+@prefix b4p: <https://beam4pm.dev/ontology/instance#> .
+
+# WS2-PLAN-074 — reserve_option_pool
+b4p:reserve_option_pool_rt a bpm:RecordType ;
+    bpm:recordName "reserve_option_pool" ;
+    bpm:recordDoc "Maintains lawful reserve options outside the active frontier so temporary capacity limits do not destroy future choice." ;
+    bpm:hasField b4p:reserve_option_pool_episode_id_f,
+                 b4p:reserve_option_pool_reserve_set_digest_f,
+                 b4p:reserve_option_pool_promotion_policy_digest_f .
+
+b4p:reserve_option_pool_episode_id_f a bpm:Field ;
+    bpm:fieldName "episode_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Planning episode owning the reserve pool." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:reserve_option_pool_reserve_set_digest_f a bpm:Field ;
+    bpm:fieldName "reserve_set_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of preserved reserve options." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:reserve_option_pool_promotion_policy_digest_f a bpm:Field ;
+    bpm:fieldName "promotion_policy_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Policy digest controlling promotion back to the active frontier." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .

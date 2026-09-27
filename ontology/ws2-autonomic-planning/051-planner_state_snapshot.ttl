@@ -1,0 +1,25 @@
+@prefix bpm: <https://ggen.dev/ontology/beam-process-model#> .
+@prefix b4p: <https://beam4pm.dev/ontology/instance#> .
+
+# WS2-PLAN-051 — planner_state_snapshot
+b4p:planner_state_snapshot_rt a bpm:RecordType ;
+    bpm:recordName "planner_state_snapshot" ;
+    bpm:recordDoc "Captures the exact planning state consumed by one portfolio evaluation." ;
+    bpm:hasField b4p:planner_state_snapshot_episode_id_f,
+                 b4p:planner_state_snapshot_state_digest_f,
+                 b4p:planner_state_snapshot_observation_epoch_f .
+
+b4p:planner_state_snapshot_episode_id_f a bpm:Field ;
+    bpm:fieldName "episode_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Required episode_id for planner_state_snapshot." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:planner_state_snapshot_state_digest_f a bpm:Field ;
+    bpm:fieldName "state_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Required state_digest for deterministic planner_state_snapshot evaluation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:planner_state_snapshot_observation_epoch_f a bpm:Field ;
+    bpm:fieldName "observation_epoch" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Required observation_epoch preserving evidence and falsifiability." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .

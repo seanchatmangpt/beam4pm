@@ -1,0 +1,25 @@
+@prefix bpm: <https://ggen.dev/ontology/beam-process-model#> .
+@prefix b4p: <https://beam4pm.dev/ontology/instance#> .
+
+# WS2-PLAN-085 — effect_deduplication_key
+b4p:effect_deduplication_key_rt a bpm:RecordType ;
+    bpm:recordName "effect_deduplication_key" ;
+    bpm:recordDoc "Derives a stable consequence key used to distinguish a novel candidate from an already-receipted equivalent." ;
+    bpm:hasField b4p:effect_deduplication_key_subject_id_f,
+                 b4p:effect_deduplication_key_capability_id_f,
+                 b4p:effect_deduplication_key_effect_key_digest_f .
+
+b4p:effect_deduplication_key_subject_id_f a bpm:Field ;
+    bpm:fieldName "subject_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact subject receiving the projected consequence." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:effect_deduplication_key_capability_id_f a bpm:Field ;
+    bpm:fieldName "capability_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact capability producing the projected consequence." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:effect_deduplication_key_effect_key_digest_f a bpm:Field ;
+    bpm:fieldName "effect_key_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Stable digest used for consequence deduplication." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .

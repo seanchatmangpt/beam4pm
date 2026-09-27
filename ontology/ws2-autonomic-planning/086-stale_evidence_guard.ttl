@@ -1,0 +1,25 @@
+@prefix bpm: <https://ggen.dev/ontology/beam-process-model#> .
+@prefix b4p: <https://beam4pm.dev/ontology/instance#> .
+
+# WS2-PLAN-086 — stale_evidence_guard
+b4p:stale_evidence_guard_rt a bpm:RecordType ;
+    bpm:recordName "stale_evidence_guard" ;
+    bpm:recordDoc "Marks planning evidence stale when its subject, dependency, or observation identity no longer matches the live episode." ;
+    bpm:hasField b4p:stale_evidence_guard_evidence_id_f,
+                 b4p:stale_evidence_guard_live_identity_digest_f,
+                 b4p:stale_evidence_guard_staleness_receipt_hash_f .
+
+b4p:stale_evidence_guard_evidence_id_f a bpm:Field ;
+    bpm:fieldName "evidence_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Evidence item being checked." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:stale_evidence_guard_live_identity_digest_f a bpm:Field ;
+    bpm:fieldName "live_identity_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of current subject, dependency, and observation identities." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:stale_evidence_guard_staleness_receipt_hash_f a bpm:Field ;
+    bpm:fieldName "staleness_receipt_hash" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Receipt recording the staleness result." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .

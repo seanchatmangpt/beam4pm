@@ -1,0 +1,25 @@
+@prefix bpm: <https://ggen.dev/ontology/beam-process-model#> .
+@prefix b4p: <https://beam4pm.dev/ontology/instance#> .
+
+# WS2-PLAN-098 — caller_local_plan_partition
+b4p:caller_local_plan_partition_rt a bpm:RecordType ;
+    bpm:recordName "caller_local_plan_partition" ;
+    bpm:recordDoc "Partitions the opportunity graph by exact caller-local consumer subject so distinct consumers retain distinct planning state." ;
+    bpm:hasField b4p:caller_local_plan_partition_consumer_subject_id_f,
+                 b4p:caller_local_plan_partition_partition_digest_f,
+                 b4p:caller_local_plan_partition_boundary_receipt_hash_f .
+
+b4p:caller_local_plan_partition_consumer_subject_id_f a bpm:Field ;
+    bpm:fieldName "consumer_subject_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact caller-local consumer subject owning this partition." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:caller_local_plan_partition_partition_digest_f a bpm:Field ;
+    bpm:fieldName "partition_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of opportunity nodes and constraints assigned to the consumer." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:caller_local_plan_partition_boundary_receipt_hash_f a bpm:Field ;
+    bpm:fieldName "boundary_receipt_hash" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Receipt proving the caller-local boundary used by planning." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .

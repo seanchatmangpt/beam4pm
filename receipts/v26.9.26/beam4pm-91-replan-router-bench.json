@@ -1,0 +1,211 @@
+{
+  "anti_vacuity": [
+    {
+      "exit": 1,
+      "failed_cases": [
+        "route_continue_long_history",
+        "route_ladder_step_long_history",
+        "scaling:route_continue_long_history",
+        "scaling:route_ladder_step_long_history"
+      ],
+      "host_load_avg": "6:23  up 8 days,  8:55, 3 users, load averages: 137.29 170.01 172.33",
+      "mutant": "MU6: O(n) event append (Enum.reverse(Enum.reverse(events_rev)))",
+      "scaling": [
+        {
+          "base": "route_continue",
+          "long": "route_continue_long_history",
+          "observed": 18.45,
+          "pass": false,
+          "ratio_bound": 3.0
+        },
+        {
+          "base": "route_ladder_step",
+          "long": "route_ladder_step_long_history",
+          "observed": 4.24,
+          "pass": false,
+          "ratio_bound": 3.0
+        }
+      ]
+    }
+  ],
+  "authority": "NONE",
+  "bindings": {
+    "bench/replan_router_bench.exs": "160a6b733d380c43aa077c9c7bac5671ecc153097a15e4d23280a4cd6b17b8df",
+    "lib/beam4pm_plan_lineage.ex": "9f61518851c28b02022750845b18b7b185965d05dfc0a755a799d16fa2fba37e",
+    "lib/beam4pm_replan_router.ex": "f4c4051143da00640d3c6e5b5041cfc7ad1a7247d046340b6d3aa894aab886cd",
+    "test/beam4pm_replan_router_hardening_test.exs": "08f667107574943fdde96fcfca18f4dbc534b92fa58a243c430bf2fa6d234975"
+  },
+  "cases": {
+    "digest_ref": {
+      "bound_min_ns": 20000,
+      "digests": 1.0,
+      "max_ns": 9112958,
+      "min_ns": 1833,
+      "p50_ns": 2000,
+      "p95_ns": 4292,
+      "pass": true,
+      "ratio_bound": null
+    },
+    "lineage_verify_1000": {
+      "bound_min_ns": 25000000,
+      "digests": 1276.64,
+      "max_ns": 81909000,
+      "min_ns": 2340084,
+      "p50_ns": 2880833,
+      "p95_ns": 4996625,
+      "pass": true,
+      "ratio_bound": 2800
+    },
+    "route_continue": {
+      "bound_min_ns": 15000,
+      "digests": 0.84,
+      "max_ns": 10046875,
+      "min_ns": 1541,
+      "p50_ns": 1875,
+      "p95_ns": 4333,
+      "pass": true,
+      "ratio_bound": 3
+    },
+    "route_continue_long_history": {
+      "bound_min_ns": 15000,
+      "digests": 0.84,
+      "max_ns": 8190125,
+      "min_ns": 1541,
+      "p50_ns": 1792,
+      "p95_ns": 6667,
+      "pass": true,
+      "ratio_bound": 3
+    },
+    "route_follow_policy_32": {
+      "bound_min_ns": 500000,
+      "digests": 25.85,
+      "max_ns": 68492500,
+      "min_ns": 47375,
+      "p50_ns": 62708,
+      "p95_ns": 3417375,
+      "pass": true,
+      "ratio_bound": 60
+    },
+    "route_ladder_step": {
+      "bound_min_ns": 100000,
+      "digests": 5.66,
+      "max_ns": 13478833,
+      "min_ns": 10375,
+      "p50_ns": 13334,
+      "p95_ns": 25250,
+      "pass": true,
+      "ratio_bound": 12
+    },
+    "route_ladder_step_long_history": {
+      "bound_min_ns": 100000,
+      "digests": 5.84,
+      "max_ns": 6122541,
+      "min_ns": 10708,
+      "p50_ns": 12958,
+      "p95_ns": 37041,
+      "pass": true,
+      "ratio_bound": 12
+    },
+    "route_refuse_non_atom_keys": {
+      "bound_min_ns": 10000,
+      "digests": 0.48,
+      "max_ns": 2897084,
+      "min_ns": 875,
+      "p50_ns": 1083,
+      "p95_ns": 2792,
+      "pass": true,
+      "ratio_bound": 2
+    },
+    "route_refuse_stale": {
+      "bound_min_ns": 50000,
+      "digests": 2.91,
+      "max_ns": 18893042,
+      "min_ns": 5334,
+      "p50_ns": 7125,
+      "p95_ns": 11750,
+      "pass": true,
+      "ratio_bound": 8
+    }
+  },
+  "command": "MIX_ENV=test mix run --no-start bench/replan_router_bench.exs receipts/v26.9.26/beam4pm-91-replan-router-bench.json",
+  "digest_ref_min_ns": 1833,
+  "elixir": "1.19.5",
+  "evidence_ceiling": "LOCAL_NATIVE_RUN (macOS arm64, oversubscribed host; minima are the court, p50/p95 observation only)",
+  "failed_cases": [],
+  "finding_before_fix": {
+    "defect": "state.events ++ [event] made each decision O(history)",
+    "fix": "events_rev newest-first + events/1 accessor",
+    "observed_on_a57d4af4_us_resolution": {
+      "route_continue_long_history_min_us": 25,
+      "route_continue_min_us": 1,
+      "route_ladder_step_long_history_min_us": 38,
+      "route_ladder_step_min_us": 10
+    }
+  },
+  "host_load_avg": "6:23  up 8 days,  8:55, 3 users, load averages: 133.88 171.96 173.05",
+  "mutation_court": {
+    "command": "mix test test/beam4pm_replan_router_test.exs test/beam4pm_replan_router_hardening_test.exs per mutant",
+    "killed": 7,
+    "mutants": [
+      {
+        "exit": 2,
+        "mutant": "MU1_unbounded_reset",
+        "summary": "60 tests, 4 failures"
+      },
+      {
+        "exit": 2,
+        "mutant": "MU2_refusal_wall_clock",
+        "summary": "60 tests, 1 failure"
+      },
+      {
+        "exit": 2,
+        "mutant": "MU3_exact_term_follow",
+        "summary": "60 tests, 1 failure"
+      },
+      {
+        "exit": 2,
+        "mutant": "MU4_string_keys_dropped",
+        "summary": "60 tests, 3 failures"
+      },
+      {
+        "exit": 2,
+        "mutant": "MU5_new_opts_unchecked",
+        "summary": "60 tests, 1 failure"
+      },
+      {
+        "exit": 2,
+        "mutant": "MU6_linear_event_append",
+        "summary": "60 tests, 1 failure"
+      },
+      {
+        "exit": 2,
+        "mutant": "MU7_policy_state_unchecked",
+        "summary": "60 tests, 1 failure"
+      }
+    ],
+    "total": 7
+  },
+  "n": 2000,
+  "otp": "28",
+  "parent_subject": "a57d4af41773cc8b3aa6b54a09d47da8d82ed069",
+  "pass": true,
+  "scaling": [
+    {
+      "base": "route_continue",
+      "long": "route_continue_long_history",
+      "observed": 1.0,
+      "pass": true,
+      "ratio_bound": 3.0
+    },
+    {
+      "base": "route_ladder_step",
+      "long": "route_ladder_step_long_history",
+      "observed": 1.03,
+      "pass": true,
+      "ratio_bound": 3.0
+    }
+  ],
+  "schema": "beam4pm/bench-receipt/1",
+  "subject": "BeamPM.ReplanRouter.route/2 + BeamPM.PlanLineage (PR #91)",
+  "warmup": 200
+}

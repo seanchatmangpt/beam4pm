@@ -1,0 +1,25 @@
+@prefix bpm: <https://ggen.dev/ontology/beam-process-model#> .
+@prefix b4p: <https://beam4pm.dev/ontology/instance#> .
+
+# WS2-PLAN-081 — authority_requirement
+b4p:authority_requirement_rt a bpm:RecordType ;
+    bpm:recordName "authority_requirement" ;
+    bpm:recordDoc "Computes the minimum authority class required by a selected action without granting that authority." ;
+    bpm:hasField b4p:authority_requirement_action_id_f,
+                 b4p:authority_requirement_required_authority_class_f,
+                 b4p:authority_requirement_basis_digest_f .
+
+b4p:authority_requirement_action_id_f a bpm:Field ;
+    bpm:fieldName "action_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Selected action whose authority requirement is calculated." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:authority_requirement_required_authority_class_f a bpm:Field ;
+    bpm:fieldName "required_authority_class" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Minimum authority class needed before lawful DO." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:authority_requirement_basis_digest_f a bpm:Field ;
+    bpm:fieldName "basis_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of constraints and consequences supporting the requirement." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .

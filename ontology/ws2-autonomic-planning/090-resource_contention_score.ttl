@@ -1,0 +1,25 @@
+@prefix bpm: <https://ggen.dev/ontology/beam-process-model#> .
+@prefix b4p: <https://beam4pm.dev/ontology/instance#> .
+
+# WS2-PLAN-090 — resource_contention_score
+b4p:resource_contention_score_rt a bpm:RecordType ;
+    bpm:recordName "resource_contention_score" ;
+    bpm:recordDoc "Scores candidates by expected contention for shared constrained resources across the active frontier." ;
+    bpm:hasField b4p:resource_contention_score_candidate_id_f,
+                 b4p:resource_contention_score_contention_set_digest_f,
+                 b4p:resource_contention_score_contention_score_f .
+
+b4p:resource_contention_score_candidate_id_f a bpm:Field ;
+    bpm:fieldName "candidate_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Candidate evaluated for resource contention." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:resource_contention_score_contention_set_digest_f a bpm:Field ;
+    bpm:fieldName "contention_set_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of competing reservations and demands." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:resource_contention_score_contention_score_f a bpm:Field ;
+    bpm:fieldName "contention_score" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Contention score used by capacity-aware selection." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
