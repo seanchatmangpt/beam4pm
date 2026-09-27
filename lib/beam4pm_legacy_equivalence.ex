@@ -199,16 +199,19 @@ defmodule BeamPM.LegacyEquivalence do
     |> Base.encode16(case: :lower)
   end
 
-  defp canonical_json(value), do: value |> canonicalize() |> Jason.encode!()
+  defp canonical_json(value) when is_map(value) do
+    body =
+      value
+      |> Enum.map(fn {k, v} -> {to_string(k), v} end)
+      |> Enum.sort_by(&elem(&1, 0))
+      |> Enum.map_join(",", fn {k, v} -> Jason.encode!(k) <> ":" <> canonical_json(v) end)
 
-  defp canonicalize(value) when is_map(value) do
-    value
-    |> Enum.map(fn {k, v} -> {to_string(k), canonicalize(v)} end)
-    |> Enum.sort_by(&elem(&1, 0))
-    |> Map.new()
+    "{" <> body <> "}"
   end
 
-  defp canonicalize(value) when is_list(value), do: Enum.map(value, &canonicalize/1)
-  defp canonicalize(value) when is_atom(value), do: Atom.to_string(value)
-  defp canonicalize(value), do: value
+  defp canonical_json(value) when is_list(value),
+    do: "[" <> Enum.map_join(value, ",", &canonical_json/1) <> "]"
+
+  defp canonical_json(value) when is_atom(value), do: Jason.encode!(Atom.to_string(value))
+  defp canonical_json(value), do: Jason.encode!(value)
 end
