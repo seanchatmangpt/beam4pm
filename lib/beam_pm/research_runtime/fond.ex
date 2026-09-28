@@ -1,0 +1,4 @@
+defmodule BeamPM.ResearchRuntime.FOND do
+  @moduledoc false
+  def step(g,p,f), do: with {:ok,e}<-BeamPM.ResearchRuntime.Selector.select(g,p) do case f.(e) do {:ok,v}->{:ok,v,g};{:error,r}->{:recover,r,BeamPM.ResearchRuntime.Graph.exclude(g,e.id)} end end
+end

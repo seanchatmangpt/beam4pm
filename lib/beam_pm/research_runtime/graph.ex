@@ -1,0 +1,7 @@
+defmodule BeamPM.ResearchRuntime.Graph do
+  @moduledoc false
+  defstruct edges:%{},excluded:MapSet.new()
+  def new(es), do: %__MODULE__{edges:Map.new(es,&{&1.id,&1})}
+  def exclude(g,id), do: %{g|excluded:MapSet.put(g.excluded,id)}
+  def available(g), do: g.edges|>Map.values()|>Enum.reject(&MapSet.member?(g.excluded,&1.id))
+end
