@@ -1,4 +1,6 @@
 defmodule BeamPM.FerroplanBridge.PolyEvidence do
-  @moduledoc "Bounded PolyEvidence primitive for the Ferroplan provider composition runtime."
-  def combine(xs), do: %{evidence:xs,digest: Base.encode16(:crypto.hash(:sha256,:erlang.term_to_binary(xs)),case: :lower)}
+  def combine(subject, evidence) when is_list(evidence) do
+    digest = :crypto.hash(:sha256, :erlang.term_to_binary({subject, evidence})) |> Base.encode16(case: :lower)
+    %{subject: subject, evidence: evidence, digest: digest}
+  end
 end

@@ -1,4 +1,3 @@
 defmodule BeamPM.FerroplanBridge.PlannerBinding do
-  @moduledoc "Bounded PlannerBinding primitive for the Ferroplan provider composition runtime."
-  def bind(intent,planner), do: %{intent:intent,planner:planner,authority: :none}
+  def bind(%{id: id, authority: :none}, planner, capability), do: %{intent_id: id, planner: planner, capability: capability, authority: :none}
 end

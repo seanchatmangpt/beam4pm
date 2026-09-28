@@ -1,6 +1,10 @@
-defmodule BeamPM.FerroplanBridge.EvidenceAdmissionWaveTest do
+defmodule BeamPM.FerroplanBridge.EvidenceWaveTest do
   use ExUnit.Case, async: true
-  test "evidence wave exposes its primary runtime primitive" do
-    assert Code.ensure_loaded?(BeamPM.FerroplanBridge.EvidenceAdmission)
+  alias BeamPM.FerroplanBridge.{EvidenceAdmission, OsirisBoundary, PolyEvidence}
+  test "evidence is subject-bound and companion has no construction authority" do
+    e=%{subject_sha:"s",evidence_id:"e",source:"x",standing: :admitted}
+    assert {:ok,^e}=EvidenceAdmission.admit(e,"s")
+    assert PolyEvidence.combine("s",[e]).subject=="s"
+    refute OsirisBoundary.role().construct
   end
 end

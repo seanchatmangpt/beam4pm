@@ -1,4 +1,6 @@
 defmodule BeamPM.FerroplanBridge.WorkOrder do
-  @moduledoc "Bounded WorkOrder primitive for the Ferroplan provider composition runtime."
-  def new(id, subject, budget), do: %{id: id, subject: subject, budget: budget, used: 0}
+  @enforce_keys [:id, :subject, :capability, :max_attempts]
+  defstruct [:id, :subject, :capability, :max_attempts, attempt: 0, authority: :construct]
+  def new(id, subject, capability, max_attempts) when max_attempts > 0, do: %__MODULE__{id: id, subject: subject, capability: capability, max_attempts: max_attempts}
+  def exhausted?(%__MODULE__{attempt: a, max_attempts: m}), do: a >= m
 end

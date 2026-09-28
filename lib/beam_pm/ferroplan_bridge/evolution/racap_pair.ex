@@ -1,4 +1,4 @@
 defmodule BeamPM.FerroplanBridge.RacapPair do
-  @moduledoc "Bounded RacapPair primitive for the Ferroplan provider composition runtime."
-  def delta(%{candidate: c, control: k}), do: c-k
+  def delta(%{control: c, candidate: k, same_subject: true}) when is_number(c) and is_number(k), do: {:ok, k - c}
+  def delta(_), do: {:error, :subject_drift}
 end

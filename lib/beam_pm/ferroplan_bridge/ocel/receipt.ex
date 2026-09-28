@@ -1,4 +1,5 @@
 defmodule BeamPM.FerroplanBridge.Receipt do
-  @moduledoc "Bounded Receipt primitive for the Ferroplan provider composition runtime."
-  def bind(subject,evidence,epoch,edge), do: %{subject:subject,evidence:evidence,epoch:epoch,edge:edge}
+  @enforce_keys [:subject, :work_order, :provider, :epoch]
+  defstruct [:subject, :work_order, :provider, :epoch, failed_edges: []]
+  def replay_key(r), do: Enum.join([r.subject, r.work_order, r.epoch, Enum.join(r.failed_edges, ",")], "|")
 end

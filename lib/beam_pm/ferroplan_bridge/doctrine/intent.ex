@@ -1,4 +1,5 @@
 defmodule BeamPM.FerroplanBridge.Intent do
-  @moduledoc "Bounded Intent primitive for the Ferroplan provider composition runtime."
-  def new(goal,constraints), do: %{goal:goal,constraints:constraints}
+  @enforce_keys [:id, :goal]
+  defstruct [:id, :goal, authority: :none]
+  def new(id, goal) when id != "" and goal != "", do: %__MODULE__{id: id, goal: goal}
 end

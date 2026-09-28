@@ -1,5 +1,6 @@
 defmodule BeamPM.FerroplanBridge.PromotionPolicy do
-  @moduledoc "Bounded PromotionPolicy primitive for the Ferroplan provider composition runtime."
-  def decide(delta,min) when delta >= min, do: :promote
-  def decide(_, _), do: :refuse
+  alias BeamPM.FerroplanBridge.RacapPair
+  def decide(pair, min_delta, survival) do
+    with {:ok, delta} <- RacapPair.delta(pair), true <- delta >= min_delta and survival >= 0.5, do: :promote, else: (_ -> :refuse)
+  end
 end

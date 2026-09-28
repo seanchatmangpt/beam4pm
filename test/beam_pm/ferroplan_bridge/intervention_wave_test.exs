@@ -1,6 +1,9 @@
-defmodule BeamPM.FerroplanBridge.WorkOrderWaveTest do
+defmodule BeamPM.FerroplanBridge.InterventionWaveTest do
   use ExUnit.Case, async: true
-  test "intervention wave exposes its primary runtime primitive" do
-    assert Code.ensure_loaded?(BeamPM.FerroplanBridge.WorkOrder)
+  alias BeamPM.FerroplanBridge.{BoundedDo, WorkOrder}
+  test "attempt budget is monotonic and bounded" do
+    o=WorkOrder.new("w","s","plan",1)
+    assert {:ok,o}=BoundedDo.authorize(o)
+    assert {:error,:budget_exhausted}=BoundedDo.authorize(o)
   end
 end

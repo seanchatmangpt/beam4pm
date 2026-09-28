@@ -1,4 +1,5 @@
 defmodule BeamPM.FerroplanBridge.ExecutionEnvelope do
-  @moduledoc "Bounded ExecutionEnvelope primitive for the Ferroplan provider composition runtime."
-  def new(subject,evidence,epoch), do: %{subject:subject,evidence:evidence,epoch:epoch,status: :candidate}
+  @enforce_keys [:subject, :evidence, :epoch, :capability]
+  defstruct [:subject, :evidence, :epoch, :capability, status: :candidate, failed_edges: []]
+  def fail(e, edge), do: %{e | failed_edges: Enum.uniq([edge | e.failed_edges])}
 end

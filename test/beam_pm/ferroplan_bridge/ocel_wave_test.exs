@@ -1,6 +1,9 @@
-defmodule BeamPM.FerroplanBridge.OcelEventWaveTest do
+defmodule BeamPM.FerroplanBridge.OcelWaveTest do
   use ExUnit.Case, async: true
-  test "ocel wave exposes its primary runtime primitive" do
-    assert Code.ensure_loaded?(BeamPM.FerroplanBridge.OcelEvent)
+  alias BeamPM.FerroplanBridge.{OcelEvent, Receipt, Replay}
+  test "receipt replay is deterministic and object order canonical" do
+    r=%Receipt{subject:"s",work_order:"w",provider:"p",epoch:1}
+    assert Replay.deterministic?(r,r)
+    assert OcelEvent.new("e","recover","t",["b","a"]).objects==["a","b"]
   end
 end

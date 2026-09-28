@@ -1,5 +1,4 @@
 defmodule BeamPM.FerroplanBridge.CommandBudget do
-  @moduledoc "Bounded CommandBudget primitive for the Ferroplan provider composition runtime."
-  def consume(%{used: u,budget: b}=x) when u < b, do: {:ok, Map.put(x,:used,u+1)}
-  def consume(_), do: {:error,:budget_exhausted}
+  def consume(%{attempt: a, max_attempts: m} = order) when a < m, do: {:ok, %{order | attempt: a + 1}}
+  def consume(_), do: {:error, :budget_exhausted}
 end

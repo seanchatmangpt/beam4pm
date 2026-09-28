@@ -1,6 +1,7 @@
 defmodule BeamPM.FerroplanBridge.BoundedDo do
-  @moduledoc "Bounded BoundedDo primitive for the Ferroplan provider composition runtime."
+  alias BeamPM.FerroplanBridge.{AuthorityFence, CommandBudget}
   def authorize(order) do
-    case BeamPM.FerroplanBridge.CommandBudget.consume(order) do {:ok,o}->{:ok,o}; e->e end
+    with :ok <- AuthorityFence.require(order.authority, :construct),
+         {:ok, next} <- CommandBudget.consume(order), do: {:ok, next}
   end
 end

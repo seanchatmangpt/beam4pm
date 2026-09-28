@@ -1,4 +1,3 @@
 defmodule BeamPM.FerroplanBridge.Steering do
-  @moduledoc "Bounded Steering primitive for the Ferroplan provider composition runtime."
-  def delta(before,after), do: %{before:before,after:after}
+  def delta(before, after, hint), do: %{before: before, after: after, hint: hint, authority: :none}
 end

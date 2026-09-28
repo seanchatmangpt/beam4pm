@@ -1,4 +1,5 @@
 defmodule BeamPM.FerroplanBridge.ConsumerBoundary do
-  @moduledoc "Bounded ConsumerBoundary primitive for the Ferroplan provider composition runtime."
-  def request(subject,capability), do: %{subject:subject,capability:capability,authority: :none}
+  def request(subject, capability, payload) when is_binary(subject) and subject != "" do
+    %{subject: subject, capability: capability, payload: payload, authority: :none}
+  end
 end

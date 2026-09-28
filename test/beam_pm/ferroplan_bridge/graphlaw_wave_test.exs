@@ -1,6 +1,9 @@
-defmodule BeamPM.FerroplanBridge.GraphInvariantWaveTest do
+defmodule BeamPM.FerroplanBridge.GraphlawWaveTest do
   use ExUnit.Case, async: true
-  test "graphlaw wave exposes its primary runtime primitive" do
-    assert Code.ensure_loaded?(BeamPM.FerroplanBridge.GraphInvariant)
+  alias BeamPM.FerroplanBridge.{GraphInvariant, MigrationGuard, SemanticPart}
+  test "migration preserves subject and prior receipts" do
+    assert :ok=MigrationGuard.admit(%{subject:"s",receipts:["r1"]},%{subject:"s",receipts:["r1","r2"]})
+    p=%SemanticPart{id:"x",source:"o",digest:"d",consequence:"c"}; assert SemanticPart.same?(p,p)
+    assert {:ok,1}=GraphInvariant.enforce("positive",1,&(&1>0))
   end
 end

@@ -1,4 +1,6 @@
 defmodule BeamPM.FerroplanBridge.SurvivalEvidence do
-  @moduledoc "Bounded SurvivalEvidence primitive for the Ferroplan provider composition runtime."
-  def score(xs), do: Enum.count(xs,&(&1==:survived)) / max(length(xs),1)
+  def score(results) when is_list(results) do
+    total = length(results)
+    if total == 0, do: 0.0, else: Enum.count(results, &(&1 == :survived)) / total
+  end
 end

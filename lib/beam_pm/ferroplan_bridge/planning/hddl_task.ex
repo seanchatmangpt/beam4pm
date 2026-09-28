@@ -1,4 +1,6 @@
 defmodule BeamPM.FerroplanBridge.HddlTask do
-  @moduledoc "Bounded HddlTask primitive for the Ferroplan provider composition runtime."
-  def new(name,methods), do: %{name:name,methods:methods}
+  @enforce_keys [:name]
+  defstruct [:name, methods: []]
+  def leaves(%__MODULE__{methods: []} = task), do: [task.name]
+  def leaves(%__MODULE__{methods: methods}), do: Enum.flat_map(methods, &leaves/1)
 end

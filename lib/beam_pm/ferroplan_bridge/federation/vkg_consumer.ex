@@ -1,4 +1,3 @@
 defmodule BeamPM.FerroplanBridge.VkgConsumer do
-  @moduledoc "Bounded VkgConsumer primitive for the Ferroplan provider composition runtime."
-  def request(contract,subject), do: %{contract:contract,subject:subject}
+  def request(binding, contract, subject), do: %{source: binding.id, origin: binding.origin, digest: binding.digest, contract: contract.id, subject: subject}
 end

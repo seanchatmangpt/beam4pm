@@ -1,4 +1,4 @@
 defmodule BeamPM.FerroplanBridge.Replay do
-  @moduledoc "Bounded Replay primitive for the Ferroplan provider composition runtime."
-  def route(%{edge: e},edges), do: Enum.find(edges,&(Map.get(&1,:id)==e))
+  alias BeamPM.FerroplanBridge.Receipt
+  def deterministic?(a, b), do: Receipt.replay_key(a) == Receipt.replay_key(b) and a.provider == b.provider
 end

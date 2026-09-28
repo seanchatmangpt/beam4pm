@@ -1,6 +1,6 @@
 defmodule BeamPM.FerroplanBridge.SemanticEdge do
-  @moduledoc "Bounded SemanticEdge primitive for the Ferroplan provider composition runtime."
-  defstruct [:id, :capability, :provider, enabled: true]
-  def eligible?(%__MODULE__{enabled: e, capability: c}, c), do: e
+  @enforce_keys [:id, :capability, :provider, :consequence]
+  defstruct [:id, :capability, :provider, :consequence, enabled: true]
+  def eligible?(%__MODULE__{enabled: true, capability: c}, c), do: true
   def eligible?(_, _), do: false
 end

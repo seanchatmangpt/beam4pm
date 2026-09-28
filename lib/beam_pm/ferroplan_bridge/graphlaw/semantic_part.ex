@@ -1,4 +1,5 @@
 defmodule BeamPM.FerroplanBridge.SemanticPart do
-  @moduledoc "Bounded SemanticPart primitive for the Ferroplan provider composition runtime."
-  def new(id,consequence), do: %{id:id,consequence:consequence}
+  @enforce_keys [:id, :source, :digest, :consequence]
+  defstruct [:id, :source, :digest, :consequence]
+  def same?(a, b), do: a.id == b.id and a.digest == b.digest and a.consequence == b.consequence
 end

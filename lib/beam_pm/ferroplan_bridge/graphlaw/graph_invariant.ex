@@ -1,4 +1,3 @@
 defmodule BeamPM.FerroplanBridge.GraphInvariant do
-  @moduledoc "Bounded GraphInvariant primitive for the Ferroplan provider composition runtime."
-  def no_failed_edge?(edges,failed), do: Enum.all?(edges,&(Map.get(&1,:id)!=failed))
+  def enforce(name, value, check) when is_function(check, 1), do: if(check.(value), do: {:ok, value}, else: {:error, {:invariant, name}})
 end

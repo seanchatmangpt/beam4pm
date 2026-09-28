@@ -1,4 +1,6 @@
 defmodule BeamPM.FerroplanBridge.OsirisBoundary do
-  @moduledoc "Bounded OsirisBoundary primitive for the Ferroplan provider composition runtime."
-  def bound(ctx,max), do: Enum.take(ctx,-max)
+  @role %{observe: true, construct: false, do: false}
+  def role, do: @role
+  def bound(items, max) when max >= 0, do: Enum.take(items, -max)
+  def consequential?(_), do: false
 end

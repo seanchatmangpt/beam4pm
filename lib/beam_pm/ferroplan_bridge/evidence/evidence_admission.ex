@@ -1,5 +1,5 @@
 defmodule BeamPM.FerroplanBridge.EvidenceAdmission do
-  @moduledoc "Bounded EvidenceAdmission primitive for the Ferroplan provider composition runtime."
-  def admit(%{subject_sha: s,evidence_id: e}=x) when is_binary(s) and is_binary(e), do: {:ok,x}
-  def admit(_), do: {:error,:unbound_evidence}
+  def admit(%{subject_sha: s, evidence_id: e, source: src, standing: :admitted} = x, s)
+      when is_binary(e) and e != "" and is_binary(src) and src != "", do: {:ok, x}
+  def admit(_, _), do: {:error, :unbound_evidence}
 end

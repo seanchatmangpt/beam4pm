@@ -1,4 +1,4 @@
 defmodule BeamPM.FerroplanBridge.CommandTopology do
-  @moduledoc "Bounded CommandTopology primitive for the Ferroplan provider composition runtime."
-  def distribute(intent,planners), do: Enum.map(planners,&%{intent:intent,planner:&1})
+  def roots(nodes), do: Enum.filter(nodes, &(Map.get(&1, :parent) == nil))
+  def children(nodes, id), do: Enum.filter(nodes, &(Map.get(&1, :parent) == id))
 end

@@ -1,5 +1,5 @@
 defmodule BeamPM.FerroplanBridge.ProviderAdapter do
-  @moduledoc "Bounded ProviderAdapter primitive for the Ferroplan provider composition runtime."
-  def normalize({:ok,x}), do: {:ok,x}
-  def normalize({:error,r}), do: {:error,{:provider,r}}
+  def normalize({:ok, value}, provider), do: {:ok, %{provider: provider, value: value}}
+  def normalize({:error, reason}, provider), do: {:error, %{provider: provider, reason: reason}}
+  def normalize(other, provider), do: {:error, %{provider: provider, reason: {:invalid_result, other}}}
 end

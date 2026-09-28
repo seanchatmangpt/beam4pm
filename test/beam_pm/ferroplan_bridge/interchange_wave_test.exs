@@ -1,6 +1,9 @@
-defmodule BeamPM.FerroplanBridge.SemanticEdgeWaveTest do
+defmodule BeamPM.FerroplanBridge.InterchangeWaveTest do
   use ExUnit.Case, async: true
-  test "interchange wave exposes its primary runtime primitive" do
-    assert Code.ensure_loaded?(BeamPM.FerroplanBridge.SemanticEdge)
+  alias BeamPM.FerroplanBridge.{EdgeSet, SemanticEdge, Substitution}
+  test "failed edge is excluded while equivalent provider survives" do
+    a=%SemanticEdge{id:"a",capability:"plan",provider:"p1",consequence:"c"}; b=%SemanticEdge{id:"b",capability:"plan",provider:"p2",consequence:"c"}
+    assert Substitution.equivalent?(a,b)
+    assert EdgeSet.select(EdgeSet.exclude([a,b],"a"),"plan").id=="b"
   end
 end

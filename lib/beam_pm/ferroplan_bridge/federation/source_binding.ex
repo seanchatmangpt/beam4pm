@@ -1,4 +1,6 @@
 defmodule BeamPM.FerroplanBridge.SourceBinding do
-  @moduledoc "Bounded SourceBinding primitive for the Ferroplan provider composition runtime."
-  def bind(id,uri,digest), do: %{id:id,uri:uri,digest:digest}
+  @enforce_keys [:id, :origin, :digest]
+  defstruct [:id, :origin, :digest]
+  def bind(id, origin, digest) when origin != "" and digest != "", do: {:ok, %__MODULE__{id: id, origin: origin, digest: digest}}
+  def bind(_, _, _), do: {:error, :refused_source}
 end

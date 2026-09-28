@@ -1,6 +1,9 @@
-defmodule BeamPM.FerroplanBridge.EpochWaveTest do
+defmodule BeamPM.FerroplanBridge.PtdWaveTest do
   use ExUnit.Case, async: true
-  test "ptd wave exposes its primary runtime primitive" do
-    assert Code.ensure_loaded?(BeamPM.FerroplanBridge.Epoch)
+  alias BeamPM.FerroplanBridge.{Epoch, GenerationFence}
+  test "epochs advance without subject drift" do
+    e=%Epoch{subject:"s",generation:1,artifact:"a"}; n=Epoch.next(e,"b")
+    assert n.generation==2
+    assert :ok=GenerationFence.admit(n,%{subject:"s",generation:2})
   end
 end

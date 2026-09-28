@@ -1,4 +1,4 @@
 defmodule BeamPM.FerroplanBridge.Substitution do
-  @moduledoc "Bounded Substitution primitive for the Ferroplan provider composition runtime."
-  def equivalent?(a,b), do: Map.get(a,:consequence) == Map.get(b,:consequence)
+  def equivalent?(a, b), do: a.id != b.id and a.capability == b.capability and a.consequence == b.consequence and b.enabled
+  def substitute(a, b), do: if(equivalent?(a, b), do: {:ok, b}, else: {:error, :consequence_drift})
 end
