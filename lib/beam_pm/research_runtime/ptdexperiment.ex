@@ -1,0 +1,5 @@
+defmodule BeamPM.ResearchRuntime.PTDExperiment do
+  @moduledoc false
+  defstruct [:epoch,:implementation_digest,:semantic_digest]
+  def comparable?(a,b), do: a.semantic_digest==b.semantic_digest and a.implementation_digest!=b.implementation_digest
+end

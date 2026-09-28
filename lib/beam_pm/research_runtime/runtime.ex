@@ -1,0 +1,5 @@
+defmodule BeamPM.ResearchRuntime.Runtime do
+  @moduledoc false
+  alias BeamPM.ResearchRuntime.{Router,Dispatcher,Failure,Recovery}
+  def execute(s,c,ps,r), do: with {:ok,e}<-Router.route(s.graph,s.policy,c),{:ok,p}<-Map.fetch(ps,e.provider) do case Dispatcher.dispatch(p,r,%{edge:e.id}) do {:ok,v}->{:ok,v,s};err->f=Failure.classify(err);{:recover,f,%{s|graph:Recovery.apply(s.graph,e.id,f)}} end end
+end

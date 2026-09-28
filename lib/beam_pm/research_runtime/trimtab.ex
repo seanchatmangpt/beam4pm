@@ -1,0 +1,6 @@
+defmodule BeamPM.ResearchRuntime.Trimtab do
+  @moduledoc false
+  defstruct budget:4096,observations:[]
+  def observe(t,o), do: %{t|observations:Enum.take([o|t.observations],t.budget)}
+  def role, do: %{select:false,construct:false,do:false,context:true}
+end
