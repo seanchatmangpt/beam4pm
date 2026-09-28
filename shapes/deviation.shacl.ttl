@@ -1,0 +1,19 @@
+@prefix sh:  <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix bpm: <https://ggen.dev/ontology/beam-process-model#> .
+
+# Admission shape for a bpm:ProcessDeviation before it is appended to
+# ontology.ttl (BeamPM.DeviationAdmission, graphlaw gate).
+<urn:beam4pm:shape:process-deviation>
+    a sh:NodeShape ;
+    sh:targetClass bpm:ProcessDeviation ;
+    sh:property [ sh:path bpm:deviationReferenceTrace ; sh:minCount 1 ; sh:maxCount 1 ;
+                  sh:datatype xsd:string ; sh:minLength 1 ] ;
+    sh:property [ sh:path bpm:deviationCandidateTrace ; sh:minCount 1 ; sh:maxCount 1 ;
+                  sh:datatype xsd:string ; sh:minLength 1 ] ;
+    sh:property [ sh:path bpm:deviationActivity ; sh:minCount 1 ; sh:maxCount 1 ;
+                  sh:datatype xsd:string ; sh:minLength 1 ] ;
+    sh:property [ sh:path bpm:deviationTimestamp ; sh:minCount 1 ; sh:maxCount 1 ;
+                  sh:datatype xsd:dateTime ] ;
+    sh:property [ sh:path bpm:deviationStatus ; sh:minCount 1 ; sh:maxCount 1 ;
+                  sh:in ( "observed" ) ] .

@@ -42,3 +42,6 @@ infra/**/.terraform.lock.hcl
 
 # SA2A gate bootstrap scratch (committed by accident in e80f0eb; never again)
 .beam4pm-a2a-gate-bootstrap
+
+# graphlaw admission module (fetched release asset or local build; never committed)
+native/graphlaw/

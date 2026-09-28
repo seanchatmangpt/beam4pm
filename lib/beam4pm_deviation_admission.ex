@@ -27,6 +27,7 @@ defmodule BeamPM.DeviationAdmission do
   """
 
   @ontology_path "ontology.ttl"
+  @shapes_path "shapes/deviation.shacl.ttl"
 
   @typedoc "The subset of BeamPM.PowlConformance.conformance_result/0 this module consumes."
   @type conformance_result :: %{
@@ -51,15 +52,33 @@ defmodule BeamPM.DeviationAdmission do
   violation this module refuses to admit a fact about), or `{:error,
   {:read_failed | :write_failed, reason}}` on a real file I/O failure.
   """
-  @spec admit_deviation(conformance_result(), String.t(), String.t(), String.t()) ::
+  @spec admit_deviation(conformance_result(), String.t(), String.t(), String.t(), keyword()) ::
           {:ok, :conforms} | {:ok, String.t()} | {:error, term()}
-  def admit_deviation(result, reference_trace_id, candidate_trace_id, ontology_path \\ @ontology_path)
+  def admit_deviation(
+        result,
+        reference_trace_id,
+        candidate_trace_id,
+        ontology_path \\ @ontology_path,
+        opts \\ []
+      )
 
-  def admit_deviation(%{conforms: true}, _reference_trace_id, _candidate_trace_id, _ontology_path) do
+  def admit_deviation(
+        %{conforms: true},
+        _reference_trace_id,
+        _candidate_trace_id,
+        _ontology_path,
+        _opts
+      ) do
     {:ok, :conforms}
   end
 
-  def admit_deviation(%{conforms: false, deviations: []}, _reference_trace_id, _candidate_trace_id, _ontology_path) do
+  def admit_deviation(
+        %{conforms: false, deviations: []},
+        _reference_trace_id,
+        _candidate_trace_id,
+        _ontology_path,
+        _opts
+      ) do
     {:error, :no_deviation}
   end
 
@@ -67,7 +86,8 @@ defmodule BeamPM.DeviationAdmission do
         %{conforms: false, deviations: [[log_side, model_side] | _rest]},
         reference_trace_id,
         candidate_trace_id,
-        ontology_path
+        ontology_path,
+        opts
       )
       when is_binary(reference_trace_id) and is_binary(candidate_trace_id) do
     timestamp = DateTime.utc_now() |> DateTime.to_iso8601()
@@ -75,20 +95,58 @@ defmodule BeamPM.DeviationAdmission do
 
     individual_name =
       "process_deviation_" <>
-        (:crypto.hash(:sha256, reference_trace_id <> candidate_trace_id <> deviating_move <> timestamp)
+        (:crypto.hash(
+           :sha256,
+           reference_trace_id <> candidate_trace_id <> deviating_move <> timestamp
+         )
          |> Base.encode16(case: :lower)
          |> binary_part(0, 16))
 
-    turtle_block = build_turtle_block(individual_name, reference_trace_id, candidate_trace_id, deviating_move, timestamp)
+    turtle_block =
+      build_turtle_block(
+        individual_name,
+        reference_trace_id,
+        candidate_trace_id,
+        deviating_move,
+        timestamp
+      )
 
-    with {:ok, current} <- read_ontology(ontology_path),
+    with :ok <- graphlaw_gate(turtle_block, opts),
+         {:ok, current} <- read_ontology(ontology_path),
          :ok <- write_ontology(ontology_path, append_block(current, turtle_block)) do
       {:ok, individual_name}
     end
   end
 
-  @spec build_turtle_block(String.t(), String.t(), String.t(), String.t(), String.t()) :: String.t()
-  defp build_turtle_block(individual_name, reference_trace_id, candidate_trace_id, deviating_move, timestamp) do
+  # Opt-in independent admission (`graphlaw_gate: true`): the individual is
+  # checked against shapes/deviation.shacl.ttl by the graphlaw court BEFORE any
+  # byte is written. Fails closed: refusal or an unreachable court both refuse.
+  defp graphlaw_gate(block, opts) do
+    if Keyword.get(opts, :graphlaw_gate, false) do
+      prefixes =
+        "@prefix bap: <https://ggen.dev/projects/beam4pm#> .\n" <>
+          "@prefix bpm: <https://ggen.dev/ontology/beam-process-model#> .\n" <>
+          "@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n"
+
+      case BeamPM.Graphlaw.admit_shacl(prefixes <> block, File.read!(@shapes_path)) do
+        {:ok, _} -> :ok
+        {:error, {:refused, refusal}} -> {:error, {:deviation_refused, refusal}}
+        {:error, reason} -> {:error, {:admission_unavailable, reason}}
+      end
+    else
+      :ok
+    end
+  end
+
+  @spec build_turtle_block(String.t(), String.t(), String.t(), String.t(), String.t()) ::
+          String.t()
+  defp build_turtle_block(
+         individual_name,
+         reference_trace_id,
+         candidate_trace_id,
+         deviating_move,
+         timestamp
+       ) do
     """
 
     bap:#{individual_name} a bpm:ProcessDeviation ;
