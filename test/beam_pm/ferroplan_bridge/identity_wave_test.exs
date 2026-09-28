@@ -1,0 +1,6 @@
+defmodule BeamPM.FerroplanBridge.ExactSubjectWaveTest do
+  use ExUnit.Case, async: true
+  test "identity wave exposes its primary runtime primitive" do
+    assert Code.ensure_loaded?(BeamPM.FerroplanBridge.ExactSubject)
+  end
+end
