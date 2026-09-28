@@ -1051,18 +1051,30 @@ defmodule BeamPM.ReplanRouter do
   `{:error, {:policy_digest_mismatch, %{admitted: _, observed: _}}}` and the
   state is unchanged.
   """
-  @spec load_policy(t(), String.t(), map() | nil) :: {:ok, t()} | {:error, term()}
-  def load_policy(%__MODULE__{} = state, problem, limits \\ nil) when is_binary(problem) do
+  @spec load_policy(t(), String.t(), map() | nil, keyword()) :: {:ok, t()} | {:error, term()}
+  def load_policy(%__MODULE__{} = state, problem, limits \\ nil, opts \\ [])
+      when is_binary(problem) do
     case Ferroplan.fond_policy("", problem, limits) do
       {:ok, %{"solved" => true} = plan} ->
         observed = policy_digest(plan)
 
-        if observed == state.admitted_preimage.policy,
-          do: {:ok, %{state | universal_plan: plan}},
-          else:
+        cond do
+          observed != state.admitted_preimage.policy ->
             {:error,
              {:policy_digest_mismatch,
               %{admitted: state.admitted_preimage.policy, observed: observed}}}
+
+          Keyword.get(opts, :graphlaw_court, false) ->
+            # Independent strong-cyclic admission (graphlaw); fails closed.
+            case BeamPM.Graphlaw.admit_policy(problem, plan) do
+              {:ok, _admitted} -> {:ok, %{state | universal_plan: plan}}
+              {:error, {:refused, refusal}} -> {:error, {:policy_refused, refusal}}
+              {:error, reason} -> {:error, {:admission_unavailable, reason}}
+            end
+
+          true ->
+            {:ok, %{state | universal_plan: plan}}
+        end
 
       {:ok, other} ->
         {:error, {:no_policy, other}}
@@ -1107,4 +1119,585 @@ defmodule BeamPM.ReplanRouter do
 
   defp ok_or({:ok, v}, _), do: {:ok, v}
   defp ok_or(:error, reason), do: {:error, reason}
+end
+
+# ---------------------------------------------------------------------------
+# graphlaw admission court (folded into this admitted facade so the
+# bpm:AuthorshipKind_native_engine_facade debt ceiling (gates/070) holds).
+# ---------------------------------------------------------------------------
+
+defmodule BeamPM.Graphlaw do
+  @moduledoc ~S"""
+  Wasmex host for the `graphlaw` WASI module (crates.io `graphlaw`, release
+  asset `graphlaw.wasm`): the independent admission court for candidate plans
+  and deviations. Exports `gl_alloc`, `gl_call` (consumes the request buffer,
+  returns `(out_ptr <<< 32) ||| out_len`) and `gl_free`; requests and
+  responses are UTF-8 JSON. Same host shape as `BeamPM.Ferroplan`, one named
+  engine instance.
+
+  Unlike the planning engine, an `{"ok": false}` response is always a typed
+  refusal here: `{:error, {:refused, %{kind, engine, dialect, message}}}`.
+  """
+
+  import Bitwise
+
+  @engine_name BeamPM.Graphlaw.Engine
+  @pt_key {__MODULE__, :engine_handles}
+  @wasm_rel "native/graphlaw/graphlaw_wasm.wasm"
+  @timeout 30_000
+
+  @type refusal :: %{String.t() => term()}
+  @type result :: {:ok, map()} | {:error, {:refused, refusal()} | {:wasmex, term()}}
+
+  @doc "Wasm artifact path: `GRAPHLAW_WASM` if set, else `#{@wasm_rel}` from the project root."
+  @spec wasm_path() :: String.t()
+  def wasm_path, do: System.get_env("GRAPHLAW_WASM") || Path.expand(@wasm_rel)
+
+  @spec wasm_built?() :: boolean()
+  def wasm_built?, do: File.exists?(wasm_path())
+
+  @doc "Named reason used by tests' skip tag when the artifact is absent."
+  @spec wasm_missing_reason() :: String.t()
+  def wasm_missing_reason do
+    "graphlaw wasm not found at #{wasm_path()} -- run scripts/graphlaw_wasm_fetch.sh " <>
+      "(or set GRAPHLAW_WASM), and run mix test from the project root"
+  end
+
+  @doc "Starts (or reuses) the one named engine instance. Idempotent."
+  @spec start() :: {:ok, pid()} | {:error, term()}
+  def start do
+    case start_link_raw() do
+      {:ok, pid} ->
+        _ = handles!(pid)
+        {:ok, pid}
+
+      {:error, {:already_started, pid}} ->
+        {:ok, pid}
+
+      other ->
+        other
+    end
+  end
+
+  @spec start_link_raw() :: {:ok, pid()} | {:error, term()}
+  def start_link_raw do
+    Wasmex.start_link(%{
+      bytes: File.read!(wasm_path()),
+      wasi: %Wasmex.Wasi.WasiOptions{},
+      name: @engine_name
+    })
+  end
+
+  @spec child_spec(term()) :: Supervisor.child_spec()
+  def child_spec(_opts) do
+    %{
+      id: @engine_name,
+      start: {__MODULE__, :start_link_raw, []},
+      restart: :permanent,
+      type: :worker
+    }
+  end
+
+  @doc """
+  Replays a candidate plan over `state` (a list of `{subject, predicate, object}`
+  IRI triples). `actions` is a list of `%{name:, pre:, add:, del:}` (triple
+  lists); `goal` is a triple list. Returns `{:ok, %{states, receipts, nquads}}`
+  (one receipt per action) or `{:error, {:refused, refusal}}` at the first
+  unmet precondition / goal.
+  """
+  @spec admit_plan([tuple()], [map()], [tuple()], keyword()) :: result()
+  def admit_plan(state, actions, goal, opts \\ []) when is_list(state) and is_list(actions) do
+    plan = %{
+      "actions" =>
+        Enum.map(actions, fn a ->
+          %{
+            "name" => to_string(Map.fetch!(a, :name)),
+            "pre" => nt(Map.get(a, :pre, [])),
+            "add" => nt(Map.get(a, :add, [])),
+            "del" => nt(Map.get(a, :del, []))
+          }
+        end),
+      "goal" => nt(goal)
+    }
+
+    law(state, [%{"step" => "plan", "plan" => plan}], opts)
+  end
+
+  @doc """
+  SHACL admission gate: `{:ok, resp}` iff the `state` triples conform to the
+  Turtle `shapes_ttl`; otherwise `{:error, {:refused, refusal}}`. Never
+  changes the state.
+  """
+  @spec admit_shacl([tuple()] | String.t(), String.t(), keyword()) :: result()
+  def admit_shacl(state, shapes_ttl, opts \\ []) when is_binary(shapes_ttl) do
+    law(state, [%{"step" => "shacl", "shapes" => shapes_ttl}], opts)
+  end
+
+  @doc """
+  Independent FOND policy admission: `problem` and `policy` (a ferroplan
+  `UniversalPlan` map or its `policy` entries) are checked strong-cyclic by
+  the graphlaw court. `{:ok, admitted}` or `{:error, {:refused, refusal}}`.
+  """
+  @spec admit_policy(map() | String.t(), map() | list() | String.t(), keyword()) :: result()
+  def admit_policy(problem, policy, opts \\ []) do
+    problem = if is_binary(problem), do: JSON.decode!(problem), else: problem
+
+    call(
+      %{"op" => "policy", "problem" => problem, "policy" => policy},
+      Keyword.get(opts, :timeout, @timeout)
+    )
+  end
+
+  @doc "Raw `law` op: `state` is triples or an N-Triples/Turtle string; `steps` per the graphlaw ABI."
+  @spec law([tuple()] | String.t(), [map()], keyword()) :: result()
+  def law(state, steps, opts \\ []) do
+    {text, dialect} =
+      if is_binary(state),
+        do: {state, Keyword.get(opts, :dialect, "turtle")},
+        else: {nt(state), "ntriples"}
+
+    call(
+      %{"op" => "law", "data" => %{"text" => text, "dialect" => dialect}, "steps" => steps},
+      Keyword.get(opts, :timeout, @timeout)
+    )
+  end
+
+  @doc "Renders IRI triples as N-Triples text."
+  @spec nt([tuple()]) :: String.t()
+  def nt(triples) do
+    Enum.map_join(triples, fn {s, p, o} -> "<#{s}> <#{p}> <#{o}> .\n" end)
+  end
+
+  # -- wire ---------------------------------------------------------------
+
+  defp call(req, timeout) when is_map(req) do
+    data = JSON.encode!(req)
+    len = byte_size(data)
+
+    with {:ok, {pid, store, memory}} <- engine(),
+         {:ok, [raw_ptr]} <- call_export(pid, "gl_alloc", [len], timeout),
+         ptr = band(raw_ptr, 0xFFFF_FFFF),
+         :ok <- if(ptr == 0, do: {:error, :guest_alloc_failed}, else: :ok),
+         :ok <- write_request(pid, store, memory, ptr, len, data),
+         {:ok, [packed]} <- call_export(pid, "gl_call", [ptr, len], timeout) do
+      read_response(pid, store, memory, packed, timeout)
+    else
+      {:error, {:call_exit, _} = reason} ->
+        restart_engine()
+        {:error, {:wasmex, {:engine_restarted, reason}}}
+
+      {:error, reason} ->
+        {:error, {:wasmex, reason}}
+    end
+  end
+
+  defp call_export(pid, export, args, timeout) do
+    Wasmex.call_function(pid, export, args, timeout)
+  catch
+    :exit, reason -> {:error, {:call_exit, reason}}
+  end
+
+  defp write_request(pid, store, memory, ptr, len, data) do
+    case Wasmex.Memory.write_binary(store, memory, ptr, data) do
+      :ok ->
+        :ok
+
+      {:error, _} = err ->
+        _ = call_export(pid, "gl_free", [ptr, len], @timeout)
+        err
+    end
+  end
+
+  # gl_call consumes (frees) the request buffer; only the response is freed here.
+  defp read_response(pid, store, memory, packed, timeout) do
+    packed = band(packed, 0xFFFF_FFFF_FFFF_FFFF)
+    out_ptr = bsr(packed, 32)
+    out_len = band(packed, 0xFFFF_FFFF)
+
+    out = Wasmex.Memory.read_binary(store, memory, out_ptr, out_len)
+    _ = call_export(pid, "gl_free", [out_ptr, out_len], timeout)
+
+    case JSON.decode!(out) do
+      %{"ok" => true} = decoded -> {:ok, Map.delete(decoded, "ok")}
+      %{"ok" => false, "error" => err} -> {:error, {:refused, err}}
+      other -> {:error, {:wasmex, {:unexpected_response, other}}}
+    end
+  end
+
+  defp restart_engine do
+    case Process.whereis(@engine_name) do
+      nil -> :ok
+      pid -> GenServer.stop(pid, :kill)
+    end
+  catch
+    :exit, _ -> :ok
+  end
+
+  defp engine do
+    case Process.whereis(@engine_name) do
+      nil -> {:error, {:engine_not_started, "call BeamPM.Graphlaw.start/0 first"}}
+      pid -> {:ok, handles!(pid)}
+    end
+  end
+
+  defp handles!(pid) do
+    case :persistent_term.get(@pt_key, nil) do
+      {^pid, _store, _memory} = cached ->
+        cached
+
+      _stale_or_missing ->
+        {:ok, store} = Wasmex.store(pid)
+        {:ok, memory} = Wasmex.memory(pid)
+        entry = {pid, store, memory}
+        :persistent_term.put(@pt_key, entry)
+        entry
+    end
+  end
+end
+
+defmodule BeamPM.PlanAdmission do
+  @moduledoc ~S"""
+  Independent admission of a planner's candidate plan. ferroplan proposes
+  (`authority: candidate_only`); `BeamPM.Graphlaw` replays the plan over an
+  RDF state and refuses at the first violated precondition or an unmet goal.
+
+  An `admission` spec is `%{state: triples, model: model, goal: triples}`:
+
+    * `state` -- initial ground atoms, `{subject, predicate, object}` IRI triples
+    * `model` -- the plan step's `"action"` name => `%{pre:, add:, del:}` triple
+      lists, or a 1-arity function of the step's `"args"` returning that map
+    * `goal`  -- triples that must hold after the last action
+
+  Fails closed: an action missing from `model` is a refusal, not a skip.
+  """
+
+  alias BeamPM.Graphlaw
+
+  @type admission :: %{state: [tuple()], model: %{String.t() => map()}, goal: [tuple()]}
+
+  @doc "Steps of a ferroplan plan: a bare step list or a `UniversalPlan` map."
+  @spec steps(term()) :: [map()]
+  def steps(%{"steps" => steps}) when is_list(steps), do: steps
+  def steps(steps) when is_list(steps), do: steps
+  def steps(_), do: []
+
+  @doc "Replays `plan` under `admission`; `{:ok, %{receipts:, states:}}` or `{:error, {:refused, refusal}}`."
+  @spec admit(term(), admission(), keyword()) :: {:ok, map()} | {:error, term()}
+  def admit(plan, %{state: state, model: model, goal: goal}, opts \\ []) do
+    with {:ok, actions} <- actions(steps(plan), model),
+         {:ok, resp} <- Graphlaw.admit_plan(state, actions, goal, opts) do
+      {:ok, %{receipts: resp["receipts"], states: resp["states"]}}
+    end
+  end
+
+  defp actions(steps, model) do
+    Enum.reduce_while(steps, {:ok, []}, fn step, {:ok, acc} ->
+      name = step["action"]
+
+      case Map.fetch(model, name) do
+        {:ok, m} ->
+          m = if is_function(m, 1), do: m.(step["args"] || []), else: m
+
+          action = %{
+            name: name,
+            pre: Map.get(m, :pre, []),
+            add: Map.get(m, :add, []),
+            del: Map.get(m, :del, [])
+          }
+
+          {:cont, {:ok, [action | acc]}}
+
+        :error ->
+          {:halt,
+           {:error,
+            {:refused, %{"kind" => "Unsupported", "message" => "no action model for `#{name}`"}}}}
+      end
+    end)
+    |> case do
+      {:ok, acc} -> {:ok, Enum.reverse(acc)}
+      err -> err
+    end
+  end
+end
+
+defmodule BeamPM.ActionModel do
+  @moduledoc ~S"""
+  Derives a `BeamPM.PlanAdmission` admission spec (`%{state:, model:, goal:}`)
+  from PDDL text, so callers do not hand-write action models.
+
+  Supported subset: STRIPS + typing. Action `:parameters`, `:precondition`
+  as a conjunction of positive atoms, `:effect` as a conjunction of atoms
+  (add) and `(not atom)` (delete); problem `:init` atoms and `:goal`
+  conjunction of positive atoms. Anything else is refused with
+  `{:error, {:unsupported, what}}` -- never guessed: `or`, `not` in a
+  precondition or goal, `forall`, `exists`, `imply`, `when`, `=`, numeric
+  fluents (`:functions`, `increase`, `decrease`, `assign`, comparisons),
+  durative actions, `either` types, predicates of arity above 2.
+
+  ## Atom to triple scheme (same as test/beam4pm_graphlaw_test.exs)
+
+  Objects are uppercased (as ferroplan reports them) and become
+  `"urn:r:OBJ"`; predicates are lowercased and become `"urn:p:pred"`.
+
+    * `(at a)`      => `{"urn:r:A", "urn:p:at", "urn:p:true"}`
+    * `(link a b)`  => `{"urn:r:A", "urn:p:link", "urn:r:B"}`
+    * `(p)` (arity 0) => `{"urn:r:_", "urn:p:p", "urn:p:true"}`
+
+  The model maps the uppercased action name to a function of the plan
+  step's `"args"`; an arity mismatch yields an unsatisfiable precondition so
+  the step is refused rather than skipped.
+  """
+
+  @type triple :: {String.t(), String.t(), String.t()}
+  @type spec :: %{state: [triple()], model: %{String.t() => (list() -> map())}, goal: [triple()]}
+
+  @unsupported_ops ~w(or not forall exists imply when = increase decrease assign
+                      scale-up scale-down > < >= <= + - * / at-start at-end over)
+
+  @spec from_pddl(String.t(), String.t()) :: {:ok, spec()} | {:error, term()}
+  def from_pddl(domain_pddl, problem_pddl) do
+    with {:ok, dom} <- parse(domain_pddl),
+         {:ok, prob} <- parse(problem_pddl),
+         {:ok, actions} <- actions(dom),
+         {:ok, init} <- init(prob),
+         {:ok, goal} <- goal(prob) do
+      model =
+        Map.new(actions, fn {name, params, pre, add, del} ->
+          {name, build(params, pre, add, del)}
+        end)
+
+      {:ok, %{state: Enum.map(init, &triple/1), model: model, goal: Enum.map(goal, &triple/1)}}
+    end
+  end
+
+  # ---- s-expression parsing -------------------------------------------------
+
+  defp parse(text) when is_binary(text) do
+    tokens =
+      text
+      |> String.replace(~r/;[^\n]*/, "")
+      |> String.replace("(", " ( ")
+      |> String.replace(")", " ) ")
+      |> String.split()
+
+    case read(tokens) do
+      {:ok, [sexp], []} -> {:ok, sexp}
+      _ -> {:error, {:parse, "malformed PDDL s-expression"}}
+    end
+  end
+
+  defp read(["(" | rest]), do: read_list(rest, [])
+
+  defp read([tok | rest]) when tok != ")",
+    do: {:ok, [String.downcase(tok)], rest}
+
+  defp read(_), do: {:error, :eof}
+
+  defp read_list([")" | rest], acc), do: {:ok, [Enum.reverse(acc)], rest}
+  defp read_list([], _), do: {:error, :eof}
+
+  defp read_list(["(" | _] = toks, acc) do
+    with {:ok, [x], rest} <- read(toks), do: read_list(rest, [x | acc])
+  end
+
+  defp read_list([tok | rest], acc), do: read_list(rest, [String.downcase(tok) | acc])
+
+  # ---- domain ---------------------------------------------------------------
+
+  defp actions(["define", _name | sections]) do
+    Enum.reduce_while(sections, {:ok, []}, fn
+      [":functions" | _], _ ->
+        {:halt, {:error, {:unsupported, "numeric fluents (:functions)"}}}
+
+      [":durative-action" | _], _ ->
+        {:halt, {:error, {:unsupported, "durative actions"}}}
+
+      [":types" | types], acc ->
+        if Enum.any?(types, &(&1 == "either")),
+          do: {:halt, {:error, {:unsupported, "either types"}}},
+          else: {:cont, acc}
+
+      [":action", name | body], {:ok, acc} ->
+        case action(name, body) do
+          {:ok, a} -> {:cont, {:ok, [a | acc]}}
+          err -> {:halt, err}
+        end
+
+      _, acc ->
+        {:cont, acc}
+    end)
+    |> case do
+      {:ok, acc} -> {:ok, Enum.reverse(acc)}
+      err -> err
+    end
+  end
+
+  defp actions(_), do: {:error, {:parse, "not a PDDL domain"}}
+
+  defp action(name, body) do
+    kv = pairs(body)
+    params = params(Map.get(kv, ":parameters", []))
+
+    with :ok <- check_types(Map.get(kv, ":parameters", [])),
+         {:ok, pre} <- conj(Map.get(kv, ":precondition", []), :precondition),
+         {:ok, eff} <- effects(Map.get(kv, ":effect", [])) do
+      {add, del} = eff
+      {:ok, {String.upcase(name), params, pre, add, del}}
+    end
+  end
+
+  defp pairs(body) do
+    body
+    |> Enum.chunk_every(2)
+    |> Enum.filter(&match?([k, _] when is_binary(k), &1))
+    |> Map.new(fn [k, v] -> {k, v} end)
+  end
+
+  defp check_types(params) when is_list(params) do
+    if Enum.any?(params, &is_list/1), do: {:error, {:unsupported, "either types"}}, else: :ok
+  end
+
+  defp params(list) do
+    list |> Enum.filter(&(is_binary(&1) and String.starts_with?(&1, "?")))
+  end
+
+  # Conjunction of positive atoms. `[]` / `["and"]` = empty.
+  defp conj([], _), do: {:ok, []}
+  defp conj(["and" | items], ctx), do: atoms(items, ctx)
+  defp conj([op | _], _) when op in @unsupported_ops, do: unsupported(op)
+  defp conj([pred | args], _) when is_binary(pred), do: {:ok, [[pred | args]]}
+
+  defp atoms(items, ctx) do
+    Enum.reduce_while(items, {:ok, []}, fn
+      [op | _], _ when op in @unsupported_ops ->
+        {:halt, unsupported(op, ctx)}
+
+      ["and" | _] = nested, {:ok, acc} ->
+        case conj(nested, ctx) do
+          {:ok, xs} -> {:cont, {:ok, acc ++ xs}}
+          err -> {:halt, err}
+        end
+
+      [_ | _] = atom, {:ok, acc} ->
+        {:cont, {:ok, acc ++ [atom]}}
+
+      _, _ ->
+        {:halt, {:error, {:parse, "bad atom in #{ctx}"}}}
+    end)
+  end
+
+  defp unsupported(op, ctx \\ nil),
+    do: {:error, {:unsupported, if(ctx, do: "#{op} in #{ctx}", else: op)}}
+
+  defp effects([]), do: {:ok, {[], []}}
+  defp effects(["and" | items]), do: effect_items(items)
+  defp effects(single), do: effect_items([single])
+
+  defp effect_items(items) do
+    Enum.reduce_while(items, {:ok, {[], []}}, fn
+      ["not", [_ | _] = atom], {:ok, {a, d}} ->
+        case guard_atom(atom) do
+          :ok -> {:cont, {:ok, {a, d ++ [atom]}}}
+          err -> {:halt, err}
+        end
+
+      [op | _], _ when op in @unsupported_ops ->
+        {:halt, unsupported(op, :effect)}
+
+      ["and" | rest], {:ok, {a, d}} ->
+        case effect_items(rest) do
+          {:ok, {a2, d2}} -> {:cont, {:ok, {a ++ a2, d ++ d2}}}
+          err -> {:halt, err}
+        end
+
+      [_ | _] = atom, {:ok, {a, d}} ->
+        case guard_atom(atom) do
+          :ok -> {:cont, {:ok, {a ++ [atom], d}}}
+          err -> {:halt, err}
+        end
+
+      _, _ ->
+        {:halt, {:error, {:parse, "bad effect"}}}
+    end)
+  end
+
+  defp guard_atom([_ | args]) when length(args) > 2,
+    do: {:error, {:unsupported, "predicate arity above 2"}}
+
+  defp guard_atom(_), do: :ok
+
+  # ---- problem --------------------------------------------------------------
+
+  defp init(["define", _name | sections]) do
+    case Enum.find(sections, &match?([":init" | _], &1)) do
+      [":init" | atoms] ->
+        Enum.reduce_while(atoms, {:ok, []}, fn
+          [op | _], _ when op in @unsupported_ops -> {:halt, unsupported(op, :init)}
+          [_ | _] = a, {:ok, acc} -> {:cont, check_ground(a, acc)}
+          _, _ -> {:halt, {:error, {:parse, "bad init atom"}}}
+        end)
+        |> case do
+          {:ok, acc} -> {:ok, acc}
+          err -> err
+        end
+
+      _ ->
+        {:error, {:parse, "problem has no :init"}}
+    end
+  end
+
+  defp init(_), do: {:error, {:parse, "not a PDDL problem"}}
+
+  defp check_ground([_ | args] = a, acc) do
+    cond do
+      length(args) > 2 -> {:halt, {:error, {:unsupported, "predicate arity above 2"}}}
+      true -> {:cont, {:ok, acc ++ [a]}}
+    end
+    |> case do
+      {:halt, e} -> e
+      {:cont, ok} -> ok
+    end
+  end
+
+  defp goal(["define", _name | sections]) do
+    case Enum.find(sections, &match?([":goal" | _], &1)) do
+      [":goal", g] -> conj(g, :goal) |> guard_all()
+      _ -> {:error, {:parse, "problem has no :goal"}}
+    end
+  end
+
+  defp guard_all({:ok, atoms}) do
+    Enum.find_value(atoms, {:ok, atoms}, fn a ->
+      case guard_atom(a) do
+        :ok -> nil
+        err -> err
+      end
+    end)
+  end
+
+  defp guard_all(err), do: err
+
+  # ---- mapping --------------------------------------------------------------
+
+  defp triple([pred]), do: {"urn:r:_", "urn:p:#{pred}", "urn:p:true"}
+  defp triple([pred, a]), do: {res(a), "urn:p:#{pred}", "urn:p:true"}
+  defp triple([pred, a, b]), do: {res(a), "urn:p:#{pred}", res(b)}
+
+  defp res(o), do: "urn:r:#{String.upcase(o)}"
+
+  defp build(params, pre, add, del) do
+    fn args ->
+      if length(args) != length(params) do
+        %{pre: [{"urn:r:_arity_mismatch", "urn:p:bad", "urn:p:true"}], add: [], del: []}
+      else
+        bind = Map.new(Enum.zip(params, args), fn {p, a} -> {p, String.downcase(a)} end)
+
+        inst = fn atoms ->
+          Enum.map(atoms, fn [p | as] -> triple([p | Enum.map(as, &Map.get(bind, &1, &1))]) end)
+        end
+
+        %{pre: inst.(pre), add: inst.(add), del: inst.(del)}
+      end
+    end
+  end
 end

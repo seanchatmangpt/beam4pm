@@ -128,6 +128,18 @@ defmodule BeamPM.GraphlawTest do
       assert refusal["message"] =~ "plan refused at step 1"
     end
 
+    test "anti-vacuity: the gate is what refuses -- ungated router admits the SAME mutated world",
+         %{
+           handle: handle
+         } do
+      mutated = %{state: [at("A"), link("A", "B")], model: model(), goal: [at("C")]}
+
+      assert {:ok, %{outcome: :solved}} = ReplanRouter.execute(:session_replan, handle, %{})
+
+      assert {:error, {:plan_refused, _}} =
+               ReplanRouter.execute(:session_replan, handle, %{admission: mutated})
+    end
+
     test "without an admission spec the router behaves as before", %{handle: handle} do
       assert {:ok, %{outcome: :solved} = res} = ReplanRouter.execute(:session_replan, handle, %{})
       refute Map.has_key?(res, :admission)
@@ -164,6 +176,92 @@ defmodule BeamPM.GraphlawTest do
                )
 
       assert File.read!(path) == before
+    end
+
+    test "anti-vacuity: the same malformed input is appended without the gate, refused with it",
+         %{
+           path: path
+         } do
+      assert {:ok, name} = DeviationAdmission.admit_deviation(@deviant, "ref-1", "", path)
+      assert File.read!(path) =~ name
+
+      File.write!(path, "@prefix bpm: <https://ggen.dev/ontology/beam-process-model#> .\n")
+      before = File.read!(path)
+
+      assert {:error, {:deviation_refused, _}} =
+               DeviationAdmission.admit_deviation(@deviant, "ref-1", "", path,
+                 graphlaw_gate: true
+               )
+
+      assert File.read!(path) == before
+    end
+  end
+
+  describe "FOND policy admission" do
+    if not BeamPM.Ferroplan.wasm_built?() do
+      @describetag skip: BeamPM.Ferroplan.wasm_missing_reason()
+    end
+
+    @retry_loop JSON.encode!(%{
+                  "states" => [%{"id" => "s0"}, %{"id" => "g", "facts" => ["done"]}],
+                  "initial_states" => ["s0"],
+                  "goal" => %{"facts" => ["done"]},
+                  "transitions" => [
+                    %{
+                      "action" => "flip",
+                      "from" => "s0",
+                      "to" => "g",
+                      "probability_ppm" => 500_000
+                    },
+                    %{
+                      "action" => "flip",
+                      "from" => "s0",
+                      "to" => "s0",
+                      "probability_ppm" => 500_000
+                    }
+                  ]
+                })
+
+    @preimage %{subject: "s", pack: "p", policy: "q", world: "w"}
+
+    setup do
+      {:ok, _} = Ferroplan.start()
+      :ok
+    end
+
+    test "load_policy with the graphlaw court admits the real synthesized policy" do
+      {:ok, synthesized} = Ferroplan.fond_policy("", @retry_loop)
+      pre = %{@preimage | policy: ReplanRouter.policy_digest(synthesized)}
+      st0 = ReplanRouter.new(plan_id: "rooms-1", preimage: pre, run_id: "fond")
+
+      assert {:ok, st} = ReplanRouter.load_policy(st0, @retry_loop, nil, graphlaw_court: true)
+      assert [%{"state" => "s0", "action" => "flip"}] = st.universal_plan["policy"]
+    end
+
+    test "falsifier: the court refuses a real policy with skewed probability mass" do
+      {:ok, synthesized} = Ferroplan.fond_policy("", @retry_loop)
+      assert {:ok, _} = Graphlaw.admit_policy(@retry_loop, synthesized)
+
+      skewed =
+        update_in(
+          synthesized,
+          ["policy", Access.at(0), "outcomes", Access.at(0), "probability_ppm"],
+          fn _ -> 1 end
+        )
+
+      assert {:error, {:refused, %{"message" => msg}}} =
+               Graphlaw.admit_policy(@retry_loop, skewed)
+
+      assert msg =~ "policy refused (BadMass)"
+    end
+
+    test "falsifier: a policy missing its only entry is refused as MissingEntry" do
+      {:ok, synthesized} = Ferroplan.fond_policy("", @retry_loop)
+
+      assert {:error, {:refused, %{"message" => msg}}} =
+               Graphlaw.admit_policy(@retry_loop, Map.put(synthesized, "policy", []))
+
+      assert msg =~ "policy refused (MissingEntry)"
     end
   end
 end
