@@ -905,7 +905,7 @@ defmodule BeamPM.ReplanRouter do
     {:recompile_required, Map.get(inputs, :evidence, %{})}
   end
 
-  def execute(:session_replan, handle, _inputs, opts) do
+  def execute(:session_replan, handle, inputs, opts) do
     evals = opts |> Keyword.get(:evals, 100_000) |> min(@max_evals) |> max(1)
     mem = opts |> Keyword.get(:mem_mb, 64) |> min(@max_mem_mb) |> max(1)
     think_opts = if t = Keyword.get(opts, :think_timeout), do: [timeout: t], else: []
@@ -916,7 +916,7 @@ defmodule BeamPM.ReplanRouter do
     with {:dropped, {:ok, _}} <- {:dropped, Ferroplan.session_drop_plan(handle)},
          {:ok, sol} <- Ferroplan.session_think(handle, evals, mem, think_opts) do
       outcome = if sol["solved"] == true, do: :solved, else: :exhausted
-      {:ok, Map.merge(base, %{outcome: outcome, plan: sol["plan"]})}
+      admit_candidate(inputs, outcome, Map.merge(base, %{outcome: outcome, plan: sol["plan"]}))
     else
       {:dropped, {:error, reason}} -> {:error, {:host_fault, reason}}
       {:error, reason} -> classify_failure(base, :exhausted, reason)
@@ -948,6 +948,19 @@ defmodule BeamPM.ReplanRouter do
       when decision in [:close, :refuse_stale, :refuse_malformed, :reobserve] do
     {:ok, %{rung: :none, outcome: :noop, decision: decision}}
   end
+
+  # Independent admission (graphlaw): when `inputs[:admission]` is present a
+  # solved candidate plan is replayed by BeamPM.PlanAdmission and refused at
+  # the first unmet precondition/goal. Fails closed if the court is unreachable.
+  defp admit_candidate(%{admission: %{} = admission}, :solved, result) do
+    case BeamPM.PlanAdmission.admit(result.plan, admission) do
+      {:ok, admitted} -> {:ok, Map.put(result, :admission, admitted)}
+      {:error, {:refused, refusal}} -> {:error, {:plan_refused, refusal}}
+      {:error, reason} -> {:error, {:admission_unavailable, reason}}
+    end
+  end
+
+  defp admit_candidate(_inputs, _outcome, result), do: {:ok, result}
 
   defp hddl_replan(_handle, domain, problem, opts) do
     timeout = Keyword.get(opts, :hddl_timeout, 30_000)
