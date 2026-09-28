@@ -1259,8 +1259,8 @@ cancel-in-progress: true""" ;
 pull_request:
   branches: [main]
 workflow_dispatch:""" ;
-    gha:evidenceObligation "green rebar3 eunit, mix test, and gleam test runs against the exact candidate SHA, plus the (currently continue-on-error) GATE M2 determinism check (scripts/gate_m2_check.sh)" ;
-    gha:standingEffect "a green run confers test-passing standing on the exact candidate SHA for the Erlang, Elixir, and Gleam projections; it does not confer determinism standing until the ggen-install gap in the final step is closed" .
+    gha:evidenceObligation "green rebar3 eunit, mix test, Gleam tests, the non-skippable enterprise process-intelligence court (real rust4pm + Ferroplan + BRCE + durable receipt replay), and GATE M2 determinism against the exact candidate SHA" ;
+    gha:standingEffect "a green run confers functional standing on the exact candidate SHA for the tested Erlang/Elixir/Gleam projections and the closed-loop enterprise court. The court deliberately does NOT confer CELONIS_LEVEL standing: qualification/enterprise/celonis_capability_contract.json keeps that claim PARTIAL_ALIVE until every required scale, connector, identity/isolation, HA/DR and external-assurance gate is observed." .
 
 bex:ciTest
     a gha:Job ;
@@ -1270,7 +1270,7 @@ bex:ciTest
     gha:timeoutMinutes 60 ;
     gha:jobPermissions "contents: read" ;
     gha:jobExtra "name: Erlang/Elixir/Gleam tests + determinism check" ;
-    gha:evidenceEmitted "eunit, mix test, and gleam test results in the run log" ;
+    gha:evidenceEmitted "eunit, mix test, Gleam results, plus _build/enterprise/celonis_level_court.json binding the exact candidate SHA to the real process-intelligence court and its explicitly open enterprise-parity gaps" ;
     gha:failureClassification "BUILD_BROKEN for a compile failure; a red test suite is a production defect in the manufactured projections or their semantic inputs" .
 
 bex:ciCheckout
@@ -1325,7 +1325,7 @@ bex:ciMixCache
     gha:inJob bex:ciTest ; gha:stepOrder 6 ;
     gha:stepName "Cache mix dependencies" ;
     gha:usesAction "actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0" ;
-    gha:withParam "path: \"deps\\n~/.hex\\n~/.mix\\n\"" ;
+    gha:withParam "path: \"~/.hex\\n~/.mix\\n\"" ;
     gha:withParam "key: ${{ runner.os }}-mix-28.3.1-1.19.5-${{ hashFiles('mix.lock') }}" ;
     gha:withParam "restore-keys: \"${{ runner.os }}-mix-28.3.1-1.19.5-\\n${{ runner.os }}-mix-28.3.1-\\n${{ runner.os }}-mix-\\n\"" .
 
@@ -1333,7 +1333,10 @@ bex:ciMixDepsGet
     a gha:Step ;
     gha:inJob bex:ciTest ; gha:stepOrder 7 ;
     gha:stepName "mix deps.get" ;
-    gha:runCommand "mix deps.get" .
+    gha:runCommand """# Never restore deps/ from cache: a stale cached dependency
+# checkout can diverge from the exact mix.lock and transitive constraints.
+rm -rf deps
+mix deps.get""" .
 
 # Static overclaiming-phrase lint, transplanted architecture from ex4pm's
 # `mix ex4pm.lint.truth` (a standalone scanner wired as an early verify
@@ -1380,7 +1383,7 @@ bex:ciEngineDispatch
 bex:ciMixTest
     a gha:Step ;
     gha:inJob bex:ciTest ; gha:stepOrder 11 ;
-    gha:stepName "mix test" ;
+    gha:stepName "mix test + enterprise process-intelligence court" ;
     gha:runCommand """mkdir -p "$HOME/wasm4pm/data"
 curl --fail --location --silent --show-error --retry 3 \\
   -o "$RUNNER_TEMP/InternationalDeclarations.xes.gz" \\
@@ -1388,8 +1391,10 @@ curl --fail --location --silent --show-error --retry 3 \\
 gzip -dc "$RUNNER_TEMP/InternationalDeclarations.xes.gz" > "$HOME/wasm4pm/data/InternationalDeclarations.xes"
 sha256sum "$RUNNER_TEMP/InternationalDeclarations.xes.gz" "$HOME/wasm4pm/data/InternationalDeclarations.xes"
 bash scripts/rust4pm_wasm_build.sh
+bash scripts/ferroplan_wasm_build.sh
 source scripts/env/rust4pm_reactor_env.sh
-mix test --max-requires 1""" .
+mix test --max-requires 1
+mix run --no-start qualification/enterprise/celonis_level_court.exs""" .
 
 bex:ciGleamTest
     a gha:Step ;
@@ -1467,6 +1472,20 @@ bex:ciDeterminismEvidence
     gha:withParam "path: \"**/beam4pm_ash*.ex*\"" ;
     gha:withParam "if-no-files-found: error" ;
     gha:withParam "retention-days: 7" .
+
+# Preserve the enterprise court receipt even when a later rail step fails.
+# The receipt is evidence for the exact candidate SHA and explicitly refuses
+# CELONIS_LEVEL while any required capability remains unobserved.
+bex:ciEnterpriseCourtEvidence
+    a gha:Step ;
+    gha:inJob bex:ciTest ; gha:stepOrder 17 ;
+    gha:stepName "Preserve enterprise process-intelligence court receipt" ;
+    gha:condition "always()" ;
+    gha:usesAction "actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1" ;
+    gha:withParam "name: beam4pm-enterprise-court-${{ github.sha }}" ;
+    gha:withParam "path: \"_build/enterprise/celonis_level_court.json\"" ;
+    gha:withParam "if-no-files-found: error" ;
+    gha:withParam "retention-days: 30" .
 
 # --- Workflow 2: GHCR container build + publish ------------------------------
 # Mirrors ggen-ecosystem's container workflow structure (checkout-with-

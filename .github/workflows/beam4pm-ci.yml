@@ -87,6 +87,9 @@ jobs:
       - name: mix deps.get
         shell: bash
         run: |
+          # Never restore deps/ from cache: a stale cached dependency
+          # checkout can diverge from the exact mix.lock and transitive constraints.
+          rm -rf deps
           mix deps.get
 
       - name: Static overclaiming-phrase lint (GATE LINT-TRUTH)
@@ -104,7 +107,7 @@ jobs:
         run: |
           bash scripts/gate_engine_dispatch_check.sh
 
-      - name: mix test
+      - name: mix test + enterprise process-intelligence court
         shell: bash
         run: |
           mkdir -p "$HOME/wasm4pm/data"
@@ -114,8 +117,10 @@ jobs:
           gzip -dc "$RUNNER_TEMP/InternationalDeclarations.xes.gz" > "$HOME/wasm4pm/data/InternationalDeclarations.xes"
           sha256sum "$RUNNER_TEMP/InternationalDeclarations.xes.gz" "$HOME/wasm4pm/data/InternationalDeclarations.xes"
           bash scripts/rust4pm_wasm_build.sh
+          bash scripts/ferroplan_wasm_build.sh
           source scripts/env/rust4pm_reactor_env.sh
           mix test --max-requires 1
+          mix run --no-start qualification/enterprise/celonis_level_court.exs
 
       - name: gleam test (gleam/ projection)
         shell: bash
@@ -159,4 +164,13 @@ jobs:
           if-no-files-found: error
           path: "**/beam4pm_ash*.ex*"
           name: beam4pm-ash-determinism-${{ github.sha }}
+        
+      - name: Preserve enterprise process-intelligence court receipt
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          retention-days: 30
+          if-no-files-found: error
+          path: "_build/enterprise/celonis_level_court.json"
+          name: beam4pm-enterprise-court-${{ github.sha }}
         
