@@ -1,0 +1,9 @@
+defmodule BeamPM.FerroplanBridge.FederationWaveTest do
+  use ExUnit.Case, async: true
+  alias BeamPM.FerroplanBridge.{QueryContract, SourceBinding, VkgConsumer}
+  test "VKG request carries exact source provenance" do
+    assert {:ok,b}=SourceBinding.bind("src","db://x","sha256:d")
+    q=%QueryContract{id:"q",requires:[],returns:["id"]}; assert QueryContract.supports?(q,["id"])
+    assert VkgConsumer.request(b,q,"s").digest=="sha256:d"
+  end
+end

@@ -1,0 +1,5 @@
+defmodule BeamPM.FerroplanBridge.EvidenceAdmission do
+  def admit(%{subject_sha: s, evidence_id: e, source: src, standing: :admitted} = x, s)
+      when is_binary(e) and e != "" and is_binary(src) and src != "", do: {:ok, x}
+  def admit(_, _), do: {:error, :unbound_evidence}
+end

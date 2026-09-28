@@ -1,0 +1,8 @@
+defmodule BeamPM.FerroplanBridge.EvolutionWaveTest do
+  use ExUnit.Case, async: true
+  alias BeamPM.FerroplanBridge.{PromotionPolicy, SurvivalEvidence}
+  test "promotion requires paired improvement and survival" do
+    assert :promote=PromotionPolicy.decide(%{control:1.0,candidate:2.0,same_subject:true},0.5,SurvivalEvidence.score([:survived,:survived]))
+    assert :refuse=PromotionPolicy.decide(%{control:1.0,candidate:2.0,same_subject:false},0.5,1.0)
+  end
+end

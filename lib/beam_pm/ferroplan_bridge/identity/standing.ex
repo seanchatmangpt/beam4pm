@@ -1,0 +1,7 @@
+defmodule BeamPM.FerroplanBridge.Standing do
+  @states [:unknown, :candidate, :admitted, :refused]
+  def states, do: @states
+  def may_execute?(:admitted), do: true
+  def may_execute?(_), do: false
+  def transition(from, to) when from in @states and to in @states, do: {:ok, {from, to}}
+end
