@@ -8,6 +8,8 @@ on:
       - mix.exs
       - src/beam4pm.app.src
       - .github/workflows/release-v26.9.28.yml
+  schedule:
+    - cron: "23 * * * *"
   workflow_dispatch:
 
 permissions:
