@@ -44,9 +44,20 @@ jobs:
       - name: Cache rebar3 dependencies
         uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
         with:
-          restore-keys: "${{ runner.os }}-rebar3-28.3.1-3.24.0-\n${{ runner.os }}-rebar3-28.3.1-\n${{ runner.os }}-rebar3-\n"
-          key: ${{ runner.os }}-rebar3-28.3.1-3.24.0-${{ hashFiles('rebar.lock') }}
-          path: "_build\n~/.cache/rebar3\n"
+          # v26.9.26 fix: `_build` removed from cached paths and the cache key
+          # family renamed. `_build` is shared mix/rebar state, but this cache
+          # is keyed on rebar.lock -- a 4-byte stub that never changes -- so a
+          # `_build` tree from the ash 3.33.1 lock era (saved 2026-09-12) was
+          # restored on every run. Mix's dep converger (Mix.Dep.Loader
+          # .validate_app) reads the dep version from the compiled
+          # _build/*/lib/ash/ebin/ash.app ("3.33.1") and REFUSES the locked
+          # ash 3.33.9 resolution against ash_ai's ">= 3.33.6"
+          # (Dependencies have diverged / divergedreq) before deps.get can
+          # reconcile. The old key family prefix is deliberately abandoned so
+          # the poisoned entry can never be matched by restore-keys.
+          restore-keys: "${{ runner.os }}-rebar3-cache2-28.3.1-3.24.0-\n"
+          key: ${{ runner.os }}-rebar3-cache2-28.3.1-3.24.0-${{ hashFiles('rebar.lock') }}
+          path: "~/.cache/rebar3\n"
         
       - name: rebar3 eunit
         shell: bash
