@@ -118,11 +118,12 @@ defmodule BeamPM.DeviationAdmission do
     end
   end
 
-  # Opt-in independent admission (`graphlaw_gate: true`): the individual is
+  # Independent admission, default-on in `:required` admission mode
+  # (BeamPM.GraphlawAdmission.mode/0; `graphlaw_gate: false` opts out): the individual is
   # checked against shapes/deviation.shacl.ttl by the graphlaw court BEFORE any
   # byte is written. Fails closed: refusal or an unreachable court both refuse.
   defp graphlaw_gate(block, opts) do
-    if Keyword.get(opts, :graphlaw_gate, false) do
+    if Keyword.get(opts, :graphlaw_gate, BeamPM.GraphlawAdmission.mode() == :required) do
       prefixes =
         "@prefix bap: <https://ggen.dev/projects/beam4pm#> .\n" <>
           "@prefix bpm: <https://ggen.dev/ontology/beam-process-model#> .\n" <>

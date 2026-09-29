@@ -33,3 +33,16 @@ if Mix.env() in [:dev, :test] do
 else
   config :opentelemetry, traces_exporter: :none
 end
+
+# Admission mode (BeamPM.GraphlawAdmission.mode/0): :required (default,
+# fail-closed) makes ReplanRouter :session_replan, ReplanRouter.load_policy/4
+# and DeviationAdmission.admit_deviation/5 run the graphlaw court unless the
+# call opts out (`admission: :skip`, `graphlaw_court: false`,
+# `graphlaw_gate: false`); :skip disables the default gating for the whole VM.
+config :beam4pm, :admission_mode, :required
+
+# Per-env overrides (config/test.exs keeps the pre-existing ungated suites
+# running; the admission-default tests switch the mode explicitly).
+if File.exists?(Path.expand("#{config_env()}.exs", __DIR__)) do
+  import_config "#{config_env()}.exs"
+end

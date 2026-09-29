@@ -32,7 +32,8 @@
 
 -export([start/0,
          law/2,
-         policy/2]).
+         policy/2,
+         capabilities/0]).
 
 -type result() :: {ok, map()} | {error, term()}.
 
@@ -49,3 +50,8 @@ law(Data, Steps) ->
 -spec policy(map(), term()) -> result().
 policy(Problem, Policy) ->
     'Elixir.BeamPM.Graphlaw':policy(Problem, Policy).
+
+%% `{"op":"capabilities"}` -- ABI handshake: `{:ok, %{"abi_version" => n, ...}}`. BeamPM.GraphlawAdmission.ready?/0 requires `abi_version` to equal its documented constant before the court is considered ready.
+-spec capabilities() -> result().
+capabilities() ->
+    'Elixir.BeamPM.Graphlaw':capabilities().

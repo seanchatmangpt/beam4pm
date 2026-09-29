@@ -48,3 +48,7 @@ pub fn law(data: Dynamic, steps: Dynamic) -> Result(Dynamic, Dynamic)
 /// `{"op":"policy","problem":p,"policy":q}` -- independent FOND strong-cyclic policy admission: `problem` is the decoded ferroplan problem map, `policy` a ferroplan `UniversalPlan` map or its `policy` entry list. `{:ok, admitted}` or `{:error, {:refused, refusal}}`.
 @external(erlang, "Elixir.BeamPM.Graphlaw", "policy")
 pub fn policy(problem: Dynamic, policy: Dynamic) -> Result(Dynamic, Dynamic)
+
+/// `{"op":"capabilities"}` -- ABI handshake: `{:ok, %{"abi_version" => n, ...}}`. BeamPM.GraphlawAdmission.ready?/0 requires `abi_version` to equal its documented constant before the court is considered ready.
+@external(erlang, "Elixir.BeamPM.Graphlaw", "capabilities")
+pub fn capabilities() -> Result(Dynamic, Dynamic)

@@ -45,7 +45,8 @@ defmodule BeamPM.Graphlaw do
   and `BeamPM.Evidence.ReceiptBridge` (`lib/beam4pm_evidence.ex`):
 
   `law/3`,
-  `policy/3`
+  `policy/3`,
+  `capabilities/1`
 
   ## Process model and crash semantics
 
@@ -181,6 +182,22 @@ defmodule BeamPM.Graphlaw do
       |> call(timeout(opts, @cheap_timeout))
 
     emit_engine_op_telemetry(:policy, result, invocation_id, start_native)
+    result
+  end
+
+  @doc ~S"""
+  `{"op":"capabilities"}` -- ABI handshake: `{:ok, %{"abi_version" => n, ...}}`. BeamPM.GraphlawAdmission.ready?/0 requires `abi_version` to equal its documented constant before the court is considered ready.
+  """
+  @spec capabilities(keyword()) :: result()
+  def capabilities(opts \\ []) do
+    invocation_id = System.unique_integer([:positive, :monotonic])
+    start_native = System.monotonic_time()
+
+    result =
+      %{"op" => "capabilities"}
+      |> call(timeout(opts, @cheap_timeout))
+
+    emit_engine_op_telemetry(:capabilities, result, invocation_id, start_native)
     result
   end
 
