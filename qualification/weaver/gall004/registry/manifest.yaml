@@ -1,3 +1,6 @@
 name: beam4pm-gall004-qualification
 description: Qualification-only semantic telemetry registry for the GALL-004 Weaver court.
 schema_url: https://beam4pm.dev/schemas/gall004/0.1.0
+dependencies:
+  - schema_url: https://opentelemetry.io/schemas/1.40.0
+    registry_path: https://github.com/open-telemetry/semantic-conventions@v1.40.0[model]
