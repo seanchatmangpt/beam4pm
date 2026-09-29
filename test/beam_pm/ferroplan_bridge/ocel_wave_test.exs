@@ -3,8 +3,8 @@ defmodule BeamPM.FerroplanBridge.OcelWaveTest do
   use ExUnit.Case, async: true
   alias BeamPM.FerroplanBridge.{OcelEvent, Receipt, Replay}
   test "receipt replay is deterministic and object order canonical" do
-    r=%Receipt{subject:"s",work_order:"w",provider:"p",epoch:1}
+    r=%Receipt{subject: "s",work_order: "w",provider: "p",epoch: 1}
     assert Replay.deterministic?(r,r)
-    assert OcelEvent.new("e","recover","t",["b","a"]).objects==["a","b"]
+    assert OcelEvent.new("e","recover","t",["b","a"]).objects == ["a","b"]
   end
 end

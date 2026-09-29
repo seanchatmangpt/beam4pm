@@ -1608,7 +1608,7 @@ defmodule BeamPM.ActionModel do
     end)
   end
 
-  defp unsupported(op, ctx \\ nil),
+  defp unsupported(op, ctx),
     do: {:error, {:unsupported, if(ctx, do: "#{op} in #{ctx}", else: op)}}
 
   defp effects([]), do: {:ok, {[], []}}

@@ -37,6 +37,8 @@ defmodule BeamPM.LegacyEquivalence do
   @spec compare(String.t(), [event()], [event()], keyword()) ::
           {:ok, report()} | {:error, term()}
   def compare(subject, legacy_events, candidate_events, opts \\ [])
+
+  def compare(subject, legacy_events, candidate_events, opts)
       when is_binary(subject) and is_list(legacy_events) and is_list(candidate_events) do
     fields = opts |> Keyword.get(:fields, @default_fields) |> Enum.map(&to_string/1)
     order_sensitive = Keyword.get(opts, :order_sensitive, true)

@@ -8,7 +8,7 @@ defmodule Beam4pm.MixProject do
       # together via `mix beam4pm.version_bump <version>`
       # (lib/mix/tasks/beam4pm.version_bump.ex), never by hand-editing one
       # without the other.
-      version: "26.9.28",
+      version: "26.9.29",
       elixir: "~> 1.17",
       start_permanent: Mix.env() == :prod,
       deps: deps(),
@@ -95,7 +95,7 @@ defmodule Beam4pm.MixProject do
       # existing Ex4pm.Engine.Beam4pm HTTP route-table client.
       {:ash_a2a,
        git: "https://github.com/seanchatmangpt/ash_a2a.git",
-       ref: "e481bf9bab36183c888883603fe5ee3ca89ab6e6",
+       ref: "80b77e225814d7a10a724e5ac01318600c71ee4c",
        override: true},
       {:a2a, "~> 0.1"},
       {:req, "~> 0.5"}

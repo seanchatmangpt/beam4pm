@@ -3,7 +3,7 @@ defmodule BeamPM.FerroplanBridge.EvidenceWaveTest do
   use ExUnit.Case, async: true
   alias BeamPM.FerroplanBridge.{EvidenceAdmission, OsirisBoundary, PolyEvidence}
   test "evidence is subject-bound and companion has no construction authority" do
-    e=%{subject_sha:"s",evidence_id:"e",source:"x",standing: :admitted}
+    e=%{subject_sha: "s",evidence_id: "e",source: "x",standing: :admitted}
     assert {:ok,^e}=EvidenceAdmission.admit(e,"s")
     assert PolyEvidence.combine("s",[e]).subject=="s"
     refute OsirisBoundary.role().construct

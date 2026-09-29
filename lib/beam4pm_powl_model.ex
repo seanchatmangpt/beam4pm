@@ -150,32 +150,6 @@ defmodule BeamPM.Powl.Model do
     end
   end
 
-  # Engine serde (process_tree_struct.rs) nests the leaf struct beside the
-  # freq: %{"Leaf" => %{"leaf" => %{"activity_label" => ...}, "freq" => ...}}
-  # (mirrors node_to_engine/1). The bare leaf struct
-  # (%{"activity_label" => ...}) is accepted for symmetry with the Rust
-  # Leaf variant shape.
-  defp leaf_struct_view(%{} = wrapper) do
-    case fetch(wrapper, "leaf") do
-      {:ok, inner} when is_map(inner) -> {:ok, inner}
-      _ -> {:ok, wrapper}
-    end
-  end
-
-  defp leaf_struct_view(other), do: {:error, {:invalid_leaf_node, other}}
-
-  # Freq sits beside the leaf struct in the engine serde
-  # (%{"Leaf" => %{"leaf" => ..., "freq" => ...}}); some emitted shapes
-  # carry it one level up beside the "Leaf" variant tag instead. Accept
-  # both, wrapper level first.
-  defp freq_view(wrapper, node_m) do
-    case fetch(wrapper, "freq") do
-      {:ok, _} = found -> found
-      :error -> fetch(node_m, "freq")
-      {:error, _} = err -> err
-    end
-  end
-
   defp parse_node(%{} = m) when is_map_key(m, "Operator") or is_map_key(m, :Operator) do
     with {:ok, op} <- fetch_map(m, "Operator"),
          {:ok, type} <- parse_operator_type(fetch(op, "operator_type")),
@@ -221,6 +195,33 @@ defmodule BeamPM.Powl.Model do
 
   defp parse_node(%{} = m), do: {:error, {:unknown_node_variant, Map.keys(m)}}
   defp parse_node(other), do: {:error, {:invalid_node, other}}
+
+  # Engine serde (process_tree_struct.rs) nests the leaf struct beside the
+  # freq: %{"Leaf" => %{"leaf" => %{"activity_label" => ...}, "freq" => ...}}
+  # (mirrors node_to_engine/1). The bare leaf struct
+  # (%{"activity_label" => ...}) is accepted for symmetry with the Rust
+  # Leaf variant shape.
+  defp leaf_struct_view(%{} = wrapper) do
+    case fetch(wrapper, "leaf") do
+      {:ok, inner} when is_map(inner) -> {:ok, inner}
+      _ -> {:ok, wrapper}
+    end
+  end
+
+  defp leaf_struct_view(other), do: {:error, {:invalid_leaf_node, other}}
+
+  # Freq sits beside the leaf struct in the engine serde
+  # (%{"Leaf" => %{"leaf" => ..., "freq" => ...}}); some emitted shapes
+  # carry it one level up beside the "Leaf" variant tag instead. Accept
+  # both, wrapper level first.
+  defp freq_view(wrapper, node_m) do
+    case fetch(wrapper, "freq") do
+      {:ok, _} = found -> found
+      :error -> fetch(node_m, "freq")
+      {:error, _} = err -> err
+    end
+  end
+
 
   defp parse_leaf_label({:ok, %{} = m}) when is_map_key(m, "Activity") or is_map_key(m, :Activity) do
     case fetch(m, "Activity") do

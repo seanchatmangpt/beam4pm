@@ -5,7 +5,7 @@ defmodule BeamPM.FerroplanBridge.TrimtabWaveTest do
   test "model is context-only and budgeted" do
     assert ModelRole.allowed?(:context)
     refute ModelRole.allowed?(:construct)
-    assert [%{id:"a"}]=ContextWindow.fit([%{id:"a",tokens:2,salience:9},%{id:"b",tokens:3,salience:1}],2)
-    assert Steering.delta("a","b","h").authority==:none
+    assert [%{id: "a"}]=ContextWindow.fit([%{id: "a",tokens: 2,salience: 9},%{id: "b",tokens: 3,salience: 1}],2)
+    assert Steering.delta("a","b","h").authority == :none
   end
 end

@@ -301,11 +301,11 @@ defmodule BeamPM.EchoBridge do
     end
   end
 
-  defp port_command(root) do
 
+  defp port_command(_root) do
     System.find_executable("python3") || "python3"
-
   end
+
 
   defp close_port(%{port: nil} = state), do: %{state | port: nil, buffer: <<>>}
 
@@ -333,8 +333,7 @@ defmodule BeamPM.EchoBridge do
 
   defp dispatch_reply(line, state) do
     case :queue.out(state.waiters) do
-      {head, rest} ->
-        {:value, {from, timer_ref}} = head
+      { {:value, {from, timer_ref}}, rest} ->
         Process.cancel_timer(timer_ref)
 
         reply =

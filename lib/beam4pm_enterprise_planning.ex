@@ -71,7 +71,9 @@ defmodule BeamPM.EnterprisePlanning do
   approximated by another class.
   """
   @spec solve(request(), keyword()) :: Ferroplan.result() | {:error, term()}
-  def solve(%{class: class, domain: domain, problem: problem} = req, opts \\ [])
+  def solve(req, opts \\ [])
+
+  def solve(%{class: class, domain: domain, problem: problem} = req, opts)
       when is_atom(class) and is_binary(domain) and is_binary(problem) do
     case class do
       class when class in [:classical, :numeric, :preferences, :temporal] ->

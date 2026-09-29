@@ -1,4 +1,4 @@
-name: v26.9.28 Hex release
+name: v26.9.29 Hex release
 
 on:
   push:
@@ -7,7 +7,7 @@ on:
     paths:
       - mix.exs
       - src/beam4pm.app.src
-      - .github/workflows/release-v26.9.28.yml
+      - .github/workflows/release-v26.9.29.yml
   schedule:
     - cron: "23 * * * *"
   workflow_dispatch:
@@ -28,7 +28,7 @@ jobs:
         with:
           elixir-version: "1.19.5"
           otp-version: "28.3.1"
-      - name: Require upstream v26.9.28 registry subjects
+      - name: Require upstream v26.9.29 registry subjects
         run: |
           set -euo pipefail
           require_version() {
@@ -38,18 +38,18 @@ jobs:
               jq -e --arg v "$version" '.releases[]? | select(.version == $v)' >/dev/null ||
               { echo "BLOCKED(dependency_registry:${pkg}@${version})" >&2; exit 3; }
           }
-          require_version ggen_igniter 26.9.28
-          require_version ash_a2a 26.9.28
+          require_version ggen_igniter 26.9.29
+          require_version ash_a2a 26.9.29
       - name: Build exact package subject
         run: |
           set -euo pipefail
-          grep -Eq 'version:[[:space:]]*"26\.9\.28"' mix.exs
-          grep -Eq '\{vsn,[[:space:]]*"26\.9\.28"\}' src/beam4pm.app.src
+          grep -Eq 'version:[[:space:]]*"26\.9\.29"' mix.exs
+          grep -Eq '\{vsn,[[:space:]]*"26\.9\.29"\}' src/beam4pm.app.src
           mix local.hex --force
           mix local.rebar --force
           mix deps.update ggen_igniter ash_a2a
-          grep -F '"ggen_igniter": {:hex, :ggen_igniter, "26.9.28"' mix.lock
-          grep -F '"ash_a2a": {:hex, :ash_a2a, "26.9.28"' mix.lock
+          grep -F '"ggen_igniter": {:hex, :ggen_igniter, "26.9.29"' mix.lock
+          grep -F '"ash_a2a": {:hex, :ash_a2a, "26.9.29"' mix.lock
           mix format --check-formatted
           mix compile --warnings-as-errors
           mix test
@@ -57,7 +57,7 @@ jobs:
       - name: Observe Hex registry
         id: registry
         run: |
-          if curl -fsS "https://hex.pm/api/packages/beam4pm" | jq -e '.releases[]? | select(.version == "26.9.28")' >/dev/null; then
+          if curl -fsS "https://hex.pm/api/packages/beam4pm" | jq -e '.releases[]? | select(.version == "26.9.29")' >/dev/null; then
             echo "exists=true" >> "$GITHUB_OUTPUT"
           else
             echo "exists=false" >> "$GITHUB_OUTPUT"
@@ -75,17 +75,17 @@ jobs:
         run: |
           set -euo pipefail
           for i in 1 2 3 4 5 6 7 8 9 10; do
-            if curl -fsS "https://hex.pm/api/packages/beam4pm" | jq -e '.releases[]? | select(.version == "26.9.28")' >/dev/null; then break; fi
+            if curl -fsS "https://hex.pm/api/packages/beam4pm" | jq -e '.releases[]? | select(.version == "26.9.29")' >/dev/null; then break; fi
             test "$i" != 10
             sleep 3
           done
           subject="$(git rev-parse HEAD)"
-          if gh api "repos/$GITHUB_REPOSITORY/git/ref/tags/v26.9.28" >/dev/null 2>&1; then
-            test "$(gh api "repos/$GITHUB_REPOSITORY/git/ref/tags/v26.9.28" --jq .object.sha)" = "$subject"
+          if gh api "repos/$GITHUB_REPOSITORY/git/ref/tags/v26.9.29" >/dev/null 2>&1; then
+            test "$(gh api "repos/$GITHUB_REPOSITORY/git/ref/tags/v26.9.29" --jq .object.sha)" = "$subject"
           else
-            gh api --method POST "repos/$GITHUB_REPOSITORY/git/refs" -f ref="refs/tags/v26.9.28" -f sha="$subject" >/dev/null
+            gh api --method POST "repos/$GITHUB_REPOSITORY/git/refs" -f ref="refs/tags/v26.9.29" -f sha="$subject" >/dev/null
           fi
-          if ! gh release view v26.9.28 >/dev/null 2>&1; then
-            gh release create v26.9.28 --target "$subject" --title "v26.9.28" --generate-notes
+          if ! gh release view v26.9.29 >/dev/null 2>&1; then
+            gh release create v26.9.29 --target "$subject" --title "v26.9.29" --generate-notes
           fi
-          test "$(gh api "repos/$GITHUB_REPOSITORY/git/ref/tags/v26.9.28" --jq .object.sha)" = "$subject"
+          test "$(gh api "repos/$GITHUB_REPOSITORY/git/ref/tags/v26.9.29" --jq .object.sha)" = "$subject"
