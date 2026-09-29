@@ -1,0 +1,21 @@
+@prefix eco: <https://ggen.dev/ecosystem#> .
+@prefix b4: <https://beam4pm.dev/ontology/castle-intake#> .
+
+b4:intake
+    a eco:CapabilityProjection ;
+    eco:projectionSource "seanchatmangpt/ggen-ecosystem@50fdfa20c84205a80c6eb94e916cffbedc4b816e" ;
+    eco:ownerRepository "seanchatmangpt/beam4pm" ;
+    eco:ownerCapability "PROCESS_COORDINATION" ;
+    eco:projectionStanding "CANDIDATE" ;
+    eco:authorityCeiling "CONSTRUCT" ;
+    eco:forbidsCapability "RUNTIME_EXISTENCE", "CONSEQUENTIAL_ADMISSIBILITY" .
+
+b4:ex4pm
+    a eco:ProjectedCapability ;
+    eco:sourceRepository "seanchatmangpt/ex4pm" ;
+    eco:sourceSha "d1ff769ca7763168ff154b1def980dfaec0cb15c" ;
+    eco:capability "PROCESS_EXECUTION_KERNEL" ;
+    eco:disposition "WRAP" ;
+    eco:runtimePlacement "PROCESS_KERNEL_BEHIND_RUNTIME_OWNER" ;
+    eco:projectionTarget b4:intake ;
+    eco:falsifier "EX4PM becomes a second process-runtime crown or gains a direct protected consequence path." .
