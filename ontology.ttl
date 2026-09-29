@@ -30466,3 +30466,47 @@ bap:hand_authored_test_action_model a bpm:HandAuthoredSource ;
     bpm:admittedAtCommit "26a84ea" ;
     bpm:admissionExpires "2026-12-31" ;
     bpm:sunsetPlan "Sunsets with the router facade's admission." .
+
+bap:hand_authored_test_ocel_session_facts a bpm:HandAuthoredSource ;
+    bpm:sourcePath "test/beam4pm_ocel_session_facts_test.exs" ;
+    bpm:authorshipKind bpm:AuthorshipKind_hand_authored_qualification ;
+    bpm:authorizingPrincipal "Sean Chatman (repo owner) via Claude Code session (OCEL session-facts admission lane)" ;
+    bpm:admissionReason "Chicago qualification of the OCEL session-facts ingestion over three real checked-in fixtures (beam4pm ingest JSON, xaas prefixed NDJSON, zcode plain-key jsonocel): exact-state assertions on the real parsed facts, no mocks. Not a bpm:RecordType projection; the fixture bindings are hand-written." ;
+    bpm:acceptanceCommand "mix test test/beam4pm_ocel_session_facts_test.exs" ;
+    bpm:contentSha256 "5a8305d9a50e5cdb3747613b9fe9b81bc90bc6b49159a2cb88b762ee0a3f71e5" ;
+    bpm:admittedAtCommit "76f814ed" ;
+    bpm:admissionExpires "2026-12-31" ;
+    bpm:sunsetPlan "Admit the fixture logs as ontology facts and render this qualification from a template; then delete this admission." .
+
+bap:hand_authored_fixture_ocel_session_beam4pm_ingest a bpm:HandAuthoredSource ;
+    bpm:sourcePath "test/fixtures/ocel_session_facts/beam4pm_ingest.json" ;
+    bpm:authorshipKind bpm:AuthorshipKind_hand_authored_qualification ;
+    bpm:authorizingPrincipal "Sean Chatman (repo owner) via Claude Code session (OCEL session-facts admission lane)" ;
+    bpm:admissionReason "Hand-authored OCEL fixture (beam4pm ingest JSON shape) consumed by test/beam4pm_ocel_session_facts_test.exs; sha-bound qualification input, same class as the admitted graphlaw_parity corpus fixtures." ;
+    bpm:acceptanceCommand "mix test test/beam4pm_ocel_session_facts_test.exs" ;
+    bpm:contentSha256 "027447e7c9baec2d83b0b813697107a14065e050632adab6d226d034e21ff2f1" ;
+    bpm:admittedAtCommit "896fbaff" ;
+    bpm:admissionExpires "2026-12-31" ;
+    bpm:sunsetPlan "Sunsets with the session-facts qualification's admission (fixtures become ontology facts)." .
+
+bap:hand_authored_fixture_ocel_session_xaas_prefixed a bpm:HandAuthoredSource ;
+    bpm:sourcePath "test/fixtures/ocel_session_facts/xaas_ocel_prefixed.ndjson" ;
+    bpm:authorshipKind bpm:AuthorshipKind_hand_authored_qualification ;
+    bpm:authorizingPrincipal "Sean Chatman (repo owner) via Claude Code session (OCEL session-facts admission lane)" ;
+    bpm:admissionReason "Hand-authored OCEL fixture (xaas prefixed-key NDJSON shape) consumed by test/beam4pm_ocel_session_facts_test.exs; sha-bound qualification input, same class as the admitted graphlaw_parity corpus fixtures." ;
+    bpm:acceptanceCommand "mix test test/beam4pm_ocel_session_facts_test.exs" ;
+    bpm:contentSha256 "6151fc2d5ec2a1406c9c65855336e2774865e7cb382f43d019624e049e988e7a" ;
+    bpm:admittedAtCommit "896fbaff" ;
+    bpm:admissionExpires "2026-12-31" ;
+    bpm:sunsetPlan "Sunsets with the session-facts qualification's admission (fixtures become ontology facts)." .
+
+bap:hand_authored_fixture_ocel_session_zcode_plain a bpm:HandAuthoredSource ;
+    bpm:sourcePath "test/fixtures/ocel_session_facts/zcode_plain_key.jsonocel" ;
+    bpm:authorshipKind bpm:AuthorshipKind_hand_authored_qualification ;
+    bpm:authorizingPrincipal "Sean Chatman (repo owner) via Claude Code session (OCEL session-facts admission lane)" ;
+    bpm:admissionReason "Hand-authored OCEL fixture (zcode plain-key jsonocel shape) consumed by test/beam4pm_ocel_session_facts_test.exs; sha-bound qualification input, same class as the admitted graphlaw_parity corpus fixtures." ;
+    bpm:acceptanceCommand "mix test test/beam4pm_ocel_session_facts_test.exs" ;
+    bpm:contentSha256 "ff86706ee1992e76a700d0f157eff88fbf9af48a9a5a7397a80c45d7bdad6681" ;
+    bpm:admittedAtCommit "896fbaff" ;
+    bpm:admissionExpires "2026-12-31" ;
+    bpm:sunsetPlan "Sunsets with the session-facts qualification's admission (fixtures become ontology facts)." .

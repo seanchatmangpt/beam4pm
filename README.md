@@ -38,11 +38,13 @@ for direct intervention.
 
 A wide, still-growing slice, manufactured via the `beam4pm-process-model-pack`
 (`vendor/ggen-marketplace/packs/beam4pm-process-model-pack`) from the
-`bpm:RecordType` individuals currently admitted in `ontology.ttl` (951 as of
-2026-09-23; the pre-WS2 slice was 290).
+`bpm:RecordType` individuals currently admitted in `ontology.ttl` (981 as of
+2026-09-27; the pre-WS2 slice was 290, and the merge-day 2026-09-27 merge
+added 30 `bpm:aloop_*_rt` ALOOP episode-loop record types).
 
-- 951 record types admitted in the graph (647 `Ash.Resource` modules — see
-  below). The original process-mining/runtime core is still there —
+- 981 record types admitted in the graph (still 647 `Ash.Resource` modules —
+  see below; the 30 ALOOP episode-loop record types added on merge-day
+  2026-09-27 have no Ash projection yet). The original process-mining/runtime core is still there —
   event/log identity (`ocel_event`, `ocel_object`, `ocel_relationship`,
   `event_log`, `event_type`, `object_type`, `ocel_attribute`,
   `object_attribute_change`, `log_trace`), process models (`dfg_edge`,
@@ -58,7 +60,7 @@ A wide, still-growing slice, manufactured via the `beam4pm-process-model-pack`
   such as `billing_account`, `entitlement_grant`, `tenant_resource_quota`,
   `renewal_risk`, `vulnerability_scan_evidence`). See
   `docs/reference/beam4pm_types_reference.md` (itself ggen-generated) for the
-  full, exact field-level reference of all 951.
+  full, exact field-level reference of all 981.
 - Four projections: Erlang, Elixir, Gleam (`gleam/`, with two
   disclosed type divergences noted in its generated comments), and Ash
   (`lib/beam4pm_ash/resources/` — 647 `Ash.Resource` modules, one file per
@@ -150,13 +152,12 @@ attempting the igniter sync, rather than failing deep into the build.
 ## Regenerating
 
 ```sh
-rm -f ggen.lock
 ggen sync run
 ```
 
-(`ggen.lock` is intentionally absent at this pin — 3265c20f removed the stale
-lock for re-lock at the raised vendor pin, so `rm -f` is required in a fresh
-clone of this HEAD.) This re-runs the ggen pipeline against `ontology.ttl` and the vendored pack,
+(`ggen.lock` is committed at this pin — tracked again by the merge-day
+2026-09-27 merge, dba2e267 — so a plain `ggen sync run` uses it; removing it
+is only warranted after raising the vendor pin.) This re-runs the ggen pipeline against `ontology.ttl` and the vendored pack,
 regenerating every manufactured file (see `scripts/gate_m2_check.sh` for the
 authoritative marker-driven definition and current count) from scratch.
 
