@@ -10837,6 +10837,51 @@ bap:hand_authored_test_patch_field a bpm:HandAuthoredSource ;
     bpm:admissionExpires "2026-12-31" ;
     bpm:sunsetPlan "Sunsets alongside lib/ggen_igniter/patch_field.ex's own admission." .
 
+bap:hand_authored_test_aloop_conformance a bpm:HandAuthoredSource ;
+    bpm:sourcePath "test/beam4pm_aloop_conformance_test.exs" ;
+    bpm:authorshipKind bpm:AuthorshipKind_hand_authored_qualification ;
+    bpm:authorizingPrincipal "Sean Chatman (repo owner) via git history (26a84eac)" ;
+    bpm:admissionReason "Chicago qualification of ALOOP vocabulary conformance over the generated BeamPM.Types.Aloop* types: all 28 event classes admitted by BeamPM.Types.Manifest, constructed through generated constructors, round-tripped through BeamPM.Codec.to_map/from_map, with contract qualifier fields and mirrored directly-follows edges. Anti-vacuity falsifiers: out-of-vocabulary activity deploy_to_prod is not admitted; AloopActuate without episode_id is refused. Hand-written cross-type conformance court; no template renders it; real generated modules, no doubles." ;
+    bpm:acceptanceCommand "mix test test/beam4pm_aloop_conformance_test.exs" ;
+    bpm:contentSha256 "463fa9e73d411d71dd860fae098661cf175e277a8b84aea29584a1279b833688" ;
+    bpm:admittedAtCommit "26a84eac" ;
+    bpm:admissionExpires "2026-12-31" ;
+    bpm:sunsetPlan "Migrate the ALOOP edge model into ontology facts and render this court from a pack template; then delete this admission." .
+
+bap:hand_authored_test_ferroplan_bridge a bpm:HandAuthoredSource ;
+    bpm:sourcePath "test/beam4pm_ferroplan_bridge_test.exs" ;
+    bpm:authorshipKind bpm:AuthorshipKind_hand_authored_qualification ;
+    bpm:authorizingPrincipal "Sean Chatman (repo owner) via git history (896fbaff)" ;
+    bpm:admissionReason "Chicago qualification of BeamPM.Ferroplan.Bridge: byte-identical doctrine_to_problem/2 and sight_from_events/1, replan_signal/3, and the guarded engine-op path asserted against the real generated facade and an in-test real StubEngine module implementing the post-re-render contract. No doubles that verify interactions; assertions on real returned strings and typed tuples." ;
+    bpm:acceptanceCommand "mix test test/beam4pm_ferroplan_bridge_test.exs" ;
+    bpm:contentSha256 "807445c7d6257406c13f42877199210008672742544c073fd82498e87cf779b8" ;
+    bpm:admittedAtCommit "896fbaff" ;
+    bpm:admissionExpires "2026-12-31" ;
+    bpm:sunsetPlan "Render from ontology facts once the Bridge semantics are admitted as bpm: facts; then delete this admission." .
+
+bap:hand_authored_test_powl_edges a bpm:HandAuthoredSource ;
+    bpm:sourcePath "test/beam4pm_powl_edges_test.exs" ;
+    bpm:authorshipKind bpm:AuthorshipKind_hand_authored_qualification ;
+    bpm:authorizingPrincipal "Sean Chatman (repo owner) via git history (26a84eac)" ;
+    bpm:admissionReason "Chicago qualification of the POWL data edge: BeamPM.Powl.Model serde, HddlPowl and FondPowl converters, the OCEL accumulator, and an anti-vacuity mutated-model roundtrip; a second module exercises the accumulator against the real rust4pm wasm engine and skips visibly when the artifact is absent." ;
+    bpm:acceptanceCommand "mix test test/beam4pm_powl_edges_test.exs" ;
+    bpm:acceptancePrerequisite "native/rust4pm-wasm/target/wasm32-wasip1/release/rust4pm_wasm.wasm" ;
+    bpm:contentSha256 "a51f72ca5c1719846841f1047885e2e67178fbea5a813bc731b1b5d02f7e15aa" ;
+    bpm:admittedAtCommit "26a84eac" ;
+    bpm:admissionExpires "2026-12-31" ;
+    bpm:sunsetPlan "Render from ontology facts once POWL serde and converters are admitted as bpm: facts; then delete this admission." .
+
+bap:hand_authored_test_replan_chain a bpm:HandAuthoredSource ;
+    bpm:sourcePath "test/beam4pm_replan_chain_test.exs" ;
+    bpm:authorshipKind bpm:AuthorshipKind_hand_authored_qualification ;
+    bpm:authorizingPrincipal "Sean Chatman (repo owner) via git history (896fbaff)" ;
+    bpm:admissionReason "Chicago qualification of BeamPM.ReplanTrigger, BeamPM.StalePlanGate and BeamPM.PlanJournal over the generated Ash ETS resources with real Ash reads and no doubles: pinned trigger_hash and individual-name formulas recomputed with :crypto sha256, conforms:true no-op, no_deviation refusal, stale-plan gate outcomes, lineage/memory hash determinism and empty-identity refusals." ;
+    bpm:acceptanceCommand "mix test test/beam4pm_replan_chain_test.exs" ;
+    bpm:contentSha256 "dc1099db10baf77611ef02d6ceade33a661160946f8973c060adef2237b03b09" ;
+    bpm:admittedAtCommit "896fbaff" ;
+    bpm:admissionExpires "2026-12-31" ;
+    bpm:sunsetPlan "Render from ontology facts once the replan-chain producers are admitted; then delete this admission." .
+
 # -- manufacturing_input (1; not debt) --------------------------------------
 
 bap:hand_authored_src_beam4pm_app_src a bpm:HandAuthoredSource ;
