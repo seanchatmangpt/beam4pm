@@ -1,0 +1,94 @@
+# ===========================================================================
+# ONTOLOGY-DELTA-proposal.ttl -- PROPOSAL, NOT ADMITTED FACTS
+# Ticket: docs/jira/v26.9.17/b4p-f5-07 (scope item 2 as DRAFT)
+# Agent: A10 wave, branch chore/engineop-ferroplan-prep, 2026-09-18
+#
+# ADMISSION PATH: these revised bpm:opDoc literals are to be applied to the
+# bap:engine_ferroplan block of ontology.ttl THROUGH the pack/ggen sync
+# (marketplace.toml -> pack -> ontology.ttl -> templates -> gates; the
+# facades are consequences, never hand-edited). This file is a draft of the
+# delta, NOT a second hand-edited copy of the projection: nothing here may
+# be pasted into ontology.ttl or into any rendered facade by hand.
+#
+# EVIDENCE BASE (OP-DIFF.md has the full table): engine reconciled surface
+# ~/ferroplan main 6cacbda crates/ferroplan-wasm/src/wasi_abi.rs;
+# git diff 6cacbda d00dcf8 -- crates/ferroplan-wasm/ is EMPTY (fix branch
+# d00dcf8 changes planning_runtime.rs behavior only, zero ABI delta);
+# current pin 4b8ff2e (beam4pm native/ferroplan) differs from 6cacbda in the
+# wasi_abi.rs error mapping ONLY (FP_HDDL_ROOT_MISMATCH added;
+# FP_HDDL_TIMEOUT -> FP_TIMEOUT; FP_HDDL_WORKER_PANIC -> FP_WORKER_PANICKED).
+# PlannerLimits (incl. max_wall_ms, default 10_000, 0 = unbounded) is
+# field-identical at BOTH pins, so the limits-doc changes below close an
+# admitted-set gap rather than chasing drift.
+#
+# DELTA SHAPE: 0 new ops, 0 removed ops, 0 arg-shape changes, 0 new
+# individuals. 4 revised bpm:opDoc literals on EXISTING individuals:
+#   bap:engine_ferroplan_op_session_think  (ontology.ttl:11491 -- FP_LIMIT_*
+#       envelope caps evals 1..=1_000_000 / mem_mb 1..=2_048,
+#       wasi_abi.rs:100-101,687-698)
+#   bap:engine_ferroplan_op_htn_plan       (ontology.ttl:11661 -- max_wall_ms
+#       inert for Hierarchical: hierarchical_plan never calls
+#       check_wall_deadline; planning_runtime.rs:824,954,988,1040,1051 are
+#       the FOND fixpoints only)
+#   bap:engine_ferroplan_op_fond_policy    (ontology.ttl:11674 -- max_wall_ms
+#       honored per fixpoint round; overrun -> FP_ADAPTER envelope via
+#       solve_universal, wasi_abi.rs:446-449)
+#   bap:engine_ferroplan_op_hddl_solve     (ontology.ttl:11687 -- adapter
+#       forces limits.max_wall_ms = 0 (wasi1: no OS threads, thread::spawn
+#       would trap), so the BEAM caller's heavy-class wasmex call timeout
+#       (bpm:heavyTimeoutMs 120000, ontology.ttl:11389) is the effective
+#       wall bound = the never-block-past-budget property; FP_HDDL_ROOT_
+#       MISMATCH added; FP_TIMEOUT/FP_WORKER_PANICKED unreachable through
+#       this ABI; stage list corrected)
+# ===========================================================================
+
+@prefix bpm: <https://ggen.dev/ontology/beam-process-model#> .
+@prefix bap: <https://ggen.dev/projects/beam4pm#> .
+
+# -- REVISED: bap:engine_ferroplan_op_session_think (replaces the bpm:opDoc
+#    literal at ontology.ttl:11492-11494; arg rows unchanged) ---------------
+
+bap:engine_ferroplan_op_session_think a bpm:EngineOp ;
+    bpm:opEngine bap:engine_ferroplan ; bpm:opName "session_think" ; bpm:opOrder 12 ;
+    bpm:opDoc "`{\"op\":\"session_think\",\"handle\":h,\"evals\":n,\"mem_mb\":n}` -- a bounded replan (bounded by evals/memory, not wall clock); stashes the resulting plan (if solved) and resets the cursor. Returns the Solution map. The wasm adapter additionally enforces the production budget caps `evals` in 1..=1000000 and `mem_mb` in 1..=2048: out-of-range values are refused as `{:ok, %{\"error\" => %{\"code\" => \"FP_LIMIT_SEARCH\" | \"FP_LIMIT_MEMORY\", ...}}}` -- never a bare `{:error, _}` (bpm:ErrorCollapse_single_key_inspect)." ;
+    bpm:opTimeoutClass bpm:TimeoutClass_heavy ; bpm:opKind bpm:EngineOpKind_wire .
+
+# -- REVISED: bap:engine_ferroplan_op_htn_plan (replaces the bpm:opDoc
+#    literal at ontology.ttl:11662-11664; arg rows unchanged) ---------------
+
+bap:engine_ferroplan_op_htn_plan a bpm:EngineOp ;
+    bpm:opEngine bap:engine_ferroplan ; bpm:opName "htn_plan" ; bpm:opOrder 31 ;
+    bpm:opDoc "`{\"op\":\"htn_plan\",\"domain\":d,\"problem\":p[,\"limits\":l]}` -- `domain`/`problem` are UTF-8 JSON text of a `PlanningProblem` object (same wire shape as `plan`/`plan_production`'s `domain`/`problem` fields, but decoded into the typed universal-planning model rather than PDDL text). `domain` is accepted but ignored when non-empty and not equal to `problem` -- ferroplan's universal-planning model has one combined problem document, so `problem` alone is parsed as the full `PlanningProblem`. Forces `PlanningType::Hierarchical`. Returns `UniversalPlan` JSON. `limits` is an optional partial `PlannerLimits` map (`max_depth` 128 / `max_states` 100000 / `max_iterations` 512 / `max_wall_ms` 10000; any/all omitted fields fall back to their own serde defaults). `max_wall_ms` is INERT for this op -- the hierarchical solver never consults the wall deadline (only `fond_policy`'s fixpoint loops do) -- so this op's real wall bound is the caller's own budget: the BEAM side never blocks past its `bpm:opTimeoutClass`-derived wasmex call timeout (heavy = 120000ms)." ;
+    bpm:opTimeoutClass bpm:TimeoutClass_heavy ; bpm:opKind bpm:EngineOpKind_wire .
+
+# -- REVISED: bap:engine_ferroplan_op_fond_policy (replaces the bpm:opDoc
+#    literal at ontology.ttl:11675-11677; arg rows unchanged) ---------------
+
+bap:engine_ferroplan_op_fond_policy a bpm:EngineOp ;
+    bpm:opEngine bap:engine_ferroplan ; bpm:opName "fond_policy" ; bpm:opOrder 32 ;
+    bpm:opDoc "`{\"op\":\"fond_policy\",\"domain\":d,\"problem\":p[,\"limits\":l]}` -- same wire shape as `htn_plan`; forces `PlanningType::Fond` (strong-plan fixpoint first, strong-cyclic fallback; bounded by each loop's own `states + 1` round failsafe). Returns `UniversalPlan` JSON. `limits` is an optional partial `PlannerLimits` map (`max_depth` 128 / `max_states` 100000 / `max_iterations` 512 / `max_wall_ms` 10000; any/all omitted fields fall back to their own serde defaults; `max_iterations` is advisory here). WATCHDOG SEMANTICS: `max_wall_ms` is honored cooperatively -- `check_wall_deadline` runs once per fixpoint round, default 10000ms when `limits` is omitted, `0` means unbounded -- so an overrun surfaces as `{:ok, %{\"error\" => %{\"code\" => \"FP_ADAPTER\", ...}}}` (the universal-solver envelope), never a bare `{:error, _}` and never `FP_TIMEOUT` through this op (bpm:ErrorCollapse_single_key_inspect). The per-round check is not preemptive: the BEAM caller's never-block-past-budget property is carried by the caller's own wasmex call timeout (heavy = 120000ms), which bounds the gap between rounds." ;
+    bpm:opTimeoutClass bpm:TimeoutClass_heavy ; bpm:opKind bpm:EngineOpKind_wire .
+
+# -- REVISED: bap:engine_ferroplan_op_hddl_solve (replaces the bpm:opDoc
+#    literal at ontology.ttl:11688-11690; arg rows unchanged) ---------------
+
+bap:engine_ferroplan_op_hddl_solve a bpm:EngineOp ;
+    bpm:opEngine bap:engine_ferroplan ; bpm:opName "hddl_solve" ; bpm:opOrder 33 ;
+    bpm:opDoc "`{\"op\":\"hddl_solve\",\"domain\":d,\"problem\":p[,\"limits\":l]}` -- `domain`/`problem` are HDDL source text (not classical PDDL or JSON): parsed, grounded, and translated by `ferroplan_hddl`'s parse -> ground -> translate pipeline into the same FOND solver used by `fond_policy` (`ferroplan::solve_hddl`). `limits` (optional; a partial `PlannerLimits` map -- `max_depth` 128 / `max_states` 100000 / `max_iterations` 512 / `max_wall_ms` 10000, any/all omitted) is merged into the request, EXCEPT `max_wall_ms`: the wasm adapter forces it to `0` (the synchronous, non-threaded solve path) because wasm32-wasip1 has no OS threads and the threaded watchdog would trap the whole guest instance -- so a caller-supplied wall budget is not honored through this ABI and the effective wall bound is the BEAM caller's own wasmex call timeout (heavy = 120000ms): the host never blocks past its budget even though the engine will not self-interrupt. A domain-level failure (parse/ground/translate/root-mismatch/model) surfaces as `{:ok, %{\"error\" => %{\"code\" => ..., \"message\" => ..., \"retryable\" => bool}}}` with a code naming the failing stage (`FP_PARSE`, `FP_HDDL_GROUND`, `FP_HDDL_TRANSLATE`, `FP_HDDL_ROOT_MISMATCH` -- an Eve handoff conflicting with the problem's own `:htn` root network, new at ferroplan 6cacbda -- or `FP_MODEL`) -- never a bare `{:error, _}` -- matching every other solve op's error-in-envelope convention (bpm:ErrorCollapse_single_key_inspect). The crate's `FP_TIMEOUT`/`FP_WORKER_PANICKED` codes (renamed from `FP_HDDL_TIMEOUT`/`FP_HDDL_WORKER_PANIC` at 6cacbda) are unreachable through this ABI while the threaded watchdog is disabled. Returns `UniversalPlan` JSON on success." ;
+    bpm:opTimeoutClass bpm:TimeoutClass_heavy ; bpm:opKind bpm:EngineOpKind_wire .
+
+# ===========================================================================
+# NOT changed (evidence-closed in OP-DIFF.md):
+#   - all 33 op individuals, orders, arg rows, types, encodings, defaults
+#   - engine-level facts: wasmExportPrefix fp, handleNoun session,
+#     cheapTimeoutMs 30000, heavyTimeoutMs 120000, errorCollapse
+#     bpm:ErrorCollapse_single_key_inspect, dispatchSource
+#     native/ferroplan/crates/ferroplan-wasm/src/wasi_abi.rs
+#   - the FP_ADAPTER / FP_UNKNOWN_OP / FP_LIMIT_INPUT / FP_INVALID_REQUEST /
+#     FP_INVARIANT / FP_VALIDATION engine-level envelope vocabulary
+#     (generic; enumerated per-op only where this file revises an opDoc,
+#     matching the existing idiom of enumerating codes in hddl_solve alone)
+# Remaining after admission (ticket items 3-4, BLOCKED on b4p-f5-05 pin
+# bump): ggen re-render of the three facades + parity tests extended to the
+# revised docs' assertions (error-in-envelope per op).
+# ===========================================================================
