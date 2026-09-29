@@ -1,0 +1,15 @@
+{
+ "wo": "BEAM4PM-26922-02",
+ "base_sha": "574368706e6afd804c7a13771bed3cf03da33ce0",
+ "repo": "/Users/sac/beam4pm (chore/consume-ash-a2a-26.9.21)",
+ "branch_head": "24fd490c (M2 re-proven through 3265c20f tree state)",
+ "command": "bash scripts/gate_m2_check.sh",
+ "exit": 0,
+ "output_excerpt": [
+  "GATE M2: PASS -- 1413 manufactured files byte-identical across delete+regenerate (real gate, full 4-pass run: locate, sha-before, compose+delete+regenerate both engines, sha-after)",
+  "the shared-base determinism regression (1324-line reprojection hash diff on every PR since 2026-09-20T17:07Z \u2014 CI artifact beam4pm-ash-determinism-*, run 35674708128) is resolved on the merged tree: origin/main's 6e70f627 'fix(court): admit full deterministic regeneration runtime' lands the fix; post-merge regeneration is byte-identical",
+  "first two M2 attempts failed environmentally, diagnosed and fixed, not papered over: (1) /opt/homebrew/bin ggen 26.8.18 was REMOVED from the machine mid-session by another actor (boot crash {init,start_it}) -> rerun with asdf-first PATH + homebrew bash 5 (script needs bash>=4 for mapfile); (2) a 2400s timeout killed pass 3 leaving 643 un-restored deletions -> narrow repair git restore -- docs/reference/types (worktree-only restore from index, no ref movement), then the clean full run above",
+  "CI's own determinism step on PR #86 will re-prove on the exact head"
+ ],
+ "standing": "ALIVE"
+}

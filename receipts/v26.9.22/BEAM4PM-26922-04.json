@@ -1,0 +1,16 @@
+{
+ "wo": "BEAM4PM-26922-04",
+ "base_sha": "574368706e6afd804c7a13771bed3cf03da33ce0",
+ "repo": "/Users/sac/beam4pm (chore/consume-ash-a2a-26.9.21)",
+ "branch_head": "3265c20f (merge fd883988 + raise 3265c20f)",
+ "command": "vendor raise to 477edab2a; submodule contains-check; submodule clean-check; bash scripts/gate_authorship_check.sh",
+ "exit": 0,
+ "output_excerpt": [
+  "precondition resolvable: f2ae5382e + 6750aa19f exist upstream on ggen-marketplace origin/pack/wave-26918-integration (tip 477edab2a, the ggen-max wave INTEGRATION WAVE-RECEIPT ALIVE); 7abe147e (the prior vendored pin with the ceiling 33->35 fix) is an ancestor \u2014 the raise keeps it",
+  "vendor/ggen-marketplace raised 7abe147e -> 477edab2a (detached, clean); merge of chore/ggen-consumption-max landed fd883988 (mcp-contracts ontology instance block preserved; igniter_sync.sh kept origin/main's canonical format-normalization; hand-authored-source ledger left at the pre-parity 35/35 truth \u2014 the 36/50 parity rows land with WO5's parity/integration which owns those files)",
+  "gate: merge-base --is-ancestor f2ae5382e HEAD => 0; submodule status --porcelain empty; gate_authorship_check.sh => PASS 49 admitted (41 debt), 0 findings",
+  "ggen.lock removed for intentional re-lock (stale hash vs raised pack: FM-PACK-008; the error text's own remediation). LOCAL re-lock impossible: /opt/homebrew/bin/ggen 26.8.18 was removed mid-session by another actor; the only local build (ggen repo debug 26.8.24) enforces the newer FM-WRITE-005 write-guard whose force knob the pinned generation's config schema does not carry (experiment committed-then-reverted). CI's identity-verified ggen re-locks on the next deterministic run",
+  "dirty-submodule cleared: the vendored submodule is checked out clean at the raised pin"
+ ],
+ "standing": "ALIVE"
+}
