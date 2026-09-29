@@ -85,7 +85,9 @@ defmodule Beam4pm.MixProject do
       # touch beam4pm's internal mechanisms: EngineOp dispatch, OCEL/OTel
       # evidence chain, BeamPM.ReceiptChain). Additive alongside ex4pm's
       # existing Ex4pm.Engine.Beam4pm HTTP route-table client.
-      {:ash_a2a, "~> 26.9"},
+      # CONSUMPTION-GATE OVERRIDE (uncommitted): gate b4p-f5-10 against the fixed
+      # ash_a2a main (baa135d) before the next hex release picks it up.
+      {:ash_a2a, path: "/Users/sac/ash_a2a", override: true},
       {:a2a, "~> 0.1"},
       {:req, "~> 0.5"}
     ]
