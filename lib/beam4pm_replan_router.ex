@@ -1178,7 +1178,9 @@ defmodule BeamPM.GraphlawAdmission do
   @doc """
   Replays a candidate plan over `state` (a list of `{subject, predicate, object}`
   IRI triples). `actions` is a list of `%{name:, pre:, add:, del:}` (triple
-  lists); `goal` is a triple list. Returns `{:ok, %{states, receipts, nquads}}`
+  lists, optional `:pre_not` = triples that must be ABSENT before the action);
+  `goal` is a triple list; `opts[:goal_not]` = triples that must be ABSENT at
+  the end. Returns `{:ok, %{states, receipts, nquads}}`
   (one receipt per action) or `{:error, {:refused, refusal}}` at the first
   unmet precondition / goal.
   """
@@ -1193,12 +1195,19 @@ defmodule BeamPM.GraphlawAdmission do
             "add" => nt(Map.get(a, :add, [])),
             "del" => nt(Map.get(a, :del, []))
           }
+          |> put_absent("pre_not", Map.get(a, :pre_not, []))
         end),
       "goal" => nt(goal)
     }
+    |> put_absent("goal_not", Keyword.get(opts, :goal_not, []))
 
     law(state, [%{"step" => "plan", "plan" => plan}], opts)
   end
+
+  # Negative literals ride the wire only when present, so specs without them
+  # send byte-identical requests.
+  defp put_absent(map, _key, []), do: map
+  defp put_absent(map, key, triples), do: Map.put(map, key, nt(triples))
 
   @doc """
   SHACL admission gate: `{:ok, resp}` iff the `state` triples conform to the
@@ -1352,12 +1361,22 @@ defmodule BeamPM.PlanAdmission do
       lists, or a 1-arity function of the step's `"args"` returning that map
     * `goal`  -- triples that must hold after the last action
 
+  Optional negative literals: a model entry may carry `:pre_not` (triples that
+  must be absent before the action) and the spec may carry `:goal_not`
+  (triples that must be absent at the end). The graphlaw refusal, including
+  `details.violated_absent`, is returned unchanged.
+
   Fails closed: an action missing from `model` is a refusal, not a skip.
   """
 
   alias BeamPM.GraphlawAdmission
 
-  @type admission :: %{state: [tuple()], model: %{String.t() => map()}, goal: [tuple()]}
+  @type admission :: %{
+          required(:state) => [tuple()],
+          required(:model) => %{String.t() => map()},
+          required(:goal) => [tuple()],
+          optional(:goal_not) => [tuple()]
+        }
 
   @doc "Steps of a ferroplan plan: a bare step list or a `UniversalPlan` map."
   @spec steps(term()) :: [map()]
@@ -1367,7 +1386,9 @@ defmodule BeamPM.PlanAdmission do
 
   @doc "Replays `plan` under `admission`; `{:ok, %{receipts:, states:}}` or `{:error, {:refused, refusal}}`."
   @spec admit(term(), admission(), keyword()) :: {:ok, map()} | {:error, term()}
-  def admit(plan, %{state: state, model: model, goal: goal}, opts \\ []) do
+  def admit(plan, %{state: state, model: model, goal: goal} = spec, opts \\ []) do
+    opts = Keyword.put_new(opts, :goal_not, Map.get(spec, :goal_not, []))
+
     with {:ok, actions} <- actions(steps(plan), model),
          {:ok, resp} <- GraphlawAdmission.admit_plan(state, actions, goal, opts) do
       {:ok, %{receipts: resp["receipts"], states: resp["states"]}}
@@ -1386,7 +1407,8 @@ defmodule BeamPM.PlanAdmission do
             name: name,
             pre: Map.get(m, :pre, []),
             add: Map.get(m, :add, []),
-            del: Map.get(m, :del, [])
+            del: Map.get(m, :del, []),
+            pre_not: Map.get(m, :pre_not, [])
           }
 
           {:cont, {:ok, [action | acc]}}
@@ -1410,11 +1432,12 @@ defmodule BeamPM.ActionModel do
   from PDDL text, so callers do not hand-write action models.
 
   Supported subset: STRIPS + typing. Action `:parameters`, `:precondition`
-  as a conjunction of positive atoms, `:effect` as a conjunction of atoms
-  (add) and `(not atom)` (delete); problem `:init` atoms and `:goal`
-  conjunction of positive atoms. Anything else is refused with
-  `{:error, {:unsupported, what}}` -- never guessed: `or`, `not` in a
-  precondition or goal, `forall`, `exists`, `imply`, `when`, `=`, numeric
+  as a conjunction of atoms and `(not atom)` literals (the latter become
+  `pre_not`), `:effect` as a conjunction of atoms (add) and `(not atom)`
+  (delete); problem `:init` atoms and `:goal` conjunction of atoms and
+  `(not atom)` literals (the latter become `goal_not`). Anything else is
+  refused with `{:error, {:unsupported, what}}` -- never guessed: `or`, `not`
+  applied to a non-atom (`(not (and ..))`, `(not (not ..))`), `forall`, `exists`, `imply`, `when`, `=`, numeric
   fluents (`:functions`, `increase`, `decrease`, `assign`, comparisons),
   durative actions, `either` types, predicates of arity above 2.
 
@@ -1433,7 +1456,12 @@ defmodule BeamPM.ActionModel do
   """
 
   @type triple :: {String.t(), String.t(), String.t()}
-  @type spec :: %{state: [triple()], model: %{String.t() => (list() -> map())}, goal: [triple()]}
+  @type spec :: %{
+          required(:state) => [triple()],
+          required(:model) => %{String.t() => (list() -> map())},
+          required(:goal) => [triple()],
+          optional(:goal_not) => [triple()]
+        }
 
   @unsupported_ops ~w(or not forall exists imply when = increase decrease assign
                       scale-up scale-down > < >= <= + - * / at-start at-end over)
@@ -1444,13 +1472,14 @@ defmodule BeamPM.ActionModel do
          {:ok, prob} <- parse(problem_pddl),
          {:ok, actions} <- actions(dom),
          {:ok, init} <- init(prob),
-         {:ok, goal} <- goal(prob) do
+         {:ok, {goal, goal_not}} <- goal(prob) do
       model =
-        Map.new(actions, fn {name, params, pre, add, del} ->
-          {name, build(params, pre, add, del)}
+        Map.new(actions, fn {name, params, {pre, pre_not}, add, del} ->
+          {name, build(params, pre, pre_not, add, del)}
         end)
 
-      {:ok, %{state: Enum.map(init, &triple/1), model: model, goal: Enum.map(goal, &triple/1)}}
+      spec = %{state: Enum.map(init, &triple/1), model: model, goal: Enum.map(goal, &triple/1)}
+      {:ok, if(goal_not == [], do: spec, else: Map.put(spec, :goal_not, Enum.map(goal_not, &triple/1)))}
     end
   end
 
@@ -1523,7 +1552,7 @@ defmodule BeamPM.ActionModel do
     params = params(Map.get(kv, ":parameters", []))
 
     with :ok <- check_types(Map.get(kv, ":parameters", [])),
-         {:ok, pre} <- conj(Map.get(kv, ":precondition", []), :precondition),
+         {:ok, pre} <- conj(Map.get(kv, ":precondition", []), :precondition) |> guard_all(),
          {:ok, eff} <- effects(Map.get(kv, ":effect", [])) do
       {add, del} = eff
       {:ok, {String.upcase(name), params, pre, add, del}}
@@ -1545,25 +1574,34 @@ defmodule BeamPM.ActionModel do
     list |> Enum.filter(&(is_binary(&1) and String.starts_with?(&1, "?")))
   end
 
-  # Conjunction of positive atoms. `[]` / `["and"]` = empty.
-  defp conj([], _), do: {:ok, []}
-  defp conj(["and" | items], ctx), do: atoms(items, ctx)
-  defp conj([op | _], _) when op in @unsupported_ops, do: unsupported(op)
-  defp conj([pred | args], _) when is_binary(pred), do: {:ok, [[pred | args]]}
+  # Conjunction of atoms and `(not atom)` literals -> {:ok, {positive, negative}}.
+  # `[]` / `["and"]` = empty.
+  defp conj([], _), do: {:ok, {[], []}}
+  defp conj(["and" | items], ctx), do: literals(items, ctx)
+  defp conj(["not" | _] = neg, ctx), do: literals([neg], ctx)
+  defp conj([op | _], ctx) when op in @unsupported_ops, do: unsupported(op, ctx)
+  defp conj([pred | args], _) when is_binary(pred), do: {:ok, {[[pred | args]], []}}
 
-  defp atoms(items, ctx) do
-    Enum.reduce_while(items, {:ok, []}, fn
+  defp literals(items, ctx) do
+    Enum.reduce_while(items, {:ok, {[], []}}, fn
+      ["not", [inner_op | _] = atom], {:ok, {pos, neg}}
+      when is_binary(inner_op) and inner_op not in @unsupported_ops and inner_op != "and" ->
+        {:cont, {:ok, {pos, neg ++ [atom]}}}
+
+      ["not" | _], _ ->
+        {:halt, unsupported("not", ctx)}
+
       [op | _], _ when op in @unsupported_ops ->
         {:halt, unsupported(op, ctx)}
 
-      ["and" | _] = nested, {:ok, acc} ->
+      ["and" | _] = nested, {:ok, {pos, neg}} ->
         case conj(nested, ctx) do
-          {:ok, xs} -> {:cont, {:ok, acc ++ xs}}
+          {:ok, {p2, n2}} -> {:cont, {:ok, {pos ++ p2, neg ++ n2}}}
           err -> {:halt, err}
         end
 
-      [_ | _] = atom, {:ok, acc} ->
-        {:cont, {:ok, acc ++ [atom]}}
+      [_ | _] = atom, {:ok, {pos, neg}} ->
+        {:cont, {:ok, {pos ++ [atom], neg}}}
 
       _, _ ->
         {:halt, {:error, {:parse, "bad atom in #{ctx}"}}}
@@ -1650,8 +1688,8 @@ defmodule BeamPM.ActionModel do
     end
   end
 
-  defp guard_all({:ok, atoms}) do
-    Enum.find_value(atoms, {:ok, atoms}, fn a ->
+  defp guard_all({:ok, {pos, neg}}) do
+    Enum.find_value(pos ++ neg, {:ok, {pos, neg}}, fn a ->
       case guard_atom(a) do
         :ok -> nil
         err -> err
@@ -1669,7 +1707,7 @@ defmodule BeamPM.ActionModel do
 
   defp res(o), do: "urn:r:#{String.upcase(o)}"
 
-  defp build(params, pre, add, del) do
+  defp build(params, pre, pre_not, add, del) do
     fn args ->
       if length(args) != length(params) do
         %{pre: [{"urn:r:_arity_mismatch", "urn:p:bad", "urn:p:true"}], add: [], del: []}
@@ -1680,7 +1718,8 @@ defmodule BeamPM.ActionModel do
           Enum.map(atoms, fn [p | as] -> triple([p | Enum.map(as, &Map.get(bind, &1, &1))]) end)
         end
 
-        %{pre: inst.(pre), add: inst.(add), del: inst.(del)}
+        base = %{pre: inst.(pre), add: inst.(add), del: inst.(del)}
+        if pre_not == [], do: base, else: Map.put(base, :pre_not, inst.(pre_not))
       end
     end
   end

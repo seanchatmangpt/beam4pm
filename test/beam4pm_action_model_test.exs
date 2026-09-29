@@ -97,7 +97,9 @@ defmodule BeamPM.ActionModelTest do
 
   for {label, frag, what} <- [
         {"disjunction", "(or (at ?a) (at ?b))", "or"},
-        {"negative precondition", "(not (at ?b))", "not in precondition"},
+        {"negated conjunction", "(not (and (at ?b) (link ?a ?b)))", "not in precondition"},
+        {"double negation", "(not (not (at ?b)))", "not in precondition"},
+        {"negated disjunction", "(not (or (at ?a) (at ?b)))", "not in precondition"},
         {"quantifier", "(forall (?x - room) (at ?x))", "forall"},
         {"conditional effect", nil, "when"}
       ] do
@@ -117,5 +119,81 @@ defmodule BeamPM.ActionModelTest do
   test "numeric fluents are refused" do
     dom = String.replace(@domain, "(:predicates", "(:functions (cost))\n (:predicates")
     assert {:error, {:unsupported, _}} = ActionModel.from_pddl(dom, @problem)
+  end
+
+  # ---- negative preconditions / goals --------------------------------------
+
+  @neg_domain """
+  (define (domain rooms-neg)
+    (:requirements :strips :typing :negative-preconditions)
+    (:types room)
+    (:predicates (at ?r - room) (link ?a - room ?b - room) (blocked ?r - room))
+    (:action go
+      :parameters (?a - room ?b - room)
+      :precondition (and (at ?a) (link ?a ?b) (not (blocked ?b)))
+      :effect (and (at ?b) (not (at ?a)))))
+  """
+
+  @neg_problem """
+  (define (problem three-room-neg)
+    (:domain rooms-neg)
+    (:objects a b c - room)
+    (:init (at a) (link a b) (link b c))
+    (:goal (at c)))
+  """
+
+  defp neg_session do
+    {:ok, %{"handle" => h}} = Ferroplan.session_new(@neg_domain, @neg_problem)
+    on_exit(fn -> Ferroplan.session_free(h) end)
+    h
+  end
+
+  test "negative precondition maps to pre_not with the positive atom scheme" do
+    assert {:ok, %{model: %{"GO" => f}} = spec} = ActionModel.from_pddl(@neg_domain, @neg_problem)
+    assert %{pre_not: [{"urn:r:B", "urn:p:blocked", "urn:p:true"}]} = f.(["A", "B"])
+    refute Map.has_key?(spec, :goal_not)
+  end
+
+  test "negative goal maps to goal_not" do
+    prob = String.replace(@neg_problem, "(:goal (at c))", "(:goal (and (at c) (not (blocked a))))")
+    assert {:ok, %{goal_not: [{"urn:r:A", "urn:p:blocked", "urn:p:true"}]}} =
+             ActionModel.from_pddl(@neg_domain, prob)
+  end
+
+  test "negation of a non-atom in a goal stays unsupported" do
+    prob = String.replace(@neg_problem, "(:goal (at c))", "(:goal (not (and (at c) (at b))))")
+    assert {:error, {:unsupported, w}} = ActionModel.from_pddl(@neg_domain, prob)
+    assert w =~ "not in goal"
+  end
+
+  test "ferroplan route is admitted when nothing is blocked" do
+    {:ok, spec} = ActionModel.from_pddl(@neg_domain, @neg_problem)
+    assert {:ok, res} = ReplanRouter.execute(:session_replan, neg_session(), %{admission: spec})
+    assert res.outcome == :solved
+    assert length(res.admission.receipts) == res.plan["length"]
+  end
+
+  test "world with the route's room blocked is refused with violated_absent" do
+    {:ok, spec} = ActionModel.from_pddl(@neg_domain, @neg_problem)
+    blocked = {"urn:r:B", "urn:p:blocked", "urn:p:true"}
+    world = %{spec | state: [blocked | spec.state]}
+
+    assert {:error, {:plan_refused, r}} =
+             ReplanRouter.execute(:session_replan, neg_session(), %{admission: world})
+
+    assert r["message"] =~ "plan refused at step 0"
+    assert r["details"]["violated_absent"] |> Enum.join() =~ "urn:r:B"
+    assert r["details"]["violated_absent"] |> Enum.join() =~ "urn:p:blocked"
+  end
+
+  test "negative goal violated at the end is refused" do
+    {:ok, spec} = ActionModel.from_pddl(@neg_domain, @neg_problem)
+    # the plan ends at C; forbid `at c` at the end so the plan cannot satisfy it
+    spec = Map.put(spec, :goal_not, [{"urn:r:C", "urn:p:at", "urn:p:true"}])
+
+    assert {:error, {:plan_refused, r}} =
+             ReplanRouter.execute(:session_replan, neg_session(), %{admission: spec})
+
+    assert r["details"]["violated_absent"] |> Enum.join() =~ "urn:r:C"
   end
 end
