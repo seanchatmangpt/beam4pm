@@ -8,7 +8,7 @@ defmodule BeamPM.SA2A.ReplanConsumer do
   alias AshA2A.Replan.{Loop, ProviderRegistry}
   alias BeamPM.FerroplanBridge.ExecutionEnvelope
 
-  @spec run(ExecutionEnvelope.t() | map(), [map()], atom(), non_neg_integer(), map(), keyword()) ::
+  @spec run(struct(), [map()], atom(), non_neg_integer(), map(), keyword()) ::
           {:ok, map()} | {:error, term()}
   def run(%ExecutionEnvelope{} = envelope, edges, decision, handle, inputs, opts \\ []) do
     formalism = Keyword.get(opts, :formalism, formalism(decision, envelope.capability))
