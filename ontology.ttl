@@ -30795,3 +30795,143 @@ bpm:parity_step_6 a bpm:ParityExpectedStep ; bpm:stepOrder 6 ; bpm:stepAction "e
 bpm:parity_step_7 a bpm:ParityExpectedStep ; bpm:stepOrder 7 ; bpm:stepAction "construct-contingent-policy" .
 bpm:parity_step_8 a bpm:ParityExpectedStep ; bpm:stepOrder 8 ; bpm:stepAction "select-lawful-option" .
 
+
+# ===========================================================================
+# bpm:CliBridge family (pack 0.1.20, v26.9.18 wave G1) -- UNCOMMITTED scratch
+# admission in wt-g1-proof: the autofde standalone CLI's command surface as
+# facts, plus one bpm:CliWitness per command recorded from the real runs
+# captured under tmp_probe/witness/ (envelope sha256s below are sha256 of the
+# exact captured stdout bytes; commands and exits in the wave receipt).
+# ===========================================================================
+
+bap:cli_bridge_autofde a bpm:CliBridge ;
+    bpm:bridgeName "autofde" ;
+    bpm:bridgeModule "DfcmCli" ;
+    bpm:bridgeDoc "The standalone AutoFDE-Lab Typer CLI: priv/bin/autofde is a trampoline exec'ing ~/autofde-lab/.venv/bin/python3 -m autofde_lab.cli (worktree fallback per its resolution order)." ;
+    bpm:bridgeOrdinal 1 ;
+    bpm:cliOtpApp "beam4pm" ;
+    bpm:cliAppEnvKey "autofde_cli_path" ;
+    bpm:cliEnvVar "AUTOFDE_CLI_PATH" ;
+    bpm:cliDefaultPath "priv/bin/autofde" ;
+    bpm:cliDefaultTimeoutMs 30000 .
+
+# -- ocel_validate/1: renders the hand-written BeamPM.Dfcm.ocel_validate/1 ---
+bap:cli_ocel_validate a bpm:CliCommand ;
+    bpm:cmdBridge bap:cli_bridge_autofde ;
+    bpm:cmdName "ocel_validate" ;
+    bpm:cmdGroup "ocel" ;
+    bpm:cmdSubcommand "validate" ;
+    bpm:cmdOrder 1 ;
+    bpm:cmdDoc """  Validate an OCEL 2.0 JSON log against Küsters & van der Aalst (2025) OCPQ
+  Definition 2 via the standalone AutoFDE Typer CLI (`autofde ocel validate`).
+
+  Returns `{:ok, verdict}` with the lab's verdict as atom-keyed fields: `:ok`
+  (false means the validator REFUSED the log -- still a successful validator
+  run, not a wrapper failure), `:canonical_digest`, `:event_count`,
+  `:object_count` and `:validation_error` (nil when ok). Returns
+  `{:error, term}` only when the CLI itself fails (missing binary, timeout,
+  missing file, unparsable log).
+
+  ## Example
+
+      path = Path.join(System.tmp_dir!(), "ocel-validate-doctest-p2.json")
+      File.write!(path, ~s({"objectTypes":[{"name":"Order","attributes":[]}],"eventTypes":[{"name":"Create Order","attributes":[]}],"events":[{"id":"e1","type":"Create Order","time":"2026-01-01T00:00:00Z","attributes":[],"relationships":[{"objectId":"o1","qualifier":"order"}]}],"objects":[{"id":"o1","type":"Order","attributes":[],"relationships":[]}]}))
+      {:ok, verdict} = BeamPM.DfcmCli.ocel_validate(path)
+      File.rm(path)
+      {verdict[:ok], verdict[:event_count], verdict[:object_count], verdict[:validation_error]}
+      #=> {true, 1, 1, nil}
+  """ ;
+    bpm:cmdResultShape bpm:CliResultShape_ok_map ;
+    bpm:cmdResultFields "ok canonical_digest event_count object_count validation_error" ;
+    bpm:cmdRefusalReason "ocel_validate_error" ;
+    bpm:cmdTimeoutMs 30000 .
+
+bap:cli_ocel_validate_log a bpm:CliArg ;
+    bpm:argCommand bap:cli_ocel_validate ;
+    bpm:cliArgName "log_path" ;
+    bpm:cliArgOrder 1 ;
+    bpm:cliArgType bpm:CliArgType_string ;
+    bpm:cliArgMode bpm:CliArgMode_positional ;
+    bpm:cliArgEncoding bpm:CliArgEncoding_raw .
+
+bap:cliwitness_ocel_validate a bpm:CliWitness ;
+    bpm:witnessCommand bap:cli_ocel_validate ;
+    bpm:witnessedAt "2026-09-18" ;
+    bpm:witnessCommandline "priv/bin/autofde ocel validate tmp_probe/witness/ocel-validate-witness.json" ;
+    bpm:witnessExitCode 0 ;
+    bpm:witnessEnvelopeSha256 "1d17c323c1ae0372e78b5ae3cda49b906236b83371a7c66d454f309824d98fd7" .
+
+# -- sa2a_replay/2: renders the hand-written BeamPM.Dfcm.sa2a_replay/1 --------
+# (two required binary positionals instead of the hand-written single map --
+#  same guards, same refusal relay; documented delta)
+bap:cli_sa2a_replay a bpm:CliCommand ;
+    bpm:cmdBridge bap:cli_bridge_autofde ;
+    bpm:cmdName "sa2a_replay" ;
+    bpm:cmdGroup "sa2a" ;
+    bpm:cmdSubcommand "replay" ;
+    bpm:cmdOrder 2 ;
+    bpm:cmdDoc """  Verify a cryptographic receipt or plan hash via the standalone AutoFDE
+  `sa2a replay` command (§38, §64) -- pure passthrough.
+
+  The lab canonicalizes `manifest_json` (`sort_keys`, compact separators,
+  ASCII) and `sha256`-hexdigests it, then compares against `expected_hash`,
+  emitting `{"ok": bool, "computed_hash": ..., "expected_hash": ...,
+  "verified": bool}` and exiting 1 on mismatch. This wrapper relays that
+  verdict untouched: `{:ok, resp}` when the lab verifies, `{:error,
+  {:replay_refused, resp}}` when the lab itself refuses (its own emitted
+  verdict carried through), and every other runner failure verbatim. It
+  computes nothing and decides nothing: no hash is fabricated here, no
+  receipt is written, no authority is exercised.
+  """ ;
+    bpm:cmdResultShape bpm:CliResultShape_typed_refusal ;
+    bpm:cmdRefusalReason "replay_refused" ;
+    bpm:cmdTimeoutMs 30000 .
+
+bap:cli_sa2a_replay_manifest a bpm:CliArg ;
+    bpm:argCommand bap:cli_sa2a_replay ;
+    bpm:cliArgName "manifest_json" ;
+    bpm:cliArgOrder 1 ;
+    bpm:cliArgType bpm:CliArgType_string ;
+    bpm:cliArgMode bpm:CliArgMode_positional ;
+    bpm:cliArgEncoding bpm:CliArgEncoding_raw .
+
+bap:cli_sa2a_replay_hash a bpm:CliArg ;
+    bpm:argCommand bap:cli_sa2a_replay ;
+    bpm:cliArgName "expected_hash" ;
+    bpm:cliArgOrder 2 ;
+    bpm:cliArgType bpm:CliArgType_string ;
+    bpm:cliArgMode bpm:CliArgMode_flags ;
+    bpm:cliArgFlag "--expected-hash" ;
+    bpm:cliArgEncoding bpm:CliArgEncoding_raw .
+
+bap:cliwitness_sa2a_replay a bpm:CliWitness ;
+    bpm:witnessCommand bap:cli_sa2a_replay ;
+    bpm:witnessedAt "2026-09-18" ;
+    bpm:witnessCommandline "priv/bin/autofde sa2a replay <manifest-json> --expected-hash 097126b4b44feb14931e3843abef7bcccfe239fc056620f835cf2cb708682d09" ;
+    bpm:witnessExitCode 0 ;
+    bpm:witnessEnvelopeSha256 "91c44e7e0a1602e35dea86856ccc27a104cd3583514c93a4182d9a01cce5ebcb" .
+
+# -- fabric_cache_stats/0: NEW wrapper, facts only, never hand-written --------
+bap:cli_fabric_cache_stats a bpm:CliCommand ;
+    bpm:cmdBridge bap:cli_bridge_autofde ;
+    bpm:cmdName "fabric_cache_stats" ;
+    bpm:cmdGroup "fabric" ;
+    bpm:cmdSubcommand "cache-stats" ;
+    bpm:cmdOrder 3 ;
+    bpm:cmdDoc """  Report the fabric cache's stats batch (entries, hits, misses, hit_rate,
+  namespaces, schema, path) via the standalone AutoFDE Typer CLI
+  (`autofde fabric cache-stats`). The CLI exits 0 with a bare counter payload
+  (no "ok" envelope), returned whole as `{:ok, payload}` -- a
+  bpm:CliResultShape_batch passthrough. `{:error, term}` only on process-level
+  failure (missing binary, timeout, non-zero exit, undecodable stdout).ut).
+  """ ;
+    bpm:cmdResultShape bpm:CliResultShape_batch ;
+    bpm:cmdRefusalReason "fabric_cache_stats_error" ;
+    bpm:cmdTimeoutMs 10000 .
+
+bap:cliwitness_fabric_cache_stats a bpm:CliWitness ;
+    bpm:witnessCommand bap:cli_fabric_cache_stats ;
+    bpm:witnessedAt "2026-09-18" ;
+    bpm:witnessCommandline "priv/bin/autofde fabric cache-stats" ;
+    bpm:witnessExitCode 0 ;
+    bpm:witnessEnvelopeSha256 "ac18fd9f6a3b272bbcf46121906b63278ede2b949b1f9634ceefe7016b58136d" .
