@@ -29,13 +29,15 @@ defmodule BeamPM.Application do
     port = Application.get_env(:beam4pm, :ocel_ingest_port, 4210)
     a2a_port = Application.get_env(:beam4pm, :a2a_port, 4211)
 
-    children = [
-      {Bandit, plug: BeamPM.OcelIngest.Router, port: port},
-      Supervisor.child_spec(
-        {Bandit, plug: BeamPM.A2ARouter, port: a2a_port},
-        id: :a2a_bandit
-      )
-    ]
+    children =
+      engine_supervisor() ++
+        [
+          {Bandit, plug: BeamPM.OcelIngest.Router, port: port},
+          Supervisor.child_spec(
+            {Bandit, plug: BeamPM.A2ARouter, port: a2a_port},
+            id: :a2a_bandit
+          )
+        ]
 
     result = Supervisor.start_link(children, strategy: :one_for_one, name: BeamPM.Supervisor)
 
@@ -48,5 +50,29 @@ defmodule BeamPM.Application do
     :ok = BeamPM.Evidence.attach_all()
 
     result
+  end
+
+  # The graphlaw and ferroplan wasm engines run under their own supervisor
+  # (permanent children, generous restart intensity so a killed engine is
+  # rebuilt without taking the listeners down). Only engines whose artifact
+  # exists (and, for graphlaw, whose sha256 pin verifies) are started: see
+  # BeamPM.GraphlawAdmission.engine_children/0. With no engine artifact the
+  # tree boots without them and admission calls fail closed.
+  defp engine_supervisor do
+    case BeamPM.GraphlawAdmission.engine_children() do
+      [] ->
+        []
+
+      engines ->
+        [
+          %{
+            id: BeamPM.EngineSupervisor,
+            type: :supervisor,
+            start:
+              {Supervisor, :start_link,
+               [engines, [strategy: :one_for_one, max_restarts: 100, max_seconds: 5, name: BeamPM.EngineSupervisor]]}
+          }
+        ]
+    end
   end
 end

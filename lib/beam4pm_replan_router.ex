@@ -952,11 +952,30 @@ defmodule BeamPM.ReplanRouter do
   # Independent admission (graphlaw): when `inputs[:admission]` is present a
   # solved candidate plan is replayed by BeamPM.PlanAdmission and refused at
   # the first unmet precondition/goal. Fails closed if the court is unreachable.
+  # Fail-closed default (`config :beam4pm, :admission_mode`, see
+  # BeamPM.GraphlawAdmission.mode/0): in `:required` mode a solved candidate
+  # with no admission spec is refused `{:admission_missing, reason}`;
+  # `admission: :skip` (or `:skip` mode) explicitly opts out.
   defp admit_candidate(%{admission: %{} = admission}, :solved, result) do
     case BeamPM.PlanAdmission.admit(result.plan, admission) do
       {:ok, admitted} -> {:ok, Map.put(result, :admission, admitted)}
       {:error, {:refused, refusal}} -> {:error, {:plan_refused, refusal}}
       {:error, reason} -> {:error, {:admission_unavailable, reason}}
+    end
+  end
+
+  defp admit_candidate(%{admission: :skip}, _outcome, result), do: {:ok, result}
+
+  defp admit_candidate(_inputs, :solved, result) do
+    case BeamPM.GraphlawAdmission.mode() do
+      :required ->
+        {:error,
+         {:admission_missing,
+          "admission_mode is :required and inputs carry no :admission spec " <>
+            "(pass admission: %{state:, model:, goal:} or admission: :skip)"}}
+
+      :skip ->
+        {:ok, result}
     end
   end
 
@@ -1049,7 +1068,9 @@ defmodule BeamPM.ReplanRouter do
   (`problem` = PlanningProblem JSON text). The synthesized plan is admitted
   only if it digests to the admitted `preimage.policy`; otherwise
   `{:error, {:policy_digest_mismatch, %{admitted: _, observed: _}}}` and the
-  state is unchanged.
+  state is unchanged. The graphlaw court runs by default in `:required`
+  admission mode (`graphlaw_court: false` opts out); an unreachable court is
+  `{:error, {:admission_unavailable, _}}`.
   """
   @spec load_policy(t(), String.t(), map() | nil, keyword()) :: {:ok, t()} | {:error, term()}
   def load_policy(%__MODULE__{} = state, problem, limits \\ nil, opts \\ [])
@@ -1064,7 +1085,7 @@ defmodule BeamPM.ReplanRouter do
              {:policy_digest_mismatch,
               %{admitted: state.admitted_preimage.policy, observed: observed}}}
 
-          Keyword.get(opts, :graphlaw_court, false) ->
+          Keyword.get(opts, :graphlaw_court, BeamPM.GraphlawAdmission.mode() == :required) ->
             # Independent strong-cyclic admission (graphlaw); fails closed.
             case BeamPM.GraphlawAdmission.admit_policy(problem, plan) do
               {:ok, _admitted} -> {:ok, %{state | universal_plan: plan}}
@@ -1140,7 +1161,13 @@ defmodule BeamPM.GraphlawAdmission do
 
   alias BeamPM.Graphlaw
 
+  require Logger
+
   @timeout 30_000
+
+  # Documented ABI constant: graphlaw's `capabilities` reports `abi_version`.
+  @expected_abi_version 1
+  @pin_rel "native/graphlaw/graphlaw_wasm.wasm.sha256"
 
   @type result :: {:ok, map()} | {:error, {:refused, map()} | {:wasmex, term()}}
 
@@ -1205,6 +1232,104 @@ defmodule BeamPM.GraphlawAdmission do
     Graphlaw.law(%{"text" => text, "dialect" => dialect}, steps,
       timeout: Keyword.get(opts, :timeout, @timeout)
     )
+  end
+
+  @doc """
+  Admission mode: `config :beam4pm, :admission_mode, :required | :skip`
+  (default `:required`, fail-closed; any other value is read as `:required`).
+  `:required` makes the router, `load_policy/4` and `admit_deviation/5` run the
+  graphlaw court unless the call explicitly opts out (`admission: :skip`,
+  `graphlaw_court: false`, `graphlaw_gate: false`).
+  """
+  @spec mode() :: :required | :skip
+  def mode do
+    case Application.get_env(:beam4pm, :admission_mode, :required) do
+      :skip -> :skip
+      _ -> :required
+    end
+  end
+
+  @doc "The `abi_version` the graphlaw court must report from `capabilities`."
+  @spec expected_abi_version() :: pos_integer()
+  def expected_abi_version, do: @expected_abi_version
+
+  @doc "Default pin file: sha256 of the installed wasm, written by scripts/graphlaw_wasm_fetch.sh."
+  @spec pin_path() :: String.t()
+  def pin_path, do: Path.expand(@pin_rel)
+
+  @doc """
+  Compares the sha256 of the wasm at `path` to the pin in `pin_path`.
+  `:ok` | `{:error, {:artifact_missing | :pin_missing | :pin_mismatch, _}}`.
+  """
+  @spec verify_artifact(String.t(), String.t()) :: :ok | {:error, term()}
+  def verify_artifact(path \\ Graphlaw.wasm_path(), pin_path \\ pin_path()) do
+    with {:ok, bytes} <- File.read(path) |> tag(:artifact_missing, path),
+         {:ok, pin} <- File.read(pin_path) |> tag(:pin_missing, pin_path) do
+      expected = pin |> String.split() |> List.first("") |> String.downcase()
+      actual = :crypto.hash(:sha256, bytes) |> Base.encode16(case: :lower)
+
+      if actual == expected,
+        do: :ok,
+        else: {:error, {:pin_mismatch, %{path: path, expected: expected, actual: actual}}}
+    end
+  end
+
+  defp tag({:ok, _} = ok, _kind, _path), do: ok
+  defp tag({:error, reason}, kind, path), do: {:error, {kind, %{path: path, reason: reason}}}
+
+  @doc """
+  ABI handshake against the RUNNING engine: `:ok` iff `capabilities` reports
+  `abi_version == expected_abi_version/0`.
+  """
+  @spec handshake() :: :ok | {:error, term()}
+  def handshake do
+    case Graphlaw.capabilities() do
+      {:ok, %{"abi_version" => v}} when v == @expected_abi_version -> :ok
+      {:ok, other} -> {:error, {:abi_mismatch, %{expected: @expected_abi_version, got: other["abi_version"]}}}
+      {:error, _} = err -> err
+    end
+  end
+
+  @doc """
+  True iff the engine process is alive AND the wasm pin verifies AND the ABI
+  handshake succeeds. Never starts an engine.
+  """
+  @spec ready?() :: boolean()
+  def ready? do
+    is_pid(Process.whereis(BeamPM.Graphlaw.Engine)) and verify_artifact() == :ok and
+      handshake() == :ok
+  end
+
+  @doc """
+  Engine child specs for BeamPM.Application: the graphlaw and ferroplan engines
+  whose wasm artifact exists (a missing artifact logs a warning; a graphlaw
+  artifact failing `verify_artifact/0` logs an error and is NOT started).
+  """
+  @spec engine_children() :: [Supervisor.child_spec()]
+  def engine_children do
+    graphlaw =
+      cond do
+        not Graphlaw.wasm_built?() ->
+          Logger.warning("graphlaw engine not started: " <> Graphlaw.wasm_missing_reason())
+          []
+
+        (v = verify_artifact()) != :ok ->
+          Logger.error("graphlaw engine refused at boot (wasm pin): #{inspect(v)}")
+          []
+
+        true ->
+          [Graphlaw.child_spec([])]
+      end
+
+    ferroplan =
+      if BeamPM.Ferroplan.wasm_built?() do
+        [BeamPM.Ferroplan.child_spec([])]
+      else
+        Logger.warning("ferroplan engine not started: " <> BeamPM.Ferroplan.wasm_missing_reason())
+        []
+      end
+
+    graphlaw ++ ferroplan
   end
 
   @doc "Renders IRI triples as N-Triples text."
