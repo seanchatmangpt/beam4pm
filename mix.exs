@@ -85,7 +85,10 @@ defmodule Beam4pm.MixProject do
       # touch beam4pm's internal mechanisms: EngineOp dispatch, OCEL/OTel
       # evidence chain, BeamPM.ReceiptChain). Additive alongside ex4pm's
       # existing Ex4pm.Engine.Beam4pm HTTP route-table client.
-      {:ash_a2a, "~> 26.9"},
+      {:ash_a2a,
+       git: "https://github.com/seanchatmangpt/ash_a2a.git",
+       ref: "e481bf9bab36183c888883603fe5ee3ca89ab6e6",
+       override: true},
       {:a2a, "~> 0.1"},
       {:req, "~> 0.5"}
     ]

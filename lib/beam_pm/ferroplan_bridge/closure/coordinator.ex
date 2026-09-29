@@ -1,14 +1,9 @@
 defmodule BeamPM.FerroplanBridge.Coordinator do
   use GenServer
 
-  alias BeamPM.FerroplanBridge.{
-    EdgeSet,
-    ExecutionEnvelope,
-    ProviderAdapter,
-    RecoveryReceipt
-  }
-
+  alias BeamPM.FerroplanBridge.{EdgeSet, ExecutionEnvelope, RecoveryReceipt}
   alias BeamPM.ReplanRouter
+  alias BeamPM.SA2A.{RecoveryReceiptAdapter, ReplanConsumer}
 
   def start_link(opts), do: GenServer.start_link(__MODULE__, opts)
 
@@ -80,71 +75,27 @@ defmodule BeamPM.FerroplanBridge.Coordinator do
         _from,
         state
       ) do
-    result =
-      dispatch(
-        env,
-        edges,
-        decision,
-        handle,
-        inputs,
-        opts,
-        state.max_attempts,
-        Enum.reverse(env.failed_edges)
-      )
+    opts = Keyword.put_new(opts, :max_attempts, state.max_attempts)
 
-    {:reply, result, state}
-  end
+    reply =
+      case ReplanConsumer.run(env, edges, decision, handle, inputs, opts) do
+        {:ok, result} ->
+          edge = RecoveryReceiptAdapter.edge_for_provider(edges, result.provider)
 
-  defp dispatch(_env, _edges, _decision, _handle, _inputs, _opts, 0, failed) do
-    {:error, %{reason: :attempt_budget_exhausted, failed_edges: failed}}
-  end
+          {:ok,
+           %{
+             edge: edge,
+             result: result.candidate,
+             failed_edges: result.excluded,
+             replay_key: result.replay_key,
+             recovery_receipt: RecoveryReceiptAdapter.from_loop(env.subject, result, edges)
+           }}
 
-  defp dispatch(env, edges, decision, handle, inputs, opts, remaining, failed) do
-    case select_edge(edges, env.capability, failed) do
-      nil ->
-        {:error, %{reason: :no_lawful_provider, failed_edges: failed}}
+        {:error, reason} ->
+          {:error, reason}
+      end
 
-      edge ->
-        case ProviderAdapter.invoke(edge.provider, decision, handle, inputs, opts) do
-          {:ok, result} ->
-            receipt =
-              case List.last(failed) do
-                nil -> nil
-                failed_edge -> RecoveryReceipt.new(env.subject, %{id: failed_edge}, edge)
-              end
-
-            {:ok,
-             %{
-               edge: edge,
-               result: result,
-               failed_edges: failed,
-               recovery_receipt: receipt
-             }}
-
-          {:error, provider_error} ->
-            dispatch(
-              env,
-              edges,
-              decision,
-              handle,
-              inputs,
-              opts,
-              remaining - 1,
-              failed ++ [edge.id]
-            )
-            |> attach_provider_error(edge, provider_error)
-        end
-    end
-  end
-
-  defp attach_provider_error({:ok, result}, _failed_edge, _error), do: {:ok, result}
-
-  defp attach_provider_error({:error, result}, failed_edge, error) do
-    {:error,
-     Map.merge(result, %{
-       last_failed_edge: failed_edge.id,
-       provider_error: error
-     })}
+    {:reply, reply, state}
   end
 
   defp select_edge(edges, capability, failed_edges) do
