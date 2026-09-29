@@ -175,7 +175,7 @@ artifact is absent (`ACCEPTANCE_BLOCKED_PREREQUISITE`).
 
 - Authorizing principal: Sean Chatman (repo owner) via Claude Code session (graphlaw plan admission, v26.9.29)
 - Reason: Chicago qualification of BeamPM.ActionModel.from_pddl/2 (hosted in lib/beam4pm_replan_router.ex): derives the action model from real PDDL and admits a real ferroplan plan through the graphlaw court with the DERIVED spec; mutated models are refused; unsupported PDDL constructs are typed refusals.
-- Content sha256 at admission: `6c2707fea81ff2c22186bd84d3e9cdff6dcaaec8003b7f4e985a2d764067db44`
+- Content sha256 at admission: `d4109c78947075e546d44743565b0d0d661c9e2ab64947c17692ca9fbbf9a947`
 - Sunset plan: Sunsets with the router facade's admission.
 
 #### `test/beam4pm_admission_default_test.exs`
@@ -510,7 +510,7 @@ artifact is absent (`ACCEPTANCE_BLOCKED_PREREQUISITE`).
 
 - Authorizing principal: Sean Chatman (repo owner) via Claude Code v26.9.26 harden lane beam4pm#91
 - Reason: Hand-authored replanning ladder over the generated BeamPM.Ferroplan facade (ferroplan stays mechanism-only: no session_route op). Pure route/2 orders stale-preimage and policy-digest refusal, malformed/non-atom-key refusal, goal close, unknown-fact strategic recompile, continue, follow_policy (same canonical-JSON equivalence as the admitted policy digest), suffix reuse and a monotone session_replan -> hddl_replan -> strategic_recompile ladder; event-triggered resets are bounded by max_episodes; every decision emits one OCEL event whose time is the validated observed_at (refusals included) so replay is byte-identical. The observe/execute driver classifies host faults off the ladder. Authority NONE, ceiling CONSTRUCT.
-- Content sha256 at admission: `4f01a1da5af8d18e021401d46557dd5e6ffbeffaf31c4ca1a341424f4c41329d`
+- Content sha256 at admission: `156884ba388b5b2d2a1fc8bab580b84c9085c56c1e064806365857938a571b7d`
 - Sunset plan: Admit the replanning ladder (rungs, ordered checks, refusal vocabulary) as ontology facts and render route/2 from a pack template; then delete this admission.
 
 ### `reference_evidence` (7 file(s), counts as debt: false)
