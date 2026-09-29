@@ -39,6 +39,7 @@ direct intervention on generated files:
 ```sh
 git clone --recurse-submodules <this-repo-url>   # vendor/ggen-marketplace is a submodule
 just verify        # submodules -> sync -> authorship -> engine_dispatch -> lint_truth -> test
+# asdf toolchain pin at repo root (.tool-versions): elixir 1.18.4-otp-27, erlang 27.2.4, postgres 15.2
 just sync           # rm -f ggen.lock; ggen sync run --dry-run; ggen sync run
 just test           # rebar3 eunit && mix test
 ```
@@ -122,6 +123,13 @@ mix test             # Elixir test suite over generated lib/*.ex
   `actuation_sync.sh`) each regenerate one specific manufactured module family
   named by the script — use the matching script rather than a blanket
   `ggen sync run` when iterating on one ontology slice.
+- `scripts/pro_{capability_manifest,compatibility,doctor,license,
+  ocpm_discovery,simulation,tenancy}_sync.sh` — regenerate the `beam4pm_pro`
+  commercial-layer surfaces beyond billing/entitlement (see `beam4pm_pro`
+  under Architecture); each targets one named surface.
+- `bash scripts/oracle_check.sh` — exercises `native/oracle-io`, the shared
+  stdin+JSON-parse preamble crate factored out of the four native engine
+  facades (`petgraph`, `tract`, `rust4pm`, `ferroplan`).
 
 ## Architecture
 
@@ -207,12 +215,13 @@ analysis/planning/verifier result` loop described in `VISION-2030.md`
 `beam4pm_roundtrip`, `beam4pm_actuation` — each has a matching
 `scripts/<name>_sync.sh` that regenerates just that family.
 
-**`beam4pm_pro`** is a planned future commercial layer on top of this
-substrate; `beam4pm_billing` (`src/beam4pm_billing.erl`, MP6 reconciliation)
-and `beam4pm_entitlement` (`src/beam4pm_entitlement.erl`, MP3 reconciliation)
-already exist as real code with matching eunit+ExUnit tests — the remaining
-gap is marketplace/pricing/RevOps tooling, not these core reconciliation
-modules.
+**`beam4pm_pro`** commercial layer: `beam4pm_billing`
+(`src/beam4pm_billing.erl`, MP6 reconciliation) and `beam4pm_entitlement`
+(`src/beam4pm_entitlement.erl`, MP3 reconciliation) are real code with
+matching eunit+ExUnit tests. Additional pro-layer surfaces are manufactured
+via `scripts/pro_{capability_manifest,compatibility,doctor,license,
+ocpm_discovery,simulation,tenancy}_sync.sh` — check the real status of each
+surface rather than assuming the whole layer is still "planned future."
 
 ## Full doctrine and vision
 
