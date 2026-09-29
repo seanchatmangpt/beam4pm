@@ -17,8 +17,7 @@ lib/beam4pm_dfcm.ex	native_engine_facade	true	6c00ee4ea52095d93d9db392a2dfbc6790
 lib/beam4pm_eds.ex	native_engine_facade	true	e9fca0b31543ba67de7ecc066975218d7810d7cca9d71f6a584631adc69b7057	2026-12-31	mix test test/beam4pm_eds_test.exs	-
 lib/beam4pm_eds_ppcx_h1.ex	native_engine_facade	true	d6c69650e66285cad187a5210633d9a7b8044c4f988c507fe4963c2935d83260	2026-12-31	mix test test/beam4pm_eds_test.exs	-
 lib/beam4pm_legacy_equivalence.ex	hand_authored_qualification	true	ac1f686c91b2204d6dbcaa1d730a4979b410e3a86da563473aa4c98c16dd02cd	2026-12-31	mix test test/beam4pm_legacy_equivalence_test.exs	-
-lib/beam4pm_ocel.ex	native_engine_facade	true	f7e47a5c95278b14cc654361bf00e4b73e4440276945ba6b8eb6ef19d7b64ce2	2026-12-31	mix test test/beam4pm_legacy_equivalence_test.exs	hand_authored_qualification	true	42e34a031a21e0a7e2755322fd40185da8f75936d33314447028d3c594fb6ebe	2026-12-31	mix test test/beam4pm_legacy_equivalence_test.exs	-
-test/beam4pm_ocel_test.exs	-
+lib/beam4pm_ocel.ex	native_engine_facade	true	f7e47a5c95278b14cc654361bf00e4b73e4440276945ba6b8eb6ef19d7b64ce2	2026-12-31	mix test test/beam4pm_ocel_test.exs	-
 lib/beam4pm_plan_lineage.ex	hand_authored_qualification	true	9f61518851c28b02022750845b18b7b185965d05dfc0a755a799d16fa2fba37e	2026-12-31	mix test test/beam4pm_replan_router_test.exs test/beam4pm_replan_router_hardening_test.exs	-
 lib/beam4pm_powl_conformance.ex	native_engine_facade	true	60e94965d20cd103b76132078631ce23abb1ffda8c881abcb3fa33e0f902bd4c	2026-12-31	mix test test/beam4pm_powl_conformance_test.exs test/beam4pm_powl_conformance_e2e_test.exs	cmd:test -f native/rust4pm-wasm/target/wasm32-wasip1/release/rust4pm_wasm.wasm && test -f native/ferroplan/target/wasm32-wasip1/release/ferroplan_wasm.wasm
 lib/beam4pm_powl_discovery.ex	hand_authored_qualification	true	4af71e5c91adbef6e8e1e850c4d0704b7fa7915d0de531a0529514d1de0d92b3	2026-12-31	mix test test/beam4pm_powl_discovery_test.exs	-
