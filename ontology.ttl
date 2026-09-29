@@ -10454,6 +10454,17 @@ bap:hand_authored_lib_beam4pm_ocel a bpm:HandAuthoredSource ;
     bpm:admissionExpires "2026-12-31" ;
     bpm:sunsetPlan "Propose a dedicated hand_authored_lib_module (or similar) AuthorshipKind upstream in the vendored beam4pm-process-model-pack, or admit bpm:RecordType-level OCEL envelope facts and manufacture this codec from a pack template; then delete this admission." .
 
+bap:hand_authored_lib_legacy_equivalence a bpm:HandAuthoredSource ;
+    bpm:sourcePath "lib/beam4pm_legacy_equivalence.ex" ;
+    bpm:authorshipKind bpm:AuthorshipKind_hand_authored_qualification ;
+    bpm:authorizingPrincipal "Sean Chatman (repo owner) via ChatGPT v26.10.1 PR #100" ;
+    bpm:admissionReason "Bounded behavioral-equivalence court for ggen-legacy: compares explicitly admitted observable projections rather than implementation identity, emits deterministic receipt evidence and concrete counterexamples, and has an OBSERVE-only authority ceiling. Hand-authored because no admitted ontology/template family currently manufactures this cross-engine court composition." ;
+    bpm:acceptanceCommand "mix test test/beam4pm_legacy_equivalence_test.exs" ;
+    bpm:contentSha256 "ac1f686c91b2204d6dbcaa1d730a4979b410e3a86da563473aa4c98c16dd02cd" ;
+    bpm:admittedAtCommit "6d7f494" ;
+    bpm:admissionExpires "2026-12-31" ;
+    bpm:sunsetPlan "Admit the legacy-equivalence court contract and observable-field projection as ontology facts and manufacture this module from a pack template; then delete this admission." .
+
 bap:hand_authored_lib_dfcm a bpm:HandAuthoredSource ;
     bpm:sourcePath "lib/beam4pm_dfcm.ex" ;
     bpm:authorshipKind bpm:AuthorshipKind_native_engine_facade ;
@@ -10467,6 +10478,17 @@ bap:hand_authored_lib_dfcm a bpm:HandAuthoredSource ;
     bpm:sunsetPlan "Admit DfCM contracts as ontology facts and render the planning crown from a pack template; then delete this admission." .
 
 # -- hand_authored_qualification (14; counted as debt) -----------------------
+
+bap:hand_authored_test_legacy_equivalence a bpm:HandAuthoredSource ;
+    bpm:sourcePath "test/beam4pm_legacy_equivalence_test.exs" ;
+    bpm:authorshipKind bpm:AuthorshipKind_hand_authored_qualification ;
+    bpm:authorizingPrincipal "Sean Chatman (repo owner) via ChatGPT v26.10.1 PR #100" ;
+    bpm:admissionReason "Chicago qualification for BeamPM.LegacyEquivalence covering implementation-identity exclusion, semantic outcome counterexamples, ordering policy, deterministic receipts, exact external identity binding, and malformed-event refusal. Hand-authored because the court itself is not yet an ontology-manufactured module family." ;
+    bpm:acceptanceCommand "mix test test/beam4pm_legacy_equivalence_test.exs" ;
+    bpm:contentSha256 "42e34a031a21e0a7e2755322fd40185da8f75936d33314447028d3c594fb6ebe" ;
+    bpm:admittedAtCommit "6d7f494" ;
+    bpm:admissionExpires "2026-12-31" ;
+    bpm:sunsetPlan "Render this qualification from the same future legacy-equivalence court facts/template as lib/beam4pm_legacy_equivalence.ex; then delete this admission." .
 
 bap:hand_authored_test_dfcm a bpm:HandAuthoredSource ;
     bpm:sourcePath "test/beam4pm_dfcm_test.exs" ;
