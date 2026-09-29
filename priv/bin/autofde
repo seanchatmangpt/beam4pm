@@ -13,6 +13,11 @@ if [ -n "$AFL_ROOT" ] && [ -x "$AFL_ROOT/.venv/bin/python3" ]; then
 elif [ -x "$BEAM4PM_ROOT/../autofde-lab/.venv/bin/python3" ]; then
     PYTHON_EXEC="$BEAM4PM_ROOT/../autofde-lab/.venv/bin/python3"
     export PYTHONPATH="${BEAM4PM_ROOT}/../autofde-lab/src:${PYTHONPATH:-}"
+elif [ -x "$HOME/autofde-lab/.venv/bin/python3" ]; then
+    # Worktree checkouts (e.g. ~/beam4pm-worktrees/wt-*) have no sibling
+    # autofde-lab; fall back to the canonical home location before giving up.
+    PYTHON_EXEC="$HOME/autofde-lab/.venv/bin/python3"
+    export PYTHONPATH="${HOME}/autofde-lab/src:${PYTHONPATH:-}"
 else
     PYTHON_EXEC="${PYTHON_EXEC:-python3}"
 fi

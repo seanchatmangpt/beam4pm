@@ -1251,6 +1251,47 @@ defmodule BeamPM.Dfcm do
     end
   end
 
+  @doc """
+  Validate an OCEL 2.0 JSON log against Küsters & van der Aalst (2025) OCPQ
+  Definition 2 via the standalone AutoFDE Typer CLI (`autofde ocel validate`).
+
+  Returns `{:ok, verdict}` with the lab's verdict as atom-keyed fields: `:ok`
+  (false means the validator REFUSED the log -- still a successful validator
+  run, not a wrapper failure), `:canonical_digest`, `:event_count`,
+  `:object_count` and `:validation_error` (nil when ok). Returns
+  `{:error, term}` only when the CLI itself fails (missing binary, missing
+  file, unparsable log).
+
+  ## Example
+
+      path = Path.join(System.tmp_dir!(), "ocel-validate-doctest-p2.json")
+      File.write!(path, ~s({"objectTypes":[{"name":"Order","attributes":[]}],"eventTypes":[{"name":"Create Order","attributes":[]}],"events":[{"id":"e1","type":"Create Order","time":"2026-01-01T00:00:00Z","attributes":[],"relationships":[{"objectId":"o1","qualifier":"order"}]}],"objects":[{"id":"o1","type":"Order","attributes":[],"relationships":[]}]}))
+      {:ok, verdict} = BeamPM.Dfcm.ocel_validate(path)
+      File.rm(path)
+      {verdict[:ok], verdict[:event_count], verdict[:object_count], verdict[:validation_error]}
+      #=> {true, 1, 1, nil}
+  """
+  @spec ocel_validate(String.t()) :: {:ok, map()} | {:error, term()}
+  def ocel_validate(log_path) do
+    case run_autofde_cli(["ocel", "validate", log_path]) do
+      {:ok, %{"ok" => ok} = resp} when is_boolean(ok) ->
+        {:ok,
+         %{
+           ok: ok,
+           canonical_digest: Map.fetch!(resp, "canonical_digest"),
+           event_count: Map.fetch!(resp, "event_count"),
+           object_count: Map.fetch!(resp, "object_count"),
+           validation_error: Map.fetch!(resp, "validation_error")
+         }}
+
+      {:ok, %{"error" => err} = resp} ->
+        {:error, {:ocel_validate_error, err, resp}}
+
+      other ->
+        other
+    end
+  end
+
   @doc "Compute canonical GraphLaw BLAKE3 graph hash via standalone AutoFDE/GraphLaw WASM engine."
   @spec graphlaw_hash(String.t()) :: {:ok, String.t()} | {:error, term()}
   def graphlaw_hash(ttl_content) do
@@ -1296,4 +1337,333 @@ defmodule BeamPM.Dfcm do
       other -> other
     end
   end
+  @doc """
+  Validate an Agent Card against the standalone AutoFDE-Lab `sa2a validate`
+  profile court (RFC-SA2A-001 v26.9.16, §10/§76).
+
+  Accepts either a path to a card JSON file on disk or an already-decoded
+  card map (materialized to a temp file for the CLI). Returns the lab's own
+  verdict payload: `{:ok, verdict}` when the card is admitted for the
+  profile (`status: "VALID"`), or `{:error, {:invalid_card, verdict}}` when
+  the lab refuses it (e.g. `UNSUPPORTED_PROFILE`), preserving the lab's
+  refusal reason verbatim. This is a REAL CLI execution, never a re-
+  implementation of the validator.
+
+  Note: the lab court expects the SA2A-RFC-SA2A-001 extension fields
+  `supported_profiles` / `agent_id`; A2A v0.3 wire cards (as served by
+  `A2A.Plug` / ash_a2a) carry neither, so a conformant A2A v0.3 card is
+  refused with `UNSUPPORTED_PROFILE` -- that refusal is the honest verdict,
+  not a bridge error. Set AUTOFDE_LAB_ROOT when the lab does not sit at
+  `../autofde-lab` relative to this checkout (the priv/bin/autofde
+  trampoline's own resolution order).
+  """
+  @spec sa2a_validate_card(String.t() | map()) :: {:ok, map()} | {:error, term()}
+  def sa2a_validate_card(card_path) when is_binary(card_path) do
+    if File.exists?(card_path) do
+      run_sa2a_validate(card_path)
+    else
+      {:error, {:card_not_found, card_path}}
+    end
+  end
+
+  def sa2a_validate_card(card) when is_map(card) do
+    tmp_dir = System.tmp_dir!()
+    path = Path.join(tmp_dir, "beam4pm-agent-card-#{:erlang.unique_integer([:positive])}.json")
+    File.write!(path, JSON.encode!(card))
+
+    try do
+      run_sa2a_validate(path)
+    after
+      File.rm(path)
+    end
+  end
+
+  defp run_sa2a_validate(card_path) do
+    case run_autofde_cli(["sa2a", "validate", "--card-path", card_path]) do
+      {:ok, %{"ok" => true} = verdict} ->
+        {:ok, verdict}
+
+      # The CLI emits its verdict JSON on stdout, THEN exits 1 on a refused
+      # card -- so the finding lives inside the {:error, {:cli_failed, ...}}
+      # wrapper. Decode and surface it as the card verdict it is.
+      {:error, {:cli_failed, _exit_code, output}} ->
+        case JSON.decode(output) do
+          {:ok, %{"ok" => false} = verdict} -> {:error, {:invalid_card, verdict}}
+          {:ok, other} -> {:error, {:unexpected_verdict, other}}
+          {:error, err} -> {:error, {:invalid_json, err, output}}
+        end
+
+      {:ok, other} ->
+        {:error, {:unexpected_verdict, other}}
+
+      other ->
+        other
+    end
+  end
+
+  @doc """
+  Subject one candidate assertion to the lab's §64 admission court
+  (`autofde sa2a admit`) via the standalone CLI bridge.
+
+  Pure one-shot CLI passthrough (same class as `graphlaw_hash/1`): builds the
+  option list, invokes the trampoline exactly once, decodes the JSON receipt.
+  The lab court's REFUSAL is a valid verdict, not a bridge failure -- the CLI
+  exits 0 with `"ok": false` and `"standing": "REFUSED"` -- so a refused
+  candidate still returns `{:ok, receipt}` and the caller must branch on the
+  receipt's `"ok"` / `"standing"` keys. Only process-level failures (missing
+  binary, non-zero exit, undecodable JSON, error-keyed receipt) return
+  `{:error, term()}`.
+
+  Options:
+    * `:candidate_id` - candidate identifier (default: random `cand-<hex>`)
+    * `:query_id` - query identifier (default: `"q0"`, the lab default)
+    * `:source` - source agent/engine identity (default: `"beam4pm-dfcm"`)
+    * `:evidence` - evidence payload map, JSON-encoded by the bridge
+      (default: `%{}` -- note the lab court refuses empty evidence with
+      MISSING_EVIDENCE, mirroring `BeamPM.DeviationAdmission` refusing a
+      `conforms: false` result with no deviations)
+  """
+  @spec sa2a_admit(String.t(), keyword()) :: {:ok, map()} | {:error, term()}
+  def sa2a_admit(assertion, opts \\ []) when is_binary(assertion) do
+    candidate_id =
+      Keyword.get_lazy(opts, :candidate_id, fn ->
+        "cand-" <> (:crypto.strong_rand_bytes(8) |> Base.encode16(case: :lower))
+      end)
+
+    args = [
+      "sa2a",
+      "admit",
+      "--candidate-id",
+      candidate_id,
+      "--query-id",
+      Keyword.get(opts, :query_id, "q0"),
+      "--assertion",
+      assertion,
+      "--source",
+      Keyword.get(opts, :source, "beam4pm-dfcm"),
+      "--evidence",
+      JSON.encode!(Keyword.get(opts, :evidence, %{}))
+    ]
+
+    case run_autofde_cli(args) do
+      {:ok, %{"ok" => ok, "standing" => _standing} = receipt} when is_boolean(ok) ->
+        {:ok, receipt}
+
+      {:ok, %{"error" => err}} ->
+        {:error, {:sa2a_admit_error, err}}
+
+      other ->
+        other
+    end
+  end
+
+  @doc """
+  Verify a cryptographic receipt or plan hash via the standalone AutoFDE
+  `sa2a replay` command (§38, §64) -- pure passthrough.
+
+  The lab canonicalizes `manifest_json` (`sort_keys`, compact separators,
+  ASCII) and `sha256`-hexdigests it, then compares against `expected_hash`,
+  emitting `{"ok": bool, "computed_hash": ..., "expected_hash": ...,
+  "verified": bool}` and exiting 1 on mismatch. This wrapper relays that
+  verdict untouched: `{:ok, resp}` when the lab verifies, `{:error,
+  {:replay_refused, resp}}` when the lab itself refuses (its own emitted
+  verdict carried through), and every other `run_autofde_cli/1` failure
+  verbatim. It computes nothing and decides nothing: no hash is fabricated
+  here, no receipt is written, no authority is exercised.
+
+  Note the scheme passed through to is sha256 over CANONICAL JSON, not over
+  raw file bytes -- it accepts whitespace/key-order re-serialization of the
+  same JSON semantics, a complementary refusal boundary to
+  `BeamPM.ReceiptChain`'s raw-byte chain hashing. Cross-validation of the
+  two verifiers on real receipts:
+  docs/jira/v26.9.18/b4p-p5-sa2a-replay-parity.md.
+  """
+  @spec sa2a_replay(%{required(:manifest_json) => String.t(), required(:expected_hash) => String.t()}) ::
+          {:ok, map()} | {:error, term()}
+  def sa2a_replay(%{manifest_json: manifest_json, expected_hash: expected_hash})
+      when is_binary(manifest_json) and is_binary(expected_hash) do
+    case run_autofde_cli(["sa2a", "replay", manifest_json, "--expected-hash", expected_hash]) do
+      {:ok, %{"ok" => true} = resp} ->
+        {:ok, resp}
+
+      # The lab EMITS its verdict JSON before exiting 1 on mismatch, so a
+      # refusal arrives as a cli_failed carrying the lab's own verdict payload.
+      {:error, {:cli_failed, 1, output}} ->
+        case JSON.decode(output) do
+          {:ok, %{"ok" => false} = resp} -> {:error, {:replay_refused, resp}}
+          _ -> {:error, {:cli_failed, 1, output}}
+        end
+
+      other ->
+        other
+    end
+  end
+
+  @typedoc """
+  One-shot `fabric solve` options (keyword, all optional), projected one-to-one
+  onto the standalone CLI's `fabric solve` options.
+  """
+  @type fabric_solve_opt ::
+          {:solver, String.t()}
+          | {:domain_arguments, map()}
+          | {:solver_arguments, map()}
+          | {:max_steps, pos_integer()}
+          | {:subject_digest, String.t()}
+          | {:policy_digest, String.t()}
+          | {:environment_digest, String.t()}
+          | {:randomness_digest, String.t()}
+
+  @type fabric_solve_opts :: [fabric_solve_opt()]
+
+  @doc """
+  Match compatible AutoFDE-Lab solvers for a registered fabric domain via the
+  standalone CLI (`priv/bin/autofde fabric match`).
+
+  `domain_arguments` is the domain constructor's arguments as a string-keyed
+  JSON-encodable map (e.g. `%{"domain_path" => ..., "problem_path" => ...}` for
+  `HTNDomain`). Returns the fabric's match envelope verbatim (`compatible_solvers`,
+  `domain`, `domain_arguments`, `identity_sha256`, `cache_status`);
+  `{:error, {:fabric_refused, refusal}}` carries the lab's decoded refusal
+  envelope (`"standing" => "REFUSED"`, typed `code`, `message`, `details`) when
+  the fabric deterministically refuses (unknown domain, construction failure...).
+
+  ## Examples
+
+      iex> {:ok, match} = BeamPM.Dfcm.fabric_match("HTNDomain", %{"domain_path" => "qualification/fixtures/dfcm/dfcm.hddl", "problem_path" => "qualification/fixtures/dfcm/dfcm-abcx.hddl"})
+      iex> match["domain"]
+      "HTNDomain"
+      iex> "Astar" in match["compatible_solvers"]
+      true
+      iex> is_binary(match["identity_sha256"])
+      true
+
+  A deterministic refusal is a typed error carrying the lab's own envelope:
+
+      iex> {:error, {:fabric_refused, refusal}} = BeamPM.Dfcm.fabric_match("NoSuchDomain", %{})
+      iex> refusal["standing"]
+      "REFUSED"
+      iex> is_binary(refusal["code"])
+      true
+  """
+  @spec fabric_match(String.t(), map()) :: {:ok, map()} | {:error, term()}
+  def fabric_match(domain, domain_arguments) when is_binary(domain) and is_map(domain_arguments) do
+    fabric_cli([
+      "fabric",
+      "match",
+      domain,
+      "--domain-arguments",
+      JSON.encode!(domain_arguments)
+    ])
+  end
+
+  @doc """
+  Solve via the standalone CLI (`priv/bin/autofde fabric solve`) and return the
+  receipt-bearing trajectory envelope verbatim: `"standing"` (e.g. `"SOLVED"`),
+  `steps`, `terminal`, and the three receipt digests (`input_sha256`,
+  `receipt_sha256`, `trajectory_sha256`). `opts` projects one-to-one onto the
+  CLI's `--solver`, `--domain-arguments`, `--solver-arguments`, `--max-steps`
+  and the four `--*-digest` binding options. Deterministic refusals arrive as
+  `{:error, {:fabric_refused, refusal}}` (the decoded lab envelope), never a
+  fake.
+
+  ## Examples
+
+      iex> {:ok, sol} = BeamPM.Dfcm.fabric_solve("HTNDomain", solver: "Astar", domain_arguments: %{"domain_path" => "qualification/fixtures/dfcm/dfcm.hddl", "problem_path" => "qualification/fixtures/dfcm/dfcm-abcx.hddl"})
+      iex> sol["standing"]
+      "SOLVED"
+      iex> sol["terminal"]
+      true
+      iex> length(sol["steps"])
+      8
+      iex> byte_size(sol["receipt_sha256"])
+      64
+      iex> Enum.map(sol["steps"], & &1["action"]["name"])
+      ["preserve-known-options", "apply-known-fences", "perform-dfcm-calculus", "exclude-invalid-options", "materialize-falsifiers", "extend-if-required", "construct-contingent-policy", "select-lawful-option"]
+  """
+  @spec fabric_solve(String.t(), fabric_solve_opts()) :: {:ok, map()} | {:error, term()}
+  def fabric_solve(domain, opts) when is_binary(domain) and is_list(opts) do
+    json_opt = fn acc, key, flag ->
+      case Keyword.get(opts, key) do
+        nil -> acc
+        value -> acc ++ [flag, JSON.encode!(value)]
+      end
+    end
+
+    raw_opt = fn acc, key, flag ->
+      case Keyword.get(opts, key) do
+        nil -> acc
+        value -> acc ++ [flag, to_string(value)]
+      end
+    end
+
+    args =
+      ["fabric", "solve", domain]
+      |> raw_opt.(:solver, "--solver")
+      |> json_opt.(:domain_arguments, "--domain-arguments")
+      |> json_opt.(:solver_arguments, "--solver-arguments")
+      |> raw_opt.(:max_steps, "--max-steps")
+      |> raw_opt.(:subject_digest, "--subject-digest")
+      |> raw_opt.(:policy_digest, "--policy-digest")
+      |> raw_opt.(:environment_digest, "--environment-digest")
+      |> raw_opt.(:randomness_digest, "--randomness-digest")
+
+    fabric_cli(args)
+  end
+
+  defp fabric_cli(args) do
+    case run_autofde_cli(args) do
+      {:ok, %{"standing" => "REFUSED"} = refusal} ->
+        {:error, {:fabric_refused, refusal}}
+
+      {:ok, resp} ->
+        {:ok, resp}
+
+      # The lab's Typer app exits 3 on a DecisionRefusal AFTER printing the
+      # decoded refusal envelope on stdout, so the envelope reaches us inside
+      # {:cli_failed, ...}; decode it rather than hiding it behind a raw exit.
+      {:error, {:cli_failed, code, output}} ->
+        case decode_fabric_stdout(output) do
+          {:ok, %{"standing" => "REFUSED"} = refusal} ->
+            {:error, {:fabric_refused, Map.put(refusal, "exit_code", code)}}
+
+          _other ->
+            {:error, {:cli_failed, code, output}}
+        end
+
+      # The lab CLI may also emit non-JSON log lines on stdout BEFORE a
+      # success envelope (python logging from domain/solver construction),
+      # which run_autofde_cli/1 reports as invalid_json; extract the JSON
+      # object rather than losing a real SOLVED trajectory.
+      {:error, {:invalid_json, reason, output}} ->
+        case decode_fabric_stdout(output) do
+          {:ok, %{"standing" => "REFUSED"} = refusal} ->
+            {:error, {:fabric_refused, refusal}}
+
+          {:ok, resp} ->
+            {:ok, resp}
+
+          {:error, _} ->
+            {:error, {:invalid_json, reason, output}}
+        end
+
+      other ->
+        other
+    end
+  end
+
+  # Decode the fabric envelope out of possibly noisy CLI stdout: plain decode
+  # first, then the first "{" .. last "}" span (log lines carry no braces).
+  defp decode_fabric_stdout(output) do
+    case JSON.decode(output) do
+      {:ok, parsed} ->
+        {:ok, parsed}
+
+      {:error, _} ->
+        case Regex.run(~r/\{.*\}/s, output) do
+          [json] -> JSON.decode(json)
+          _ -> {:error, :no_json_envelope}
+        end
+    end
+  end
+
 end

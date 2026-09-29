@@ -1,0 +1,9 @@
+@prefix ex: <http://example.org/> .
+
+# N3 denial corpus item: one denial rule plus one violating fact.
+# { ?x ex:status ex:broken } => false .  and ex:item1 matches the antecedent.
+
+{ ?x ex:status ex:broken } => false .
+
+ex:item1 ex:status ex:broken .
+ex:item2 ex:status ex:active .
