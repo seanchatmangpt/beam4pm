@@ -1,0 +1,6 @@
+defmodule BeamPM.ResearchRuntime.Epoch do
+  @moduledoc false
+  defstruct [:id,:subject_sha,:generation]
+  def next(e,s) when s==e.subject_sha, do: {:ok,%{e|id:e.id+1,generation:e.generation+1}}
+  def next(_,_), do: {:error,:subject_drift}
+end

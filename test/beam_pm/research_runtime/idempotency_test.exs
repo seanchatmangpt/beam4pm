@@ -1,0 +1,9 @@
+defmodule BeamPM.ResearchRuntime.IdempotencyTest do
+  use ExUnit.Case, async: true
+  test "model remains context-only" do
+    role=BeamPM.ResearchRuntime.Trimtab.role()
+    refute role.do
+    refute role.select
+    assert role.context
+  end
+end

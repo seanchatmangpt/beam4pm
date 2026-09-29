@@ -1,0 +1,5 @@
+defmodule BeamPM.ResearchRuntime.Recovery do
+  @moduledoc false
+  def apply(g,id,{k,_}) when k in [:edge,:timeout,:refused], do: BeamPM.ResearchRuntime.Graph.exclude(g,id)
+  def apply(g,_,_), do: g
+end

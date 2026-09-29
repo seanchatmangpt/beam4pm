@@ -1,0 +1,6 @@
+defmodule BeamPM.ResearchRuntime.Queue do
+  @moduledoc false
+  def new, do: :queue.new()
+  def push(q,v), do: :queue.in(v,q)
+  def pop(q), do: :queue.out(q)
+end
