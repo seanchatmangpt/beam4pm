@@ -1,0 +1,9 @@
+(define (problem beam4pm-dfcm-abcx-hddl)
+  (:domain beam4pm-dfcm-hddl)
+  (:objects g - objective)
+  (:htn
+    :parameters ()
+    :ordered-subtasks (and (root (dfcm-cycle g))))
+  (:init)
+  (:goal (and (selection-complete)))
+)

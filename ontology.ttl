@@ -30555,3 +30555,81 @@ bap:hand_authored_fixture_ocel_session_zcode_plain a bpm:HandAuthoredSource ;
     bpm:admittedAtCommit "896fbaff" ;
     bpm:admissionExpires "2026-12-31" ;
     bpm:sunsetPlan "Sunsets with the session-facts qualification's admission (fixtures become ontology facts)." .
+
+# --- g2 parity-qualification wave PROOF admissions (scratch worktree) -------
+# One bpm:ParityCheck individual + the two fixture admissions it consumes.
+# This is consumer-owned instance data (the pack ships only vocabulary,
+# template, gates); rendered test file is the consequence, never edited.
+
+bpm:qual_fixture_dfcm_hddl_domain a bpm:QualificationFixture ;
+    bpm:fixturePath "qualification/fixtures/dfcm/dfcm.hddl" ;
+    bpm:fixtureSha256 "0060c0e6ba738193708bf457bfb03a22a41ad30c13359e6d795655541fbf6666" ;
+    bpm:fixtureDoc "DfCM cycle HDDL domain (8 phases, preserve-before-collapse root method): the standing qualification corpus of the fabric/ferroplan parity family." .
+
+bpm:qual_fixture_dfcm_hddl_problem a bpm:QualificationFixture ;
+    bpm:fixturePath "qualification/fixtures/dfcm/dfcm-abcx.hddl" ;
+    bpm:fixtureSha256 "b337e94f975aaa6038d75ae4b6e4609283757a75d3335bd66f98bd1c3afbff2c" ;
+    bpm:fixtureDoc "ABCX problem document paired with the DfCM cycle HDDL domain in every fabric/ferroplan qualification run." .
+
+bpm:parity_ferroplan_vs_lab_fabric a bpm:ParityCheck ;
+    bpm:checkName "ferroplan_hddl_solve_vs_lab_fabric_solve" ;
+    bpm:checkDoc "Verdict parity between beam4pm's own ferroplan wasm engine (BeamPM.Ferroplan.hddl_solve/2, planning_type fond, UniversalPlan receipt vocabulary) and the AutoFDE-Lab decision fabric (fabric solve HTNDomain --solver Astar, receipt-bearing trajectory vocabulary) over the SAME admitted DfCM HDDL corpus. Both engines solve; the fabric rollout carries one step per DfCM phase (8), ferroplan's UniversalPlan one htn:decompose plus one htn:exec per phase (9) -- same decomposition, two receipt vocabularies. No divergence is known on this corpus today; if any pin below flips, this file names it." ;
+    bpm:checkOrdinal 1 ;
+    bpm:testPath "test/beam4pm_parity_ferroplan_hddl_solve_vs_lab_fabric_solve_test.exs" ;
+    bpm:testModule "BeamPM.ParityQualification.FerroplanHddlSolveVsLabFabricSolve" ;
+    bpm:leftCommand "~/autofde-lab/.venv/bin/python3 -m autofde_lab.cli fabric solve HTNDomain --solver Astar --domain-arguments '{\"domain_path\": \"qualification/fixtures/dfcm/dfcm.hddl\", \"problem_path\": \"qualification/fixtures/dfcm/dfcm-abcx.hddl\"}' (cwd = repo root)" ;
+    bpm:rightCommand "BeamPM.Ferroplan.hddl_solve(File.read!(\"qualification/fixtures/dfcm/dfcm.hddl\"), File.read!(\"qualification/fixtures/dfcm/dfcm-abcx.hddl\")) over native/ferroplan wasm e90928d" ;
+    bpm:leftCommandKind bpm:ParityCommandKind_lab_fabric_solve ;
+    bpm:rightCommandKind bpm:ParityCommandKind_beam_hddl_solve ;
+    bpm:leftDomain "HTNDomain" ;
+    bpm:leftSolver "Astar" ;
+    bpm:hasCorpus bpm:parity_corpus_dfcm_hddl_domain ,
+                  bpm:parity_corpus_dfcm_hddl_problem ;
+    bpm:hasDigestPin bpm:parity_pin_lab_input ,
+                     bpm:parity_pin_lab_receipt ,
+                     bpm:parity_pin_lab_trajectory ;
+    bpm:hasExpectedStep bpm:parity_step_1 ,
+                        bpm:parity_step_2 ,
+                        bpm:parity_step_3 ,
+                        bpm:parity_step_4 ,
+                        bpm:parity_step_5 ,
+                        bpm:parity_step_6 ,
+                        bpm:parity_step_7 ,
+                        bpm:parity_step_8 ;
+    bpm:consentLaw "Both engines are qualified over byte-identical, sha256-pinned, graph-admitted corpus files only; each leg is judged by its own named spec's verdict vocabulary (fabric trajectory vs ferroplan UniversalPlan), agreement is the shared 8-phase DfCM ladder witnessed by BOTH engines, and any flip of a corpus digest, ladder step or receipt pin is a named tripwire to re-derive or escalate -- never normalized away, never absorbed by an assertion-softening edit." ;
+    bpm:tamperFalsifier "renaming the phase-1 action in a temp copy of the domain corpus must flip BOTH engines' verdicts in the same place (replaced token present, original absent, in lab rollout steps and ferroplan policy actions) and move the lab trajectory digest off its pin" ;
+    bpm:tamperFind "preserve-known-options" ;
+    bpm:tamperReplace "tampered-known-options" ;
+    bpm:tamperCorpusOrder 1 .
+
+bpm:parity_corpus_dfcm_hddl_domain a bpm:ParityCorpus ;
+    bpm:corpusPath "qualification/fixtures/dfcm/dfcm.hddl" ;
+    bpm:corpusSha256 "0060c0e6ba738193708bf457bfb03a22a41ad30c13359e6d795655541fbf6666" ;
+    bpm:corpusOrder 1 .
+
+bpm:parity_corpus_dfcm_hddl_problem a bpm:ParityCorpus ;
+    bpm:corpusPath "qualification/fixtures/dfcm/dfcm-abcx.hddl" ;
+    bpm:corpusSha256 "b337e94f975aaa6038d75ae4b6e4609283757a75d3335bd66f98bd1c3afbff2c" ;
+    bpm:corpusOrder 2 .
+
+bpm:parity_pin_lab_input a bpm:ParityDigestPin ;
+    bpm:pinKey "input_sha256" ;
+    bpm:pinValue "77ac02698139975925fe487ad9dc96510d7aec2f358d35636116129f22ee4517" .
+
+bpm:parity_pin_lab_receipt a bpm:ParityDigestPin ;
+    bpm:pinKey "receipt_sha256" ;
+    bpm:pinValue "ab8521ed6e8215cb0a8255e7a6548ef875067f46c2ceac315a753604ba0610b9" .
+
+bpm:parity_pin_lab_trajectory a bpm:ParityDigestPin ;
+    bpm:pinKey "trajectory_sha256" ;
+    bpm:pinValue "6a74bca2dcfe29e101239c35f553984e648d17ebaf3d4b2da16f86ce79ad2685" .
+
+bpm:parity_step_1 a bpm:ParityExpectedStep ; bpm:stepOrder 1 ; bpm:stepAction "preserve-known-options" .
+bpm:parity_step_2 a bpm:ParityExpectedStep ; bpm:stepOrder 2 ; bpm:stepAction "apply-known-fences" .
+bpm:parity_step_3 a bpm:ParityExpectedStep ; bpm:stepOrder 3 ; bpm:stepAction "perform-dfcm-calculus" .
+bpm:parity_step_4 a bpm:ParityExpectedStep ; bpm:stepOrder 4 ; bpm:stepAction "exclude-invalid-options" .
+bpm:parity_step_5 a bpm:ParityExpectedStep ; bpm:stepOrder 5 ; bpm:stepAction "materialize-falsifiers" .
+bpm:parity_step_6 a bpm:ParityExpectedStep ; bpm:stepOrder 6 ; bpm:stepAction "extend-if-required" .
+bpm:parity_step_7 a bpm:ParityExpectedStep ; bpm:stepOrder 7 ; bpm:stepAction "construct-contingent-policy" .
+bpm:parity_step_8 a bpm:ParityExpectedStep ; bpm:stepOrder 8 ; bpm:stepAction "select-lawful-option" .
+
