@@ -1,9 +1,5 @@
 import Config
 
-# g2 proof-worktree port offset (UNCOMMITTED scratch config): keep this
-# worktree's Bandit listeners off the main checkout's 4210/4211.
-config :beam4pm, ocel_ingest_port: 4331, a2a_port: 4332
-
 # Required by ash >= 3.33 (transitively pulled in by ash_ai 1.0.0's bump):
 # Ash needs to know how to count string length for :string/:ci_string
 # min_length/max_length constraints, the string_length validation, and the
@@ -22,8 +18,3 @@ config :ash, default_string_length_count: :codepoints
 # agent (that double-starts the agent's registered name and crashes boot).
 # BeamPM.Application only adds the HTTP listener (A2A.Plug/Bandit) on top.
 config :ash_a2a, :agents, [BeamPM.A2AAgent]
-
-# Worktree-local ports (integration runs, wt-integration) — UNCOMMITTED by wave
-# law: per-worktree OCEL ingest + A2A HTTP listeners so parallel worktrees and
-# the main checkout never collide during `mix test` boots.
-config :beam4pm, ocel_ingest_port: 4321, a2a_port: 4322

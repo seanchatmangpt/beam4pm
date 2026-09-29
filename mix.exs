@@ -8,39 +8,11 @@ defmodule Beam4pm.MixProject do
       # together via `mix beam4pm.version_bump <version>`
       # (lib/mix/tasks/beam4pm.version_bump.ex), never by hand-editing one
       # without the other.
-      version: "26.9.24",
+      version: "26.9.9",
       elixir: "~> 1.17",
       start_permanent: Mix.env() == :prod,
       deps: deps(),
-      aliases: aliases(),
-      description: description(),
-      package: package(),
-      source_url: "https://github.com/seanchatmangpt/beam4pm",
-      homepage_url: "https://github.com/seanchatmangpt/beam4pm",
-      docs: docs()
-    ]
-  end
-
-  defp description do
-    "A BEAM-first process-mining substrate manufactured entirely by ggen " <>
-      "from ontology.ttl + a vendored ggen-marketplace pack: real OCEL " <>
-      "discovery/conformance across Erlang, Elixir, Gleam, and Ash " <>
-      "projections, plus native engine facades (petgraph, tract, rust4pm, " <>
-      "ferroplan) hosted in BEAM via wasm."
-  end
-
-  defp package do
-    [
-      licenses: ["Apache-2.0"],
-      links: %{"GitHub" => "https://github.com/seanchatmangpt/beam4pm"},
-      files: ~w(lib src schema gleam mix.exs rebar.config ontology.ttl ggen.toml README.md CONTRIBUTING.md CLAUDE.md)
-    ]
-  end
-
-  defp docs do
-    [
-      main: "readme",
-      extras: ["README.md"]
+      aliases: aliases()
     ]
   end
 
@@ -72,7 +44,7 @@ defmodule Beam4pm.MixProject do
   # manufacturing-time dep like :ggen_igniter.
   defp deps do
     [
-      {:ggen_igniter, path: "/Users/sac/ggen_igniter-wt/g4", runtime: false},
+      {:ggen_igniter, "~> 26.9", runtime: false},
       {:ash, "~> 3.0"},
       {:ash_ai, "~> 1.0"},
       {:wasmex, "~> 0.15"},
@@ -85,9 +57,7 @@ defmodule Beam4pm.MixProject do
       # touch beam4pm's internal mechanisms: EngineOp dispatch, OCEL/OTel
       # evidence chain, BeamPM.ReceiptChain). Additive alongside ex4pm's
       # existing Ex4pm.Engine.Beam4pm HTTP route-table client.
-      # CONSUMPTION-GATE OVERRIDE (uncommitted): gate b4p-f5-10 against the fixed
-      # ash_a2a main (baa135d) before the next hex release picks it up.
-      {:ash_a2a, path: "/Users/sac/ash_a2a", override: true},
+      {:ash_a2a, "~> 26.9"},
       {:a2a, "~> 0.1"},
       {:req, "~> 0.5"}
     ]
