@@ -45,3 +45,4 @@ infra/**/.terraform.lock.hcl
 
 # graphlaw admission module (fetched release asset or local build; never committed)
 native/graphlaw/
+receipts/engine_ops/

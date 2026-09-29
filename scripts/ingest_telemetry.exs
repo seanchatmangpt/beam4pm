@@ -93,6 +93,28 @@ defmodule BeamPM.Ingest.Bridge do
     :telemetry.detach({__MODULE__, event_name})
   end
 
+  @doc """
+  Attaches `attach/2`'s default mapper to every event name in `event_names`
+  in one call, via `:telemetry.attach_many/4` -- used by
+  `BeamPM.Evidence.attach_all/0` (`lib/beam4pm_evidence.ex`) to wire the
+  full `[:beam4pm, :engine, engine, op]` family (79 admitted ops) without
+  79 separate `attach/2` calls. Returns `{:error, :already_exists}` if this
+  exact handler id is already attached (same idempotency contract as
+  `attach/2`).
+  """
+  @spec attach_many([[atom()]], (map(), map() -> map())) :: :ok | {:error, :already_exists}
+  def attach_many(event_names, mapper \\ &__MODULE__.default_mapper/2) when is_list(event_names) do
+    reset_buffer_if_absent()
+    handler_id = {__MODULE__, :many}
+
+    :telemetry.attach_many(
+      handler_id,
+      event_names,
+      &__MODULE__.handle_event/4,
+      %{mapper: mapper}
+    )
+  end
+
   @doc false
   @spec handle_event([atom()], map(), map(), %{mapper: (map(), map() -> map())}) :: :ok
   def handle_event(_event_name, measurements, metadata, %{mapper: mapper}) do
