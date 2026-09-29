@@ -555,7 +555,7 @@ defmodule BeamPM.OcelSessionFactsEngineTest do
              conforms: true,
              deviation_count: 0,
              skipped_attributes: 1,
-             dialect: :beam4pm_ingest
+             dialect: :internal
            }
   end
 
@@ -565,7 +565,7 @@ defmodule BeamPM.OcelSessionFactsEngineTest do
 
     assert summary.conforms == false
     assert summary.deviation_count > 0
-    assert summary.dialect == :beam4pm_ingest
+    assert summary.dialect == :internal
 
     assert {"conforms", false} in sight
     assert Enum.any?(sight, &match?({"dev_review", true}, &1))

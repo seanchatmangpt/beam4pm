@@ -128,7 +128,7 @@ defmodule BeamPM.DeviationAdmission do
           "@prefix bpm: <https://ggen.dev/ontology/beam-process-model#> .\n" <>
           "@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n"
 
-      case BeamPM.Graphlaw.admit_shacl(prefixes <> block, File.read!(@shapes_path)) do
+      case BeamPM.GraphlawAdmission.admit_shacl(prefixes <> block, File.read!(@shapes_path)) do
         {:ok, _} -> :ok
         {:error, {:refused, refusal}} -> {:error, {:deviation_refused, refusal}}
         {:error, reason} -> {:error, {:admission_unavailable, reason}}
