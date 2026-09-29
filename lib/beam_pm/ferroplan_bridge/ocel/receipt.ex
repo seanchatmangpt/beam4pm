@@ -1,0 +1,5 @@
+defmodule BeamPM.FerroplanBridge.Receipt do
+  @enforce_keys [:subject, :work_order, :provider, :epoch]
+  defstruct [:subject, :work_order, :provider, :epoch, failed_edges: []]
+  def replay_key(r), do: Enum.join([r.subject, r.work_order, r.epoch, Enum.join(r.failed_edges, ",")], "|")
+end

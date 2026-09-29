@@ -1,0 +1,75 @@
+defmodule BeamPM.FerroplanBridge.CoordinatorRecoveryIntegrationTest do
+  use ExUnit.Case, async: true
+
+  alias BeamPM.FerroplanBridge.{
+    Coordinator,
+    ExecutionEnvelope,
+    ProviderAdapter,
+    RecoveryReceipt,
+    SemanticEdge
+  }
+
+  defmodule FailingProvider do
+    def execute(_decision, _handle, _inputs, _opts), do: {:error, :provider_down}
+  end
+
+  defmodule WorkingProvider do
+    def execute(decision, handle, inputs, _opts) do
+      {:ok, %{decision: decision, handle: handle, subject: inputs.subject}}
+    end
+  end
+
+  test "failed provider is excluded and the next lawful provider executes the same subject" do
+    {:ok, pid} = Coordinator.start_link(max_attempts: 2)
+
+    env = %ExecutionEnvelope{
+      subject: "subject-sha",
+      evidence: %{evidence_id: "ev-1"},
+      epoch: 7,
+      capability: "plan"
+    }
+
+    edges = [
+      %SemanticEdge{
+        id: "e0",
+        capability: "plan",
+        provider: "p0",
+        consequence: :same_plan
+      },
+      %SemanticEdge{
+        id: "e1",
+        capability: "plan",
+        provider: "p1",
+        consequence: :same_plan
+      }
+    ]
+
+    assert {:ok,
+            %{
+              edge: %{id: "e1"},
+              failed_edges: ["e0"],
+              recovery_receipt: %RecoveryReceipt{
+                subject: "subject-sha",
+                failed_edge: "e0",
+                replacement_edge: "e1",
+                provider: "p1"
+              },
+              result: %{provider: "p1", value: %{subject: "subject-sha"}}
+            }} =
+             Coordinator.run(
+               pid,
+               env,
+               edges,
+               :continue,
+               41,
+               %{subject: "subject-sha"},
+               providers: %{"p0" => FailingProvider, "p1" => WorkingProvider}
+             )
+  end
+
+  test "ferroplan provider resolves to the real ReplanRouter execution boundary" do
+    assert {:ok, BeamPM.ReplanRouter} = ProviderAdapter.resolve("ferroplan", %{})
+    assert function_exported?(BeamPM.ReplanRouter, :execute, 4)
+    assert function_exported?(Coordinator, :replan, 9)
+  end
+end

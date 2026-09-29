@@ -1,0 +1,4 @@
+defmodule BeamPM.FerroplanBridge.CommandTopology do
+  def roots(nodes), do: Enum.filter(nodes, &(Map.get(&1, :parent) == nil))
+  def children(nodes, id), do: Enum.filter(nodes, &(Map.get(&1, :parent) == id))
+end

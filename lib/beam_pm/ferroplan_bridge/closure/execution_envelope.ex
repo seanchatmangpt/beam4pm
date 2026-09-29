@@ -1,0 +1,5 @@
+defmodule BeamPM.FerroplanBridge.ExecutionEnvelope do
+  @enforce_keys [:subject, :evidence, :epoch, :capability]
+  defstruct [:subject, :evidence, :epoch, :capability, status: :candidate, failed_edges: []]
+  def fail(e, edge), do: %{e | failed_edges: Enum.uniq([edge | e.failed_edges])}
+end

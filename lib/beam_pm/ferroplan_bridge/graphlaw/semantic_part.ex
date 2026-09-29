@@ -1,0 +1,5 @@
+defmodule BeamPM.FerroplanBridge.SemanticPart do
+  @enforce_keys [:id, :source, :digest, :consequence]
+  defstruct [:id, :source, :digest, :consequence]
+  def same?(a, b), do: a.id == b.id and a.digest == b.digest and a.consequence == b.consequence
+end

@@ -1,0 +1,9 @@
+defmodule BeamPM.FerroplanBridge.PtdWaveTest do
+  use ExUnit.Case, async: true
+  alias BeamPM.FerroplanBridge.{Epoch, GenerationFence}
+  test "epochs advance without subject drift" do
+    e=%Epoch{subject:"s",generation:1,artifact:"a"}; n=Epoch.next(e,"b")
+    assert n.generation==2
+    assert :ok=GenerationFence.admit(n,%{subject:"s",generation:2})
+  end
+end
