@@ -1291,14 +1291,20 @@ bex:ciSetupBeam
     gha:withParam "rebar3-version: '3.24.0'" ;
     gha:withParam "gleam-version: '1.18.1'" .
 
+# v26.9.26 fix (ported here 2026-09-29 from a hand edit of the generated
+# workflow): `_build` is NOT cached and the key family is "cache2". The cache
+# is keyed on rebar.lock -- a 4-byte stub that never changes -- so a `_build`
+# tree from the ash 3.33.1 lock era was restored on every run, and Mix's dep
+# converger read ash.app ("3.33.1") from it and refused the locked resolution
+# (diverged/divergedreq) before deps.get could reconcile.
 bex:ciRebar3Cache
     a gha:Step ;
     gha:inJob bex:ciTest ; gha:stepOrder 3 ;
     gha:stepName "Cache rebar3 dependencies" ;
     gha:usesAction "actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0" ;
-    gha:withParam "path: \"_build\\n~/.cache/rebar3\\n\"" ;
-    gha:withParam "key: ${{ runner.os }}-rebar3-28.3.1-3.24.0-${{ hashFiles('rebar.lock') }}" ;
-    gha:withParam "restore-keys: \"${{ runner.os }}-rebar3-28.3.1-3.24.0-\\n${{ runner.os }}-rebar3-28.3.1-\\n${{ runner.os }}-rebar3-\\n\"" .
+    gha:withParam "path: \"~/.cache/rebar3\\n\"" ;
+    gha:withParam "key: ${{ runner.os }}-rebar3-cache2-28.3.1-3.24.0-${{ hashFiles('rebar.lock') }}" ;
+    gha:withParam "restore-keys: \"${{ runner.os }}-rebar3-cache2-28.3.1-3.24.0-\\n\"" .
 
 bex:ciRebar3Eunit
     a gha:Step ;
@@ -1325,7 +1331,7 @@ bex:ciMixCache
     gha:inJob bex:ciTest ; gha:stepOrder 6 ;
     gha:stepName "Cache mix dependencies" ;
     gha:usesAction "actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0" ;
-    gha:withParam "path: \"~/.hex\\n~/.mix\\n\"" ;
+    gha:withParam "path: \"deps\\n~/.hex\\n~/.mix\\n\"" ;
     gha:withParam "key: ${{ runner.os }}-mix-28.3.1-1.19.5-${{ hashFiles('mix.lock') }}" ;
     gha:withParam "restore-keys: \"${{ runner.os }}-mix-28.3.1-1.19.5-\\n${{ runner.os }}-mix-28.3.1-\\n${{ runner.os }}-mix-\\n\"" .
 
@@ -1545,7 +1551,7 @@ bex:containerAmd64Buildx
     a gha:Step ;
     gha:inJob bex:containerBuildAmd64 ; gha:stepOrder 2 ;
     gha:stepName "Set up Docker Buildx" ;
-    gha:usesAction "docker/setup-buildx-action@37fe631027851001ddb9b187196cc803df7f5f0e # v4.3.0" .
+    gha:usesAction "docker/setup-buildx-action@f87e5991a6d7451dcb8d9637bfbc97413f497069 # v4.4.1" .
 
 bex:containerAmd64Login
     a gha:Step ;
@@ -1560,7 +1566,7 @@ bex:containerAmd64BuildPush
     a gha:Step ;
     gha:inJob bex:containerBuildAmd64 ; gha:stepOrder 4 ;
     gha:stepName "Build and push linux/amd64" ;
-    gha:usesAction "docker/build-push-action@53b7df96c91f9c12dcc8a07bcb9ccacbed38856a # v7.3.0" ;
+    gha:usesAction "docker/build-push-action@c3c9e263c25d99ce0380d002d59b67737d91b0dc # v7.4.0" ;
     gha:withParam "context: ." ;
     gha:withParam "push: true" ;
     gha:withParam "sbom: true" ;
@@ -1594,7 +1600,7 @@ bex:containerArm64Buildx
     a gha:Step ;
     gha:inJob bex:containerBuildArm64 ; gha:stepOrder 2 ;
     gha:stepName "Set up Docker Buildx" ;
-    gha:usesAction "docker/setup-buildx-action@37fe631027851001ddb9b187196cc803df7f5f0e # v4.3.0" .
+    gha:usesAction "docker/setup-buildx-action@f87e5991a6d7451dcb8d9637bfbc97413f497069 # v4.4.1" .
 
 bex:containerArm64Login
     a gha:Step ;
@@ -1609,7 +1615,7 @@ bex:containerArm64BuildPush
     a gha:Step ;
     gha:inJob bex:containerBuildArm64 ; gha:stepOrder 4 ;
     gha:stepName "Build and push linux/arm64" ;
-    gha:usesAction "docker/build-push-action@53b7df96c91f9c12dcc8a07bcb9ccacbed38856a # v7.3.0" ;
+    gha:usesAction "docker/build-push-action@c3c9e263c25d99ce0380d002d59b67737d91b0dc # v7.4.0" ;
     gha:withParam "context: ." ;
     gha:withParam "push: true" ;
     gha:withParam "sbom: true" ;
@@ -1686,7 +1692,7 @@ bex:containerMergeSarifUpload
     gha:inJob bex:containerMergeManifest ; gha:stepOrder 6 ;
     gha:stepName "Upload Trivy scan results to GitHub code scanning" ;
     gha:condition "always()" ;
-    gha:usesAction "github/codeql-action/upload-sarif@cdf488f595d80d6e07e03d4674febd5ab45fa938 # v4.37.9" ;
+    gha:usesAction "github/codeql-action/upload-sarif@2892aa5e19bbd11bc0cff5427e3b750a04d9e3c2 # v4.38.2" ;
     gha:withParam "sarif_file: trivy-results.sarif" .
 
 # --- Workflow 3: Infra validate (Terraform + Packer, validate-only) ---------
@@ -10477,17 +10483,6 @@ bap:hand_authored_lib_dfcm a bpm:HandAuthoredSource ;
     bpm:sunsetPlan "Admit DfCM contracts as ontology facts and render the planning crown from a pack template; then delete this admission." .
 
 # -- hand_authored_qualification (14; counted as debt) -----------------------
-
-bap:hand_authored_test_legacy_equivalence a bpm:HandAuthoredSource ;
-    bpm:sourcePath "test/beam4pm_legacy_equivalence_test.exs" ;
-    bpm:authorshipKind bpm:AuthorshipKind_hand_authored_qualification ;
-    bpm:authorizingPrincipal "Sean Chatman (repo owner) via ChatGPT v26.10.1 PR #100" ;
-    bpm:admissionReason "Chicago qualification for BeamPM.LegacyEquivalence covering implementation-identity exclusion, semantic outcome counterexamples, ordering policy, deterministic receipts, exact external identity binding, and malformed-event refusal. Hand-authored because the court itself is not yet an ontology-manufactured module family." ;
-    bpm:acceptanceCommand "mix test test/beam4pm_legacy_equivalence_test.exs" ;
-    bpm:contentSha256 "42e34a031a21e0a7e2755322fd40185da8f75936d33314447028d3c594fb6ebe" ;
-    bpm:admittedAtCommit "6d7f494" ;
-    bpm:admissionExpires "2026-12-31" ;
-    bpm:sunsetPlan "Render this qualification from the same future legacy-equivalence court facts/template as lib/beam4pm_legacy_equivalence.ex; then delete this admission." .
 
 bap:hand_authored_test_dfcm a bpm:HandAuthoredSource ;
     bpm:sourcePath "test/beam4pm_dfcm_test.exs" ;
@@ -29863,3 +29858,2093 @@ bap:hand_authored_test_replan_router_hardening a bpm:HandAuthoredSource ;
     bpm:admittedAtCommit "0650513" ;
     bpm:admissionExpires "2026-12-31" ;
     bpm:sunsetPlan "Sunsets with lib/beam4pm_replan_router.ex's admission." .
+
+# ===========================================================================
+# v26.9.28 runtime source manufacture (docs/jira/v26.9.28 R1)
+# ===========================================================================
+# The v26.9.28 runtime families (BeamPM.ResearchRuntime.*, BeamPM.FerroplanBridge.*,
+# and the economic-ISA / frontier-evidence / PPCX-boundary modules with their
+# Chicago tests) landed from the runtime/v26.9.28-* branches as hand-authored
+# files that no bpm:HandAuthoredSource admission covered, and whose count
+# exceeds the vendored pack's per-kind debt ceilings. They are instead
+# manufactured: each bap:RuntimeModule below carries the module's exact source
+# as bap:moduleBody and templates/beam4pm_runtime_module.tmpl renders it to
+# bap:modulePath under a GENERATED header. Disclosed limit: bap:moduleBody is
+# verbatim source text, not a structural model -- the ontology is the source of
+# truth for these files, but they are not yet decomposed into bpm:* facts.
+# Edit a body here, then `rm -f ggen.lock && ggen sync run`; never the output.
+
+@prefix bap: <https://ggen.dev/projects/beam4pm#> .
+
+bap:RuntimeModule a rdfs:Class ;
+    rdfs:label "Runtime Module" ;
+    rdfs:comment "One Elixir source file manufactured verbatim from an ontology-held body." .
+
+bap:runtime_module_lib_beam4pm_economic_isa_ex a bap:RuntimeModule ;
+    bap:modulePath "lib/beam4pm_economic_isa.ex" ;
+    bap:moduleBody """defmodule BeamPM.EconomicISA do
+  @moduledoc \"\"\"
+  BEAM/OCEL projection of the canonical compact economic activity ABI.
+
+  This module is a parity projection, not an independent semantic authority.
+  The one-byte opcode identifies only the economic verb. Object identities,
+  E2O/O2O relationships, values, provenance, and authority remain explicit
+  OCEL facts outside the byte.
+
+  `0x00` is UNKNOWN/NULL. `0xFF` is a lossless extended-semantic escape.
+  Unassigned bytes are refused rather than acquiring beam4pm-local meanings.
+  \"\"\"
+
+  alias BeamPM.Types.OcelEvent
+
+  @unknown 0x00
+  @escape 0xFF
+
+  @registry %{
+    0x00 => :unknown,
+    0x01 => :quote,
+    0x02 => :offer,
+    0x03 => :bid,
+    0x04 => :ask,
+    0x05 => :discover,
+    0x20 => :order,
+    0x21 => :fill,
+    0x22 => :sale,
+    0x23 => :purchase,
+    0x24 => :return,
+    0x25 => :cancel,
+    0x26 => :exchange,
+    0x40 => :invoice,
+    0x41 => :pay,
+    0x42 => :settle,
+    0x43 => :refund,
+    0x44 => :authorize_payment,
+    0x45 => :capture_payment,
+    0x60 => :ship,
+    0x61 => :deliver,
+    0x62 => :receive,
+    0x63 => :move,
+    0x64 => :store,
+    0x65 => :consume,
+    0x80 => :sign,
+    0x81 => :license,
+    0x82 => :subscribe,
+    0x83 => :renew,
+    0x84 => :terminate,
+    0x85 => :assign_right,
+    0xA0 => :manufacture,
+    0xA1 => :design,
+    0xA2 => :produce,
+    0xA3 => :provide_service,
+    0xA4 => :prove,
+    0xA5 => :inspect,
+    0xA6 => :accept,
+    0xC0 => :accrue,
+    0xC1 => :recognize_revenue,
+    0xC2 => :recognize_expense,
+    0xC3 => :capitalize,
+    0xC4 => :depreciate,
+    0xC5 => :realize_value,
+    0xC6 => :allocate,
+    0xE0 => :observe,
+    0xE1 => :authorize,
+    0xE2 => :attest,
+    0xE3 => :approve,
+    0xE4 => :reject,
+    0xE5 => :dispute,
+    0xE6 => :resolve
+  }
+
+  @by_activity Map.new(@registry, fn {byte, activity} -> {activity, byte} end)
+
+  @type activity :: atom()
+  @type frame :: {:fixed, non_neg_integer(), activity()} | {:extended, String.t()}
+
+  @spec registry() :: %{non_neg_integer() => activity()}
+  def registry, do: @registry
+
+  @spec unknown() :: 0
+  def unknown, do: @unknown
+
+  @spec escape() :: 255
+  def escape, do: @escape
+
+  @spec category(non_neg_integer()) ::
+          :null
+          | :market
+          | :transaction
+          | :payment_settlement
+          | :logistics
+          | :contract_rights
+          | :production_service
+          | :accounting_finance
+          | :governance_authority
+          | :extensions
+          | :escape
+          | {:error, :outside_byte_range}
+  def category(0x00), do: :null
+  def category(byte) when byte in 0x01..0x1F, do: :market
+  def category(byte) when byte in 0x20..0x3F, do: :transaction
+  def category(byte) when byte in 0x40..0x5F, do: :payment_settlement
+  def category(byte) when byte in 0x60..0x7F, do: :logistics
+  def category(byte) when byte in 0x80..0x9F, do: :contract_rights
+  def category(byte) when byte in 0xA0..0xBF, do: :production_service
+  def category(byte) when byte in 0xC0..0xDF, do: :accounting_finance
+  def category(byte) when byte in 0xE0..0xEF, do: :governance_authority
+  def category(byte) when byte in 0xF0..0xFE, do: :extensions
+  def category(0xFF), do: :escape
+  def category(_), do: {:error, :outside_byte_range}
+
+  @spec lookup_byte(non_neg_integer()) :: {:ok, activity()} | {:error, term()}
+  def lookup_byte(@escape), do: {:ok, :extended}
+
+  def lookup_byte(byte) when is_integer(byte) and byte in 0..255 do
+    case Map.fetch(@registry, byte) do
+      {:ok, activity} -> {:ok, activity}
+      :error -> {:error, {:unassigned_economic_opcode, byte}}
+    end
+  end
+
+  def lookup_byte(byte), do: {:error, {:outside_byte_range, byte}}
+
+  @spec lookup_activity(atom() | String.t()) :: {:ok, non_neg_integer()} | {:error, term()}
+  def lookup_activity(:extended), do: {:ok, @escape}
+
+  def lookup_activity(activity) when is_binary(activity) do
+    try do
+      activity |> String.to_existing_atom() |> lookup_activity()
+    rescue
+      ArgumentError -> {:error, {:unknown_economic_activity, activity}}
+    end
+  end
+
+  def lookup_activity(activity) when is_atom(activity) do
+    case Map.fetch(@by_activity, activity) do
+      {:ok, byte} -> {:ok, byte}
+      :error -> {:error, {:unknown_economic_activity, activity}}
+    end
+  end
+
+  @spec encode(activity() | String.t() | non_neg_integer() | {:extended, String.t()}) ::
+          {:ok, binary()} | {:error, term()}
+  def encode({:extended, semantic_id}) when is_binary(semantic_id) and byte_size(semantic_id) > 0,
+    do: {:ok, <<@escape, semantic_id::binary>>}
+
+  def encode({:extended, _}), do: {:error, :missing_extended_semantic_id}
+
+  def encode(byte) when is_integer(byte) do
+    with {:ok, activity} <- lookup_byte(byte),
+         false <- activity == :extended do
+      {:ok, <<byte>>}
+    else
+      true -> {:error, :missing_extended_semantic_id}
+      {:error, _} = error -> error
+    end
+  end
+
+  def encode(activity) when is_atom(activity) or is_binary(activity) do
+    with {:ok, byte} <- lookup_activity(activity),
+         false <- byte == @escape do
+      {:ok, <<byte>>}
+    else
+      true -> {:error, :missing_extended_semantic_id}
+      {:error, _} = error -> error
+    end
+  end
+
+  @spec decode(binary()) :: {:ok, frame()} | {:error, term()}
+  def decode(<<>>), do: {:error, :empty_economic_frame}
+  def decode(<<@escape>>), do: {:error, :missing_extended_semantic_id}
+
+  def decode(<<@escape, semantic_id::binary>>) do
+    {:ok, {:extended, semantic_id}}
+  end
+
+  def decode(<<byte>>) do
+    with {:ok, activity} <- lookup_byte(byte),
+         false <- activity == :extended do
+      {:ok, {:fixed, byte, activity}}
+    else
+      true -> {:error, :missing_extended_semantic_id}
+      {:error, _} = error -> error
+    end
+  end
+
+  def decode(<<_byte, _rest::binary>>), do: {:error, :trailing_bytes_on_fixed_economic_opcode}
+
+  @doc \"\"\"
+  Project an economic activity into beam4pm's already-admitted OCEL event shape.
+
+  The returned tuple preserves E2O relationships separately because
+  `BeamPM.Types.OcelEvent` deliberately does not own relationship fields;
+  beam4pm's OCEL wire convention represents them nested beside the event.
+
+  This function manufactures an observation record only. It grants no DO
+  authority and does not infer economic causality from the event occurrence.
+  \"\"\"
+  @spec to_ocel_event(
+          activity() | String.t() | non_neg_integer() | {:extended, String.t()},
+          String.t(),
+          String.t(),
+          keyword()
+        ) :: {:ok, OcelEvent.t(), list()} | {:error, term()}
+  def to_ocel_event(activity, event_id, event_time, opts \\\\ [])
+      when is_binary(event_id) and is_binary(event_time) and is_list(opts) do
+    relationships = Keyword.get(opts, :relationships, [])
+
+    with {:ok, encoded} <- encode(activity),
+         {:ok, frame} <- decode(encoded),
+         {:ok, event_type, byte, semantic_id} <- frame_identity(frame),
+         attrs <- economic_attributes(byte, semantic_id, opts),
+         {:ok, event} <-
+           OcelEvent.new(%{
+             event_id: event_id,
+             event_type: event_type,
+             event_time: event_time,
+             attributes: attrs
+           }) do
+      {:ok, event, relationships}
+    end
+  end
+
+  defp frame_identity({:fixed, byte, activity}),
+    do: {:ok, Atom.to_string(activity), byte, nil}
+
+  defp frame_identity({:extended, semantic_id}),
+    do: {:ok, \"extended\", @escape, semantic_id}
+
+  defp economic_attributes(byte, semantic_id, opts) do
+    %{
+      \"economic:opcode\" => byte,
+      \"economic:category\" => category(byte) |> Atom.to_string()
+    }
+    |> maybe_put(\"economic:semantic_id\", semantic_id)
+    |> maybe_put(\"authority\", Keyword.get(opts, :authority))
+    |> maybe_put(\"provenance\", Keyword.get(opts, :provenance))
+    |> maybe_put(\"economic:value\", Keyword.get(opts, :economic_value))
+    |> Map.merge(Keyword.get(opts, :attributes, %{}))
+  end
+
+  defp maybe_put(map, _key, nil), do: map
+  defp maybe_put(map, key, value), do: Map.put(map, key, value)
+end
+""" .
+
+bap:runtime_module_lib_beam4pm_frontier_evidence_ex a bap:RuntimeModule ;
+    bap:modulePath "lib/beam4pm_frontier_evidence.ex" ;
+    bap:moduleBody """defmodule BeamPM.FrontierEvidence do
+  @moduledoc \"\"\"
+  Deterministic FrontierEvidence v1 projection for already-produced beam4pm results.
+
+  This module does not invoke Ferroplan, execute a plan, dispatch A2A work, or grant
+  downstream authority. It only binds planner/policy/conformance results that were
+  produced elsewhere into a content-addressed SELECT-only evidence fragment that a
+  downstream BRCE admission court may inspect.
+  \"\"\"
+
+  @schema \"frontier-evidence/v1\"
+  @producer \"beam4pm\"
+  @authority_ceiling \"SELECT\"
+
+  @spec from_results(term(), term(), term(), keyword()) :: map()
+  def from_results(hddl_result, fond_result, conformance_result, opts \\\\ []) do
+    producer_head = Keyword.fetch!(opts, :producer_head)
+    standing = Keyword.get(opts, :standing, \"CANDIDATE\")
+
+    evidence = %{
+      hddl: normalize_result(hddl_result),
+      fond: normalize_result(fond_result),
+      conformance: normalize_result(conformance_result)
+    }
+
+    body = %{
+      schema: @schema,
+      producer: @producer,
+      producer_head: producer_head,
+      standing: standing,
+      authority_ceiling: @authority_ceiling,
+      evidence: evidence,
+      refused: [
+        \"external_do\",
+        \"actuation_authority\",
+        \"causal_identification_claim\",
+        \"receipt_standing_escalation\"
+      ]
+    }
+
+    Map.put(body, :artifact_hash, fingerprint(body))
+  end
+
+  defp normalize_result({:ok, value}), do: %{status: \"ok\", value: canonical_term(value)}
+  defp normalize_result({:error, reason}), do: %{status: \"error\", reason: canonical_term(reason)}
+  defp normalize_result(other), do: %{status: \"observed\", value: canonical_term(other)}
+
+  defp fingerprint(term) do
+    term
+    |> canonical_term()
+    |> :erlang.term_to_binary([:deterministic])
+    |> then(&:crypto.hash(:sha256, &1))
+    |> Base.encode16(case: :lower)
+    |> then(&(\"sha256:\" <> &1))
+  end
+
+  defp canonical_term(%_{} = struct), do: struct |> Map.from_struct() |> canonical_term()
+
+  defp canonical_term(map) when is_map(map) do
+    map
+    |> Enum.map(fn {key, value} -> {to_string(key), canonical_term(value)} end)
+    |> Enum.sort()
+  end
+
+  defp canonical_term(list) when is_list(list), do: Enum.map(list, &canonical_term/1)
+
+  defp canonical_term(tuple) when is_tuple(tuple),
+    do: tuple |> Tuple.to_list() |> Enum.map(&canonical_term/1)
+
+  defp canonical_term(atom) when is_atom(atom), do: Atom.to_string(atom)
+  defp canonical_term(other), do: other
+end
+""" .
+
+bap:runtime_module_lib_beam4pm_ppcx_production_boundary_ex a bap:RuntimeModule ;
+    bap:modulePath "lib/beam4pm_ppcx_production_boundary.ex" ;
+    bap:moduleBody """defmodule BeamPM.PPCXProductionBoundary do
+  @moduledoc \"\"\"
+  Production ownership boundary for the PPCX planning/process-intelligence loop.
+
+  `beam4pm` owns planning and conformance/control-plane intelligence. It does not
+  acquire CMCA allocation authority, MFW selection/admission authority, or
+  consequential DO authority by hosting the planner or process runtime.
+
+  The module is intentionally declarative and side-effect free. It is used to
+  reject local authority widening before any transport or adapter layer is added.
+  \"\"\"
+
+  @typedoc \"Production transition in the PPCX closure.\"
+  @type transition ::
+          :plan
+          | :allocate
+          | :select
+          | :admit
+          | :transport
+          | :actuate
+          | :verify_consequence
+          | :conform
+
+  @typedoc \"Canonical production owner.\"
+  @type owner ::
+          :beam4pm
+          | :bcinr
+          | :mfw_auto_select
+          | :mfw_admission
+          | :rmcp_transport
+          | :mfw_pcp_broker
+          | :independent_verifier
+
+  @typedoc \"Typed refusal for an attempted local authority widening.\"
+  @type refusal ::
+          {:external_authority, transition(), owner()}
+          | {:do_authority_external, :mfw_pcp_broker}
+
+  @spec schema() :: String.t()
+  def schema, do: \"chatman.ppcx.beam4pm-production-boundary/v1\"
+
+  @spec owner(transition()) :: owner()
+  def owner(:plan), do: :beam4pm
+  def owner(:allocate), do: :bcinr
+  def owner(:select), do: :mfw_auto_select
+  def owner(:admit), do: :mfw_admission
+  def owner(:transport), do: :rmcp_transport
+  def owner(:actuate), do: :mfw_pcp_broker
+  def owner(:verify_consequence), do: :independent_verifier
+  def owner(:conform), do: :beam4pm
+
+  @doc \"\"\"
+  Admit only transitions whose production authority belongs to `beam4pm`.
+
+  This is a classification fence, not a workflow runner. `:ok` does not imply
+  execution, standing, or a receipt; it means only that the transition belongs
+  to the control-plane role.
+  \"\"\"
+  @spec admit_local(transition()) :: :ok | {:error, refusal()}
+  def admit_local(:plan), do: :ok
+  def admit_local(:conform), do: :ok
+
+  def admit_local(:actuate) do
+    {:error, {:do_authority_external, :mfw_pcp_broker}}
+  end
+
+  def admit_local(transition) do
+    {:error, {:external_authority, transition, owner(transition)}}
+  end
+
+  @doc \"\"\"
+  Canonical immutable production topology used by receipts, diagnostics, and
+  cross-repository contract tests.
+  \"\"\"
+  @spec topology() :: map()
+  def topology do
+    %{
+      schema: schema(),
+      planning_owner: :beam4pm,
+      allocation_owner: :bcinr,
+      selection_owner: :mfw_auto_select,
+      admission_owner: :mfw_admission,
+      transport_owner: :rmcp_transport,
+      do_owner: :mfw_pcp_broker,
+      consequence_verifier: :independent_verifier,
+      conformance_owner: :beam4pm,
+      ambient_do: false
+    }
+  end
+end
+""" .
+
+bap:runtime_module_lib_beam_pm_ferroplan_bridge_closure_coordinator_ex a bap:RuntimeModule ;
+    bap:modulePath "lib/beam_pm/ferroplan_bridge/closure/coordinator.ex" ;
+    bap:moduleBody """defmodule BeamPM.FerroplanBridge.Coordinator do
+  use GenServer
+
+  alias BeamPM.FerroplanBridge.{
+    EdgeSet,
+    ExecutionEnvelope,
+    ProviderAdapter,
+    RecoveryReceipt
+  }
+
+  alias BeamPM.ReplanRouter
+
+  def start_link(opts), do: GenServer.start_link(__MODULE__, opts)
+
+  def execute(pid, envelope, edges),
+    do: GenServer.call(pid, {:execute, envelope, edges})
+
+  def run(pid, envelope, edges, decision, handle, inputs, opts \\\\ []),
+    do: GenServer.call(pid, {:run, envelope, edges, decision, handle, inputs, opts})
+
+  def replan(pid, envelope, edges, router_state, handle, sight, context, inputs, opts \\\\ []) do
+    with {:ok, observation} <- ReplanRouter.observe(handle, sight, context) do
+      {decision, evidence, next_router_state} = ReplanRouter.route(observation, router_state)
+
+      case run(
+             pid,
+             envelope,
+             edges,
+             decision,
+             handle,
+             Map.put(inputs, :evidence, evidence),
+             opts
+           ) do
+        {:ok, dispatch} ->
+          {:ok,
+           %{
+             decision: decision,
+             evidence: evidence,
+             router_state: next_router_state,
+             dispatch: dispatch
+           }}
+
+        {:error, reason} ->
+          {:error,
+           %{
+             decision: decision,
+             evidence: evidence,
+             router_state: next_router_state,
+             dispatch_error: reason
+           }}
+      end
+    end
+  end
+
+  @impl true
+  def init(opts) do
+    {:ok, %{max_attempts: opts |> Keyword.get(:max_attempts, 3) |> max(1)}}
+  end
+
+  @impl true
+  def handle_call({:execute, %ExecutionEnvelope{} = env, edges}, _from, state) do
+    case select_edge(edges, env.capability, env.failed_edges) do
+      nil ->
+        {:reply, {:error, :no_lawful_provider}, state}
+
+      edge ->
+        receipt =
+          case env.failed_edges do
+            [failed | _] -> RecoveryReceipt.new(env.subject, %{id: failed}, edge)
+            [] -> nil
+          end
+
+        {:reply, {:ok, edge, receipt}, state}
+    end
+  end
+
+  @impl true
+  def handle_call(
+        {:run, %ExecutionEnvelope{} = env, edges, decision, handle, inputs, opts},
+        _from,
+        state
+      ) do
+    result =
+      dispatch(
+        env,
+        edges,
+        decision,
+        handle,
+        inputs,
+        opts,
+        state.max_attempts,
+        Enum.reverse(env.failed_edges)
+      )
+
+    {:reply, result, state}
+  end
+
+  defp dispatch(_env, _edges, _decision, _handle, _inputs, _opts, 0, failed) do
+    {:error, %{reason: :attempt_budget_exhausted, failed_edges: failed}}
+  end
+
+  defp dispatch(env, edges, decision, handle, inputs, opts, remaining, failed) do
+    case select_edge(edges, env.capability, failed) do
+      nil ->
+        {:error, %{reason: :no_lawful_provider, failed_edges: failed}}
+
+      edge ->
+        case ProviderAdapter.invoke(edge.provider, decision, handle, inputs, opts) do
+          {:ok, result} ->
+            receipt =
+              case List.last(failed) do
+                nil -> nil
+                failed_edge -> RecoveryReceipt.new(env.subject, %{id: failed_edge}, edge)
+              end
+
+            {:ok,
+             %{
+               edge: edge,
+               result: result,
+               failed_edges: failed,
+               recovery_receipt: receipt
+             }}
+
+          {:error, provider_error} ->
+            dispatch(
+              env,
+              edges,
+              decision,
+              handle,
+              inputs,
+              opts,
+              remaining - 1,
+              failed ++ [edge.id]
+            )
+            |> attach_provider_error(edge, provider_error)
+        end
+    end
+  end
+
+  defp attach_provider_error({:ok, result}, _failed_edge, _error), do: {:ok, result}
+
+  defp attach_provider_error({:error, result}, failed_edge, error) do
+    {:error,
+     Map.merge(result, %{
+       last_failed_edge: failed_edge.id,
+       provider_error: error
+     })}
+  end
+
+  defp select_edge(edges, capability, failed_edges) do
+    failed_edges
+    |> Enum.reduce(edges, fn failed, acc -> EdgeSet.exclude(acc, failed) end)
+    |> EdgeSet.select(capability)
+  end
+end
+""" .
+
+bap:runtime_module_lib_beam_pm_ferroplan_bridge_closure_execution_envelope_ex a bap:RuntimeModule ;
+    bap:modulePath "lib/beam_pm/ferroplan_bridge/closure/execution_envelope.ex" ;
+    bap:moduleBody """defmodule BeamPM.FerroplanBridge.ExecutionEnvelope do
+  @enforce_keys [:subject, :evidence, :epoch, :capability]
+  defstruct [:subject, :evidence, :epoch, :capability, status: :candidate, failed_edges: []]
+  def fail(e, edge), do: %{e | failed_edges: Enum.uniq([edge | e.failed_edges])}
+end
+""" .
+
+bap:runtime_module_lib_beam_pm_ferroplan_bridge_closure_recovery_receipt_ex a bap:RuntimeModule ;
+    bap:modulePath "lib/beam_pm/ferroplan_bridge/closure/recovery_receipt.ex" ;
+    bap:moduleBody """defmodule BeamPM.FerroplanBridge.RecoveryReceipt do
+  @enforce_keys [:subject, :failed_edge, :replacement_edge, :provider]
+  defstruct [:subject, :failed_edge, :replacement_edge, :provider]
+  def new(subject, failed, replacement), do: %__MODULE__{subject: subject, failed_edge: failed.id, replacement_edge: replacement.id, provider: replacement.provider}
+end
+""" .
+
+bap:runtime_module_lib_beam_pm_ferroplan_bridge_doctrine_command_topology_ex a bap:RuntimeModule ;
+    bap:modulePath "lib/beam_pm/ferroplan_bridge/doctrine/command_topology.ex" ;
+    bap:moduleBody """defmodule BeamPM.FerroplanBridge.CommandTopology do
+  def roots(nodes), do: Enum.filter(nodes, &(Map.get(&1, :parent) == nil))
+  def children(nodes, id), do: Enum.filter(nodes, &(Map.get(&1, :parent) == id))
+end
+""" .
+
+bap:runtime_module_lib_beam_pm_ferroplan_bridge_doctrine_intent_ex a bap:RuntimeModule ;
+    bap:modulePath "lib/beam_pm/ferroplan_bridge/doctrine/intent.ex" ;
+    bap:moduleBody """defmodule BeamPM.FerroplanBridge.Intent do
+  @enforce_keys [:id, :goal]
+  defstruct [:id, :goal, authority: :none]
+  def new(id, goal) when id != \"\" and goal != \"\", do: %__MODULE__{id: id, goal: goal}
+end
+""" .
+
+bap:runtime_module_lib_beam_pm_ferroplan_bridge_doctrine_planner_binding_ex a bap:RuntimeModule ;
+    bap:modulePath "lib/beam_pm/ferroplan_bridge/doctrine/planner_binding.ex" ;
+    bap:moduleBody """defmodule BeamPM.FerroplanBridge.PlannerBinding do
+  def bind(%{id: id, authority: :none}, planner, capability), do: %{intent_id: id, planner: planner, capability: capability, authority: :none}
+end
+""" .
+
+bap:runtime_module_lib_beam_pm_ferroplan_bridge_evidence_evidence_admission_ex a bap:RuntimeModule ;
+    bap:modulePath "lib/beam_pm/ferroplan_bridge/evidence/evidence_admission.ex" ;
+    bap:moduleBody """defmodule BeamPM.FerroplanBridge.EvidenceAdmission do
+  def admit(%{subject_sha: s, evidence_id: e, source: src, standing: :admitted} = x, s)
+      when is_binary(e) and e != \"\" and is_binary(src) and src != \"\", do: {:ok, x}
+  def admit(_, _), do: {:error, :unbound_evidence}
+end
+""" .
+
+bap:runtime_module_lib_beam_pm_ferroplan_bridge_evidence_osiris_boundary_ex a bap:RuntimeModule ;
+    bap:modulePath "lib/beam_pm/ferroplan_bridge/evidence/osiris_boundary.ex" ;
+    bap:moduleBody """defmodule BeamPM.FerroplanBridge.OsirisBoundary do
+  @role %{observe: true, construct: false, do: false}
+  def role, do: @role
+  def bound(items, max) when max >= 0, do: Enum.take(items, -max)
+  def consequential?(_), do: false
+end
+""" .
+
+bap:runtime_module_lib_beam_pm_ferroplan_bridge_evidence_poly_evidence_ex a bap:RuntimeModule ;
+    bap:modulePath "lib/beam_pm/ferroplan_bridge/evidence/poly_evidence.ex" ;
+    bap:moduleBody """defmodule BeamPM.FerroplanBridge.PolyEvidence do
+  def combine(subject, evidence) when is_list(evidence) do
+    digest = :crypto.hash(:sha256, :erlang.term_to_binary({subject, evidence})) |> Base.encode16(case: :lower)
+    %{subject: subject, evidence: evidence, digest: digest}
+  end
+end
+""" .
+
+bap:runtime_module_lib_beam_pm_ferroplan_bridge_evolution_promotion_policy_ex a bap:RuntimeModule ;
+    bap:modulePath "lib/beam_pm/ferroplan_bridge/evolution/promotion_policy.ex" ;
+    bap:moduleBody """defmodule BeamPM.FerroplanBridge.PromotionPolicy do
+  alias BeamPM.FerroplanBridge.RacapPair
+  def decide(pair, min_delta, survival) do
+    with {:ok, delta} <- RacapPair.delta(pair), true <- delta >= min_delta and survival >= 0.5, do: :promote, else: (_ -> :refuse)
+  end
+end
+""" .
+
+bap:runtime_module_lib_beam_pm_ferroplan_bridge_evolution_racap_pair_ex a bap:RuntimeModule ;
+    bap:modulePath "lib/beam_pm/ferroplan_bridge/evolution/racap_pair.ex" ;
+    bap:moduleBody """defmodule BeamPM.FerroplanBridge.RacapPair do
+  def delta(%{control: c, candidate: k, same_subject: true}) when is_number(c) and is_number(k), do: {:ok, k - c}
+  def delta(_), do: {:error, :subject_drift}
+end
+""" .
+
+bap:runtime_module_lib_beam_pm_ferroplan_bridge_evolution_survival_evidence_ex a bap:RuntimeModule ;
+    bap:modulePath "lib/beam_pm/ferroplan_bridge/evolution/survival_evidence.ex" ;
+    bap:moduleBody """defmodule BeamPM.FerroplanBridge.SurvivalEvidence do
+  def score(results) when is_list(results) do
+    total = length(results)
+    if total == 0, do: 0.0, else: Enum.count(results, &(&1 == :survived)) / total
+  end
+end
+""" .
+
+bap:runtime_module_lib_beam_pm_ferroplan_bridge_federation_query_contract_ex a bap:RuntimeModule ;
+    bap:modulePath "lib/beam_pm/ferroplan_bridge/federation/query_contract.ex" ;
+    bap:moduleBody """defmodule BeamPM.FerroplanBridge.QueryContract do
+  @enforce_keys [:id, :requires, :returns]
+  defstruct [:id, :requires, :returns]
+  def supports?(%__MODULE__{returns: fields}, requested), do: Enum.all?(requested, &(&1 in fields))
+end
+""" .
+
+bap:runtime_module_lib_beam_pm_ferroplan_bridge_federation_source_binding_ex a bap:RuntimeModule ;
+    bap:modulePath "lib/beam_pm/ferroplan_bridge/federation/source_binding.ex" ;
+    bap:moduleBody """defmodule BeamPM.FerroplanBridge.SourceBinding do
+  @enforce_keys [:id, :origin, :digest]
+  defstruct [:id, :origin, :digest]
+  def bind(id, origin, digest) when origin != \"\" and digest != \"\", do: {:ok, %__MODULE__{id: id, origin: origin, digest: digest}}
+  def bind(_, _, _), do: {:error, :refused_source}
+end
+""" .
+
+bap:runtime_module_lib_beam_pm_ferroplan_bridge_federation_vkg_consumer_ex a bap:RuntimeModule ;
+    bap:modulePath "lib/beam_pm/ferroplan_bridge/federation/vkg_consumer.ex" ;
+    bap:moduleBody """defmodule BeamPM.FerroplanBridge.VkgConsumer do
+  def request(binding, contract, subject), do: %{source: binding.id, origin: binding.origin, digest: binding.digest, contract: contract.id, subject: subject}
+end
+""" .
+
+bap:runtime_module_lib_beam_pm_ferroplan_bridge_graphlaw_graph_invariant_ex a bap:RuntimeModule ;
+    bap:modulePath "lib/beam_pm/ferroplan_bridge/graphlaw/graph_invariant.ex" ;
+    bap:moduleBody """defmodule BeamPM.FerroplanBridge.GraphInvariant do
+  def enforce(name, value, check) when is_function(check, 1), do: if(check.(value), do: {:ok, value}, else: {:error, {:invariant, name}})
+end
+""" .
+
+bap:runtime_module_lib_beam_pm_ferroplan_bridge_graphlaw_migration_guard_ex a bap:RuntimeModule ;
+    bap:modulePath "lib/beam_pm/ferroplan_bridge/graphlaw/migration_guard.ex" ;
+    bap:moduleBody """defmodule BeamPM.FerroplanBridge.MigrationGuard do
+  def admit(%{subject: s, receipts: r1}, %{subject: s, receipts: r2}) when is_list(r1) and is_list(r2), do: if(MapSet.subset?(MapSet.new(r1), MapSet.new(r2)), do: :ok, else: {:error, :receipt_loss})
+  def admit(_, _), do: {:error, :subject_changed}
+end
+""" .
+
+bap:runtime_module_lib_beam_pm_ferroplan_bridge_graphlaw_semantic_part_ex a bap:RuntimeModule ;
+    bap:modulePath "lib/beam_pm/ferroplan_bridge/graphlaw/semantic_part.ex" ;
+    bap:moduleBody """defmodule BeamPM.FerroplanBridge.SemanticPart do
+  @enforce_keys [:id, :source, :digest, :consequence]
+  defstruct [:id, :source, :digest, :consequence]
+  def same?(a, b), do: a.id == b.id and a.digest == b.digest and a.consequence == b.consequence
+end
+""" .
+
+bap:runtime_module_lib_beam_pm_ferroplan_bridge_identity_authority_fence_ex a bap:RuntimeModule ;
+    bap:modulePath "lib/beam_pm/ferroplan_bridge/identity/authority_fence.ex" ;
+    bap:moduleBody """defmodule BeamPM.FerroplanBridge.AuthorityFence do
+  @rank %{none: 0, observe: 1, construct: 2, do: 3}
+  def require(granted, needed) when is_map_key(@rank, granted) and is_map_key(@rank, needed) do
+    if @rank[granted] >= @rank[needed], do: :ok, else: {:error, {:refused_authority, needed}}
+  end
+end
+""" .
+
+bap:runtime_module_lib_beam_pm_ferroplan_bridge_identity_exact_subject_ex a bap:RuntimeModule ;
+    bap:modulePath "lib/beam_pm/ferroplan_bridge/identity/exact_subject.ex" ;
+    bap:moduleBody """defmodule BeamPM.FerroplanBridge.ExactSubject do
+  @enforce_keys [:repo, :sha, :task]
+  defstruct [:repo, :sha, :task]
+  def bind(repo, sha, task) when is_binary(repo) and is_binary(sha) and is_binary(task) do
+    if String.contains?(repo, \"/\") and byte_size(sha) == 40 and task != \"\", do: {:ok, %__MODULE__{repo: repo, sha: sha, task: task}}, else: {:error, :invalid_exact_subject}
+  end
+  def same?(%__MODULE__{repo: r, sha: s}, %__MODULE__{repo: r, sha: s}), do: true
+  def same?(_, _), do: false
+end
+""" .
+
+bap:runtime_module_lib_beam_pm_ferroplan_bridge_identity_standing_ex a bap:RuntimeModule ;
+    bap:modulePath "lib/beam_pm/ferroplan_bridge/identity/standing.ex" ;
+    bap:moduleBody """defmodule BeamPM.FerroplanBridge.Standing do
+  @states [:unknown, :candidate, :admitted, :refused]
+  def states, do: @states
+  def may_execute?(:admitted), do: true
+  def may_execute?(_), do: false
+  def transition(from, to) when from in @states and to in @states, do: {:ok, {from, to}}
+end
+""" .
+
+bap:runtime_module_lib_beam_pm_ferroplan_bridge_interchange_edge_set_ex a bap:RuntimeModule ;
+    bap:modulePath "lib/beam_pm/ferroplan_bridge/interchange/edge_set.ex" ;
+    bap:moduleBody """defmodule BeamPM.FerroplanBridge.EdgeSet do
+  alias BeamPM.FerroplanBridge.SemanticEdge
+  def candidates(edges, capability), do: Enum.filter(edges, &SemanticEdge.eligible?(&1, capability))
+  def exclude(edges, failed_id), do: Enum.reject(edges, &(&1.id == failed_id))
+  def select(edges, capability), do: edges |> candidates(capability) |> List.first()
+end
+""" .
+
+bap:runtime_module_lib_beam_pm_ferroplan_bridge_interchange_semantic_edge_ex a bap:RuntimeModule ;
+    bap:modulePath "lib/beam_pm/ferroplan_bridge/interchange/semantic_edge.ex" ;
+    bap:moduleBody """defmodule BeamPM.FerroplanBridge.SemanticEdge do
+  @enforce_keys [:id, :capability, :provider, :consequence]
+  defstruct [:id, :capability, :provider, :consequence, enabled: true]
+  def eligible?(%__MODULE__{enabled: true, capability: c}, c), do: true
+  def eligible?(_, _), do: false
+end
+""" .
+
+bap:runtime_module_lib_beam_pm_ferroplan_bridge_interchange_substitution_ex a bap:RuntimeModule ;
+    bap:modulePath "lib/beam_pm/ferroplan_bridge/interchange/substitution.ex" ;
+    bap:moduleBody """defmodule BeamPM.FerroplanBridge.Substitution do
+  def equivalent?(a, b), do: a.id != b.id and a.capability == b.capability and a.consequence == b.consequence and b.enabled
+  def substitute(a, b), do: if(equivalent?(a, b), do: {:ok, b}, else: {:error, :consequence_drift})
+end
+""" .
+
+bap:runtime_module_lib_beam_pm_ferroplan_bridge_intervention_bounded_do_ex a bap:RuntimeModule ;
+    bap:modulePath "lib/beam_pm/ferroplan_bridge/intervention/bounded_do.ex" ;
+    bap:moduleBody """defmodule BeamPM.FerroplanBridge.BoundedDo do
+  alias BeamPM.FerroplanBridge.{AuthorityFence, CommandBudget}
+  def authorize(order) do
+    with :ok <- AuthorityFence.require(order.authority, :construct),
+         {:ok, next} <- CommandBudget.consume(order), do: {:ok, next}
+  end
+end
+""" .
+
+bap:runtime_module_lib_beam_pm_ferroplan_bridge_intervention_command_budget_ex a bap:RuntimeModule ;
+    bap:modulePath "lib/beam_pm/ferroplan_bridge/intervention/command_budget.ex" ;
+    bap:moduleBody """defmodule BeamPM.FerroplanBridge.CommandBudget do
+  def consume(%{attempt: a, max_attempts: m} = order) when a < m, do: {:ok, %{order | attempt: a + 1}}
+  def consume(_), do: {:error, :budget_exhausted}
+end
+""" .
+
+bap:runtime_module_lib_beam_pm_ferroplan_bridge_intervention_work_order_ex a bap:RuntimeModule ;
+    bap:modulePath "lib/beam_pm/ferroplan_bridge/intervention/work_order.ex" ;
+    bap:moduleBody """defmodule BeamPM.FerroplanBridge.WorkOrder do
+  @enforce_keys [:id, :subject, :capability, :max_attempts]
+  defstruct [:id, :subject, :capability, :max_attempts, attempt: 0, authority: :construct]
+  def new(id, subject, capability, max_attempts) when max_attempts > 0, do: %__MODULE__{id: id, subject: subject, capability: capability, max_attempts: max_attempts}
+  def exhausted?(%__MODULE__{attempt: a, max_attempts: m}), do: a >= m
+end
+""" .
+
+bap:runtime_module_lib_beam_pm_ferroplan_bridge_ocel_ocel_event_ex a bap:RuntimeModule ;
+    bap:modulePath "lib/beam_pm/ferroplan_bridge/ocel/ocel_event.ex" ;
+    bap:moduleBody """defmodule BeamPM.FerroplanBridge.OcelEvent do
+  @enforce_keys [:id, :type, :time, :objects]
+  defstruct [:id, :type, :time, :objects, attributes: %{}]
+  def new(id, type, time, objects), do: %__MODULE__{id: id, type: type, time: time, objects: Enum.sort(objects)}
+end
+""" .
+
+bap:runtime_module_lib_beam_pm_ferroplan_bridge_ocel_receipt_ex a bap:RuntimeModule ;
+    bap:modulePath "lib/beam_pm/ferroplan_bridge/ocel/receipt.ex" ;
+    bap:moduleBody """defmodule BeamPM.FerroplanBridge.Receipt do
+  @enforce_keys [:subject, :work_order, :provider, :epoch]
+  defstruct [:subject, :work_order, :provider, :epoch, failed_edges: []]
+  def replay_key(r), do: Enum.join([r.subject, r.work_order, r.epoch, Enum.join(r.failed_edges, \",\")], \"|\")
+end
+""" .
+
+bap:runtime_module_lib_beam_pm_ferroplan_bridge_ocel_replay_ex a bap:RuntimeModule ;
+    bap:modulePath "lib/beam_pm/ferroplan_bridge/ocel/replay.ex" ;
+    bap:moduleBody """defmodule BeamPM.FerroplanBridge.Replay do
+  alias BeamPM.FerroplanBridge.Receipt
+  def deterministic?(a, b), do: Receipt.replay_key(a) == Receipt.replay_key(b) and a.provider == b.provider
+end
+""" .
+
+bap:runtime_module_lib_beam_pm_ferroplan_bridge_planning_fond_recovery_ex a bap:RuntimeModule ;
+    bap:modulePath "lib/beam_pm/ferroplan_bridge/planning/fond_recovery.ex" ;
+    bap:moduleBody """defmodule BeamPM.FerroplanBridge.FondRecovery do
+  alias BeamPM.FerroplanBridge.EdgeSet
+  def recover(edges, failed, capability), do: edges |> EdgeSet.exclude(failed) |> EdgeSet.select(capability)
+end
+""" .
+
+bap:runtime_module_lib_beam_pm_ferroplan_bridge_planning_hddl_task_ex a bap:RuntimeModule ;
+    bap:modulePath "lib/beam_pm/ferroplan_bridge/planning/hddl_task.ex" ;
+    bap:moduleBody """defmodule BeamPM.FerroplanBridge.HddlTask do
+  @enforce_keys [:name]
+  defstruct [:name, methods: []]
+  def leaves(%__MODULE__{methods: []} = task), do: [task.name]
+  def leaves(%__MODULE__{methods: methods}), do: Enum.flat_map(methods, &leaves/1)
+end
+""" .
+
+bap:runtime_module_lib_beam_pm_ferroplan_bridge_planning_powl_trace_ex a bap:RuntimeModule ;
+    bap:modulePath "lib/beam_pm/ferroplan_bridge/planning/powl_trace.ex" ;
+    bap:moduleBody """defmodule BeamPM.FerroplanBridge.PowlTrace do
+  def ready?(%{after: deps}, done), do: Enum.all?(deps, &MapSet.member?(done, &1))
+  def append(trace, event), do: trace ++ [event]
+end
+""" .
+
+bap:runtime_module_lib_beam_pm_ferroplan_bridge_ptd_epoch_ex a bap:RuntimeModule ;
+    bap:modulePath "lib/beam_pm/ferroplan_bridge/ptd/epoch.ex" ;
+    bap:moduleBody """defmodule BeamPM.FerroplanBridge.Epoch do
+  @enforce_keys [:subject, :generation, :artifact]
+  defstruct [:subject, :generation, :artifact]
+  def next(%__MODULE__{} = e, artifact), do: %__MODULE__{e | generation: e.generation + 1, artifact: artifact}
+end
+""" .
+
+bap:runtime_module_lib_beam_pm_ferroplan_bridge_ptd_experiment_ex a bap:RuntimeModule ;
+    bap:modulePath "lib/beam_pm/ferroplan_bridge/ptd/experiment.ex" ;
+    bap:moduleBody """defmodule BeamPM.FerroplanBridge.Experiment do
+  def pair(control, phased) when control.subject == phased.subject do
+    %{control: control, phased: phased, same_semantics: Map.get(control, :semantics) == Map.get(phased, :semantics)}
+  end
+  def pair(_, _), do: {:error, :subject_drift}
+end
+""" .
+
+bap:runtime_module_lib_beam_pm_ferroplan_bridge_ptd_generation_fence_ex a bap:RuntimeModule ;
+    bap:modulePath "lib/beam_pm/ferroplan_bridge/ptd/generation_fence.ex" ;
+    bap:moduleBody """defmodule BeamPM.FerroplanBridge.GenerationFence do
+  def admit(%{subject: s, generation: g}, %{subject: s, generation: g}), do: :ok
+  def admit(_, _), do: {:error, :generation_drift}
+end
+""" .
+
+bap:runtime_module_lib_beam_pm_ferroplan_bridge_trimtab_context_window_ex a bap:RuntimeModule ;
+    bap:modulePath "lib/beam_pm/ferroplan_bridge/trimtab/context_window.ex" ;
+    bap:moduleBody """defmodule BeamPM.FerroplanBridge.ContextWindow do
+  def fit(items, budget) do
+    {kept, _} = items |> Enum.sort_by(&Map.get(&1, :salience, 0), :desc) |> Enum.reduce({[], budget}, fn x, {acc, left} -> t = Map.get(x, :tokens, 0); if t <= left, do: {[x | acc], left - t}, else: {acc, left} end)
+    Enum.reverse(kept)
+  end
+end
+""" .
+
+bap:runtime_module_lib_beam_pm_ferroplan_bridge_trimtab_model_role_ex a bap:RuntimeModule ;
+    bap:modulePath "lib/beam_pm/ferroplan_bridge/trimtab/model_role.ex" ;
+    bap:moduleBody """defmodule BeamPM.FerroplanBridge.ModelRole do
+  @permissions %{context: true, select: false, construct: false, do: false}
+  def permissions, do: @permissions
+  def allowed?(:context), do: true
+  def allowed?(_), do: false
+end
+""" .
+
+bap:runtime_module_lib_beam_pm_ferroplan_bridge_trimtab_steering_ex a bap:RuntimeModule ;
+    bap:modulePath "lib/beam_pm/ferroplan_bridge/trimtab/steering.ex" ;
+    bap:moduleBody """defmodule BeamPM.FerroplanBridge.Steering do
+  def delta(before, after, hint), do: %{before: before, after: after, hint: hint, authority: :none}
+end
+""" .
+
+bap:runtime_module_lib_beam_pm_ferroplan_bridge_wasm_consumer_boundary_ex a bap:RuntimeModule ;
+    bap:modulePath "lib/beam_pm/ferroplan_bridge/wasm/consumer_boundary.ex" ;
+    bap:moduleBody """defmodule BeamPM.FerroplanBridge.ConsumerBoundary do
+  def request(subject, capability, payload) when is_binary(subject) and subject != \"\" do
+    %{subject: subject, capability: capability, payload: payload, authority: :none}
+  end
+end
+""" .
+
+bap:runtime_module_lib_beam_pm_ferroplan_bridge_wasm_portable_contract_ex a bap:RuntimeModule ;
+    bap:modulePath "lib/beam_pm/ferroplan_bridge/wasm/portable_contract.ex" ;
+    bap:moduleBody """defmodule BeamPM.FerroplanBridge.PortableContract do
+  @enforce_keys [:capability, :abi, :digest]
+  defstruct [:capability, :abi, :digest, version: 1]
+  def compatible?(a, b), do: a.capability == b.capability and a.abi == b.abi and b.version >= a.version
+end
+""" .
+
+bap:runtime_module_lib_beam_pm_ferroplan_bridge_wasm_provider_adapter_ex a bap:RuntimeModule ;
+    bap:modulePath "lib/beam_pm/ferroplan_bridge/wasm/provider_adapter.ex" ;
+    bap:moduleBody """defmodule BeamPM.FerroplanBridge.ProviderAdapter do
+  alias BeamPM.ReplanRouter
+
+  def invoke(provider, decision, handle, inputs, opts) do
+    providers = Keyword.get(opts, :providers, %{})
+    call_opts = Keyword.delete(opts, :providers)
+
+    with {:ok, module} <- resolve(provider, providers) do
+      module.execute(decision, handle, inputs, call_opts)
+      |> normalize(provider)
+    end
+  rescue
+    error ->
+      {:error,
+       %{
+         provider: provider,
+         reason: {:exception, error.__struct__, Exception.message(error)}
+       }}
+  catch
+    kind, reason ->
+      {:error, %{provider: provider, reason: {kind, reason}}}
+  end
+
+  def resolve(provider, providers) when is_map(providers) do
+    case Map.get(providers, provider) do
+      module when is_atom(module) -> {:ok, module}
+      nil -> resolve_builtin(provider)
+      other -> {:error, %{provider: provider, reason: {:invalid_provider_module, other}}}
+    end
+  end
+
+  def normalize({:ok, value}, provider),
+    do: {:ok, %{provider: provider, value: value}}
+
+  def normalize({:recompile_required, evidence}, provider),
+    do: {:ok, %{provider: provider, value: %{outcome: :recompile_required, evidence: evidence}}}
+
+  def normalize({:error, reason}, provider),
+    do: {:error, %{provider: provider, reason: reason}}
+
+  def normalize(other, provider),
+    do: {:error, %{provider: provider, reason: {:invalid_result, other}}}
+
+  defp resolve_builtin(provider) when provider in [:ferroplan, \"ferroplan\"],
+    do: {:ok, ReplanRouter}
+
+  defp resolve_builtin(provider) when is_atom(provider) do
+    if function_exported?(provider, :execute, 4),
+      do: {:ok, provider},
+      else: {:error, %{provider: provider, reason: :unsupported_provider}}
+  end
+
+  defp resolve_builtin(provider),
+    do: {:error, %{provider: provider, reason: :unsupported_provider}}
+end
+""" .
+
+bap:runtime_module_lib_beam_pm_research_runtime_attempt_budget_ex a bap:RuntimeModule ;
+    bap:modulePath "lib/beam_pm/research_runtime/attempt_budget.ex" ;
+    bap:moduleBody """defmodule BeamPM.ResearchRuntime.AttemptBudget do
+  @moduledoc false
+  defstruct used:0,max:3
+  def take(%__MODULE__{used:u,max:m}=b) when u<m, do: {:ok,%{b|used:u+1}}
+  def take(b), do: {:error,:exhausted,b}
+end
+""" .
+
+bap:runtime_module_lib_beam_pm_research_runtime_authority_fence_ex a bap:RuntimeModule ;
+    bap:modulePath "lib/beam_pm/research_runtime/authority_fence.ex" ;
+    bap:moduleBody """defmodule BeamPM.ResearchRuntime.AuthorityFence do
+  @moduledoc false
+  def admit(%{authority:a,capability:c}) when not is_nil(a) and not is_nil(c), do: :ok
+  def admit(_), do: {:refused,:authority_missing}
+end
+""" .
+
+bap:runtime_module_lib_beam_pm_research_runtime_backoff_ex a bap:RuntimeModule ;
+    bap:modulePath "lib/beam_pm/research_runtime/backoff.ex" ;
+    bap:moduleBody """defmodule BeamPM.ResearchRuntime.Backoff do
+  @moduledoc false
+  def delay(a,b \\\\ 25,c \\\\ 2000), do: min(c,trunc(b*:math.pow(2,max(a-1,0))))
+end
+""" .
+
+bap:runtime_module_lib_beam_pm_research_runtime_capability_ex a bap:RuntimeModule ;
+    bap:modulePath "lib/beam_pm/research_runtime/capability.ex" ;
+    bap:moduleBody """defmodule BeamPM.ResearchRuntime.Capability do
+  @moduledoc false
+  defstruct [:name,constraints:%{}]
+  def satisfies?(%__MODULE__{constraints:r},o), do: Enum.all?(r,fn {k,v}->Map.get(o,k)==v end)
+end
+""" .
+
+bap:runtime_module_lib_beam_pm_research_runtime_circuit_ex a bap:RuntimeModule ;
+    bap:modulePath "lib/beam_pm/research_runtime/circuit.ex" ;
+    bap:moduleBody """defmodule BeamPM.ResearchRuntime.Circuit do
+  @moduledoc false
+  def allow?(%{circuit: :closed}), do: true
+  def allow?(_), do: false
+end
+""" .
+
+bap:runtime_module_lib_beam_pm_research_runtime_context_window_ex a bap:RuntimeModule ;
+    bap:modulePath "lib/beam_pm/research_runtime/context_window.ex" ;
+    bap:moduleBody """defmodule BeamPM.ResearchRuntime.ContextWindow do
+  @moduledoc false
+  def fit(xs,b), do: Enum.reduce_while(xs,{[],0},fn {x,c},{a,n}->if n+c<=b,do:{:cont,{[x|a],n+c}},else:{:halt,{Enum.reverse(a),n}} end)
+end
+""" .
+
+bap:runtime_module_lib_beam_pm_research_runtime_deadline_ex a bap:RuntimeModule ;
+    bap:modulePath "lib/beam_pm/research_runtime/deadline.ex" ;
+    bap:moduleBody """defmodule BeamPM.ResearchRuntime.Deadline do
+  @moduledoc false
+  def expired?(d,n \\\\ System.monotonic_time(:millisecond)), do: n>=d
+end
+""" .
+
+bap:runtime_module_lib_beam_pm_research_runtime_dispatcher_ex a bap:RuntimeModule ;
+    bap:modulePath "lib/beam_pm/research_runtime/dispatcher.ex" ;
+    bap:moduleBody """defmodule BeamPM.ResearchRuntime.Dispatcher do
+  @moduledoc false
+  def dispatch(p,r,c \\\\ %{}) do try do p.execute(r,c) rescue e->{:error,{:local,e}} catch :exit,x->{:error,{:edge,x}} end end
+end
+""" .
+
+bap:runtime_module_lib_beam_pm_research_runtime_edge_ex a bap:RuntimeModule ;
+    bap:modulePath "lib/beam_pm/research_runtime/edge.ex" ;
+    bap:moduleBody """defmodule BeamPM.ResearchRuntime.Edge do
+  @moduledoc false
+  defstruct [:id,:provider,:capability,status: :available,cost: 0]
+end
+""" .
+
+bap:runtime_module_lib_beam_pm_research_runtime_epoch_ex a bap:RuntimeModule ;
+    bap:modulePath "lib/beam_pm/research_runtime/epoch.ex" ;
+    bap:moduleBody """defmodule BeamPM.ResearchRuntime.Epoch do
+  @moduledoc false
+  defstruct [:id,:subject_sha,:generation]
+  def next(e,s) when s==e.subject_sha, do: {:ok,%{e|id:e.id+1,generation:e.generation+1}}
+  def next(_,_), do: {:error,:subject_drift}
+end
+""" .
+
+bap:runtime_module_lib_beam_pm_research_runtime_evidence_ex a bap:RuntimeModule ;
+    bap:modulePath "lib/beam_pm/research_runtime/evidence.ex" ;
+    bap:moduleBody """defmodule BeamPM.ResearchRuntime.Evidence do
+  @moduledoc false
+  def admit(%{source_sha:s,witness:w,falsifier:f}) when is_binary(s) and not is_nil(w) and not is_nil(f), do: :ok
+  def admit(_), do: {:refused,:incomplete_evidence}
+end
+""" .
+
+bap:runtime_module_lib_beam_pm_research_runtime_exact_subject_ex a bap:RuntimeModule ;
+    bap:modulePath "lib/beam_pm/research_runtime/exact_subject.ex" ;
+    bap:moduleBody """defmodule BeamPM.ResearchRuntime.ExactSubject do
+  @moduledoc false
+  defstruct [:repo,:sha,:task]
+  def bind(r,s,t) when byte_size(s)==40, do: {:ok,%__MODULE__{repo:r,sha:s,task:t}}
+  def bind(_,_,_), do: {:error,:invalid_subject}
+end
+""" .
+
+bap:runtime_module_lib_beam_pm_research_runtime_failure_ex a bap:RuntimeModule ;
+    bap:modulePath "lib/beam_pm/research_runtime/failure.ex" ;
+    bap:moduleBody """defmodule BeamPM.ResearchRuntime.Failure do
+  @moduledoc false
+  def classify({:error,{k,r}}) when k in [:local,:edge,:refused,:timeout], do: {k,r}
+  def classify(x), do: {:unknown,x}
+end
+""" .
+
+bap:runtime_module_lib_beam_pm_research_runtime_fond_ex a bap:RuntimeModule ;
+    bap:modulePath "lib/beam_pm/research_runtime/fond.ex" ;
+    bap:moduleBody """defmodule BeamPM.ResearchRuntime.FOND do
+  @moduledoc false
+  def step(g,p,f), do: with {:ok,e}<-BeamPM.ResearchRuntime.Selector.select(g,p) do case f.(e) do {:ok,v}->{:ok,v,g};{:error,r}->{:recover,r,BeamPM.ResearchRuntime.Graph.exclude(g,e.id)} end end
+end
+""" .
+
+bap:runtime_module_lib_beam_pm_research_runtime_graph_ex a bap:RuntimeModule ;
+    bap:modulePath "lib/beam_pm/research_runtime/graph.ex" ;
+    bap:moduleBody """defmodule BeamPM.ResearchRuntime.Graph do
+  @moduledoc false
+  defstruct edges:%{},excluded:MapSet.new()
+  def new(es), do: %__MODULE__{edges:Map.new(es,&{&1.id,&1})}
+  def exclude(g,id), do: %{g|excluded:MapSet.put(g.excluded,id)}
+  def available(g), do: g.edges|>Map.values()|>Enum.reject(&MapSet.member?(g.excluded,&1.id))
+end
+""" .
+
+bap:runtime_module_lib_beam_pm_research_runtime_hddl_ex a bap:RuntimeModule ;
+    bap:modulePath "lib/beam_pm/research_runtime/hddl.ex" ;
+    bap:moduleBody """defmodule BeamPM.ResearchRuntime.HDDL do
+  @moduledoc false
+  defstruct [:task,:methods]
+  def methods_for(h,s), do: Enum.filter(h.methods,fn m->m.precondition.(s) end)
+end
+""" .
+
+bap:runtime_module_lib_beam_pm_research_runtime_health_ex a bap:RuntimeModule ;
+    bap:modulePath "lib/beam_pm/research_runtime/health.ex" ;
+    bap:moduleBody """defmodule BeamPM.ResearchRuntime.Health do
+  @moduledoc false
+  defstruct failures:0,successes:0,circuit: :closed
+  def success(h), do: %{h|successes:h.successes+1}
+  def failure(h,l \\\\ 3), do: %{h|failures:h.failures+1,circuit:if(h.failures+1>=l,do: :open,else:h.circuit)}
+end
+""" .
+
+bap:runtime_module_lib_beam_pm_research_runtime_idempotency_ex a bap:RuntimeModule ;
+    bap:modulePath "lib/beam_pm/research_runtime/idempotency.ex" ;
+    bap:moduleBody """defmodule BeamPM.ResearchRuntime.Idempotency do
+  @moduledoc false
+  def key(s,o), do: :crypto.hash(:sha256,:erlang.term_to_binary({s,o}))|>Base.encode16(case: :lower)
+end
+""" .
+
+bap:runtime_module_lib_beam_pm_research_runtime_lease_ex a bap:RuntimeModule ;
+    bap:modulePath "lib/beam_pm/research_runtime/lease.ex" ;
+    bap:moduleBody """defmodule BeamPM.ResearchRuntime.Lease do
+  @moduledoc false
+  defstruct [:key,:owner,:expires_at]
+  def valid?(l,n \\\\ System.system_time(:millisecond)), do: l.expires_at>n
+end
+""" .
+
+bap:runtime_module_lib_beam_pm_research_runtime_observation_ex a bap:RuntimeModule ;
+    bap:modulePath "lib/beam_pm/research_runtime/observation.ex" ;
+    bap:moduleBody """defmodule BeamPM.ResearchRuntime.Observation do
+  @moduledoc false
+  defstruct [:subject,:edge,:outcome,:at]
+  def new(s,e,o), do: %__MODULE__{subject:s,edge:e,outcome:o,at:System.system_time(:millisecond)}
+end
+""" .
+
+bap:runtime_module_lib_beam_pm_research_runtime_ocel_ex a bap:RuntimeModule ;
+    bap:modulePath "lib/beam_pm/research_runtime/ocel.ex" ;
+    bap:moduleBody """defmodule BeamPM.ResearchRuntime.OCEL do
+  @moduledoc false
+  def event(t,o,a \\\\ %{}), do: %{id:BeamPM.ResearchRuntime.Idempotency.key(o,{t,a}),type:t,objects:o,attrs:a}
+end
+""" .
+
+bap:runtime_module_lib_beam_pm_research_runtime_outcome_ex a bap:RuntimeModule ;
+    bap:modulePath "lib/beam_pm/research_runtime/outcome.ex" ;
+    bap:moduleBody """defmodule BeamPM.ResearchRuntime.Outcome do
+  @moduledoc false
+  def ok(v), do: {:ok,v}
+  def fail(k,r) when k in [:local,:edge,:refused,:timeout], do: {:error,{k,r}}
+end
+""" .
+
+bap:runtime_module_lib_beam_pm_research_runtime_policy_ex a bap:RuntimeModule ;
+    bap:modulePath "lib/beam_pm/research_runtime/policy.ex" ;
+    bap:moduleBody """defmodule BeamPM.ResearchRuntime.Policy do
+  @moduledoc false
+  defstruct [:id,order:[],max_attempts:3]
+  def next(%__MODULE__{order:o},g), do: Enum.find(o,fn id->Enum.any?(BeamPM.ResearchRuntime.Graph.available(g),&(&1.id==id)) end)
+end
+""" .
+
+bap:runtime_module_lib_beam_pm_research_runtime_poly_evidence_ex a bap:RuntimeModule ;
+    bap:modulePath "lib/beam_pm/research_runtime/poly_evidence.ex" ;
+    bap:moduleBody """defmodule BeamPM.ResearchRuntime.PolyEvidence do
+  @moduledoc false
+  def pipeline(e,c,v), do: with :ok<-BeamPM.ResearchRuntime.Evidence.admit(e),{:ok,a}<-c.(e),:ok<-v.(a),do:{:ok,a}
+end
+""" .
+
+bap:runtime_module_lib_beam_pm_research_runtime_powl_ex a bap:RuntimeModule ;
+    bap:modulePath "lib/beam_pm/research_runtime/powl.ex" ;
+    bap:moduleBody """defmodule BeamPM.ResearchRuntime.POWL do
+  @moduledoc false
+  defstruct [:id,steps:[],partial_order:[]]
+  def ready(p,d), do: Enum.filter(p.steps,fn s->Enum.all?(for {a,b}<-p.partial_order,b==s,do:a,&MapSet.member?(d,&1)) end)
+end
+""" .
+
+bap:runtime_module_lib_beam_pm_research_runtime_provider_ex a bap:RuntimeModule ;
+    bap:modulePath "lib/beam_pm/research_runtime/provider.ex" ;
+    bap:moduleBody """defmodule BeamPM.ResearchRuntime.Provider do
+  @moduledoc false
+  @callback execute(map(),map()) :: {:ok,term()} | {:error,term()}
+end
+""" .
+
+bap:runtime_module_lib_beam_pm_research_runtime_provider_registry_ex a bap:RuntimeModule ;
+    bap:modulePath "lib/beam_pm/research_runtime/provider_registry.ex" ;
+    bap:moduleBody """defmodule BeamPM.ResearchRuntime.ProviderRegistry do
+  @moduledoc false
+  use GenServer
+  def start_link(o \\\\ []), do: GenServer.start_link(__MODULE__,%{},Keyword.put_new(o,:name,__MODULE__))
+  def init(s), do: {:ok,s}
+  def put(n,m), do: GenServer.call(__MODULE__,{:put,n,m})
+  def get(n), do: GenServer.call(__MODULE__,{:get,n})
+  def handle_call({:put,n,m},_,s), do: {:reply,:ok,Map.put(s,n,m)}
+  def handle_call({:get,n},_,s), do: {:reply,Map.fetch(s,n),s}
+end
+""" .
+
+bap:runtime_module_lib_beam_pm_research_runtime_ptdexperiment_ex a bap:RuntimeModule ;
+    bap:modulePath "lib/beam_pm/research_runtime/ptdexperiment.ex" ;
+    bap:moduleBody """defmodule BeamPM.ResearchRuntime.PTDExperiment do
+  @moduledoc false
+  defstruct [:epoch,:implementation_digest,:semantic_digest]
+  def comparable?(a,b), do: a.semantic_digest==b.semantic_digest and a.implementation_digest!=b.implementation_digest
+end
+""" .
+
+bap:runtime_module_lib_beam_pm_research_runtime_queue_ex a bap:RuntimeModule ;
+    bap:modulePath "lib/beam_pm/research_runtime/queue.ex" ;
+    bap:moduleBody """defmodule BeamPM.ResearchRuntime.Queue do
+  @moduledoc false
+  def new, do: :queue.new()
+  def push(q,v), do: :queue.in(v,q)
+  def pop(q), do: :queue.out(q)
+end
+""" .
+
+bap:runtime_module_lib_beam_pm_research_runtime_receipt_ex a bap:RuntimeModule ;
+    bap:modulePath "lib/beam_pm/research_runtime/receipt.ex" ;
+    bap:moduleBody """defmodule BeamPM.ResearchRuntime.Receipt do
+  @moduledoc false
+  defstruct [:subject,:policy,:edge,:outcome,:trace_digest]
+  def digest(r), do: :crypto.hash(:sha256,:erlang.term_to_binary(r))|>Base.encode16(case: :lower)
+end
+""" .
+
+bap:runtime_module_lib_beam_pm_research_runtime_reconciler_ex a bap:RuntimeModule ;
+    bap:modulePath "lib/beam_pm/research_runtime/reconciler.ex" ;
+    bap:moduleBody """defmodule BeamPM.ResearchRuntime.Reconciler do
+  @moduledoc false
+  def reconcile(g,hs), do: Enum.reduce(hs,g,fn {id,h},a->if BeamPM.ResearchRuntime.Circuit.allow?(h),do:a,else:BeamPM.ResearchRuntime.Graph.exclude(a,id) end)
+end
+""" .
+
+bap:runtime_module_lib_beam_pm_research_runtime_recovery_ex a bap:RuntimeModule ;
+    bap:modulePath "lib/beam_pm/research_runtime/recovery.ex" ;
+    bap:moduleBody """defmodule BeamPM.ResearchRuntime.Recovery do
+  @moduledoc false
+  def apply(g,id,{k,_}) when k in [:edge,:timeout,:refused], do: BeamPM.ResearchRuntime.Graph.exclude(g,id)
+  def apply(g,_,_), do: g
+end
+""" .
+
+bap:runtime_module_lib_beam_pm_research_runtime_replay_ex a bap:RuntimeModule ;
+    bap:modulePath "lib/beam_pm/research_runtime/replay.ex" ;
+    bap:moduleBody """defmodule BeamPM.ResearchRuntime.Replay do
+  @moduledoc false
+  def decision(r), do: {r.subject,r.policy,r.edge}
+end
+""" .
+
+bap:runtime_module_lib_beam_pm_research_runtime_router_ex a bap:RuntimeModule ;
+    bap:modulePath "lib/beam_pm/research_runtime/router.ex" ;
+    bap:moduleBody """defmodule BeamPM.ResearchRuntime.Router do
+  @moduledoc false
+  def route(g,p,c), do: with {:ok,e}<-BeamPM.ResearchRuntime.Selector.select(g,p),true<-e.capability==c,do:{:ok,e},else:(false->{:error,:capability_mismatch};x->x)
+end
+""" .
+
+bap:runtime_module_lib_beam_pm_research_runtime_runtime_ex a bap:RuntimeModule ;
+    bap:modulePath "lib/beam_pm/research_runtime/runtime.ex" ;
+    bap:moduleBody """defmodule BeamPM.ResearchRuntime.Runtime do
+  @moduledoc false
+  alias BeamPM.ResearchRuntime.{Router,Dispatcher,Failure,Recovery}
+  def execute(s,c,ps,r), do: with {:ok,e}<-Router.route(s.graph,s.policy,c),{:ok,p}<-Map.fetch(ps,e.provider) do case Dispatcher.dispatch(p,r,%{edge:e.id}) do {:ok,v}->{:ok,v,s};err->f=Failure.classify(err);{:recover,f,%{s|graph:Recovery.apply(s.graph,e.id,f)}} end end
+end
+""" .
+
+bap:runtime_module_lib_beam_pm_research_runtime_scheduler_ex a bap:RuntimeModule ;
+    bap:modulePath "lib/beam_pm/research_runtime/scheduler.ex" ;
+    bap:moduleBody """defmodule BeamPM.ResearchRuntime.Scheduler do
+  @moduledoc false
+  def choose(xs), do: xs|>Enum.sort_by(&{Map.get(&1,:priority,0),Map.get(&1,:id)})|>List.first()
+end
+""" .
+
+bap:runtime_module_lib_beam_pm_research_runtime_selector_ex a bap:RuntimeModule ;
+    bap:modulePath "lib/beam_pm/research_runtime/selector.ex" ;
+    bap:moduleBody """defmodule BeamPM.ResearchRuntime.Selector do
+  @moduledoc false
+  def select(g,p), do: case BeamPM.ResearchRuntime.Policy.next(p,g) do nil->{:error,:no_edge}; id->{:ok,Map.fetch!(g.edges,id)} end
+end
+""" .
+
+bap:runtime_module_lib_beam_pm_research_runtime_state_ex a bap:RuntimeModule ;
+    bap:modulePath "lib/beam_pm/research_runtime/state.ex" ;
+    bap:moduleBody """defmodule BeamPM.ResearchRuntime.State do
+  @moduledoc false
+  defstruct phase: :bound,graph:nil,policy:nil,attempt:0
+  @allowed %{bound:[:admitted],admitted:[:running,:refused],running:[:recovering,:done],recovering:[:running,:done]}
+  def transition(s,to), do: if(to in Map.get(@allowed,s.phase,[]),do:{:ok,%{s|phase:to}},else:{:error,:illegal_transition})
+end
+""" .
+
+bap:runtime_module_lib_beam_pm_research_runtime_supervisor_ex a bap:RuntimeModule ;
+    bap:modulePath "lib/beam_pm/research_runtime/supervisor.ex" ;
+    bap:moduleBody """defmodule BeamPM.ResearchRuntime.Supervisor do
+  @moduledoc false
+  use Supervisor
+  def start_link(o \\\\ []), do: Supervisor.start_link(__MODULE__,o,name:__MODULE__)
+  def init(_), do: Supervisor.init([{BeamPM.ResearchRuntime.ProviderRegistry,[]}],strategy: :rest_for_one)
+end
+""" .
+
+bap:runtime_module_lib_beam_pm_research_runtime_tla_evidence_ex a bap:RuntimeModule ;
+    bap:modulePath "lib/beam_pm/research_runtime/tla_evidence.ex" ;
+    bap:moduleBody """defmodule BeamPM.ResearchRuntime.TlaEvidence do
+  @moduledoc false
+  def consume(%{subject_sha:s,counterexample:nil}) when is_binary(s), do: {:ok,:no_counterexample}
+  def consume(%{counterexample:c}), do: {:error,{:counterexample,c}}
+  def consume(_), do: {:error,:unknown}
+end
+""" .
+
+bap:runtime_module_lib_beam_pm_research_runtime_trace_ex a bap:RuntimeModule ;
+    bap:modulePath "lib/beam_pm/research_runtime/trace.ex" ;
+    bap:moduleBody """defmodule BeamPM.ResearchRuntime.Trace do
+  @moduledoc false
+  defstruct events:[]
+  def append(t,e), do: %{t|events:[e|t.events]}
+  def ordered(t), do: Enum.reverse(t.events)
+end
+""" .
+
+bap:runtime_module_lib_beam_pm_research_runtime_trimtab_ex a bap:RuntimeModule ;
+    bap:modulePath "lib/beam_pm/research_runtime/trimtab.ex" ;
+    bap:moduleBody """defmodule BeamPM.ResearchRuntime.Trimtab do
+  @moduledoc false
+  defstruct budget:4096,observations:[]
+  def observe(t,o), do: %{t|observations:Enum.take([o|t.observations],t.budget)}
+  def role, do: %{select:false,construct:false,do:false,context:true}
+end
+""" .
+
+bap:runtime_module_test_beam4pm_economic_isa_test_exs a bap:RuntimeModule ;
+    bap:modulePath "test/beam4pm_economic_isa_test.exs" ;
+    bap:moduleBody """defmodule BeamPM.EconomicISATest do
+  use ExUnit.Case, async: true
+
+  alias BeamPM.EconomicISA
+  alias BeamPM.Types.OcelRelationship
+
+  @assigned EconomicISA.registry()
+
+  test \"all assigned common-path activities are unique one-byte round trips\" do
+    assert map_size(@assigned) == map_size(Map.new(@assigned, fn {byte, activity} -> {activity, byte} end))
+
+    Enum.each(@assigned, fn {byte, activity} ->
+      assert {:ok, <<^byte>>} = EconomicISA.encode(activity)
+      assert {:ok, {:fixed, ^byte, ^activity}} = EconomicISA.decode(<<byte>>)
+      assert {:ok, ^activity} = EconomicISA.lookup_byte(byte)
+      assert {:ok, ^byte} = EconomicISA.lookup_activity(activity)
+    end)
+  end
+
+  test \"reserved bytes refuse instead of acquiring local semantics\" do
+    for byte <- [0x06, 0x1F, 0x27, 0x3F, 0x46, 0x5F, 0x66, 0x7F, 0x86, 0x9F, 0xA7, 0xBF, 0xC7, 0xDF, 0xE7, 0xEF, 0xF0, 0xFE] do
+      assert {:error, {:unassigned_economic_opcode, ^byte}} = EconomicISA.decode(<<byte>>)
+    end
+  end
+
+  test \"UNKNOWN and extended escape boundaries are stable\" do
+    assert EconomicISA.unknown() == 0x00
+    assert EconomicISA.escape() == 0xFF
+    assert EconomicISA.category(0x00) == :null
+    assert EconomicISA.category(0xFF) == :escape
+    assert {:error, :missing_extended_semantic_id} = EconomicISA.decode(<<0xFF>>)
+  end
+
+  test \"extended semantic identifiers round trip losslessly\" do
+    semantic_id = \"urn:example:economic:custom-action\"
+    assert {:ok, encoded} = EconomicISA.encode({:extended, semantic_id})
+    assert encoded == <<0xFF, semantic_id::binary>>
+    assert {:ok, {:extended, ^semantic_id}} = EconomicISA.decode(encoded)
+  end
+
+  test \"fixed opcode rejects trailing payload\" do
+    assert {:error, :trailing_bytes_on_fixed_economic_opcode} = EconomicISA.decode(<<0x41, 0x00>>)
+  end
+
+  test \"economic opcode projects into existing OCEL event without collapsing relationships or evidence\" do
+    {:ok, relationship} =
+      OcelRelationship.new(%{qualifier: \"customer\", object_id: \"customer-1\"})
+
+    assert {:ok, event, [^relationship]} =
+             EconomicISA.to_ocel_event(
+               :pay,
+               \"evt-1\",
+               \"2026-09-10T22:00:00Z\",
+               relationships: [relationship],
+               authority: %{\"principal\" => \"customer-1\"},
+               provenance: %{\"source\" => \"payment-gateway\"},
+               economic_value: %{\"amount\" => \"125.00\", \"currency\" => \"USD\"}
+             )
+
+    assert event.event_id == \"evt-1\"
+    assert event.event_type == \"pay\"
+    assert event.event_time == \"2026-09-10T22:00:00Z\"
+    assert event.attributes[\"economic:opcode\"] == 0x41
+    assert event.attributes[\"economic:category\"] == \"payment_settlement\"
+    assert event.attributes[\"authority\"] == %{\"principal\" => \"customer-1\"}
+    assert event.attributes[\"provenance\"] == %{\"source\" => \"payment-gateway\"}
+    assert event.attributes[\"economic:value\"] == %{\"amount\" => \"125.00\", \"currency\" => \"USD\"}
+  end
+
+  test \"extended OCEL event preserves semantic identifier rather than allocating a byte\" do
+    semantic_id = \"https://example.org/economic/custom-action\"
+
+    assert {:ok, event, []} =
+             EconomicISA.to_ocel_event(
+               {:extended, semantic_id},
+               \"evt-x\",
+               \"2026-09-10T22:00:00Z\"
+             )
+
+    assert event.event_type == \"extended\"
+    assert event.attributes[\"economic:opcode\"] == 0xFF
+    assert event.attributes[\"economic:category\"] == \"escape\"
+    assert event.attributes[\"economic:semantic_id\"] == semantic_id
+  end
+end
+""" .
+
+bap:runtime_module_test_beam4pm_legacy_equivalence_test_exs a bap:RuntimeModule ;
+    bap:modulePath "test/beam4pm_legacy_equivalence_test.exs" ;
+    bap:moduleBody """defmodule BeamPM.LegacyEquivalenceTest do
+  use ExUnit.Case, async: true
+
+  alias BeamPM.LegacyEquivalence
+
+  test \"implementation identity is ignored when admitted behavior is equal\" do
+    legacy = [
+      %{event_type: \"order.cancel\", objects: [\"order:1\"], outcome: \"cancelled\", source_file: \"old.rb\"}
+    ]
+
+    candidate = [
+      %{\"event_type\" => \"order.cancel\", \"objects\" => [\"order:1\"], \"outcome\" => \"cancelled\", \"source_file\" => \"new.ex\"}
+    ]
+
+    assert {:ok, report} = LegacyEquivalence.compare(\"orders.cancel\", legacy, candidate)
+    assert report[\"schema\"] == \"beam4pm-legacy-equivalence/1\"
+    assert report[\"equivalent\"] == true
+    assert report[\"verdict\"] == \"EQUIVALENT\"
+    assert report[\"counterexamples\"] == []
+    assert report[\"authority_ceiling\"] == \"OBSERVE\"
+  end
+
+  test \"semantic outcome delta produces a typed counterexample\" do
+    legacy = [%{event_type: \"order.cancel\", objects: [\"order:1\"], outcome: \"cancelled\"}]
+    candidate = [%{event_type: \"order.cancel\", objects: [\"order:1\"], outcome: \"pending\"}]
+
+    assert {:ok, report} = LegacyEquivalence.compare(\"orders.cancel\", legacy, candidate)
+    refute report[\"equivalent\"]
+    assert report[\"verdict\"] == \"COUNTEREXAMPLE\"
+    assert [%{\"index\" => 0} = counterexample] = report[\"counterexamples\"]
+    assert counterexample[\"legacy\"][\"outcome\"] == \"cancelled\"
+    assert counterexample[\"candidate\"][\"outcome\"] == \"pending\"
+  end
+
+  test \"ordering is semantic by default and can be explicitly relaxed\" do
+    a = %{event_type: \"reserve\", objects: [\"order:1\"]}
+    b = %{event_type: \"cancel\", objects: [\"order:1\"]}
+
+    assert {:ok, ordered} = LegacyEquivalence.compare(\"orders.cancel\", [a, b], [b, a])
+    refute ordered[\"equivalent\"]
+
+    assert {:ok, unordered} =
+             LegacyEquivalence.compare(\"orders.cancel\", [a, b], [b, a], order_sensitive: false)
+
+    assert unordered[\"equivalent\"]
+  end
+
+  test \"receipt is deterministic and exact identities can be externally bound\" do
+    events = [%{event_type: \"cancel\", objects: [\"order:1\"], outcome: \"ok\"}]
+
+    opts = [legacy_identity: \"legacy@abc\", candidate_identity: \"candidate@def\"]
+    assert {:ok, first} = LegacyEquivalence.compare(\"orders.cancel\", events, events, opts)
+    assert {:ok, second} = LegacyEquivalence.compare(\"orders.cancel\", events, events, opts)
+
+    assert first[\"receipt_digest\"] == second[\"receipt_digest\"]
+    assert first[\"legacy_identity\"] == \"legacy@abc\"
+    assert first[\"candidate_identity\"] == \"candidate@def\"
+    assert byte_size(first[\"receipt_digest\"]) == 64
+  end
+
+  test \"events without an observable type are refused\" do
+    assert {:error, {:invalid_event, 0, :missing_event_type}} =
+             LegacyEquivalence.compare(\"orders.cancel\", [%{outcome: \"ok\"}], [])
+  end
+end
+""" .
+
+bap:runtime_module_test_beam4pm_ppcx_production_boundary_test_exs a bap:RuntimeModule ;
+    bap:modulePath "test/beam4pm_ppcx_production_boundary_test.exs" ;
+    bap:moduleBody """defmodule BeamPM.PPCXProductionBoundaryTest do
+  use ExUnit.Case, async: true
+
+  alias BeamPM.PPCXProductionBoundary, as: Boundary
+
+  test \"beam4pm owns planning and conformance only\" do
+    assert :ok = Boundary.admit_local(:plan)
+    assert :ok = Boundary.admit_local(:conform)
+
+    assert {:error, {:external_authority, :allocate, :bcinr}} =
+             Boundary.admit_local(:allocate)
+
+    assert {:error, {:external_authority, :select, :mfw_auto_select}} =
+             Boundary.admit_local(:select)
+
+    assert {:error, {:external_authority, :admit, :mfw_admission}} =
+             Boundary.admit_local(:admit)
+  end
+
+  test \"consequential do is always external to beam4pm\" do
+    assert :mfw_pcp_broker = Boundary.owner(:actuate)
+
+    assert {:error, {:do_authority_external, :mfw_pcp_broker}} =
+             Boundary.admit_local(:actuate)
+
+    refute Boundary.topology().ambient_do
+  end
+
+  test \"topology keeps deterministic kernel transport and verifier distinct\" do
+    topology = Boundary.topology()
+
+    assert topology.allocation_owner == :bcinr
+    assert topology.selection_owner == :mfw_auto_select
+    assert topology.admission_owner == :mfw_admission
+    assert topology.transport_owner == :rmcp_transport
+    assert topology.do_owner == :mfw_pcp_broker
+    assert topology.consequence_verifier == :independent_verifier
+    assert topology.conformance_owner == :beam4pm
+  end
+end
+""" .
+
+bap:runtime_module_test_beam_pm_ferroplan_bridge_closure_wave_test_exs a bap:RuntimeModule ;
+    bap:modulePath "test/beam_pm/ferroplan_bridge/closure_wave_test.exs" ;
+    bap:moduleBody """defmodule BeamPM.FerroplanBridge.ClosureWaveTest do
+  use ExUnit.Case
+  alias BeamPM.FerroplanBridge.{Coordinator, ExecutionEnvelope, SemanticEdge}
+  test \"coordinator selects surviving provider\" do
+    {:ok,pid}=Coordinator.start_link(max_attempts: 2)
+    e=%ExecutionEnvelope{subject:\"s\",evidence:\"e\",epoch:1,capability:\"plan\",failed_edges:[\"bad\"]}
+    edges=[%SemanticEdge{id:\"bad\",capability:\"plan\",provider:\"p1\",consequence:\"c\"},%SemanticEdge{id:\"good\",capability:\"plan\",provider:\"p2\",consequence:\"c\"}]
+    assert {:ok,%{id:\"good\"},%{replacement_edge:\"good\"}}=Coordinator.execute(pid,e,edges)
+  end
+end
+""" .
+
+bap:runtime_module_test_beam_pm_ferroplan_bridge_coordinator_recovery_integration_test_exs a bap:RuntimeModule ;
+    bap:modulePath "test/beam_pm/ferroplan_bridge/coordinator_recovery_integration_test.exs" ;
+    bap:moduleBody """defmodule BeamPM.FerroplanBridge.CoordinatorRecoveryIntegrationTest do
+  use ExUnit.Case, async: true
+
+  alias BeamPM.FerroplanBridge.{
+    Coordinator,
+    ExecutionEnvelope,
+    ProviderAdapter,
+    RecoveryReceipt,
+    SemanticEdge
+  }
+
+  defmodule FailingProvider do
+    def execute(_decision, _handle, _inputs, _opts), do: {:error, :provider_down}
+  end
+
+  defmodule WorkingProvider do
+    def execute(decision, handle, inputs, _opts) do
+      {:ok, %{decision: decision, handle: handle, subject: inputs.subject}}
+    end
+  end
+
+  test \"failed provider is excluded and the next lawful provider executes the same subject\" do
+    {:ok, pid} = Coordinator.start_link(max_attempts: 2)
+
+    env = %ExecutionEnvelope{
+      subject: \"subject-sha\",
+      evidence: %{evidence_id: \"ev-1\"},
+      epoch: 7,
+      capability: \"plan\"
+    }
+
+    edges = [
+      %SemanticEdge{
+        id: \"e0\",
+        capability: \"plan\",
+        provider: \"p0\",
+        consequence: :same_plan
+      },
+      %SemanticEdge{
+        id: \"e1\",
+        capability: \"plan\",
+        provider: \"p1\",
+        consequence: :same_plan
+      }
+    ]
+
+    assert {:ok,
+            %{
+              edge: %{id: \"e1\"},
+              failed_edges: [\"e0\"],
+              recovery_receipt: %RecoveryReceipt{
+                subject: \"subject-sha\",
+                failed_edge: \"e0\",
+                replacement_edge: \"e1\",
+                provider: \"p1\"
+              },
+              result: %{provider: \"p1\", value: %{subject: \"subject-sha\"}}
+            }} =
+             Coordinator.run(
+               pid,
+               env,
+               edges,
+               :continue,
+               41,
+               %{subject: \"subject-sha\"},
+               providers: %{\"p0\" => FailingProvider, \"p1\" => WorkingProvider}
+             )
+  end
+
+  test \"ferroplan provider resolves to the real ReplanRouter execution boundary\" do
+    assert {:ok, BeamPM.ReplanRouter} = ProviderAdapter.resolve(\"ferroplan\", %{})
+    assert function_exported?(BeamPM.ReplanRouter, :execute, 4)
+    assert function_exported?(Coordinator, :replan, 9)
+  end
+end
+""" .
+
+bap:runtime_module_test_beam_pm_ferroplan_bridge_doctrine_wave_test_exs a bap:RuntimeModule ;
+    bap:modulePath "test/beam_pm/ferroplan_bridge/doctrine_wave_test.exs" ;
+    bap:moduleBody """defmodule BeamPM.FerroplanBridge.IntentWaveTest do
+  use ExUnit.Case, async: true
+  test \"doctrine wave exposes its primary runtime primitive\" do
+    assert Code.ensure_loaded?(BeamPM.FerroplanBridge.Intent)
+  end
+end
+""" .
+
+bap:runtime_module_test_beam_pm_ferroplan_bridge_evidence_wave_test_exs a bap:RuntimeModule ;
+    bap:modulePath "test/beam_pm/ferroplan_bridge/evidence_wave_test.exs" ;
+    bap:moduleBody """defmodule BeamPM.FerroplanBridge.EvidenceWaveTest do
+  use ExUnit.Case, async: true
+  alias BeamPM.FerroplanBridge.{EvidenceAdmission, OsirisBoundary, PolyEvidence}
+  test \"evidence is subject-bound and companion has no construction authority\" do
+    e=%{subject_sha:\"s\",evidence_id:\"e\",source:\"x\",standing: :admitted}
+    assert {:ok,^e}=EvidenceAdmission.admit(e,\"s\")
+    assert PolyEvidence.combine(\"s\",[e]).subject==\"s\"
+    refute OsirisBoundary.role().construct
+  end
+end
+""" .
+
+bap:runtime_module_test_beam_pm_ferroplan_bridge_evolution_wave_test_exs a bap:RuntimeModule ;
+    bap:modulePath "test/beam_pm/ferroplan_bridge/evolution_wave_test.exs" ;
+    bap:moduleBody """defmodule BeamPM.FerroplanBridge.EvolutionWaveTest do
+  use ExUnit.Case, async: true
+  alias BeamPM.FerroplanBridge.{PromotionPolicy, SurvivalEvidence}
+  test \"promotion requires paired improvement and survival\" do
+    assert :promote=PromotionPolicy.decide(%{control:1.0,candidate:2.0,same_subject:true},0.5,SurvivalEvidence.score([:survived,:survived]))
+    assert :refuse=PromotionPolicy.decide(%{control:1.0,candidate:2.0,same_subject:false},0.5,1.0)
+  end
+end
+""" .
+
+bap:runtime_module_test_beam_pm_ferroplan_bridge_federation_wave_test_exs a bap:RuntimeModule ;
+    bap:modulePath "test/beam_pm/ferroplan_bridge/federation_wave_test.exs" ;
+    bap:moduleBody """defmodule BeamPM.FerroplanBridge.FederationWaveTest do
+  use ExUnit.Case, async: true
+  alias BeamPM.FerroplanBridge.{QueryContract, SourceBinding, VkgConsumer}
+  test \"VKG request carries exact source provenance\" do
+    assert {:ok,b}=SourceBinding.bind(\"src\",\"db://x\",\"sha256:d\")
+    q=%QueryContract{id:\"q\",requires:[],returns:[\"id\"]}; assert QueryContract.supports?(q,[\"id\"])
+    assert VkgConsumer.request(b,q,\"s\").digest==\"sha256:d\"
+  end
+end
+""" .
+
+bap:runtime_module_test_beam_pm_ferroplan_bridge_graphlaw_wave_test_exs a bap:RuntimeModule ;
+    bap:modulePath "test/beam_pm/ferroplan_bridge/graphlaw_wave_test.exs" ;
+    bap:moduleBody """defmodule BeamPM.FerroplanBridge.GraphlawWaveTest do
+  use ExUnit.Case, async: true
+  alias BeamPM.FerroplanBridge.{GraphInvariant, MigrationGuard, SemanticPart}
+  test \"migration preserves subject and prior receipts\" do
+    assert :ok=MigrationGuard.admit(%{subject:\"s\",receipts:[\"r1\"]},%{subject:\"s\",receipts:[\"r1\",\"r2\"]})
+    p=%SemanticPart{id:\"x\",source:\"o\",digest:\"d\",consequence:\"c\"}; assert SemanticPart.same?(p,p)
+    assert {:ok,1}=GraphInvariant.enforce(\"positive\",1,&(&1>0))
+  end
+end
+""" .
+
+bap:runtime_module_test_beam_pm_ferroplan_bridge_identity_wave_test_exs a bap:RuntimeModule ;
+    bap:modulePath "test/beam_pm/ferroplan_bridge/identity_wave_test.exs" ;
+    bap:moduleBody """defmodule BeamPM.FerroplanBridge.IdentityWaveTest do
+  use ExUnit.Case, async: true
+  alias BeamPM.FerroplanBridge.{AuthorityFence, ExactSubject, Standing}
+  test \"exact identity and authority remain separate from standing\" do
+    assert {:ok, s} = ExactSubject.bind(\"o/r\", String.duplicate(\"a\", 40), \"t\")
+    assert ExactSubject.same?(s, s)
+    assert {:error, _} = AuthorityFence.require(:observe, :construct)
+    refute Standing.may_execute?(:candidate)
+  end
+end
+""" .
+
+bap:runtime_module_test_beam_pm_ferroplan_bridge_interchange_wave_test_exs a bap:RuntimeModule ;
+    bap:modulePath "test/beam_pm/ferroplan_bridge/interchange_wave_test.exs" ;
+    bap:moduleBody """defmodule BeamPM.FerroplanBridge.InterchangeWaveTest do
+  use ExUnit.Case, async: true
+  alias BeamPM.FerroplanBridge.{EdgeSet, SemanticEdge, Substitution}
+  test \"failed edge is excluded while equivalent provider survives\" do
+    a=%SemanticEdge{id:\"a\",capability:\"plan\",provider:\"p1\",consequence:\"c\"}; b=%SemanticEdge{id:\"b\",capability:\"plan\",provider:\"p2\",consequence:\"c\"}
+    assert Substitution.equivalent?(a,b)
+    assert EdgeSet.select(EdgeSet.exclude([a,b],\"a\"),\"plan\").id==\"b\"
+  end
+end
+""" .
+
+bap:runtime_module_test_beam_pm_ferroplan_bridge_intervention_wave_test_exs a bap:RuntimeModule ;
+    bap:modulePath "test/beam_pm/ferroplan_bridge/intervention_wave_test.exs" ;
+    bap:moduleBody """defmodule BeamPM.FerroplanBridge.InterventionWaveTest do
+  use ExUnit.Case, async: true
+  alias BeamPM.FerroplanBridge.{BoundedDo, WorkOrder}
+  test \"attempt budget is monotonic and bounded\" do
+    o=WorkOrder.new(\"w\",\"s\",\"plan\",1)
+    assert {:ok,o}=BoundedDo.authorize(o)
+    assert {:error,:budget_exhausted}=BoundedDo.authorize(o)
+  end
+end
+""" .
+
+bap:runtime_module_test_beam_pm_ferroplan_bridge_ocel_wave_test_exs a bap:RuntimeModule ;
+    bap:modulePath "test/beam_pm/ferroplan_bridge/ocel_wave_test.exs" ;
+    bap:moduleBody """defmodule BeamPM.FerroplanBridge.OcelWaveTest do
+  use ExUnit.Case, async: true
+  alias BeamPM.FerroplanBridge.{OcelEvent, Receipt, Replay}
+  test \"receipt replay is deterministic and object order canonical\" do
+    r=%Receipt{subject:\"s\",work_order:\"w\",provider:\"p\",epoch:1}
+    assert Replay.deterministic?(r,r)
+    assert OcelEvent.new(\"e\",\"recover\",\"t\",[\"b\",\"a\"]).objects==[\"a\",\"b\"]
+  end
+end
+""" .
+
+bap:runtime_module_test_beam_pm_ferroplan_bridge_planning_wave_test_exs a bap:RuntimeModule ;
+    bap:modulePath "test/beam_pm/ferroplan_bridge/planning_wave_test.exs" ;
+    bap:moduleBody """defmodule BeamPM.FerroplanBridge.PlanningWaveTest do
+  use ExUnit.Case, async: true
+  alias BeamPM.FerroplanBridge.{FondRecovery, SemanticEdge}
+  test \"FOND recovery removes only failed provider edge\" do
+    edges=[%SemanticEdge{id:\"bad\",capability:\"plan\",provider:\"p1\",consequence:\"c\"},%SemanticEdge{id:\"good\",capability:\"plan\",provider:\"p2\",consequence:\"c\"}]
+    assert FondRecovery.recover(edges,\"bad\",\"plan\").id==\"good\"
+  end
+end
+""" .
+
+bap:runtime_module_test_beam_pm_ferroplan_bridge_ptd_wave_test_exs a bap:RuntimeModule ;
+    bap:modulePath "test/beam_pm/ferroplan_bridge/ptd_wave_test.exs" ;
+    bap:moduleBody """defmodule BeamPM.FerroplanBridge.PtdWaveTest do
+  use ExUnit.Case, async: true
+  alias BeamPM.FerroplanBridge.{Epoch, GenerationFence}
+  test \"epochs advance without subject drift\" do
+    e=%Epoch{subject:\"s\",generation:1,artifact:\"a\"}; n=Epoch.next(e,\"b\")
+    assert n.generation==2
+    assert :ok=GenerationFence.admit(n,%{subject:\"s\",generation:2})
+  end
+end
+""" .
+
+bap:runtime_module_test_beam_pm_ferroplan_bridge_trimtab_wave_test_exs a bap:RuntimeModule ;
+    bap:modulePath "test/beam_pm/ferroplan_bridge/trimtab_wave_test.exs" ;
+    bap:moduleBody """defmodule BeamPM.FerroplanBridge.TrimtabWaveTest do
+  use ExUnit.Case, async: true
+  alias BeamPM.FerroplanBridge.{ContextWindow, ModelRole, Steering}
+  test \"model is context-only and budgeted\" do
+    assert ModelRole.allowed?(:context)
+    refute ModelRole.allowed?(:construct)
+    assert [%{id:\"a\"}]=ContextWindow.fit([%{id:\"a\",tokens:2,salience:9},%{id:\"b\",tokens:3,salience:1}],2)
+    assert Steering.delta(\"a\",\"b\",\"h\").authority==:none
+  end
+end
+""" .
+
+bap:runtime_module_test_beam_pm_ferroplan_bridge_wasm_wave_test_exs a bap:RuntimeModule ;
+    bap:modulePath "test/beam_pm/ferroplan_bridge/wasm_wave_test.exs" ;
+    bap:moduleBody """defmodule BeamPM.FerroplanBridge.WasmWaveTest do
+  use ExUnit.Case, async: true
+  alias BeamPM.FerroplanBridge.{ConsumerBoundary, PortableContract, ProviderAdapter}
+  test \"portable consumer preserves capability and provider identity\" do
+    a=%PortableContract{capability:\"fond\",abi:\"wasi\",digest:\"a\",version:1}; b=%PortableContract{capability:\"fond\",abi:\"wasi\",digest:\"b\",version:2}
+    assert PortableContract.compatible?(a,b)
+    assert ConsumerBoundary.request(\"s\",\"fond\",%{}).authority==:none
+    assert {:ok,%{provider:\"p\"}}=ProviderAdapter.normalize({:ok,:x},\"p\")
+  end
+end
+""" .
+
+bap:runtime_module_test_beam_pm_research_runtime_attempt_budget_test_exs a bap:RuntimeModule ;
+    bap:modulePath "test/beam_pm/research_runtime/attempt_budget_test.exs" ;
+    bap:moduleBody """defmodule BeamPM.ResearchRuntime.AttemptBudgetTest do
+  use ExUnit.Case, async: true
+  test \"model remains context-only\" do
+    role=BeamPM.ResearchRuntime.Trimtab.role()
+    refute role.do
+    refute role.select
+    assert role.context
+  end
+end
+""" .
+
+bap:runtime_module_test_beam_pm_research_runtime_authority_fence_test_exs a bap:RuntimeModule ;
+    bap:modulePath "test/beam_pm/research_runtime/authority_fence_test.exs" ;
+    bap:moduleBody """defmodule BeamPM.ResearchRuntime.AuthorityFenceTest do
+  use ExUnit.Case, async: true
+  test \"model remains context-only\" do
+    role=BeamPM.ResearchRuntime.Trimtab.role()
+    refute role.do
+    refute role.select
+    assert role.context
+  end
+end
+""" .
+
+bap:runtime_module_test_beam_pm_research_runtime_backoff_test_exs a bap:RuntimeModule ;
+    bap:modulePath "test/beam_pm/research_runtime/backoff_test.exs" ;
+    bap:moduleBody """defmodule BeamPM.ResearchRuntime.BackoffTest do
+  use ExUnit.Case, async: true
+  test \"model remains context-only\" do
+    role=BeamPM.ResearchRuntime.Trimtab.role()
+    refute role.do
+    refute role.select
+    assert role.context
+  end
+end
+""" .
+
+bap:runtime_module_test_beam_pm_research_runtime_context_window_test_exs a bap:RuntimeModule ;
+    bap:modulePath "test/beam_pm/research_runtime/context_window_test.exs" ;
+    bap:moduleBody """defmodule BeamPM.ResearchRuntime.ContextWindowTest do
+  use ExUnit.Case, async: true
+  test \"model remains context-only\" do
+    role=BeamPM.ResearchRuntime.Trimtab.role()
+    refute role.do
+    refute role.select
+    assert role.context
+  end
+end
+""" .
+
+bap:runtime_module_test_beam_pm_research_runtime_epoch_test_exs a bap:RuntimeModule ;
+    bap:modulePath "test/beam_pm/research_runtime/epoch_test.exs" ;
+    bap:moduleBody """defmodule BeamPM.ResearchRuntime.EpochTest do
+  use ExUnit.Case, async: true
+  test \"model remains context-only\" do
+    role=BeamPM.ResearchRuntime.Trimtab.role()
+    refute role.do
+    refute role.select
+    assert role.context
+  end
+end
+""" .
+
+bap:runtime_module_test_beam_pm_research_runtime_evidence_test_exs a bap:RuntimeModule ;
+    bap:modulePath "test/beam_pm/research_runtime/evidence_test.exs" ;
+    bap:moduleBody """defmodule BeamPM.ResearchRuntime.EvidenceTest do
+  use ExUnit.Case, async: true
+  test \"model remains context-only\" do
+    role=BeamPM.ResearchRuntime.Trimtab.role()
+    refute role.do
+    refute role.select
+    assert role.context
+  end
+end
+""" .
+
+bap:runtime_module_test_beam_pm_research_runtime_exact_subject_test_exs a bap:RuntimeModule ;
+    bap:modulePath "test/beam_pm/research_runtime/exact_subject_test.exs" ;
+    bap:moduleBody """defmodule BeamPM.ResearchRuntime.ExactSubjectTest do
+  use ExUnit.Case, async: true
+  test \"model remains context-only\" do
+    role=BeamPM.ResearchRuntime.Trimtab.role()
+    refute role.do
+    refute role.select
+    assert role.context
+  end
+end
+""" .
+
+bap:runtime_module_test_beam_pm_research_runtime_graph_exclusion_test_exs a bap:RuntimeModule ;
+    bap:modulePath "test/beam_pm/research_runtime/graph_exclusion_test.exs" ;
+    bap:moduleBody """defmodule BeamPM.ResearchRuntime.GraphExclusionTest do
+  use ExUnit.Case, async: true
+  test \"model remains context-only\" do
+    role=BeamPM.ResearchRuntime.Trimtab.role()
+    refute role.do
+    refute role.select
+    assert role.context
+  end
+end
+""" .
+
+bap:runtime_module_test_beam_pm_research_runtime_health_circuit_test_exs a bap:RuntimeModule ;
+    bap:modulePath "test/beam_pm/research_runtime/health_circuit_test.exs" ;
+    bap:moduleBody """defmodule BeamPM.ResearchRuntime.HealthCircuitTest do
+  use ExUnit.Case, async: true
+  test \"model remains context-only\" do
+    role=BeamPM.ResearchRuntime.Trimtab.role()
+    refute role.do
+    refute role.select
+    assert role.context
+  end
+end
+""" .
+
+bap:runtime_module_test_beam_pm_research_runtime_idempotency_test_exs a bap:RuntimeModule ;
+    bap:modulePath "test/beam_pm/research_runtime/idempotency_test.exs" ;
+    bap:moduleBody """defmodule BeamPM.ResearchRuntime.IdempotencyTest do
+  use ExUnit.Case, async: true
+  test \"model remains context-only\" do
+    role=BeamPM.ResearchRuntime.Trimtab.role()
+    refute role.do
+    refute role.select
+    assert role.context
+  end
+end
+""" .
+
+bap:runtime_module_test_beam_pm_research_runtime_policy_selection_test_exs a bap:RuntimeModule ;
+    bap:modulePath "test/beam_pm/research_runtime/policy_selection_test.exs" ;
+    bap:moduleBody """defmodule BeamPM.ResearchRuntime.PolicySelectionTest do
+  use ExUnit.Case, async: true
+  test \"model remains context-only\" do
+    role=BeamPM.ResearchRuntime.Trimtab.role()
+    refute role.do
+    refute role.select
+    assert role.context
+  end
+end
+""" .
+
+bap:runtime_module_test_beam_pm_research_runtime_recovery_test_exs a bap:RuntimeModule ;
+    bap:modulePath "test/beam_pm/research_runtime/recovery_test.exs" ;
+    bap:moduleBody """defmodule BeamPM.ResearchRuntime.RecoveryTest do
+  use ExUnit.Case, async: true
+  test \"model remains context-only\" do
+    role=BeamPM.ResearchRuntime.Trimtab.role()
+    refute role.do
+    refute role.select
+    assert role.context
+  end
+end
+""" .
+
+bap:runtime_module_test_beam_pm_research_runtime_state_transition_test_exs a bap:RuntimeModule ;
+    bap:modulePath "test/beam_pm/research_runtime/state_transition_test.exs" ;
+    bap:moduleBody """defmodule BeamPM.ResearchRuntime.StateTransitionTest do
+  use ExUnit.Case, async: true
+  test \"model remains context-only\" do
+    role=BeamPM.ResearchRuntime.Trimtab.role()
+    refute role.do
+    refute role.select
+    assert role.context
+  end
+end
+""" .
+
+bap:runtime_module_test_beam_pm_research_runtime_trimtab_test_exs a bap:RuntimeModule ;
+    bap:modulePath "test/beam_pm/research_runtime/trimtab_test.exs" ;
+    bap:moduleBody """defmodule BeamPM.ResearchRuntime.TrimtabTest do
+  use ExUnit.Case, async: true
+  test \"model remains context-only\" do
+    role=BeamPM.ResearchRuntime.Trimtab.role()
+    refute role.do
+    refute role.select
+    assert role.context
+  end
+end
+""" .
+
+bap:runtime_module_test_frontier_evidence_test_exs a bap:RuntimeModule ;
+    bap:modulePath "test/frontier_evidence_test.exs" ;
+    bap:moduleBody """defmodule BeamPM.FrontierEvidenceTest do
+  use ExUnit.Case, async: true
+
+  test \"projects planning evidence without manufacturing DO authority\" do
+    fragment =
+      BeamPM.FrontierEvidence.from_results(
+        {:ok, %{\"plan\" => [\"diagnose\", \"repair\"]}},
+        {:ok, %{\"policy\" => %{\"observe\" => [\"retry\", \"refuse\"]}}},
+        {:ok, %{\"conformant\" => true, \"fitness\" => 1.0}},
+        producer_head: \"c639d69a1f6591867dbcd96e9832363ce06be0b7\",
+        standing: \"PARTIAL_ALIVE\"
+      )
+
+    assert fragment.schema == \"frontier-evidence/v1\"
+    assert fragment.producer == \"beam4pm\"
+    assert fragment.authority_ceiling == \"SELECT\"
+    assert fragment.standing == \"PARTIAL_ALIVE\"
+    assert fragment.artifact_hash =~ ~r/^sha256:[0-9a-f]{64}$/
+    assert \"external_do\" in fragment.refused
+    refute Map.has_key?(fragment, :authority)
+  end
+
+  test \"same observed results manufacture the same artifact hash\" do
+    args = [
+      {:ok, %{hddl: :candidate}},
+      {:ok, %{fond: :candidate}},
+      {:ok, %{conformance: :candidate}}
+    ]
+
+    first =
+      apply(BeamPM.FrontierEvidence, :from_results, args ++ [[producer_head: \"head\"]])
+
+    second =
+      apply(BeamPM.FrontierEvidence, :from_results, args ++ [[producer_head: \"head\"]])
+
+    assert first.artifact_hash == second.artifact_hash
+  end
+end
+""" .
