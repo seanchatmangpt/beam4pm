@@ -1,0 +1,125 @@
+name: Manufacture post-LLM governed runtime
+
+on:
+  push:
+    branches:
+      - automation/post-llm-governed-runtime
+
+permissions:
+  contents: write
+
+concurrency:
+  group: beam4pm-post-llm-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  manufacture:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - name: Checkout exact subject with marketplace pack
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          submodules: recursive
+          fetch-depth: 0
+
+      - name: Verify exact ecosystem producer identity
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(git -C vendor/ggen-marketplace rev-parse HEAD)" = "94d1e00ce56749742a5ffeb52979877854e45b60"
+          grep -Fq 'version = "94d1e00ce56749742a5ffeb52979877854e45b60"' ggen.toml
+
+      - name: Set up Erlang/OTP + Elixir
+        uses: erlef/setup-beam@v1
+        with:
+          otp-version: "27.2"
+          elixir-version: "1.17.3"
+          rebar3-version: "3.24.0"
+
+      - name: Install exact digest-pinned ggen release
+        shell: bash
+        run: |
+          set -euo pipefail
+          release="v26.8.27"
+          digest="ab442ced90a9836fd4eb07a5d61eb58293843cd515d864699fc0d0453444a035"
+          asset="ggen-x86_64-unknown-linux-gnu.tar.gz"
+          archive="$RUNNER_TEMP/$asset"
+          extract="$RUNNER_TEMP/ggen-release"
+          curl --fail --location --retry 3 --retry-all-errors --proto '=https' --tlsv1.2 \
+            --output "$archive" "https://github.com/seanchatmangpt/ggen/releases/download/${release}/${asset}"
+          printf '%s  %s\n' "$digest" "$archive" | sha256sum --check --strict
+          mkdir -p "$extract"
+          tar -xzf "$archive" -C "$extract"
+          mapfile -t bins < <(find "$extract" -type f -name ggen -print)
+          test "${#bins[@]}" -eq 1
+          sudo install -m 0755 "${bins[0]}" /usr/local/bin/ggen
+          ggen --version
+
+      - name: Manufacture governed execution projection through ggen
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -f ggen.lock
+          ggen sync run
+          test -f generated/elixir/lib/beam4pm_governor.ex
+          test -f generated/elixir/test/beam4pm_governor_test.exs
+          grep -q 'defmodule BeamPM.Governor do' generated/elixir/lib/beam4pm_governor.ex
+
+      - name: Manufacture DfCM autonomy and knowledge-hook projection through ggen_igniter
+        shell: bash
+        run: |
+          set -euo pipefail
+          bash scripts/igniter_sync.sh
+          grep -q 'defmodule BeamPM.Autonomy.Kernel do' generated/elixir/lib/beam4pm_ash.ex
+          grep -q 'defmodule BeamPM.AutonomyKernelGeneratedTest do' generated/elixir/test/beam4pm_ash_test.exs
+
+      - name: Execute real BEAM Chicago paths
+        shell: bash
+        run: |
+          set -euo pipefail
+          rebar3 eunit
+          mix test
+
+      - name: Prove deterministic dual-engine regeneration
+        shell: bash
+        run: |
+          set -euo pipefail
+          cp generated/elixir/lib/beam4pm_governor.ex /tmp/governor.before
+          cp generated/elixir/test/beam4pm_governor_test.exs /tmp/governor_test.before
+          cp generated/elixir/lib/beam4pm_ash.ex /tmp/ash.before
+          cp generated/elixir/test/beam4pm_ash_test.exs /tmp/ash_test.before
+          ggen sync run
+          bash scripts/igniter_sync.sh
+          cmp /tmp/governor.before generated/elixir/lib/beam4pm_governor.ex
+          cmp /tmp/governor_test.before generated/elixir/test/beam4pm_governor_test.exs
+          cmp /tmp/ash.before generated/elixir/lib/beam4pm_ash.ex
+          cmp /tmp/ash_test.before generated/elixir/test/beam4pm_ash_test.exs
+
+      - name: Refuse non-manufactured drift
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -rf tmp_probe
+          unexpected="$(git status --porcelain | awk '{print $2}' | grep -Ev '^(generated/|ggen.lock$|\.ggen_igniter/manifest\.json$)' || true)"
+          if [[ -n "$unexpected" ]]; then
+            printf 'non-manufactured drift refused:\n%s\n' "$unexpected" >&2
+            exit 1
+          fi
+
+      - name: Commit only manufactured projection and receipts
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "beam4pm-manufacturer"
+          git config user.email "beam4pm-manufacturer@users.noreply.github.com"
+          git add generated ggen.lock
+          if [[ -f .ggen_igniter/manifest.json ]]; then
+            git add .ggen_igniter/manifest.json
+          fi
+          if git diff --cached --quiet; then
+            echo "projection already current"
+            exit 0
+          fi
+          git commit -m "manufacture: post-LLM autonomy and governed runtime via exact ecosystem"
+          git push origin HEAD:automation/post-llm-governed-runtime
