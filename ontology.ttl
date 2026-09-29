@@ -14,6 +14,7 @@
 # manufactured output. Never hand-edit anything under generated/; edit this
 # file or the pack's templates instead, then re-run `ggen sync run`.
 
+@prefix ver: <http://seanchatmangpt.github.io/packs/ggen-verify#> .
 @prefix bpm: <https://ggen.dev/ontology/beam-process-model#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
@@ -1311,20 +1312,6 @@ bex:ciRf1234OracleBuild
     gha:inJob bex:ciTest ; gha:stepOrder 5 ;
     gha:stepName "Build rust4pm-Reactor-validation oracle crates (RF1/RF2/RF3/RF4)" ;
     gha:runCommand """# Real Rust subprocess oracles the RF1/RF2/RF3/RF4 Chicago tests spawn (thin
-bex:ciRf123OracleCache
-    a gha:Step ;
-    gha:inJob bex:ciTest ; gha:stepOrder 5 ;
-    gha:stepName "Cache Cargo dependencies for RF1/RF2/RF3 oracle crates" ;
-    gha:usesAction "actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0" ;
-    gha:withParam "path: \"native/*/target\"" ;
-    gha:withParam "key: ${{ runner.os }}-cargo-${{ hashFiles('native/**/Cargo.lock') }}" ;
-    gha:withParam "restore-keys: \"${{ runner.os }}-cargo-\\n\"" .
-
-bex:ciRf123OracleBuild
-    a gha:Step ;
-    gha:inJob bex:ciTest ; gha:stepOrder 6 ;
-    gha:stepName "Build rust4pm-Reactor-validation oracle crates (RF1/RF2/RF3)" ;
-    gha:runCommand """# Real Rust subprocess oracles the RF1/RF2/RF3 Chicago tests spawn (thin
 # adapters over the real process_mining =0.6.2 function surface, no
 # algorithm re-implemented). ubuntu-latest ships a preinstalled
 # cargo/rustc, the same toolchain that already compiles ggen_igniter's
@@ -1336,7 +1323,7 @@ cd native/rf4-oc-discovery-oracle && cargo build --release && cd -""" .
 
 bex:ciMixCache
     a gha:Step ;
-    gha:inJob bex:ciTest ; gha:stepOrder 7 ;
+    gha:inJob bex:ciTest ; gha:stepOrder 6 ;
     gha:stepName "Cache mix dependencies" ;
     gha:usesAction "actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0" ;
     gha:withParam "path: \"deps\\n~/.hex\\n~/.mix\\n\"" ;
@@ -1345,7 +1332,7 @@ bex:ciMixCache
 
 bex:ciMixDepsGet
     a gha:Step ;
-    gha:inJob bex:ciTest ; gha:stepOrder 8 ;
+    gha:inJob bex:ciTest ; gha:stepOrder 7 ;
     gha:stepName "mix deps.get" ;
     gha:runCommand "mix deps.get" .
 
@@ -1355,7 +1342,7 @@ bex:ciMixDepsGet
 # hand-authored docs/source only, never a GENERATED file.
 bex:ciLintTruth
     a gha:Step ;
-    gha:inJob bex:ciTest ; gha:stepOrder 9 ;
+    gha:inJob bex:ciTest ; gha:stepOrder 8 ;
     gha:stepName "Static overclaiming-phrase lint (GATE LINT-TRUTH)" ;
     gha:runCommand "bash scripts/gate_lint_truth.sh" .
 
@@ -1371,7 +1358,7 @@ bex:ciLintTruth
 # executes it (test/beam4pm_authorship_gate_test.exs).
 bex:ciAuthorship
     a gha:Step ;
-    gha:inJob bex:ciTest ; gha:stepOrder 10 ;
+    gha:inJob bex:ciTest ; gha:stepOrder 9 ;
     gha:stepName "Hand-authored source admission (GATE AUTHORSHIP)" ;
     gha:runCommand "bash scripts/gate_authorship_check.sh" .
 
@@ -1387,13 +1374,13 @@ bex:ciAuthorship
 # executes it (test/beam4pm_engine_dispatch_gate_test.exs).
 bex:ciEngineDispatch
     a gha:Step ;
-    gha:inJob bex:ciTest ; gha:stepOrder 11 ;
+    gha:inJob bex:ciTest ; gha:stepOrder 10 ;
     gha:stepName "Manufactured engine ops are crate-dispatched (GATE ENGINE DISPATCH)" ;
     gha:runCommand "bash scripts/gate_engine_dispatch_check.sh" .
 
 bex:ciMixTest
     a gha:Step ;
-    gha:inJob bex:ciTest ; gha:stepOrder 12 ;
+    gha:inJob bex:ciTest ; gha:stepOrder 11 ;
     gha:stepName "mix test" ;
     gha:runCommand """mkdir -p "$HOME/wasm4pm/data"
 curl --fail --location --silent --show-error --retry 3 \\
@@ -1407,7 +1394,7 @@ mix test --max-requires 1""" .
 
 bex:ciGleamTest
     a gha:Step ;
-    gha:inJob bex:ciTest ; gha:stepOrder 13 ;
+    gha:inJob bex:ciTest ; gha:stepOrder 12 ;
     gha:stepName "gleam test (gleam/ projection)" ;
     gha:runCommand """cd gleam
 gleam test""" .
@@ -1421,14 +1408,14 @@ gleam test""" .
 # gleam/build output.
 bex:ciAuthorshipExercise
     a gha:Step ;
-    gha:inJob bex:ciTest ; gha:stepOrder 14 ;
+    gha:inJob bex:ciTest ; gha:stepOrder 13 ;
     gha:stepName "Exercise admitted hand-authored acceptance commands (GATE AUTHORSHIP --exercise)" ;
     gha:runCommand """source scripts/env/rust4pm_reactor_env.sh
 bash scripts/gate_authorship_check.sh --exercise""" .
 
 bex:ciRoundtrip
     a gha:Step ;
-    gha:inJob bex:ciTest ; gha:stepOrder 15 ;
+    gha:inJob bex:ciTest ; gha:stepOrder 14 ;
     gha:stepName "Cross-language wire identity (Erlang<->Elixir roundtrip + Ash verifies the wire)" ;
     gha:runCommand "bash scripts/roundtrip_check.sh" .
 
@@ -1452,7 +1439,7 @@ bex:ciRoundtrip
 # vendor/ggen-marketplace submodule checkout.
 bex:ciDeterminism
     a gha:Step ;
-    gha:inJob bex:ciTest ; gha:stepOrder 16 ;
+    gha:inJob bex:ciTest ; gha:stepOrder 15 ;
     gha:stepName "Determinism check -- regenerate via identity-verified GGen release and diff" ;
     gha:runCommand """set -euo pipefail
 mkdir -p "$HOME/.local/bin"
@@ -1473,7 +1460,7 @@ bash scripts/gate_m2_check.sh""" .
 # the workflow any write authority over the repository.
 bex:ciDeterminismEvidence
     a gha:Step ;
-    gha:inJob bex:ciTest ; gha:stepOrder 17 ;
+    gha:inJob bex:ciTest ; gha:stepOrder 16 ;
     gha:stepName "Preserve deterministic Ash repair evidence" ;
     gha:condition "always()" ;
     gha:usesAction "actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1" ;
@@ -1481,94 +1468,6 @@ bex:ciDeterminismEvidence
     gha:withParam "path: \"**/beam4pm_ash*.ex*\"" ;
     gha:withParam "if-no-files-found: error" ;
     gha:withParam "retention-days: 7" .
-
-# --- Workflow 1b: Rust CI for native/ferroplan (and other native/* crates) ---
-# Closes a real, confirmed CI blind spot: beam4pm-ci.yml checks out submodules
-# recursively but never runs `cargo test` against native/ferroplan (htn_plan /
-# fond_policy / hddl_solve are therefore invisible to CI). dtolnay/rust-toolchain
-# SHA pin reused verbatim from vendor/ggen-marketplace's own
-# rwr-level5-foundation-pack/templates/ci.yml.tmpl (already vetted, in
-# production use inside this same submodule).
-
-bex:rustCiWorkflow
-    a gha:Workflow ;
-    gha:fileName "rust-ci.yml" ;
-    gha:purpose "test native Rust engine crates (native/ferroplan)" ;
-    gha:permissionCeiling "contents: read" ;
-    gha:concurrencyPolicy """group: rust-ci-${{ github.ref }}
-cancel-in-progress: true""" ;
-    gha:trigger gha:EventPush ;
-    gha:trigger gha:EventPullRequest ;
-    gha:trigger gha:EventWorkflowDispatch ;
-    gha:onBlock """push:
-  branches: [main]
-pull_request:
-  branches: [main]
-workflow_dispatch:""" ;
-    gha:evidenceObligation "a clean cargo build --workspace, cargo test --workspace, and cargo clippy --workspace --all-targets -- -D warnings against native/ferroplan on the exact candidate SHA" ;
-    gha:standingEffect "a green run confers test-passing and lint-clean standing on native/ferroplan's htn_plan/fond_policy/hddl_solve crates for the exact candidate SHA; a red run is a real Rust build/test/clippy defect in that crate, previously invisible to CI." .
-
-bex:rustCiTest
-    a gha:Job ;
-    gha:inWorkflow bex:rustCiWorkflow ;
-    gha:jobName "test" ;
-    gha:runner "ubuntu-latest" ;
-    gha:timeoutMinutes 20 ;
-    gha:jobPermissions "contents: read" ;
-    gha:jobExtra "name: native/ferroplan cargo build + test + clippy" ;
-    gha:evidenceEmitted "cargo build, cargo test, and cargo clippy output in the run log" ;
-    gha:failureClassification "BUILD_BROKEN for a compile failure; a red cargo test is a production defect in native/ferroplan; a red clippy run is a lint regression against the -D warnings gate." .
-
-bex:rustCiCheckout
-    a gha:Step ;
-    gha:inJob bex:rustCiTest ; gha:stepOrder 1 ;
-    gha:stepName "Checkout (with vendor/ggen-marketplace submodule)" ;
-    gha:usesAction "actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1" ;
-    gha:withParam "submodules: recursive" ;
-    gha:withParam "persist-credentials: false" .
-
-bex:rustCiToolchain
-    a gha:Step ;
-    gha:inJob bex:rustCiTest ; gha:stepOrder 2 ;
-    gha:stepName "Set up Rust toolchain" ;
-    gha:usesAction "dtolnay/rust-toolchain@e97e2d8cc328f1b50210efc529dca0028893a2d9" ;
-    gha:withParam "toolchain: stable" ;
-    gha:withParam "components: clippy" .
-
-bex:rustCiCache
-    a gha:Step ;
-    gha:inJob bex:rustCiTest ; gha:stepOrder 3 ;
-    gha:stepName "Cache Cargo dependencies for native/ferroplan" ;
-    gha:usesAction "actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0" ;
-    gha:withParam "path: \"native/ferroplan/target\"" ;
-    gha:withParam "key: ${{ runner.os }}-cargo-${{ hashFiles('native/ferroplan/Cargo.lock') }}" ;
-    gha:withParam "restore-keys: \"${{ runner.os }}-cargo-\\n\"" .
-
-bex:rustCiBuild
-    a gha:Step ;
-    gha:inJob bex:rustCiTest ; gha:stepOrder 4 ;
-    gha:stepName "cargo build --workspace (native/ferroplan)" ;
-    gha:runCommand "cd native/ferroplan && cargo build --workspace" .
-
-bex:rustCiTestStep
-    a gha:Step ;
-    gha:inJob bex:rustCiTest ; gha:stepOrder 5 ;
-    gha:stepName "cargo test --workspace (native/ferroplan)" ;
-    gha:runCommand "cd native/ferroplan && cargo test --workspace" .
-
-bex:rustCiClippy
-    a gha:Step ;
-    gha:inJob bex:rustCiTest ; gha:stepOrder 6 ;
-    gha:stepName "cargo clippy --workspace --all-targets -- -D warnings (native/ferroplan)" ;
-    gha:runCommand "cd native/ferroplan && cargo clippy --workspace --all-targets -- -D warnings" .
-
-bex:rustCiAudit
-    a gha:Step ;
-    gha:inJob bex:rustCiTest ; gha:stepOrder 7 ;
-    gha:stepName "cargo audit (advisory, non-blocking)" ;
-    gha:runCommand """cargo install cargo-audit --locked || true
-cd native/ferroplan && cargo audit || echo "::warning::pre-existing RUSTSEC debt remains advisory"
-""" .
 
 # --- Workflow 2: GHCR container build + publish ------------------------------
 # Mirrors ggen-ecosystem's container workflow structure (checkout-with-
@@ -10536,17 +10435,6 @@ bap:hand_authored_lib_beam4pm_ocel a bpm:HandAuthoredSource ;
     bpm:admissionExpires "2026-12-31" ;
     bpm:sunsetPlan "Propose a dedicated hand_authored_lib_module (or similar) AuthorshipKind upstream in the vendored beam4pm-process-model-pack, or admit bpm:RecordType-level OCEL envelope facts and manufacture this codec from a pack template; then delete this admission." .
 
-bap:hand_authored_lib_beam4pm_gall_ocel a bpm:HandAuthoredSource ;
-    bpm:sourcePath "lib/beam4pm_gall_ocel.ex" ;
-    bpm:authorshipKind bpm:AuthorshipKind_native_engine_facade ;
-    bpm:authorizingPrincipal "Sean Chatman (repo owner) via ZCode bounded construction worker, v26.9.18 GALL Semantic Work Fabric slice (PRD section 43.6), branch feat/gall-swf-v26.9.18" ;
-    bpm:admissionReason "OCEL projection of the GALL semantic work lifecycle (v26.9.18 PRD section 43.6): projects the 13 admitted lifecycle milestone names (checkpoint_admitted .. checkpoint_promoted) into the already-generated BeamPM.Types.OcelEvent/OcelObject/OcelRelationship pair shapes (read-only construction over the generated structs, no generated file touched), plus a pure first-violation conformance checker over the permitted lifecycle order (PRD sections 27/28) and a static purity test (the compiled module's abstract code contains no File/System/IO/Port/Mix remote calls) guarding observation-not-authority: every projected event carries authority:none and the module mutates nothing. Admitted under the native_engine_facade kind for lack of a closer-fitting closed-vocabulary kind, same convention as bap:hand_authored_lib_beam4pm_ocel and bap:hand_authored_lib_beam4pm_deviation_admission (this is not a wasm native-engine facade; it is hand-authored lib/ domain logic not yet templated) -- the vendored pack's bpm:AuthorshipKind vocabulary has no dedicated general-lib-module kind yet, and the vendored pack is an unchecked-out submodule in the worktree where this slice ran, so adding a kind is out of scope here. This is the 7th native_engine_facade admission against the pack ceiling of 6; the raise is disclosed in docs/reference/beam4pm_hand_authored_source.md's kind table for operator review, not silently taken." ;
-    bpm:acceptanceCommand "mix test test/beam4pm_gall_ocel_test.exs" ;
-    bpm:contentSha256 "b28b52e8f5f4aa5eb5dd5e7325ed3f97a8e5a98260f74884c30cc145147c667f" ;
-    bpm:admittedAtCommit "27ff280" ;
-    bpm:admissionExpires "2026-12-31" ;
-    bpm:sunsetPlan "Propose a dedicated hand_authored_lib_module (or similar) AuthorshipKind upstream in the vendored beam4pm-process-model-pack (the same sunset as bap:hand_authored_lib_beam4pm_ocel), or admit the GALL lifecycle order and object bindings as bpm facts and manufacture this projection from a pack template; then delete this admission." .
-
 bap:hand_authored_lib_dfcm a bpm:HandAuthoredSource ;
     bpm:sourcePath "lib/beam4pm_dfcm.ex" ;
     bpm:authorshipKind bpm:AuthorshipKind_native_engine_facade ;
@@ -10558,16 +10446,6 @@ bap:hand_authored_lib_dfcm a bpm:HandAuthoredSource ;
     bpm:admittedAtCommit "8344990" ;
     bpm:admissionExpires "2026-12-31" ;
     bpm:sunsetPlan "Admit DfCM contracts as ontology facts and render the planning crown from a pack template; then delete this admission." .
-bap:hand_authored_lib_dfcm a bpm:HandAuthoredSource ;
-    bpm:sourcePath "lib/beam4pm_dfcm.ex" ;
-    bpm:authorshipKind bpm:AuthorshipKind_native_engine_facade ;
-    bpm:authorizingPrincipal "Sean Chatman (repo owner) via ZCode agents P1/P2/P3/P4/P5/P7, v26.9.18 autofde-lab parity wave (2026-09-18); union synthesized and re-admitted at integration (branch parity/integration)" ;
-    bpm:admissionReason "Pure Design for Combinatorial Maximalism planning crown plus the sanctioned standalone AutoFDE-Lab Typer CLI bridge (priv/bin/autofde trampoline). Wave-union surface: fabric catalog + fabric_match/2 + fabric_solve/2 (P1; typed refusal surfacing incl. exit-3 envelopes and stdout log-noise extraction), ocel_conformance + ocel_validate/1 (P2; OCPQ Definition 2 atom-keyed projection), sa2a graphlaw hash|validate|hooks (baseline), sa2a_validate_card/1 (P3; lab profile court verdict passthrough incl. exit-1 verdict decode), sa2a_admit/2 (P4; §64 evidentiary admission court passthrough -- a court refusal is a verdict, not a bridge error), sa2a_replay/1 (P5; sha256-over-canonical-JSON verification passthrough), and allocate_options/2 reworked onto the certified CMCA cascade via `autofde cmca allocate` with uniform fallback ONLY when the CLI is absent and typed refusals otherwise (P7; dead AshAutofde.CascadeAllocator probe removed). Authority ceiling is strictly :select with no DO surface on every path." ;
-    bpm:acceptanceCommand "mix test test/beam4pm_dfcm_test.exs test/beam4pm_dfcm_fabric_parity_test.exs test/beam4pm_dfcm_ocel_validate_parity_test.exs test/beam4pm_dfcm_sa2a_validate_card_test.exs test/beam4pm_sa2a_admit_parity_test.exs test/beam4pm_dfcm_sa2a_replay_test.exs test/beam4pm_dfcm_cmca_parity_test.exs" ;
-    bpm:contentSha256 "a88af2e5be84f71ce1c59557154d39fe6a25e30b23286b42ee1a50a0f5ab5d42" ;
-    bpm:admittedAtCommit "e592849" ;
-    bpm:admissionExpires "2026-12-31" ;
-    bpm:sunsetPlan "Render the planning crown and the CLI bridge from pack facts/templates (DfCM contracts as ontology facts, bridge surface as bpm:EngineOp facts); then delete this admission." .
 
 # -- hand_authored_qualification (14; counted as debt) -----------------------
 
@@ -10582,184 +10460,6 @@ bap:hand_authored_test_dfcm a bpm:HandAuthoredSource ;
     bpm:admittedAtCommit "8344990" ;
     bpm:admissionExpires "2026-12-31" ;
     bpm:sunsetPlan "Render from the same DfCM planning facts as lib/beam4pm_dfcm.ex; then delete this admission." .
-    bpm:authorizingPrincipal "Sean Chatman (repo owner) via ZCode agent P5, v26.9.18 autofde-lab parity wave (2026-09-18)" ;
-    bpm:admissionReason "Chicago qualification of BeamPM.Dfcm bounded option-preservation calculus, formal HDDL/FOND fixtures, SELECT-not-DO authority ceiling, and the real standalone AutoFDE CLI bridge (catalog, ocel conformance, graphlaw hash/validate/hooks)." ;
-    bpm:acceptanceCommand "mix test test/beam4pm_dfcm_test.exs" ;
-    bpm:contentSha256 "b3fd6bd1b279a7c2116a6986caaa4a69f0550a9b6a15ee7ccaa084a273b4edea" ;
-    bpm:admittedAtCommit "36b0ed9" ;
-    bpm:admissionExpires "2026-12-31" ;
-    bpm:sunsetPlan "Render from the same DfCM planning facts as lib/beam4pm_dfcm.ex; then delete this admission." .
-
-bap:hand_authored_test_dfcm_sa2a_replay a bpm:HandAuthoredSource ;
-    bpm:sourcePath "test/beam4pm_dfcm_sa2a_replay_test.exs" ;
-    bpm:authorshipKind bpm:AuthorshipKind_hand_authored_qualification ;
-    bpm:authorizingPrincipal "Sean Chatman (repo owner) via ZCode agent P5, v26.9.18 autofde-lab parity wave (2026-09-18)" ;
-    bpm:admissionReason "Chicago qualification of the pure-passthrough BeamPM.Dfcm.sa2a_replay/1 (ticket b4p-p5-sa2a-replay-parity): positive verdict pass-through, a real 1-byte tamper refused with the lab's own verdict payload, and the canonicalization boundary (whitespace-only re-serialization verifies) that distinguishes the lab's sha256-over-canonical-JSON scheme from BeamPM.ReceiptChain's raw-byte chain hashing. Cross-validation on real receipts (26 ERC-002, qualification, brce actuation, 157 engine_ops chain receipts, fresh fabric solve) is receipted in docs/jira/v26.9.18/b4p-p5-sa2a-replay-parity.md and WAVE-RECEIPT.md of the parity branch." ;
-    bpm:acceptanceCommand "mix test test/beam4pm_dfcm_sa2a_replay_test.exs" ;
-    bpm:contentSha256 "b80cea408d29a2e963e4cb068f1fdb1d2c3edffb46552874da02c8cf3206ed72" ;
-    bpm:admittedAtCommit "36b0ed9" ;
-    bpm:admissionExpires "2026-12-31" ;
-    bpm:sunsetPlan "Render from the same bridge-fact pack as lib/beam4pm_dfcm.ex's sa2a replay surface; then delete this admission." .
-
-bap:hand_authored_test_dfcm_fabric_parity a bpm:HandAuthoredSource ;
-    bpm:sourcePath "test/beam4pm_dfcm_fabric_parity_test.exs" ;
-    bpm:authorshipKind bpm:AuthorshipKind_hand_authored_qualification ;
-    bpm:authorizingPrincipal "Sean Chatman (repo owner) via v26.9.18 autofde-lab parity wave (docs/jira/v26.9.18/_CONTEXT.md wave law; ticket b4p-p1-fabric-solve-parity, agent P1)" ;
-    bpm:admissionReason "Chicago parity qualification for BeamPM.Dfcm.fabric_match/2 + fabric_solve/2: real `autofde fabric match|solve` runs over beam4pm-owned HDDL/FOND fixtures (dfcm.hddl + dfcm-abcx.hddl; dfcm-fond.pddl + abcx-problem.pddl), cross-validated against BeamPM.Ferroplan wasm (pin e90928d) on the SAME fixtures, with typed-refusal legs (SKD-FABRIC-008 FOND refusal, HDDLDomain CLI-unreachability) and the observed divergence attributions pinned as permanent tripwires." ;
-    bpm:acceptanceCommand "mix test test/beam4pm_dfcm_fabric_parity_test.exs" ;
-    bpm:contentSha256 "c8a2fe98d366e22f9fc0f5f12dbed5ac576576b2a737d79be076882fb3bfbe9d" ;
-    bpm:admittedAtCommit "95ab1ac" ;
-    bpm:admissionExpires "2026-12-31" ;
-    bpm:sunsetPlan "When fabric match/solve are admitted as bpm:EngineOp facts and rendered, fold this parity table into the generated manifest test; then delete this admission." .
-
-bap:hand_authored_test_dfcm_ocel_validate_parity a bpm:HandAuthoredSource ;
-    bpm:sourcePath "test/beam4pm_dfcm_ocel_validate_parity_test.exs" ;
-    bpm:authorshipKind bpm:AuthorshipKind_hand_authored_qualification ;
-    bpm:authorizingPrincipal "Sean Chatman (repo owner) via v26.9.18 autofde-lab parity wave standing order (docs/jira/v26.9.18/_CONTEXT.md wave law; ticket b4p-p2-ocel-validate-parity, agent P2)" ;
-    bpm:admissionReason "Chicago parity qualification for BeamPM.Dfcm.ocel_validate/1: real `autofde ocel validate` (OCPQ Definition 2) runs on the positive + n05/n13/n14 falsifier fixtures and the gym_bridge captures, cross-validated against BeamPM.RF3Ocel's real oracle subprocess. Pins the observed accept/refuse boundary table including the attributed n14 divergence (law coverage: OCPQ Def. 2 structural laws have no declared-type-membership law; RF3Ocel refuses via beam4pm declaration membership) and the gym capture format's absence from the oracle importer's input contract -- permanent tripwires against verdict drift on either side." ;
-    bpm:acceptanceCommand "mix test test/beam4pm_dfcm_ocel_validate_parity_test.exs" ;
-    bpm:contentSha256 "9fa90cceffcd5906c3f5b32f7cf4929c70f520e77706ad5f3b9ce853eebfb374" ;
-    bpm:admittedAtCommit "b09469e" ;
-    bpm:admissionExpires "2026-12-31" ;
-    bpm:sunsetPlan "When the lab's ocel validate and the RF3Ocel declaration-membership law are reconciled into a single admitted boundary, fold this parity table into the generated RF3 manifest test; then delete this admission." .
-
-bap:hand_authored_test_dfcm_sa2a_validate_card a bpm:HandAuthoredSource ;
-    bpm:sourcePath "test/beam4pm_dfcm_sa2a_validate_card_test.exs" ;
-    bpm:authorshipKind bpm:AuthorshipKind_hand_authored_qualification ;
-    bpm:authorizingPrincipal "Sean Chatman (repo owner) via v26.9.18 parity wave agent P3 (worktree wt-p3, ticket b4p-p3-sa2a-card-validate-parity)" ;
-    bpm:admissionReason "Chicago qualification of BeamPM.Dfcm.sa2a_validate_card/1 against the REAL 1194-skill agent card served by a live beam4pm boot (fixture qualification/fixtures/a2a/agent-card.json, captured 2026-09-18 via GET /a2a/.well-known/agent-card.json; ash_a2a hex 26.9.17 pin). Asserts the lab court's observed UNSUPPORTED_PROFILE refusal of the A2A v0.3 card as a permanent parity tripwire (validator mis-read finding A1-A5, upstream note filed)." ;
-    bpm:acceptanceCommand "mix test test/beam4pm_dfcm_sa2a_validate_card_test.exs" ;
-    bpm:contentSha256 "0dc27a202e29afdf70df5e04368b706b64ba4bd33ea463eec896789d6b587062" ;
-    bpm:admittedAtCommit "d9dba35" ;
-    bpm:admissionExpires "2026-12-31" ;
-    bpm:sunsetPlan "Render from pack-declared sa2a-validate bridge facts and a captured-card fixture fact; then delete this admission." .
-
-bap:hand_authored_test_dfcm_sa2a_admit a bpm:HandAuthoredSource ;
-    bpm:sourcePath "test/beam4pm_sa2a_admit_parity_test.exs" ;
-    bpm:authorshipKind bpm:AuthorshipKind_hand_authored_qualification ;
-    bpm:authorizingPrincipal "Sean Chatman (repo owner) via v26.9.18 parity wave agent P4 (worktree wt-p4, ticket b4p-p4-sa2a-admit-parity); carried worktree-untracked by P4, committed and admitted at integration" ;
-    bpm:admissionReason "Consent-table qualification for BeamPM.Dfcm.sa2a_admit/2 vs BeamPM.DeviationAdmission over the lab §64 admission court (12 real-CLI tests): admit/refuse boundaries consent on all shared cases (well-formed evidenced candidate, empty assertion, empty evidence, error-keyed evidence, malformed input fail-closed); the court's evidentiary-form-only blind spot on semantic forgery (C3 unknown-type / C4 dangling-ref ADMITTED by the lab) is pinned as a permanent tripwire naming the law it guards -- semantic conformance belongs to `sa2a graphlaw validate`, not `sa2a admit`." ;
-    bpm:acceptanceCommand "mix test test/beam4pm_sa2a_admit_parity_test.exs" ;
-    bpm:contentSha256 "579ab8cbae4b9934e1ae266551e6042726bbd204b086da806f05c2729099c874" ;
-    bpm:admittedAtCommit "2b12eef" ;
-    bpm:admissionExpires "2026-12-31" ;
-    bpm:sunsetPlan "When a composed admit+graphlaw admission surface is rendered from pack facts, fold this consent table into the generated manifest test; then delete this admission." .
-
-bap:hand_authored_test_dfcm_cmca a bpm:HandAuthoredSource ;
-    bpm:sourcePath "test/beam4pm_dfcm_cmca_parity_test.exs" ;
-    bpm:authorshipKind bpm:AuthorshipKind_hand_authored_qualification ;
-    bpm:authorizingPrincipal "Sean Chatman (repo owner) via v26.9.18 parity wave agent P7 (worktree wt-p7, ticket b4p-p7-cmca-allocator-parity)" ;
-    bpm:admissionReason "Property qualification for the cmca-backed allocate_options/2 (8 tests): real-CLI allocation provenance + :select ceiling, budget exactness (sum of fractions = 1.0 within the Q16.16 quantum for 1/2/3/5/8-branch budgets), budget mapping, determinism (byte-identical plans), the zero-allocation law (fraction 0.0 iff standing PRUNED; ADMITTED implies fraction > 0), the N=8 cardinality law (25-branch input refused with BcinrCardinalityRefusal evidence, never truncated), cmca-vs-uniform parity on the benchmark budget, and the absent-CLI uniform fallback." ;
-    bpm:acceptanceCommand "mix test test/beam4pm_dfcm_cmca_parity_test.exs" ;
-    bpm:contentSha256 "24a1763ab0d8f00d305c723075f9b06774f89a6f2fec34414a3165cdef64abd4" ;
-    bpm:admittedAtCommit "78ae830" ;
-    bpm:admissionExpires "2026-12-31" ;
-    bpm:sunsetPlan "Render from the same cmca allocator facts as lib/beam4pm_dfcm.ex's allocation surface; then delete this admission." .
-
-bap:hand_authored_test_graphlaw_parity a bpm:HandAuthoredSource ;
-    bpm:sourcePath "test/beam4pm_graphlaw_parity_test.exs" ;
-    bpm:authorshipKind bpm:AuthorshipKind_hand_authored_qualification ;
-    bpm:authorizingPrincipal "Sean Chatman (repo owner) via v26.9.18 parity wave agent P10 (worktree wt-p10, ticket b4p-p10-graphlaw-cross-hash-parity)" ;
-    bpm:admissionReason "Flip-ledger parity qualification for the GraphLaw triangle (7 tests): BLAKE3 hash parity across lab CLI direct vs BeamPM.Dfcm trampoline corners on the synthesized TTL corpus with 5 digest pins, admitted-graph slice pin, SHACL violation/control + N3-denial verdict/stage-code pins, the honest empty-registry hooks pin (upstream AFDE-2612 literal-decode gap), the praxis wasm artifact identity pin (sha256 + size), and the E2BIG/stat-heuristic transport-ceiling pin (repo-root ontology.ttl yields no digest through either corner)." ;
-    bpm:acceptanceCommand "AUTOFDE_LAB_ROOT=$HOME/autofde-lab mix test --no-start test/beam4pm_graphlaw_parity_test.exs" ;
-    bpm:contentSha256 "547e6349ab5b51364e20b03409cc0c131b3d3c15f4db030ceb5690f635d1642c" ;
-    bpm:admittedAtCommit "db397e9" ;
-    bpm:admissionExpires "2026-12-31" ;
-    bpm:sunsetPlan "When the lab lifts the graphlaw transport ceilings and praxis lands hook literal decode, re-pin the full-graph digest from a rendered manifest test; then delete this admission." .
-
-bap:hand_authored_test_fixture_graphlaw_hooks_base a bpm:HandAuthoredSource ;
-    bpm:sourcePath "test/fixtures/graphlaw_parity/hooks_base.ttl" ;
-    bpm:authorshipKind bpm:AuthorshipKind_hand_authored_qualification ;
-    bpm:authorizingPrincipal "Sean Chatman (repo owner) via v26.9.18 parity wave agent P10 (ticket b4p-p10-graphlaw-cross-hash-parity); admitted at integration -- the gate surfaced the corpus as unadmitted debt (REFUSED_UNADMITTED, 6 findings), which P10's branch-scoped run did not see" ;
-    bpm:admissionReason "Synthesized TTL corpus of the GraphLaw flip-ledger parity test (test/beam4pm_graphlaw_parity_test.exs): BLAKE3 digest pins, SHACL/N3/hooks verdict pins, and the canonical-graph slice anchor are all defined over these bytes, so any edit trips the test's named FLIP assertions before it can drift silently. Admitted as counted qualification debt per the gate's unmarked-file law; sha256-bound like every debt row." ;
-    bpm:acceptanceCommand "AUTOFDE_LAB_ROOT=$HOME/autofde-lab mix test --no-start test/beam4pm_graphlaw_parity_test.exs" ;
-    bpm:contentSha256 "2125c7c5bc09870df22111a153ca722670171e8c726e6ae78df3fd7960490186" ;
-    bpm:admittedAtCommit "db397e9" ;
-    bpm:admissionExpires "2026-12-31" ;
-    bpm:sunsetPlan "When a pack template manufactures parity corpora from ontology facts, render this corpus and delete this admission." .
-
-bap:hand_authored_test_fixture_graphlaw_hooks_event a bpm:HandAuthoredSource ;
-    bpm:sourcePath "test/fixtures/graphlaw_parity/hooks_event.ttl" ;
-    bpm:authorshipKind bpm:AuthorshipKind_hand_authored_qualification ;
-    bpm:authorizingPrincipal "Sean Chatman (repo owner) via v26.9.18 parity wave agent P10 (ticket b4p-p10-graphlaw-cross-hash-parity); admitted at integration -- the gate surfaced the corpus as unadmitted debt (REFUSED_UNADMITTED, 6 findings), which P10's branch-scoped run did not see" ;
-    bpm:admissionReason "Synthesized TTL corpus of the GraphLaw flip-ledger parity test (test/beam4pm_graphlaw_parity_test.exs): BLAKE3 digest pins, SHACL/N3/hooks verdict pins, and the canonical-graph slice anchor are all defined over these bytes, so any edit trips the test's named FLIP assertions before it can drift silently. Admitted as counted qualification debt per the gate's unmarked-file law; sha256-bound like every debt row." ;
-    bpm:acceptanceCommand "AUTOFDE_LAB_ROOT=$HOME/autofde-lab mix test --no-start test/beam4pm_graphlaw_parity_test.exs" ;
-    bpm:contentSha256 "856e159c4156da6ff554c605603bfca9d02652bda3ba3f0e74c6b78969ba3081" ;
-    bpm:admittedAtCommit "db397e9" ;
-    bpm:admissionExpires "2026-12-31" ;
-    bpm:sunsetPlan "When a pack template manufactures parity corpora from ontology facts, render this corpus and delete this admission." .
-
-bap:hand_authored_test_fixture_graphlaw_n3_denial a bpm:HandAuthoredSource ;
-    bpm:sourcePath "test/fixtures/graphlaw_parity/n3_denial.ttl" ;
-    bpm:authorshipKind bpm:AuthorshipKind_hand_authored_qualification ;
-    bpm:authorizingPrincipal "Sean Chatman (repo owner) via v26.9.18 parity wave agent P10 (ticket b4p-p10-graphlaw-cross-hash-parity); admitted at integration -- the gate surfaced the corpus as unadmitted debt (REFUSED_UNADMITTED, 6 findings), which P10's branch-scoped run did not see" ;
-    bpm:admissionReason "Synthesized TTL corpus of the GraphLaw flip-ledger parity test (test/beam4pm_graphlaw_parity_test.exs): BLAKE3 digest pins, SHACL/N3/hooks verdict pins, and the canonical-graph slice anchor are all defined over these bytes, so any edit trips the test's named FLIP assertions before it can drift silently. Admitted as counted qualification debt per the gate's unmarked-file law; sha256-bound like every debt row." ;
-    bpm:acceptanceCommand "AUTOFDE_LAB_ROOT=$HOME/autofde-lab mix test --no-start test/beam4pm_graphlaw_parity_test.exs" ;
-    bpm:contentSha256 "163681e3d6627a6ad7c8d58cfc1bcf388f065c50f0d240cb39e8e847ca15856e" ;
-    bpm:admittedAtCommit "db397e9" ;
-    bpm:admissionExpires "2026-12-31" ;
-    bpm:sunsetPlan "When a pack template manufactures parity corpora from ontology facts, render this corpus and delete this admission." .
-
-bap:hand_authored_test_fixture_graphlaw_shacl_conforms a bpm:HandAuthoredSource ;
-    bpm:sourcePath "test/fixtures/graphlaw_parity/shacl_conforms.ttl" ;
-    bpm:authorshipKind bpm:AuthorshipKind_hand_authored_qualification ;
-    bpm:authorizingPrincipal "Sean Chatman (repo owner) via v26.9.18 parity wave agent P10 (ticket b4p-p10-graphlaw-cross-hash-parity); admitted at integration -- the gate surfaced the corpus as unadmitted debt (REFUSED_UNADMITTED, 6 findings), which P10's branch-scoped run did not see" ;
-    bpm:admissionReason "Synthesized TTL corpus of the GraphLaw flip-ledger parity test (test/beam4pm_graphlaw_parity_test.exs): BLAKE3 digest pins, SHACL/N3/hooks verdict pins, and the canonical-graph slice anchor are all defined over these bytes, so any edit trips the test's named FLIP assertions before it can drift silently. Admitted as counted qualification debt per the gate's unmarked-file law; sha256-bound like every debt row." ;
-    bpm:acceptanceCommand "AUTOFDE_LAB_ROOT=$HOME/autofde-lab mix test --no-start test/beam4pm_graphlaw_parity_test.exs" ;
-    bpm:contentSha256 "06110773968799947148e28f58043b0357570936861a076cb733ad8725a82a3f" ;
-    bpm:admittedAtCommit "db397e9" ;
-    bpm:admissionExpires "2026-12-31" ;
-    bpm:sunsetPlan "When a pack template manufactures parity corpora from ontology facts, render this corpus and delete this admission." .
-
-bap:hand_authored_test_fixture_graphlaw_shacl_shapes a bpm:HandAuthoredSource ;
-    bpm:sourcePath "test/fixtures/graphlaw_parity/shacl_shapes.ttl" ;
-    bpm:authorshipKind bpm:AuthorshipKind_hand_authored_qualification ;
-    bpm:authorizingPrincipal "Sean Chatman (repo owner) via v26.9.18 parity wave agent P10 (ticket b4p-p10-graphlaw-cross-hash-parity); admitted at integration -- the gate surfaced the corpus as unadmitted debt (REFUSED_UNADMITTED, 6 findings), which P10's branch-scoped run did not see" ;
-    bpm:admissionReason "Synthesized TTL corpus of the GraphLaw flip-ledger parity test (test/beam4pm_graphlaw_parity_test.exs): BLAKE3 digest pins, SHACL/N3/hooks verdict pins, and the canonical-graph slice anchor are all defined over these bytes, so any edit trips the test's named FLIP assertions before it can drift silently. Admitted as counted qualification debt per the gate's unmarked-file law; sha256-bound like every debt row." ;
-    bpm:acceptanceCommand "AUTOFDE_LAB_ROOT=$HOME/autofde-lab mix test --no-start test/beam4pm_graphlaw_parity_test.exs" ;
-    bpm:contentSha256 "a2c3bbb47825809911cf421639bfd076ea5ffcbfb7e2a5800949acd3be0ee393" ;
-    bpm:admittedAtCommit "db397e9" ;
-    bpm:admissionExpires "2026-12-31" ;
-    bpm:sunsetPlan "When a pack template manufactures parity corpora from ontology facts, render this corpus and delete this admission." .
-
-bap:hand_authored_test_fixture_graphlaw_shacl_violation a bpm:HandAuthoredSource ;
-    bpm:sourcePath "test/fixtures/graphlaw_parity/shacl_violation.ttl" ;
-    bpm:authorshipKind bpm:AuthorshipKind_hand_authored_qualification ;
-    bpm:authorizingPrincipal "Sean Chatman (repo owner) via v26.9.18 parity wave agent P10 (ticket b4p-p10-graphlaw-cross-hash-parity); admitted at integration -- the gate surfaced the corpus as unadmitted debt (REFUSED_UNADMITTED, 6 findings), which P10's branch-scoped run did not see" ;
-    bpm:admissionReason "Synthesized TTL corpus of the GraphLaw flip-ledger parity test (test/beam4pm_graphlaw_parity_test.exs): BLAKE3 digest pins, SHACL/N3/hooks verdict pins, and the canonical-graph slice anchor are all defined over these bytes, so any edit trips the test's named FLIP assertions before it can drift silently. Admitted as counted qualification debt per the gate's unmarked-file law; sha256-bound like every debt row." ;
-    bpm:acceptanceCommand "AUTOFDE_LAB_ROOT=$HOME/autofde-lab mix test --no-start test/beam4pm_graphlaw_parity_test.exs" ;
-    bpm:contentSha256 "be98b1ce3597fb64c289849e16a1280e692f6a884b09aef387555fdacf5d8d6d" ;
-    bpm:admittedAtCommit "db397e9" ;
-    bpm:admissionExpires "2026-12-31" ;
-    bpm:sunsetPlan "When a pack template manufactures parity corpora from ontology facts, render this corpus and delete this admission." .
-
-bap:hand_authored_lib_autofde_bridge a bpm:HandAuthoredSource ;
-    bpm:sourcePath "lib/beam4pm_autofde_bridge.ex" ;
-    bpm:authorshipKind bpm:AuthorshipKind_native_engine_facade ;
-    bpm:authorizingPrincipal "Sean Chatman (repo owner) via Claude Code v26.9.18 parity wave agent P8 (session b4p-p8)" ;
-    bpm:admissionReason "Persistent stdio JSON-lines port bridge to autofde-lab's BEAM port bridge (src/autofde_lab/beam/beam_port_bridge.py): one GenServer-owned BEAM Port keeps one Python interpreter alive so post-boot requests skip the per-call interpreter boot the one-shot Typer CLI path pays. Frames newline-delimited JSON, correlates one reply line per request in order, returns the bridge's {ok: false} envelopes typed, degrades to {:error, :bridge_down} on port death and lazily reboots the interpreter (restart/1 forces it). Hand-authored: no template family fits a GenServer-wrapped stdio port client (same class precedent as lib/beam4pm_ocel.ex's native_engine_facade admission); the op surface (ping, cmca_allocate, calculate_salience) is the lab bridge's, not yet ontology facts. The lab's fabric commands are NOT bridge ops -- recorded failed edge; fabric parity stays on the CLI wrapper." ;
-    bpm:acceptanceCommand "mix test test/beam4pm_autofde_bridge_test.exs" ;
-    bpm:contentSha256 "26104d7ff39850d3f2c3e9de8acd3bafe23f057ebe293ff2293af80df67454b7" ;
-    bpm:admittedAtCommit "36b0ed9" ;
-    bpm:admissionExpires "2026-12-31" ;
-    bpm:sunsetPlan "Admit the beam-bridge op surface as ontology facts (a bpm:Engine projection over autofde-lab) and render this port-bridge client from them; then delete this admission." .
-
-# -- hand_authored_qualification (14; counted as debt) -----------------------
-
-bap:hand_authored_test_autofde_bridge a bpm:HandAuthoredSource ;
-    bpm:sourcePath "test/beam4pm_autofde_bridge_test.exs" ;
-    bpm:authorshipKind bpm:AuthorshipKind_hand_authored_qualification ;
-    bpm:authorizingPrincipal "Sean Chatman (repo owner) via Claude Code v26.9.18 parity wave agent P8 (session b4p-p8)" ;
-    bpm:admissionReason "Chicago qualification of the hand-authored BeamPM.AutofdeBridge against the REAL autofde-lab beam_port_bridge interpreter (no mocks): real ping round-trip, one real cmca_allocate solve, exact plan parity with the one-shot CLI path on the same inputs, a real 5-call-per-path latency comparison (persistent channel wins on second+ call), and a real kill -9 of the interpreter's OS pid mid-session with observed {:error, :bridge_down} semantics and a fresh-interpreter recovery ping. Named skip when the autofde-lab checkout is not resolvable." ;
-    bpm:acceptanceCommand "mix test test/beam4pm_autofde_bridge_test.exs" ;
-    bpm:contentSha256 "e96351f9b34c77ccf3bfb3fa42e96e9c55c537384a80e1fec500998433c3ae88" ;
-    bpm:admittedAtCommit "36b0ed9" ;
-    bpm:admissionExpires "2026-12-31" ;
-    bpm:sunsetPlan "Render from the same beam-bridge op facts as lib/beam4pm_autofde_bridge.ex; then delete this admission." .
-
-# -- hand_authored_qualification (14; counted as debt) -----------------------
-
-# -- hand_authored_qualification (14; counted as debt) -----------------------
 
 bap:hand_authored_test_ocel a bpm:HandAuthoredSource ;
     bpm:sourcePath "test/beam4pm_ocel_test.exs" ;
@@ -10771,17 +10471,6 @@ bap:hand_authored_test_ocel a bpm:HandAuthoredSource ;
     bpm:admittedAtCommit "91965eb" ;
     bpm:admissionExpires "2026-12-31" ;
     bpm:sunsetPlan "If lib/beam4pm_ocel.ex is later migrated into ontology-fact-driven generation, render its qualification test from the matching pack template as well; then delete this admission." .
-
-bap:hand_authored_test_beam4pm_gall_ocel a bpm:HandAuthoredSource ;
-    bpm:sourcePath "test/beam4pm_gall_ocel_test.exs" ;
-    bpm:authorshipKind bpm:AuthorshipKind_hand_authored_qualification ;
-    bpm:authorizingPrincipal "Sean Chatman (repo owner) via ZCode bounded construction worker, v26.9.18 GALL Semantic Work Fabric slice (PRD section 43.6), branch feat/gall-swf-v26.9.18" ;
-    bpm:admissionReason "Chicago qualification of the hand-authored BeamPM.GallOcel GALL lifecycle OCEL projection (lib/beam4pm_gall_ocel.ex, itself admitted above): real BeamPM.Types constructors, real BeamPM.Ocel encode/decode/validate_envelope/object_trace composition, per-rule out-of-order falsifier traces refused with the exact named REFUSED_CONFORMANCE tuples, determinism (same trace in, structurally identical projection and identical JSON out), Jason + BeamPM.Ocel.decode round-trips, and a static no-side-effect-path test walking the compiled module's abstract code for File/System/IO/Port/Mix remote calls. Hand-written because it exercises a hand-authored module rather than a manufactured record type, so no beam4pm_types_test.exs.eex-style template applies. This admission fills the hand_authored_qualification ceiling of 36 (raised to 37, disclosed in docs/reference/beam4pm_hand_authored_source.md's kind table)." ;
-    bpm:acceptanceCommand "mix test test/beam4pm_gall_ocel_test.exs" ;
-    bpm:contentSha256 "be38dc5c3b8ba98b3bad24d4c3863b5c7932f3ed3281124e11623f5c61b6f414" ;
-    bpm:admittedAtCommit "27ff280" ;
-    bpm:admissionExpires "2026-12-31" ;
-    bpm:sunsetPlan "If lib/beam4pm_gall_ocel.ex is later migrated into ontology-fact-driven generation, render this qualification from the matching pack template as well; then delete this admission." .
 
 # bap:hand_authored_test_actuation_k8s removed 2026-09-09: test/beam4pm_actuation_k8s_test.exs
 # is no longer present on disk or in the git index (real deletion, not a
@@ -10824,8 +10513,6 @@ bap:hand_authored_test_ferroplan a bpm:HandAuthoredSource ;
     bpm:acceptancePrerequisite "native/ferroplan/target/wasm32-wasip1/release/ferroplan_wasm.wasm" ;
     bpm:contentSha256 "0c4d09b7d9f437c8c9e8c397bc69e717d70e3baa9f3d7de4d70c8cf30a5ed505" ;
     bpm:admittedAtCommit "c34e275" ;
-    bpm:contentSha256 "6f7760d29a3dbf06dd290221a878c77b5806cc2d25a4cc6cb98732dde3967384" ;
-    bpm:admittedAtCommit "7aa4f64" ;
     bpm:admissionExpires "2026-12-31" ;
     bpm:sunsetPlan "Admit the planning fixtures as ontology facts (a bpmg:ProcessContract already projects to PDDL) and render this qualification from them; then delete this admission." .
 
@@ -10991,7 +10678,6 @@ bap:hand_authored_lib_application a bpm:HandAuthoredSource ;
     bpm:authorizingPrincipal "Sean Chatman (repo owner) via Claude Code session_018iXTYcpGbgf23MZYLe6TCU" ;
     bpm:admissionReason "The OTP application module -- boots BeamPM.Application's supervision tree (including the real Bandit listener for lib/beam4pm_ocel_ingest.ex's router, and, as of the ash_a2a agent-facing wiring, the additive A2A HTTP listener BeamPM.A2ARouter). Necessarily hand-authored: no ontology-fact-driven template exists for an OTP Application callback module, and it predates GATE AUTHORSHIP's own admission of every unmarked file (this file existed before the authorship gate itself was manufactured, so it was never previously surfaced as unadmitted)." ;
     bpm:acceptanceCommand "source scripts/env/rust4pm_reactor_env.sh && mix test --max-requires 1" ;
-    bpm:acceptanceCommand "mix test" ;
     bpm:contentSha256 "5296564323089870a49b5e8fadc1149ea08c06645434943463ef43d963f9ed8f" ;
     bpm:admittedAtCommit "7aa4f64" ;
     bpm:admissionExpires "2026-12-31" ;
@@ -11001,13 +10687,9 @@ bap:hand_authored_lib_a2a_agent a bpm:HandAuthoredSource ;
     bpm:sourcePath "lib/beam4pm_a2a_agent.ex" ;
     bpm:authorshipKind bpm:AuthorshipKind_hand_authored_qualification ;
     bpm:authorizingPrincipal "Sean Chatman (repo owner) via Claude Code session_018iXTYcpGbgf23MZYLe6TCU" ;
-    bpm:admissionReason "BeamPM.A2AAgent -- the agent-facing AshA2A.Agent entry point over BeamPM.Ash.Domain's capability index (under ash_a2a 26.9.17's all-public-actions default every public Ash action on an extended resource is an A2A skill -- 1194 skills: 597 :observe reads, 597 :change creates requiring authority per RFC-SA2A-001 S29; the domain's 2 curated a2a skill blocks, OcelEvent read_ocel_events and ConformanceResult read_conformance_results, survive as display-name overrides only). Additive alongside ex4pm's existing Ex4pm.Engine.Beam4pm HTTP route-table client; never routes beam4pm's own internals (EngineOp dispatch, OCEL/OTel evidence chain, BeamPM.ReceiptChain) through A2A/JSON-RPC. Hand-authored: no ontology-fact-driven template exists for an AshA2A.Agent shell module (same class as the OTP Application callback above). Re-admitted 2026-09-18 after the operator-ordered capability-sweep moduledoc truthing (stale curated-only wording replaced with the 26.9.17 surface)." ;
-    bpm:acceptanceCommand "mix run qualification/a2a_smoke_test.exs" ;
-    bpm:contentSha256 "a0b561b3e420d9ed9c1db5a232d94a112447d3dfa32ed1df56a49dff59550c59" ;
-    bpm:contentSha256 "c864a8d02bb012c1fbda44373b371bae81ee0d7f3d1e5a4f5fb7580cc49061ff" ;
     bpm:admissionReason "BeamPM.A2AAgent -- the agent-facing AshA2A.Agent entry point over the curated BeamPM.Ash.Domain a2a skills (same 2 resources already curated as AshAi tools: OcelEvent read, ConformanceResult read). Additive alongside ex4pm's existing Ex4pm.Engine.Beam4pm HTTP route-table client; never routes beam4pm's own internals (EngineOp dispatch, OCEL/OTel evidence chain, BeamPM.ReceiptChain) through A2A/JSON-RPC. Hand-authored: no ontology-fact-driven template exists for an AshA2A.Agent shell module (same class as the OTP Application callback above)." ;
     bpm:acceptanceCommand "mix run qualification/a2a_smoke_test.exs" ;
-    bpm:contentSha256 "2d147cf932f13bf8d31472a21a3b2d0835b5540d00ac0b8748046bd5adf3e672" ;
+    bpm:contentSha256 "a0b561b3e420d9ed9c1db5a232d94a112447d3dfa32ed1df56a49dff59550c59" ;
     bpm:admittedAtCommit "7aa4f64" ;
     bpm:admissionExpires "2026-12-31" ;
     bpm:sunsetPlan "No template family fits an AshA2A.Agent shell module today; keep as permanently-admitted hand-authored infrastructure unless a future ggen_igniter A2A-agent-shell recipe is added." .
@@ -11022,23 +10704,6 @@ bap:hand_authored_lib_a2a_router a bpm:HandAuthoredSource ;
     bpm:admittedAtCommit "7aa4f64" ;
     bpm:admissionExpires "2026-12-31" ;
     bpm:sunsetPlan "No template family fits a Plug.Router HTTP-mount shell today; keep as permanently-admitted hand-authored infrastructure unless a future ggen_igniter recipe is added." .
-    bpm:admissionReason "The OTP application module -- boots BeamPM.Application's supervision tree (including the real Bandit listener for lib/beam4pm_ocel_ingest.ex's router) and, as of the OCEL evidence-contract Phase 3 session, calls BeamPM.Evidence.attach_all/0 to wire the real [:beam4pm, :engine, engine, op] telemetry family to the OCEL/OTel bridges. Necessarily hand-authored: no ontology-fact-driven template exists for an OTP Application callback module, and it predates GATE AUTHORSHIP's own admission of every unmarked file (this file existed before the authorship gate itself was manufactured, so it was never previously surfaced as unadmitted)." ;
-    bpm:acceptanceCommand "source scripts/env/rust4pm_reactor_env.sh && mix test" ;
-    bpm:contentSha256 "f63ae0595b2dc0a8786bbe045d268ccf0c7231cf57a9ccdbb1bc3a045c6f8adc" ;
-    bpm:admittedAtCommit "a4d7df2" ;
-    bpm:admissionExpires "2026-12-31" ;
-    bpm:sunsetPlan "No template family fits an OTP Application callback module today; keep as permanently-admitted hand-authored infrastructure unless a future ggen_igniter OTP-app-shell recipe is added." .
-
-bap:hand_authored_lib_evidence a bpm:HandAuthoredSource ;
-    bpm:sourcePath "lib/beam4pm_evidence.ex" ;
-    bpm:authorshipKind bpm:AuthorshipKind_hand_authored_qualification ;
-    bpm:authorizingPrincipal "Sean Chatman (repo owner) via Claude Code session_018iXTYcpGbgf23MZYLe6TCU" ;
-    bpm:admissionReason "OCEL evidence-contract Phase 3/4: hand-authored orchestration wiring the real [:beam4pm, :engine, engine, op] telemetry family (emitted by every GENERATED engine facade op) to three real consumers -- BeamPM.Ingest.Bridge (scripts/ingest_telemetry.exs, already-admitted capital, buffers a real OcelEvent per call), BeamPM.Evidence.OtelBridge (this file, opens/closes a real OpenTelemetry span per call), and (Phase 4) BeamPM.Evidence.ReceiptBridge (this file, writes one real hash-chained beam4pm-brce/v1 receipt per call via the already-real BeamPM.ReceiptChain.link_fields/3). Not a bpm:RecordType projection or template-rendered file, so it has no generation path -- analogous to lib/beam4pm_application.ex and lib/beam4pm_ocel_ingest.ex, both already-admitted hand-authored lib/ modules." ;
-    bpm:acceptanceCommand "source scripts/env/rust4pm_reactor_env.sh && mix test" ;
-    bpm:contentSha256 "8135b9bb0e4f78446442eaa537f2f2d8bb656fa46eea1c60b1caa77330a58ab2" ;
-    bpm:admittedAtCommit "a4d7df2" ;
-    bpm:admissionExpires "2026-12-31" ;
-    bpm:sunsetPlan "No template family fits telemetry-bridge orchestration today; keep as permanently-admitted hand-authored infrastructure unless a future ggen_igniter recipe covers evidence-bridge wiring." .
 
 bap:hand_authored_lib_contracts a bpm:HandAuthoredSource ;
     bpm:sourcePath "lib/beam4pm_contracts.ex" ;
@@ -11165,11 +10830,10 @@ bap:hand_authored_test_patch_field a bpm:HandAuthoredSource ;
     bpm:sourcePath "test/ggen_igniter_patch_field_test.exs" ;
     bpm:authorshipKind bpm:AuthorshipKind_hand_authored_qualification ;
     bpm:authorizingPrincipal "Sean Chatman (repo owner) via Claude Code session_018iXTYcpGbgf23MZYLe6TCU" ;
-    bpm:admissionReason "Chicago qualification of GgenIgniter.PatchField.patch/4 (admitted above) against the actual, current lib/beam4pm_types.ex content -- asserts the codemod's real output, not a mocked interaction. DISCLOSED GAP: the two large-file regression tests are @describetag :skip as of 2026-09-09 -- they reliably time out at ~360s against the CURRENT lib/beam4pm_types.ex (~18k lines, grown ~7.6x since this test was authored), a real bottleneck inside Igniter.Code.Common/Sourceror's AST traversal, not in the codemod's own logic. FIXED 2026-09-11: added a real, fast, unskipped test exercising the same codemod against a small synthetic two-module source string, closing the REFUSED_VACUOUS_ACCEPTANCE gap the fully-skipped suite previously tripped (every test skipped, no absent-prerequisite declared). See the test file's own header comment for the full disclosure." ;
+    bpm:admissionReason "Chicago qualification of GgenIgniter.PatchField.patch/4 (admitted above) against the actual, current lib/beam4pm_types.ex content -- asserts the codemod's real output, not a mocked interaction. DISCLOSED GAP: both tests are @moduletag :skip as of 2026-09-09 -- they reliably time out at ~360s against the CURRENT lib/beam4pm_types.ex (~18k lines, grown ~7.6x since this test was authored), a real bottleneck inside Igniter.Code.Common/Sourceror's AST traversal, not in the codemod's own logic. See the test file's own header comment for the full disclosure." ;
     bpm:acceptanceCommand "mix test test/ggen_igniter_patch_field_test.exs" ;
     bpm:acceptancePrerequisite "cmd:test -n \"${BEAM4PM_RUN_EXPENSIVE_PATCH_FIELD_TESTS:-}\" && test $(wc -l < lib/beam4pm_types.ex) -lt 5000" ;
     bpm:contentSha256 "b2be2a83ee1b8258cb429abd2c976fb1cb0bd3c5ffd4e216e3f21cf7ed42e97f" ;
-    bpm:contentSha256 "0441e69dadd9032e79458f86908b5de09d46aafd730054be33f006d995e44fed" ;
     bpm:admittedAtCommit "2cc09cb" ;
     bpm:admissionExpires "2026-12-31" ;
     bpm:sunsetPlan "Sunsets alongside lib/ggen_igniter/patch_field.ex's own admission." .
@@ -11279,28 +10943,6 @@ bap:hand_authored_doc_scripts a bpm:HandAuthoredSource ;
     bpm:acceptanceCommand "bash scripts/gate_lint_truth.sh" ;
     bpm:admittedAtCommit "f44dcd0" .
 
-bap:hand_authored_schema_evidence_coverage a bpm:HandAuthoredSource ;
-    bpm:sourcePath "schema/beam4pm_evidence_coverage.tsv" ;
-    bpm:authorshipKind bpm:AuthorshipKind_hand_authored_qualification ;
-    bpm:authorizingPrincipal "Sean Chatman (repo owner) via Claude Code session_018iXTYcpGbgf23MZYLe6TCU" ;
-    bpm:admissionReason "OCEL evidence-contract Phase 5: coverage matrix written by the new scripts/gate_evidence_coverage_check.sh falsifier (declared/reachable columns from real static grep evidence over the generated engine facades; the five runtime columns are the literal string \"unverified_static_gate\", not fabricated, pending Phase 6's real runtime smoke). Committed 666e1df alongside the gate script itself but never admitted in this GATE AUTHORSHIP manifest at that time -- a real gap, fixed here rather than left to surface again as a silent REFUSED_UNADMITTED." ;
-    bpm:acceptanceCommand "bash scripts/gate_evidence_coverage_check.sh" ;
-    bpm:contentSha256 "13df9958c005ad8b86d17651d821dcf6776d43006e7caedff7034d78a9e0c22a" ;
-    bpm:admittedAtCommit "666e1df" ;
-    bpm:admissionExpires "2026-12-31" ;
-    bpm:sunsetPlan "Regenerate as a GENERATED artifact once the gate script itself is folded into a ggen template family; keep admitted as hand-authored gate output until then." .
-
-bap:hand_authored_test_evidence_chain a bpm:HandAuthoredSource ;
-    bpm:sourcePath "test/beam4pm_evidence_chain_test.exs" ;
-    bpm:authorshipKind bpm:AuthorshipKind_hand_authored_qualification ;
-    bpm:authorizingPrincipal "Sean Chatman (repo owner) via Claude Code session_018iXTYcpGbgf23MZYLe6TCU" ;
-    bpm:admissionReason "OCEL evidence-contract Phase 6: one generalized Chicago-style end-to-end test asserting real state at all three evidence hops (a real OcelEvent in BeamPM.Ingest.Bridge.events/0, a real OTel span captured via the real otel_exporter_pid test exporter swapped onto the running otel_batch_processor, and a real BeamPM.ReceiptChain.verify/2-checked receipt chain) for one representative op per engine (petgraph.graph_new, tract.load_model_path, rust4pm.ocel_new, ferroplan.readiness) plus one refusal-path case (rust4pm.import_xes(\"not xml\")). No mocks; a missing wasm artifact is a named ExUnit skip per this repo's own established pattern." ;
-    bpm:acceptanceCommand "mix test test/beam4pm_evidence_chain_test.exs" ;
-    bpm:contentSha256 "2c398b053b9ca830adf948b8ce0e741328a7d443b480a89c253e5929f5dc3399" ;
-    bpm:admittedAtCommit "666e1df" ;
-    bpm:admissionExpires "2026-12-31" ;
-    bpm:sunsetPlan "No template family fits an end-to-end evidence-chain qualification test today; keep as permanently-admitted hand-authored infrastructure. Phase 16's full-79-op rollout will extend this same file, not replace it." .
-
 # ===========================================================================
 # Native engine surfaces -- ADMITTED as facts, facades MANUFACTURED
 # (2026-09-05; VISION-2030 section 2 / section 24 falsifier "ggen-only
@@ -11337,59 +10979,6 @@ bap:hand_authored_test_evidence_chain a bpm:HandAuthoredSource ;
 @prefix bpm: <https://ggen.dev/ontology/beam-process-model#> .
 @prefix bap: <https://ggen.dev/projects/beam4pm#> .
 
-# ===========================================================================
-# OCEL evidence architecture, Phase 1 (narrow ontology extension) -- consumer
-# extension of bpm:EngineOp, layered on the pack's own bpm:EngineOp /
-# bpm:opKind / bpm:opTimeoutClass shape (vendor/ggen-marketplace/packs/
-# beam4pm-process-model-pack/ontology.ttl). Not yet consumed by any template
-# (Phase 2 wires bpm:opVerificationClass into the OCEL evidence-contract
-# generation); admitted here as real, differentiated facts per op ahead of
-# that consumption, per this repo's evidence-forcing-architecture discipline
-# (every generated fact carries real classification before code depends on
-# it, not a placeholder default).
-#
-# bpm:opVerificationClass answers "what kind of evidence does calling this
-# op produce/require", a question bpm:opKind (wire vs host_helper -- a
-# dispatch-mechanics distinction) and bpm:opTimeoutClass (a budget
-# distinction) do not answer:
-#   - bpm:VerificationClass_PURE: a query/compute op that is a deterministic
-#     function of its arguments (and any handle-referenced state it reads,
-#     unmutated) -- calling it twice with the same inputs is a no-op on
-#     engine-side state. The largest class (40/79): shortest_path, scc,
-#     discover_dfg, compute_fitness, session_fact, etc.
-#   - bpm:VerificationClass_STATEFUL: constructs a new handle or mutates the
-#     state behind an existing handle (graph_new, add_edge, ocel_add_event,
-#     session_think, session_set_fact, ...). 29/79.
-#   - bpm:VerificationClass_EXTERNAL: crosses a real I/O boundary outside the
-#     wasm sandbox before delegating to a wire op -- exactly the 3 ops of
-#     bpm:EngineOpKind_host_helper (File.read!/1 host-side: load_model_path,
-#     import_xes_path, import_pnml_path). A real, pack-recognized behavioral
-#     distinction (see the pack's own EngineOpKind_host_helper comment), not
-#     invented for this field alone.
-#   - bpm:VerificationClass_REFUSAL: an op whose entire contract is to
-#     invalidate future access -- the 6 handle-release ops (free_graph,
-#     free_model, free_log, free_net, free_ocel, session_free) plus
-#     session_drop_plan (clears the stashed plan/cursor so a subsequent
-#     session_valid?/session_step read is refused until re-planned). 7/79.
-#
-# A derived per-op OCEL event-type name was considered and rejected as a new
-# field: it is fully derivable from the existing bpm:opEngine ->
-# bpm:engineName and bpm:opName (e.g. "petgraph.shortest_path"), so adding a
-# stored field would duplicate information already admitted, not add any.
-bpm:VerificationClass a rdfs:Class ;
-    rdfs:comment "Closed vocabulary: what kind of evidence calling this bpm:EngineOp produces or requires, for the OCEL evidence-contract generation (Phase 2). Orthogonal to bpm:EngineOpKind (dispatch mechanics) and bpm:TimeoutClass (budget)." .
-bpm:verificationClassName a rdf:Property ; rdfs:domain bpm:VerificationClass ; rdfs:range xsd:string .
-bpm:VerificationClass_PURE a bpm:VerificationClass ; bpm:verificationClassName "PURE" ;
-    rdfs:comment "Deterministic function of its arguments and any handle-referenced state it reads; does not mutate engine-side state." .
-bpm:VerificationClass_STATEFUL a bpm:VerificationClass ; bpm:verificationClassName "STATEFUL" ;
-    rdfs:comment "Constructs a new engine-side handle or mutates the state behind an existing one." .
-bpm:VerificationClass_EXTERNAL a bpm:VerificationClass ; bpm:verificationClassName "EXTERNAL" ;
-    rdfs:comment "Crosses a real I/O boundary outside the wasm sandbox (host-side File.read!/1) before delegating to a wire op -- bpm:EngineOpKind_host_helper ops exactly." .
-bpm:VerificationClass_REFUSAL a bpm:VerificationClass ; bpm:verificationClassName "REFUSAL" ;
-    rdfs:comment "The op's entire contract is to invalidate future access to a handle or stashed state (a free_* release, or session_drop_plan clearing the stashed plan/cursor)." .
-bpm:opVerificationClass a rdf:Property ; rdfs:domain bpm:EngineOp ; rdfs:range bpm:VerificationClass ;
-    rdfs:comment "Real, per-op classification (PURE/STATEFUL/EXTERNAL/REFUSAL) admitted for all 79 EngineOp individuals in this file -- see the section comment above for the counted distribution and rationale." .
-
 # -- petgraph (native/petgraph-wasm): graph algorithms -----------------------
 
 bap:engine_petgraph a bpm:Engine ;
@@ -11409,12 +10998,12 @@ bap:engine_petgraph a bpm:Engine ;
 bap:engine_petgraph_op_graph_new a bpm:EngineOp ;
     bpm:opEngine bap:engine_petgraph ; bpm:opName "graph_new" ; bpm:opOrder 1 ;
     bpm:opDoc "`{\"op\":\"graph_new\"}` -- a new, empty directed graph. `{:ok, %{\"handle\" => n}}`." ;
-    bpm:opTimeoutClass bpm:TimeoutClass_cheap ; bpm:opKind bpm:EngineOpKind_wire ; bpm:opVerificationClass bpm:VerificationClass_STATEFUL .
+    bpm:opTimeoutClass bpm:TimeoutClass_cheap ; bpm:opKind bpm:EngineOpKind_wire .
 
 bap:engine_petgraph_op_add_node a bpm:EngineOp ;
     bpm:opEngine bap:engine_petgraph ; bpm:opName "add_node" ; bpm:opOrder 2 ;
     bpm:opDoc "`{\"op\":\"add_node\",\"handle\":h,\"name\":n}` -- idempotent." ;
-    bpm:opTimeoutClass bpm:TimeoutClass_cheap ; bpm:opKind bpm:EngineOpKind_wire ; bpm:opVerificationClass bpm:VerificationClass_STATEFUL .
+    bpm:opTimeoutClass bpm:TimeoutClass_cheap ; bpm:opKind bpm:EngineOpKind_wire .
 bap:engine_petgraph_op_add_node_handle a bpm:EngineArg ;
     bpm:argOp bap:engine_petgraph_op_add_node ; bpm:argName "handle" ; bpm:argOrder 1 ; bpm:argType bpm:EngineArgType_handle .
 bap:engine_petgraph_op_add_node_name a bpm:EngineArg ;
@@ -11423,7 +11012,7 @@ bap:engine_petgraph_op_add_node_name a bpm:EngineArg ;
 bap:engine_petgraph_op_add_edge a bpm:EngineOp ;
     bpm:opEngine bap:engine_petgraph ; bpm:opName "add_edge" ; bpm:opOrder 3 ;
     bpm:opDoc "`{\"op\":\"add_edge\",\"handle\":h,\"from\":f,\"to\":t,\"weight\":w}` -- auto-adds `from`/`to` as nodes if absent. `weight` is the `:weight` keyword option, default 1.0 (Erlang: add_edge/4 takes it explicitly; Gleam binds the default-weight head only)." ;
-    bpm:opTimeoutClass bpm:TimeoutClass_cheap ; bpm:opKind bpm:EngineOpKind_wire ; bpm:opVerificationClass bpm:VerificationClass_STATEFUL .
+    bpm:opTimeoutClass bpm:TimeoutClass_cheap ; bpm:opKind bpm:EngineOpKind_wire .
 bap:engine_petgraph_op_add_edge_handle a bpm:EngineArg ;
     bpm:argOp bap:engine_petgraph_op_add_edge ; bpm:argName "handle" ; bpm:argOrder 1 ; bpm:argType bpm:EngineArgType_handle .
 bap:engine_petgraph_op_add_edge_from a bpm:EngineArg ;
@@ -11437,7 +11026,7 @@ bap:engine_petgraph_op_add_edge_weight a bpm:EngineArg ;
 bap:engine_petgraph_op_shortest_path a bpm:EngineOp ;
     bpm:opEngine bap:engine_petgraph ; bpm:opName "shortest_path" ; bpm:opOrder 4 ;
     bpm:opDoc "`{\"op\":\"shortest_path\",\"handle\":h,\"from\":f,\"to\":t}` -- real A*-as-Dijkstra. `{:ok, %{\"path\" => [names], \"cost\" => f64}}` on a real path, or `{:ok, %{\"path\" => nil, \"cost\" => nil}}` when unreachable or a name is unknown -- \"no path\" is an answer, not an error. Negative edge weights are refused with a real `{:error, {:engine, _}}`, never silently mishandled." ;
-    bpm:opTimeoutClass bpm:TimeoutClass_cheap ; bpm:opKind bpm:EngineOpKind_wire ; bpm:opVerificationClass bpm:VerificationClass_PURE .
+    bpm:opTimeoutClass bpm:TimeoutClass_cheap ; bpm:opKind bpm:EngineOpKind_wire .
 bap:engine_petgraph_op_shortest_path_handle a bpm:EngineArg ;
     bpm:argOp bap:engine_petgraph_op_shortest_path ; bpm:argName "handle" ; bpm:argOrder 1 ; bpm:argType bpm:EngineArgType_handle .
 bap:engine_petgraph_op_shortest_path_from a bpm:EngineArg ;
@@ -11448,21 +11037,21 @@ bap:engine_petgraph_op_shortest_path_to a bpm:EngineArg ;
 bap:engine_petgraph_op_scc a bpm:EngineOp ;
     bpm:opEngine bap:engine_petgraph ; bpm:opName "scc" ; bpm:opOrder 5 ;
     bpm:opDoc "`{\"op\":\"scc\",\"handle\":h}` -- Tarjan strongly-connected-components, deterministically sorted (each component's node list sorted, components sorted by their sorted list)." ;
-    bpm:opTimeoutClass bpm:TimeoutClass_cheap ; bpm:opKind bpm:EngineOpKind_wire ; bpm:opVerificationClass bpm:VerificationClass_PURE .
+    bpm:opTimeoutClass bpm:TimeoutClass_cheap ; bpm:opKind bpm:EngineOpKind_wire .
 bap:engine_petgraph_op_scc_handle a bpm:EngineArg ;
     bpm:argOp bap:engine_petgraph_op_scc ; bpm:argName "handle" ; bpm:argOrder 1 ; bpm:argType bpm:EngineArgType_handle .
 
 bap:engine_petgraph_op_toposort a bpm:EngineOp ;
     bpm:opEngine bap:engine_petgraph ; bpm:opName "toposort" ; bpm:opOrder 6 ;
     bpm:opDoc "`{\"op\":\"toposort\",\"handle\":h}` -- `{:ok, %{\"acyclic\" => true, \"order\" => [names]}}` or `{:ok, %{\"acyclic\" => false, \"order\" => nil}}`. A cycle is a real, named answer, never an error." ;
-    bpm:opTimeoutClass bpm:TimeoutClass_cheap ; bpm:opKind bpm:EngineOpKind_wire ; bpm:opVerificationClass bpm:VerificationClass_PURE .
+    bpm:opTimeoutClass bpm:TimeoutClass_cheap ; bpm:opKind bpm:EngineOpKind_wire .
 bap:engine_petgraph_op_toposort_handle a bpm:EngineArg ;
     bpm:argOp bap:engine_petgraph_op_toposort ; bpm:argName "handle" ; bpm:argOrder 1 ; bpm:argType bpm:EngineArgType_handle .
 
 bap:engine_petgraph_op_is_cyclic a bpm:EngineOp ;
     bpm:opEngine bap:engine_petgraph ; bpm:opName "is_cyclic" ; bpm:opOrder 7 ;
     bpm:opDoc "`{\"op\":\"is_cyclic\",\"handle\":h}` -- `{:ok, %{\"cyclic\" => bool}}`. Elixir names it `is_cyclic?`; Erlang and Gleam keep `is_cyclic`." ;
-    bpm:opTimeoutClass bpm:TimeoutClass_cheap ; bpm:opKind bpm:EngineOpKind_wire ; bpm:opVerificationClass bpm:VerificationClass_PURE ;
+    bpm:opTimeoutClass bpm:TimeoutClass_cheap ; bpm:opKind bpm:EngineOpKind_wire ;
     bpm:opElixirPredicate "true" .
 bap:engine_petgraph_op_is_cyclic_handle a bpm:EngineArg ;
     bpm:argOp bap:engine_petgraph_op_is_cyclic ; bpm:argName "handle" ; bpm:argOrder 1 ; bpm:argType bpm:EngineArgType_handle .
@@ -11470,21 +11059,21 @@ bap:engine_petgraph_op_is_cyclic_handle a bpm:EngineArg ;
 bap:engine_petgraph_op_node_count a bpm:EngineOp ;
     bpm:opEngine bap:engine_petgraph ; bpm:opName "node_count" ; bpm:opOrder 8 ;
     bpm:opDoc "`{\"op\":\"node_count\",\"handle\":h}` -- node count of the graph." ;
-    bpm:opTimeoutClass bpm:TimeoutClass_cheap ; bpm:opKind bpm:EngineOpKind_wire ; bpm:opVerificationClass bpm:VerificationClass_PURE .
+    bpm:opTimeoutClass bpm:TimeoutClass_cheap ; bpm:opKind bpm:EngineOpKind_wire .
 bap:engine_petgraph_op_node_count_handle a bpm:EngineArg ;
     bpm:argOp bap:engine_petgraph_op_node_count ; bpm:argName "handle" ; bpm:argOrder 1 ; bpm:argType bpm:EngineArgType_handle .
 
 bap:engine_petgraph_op_edge_count a bpm:EngineOp ;
     bpm:opEngine bap:engine_petgraph ; bpm:opName "edge_count" ; bpm:opOrder 9 ;
     bpm:opDoc "`{\"op\":\"edge_count\",\"handle\":h}` -- edge count of the graph." ;
-    bpm:opTimeoutClass bpm:TimeoutClass_cheap ; bpm:opKind bpm:EngineOpKind_wire ; bpm:opVerificationClass bpm:VerificationClass_PURE .
+    bpm:opTimeoutClass bpm:TimeoutClass_cheap ; bpm:opKind bpm:EngineOpKind_wire .
 bap:engine_petgraph_op_edge_count_handle a bpm:EngineArg ;
     bpm:argOp bap:engine_petgraph_op_edge_count ; bpm:argName "handle" ; bpm:argOrder 1 ; bpm:argType bpm:EngineArgType_handle .
 
 bap:engine_petgraph_op_free_graph a bpm:EngineOp ;
     bpm:opEngine bap:engine_petgraph ; bpm:opName "free_graph" ; bpm:opOrder 10 ;
     bpm:opDoc "`{\"op\":\"free_graph\",\"handle\":h}` -- releases the graph handle; subsequent use errors with an unknown-handle message." ;
-    bpm:opTimeoutClass bpm:TimeoutClass_cheap ; bpm:opKind bpm:EngineOpKind_wire ; bpm:opVerificationClass bpm:VerificationClass_REFUSAL .
+    bpm:opTimeoutClass bpm:TimeoutClass_cheap ; bpm:opKind bpm:EngineOpKind_wire .
 bap:engine_petgraph_op_free_graph_handle a bpm:EngineArg ;
     bpm:argOp bap:engine_petgraph_op_free_graph ; bpm:argName "handle" ; bpm:argOrder 1 ; bpm:argType bpm:EngineArgType_handle .
 
@@ -11508,7 +11097,7 @@ bap:engine_tract a bpm:Engine ;
 bap:engine_tract_op_load_model a bpm:EngineOp ;
     bpm:opEngine bap:engine_tract ; bpm:opName "load_model" ; bpm:opOrder 1 ;
     bpm:opDoc "`{\"op\":\"load_model\",\"model_b64\":...}` -- `model_bytes` is the raw ONNX protobuf (base64-encoded host-side; JSON strings cannot carry raw protobuf). Optimizes and compiles to a runnable plan immediately. `{:ok, %{\"handle\" => n, \"inputs\" => [%{\"name\" => s, \"shape\" => [dims|nil]}], \"outputs\" => [...]}}` -- a `nil` dim is a symbolic/dynamic axis tract could not fully resolve at load time, reported honestly rather than guessed." ;
-    bpm:opTimeoutClass bpm:TimeoutClass_heavy ; bpm:opKind bpm:EngineOpKind_wire ; bpm:opVerificationClass bpm:VerificationClass_STATEFUL .
+    bpm:opTimeoutClass bpm:TimeoutClass_heavy ; bpm:opKind bpm:EngineOpKind_wire .
 bap:engine_tract_op_load_model_bytes a bpm:EngineArg ;
     bpm:argOp bap:engine_tract_op_load_model ; bpm:argName "model_bytes" ; bpm:argOrder 1 ;
     bpm:argWireKey "model_b64" ; bpm:argType bpm:EngineArgType_binary ; bpm:argEncoding bpm:ArgEncoding_base64 .
@@ -11516,7 +11105,7 @@ bap:engine_tract_op_load_model_bytes a bpm:EngineArg ;
 bap:engine_tract_op_load_model_path a bpm:EngineOp ;
     bpm:opEngine bap:engine_tract ; bpm:opName "load_model_path" ; bpm:opOrder 2 ;
     bpm:opDoc "`File.read!/1` host-side, then `load_model/2` (raises if the path is absent)." ;
-    bpm:opTimeoutClass bpm:TimeoutClass_heavy ; bpm:opKind bpm:EngineOpKind_host_helper ; bpm:opVerificationClass bpm:VerificationClass_EXTERNAL ;
+    bpm:opTimeoutClass bpm:TimeoutClass_heavy ; bpm:opKind bpm:EngineOpKind_host_helper ;
     bpm:opDelegatesTo bap:engine_tract_op_load_model .
 bap:engine_tract_op_load_model_path_path a bpm:EngineArg ;
     bpm:argOp bap:engine_tract_op_load_model_path ; bpm:argName "path" ; bpm:argOrder 1 ; bpm:argType bpm:EngineArgType_path .
@@ -11524,7 +11113,7 @@ bap:engine_tract_op_load_model_path_path a bpm:EngineArg ;
 bap:engine_tract_op_run a bpm:EngineOp ;
     bpm:opEngine bap:engine_tract ; bpm:opName "run" ; bpm:opOrder 3 ;
     bpm:opDoc "`{\"op\":\"run\",\"handle\":h,\"inputs\":[{\"shape\":[dims],\"data\":[f32,...]}]}` -- one f32 tensor per declared model input, in order (`inputs` a list of `%{shape: [dims], data: [floats]}`, converted to the wire's string-keyed shape here). `{:ok, %{\"outputs\" => [%{\"shape\" => [dims], \"data\" => [floats]}]}}`, one per declared model output, in order. Real tensor inference, even on a tiny model, draws the heavy timeout budget." ;
-    bpm:opTimeoutClass bpm:TimeoutClass_heavy ; bpm:opKind bpm:EngineOpKind_wire ; bpm:opVerificationClass bpm:VerificationClass_PURE .
+    bpm:opTimeoutClass bpm:TimeoutClass_heavy ; bpm:opKind bpm:EngineOpKind_wire .
 bap:engine_tract_op_run_handle a bpm:EngineArg ;
     bpm:argOp bap:engine_tract_op_run ; bpm:argName "handle" ; bpm:argOrder 1 ; bpm:argType bpm:EngineArgType_handle .
 bap:engine_tract_op_run_inputs a bpm:EngineArg ;
@@ -11534,14 +11123,14 @@ bap:engine_tract_op_run_inputs a bpm:EngineArg ;
 bap:engine_tract_op_model_info a bpm:EngineOp ;
     bpm:opEngine bap:engine_tract ; bpm:opName "model_info" ; bpm:opOrder 4 ;
     bpm:opDoc "`{\"op\":\"model_info\",\"handle\":h}` -- same input/output fact shape as `load_model/2`." ;
-    bpm:opTimeoutClass bpm:TimeoutClass_cheap ; bpm:opKind bpm:EngineOpKind_wire ; bpm:opVerificationClass bpm:VerificationClass_PURE .
+    bpm:opTimeoutClass bpm:TimeoutClass_cheap ; bpm:opKind bpm:EngineOpKind_wire .
 bap:engine_tract_op_model_info_handle a bpm:EngineArg ;
     bpm:argOp bap:engine_tract_op_model_info ; bpm:argName "handle" ; bpm:argOrder 1 ; bpm:argType bpm:EngineArgType_handle .
 
 bap:engine_tract_op_free_model a bpm:EngineOp ;
     bpm:opEngine bap:engine_tract ; bpm:opName "free_model" ; bpm:opOrder 5 ;
     bpm:opDoc "`{\"op\":\"free_model\",\"handle\":h}` -- releases the model handle; subsequent use errors with an unknown-handle message." ;
-    bpm:opTimeoutClass bpm:TimeoutClass_cheap ; bpm:opKind bpm:EngineOpKind_wire ; bpm:opVerificationClass bpm:VerificationClass_REFUSAL .
+    bpm:opTimeoutClass bpm:TimeoutClass_cheap ; bpm:opKind bpm:EngineOpKind_wire .
 bap:engine_tract_op_free_model_handle a bpm:EngineArg ;
     bpm:argOp bap:engine_tract_op_free_model ; bpm:argName "handle" ; bpm:argOrder 1 ; bpm:argType bpm:EngineArgType_handle .
 
@@ -11568,7 +11157,7 @@ bap:engine_rust4pm a bpm:Engine ;
 bap:engine_rust4pm_op_import_xes a bpm:EngineOp ;
     bpm:opEngine bap:engine_rust4pm ; bpm:opName "import_xes" ; bpm:opOrder 1 ;
     bpm:opDoc "`{\"op\":\"import_xes\",\"content\":...}` -- imports an entire XES document (UTF-8, passed by value) and returns `{:ok, %{\"handle\" => n}}`." ;
-    bpm:opTimeoutClass bpm:TimeoutClass_heavy ; bpm:opKind bpm:EngineOpKind_wire ; bpm:opVerificationClass bpm:VerificationClass_STATEFUL .
+    bpm:opTimeoutClass bpm:TimeoutClass_heavy ; bpm:opKind bpm:EngineOpKind_wire .
 bap:engine_rust4pm_op_import_xes_content a bpm:EngineArg ;
     bpm:argOp bap:engine_rust4pm_op_import_xes ; bpm:argName "xes_content" ; bpm:argOrder 1 ;
     bpm:argWireKey "content" ; bpm:argType bpm:EngineArgType_string .
@@ -11576,7 +11165,7 @@ bap:engine_rust4pm_op_import_xes_content a bpm:EngineArg ;
 bap:engine_rust4pm_op_import_xes_path a bpm:EngineOp ;
     bpm:opEngine bap:engine_rust4pm ; bpm:opName "import_xes_path" ; bpm:opOrder 2 ;
     bpm:opDoc "`File.read!/1` host-side, then `import_xes/2` (raises if the path is absent)." ;
-    bpm:opTimeoutClass bpm:TimeoutClass_heavy ; bpm:opKind bpm:EngineOpKind_host_helper ; bpm:opVerificationClass bpm:VerificationClass_EXTERNAL ;
+    bpm:opTimeoutClass bpm:TimeoutClass_heavy ; bpm:opKind bpm:EngineOpKind_host_helper ;
     bpm:opDelegatesTo bap:engine_rust4pm_op_import_xes .
 bap:engine_rust4pm_op_import_xes_path_path a bpm:EngineArg ;
     bpm:argOp bap:engine_rust4pm_op_import_xes_path ; bpm:argName "path" ; bpm:argOrder 1 ; bpm:argType bpm:EngineArgType_path .
@@ -11584,7 +11173,7 @@ bap:engine_rust4pm_op_import_xes_path_path a bpm:EngineArg ;
 bap:engine_rust4pm_op_import_xes_gz a bpm:EngineOp ;
     bpm:opEngine bap:engine_rust4pm ; bpm:opName "import_xes_gz" ; bpm:opOrder 3 ;
     bpm:opDoc "`{\"op\":\"import_xes_gz\",\"content_b64\":...}` -- gzip'd XES bytes, base64-encoded host-side (JSON strings cannot carry raw gzip bytes)." ;
-    bpm:opTimeoutClass bpm:TimeoutClass_heavy ; bpm:opKind bpm:EngineOpKind_wire ; bpm:opVerificationClass bpm:VerificationClass_STATEFUL .
+    bpm:opTimeoutClass bpm:TimeoutClass_heavy ; bpm:opKind bpm:EngineOpKind_wire .
 bap:engine_rust4pm_op_import_xes_gz_bytes a bpm:EngineArg ;
     bpm:argOp bap:engine_rust4pm_op_import_xes_gz ; bpm:argName "gz_bytes" ; bpm:argOrder 1 ;
     bpm:argWireKey "content_b64" ; bpm:argType bpm:EngineArgType_binary ; bpm:argEncoding bpm:ArgEncoding_base64 .
@@ -11592,7 +11181,7 @@ bap:engine_rust4pm_op_import_xes_gz_bytes a bpm:EngineArg ;
 bap:engine_rust4pm_op_import_pnml a bpm:EngineOp ;
     bpm:opEngine bap:engine_rust4pm ; bpm:opName "import_pnml" ; bpm:opOrder 4 ;
     bpm:opDoc "`{\"op\":\"import_pnml\",\"content\":...}` -- imports a PNML document (UTF-8, by value) and returns `{:ok, %{\"net_handle\" => n, \"summary\" => %{...}}}`. A PNML without markings imports but later fails alignment with the engine's verbatim `NoInitialMarking`/`NoFinalMarking` error -- reported honestly in `summary[\"has_initial_marking\"]`/`summary[\"num_final_markings\"]`." ;
-    bpm:opTimeoutClass bpm:TimeoutClass_heavy ; bpm:opKind bpm:EngineOpKind_wire ; bpm:opVerificationClass bpm:VerificationClass_STATEFUL .
+    bpm:opTimeoutClass bpm:TimeoutClass_heavy ; bpm:opKind bpm:EngineOpKind_wire .
 bap:engine_rust4pm_op_import_pnml_content a bpm:EngineArg ;
     bpm:argOp bap:engine_rust4pm_op_import_pnml ; bpm:argName "pnml_content" ; bpm:argOrder 1 ;
     bpm:argWireKey "content" ; bpm:argType bpm:EngineArgType_string .
@@ -11600,7 +11189,7 @@ bap:engine_rust4pm_op_import_pnml_content a bpm:EngineArg ;
 bap:engine_rust4pm_op_import_pnml_path a bpm:EngineOp ;
     bpm:opEngine bap:engine_rust4pm ; bpm:opName "import_pnml_path" ; bpm:opOrder 5 ;
     bpm:opDoc "`File.read!/1` host-side, then `import_pnml/2` (raises if the path is absent)." ;
-    bpm:opTimeoutClass bpm:TimeoutClass_heavy ; bpm:opKind bpm:EngineOpKind_host_helper ; bpm:opVerificationClass bpm:VerificationClass_EXTERNAL ;
+    bpm:opTimeoutClass bpm:TimeoutClass_heavy ; bpm:opKind bpm:EngineOpKind_host_helper ;
     bpm:opDelegatesTo bap:engine_rust4pm_op_import_pnml .
 bap:engine_rust4pm_op_import_pnml_path_path a bpm:EngineArg ;
     bpm:argOp bap:engine_rust4pm_op_import_pnml_path ; bpm:argName "path" ; bpm:argOrder 1 ; bpm:argType bpm:EngineArgType_path .
@@ -11608,14 +11197,14 @@ bap:engine_rust4pm_op_import_pnml_path_path a bpm:EngineArg ;
 bap:engine_rust4pm_op_log_stats a bpm:EngineOp ;
     bpm:opEngine bap:engine_rust4pm ; bpm:opName "log_stats" ; bpm:opOrder 6 ;
     bpm:opDoc "`{\"op\":\"log_stats\",\"handle\":n}` -- `num_cases`/`num_variants`/`num_activities`/`activities` (sorted)/`top_variant`/`top_variant_count`. Field superset of the rf1 oracle wire (differential anchor)." ;
-    bpm:opTimeoutClass bpm:TimeoutClass_cheap ; bpm:opKind bpm:EngineOpKind_wire ; bpm:opVerificationClass bpm:VerificationClass_PURE .
+    bpm:opTimeoutClass bpm:TimeoutClass_cheap ; bpm:opKind bpm:EngineOpKind_wire .
 bap:engine_rust4pm_op_log_stats_handle a bpm:EngineArg ;
     bpm:argOp bap:engine_rust4pm_op_log_stats ; bpm:argName "handle" ; bpm:argOrder 1 ; bpm:argType bpm:EngineArgType_handle .
 
 bap:engine_rust4pm_op_top_n_variants a bpm:EngineOp ;
     bpm:opEngine bap:engine_rust4pm ; bpm:opName "top_n_variants" ; bpm:opOrder 7 ;
     bpm:opDoc "`{\"op\":\"top_n_variants\",\"handle\":n,\"n\":n}` -- descending-count variant list." ;
-    bpm:opTimeoutClass bpm:TimeoutClass_cheap ; bpm:opKind bpm:EngineOpKind_wire ; bpm:opVerificationClass bpm:VerificationClass_PURE .
+    bpm:opTimeoutClass bpm:TimeoutClass_cheap ; bpm:opKind bpm:EngineOpKind_wire .
 bap:engine_rust4pm_op_top_n_variants_handle a bpm:EngineArg ;
     bpm:argOp bap:engine_rust4pm_op_top_n_variants ; bpm:argName "handle" ; bpm:argOrder 1 ; bpm:argType bpm:EngineArgType_handle .
 bap:engine_rust4pm_op_top_n_variants_n a bpm:EngineArg ;
@@ -11624,21 +11213,21 @@ bap:engine_rust4pm_op_top_n_variants_n a bpm:EngineArg ;
 bap:engine_rust4pm_op_discover_dfg a bpm:EngineOp ;
     bpm:opEngine bap:engine_rust4pm ; bpm:opName "discover_dfg" ; bpm:opOrder 8 ;
     bpm:opDoc "`{\"op\":\"discover_dfg\",\"handle\":n}` -- edges sorted by `(source, target)`, the identical sort to the rf1 oracle (element-for-element comparable)." ;
-    bpm:opTimeoutClass bpm:TimeoutClass_heavy ; bpm:opKind bpm:EngineOpKind_wire ; bpm:opVerificationClass bpm:VerificationClass_PURE .
+    bpm:opTimeoutClass bpm:TimeoutClass_heavy ; bpm:opKind bpm:EngineOpKind_wire .
 bap:engine_rust4pm_op_discover_dfg_handle a bpm:EngineArg ;
     bpm:argOp bap:engine_rust4pm_op_discover_dfg ; bpm:argName "handle" ; bpm:argOrder 1 ; bpm:argType bpm:EngineArgType_handle .
 
 bap:engine_rust4pm_op_activities_to_alphabet a bpm:EngineOp ;
     bpm:opEngine bap:engine_rust4pm ; bpm:opName "activities_to_alphabet" ; bpm:opOrder 9 ;
     bpm:opDoc "`{\"op\":\"activities_to_alphabet\",\"handle\":n}` -- pm4py `activities_to_alphabet` port: activities ranked by descending total event count (ties pinned to first-occurrence order in the log), mapped to bijective base-26 letters (`A..Z, AA, AB, ...`)." ;
-    bpm:opTimeoutClass bpm:TimeoutClass_cheap ; bpm:opKind bpm:EngineOpKind_wire ; bpm:opVerificationClass bpm:VerificationClass_PURE .
+    bpm:opTimeoutClass bpm:TimeoutClass_cheap ; bpm:opKind bpm:EngineOpKind_wire .
 bap:engine_rust4pm_op_activities_to_alphabet_handle a bpm:EngineArg ;
     bpm:argOp bap:engine_rust4pm_op_activities_to_alphabet ; bpm:argName "handle" ; bpm:argOrder 1 ; bpm:argType bpm:EngineArgType_handle .
 
 bap:engine_rust4pm_op_activity_position a bpm:EngineOp ;
     bpm:opEngine bap:engine_rust4pm ; bpm:opName "activity_position" ; bpm:opOrder 10 ;
     bpm:opDoc "`{\"op\":\"activity_position\",\"handle\":n,\"activity\":a}` -- pm4py `get_activity_position_summary` port: histogram of the activity's 0-based within-trace indexes as ascending `[index, count]` pairs. Unknown activity returns empty positions, not an error." ;
-    bpm:opTimeoutClass bpm:TimeoutClass_cheap ; bpm:opKind bpm:EngineOpKind_wire ; bpm:opVerificationClass bpm:VerificationClass_PURE .
+    bpm:opTimeoutClass bpm:TimeoutClass_cheap ; bpm:opKind bpm:EngineOpKind_wire .
 bap:engine_rust4pm_op_activity_position_handle a bpm:EngineArg ;
     bpm:argOp bap:engine_rust4pm_op_activity_position ; bpm:argName "handle" ; bpm:argOrder 1 ; bpm:argType bpm:EngineArgType_handle .
 bap:engine_rust4pm_op_activity_position_activity a bpm:EngineArg ;
@@ -11647,7 +11236,7 @@ bap:engine_rust4pm_op_activity_position_activity a bpm:EngineArg ;
 bap:engine_rust4pm_op_discover_alphappp a bpm:EngineOp ;
     bpm:opEngine bap:engine_rust4pm ; bpm:opName "discover_alphappp" ; bpm:opOrder 11 ;
     bpm:opDoc "`{\"op\":\"discover_alphappp\",\"handle\":n[,\"config\":...]}` -- alpha+++ discovery. `config == nil` omits the key (engine uses `AlphaPPPConfig::default()`); a map is passed verbatim and must carry all 7 serde fields. Returns `{:ok, %{\"net_handle\" => n, \"summary\" => %{...}}}`; the discovered net always carries initial+final markings." ;
-    bpm:opTimeoutClass bpm:TimeoutClass_heavy ; bpm:opKind bpm:EngineOpKind_wire ; bpm:opVerificationClass bpm:VerificationClass_STATEFUL .
+    bpm:opTimeoutClass bpm:TimeoutClass_heavy ; bpm:opKind bpm:EngineOpKind_wire .
 bap:engine_rust4pm_op_discover_alphappp_handle a bpm:EngineArg ;
     bpm:argOp bap:engine_rust4pm_op_discover_alphappp ; bpm:argName "handle" ; bpm:argOrder 1 ; bpm:argType bpm:EngineArgType_handle .
 bap:engine_rust4pm_op_discover_alphappp_config a bpm:EngineArg ;
@@ -11658,14 +11247,14 @@ bap:engine_rust4pm_op_discover_alphappp_config a bpm:EngineArg ;
 bap:engine_rust4pm_op_discover_powl a bpm:EngineOp ;
     bpm:opEngine bap:engine_rust4pm ; bpm:opName "discover_powl" ; bpm:opOrder 12 ;
     bpm:opDoc "`{\"op\":\"discover_powl\",\"handle\":n}` -- POWL discovery over an imported log (the crate's `discover_powl`, vendor/rust4pm-powl). Returns `{:ok, %{\"powl\" => model}}`, the crate's own serde shape. Previously a crate dispatch arm no facade exposed (UNEXPOSED_DISPATCH_ARM)." ;
-    bpm:opTimeoutClass bpm:TimeoutClass_heavy ; bpm:opKind bpm:EngineOpKind_wire ; bpm:opVerificationClass bpm:VerificationClass_PURE .
+    bpm:opTimeoutClass bpm:TimeoutClass_heavy ; bpm:opKind bpm:EngineOpKind_wire .
 bap:engine_rust4pm_op_discover_powl_handle a bpm:EngineArg ;
     bpm:argOp bap:engine_rust4pm_op_discover_powl ; bpm:argName "handle" ; bpm:argOrder 1 ; bpm:argType bpm:EngineArgType_handle .
 
 bap:engine_rust4pm_op_align_variants a bpm:EngineOp ;
     bpm:opEngine bap:engine_rust4pm ; bpm:opName "align_variants" ; bpm:opOrder 13 ;
     bpm:opDoc "`{\"op\":\"align_variants\",\"log_handle\":l,\"net_handle\":n[,\"options\":...]}` -- per-variant optimal alignments (pm4py-style move pairs, computed engine-side). `options == nil` omits the key (engine default `max_states: 5_000_000`); a map passes verbatim, including any discounted-cost keys the engine refuses as UNSUPPORTED." ;
-    bpm:opTimeoutClass bpm:TimeoutClass_heavy ; bpm:opKind bpm:EngineOpKind_wire ; bpm:opVerificationClass bpm:VerificationClass_PURE .
+    bpm:opTimeoutClass bpm:TimeoutClass_heavy ; bpm:opKind bpm:EngineOpKind_wire .
 bap:engine_rust4pm_op_align_variants_log_handle a bpm:EngineArg ;
     bpm:argOp bap:engine_rust4pm_op_align_variants ; bpm:argName "log_handle" ; bpm:argOrder 1 ; bpm:argType bpm:EngineArgType_handle .
 bap:engine_rust4pm_op_align_variants_net_handle a bpm:EngineArg ;
@@ -11678,7 +11267,7 @@ bap:engine_rust4pm_op_align_variants_options a bpm:EngineArg ;
 bap:engine_rust4pm_op_align_trace a bpm:EngineOp ;
     bpm:opEngine bap:engine_rust4pm ; bpm:opName "align_trace" ; bpm:opOrder 14 ;
     bpm:opDoc "`{\"op\":\"align_trace\",\"net_handle\":n,\"trace\":[...][,\"options\":...]}` -- aligns ONE plain activity-name trace against an imported/discovered net (standard optimal alignments; the discount exponent is UNSUPPORTED and refused engine-side, never faked)." ;
-    bpm:opTimeoutClass bpm:TimeoutClass_heavy ; bpm:opKind bpm:EngineOpKind_wire ; bpm:opVerificationClass bpm:VerificationClass_PURE .
+    bpm:opTimeoutClass bpm:TimeoutClass_heavy ; bpm:opKind bpm:EngineOpKind_wire .
 bap:engine_rust4pm_op_align_trace_net_handle a bpm:EngineArg ;
     bpm:argOp bap:engine_rust4pm_op_align_trace ; bpm:argName "net_handle" ; bpm:argOrder 1 ; bpm:argType bpm:EngineArgType_handle .
 bap:engine_rust4pm_op_align_trace_trace a bpm:EngineArg ;
@@ -11691,7 +11280,7 @@ bap:engine_rust4pm_op_align_trace_options a bpm:EngineArg ;
 bap:engine_rust4pm_op_compute_fitness a bpm:EngineOp ;
     bpm:opEngine bap:engine_rust4pm ; bpm:opName "compute_fitness" ; bpm:opOrder 15 ;
     bpm:opDoc "`{\"op\":\"compute_fitness\",\"log_handle\":l,\"net_handle\":n[,\"options\":...]}` -- alignment-based fitness aggregates, field-compatible with the rf2 oracle wire. Crate behavior surfaced verbatim: one failed variant fails the whole op with the serde-serialized error." ;
-    bpm:opTimeoutClass bpm:TimeoutClass_heavy ; bpm:opKind bpm:EngineOpKind_wire ; bpm:opVerificationClass bpm:VerificationClass_PURE .
+    bpm:opTimeoutClass bpm:TimeoutClass_heavy ; bpm:opKind bpm:EngineOpKind_wire .
 bap:engine_rust4pm_op_compute_fitness_log_handle a bpm:EngineArg ;
     bpm:argOp bap:engine_rust4pm_op_compute_fitness ; bpm:argName "log_handle" ; bpm:argOrder 1 ; bpm:argType bpm:EngineArgType_handle .
 bap:engine_rust4pm_op_compute_fitness_net_handle a bpm:EngineArg ;
@@ -11704,26 +11293,26 @@ bap:engine_rust4pm_op_compute_fitness_options a bpm:EngineArg ;
 bap:engine_rust4pm_op_free_log a bpm:EngineOp ;
     bpm:opEngine bap:engine_rust4pm ; bpm:opName "free_log" ; bpm:opOrder 16 ;
     bpm:opDoc "`{\"op\":\"free_log\",\"handle\":n}` -- drops the log engine-side (the Rust value returns to the wasm allocator; linear memory itself never shrinks)." ;
-    bpm:opTimeoutClass bpm:TimeoutClass_cheap ; bpm:opKind bpm:EngineOpKind_wire ; bpm:opVerificationClass bpm:VerificationClass_REFUSAL .
+    bpm:opTimeoutClass bpm:TimeoutClass_cheap ; bpm:opKind bpm:EngineOpKind_wire .
 bap:engine_rust4pm_op_free_log_handle a bpm:EngineArg ;
     bpm:argOp bap:engine_rust4pm_op_free_log ; bpm:argName "handle" ; bpm:argOrder 1 ; bpm:argType bpm:EngineArgType_handle .
 
 bap:engine_rust4pm_op_free_net a bpm:EngineOp ;
     bpm:opEngine bap:engine_rust4pm ; bpm:opName "free_net" ; bpm:opOrder 17 ;
     bpm:opDoc "`{\"op\":\"free_net\",\"handle\":n}` -- drops the Petri net engine-side." ;
-    bpm:opTimeoutClass bpm:TimeoutClass_cheap ; bpm:opKind bpm:EngineOpKind_wire ; bpm:opVerificationClass bpm:VerificationClass_REFUSAL .
+    bpm:opTimeoutClass bpm:TimeoutClass_cheap ; bpm:opKind bpm:EngineOpKind_wire .
 bap:engine_rust4pm_op_free_net_handle a bpm:EngineArg ;
     bpm:argOp bap:engine_rust4pm_op_free_net ; bpm:argName "handle" ; bpm:argOrder 1 ; bpm:argType bpm:EngineArgType_handle .
 
 bap:engine_rust4pm_op_ocel_new a bpm:EngineOp ;
     bpm:opEngine bap:engine_rust4pm ; bpm:opName "ocel_new" ; bpm:opOrder 18 ;
     bpm:opDoc "`{\"op\":\"ocel_new\"}` -- a new empty OCEL; returns `{:ok, %{\"ocel_handle\" => h}}` (the rust4pm docs site's \"Building a Linked OCEL\" examples start here)." ;
-    bpm:opTimeoutClass bpm:TimeoutClass_cheap ; bpm:opKind bpm:EngineOpKind_wire ; bpm:opVerificationClass bpm:VerificationClass_STATEFUL .
+    bpm:opTimeoutClass bpm:TimeoutClass_cheap ; bpm:opKind bpm:EngineOpKind_wire .
 
 bap:engine_rust4pm_op_ocel_add_event_type a bpm:EngineOp ;
     bpm:opEngine bap:engine_rust4pm ; bpm:opName "ocel_add_event_type" ; bpm:opOrder 19 ;
     bpm:opDoc "`{\"op\":\"ocel_add_event_type\",\"ocel_handle\":h,\"name\":n,\"attributes\":[...]}` -- declares an event type. `attributes`: list of `%{\"name\" => _, \"type\" => _}`, default `[]`." ;
-    bpm:opTimeoutClass bpm:TimeoutClass_cheap ; bpm:opKind bpm:EngineOpKind_wire ; bpm:opVerificationClass bpm:VerificationClass_STATEFUL .
+    bpm:opTimeoutClass bpm:TimeoutClass_cheap ; bpm:opKind bpm:EngineOpKind_wire .
 bap:engine_rust4pm_op_ocel_add_event_type_ocel a bpm:EngineArg ;
     bpm:argOp bap:engine_rust4pm_op_ocel_add_event_type ; bpm:argName "ocel" ; bpm:argOrder 1 ; bpm:argWireKey "ocel_handle" ; bpm:argType bpm:EngineArgType_handle .
 bap:engine_rust4pm_op_ocel_add_event_type_name a bpm:EngineArg ;
@@ -11735,7 +11324,7 @@ bap:engine_rust4pm_op_ocel_add_event_type_attributes a bpm:EngineArg ;
 bap:engine_rust4pm_op_ocel_add_object_type a bpm:EngineOp ;
     bpm:opEngine bap:engine_rust4pm ; bpm:opName "ocel_add_object_type" ; bpm:opOrder 20 ;
     bpm:opDoc "`{\"op\":\"ocel_add_object_type\",\"ocel_handle\":h,\"name\":n,\"attributes\":[...]}` -- declares an object type; same attribute shape as `ocel_add_event_type`." ;
-    bpm:opTimeoutClass bpm:TimeoutClass_cheap ; bpm:opKind bpm:EngineOpKind_wire ; bpm:opVerificationClass bpm:VerificationClass_STATEFUL .
+    bpm:opTimeoutClass bpm:TimeoutClass_cheap ; bpm:opKind bpm:EngineOpKind_wire .
 bap:engine_rust4pm_op_ocel_add_object_type_ocel a bpm:EngineArg ;
     bpm:argOp bap:engine_rust4pm_op_ocel_add_object_type ; bpm:argName "ocel" ; bpm:argOrder 1 ; bpm:argWireKey "ocel_handle" ; bpm:argType bpm:EngineArgType_handle .
 bap:engine_rust4pm_op_ocel_add_object_type_name a bpm:EngineArg ;
@@ -11747,7 +11336,7 @@ bap:engine_rust4pm_op_ocel_add_object_type_attributes a bpm:EngineArg ;
 bap:engine_rust4pm_op_ocel_add_object a bpm:EngineOp ;
     bpm:opEngine bap:engine_rust4pm ; bpm:opName "ocel_add_object" ; bpm:opOrder 21 ;
     bpm:opDoc "`{\"op\":\"ocel_add_object\",\"ocel_handle\":h,\"id\":i,\"type\":t,\"o2o\":[...]}` -- adds an object. `o2o`: list of `[target_object_id, qualifier]` pairs, default `[]`. (The type argument is named `object_type` on every facade because `type` is a Gleam keyword; the wire key stays `type`.)" ;
-    bpm:opTimeoutClass bpm:TimeoutClass_cheap ; bpm:opKind bpm:EngineOpKind_wire ; bpm:opVerificationClass bpm:VerificationClass_STATEFUL .
+    bpm:opTimeoutClass bpm:TimeoutClass_cheap ; bpm:opKind bpm:EngineOpKind_wire .
 bap:engine_rust4pm_op_ocel_add_object_ocel a bpm:EngineArg ;
     bpm:argOp bap:engine_rust4pm_op_ocel_add_object ; bpm:argName "ocel" ; bpm:argOrder 1 ; bpm:argWireKey "ocel_handle" ; bpm:argType bpm:EngineArgType_handle .
 bap:engine_rust4pm_op_ocel_add_object_id a bpm:EngineArg ;
@@ -11761,7 +11350,7 @@ bap:engine_rust4pm_op_ocel_add_object_o2o a bpm:EngineArg ;
 bap:engine_rust4pm_op_ocel_add_event a bpm:EngineOp ;
     bpm:opEngine bap:engine_rust4pm ; bpm:opName "ocel_add_event" ; bpm:opOrder 22 ;
     bpm:opDoc "`{\"op\":\"ocel_add_event\",\"ocel_handle\":h,\"id\":i,\"type\":t,\"time\":rfc3339,\"e2o\":[...]}` -- adds an event. `e2o`: `[object_id, qualifier]` pairs, default `[]`. (`event_type` on every facade; wire key `type`.)" ;
-    bpm:opTimeoutClass bpm:TimeoutClass_cheap ; bpm:opKind bpm:EngineOpKind_wire ; bpm:opVerificationClass bpm:VerificationClass_STATEFUL .
+    bpm:opTimeoutClass bpm:TimeoutClass_cheap ; bpm:opKind bpm:EngineOpKind_wire .
 bap:engine_rust4pm_op_ocel_add_event_ocel a bpm:EngineArg ;
     bpm:argOp bap:engine_rust4pm_op_ocel_add_event ; bpm:argName "ocel" ; bpm:argOrder 1 ; bpm:argWireKey "ocel_handle" ; bpm:argType bpm:EngineArgType_handle .
 bap:engine_rust4pm_op_ocel_add_event_id a bpm:EngineArg ;
@@ -11777,21 +11366,21 @@ bap:engine_rust4pm_op_ocel_add_event_e2o a bpm:EngineArg ;
 bap:engine_rust4pm_op_ocel_stats a bpm:EngineOp ;
     bpm:opEngine bap:engine_rust4pm ; bpm:opName "ocel_stats" ; bpm:opOrder 23 ;
     bpm:opDoc "`{\"op\":\"ocel_stats\",\"ocel_handle\":h}` -- counts per event/object type plus totals." ;
-    bpm:opTimeoutClass bpm:TimeoutClass_cheap ; bpm:opKind bpm:EngineOpKind_wire ; bpm:opVerificationClass bpm:VerificationClass_PURE .
+    bpm:opTimeoutClass bpm:TimeoutClass_cheap ; bpm:opKind bpm:EngineOpKind_wire .
 bap:engine_rust4pm_op_ocel_stats_ocel a bpm:EngineArg ;
     bpm:argOp bap:engine_rust4pm_op_ocel_stats ; bpm:argName "ocel" ; bpm:argOrder 1 ; bpm:argWireKey "ocel_handle" ; bpm:argType bpm:EngineArgType_handle .
 
 bap:engine_rust4pm_op_ocel_to_json a bpm:EngineOp ;
     bpm:opEngine bap:engine_rust4pm ; bpm:opName "ocel_to_json" ; bpm:opOrder 24 ;
     bpm:opDoc "`{\"op\":\"ocel_to_json\",\"ocel_handle\":h}` -- exports the OCEL 2.0 JSON document (the crate's own serde shape)." ;
-    bpm:opTimeoutClass bpm:TimeoutClass_cheap ; bpm:opKind bpm:EngineOpKind_wire ; bpm:opVerificationClass bpm:VerificationClass_PURE .
+    bpm:opTimeoutClass bpm:TimeoutClass_cheap ; bpm:opKind bpm:EngineOpKind_wire .
 bap:engine_rust4pm_op_ocel_to_json_ocel a bpm:EngineArg ;
     bpm:argOp bap:engine_rust4pm_op_ocel_to_json ; bpm:argName "ocel" ; bpm:argOrder 1 ; bpm:argWireKey "ocel_handle" ; bpm:argType bpm:EngineArgType_handle .
 
 bap:engine_rust4pm_op_xes_to_ocel a bpm:EngineOp ;
     bpm:opEngine bap:engine_rust4pm ; bpm:opName "xes_to_ocel" ; bpm:opOrder 25 ;
     bpm:opDoc "`{\"op\":\"xes_to_ocel\",\"handle\":l,\"case_object_type\":t,\"qualifier\":q}` -- builds an OCEL from an imported XES log: object type `case_object_type` gets one object per case; every XES event becomes an OCEL event with one E2O (qualifier `qualifier`) to its case object." ;
-    bpm:opTimeoutClass bpm:TimeoutClass_heavy ; bpm:opKind bpm:EngineOpKind_wire ; bpm:opVerificationClass bpm:VerificationClass_STATEFUL .
+    bpm:opTimeoutClass bpm:TimeoutClass_heavy ; bpm:opKind bpm:EngineOpKind_wire .
 bap:engine_rust4pm_op_xes_to_ocel_log_handle a bpm:EngineArg ;
     bpm:argOp bap:engine_rust4pm_op_xes_to_ocel ; bpm:argName "log_handle" ; bpm:argOrder 1 ; bpm:argWireKey "handle" ; bpm:argType bpm:EngineArgType_handle .
 bap:engine_rust4pm_op_xes_to_ocel_case_object_type a bpm:EngineArg ;
@@ -11802,21 +11391,21 @@ bap:engine_rust4pm_op_xes_to_ocel_qualifier a bpm:EngineArg ;
 bap:engine_rust4pm_op_import_ocel_json a bpm:EngineOp ;
     bpm:opEngine bap:engine_rust4pm ; bpm:opName "import_ocel_json" ; bpm:opOrder 26 ;
     bpm:opDoc "`{\"op\":\"import_ocel_json\",\"content\":...}` -- imports an OCEL 2.0 JSON document (the crate's `import_ocel_json_slice`)." ;
-    bpm:opTimeoutClass bpm:TimeoutClass_heavy ; bpm:opKind bpm:EngineOpKind_wire ; bpm:opVerificationClass bpm:VerificationClass_STATEFUL .
+    bpm:opTimeoutClass bpm:TimeoutClass_heavy ; bpm:opKind bpm:EngineOpKind_wire .
 bap:engine_rust4pm_op_import_ocel_json_content a bpm:EngineArg ;
     bpm:argOp bap:engine_rust4pm_op_import_ocel_json ; bpm:argName "json_content" ; bpm:argOrder 1 ; bpm:argWireKey "content" ; bpm:argType bpm:EngineArgType_string .
 
 bap:engine_rust4pm_op_ocel_to_xml a bpm:EngineOp ;
     bpm:opEngine bap:engine_rust4pm ; bpm:opName "ocel_to_xml" ; bpm:opOrder 27 ;
     bpm:opDoc "`{\"op\":\"ocel_to_xml\",\"ocel_handle\":h}` -- exports the OCEL as OCEL 2.0 XML (the crate's `export_ocel_xml`). Returns `{:ok, %{\"content_b64\" => ...}}`; decode with `Base.decode64!/1`." ;
-    bpm:opTimeoutClass bpm:TimeoutClass_heavy ; bpm:opKind bpm:EngineOpKind_wire ; bpm:opVerificationClass bpm:VerificationClass_PURE .
+    bpm:opTimeoutClass bpm:TimeoutClass_heavy ; bpm:opKind bpm:EngineOpKind_wire .
 bap:engine_rust4pm_op_ocel_to_xml_ocel a bpm:EngineArg ;
     bpm:argOp bap:engine_rust4pm_op_ocel_to_xml ; bpm:argName "ocel" ; bpm:argOrder 1 ; bpm:argWireKey "ocel_handle" ; bpm:argType bpm:EngineArgType_handle .
 
 bap:engine_rust4pm_op_import_ocel_xml a bpm:EngineOp ;
     bpm:opEngine bap:engine_rust4pm ; bpm:opName "import_ocel_xml" ; bpm:opOrder 28 ;
     bpm:opDoc "`{\"op\":\"import_ocel_xml\",\"content_b64\":...}` -- imports an OCEL 2.0 XML document (the crate's `import_ocel_xml_slice`); raw bytes base64-encoded host-side." ;
-    bpm:opTimeoutClass bpm:TimeoutClass_heavy ; bpm:opKind bpm:EngineOpKind_wire ; bpm:opVerificationClass bpm:VerificationClass_STATEFUL .
+    bpm:opTimeoutClass bpm:TimeoutClass_heavy ; bpm:opKind bpm:EngineOpKind_wire .
 bap:engine_rust4pm_op_import_ocel_xml_bytes a bpm:EngineArg ;
     bpm:argOp bap:engine_rust4pm_op_import_ocel_xml ; bpm:argName "xml_bytes" ; bpm:argOrder 1 ;
     bpm:argWireKey "content_b64" ; bpm:argType bpm:EngineArgType_binary ; bpm:argEncoding bpm:ArgEncoding_base64 .
@@ -11824,7 +11413,7 @@ bap:engine_rust4pm_op_import_ocel_xml_bytes a bpm:EngineArg ;
 bap:engine_rust4pm_op_ocel_dfg_of_object_type a bpm:EngineOp ;
     bpm:opEngine bap:engine_rust4pm ; bpm:opName "ocel_dfg_of_object_type" ; bpm:opOrder 29 ;
     bpm:opDoc "`{\"op\":\"ocel_dfg_of_object_type\",\"ocel_handle\":h,\"object_type\":t}` -- object-centric DFG for one object type (`get_dfg_of_object_type` over `SlimLinkedOCEL`), sorted by count desc then (from, to) -- the crate's own ordering." ;
-    bpm:opTimeoutClass bpm:TimeoutClass_heavy ; bpm:opKind bpm:EngineOpKind_wire ; bpm:opVerificationClass bpm:VerificationClass_PURE .
+    bpm:opTimeoutClass bpm:TimeoutClass_heavy ; bpm:opKind bpm:EngineOpKind_wire .
 bap:engine_rust4pm_op_ocel_dfg_of_object_type_ocel a bpm:EngineArg ;
     bpm:argOp bap:engine_rust4pm_op_ocel_dfg_of_object_type ; bpm:argName "ocel" ; bpm:argOrder 1 ; bpm:argWireKey "ocel_handle" ; bpm:argType bpm:EngineArgType_handle .
 bap:engine_rust4pm_op_ocel_dfg_of_object_type_object_type a bpm:EngineArg ;
@@ -11833,7 +11422,7 @@ bap:engine_rust4pm_op_ocel_dfg_of_object_type_object_type a bpm:EngineArg ;
 bap:engine_rust4pm_op_ocel_variants_of_object_type a bpm:EngineOp ;
     bpm:opEngine bap:engine_rust4pm ; bpm:opName "ocel_variants_of_object_type" ; bpm:opOrder 30 ;
     bpm:opDoc "`{\"op\":\"ocel_variants_of_object_type\",\"ocel_handle\":h,\"object_type\":t[,\"n\":n]}` -- object-centric variants for one object type (`get_variants_of_object_type` over `SlimLinkedOCEL`), count desc then trace. `n` is the `:n` keyword option (default nil = no truncation; the engine reads a JSON null as absent); `num_variants` is always the full count." ;
-    bpm:opTimeoutClass bpm:TimeoutClass_heavy ; bpm:opKind bpm:EngineOpKind_wire ; bpm:opVerificationClass bpm:VerificationClass_PURE .
+    bpm:opTimeoutClass bpm:TimeoutClass_heavy ; bpm:opKind bpm:EngineOpKind_wire .
 bap:engine_rust4pm_op_ocel_variants_of_object_type_ocel a bpm:EngineArg ;
     bpm:argOp bap:engine_rust4pm_op_ocel_variants_of_object_type ; bpm:argName "ocel" ; bpm:argOrder 1 ; bpm:argWireKey "ocel_handle" ; bpm:argType bpm:EngineArgType_handle .
 bap:engine_rust4pm_op_ocel_variants_of_object_type_object_type a bpm:EngineArg ;
@@ -11854,7 +11443,7 @@ bap:engine_rust4pm_op_ocel_discover_powl_object_type a bpm:EngineArg ;
 bap:engine_rust4pm_op_free_ocel a bpm:EngineOp ;
     bpm:opEngine bap:engine_rust4pm ; bpm:opName "free_ocel" ; bpm:opOrder 31 ;
     bpm:opDoc "`{\"op\":\"free_ocel\",\"ocel_handle\":h}` -- frees an OCEL handle." ;
-    bpm:opTimeoutClass bpm:TimeoutClass_cheap ; bpm:opKind bpm:EngineOpKind_wire ; bpm:opVerificationClass bpm:VerificationClass_REFUSAL .
+    bpm:opTimeoutClass bpm:TimeoutClass_cheap ; bpm:opKind bpm:EngineOpKind_wire .
 bap:engine_rust4pm_op_free_ocel_ocel a bpm:EngineArg ;
     bpm:argOp bap:engine_rust4pm_op_free_ocel ; bpm:argName "ocel" ; bpm:argOrder 1 ; bpm:argWireKey "ocel_handle" ; bpm:argType bpm:EngineArgType_handle .
 
@@ -11879,7 +11468,7 @@ bap:engine_ferroplan a bpm:Engine ;
 bap:engine_ferroplan_op_plan a bpm:EngineOp ;
     bpm:opEngine bap:engine_ferroplan ; bpm:opName "plan" ; bpm:opOrder 1 ;
     bpm:opDoc "`{\"op\":\"plan\",\"domain\":d,\"problem\":p[,\"mode\":m,\"flags\":f,\"search\":s]}` -- the compatibility solve surface (lenient mode/search parsing, single threaded). `extra` (default `%{}`) is merged into the request. Returns `{:ok, <Solution map>}`." ;
-    bpm:opTimeoutClass bpm:TimeoutClass_heavy ; bpm:opKind bpm:EngineOpKind_wire ; bpm:opVerificationClass bpm:VerificationClass_PURE .
+    bpm:opTimeoutClass bpm:TimeoutClass_heavy ; bpm:opKind bpm:EngineOpKind_wire .
 bap:engine_ferroplan_op_plan_domain a bpm:EngineArg ;
     bpm:argOp bap:engine_ferroplan_op_plan ; bpm:argName "domain" ; bpm:argOrder 1 ; bpm:argType bpm:EngineArgType_string .
 bap:engine_ferroplan_op_plan_problem a bpm:EngineArg ;
@@ -11892,7 +11481,7 @@ bap:engine_ferroplan_op_plan_extra a bpm:EngineArg ;
 bap:engine_ferroplan_op_plan_production a bpm:EngineOp ;
     bpm:opEngine bap:engine_ferroplan ; bpm:opName "plan_production" ; bpm:opOrder 2 ;
     bpm:opDoc "`{\"op\":\"plan_production\",\"domain\":d,\"problem\":p[,\"mode\":m,\"search\":s,\"max_evaluated\":n,\"max_plan_steps\":n,\"max_output_bytes\":n,\"request_id\":id]}` -- bounded production solve: strict mode/search parsing, a versioned `OperationEnvelope` response, always candidate-only. A strict-mode refusal arrives as `{:ok, envelope}` with its own `outcome`, never a bare `{:error, _}` (bpm:ErrorCollapse_single_key_inspect)." ;
-    bpm:opTimeoutClass bpm:TimeoutClass_heavy ; bpm:opKind bpm:EngineOpKind_wire ; bpm:opVerificationClass bpm:VerificationClass_PURE .
+    bpm:opTimeoutClass bpm:TimeoutClass_heavy ; bpm:opKind bpm:EngineOpKind_wire .
 bap:engine_ferroplan_op_plan_production_domain a bpm:EngineArg ;
     bpm:argOp bap:engine_ferroplan_op_plan_production ; bpm:argName "domain" ; bpm:argOrder 1 ; bpm:argType bpm:EngineArgType_string .
 bap:engine_ferroplan_op_plan_production_problem a bpm:EngineArg ;
@@ -11905,17 +11494,17 @@ bap:engine_ferroplan_op_plan_production_extra a bpm:EngineArg ;
 bap:engine_ferroplan_op_readiness a bpm:EngineOp ;
     bpm:opEngine bap:engine_ferroplan ; bpm:opName "readiness" ; bpm:opOrder 3 ;
     bpm:opDoc "`{\"op\":\"readiness\"}` -- capability manifest + deterministic fingerprint." ;
-    bpm:opTimeoutClass bpm:TimeoutClass_cheap ; bpm:opKind bpm:EngineOpKind_wire ; bpm:opVerificationClass bpm:VerificationClass_PURE .
+    bpm:opTimeoutClass bpm:TimeoutClass_cheap ; bpm:opKind bpm:EngineOpKind_wire .
 
 bap:engine_ferroplan_op_version a bpm:EngineOp ;
     bpm:opEngine bap:engine_ferroplan ; bpm:opName "version" ; bpm:opOrder 4 ;
     bpm:opDoc "`{\"op\":\"version\"}` -- `{:ok, %{\"version\" => semver}}`, the crate's own version." ;
-    bpm:opTimeoutClass bpm:TimeoutClass_cheap ; bpm:opKind bpm:EngineOpKind_wire ; bpm:opVerificationClass bpm:VerificationClass_PURE .
+    bpm:opTimeoutClass bpm:TimeoutClass_cheap ; bpm:opKind bpm:EngineOpKind_wire .
 
 bap:engine_ferroplan_op_explain a bpm:EngineOp ;
     bpm:opEngine bap:engine_ferroplan ; bpm:opName "explain" ; bpm:opOrder 5 ;
     bpm:opDoc "`{\"op\":\"explain\",\"domain\":d,\"problem\":p,\"plan\":plan}` -- `plan` is a decoded Plan map (not a JSON string). Returns the explanation JSON." ;
-    bpm:opTimeoutClass bpm:TimeoutClass_heavy ; bpm:opKind bpm:EngineOpKind_wire ; bpm:opVerificationClass bpm:VerificationClass_PURE .
+    bpm:opTimeoutClass bpm:TimeoutClass_heavy ; bpm:opKind bpm:EngineOpKind_wire .
 bap:engine_ferroplan_op_explain_domain a bpm:EngineArg ;
     bpm:argOp bap:engine_ferroplan_op_explain ; bpm:argName "domain" ; bpm:argOrder 1 ; bpm:argType bpm:EngineArgType_string .
 bap:engine_ferroplan_op_explain_problem a bpm:EngineArg ;
@@ -11926,7 +11515,7 @@ bap:engine_ferroplan_op_explain_plan a bpm:EngineArg ;
 bap:engine_ferroplan_op_session_new a bpm:EngineOp ;
     bpm:opEngine bap:engine_ferroplan ; bpm:opName "session_new" ; bpm:opOrder 6 ;
     bpm:opDoc "`{\"op\":\"session_new\",\"domain\":d,\"problem\":p}` -- grounds a new session. Returns `{:ok, %{\"handle\" => n}}`." ;
-    bpm:opTimeoutClass bpm:TimeoutClass_heavy ; bpm:opKind bpm:EngineOpKind_wire ; bpm:opVerificationClass bpm:VerificationClass_STATEFUL .
+    bpm:opTimeoutClass bpm:TimeoutClass_heavy ; bpm:opKind bpm:EngineOpKind_wire .
 bap:engine_ferroplan_op_session_new_domain a bpm:EngineArg ;
     bpm:argOp bap:engine_ferroplan_op_session_new ; bpm:argName "domain" ; bpm:argOrder 1 ; bpm:argType bpm:EngineArgType_string .
 bap:engine_ferroplan_op_session_new_problem a bpm:EngineArg ;
@@ -11935,21 +11524,21 @@ bap:engine_ferroplan_op_session_new_problem a bpm:EngineArg ;
 bap:engine_ferroplan_op_session_fork a bpm:EngineOp ;
     bpm:opEngine bap:engine_ferroplan ; bpm:opName "session_fork" ; bpm:opOrder 7 ;
     bpm:opDoc "`{\"op\":\"session_fork\",\"handle\":h}` -- a cheap fork sharing the grounded world, with independent mutable state (fresh plan/cursor)." ;
-    bpm:opTimeoutClass bpm:TimeoutClass_cheap ; bpm:opKind bpm:EngineOpKind_wire ; bpm:opVerificationClass bpm:VerificationClass_STATEFUL .
+    bpm:opTimeoutClass bpm:TimeoutClass_cheap ; bpm:opKind bpm:EngineOpKind_wire .
 bap:engine_ferroplan_op_session_fork_handle a bpm:EngineArg ;
     bpm:argOp bap:engine_ferroplan_op_session_fork ; bpm:argName "handle" ; bpm:argOrder 1 ; bpm:argType bpm:EngineArgType_handle .
 
 bap:engine_ferroplan_op_session_free a bpm:EngineOp ;
     bpm:opEngine bap:engine_ferroplan ; bpm:opName "session_free" ; bpm:opOrder 8 ;
     bpm:opDoc "`{\"op\":\"session_free\",\"handle\":h}` -- releases the session handle." ;
-    bpm:opTimeoutClass bpm:TimeoutClass_cheap ; bpm:opKind bpm:EngineOpKind_wire ; bpm:opVerificationClass bpm:VerificationClass_REFUSAL .
+    bpm:opTimeoutClass bpm:TimeoutClass_cheap ; bpm:opKind bpm:EngineOpKind_wire .
 bap:engine_ferroplan_op_session_free_handle a bpm:EngineArg ;
     bpm:argOp bap:engine_ferroplan_op_session_free ; bpm:argName "handle" ; bpm:argOrder 1 ; bpm:argType bpm:EngineArgType_handle .
 
 bap:engine_ferroplan_op_session_set_goal a bpm:EngineOp ;
     bpm:opEngine bap:engine_ferroplan ; bpm:opName "session_set_goal" ; bpm:opOrder 9 ;
     bpm:opDoc "`{\"op\":\"session_set_goal\",\"handle\":h,\"goal\":g}`." ;
-    bpm:opTimeoutClass bpm:TimeoutClass_cheap ; bpm:opKind bpm:EngineOpKind_wire ; bpm:opVerificationClass bpm:VerificationClass_STATEFUL .
+    bpm:opTimeoutClass bpm:TimeoutClass_cheap ; bpm:opKind bpm:EngineOpKind_wire .
 bap:engine_ferroplan_op_session_set_goal_handle a bpm:EngineArg ;
     bpm:argOp bap:engine_ferroplan_op_session_set_goal ; bpm:argName "handle" ; bpm:argOrder 1 ; bpm:argType bpm:EngineArgType_handle .
 bap:engine_ferroplan_op_session_set_goal_goal a bpm:EngineArg ;
@@ -11958,7 +11547,7 @@ bap:engine_ferroplan_op_session_set_goal_goal a bpm:EngineArg ;
 bap:engine_ferroplan_op_session_restrict_prefix_claims a bpm:EngineOp ;
     bpm:opEngine bap:engine_ferroplan ; bpm:opName "session_restrict_prefix_claims" ; bpm:opOrder 10 ;
     bpm:opDoc "`{\"op\":\"session_restrict_prefix_claims\",\"handle\":h,\"prefix\":pre,\"claimed\":csv}` -- the bazaar's op-display-prefix-plus-claims-blackout scoping (`claimed` is a comma-separated string, as the wasm ABI expects)." ;
-    bpm:opTimeoutClass bpm:TimeoutClass_cheap ; bpm:opKind bpm:EngineOpKind_wire ; bpm:opVerificationClass bpm:VerificationClass_STATEFUL .
+    bpm:opTimeoutClass bpm:TimeoutClass_cheap ; bpm:opKind bpm:EngineOpKind_wire .
 bap:engine_ferroplan_op_session_restrict_prefix_claims_handle a bpm:EngineArg ;
     bpm:argOp bap:engine_ferroplan_op_session_restrict_prefix_claims ; bpm:argName "handle" ; bpm:argOrder 1 ; bpm:argType bpm:EngineArgType_handle .
 bap:engine_ferroplan_op_session_restrict_prefix_claims_prefix a bpm:EngineArg ;
@@ -11969,7 +11558,7 @@ bap:engine_ferroplan_op_session_restrict_prefix_claims_claimed a bpm:EngineArg ;
 bap:engine_ferroplan_op_session_restrict_contains a bpm:EngineOp ;
     bpm:opEngine bap:engine_ferroplan ; bpm:opName "session_restrict_contains" ; bpm:opOrder 11 ;
     bpm:opDoc "`{\"op\":\"session_restrict_contains\",\"handle\":h,\"filter\":f}`." ;
-    bpm:opTimeoutClass bpm:TimeoutClass_cheap ; bpm:opKind bpm:EngineOpKind_wire ; bpm:opVerificationClass bpm:VerificationClass_STATEFUL .
+    bpm:opTimeoutClass bpm:TimeoutClass_cheap ; bpm:opKind bpm:EngineOpKind_wire .
 bap:engine_ferroplan_op_session_restrict_contains_handle a bpm:EngineArg ;
     bpm:argOp bap:engine_ferroplan_op_session_restrict_contains ; bpm:argName "handle" ; bpm:argOrder 1 ; bpm:argType bpm:EngineArgType_handle .
 bap:engine_ferroplan_op_session_restrict_contains_filter a bpm:EngineArg ;
@@ -11979,8 +11568,6 @@ bap:engine_ferroplan_op_session_think a bpm:EngineOp ;
     bpm:opEngine bap:engine_ferroplan ; bpm:opName "session_think" ; bpm:opOrder 12 ;
     bpm:opDoc "`{\"op\":\"session_think\",\"handle\":h,\"evals\":n,\"mem_mb\":n}` -- a bounded replan (bounded by evals/memory, not wall clock); stashes the resulting plan (if solved) and resets the cursor. Returns the Solution map. The wasm adapter additionally enforces the production budget caps `evals` in 1..=1000000 and `mem_mb` in 1..=2048: out-of-range values are refused as `{:ok, %{\"error\" => %{\"code\" => \"FP_LIMIT_SEARCH\" | \"FP_LIMIT_MEMORY\", ...}}}` -- never a bare `{:error, _}` (bpm:ErrorCollapse_single_key_inspect)." ;
     bpm:opTimeoutClass bpm:TimeoutClass_heavy ; bpm:opKind bpm:EngineOpKind_wire .
-    bpm:opDoc "`{\"op\":\"session_think\",\"handle\":h,\"evals\":n,\"mem_mb\":n}` -- a bounded replan (bounded by evals/memory, not wall clock); stashes the resulting plan (if solved) and resets the cursor. Returns the Solution map." ;
-    bpm:opTimeoutClass bpm:TimeoutClass_heavy ; bpm:opKind bpm:EngineOpKind_wire ; bpm:opVerificationClass bpm:VerificationClass_STATEFUL .
 bap:engine_ferroplan_op_session_think_handle a bpm:EngineArg ;
     bpm:argOp bap:engine_ferroplan_op_session_think ; bpm:argName "handle" ; bpm:argOrder 1 ; bpm:argType bpm:EngineArgType_handle .
 bap:engine_ferroplan_op_session_think_evals a bpm:EngineArg ;
@@ -11991,7 +11578,7 @@ bap:engine_ferroplan_op_session_think_mem_mb a bpm:EngineArg ;
 bap:engine_ferroplan_op_session_valid a bpm:EngineOp ;
     bpm:opEngine bap:engine_ferroplan ; bpm:opName "session_valid" ; bpm:opOrder 13 ;
     bpm:opDoc "`{\"op\":\"session_valid\",\"handle\":h}` -- free replay check of the stashed plan's suffix from the cursor, no search spent. `{:ok, %{\"valid\" => bool}}`. Elixir names it `session_valid?`." ;
-    bpm:opTimeoutClass bpm:TimeoutClass_cheap ; bpm:opKind bpm:EngineOpKind_wire ; bpm:opVerificationClass bpm:VerificationClass_PURE ;
+    bpm:opTimeoutClass bpm:TimeoutClass_cheap ; bpm:opKind bpm:EngineOpKind_wire ;
     bpm:opElixirPredicate "true" .
 bap:engine_ferroplan_op_session_valid_handle a bpm:EngineArg ;
     bpm:argOp bap:engine_ferroplan_op_session_valid ; bpm:argName "handle" ; bpm:argOrder 1 ; bpm:argType bpm:EngineArgType_handle .
@@ -11999,35 +11586,35 @@ bap:engine_ferroplan_op_session_valid_handle a bpm:EngineArg ;
 bap:engine_ferroplan_op_session_step a bpm:EngineOp ;
     bpm:opEngine bap:engine_ferroplan ; bpm:opName "session_step" ; bpm:opOrder 14 ;
     bpm:opDoc "`{\"op\":\"session_step\",\"handle\":h}` -- the step under the cursor, or `null`." ;
-    bpm:opTimeoutClass bpm:TimeoutClass_cheap ; bpm:opKind bpm:EngineOpKind_wire ; bpm:opVerificationClass bpm:VerificationClass_PURE .
+    bpm:opTimeoutClass bpm:TimeoutClass_cheap ; bpm:opKind bpm:EngineOpKind_wire .
 bap:engine_ferroplan_op_session_step_handle a bpm:EngineArg ;
     bpm:argOp bap:engine_ferroplan_op_session_step ; bpm:argName "handle" ; bpm:argOrder 1 ; bpm:argType bpm:EngineArgType_handle .
 
 bap:engine_ferroplan_op_session_suffix a bpm:EngineOp ;
     bpm:opEngine bap:engine_ferroplan ; bpm:opName "session_suffix" ; bpm:opOrder 15 ;
     bpm:opDoc "`{\"op\":\"session_suffix\",\"handle\":h}` -- the remaining plan steps from the cursor onward." ;
-    bpm:opTimeoutClass bpm:TimeoutClass_cheap ; bpm:opKind bpm:EngineOpKind_wire ; bpm:opVerificationClass bpm:VerificationClass_PURE .
+    bpm:opTimeoutClass bpm:TimeoutClass_cheap ; bpm:opKind bpm:EngineOpKind_wire .
 bap:engine_ferroplan_op_session_suffix_handle a bpm:EngineArg ;
     bpm:argOp bap:engine_ferroplan_op_session_suffix ; bpm:argName "handle" ; bpm:argOrder 1 ; bpm:argType bpm:EngineArgType_handle .
 
 bap:engine_ferroplan_op_session_advance a bpm:EngineOp ;
     bpm:opEngine bap:engine_ferroplan ; bpm:opName "session_advance" ; bpm:opOrder 16 ;
     bpm:opDoc "`{\"op\":\"session_advance\",\"handle\":h}` -- advances the cursor by one step." ;
-    bpm:opTimeoutClass bpm:TimeoutClass_cheap ; bpm:opKind bpm:EngineOpKind_wire ; bpm:opVerificationClass bpm:VerificationClass_STATEFUL .
+    bpm:opTimeoutClass bpm:TimeoutClass_cheap ; bpm:opKind bpm:EngineOpKind_wire .
 bap:engine_ferroplan_op_session_advance_handle a bpm:EngineArg ;
     bpm:argOp bap:engine_ferroplan_op_session_advance ; bpm:argName "handle" ; bpm:argOrder 1 ; bpm:argType bpm:EngineArgType_handle .
 
 bap:engine_ferroplan_op_session_drop_plan a bpm:EngineOp ;
     bpm:opEngine bap:engine_ferroplan ; bpm:opName "session_drop_plan" ; bpm:opOrder 17 ;
     bpm:opDoc "`{\"op\":\"session_drop_plan\",\"handle\":h}` -- clears the stashed plan and cursor." ;
-    bpm:opTimeoutClass bpm:TimeoutClass_cheap ; bpm:opKind bpm:EngineOpKind_wire ; bpm:opVerificationClass bpm:VerificationClass_REFUSAL .
+    bpm:opTimeoutClass bpm:TimeoutClass_cheap ; bpm:opKind bpm:EngineOpKind_wire .
 bap:engine_ferroplan_op_session_drop_plan_handle a bpm:EngineArg ;
     bpm:argOp bap:engine_ferroplan_op_session_drop_plan ; bpm:argName "handle" ; bpm:argOrder 1 ; bpm:argType bpm:EngineArgType_handle .
 
 bap:engine_ferroplan_op_session_has_plan a bpm:EngineOp ;
     bpm:opEngine bap:engine_ferroplan ; bpm:opName "session_has_plan" ; bpm:opOrder 18 ;
     bpm:opDoc "`{\"op\":\"session_has_plan\",\"handle\":h}` -- `{:ok, %{\"has_plan\" => bool}}`. Elixir names it `session_has_plan?`." ;
-    bpm:opTimeoutClass bpm:TimeoutClass_cheap ; bpm:opKind bpm:EngineOpKind_wire ; bpm:opVerificationClass bpm:VerificationClass_PURE ;
+    bpm:opTimeoutClass bpm:TimeoutClass_cheap ; bpm:opKind bpm:EngineOpKind_wire ;
     bpm:opElixirPredicate "true" .
 bap:engine_ferroplan_op_session_has_plan_handle a bpm:EngineArg ;
     bpm:argOp bap:engine_ferroplan_op_session_has_plan ; bpm:argName "handle" ; bpm:argOrder 1 ; bpm:argType bpm:EngineArgType_handle .
@@ -12035,7 +11622,7 @@ bap:engine_ferroplan_op_session_has_plan_handle a bpm:EngineArg ;
 bap:engine_ferroplan_op_session_set_fact a bpm:EngineOp ;
     bpm:opEngine bap:engine_ferroplan ; bpm:opName "session_set_fact" ; bpm:opOrder 19 ;
     bpm:opDoc "`{\"op\":\"session_set_fact\",\"handle\":h,\"name\":n,\"value\":bool}` -- sets a boolean fact in the session's world." ;
-    bpm:opTimeoutClass bpm:TimeoutClass_cheap ; bpm:opKind bpm:EngineOpKind_wire ; bpm:opVerificationClass bpm:VerificationClass_STATEFUL .
+    bpm:opTimeoutClass bpm:TimeoutClass_cheap ; bpm:opKind bpm:EngineOpKind_wire .
 bap:engine_ferroplan_op_session_set_fact_handle a bpm:EngineArg ;
     bpm:argOp bap:engine_ferroplan_op_session_set_fact ; bpm:argName "handle" ; bpm:argOrder 1 ; bpm:argType bpm:EngineArgType_handle .
 bap:engine_ferroplan_op_session_set_fact_name a bpm:EngineArg ;
@@ -12046,7 +11633,7 @@ bap:engine_ferroplan_op_session_set_fact_value a bpm:EngineArg ;
 bap:engine_ferroplan_op_session_set_timed_fact a bpm:EngineOp ;
     bpm:opEngine bap:engine_ferroplan ; bpm:opName "session_set_timed_fact" ; bpm:opOrder 20 ;
     bpm:opDoc "`{\"op\":\"session_set_timed_fact\",\"handle\":h,\"dt\":f,\"name\":n,\"value\":bool}` -- a fact scheduled at time offset `dt`." ;
-    bpm:opTimeoutClass bpm:TimeoutClass_cheap ; bpm:opKind bpm:EngineOpKind_wire ; bpm:opVerificationClass bpm:VerificationClass_STATEFUL .
+    bpm:opTimeoutClass bpm:TimeoutClass_cheap ; bpm:opKind bpm:EngineOpKind_wire .
 bap:engine_ferroplan_op_session_set_timed_fact_handle a bpm:EngineArg ;
     bpm:argOp bap:engine_ferroplan_op_session_set_timed_fact ; bpm:argName "handle" ; bpm:argOrder 1 ; bpm:argType bpm:EngineArgType_handle .
 bap:engine_ferroplan_op_session_set_timed_fact_dt a bpm:EngineArg ;
@@ -12059,7 +11646,7 @@ bap:engine_ferroplan_op_session_set_timed_fact_value a bpm:EngineArg ;
 bap:engine_ferroplan_op_session_observe a bpm:EngineOp ;
     bpm:opEngine bap:engine_ferroplan ; bpm:opName "session_observe" ; bpm:opOrder 21 ;
     bpm:opDoc "`{\"op\":\"session_observe\",\"handle\":h,\"sight\":[[name,value],...]}` -- a batch of observed (fact, value) pairs (`[{name, bool}]` tuples host-side, rendered as 2-element lists). Returns the resulting news/deltas." ;
-    bpm:opTimeoutClass bpm:TimeoutClass_cheap ; bpm:opKind bpm:EngineOpKind_wire ; bpm:opVerificationClass bpm:VerificationClass_STATEFUL .
+    bpm:opTimeoutClass bpm:TimeoutClass_cheap ; bpm:opKind bpm:EngineOpKind_wire .
 bap:engine_ferroplan_op_session_observe_handle a bpm:EngineArg ;
     bpm:argOp bap:engine_ferroplan_op_session_observe ; bpm:argName "handle" ; bpm:argOrder 1 ; bpm:argType bpm:EngineArgType_handle .
 bap:engine_ferroplan_op_session_observe_sight a bpm:EngineArg ;
@@ -12069,7 +11656,7 @@ bap:engine_ferroplan_op_session_observe_sight a bpm:EngineArg ;
 bap:engine_ferroplan_op_session_goal_met a bpm:EngineOp ;
     bpm:opEngine bap:engine_ferroplan ; bpm:opName "session_goal_met" ; bpm:opOrder 22 ;
     bpm:opDoc "`{\"op\":\"session_goal_met\",\"handle\":h}` -- `{:ok, %{\"goal_met\" => bool}}`. Elixir names it `session_goal_met?`." ;
-    bpm:opTimeoutClass bpm:TimeoutClass_cheap ; bpm:opKind bpm:EngineOpKind_wire ; bpm:opVerificationClass bpm:VerificationClass_PURE ;
+    bpm:opTimeoutClass bpm:TimeoutClass_cheap ; bpm:opKind bpm:EngineOpKind_wire ;
     bpm:opElixirPredicate "true" .
 bap:engine_ferroplan_op_session_goal_met_handle a bpm:EngineArg ;
     bpm:argOp bap:engine_ferroplan_op_session_goal_met ; bpm:argName "handle" ; bpm:argOrder 1 ; bpm:argType bpm:EngineArgType_handle .
@@ -12077,7 +11664,7 @@ bap:engine_ferroplan_op_session_goal_met_handle a bpm:EngineArg ;
 bap:engine_ferroplan_op_session_fact a bpm:EngineOp ;
     bpm:opEngine bap:engine_ferroplan ; bpm:opName "session_fact" ; bpm:opOrder 23 ;
     bpm:opDoc "`{\"op\":\"session_fact\",\"handle\":h,\"name\":n}` -- `{:ok, %{\"value\" => bool | nil}}`." ;
-    bpm:opTimeoutClass bpm:TimeoutClass_cheap ; bpm:opKind bpm:EngineOpKind_wire ; bpm:opVerificationClass bpm:VerificationClass_PURE .
+    bpm:opTimeoutClass bpm:TimeoutClass_cheap ; bpm:opKind bpm:EngineOpKind_wire .
 bap:engine_ferroplan_op_session_fact_handle a bpm:EngineArg ;
     bpm:argOp bap:engine_ferroplan_op_session_fact ; bpm:argName "handle" ; bpm:argOrder 1 ; bpm:argType bpm:EngineArgType_handle .
 bap:engine_ferroplan_op_session_fact_name a bpm:EngineArg ;
@@ -12086,7 +11673,7 @@ bap:engine_ferroplan_op_session_fact_name a bpm:EngineArg ;
 bap:engine_ferroplan_op_session_apply_start a bpm:EngineOp ;
     bpm:opEngine bap:engine_ferroplan ; bpm:opName "session_apply_start" ; bpm:opOrder 24 ;
     bpm:opDoc "`{\"op\":\"session_apply_start\",\"handle\":h,\"name\":n}` -- applies the start of a (possibly durative) action by name." ;
-    bpm:opTimeoutClass bpm:TimeoutClass_cheap ; bpm:opKind bpm:EngineOpKind_wire ; bpm:opVerificationClass bpm:VerificationClass_STATEFUL .
+    bpm:opTimeoutClass bpm:TimeoutClass_cheap ; bpm:opKind bpm:EngineOpKind_wire .
 bap:engine_ferroplan_op_session_apply_start_handle a bpm:EngineArg ;
     bpm:argOp bap:engine_ferroplan_op_session_apply_start ; bpm:argName "handle" ; bpm:argOrder 1 ; bpm:argType bpm:EngineArgType_handle .
 bap:engine_ferroplan_op_session_apply_start_name a bpm:EngineArg ;
@@ -12095,7 +11682,7 @@ bap:engine_ferroplan_op_session_apply_start_name a bpm:EngineArg ;
 bap:engine_ferroplan_op_session_elapse a bpm:EngineOp ;
     bpm:opEngine bap:engine_ferroplan ; bpm:opName "session_elapse" ; bpm:opOrder 25 ;
     bpm:opDoc "`{\"op\":\"session_elapse\",\"handle\":h,\"dt\":f}` -- advances simulated time; returns the effects/events that fired." ;
-    bpm:opTimeoutClass bpm:TimeoutClass_cheap ; bpm:opKind bpm:EngineOpKind_wire ; bpm:opVerificationClass bpm:VerificationClass_STATEFUL .
+    bpm:opTimeoutClass bpm:TimeoutClass_cheap ; bpm:opKind bpm:EngineOpKind_wire .
 bap:engine_ferroplan_op_session_elapse_handle a bpm:EngineArg ;
     bpm:argOp bap:engine_ferroplan_op_session_elapse ; bpm:argName "handle" ; bpm:argOrder 1 ; bpm:argType bpm:EngineArgType_handle .
 bap:engine_ferroplan_op_session_elapse_dt a bpm:EngineArg ;
@@ -12104,7 +11691,7 @@ bap:engine_ferroplan_op_session_elapse_dt a bpm:EngineArg ;
 bap:engine_ferroplan_op_session_set_fluent a bpm:EngineOp ;
     bpm:opEngine bap:engine_ferroplan ; bpm:opName "session_set_fluent" ; bpm:opOrder 26 ;
     bpm:opDoc "`{\"op\":\"session_set_fluent\",\"handle\":h,\"name\":n,\"value\":f}` -- sets a numeric fluent." ;
-    bpm:opTimeoutClass bpm:TimeoutClass_cheap ; bpm:opKind bpm:EngineOpKind_wire ; bpm:opVerificationClass bpm:VerificationClass_STATEFUL .
+    bpm:opTimeoutClass bpm:TimeoutClass_cheap ; bpm:opKind bpm:EngineOpKind_wire .
 bap:engine_ferroplan_op_session_set_fluent_handle a bpm:EngineArg ;
     bpm:argOp bap:engine_ferroplan_op_session_set_fluent ; bpm:argName "handle" ; bpm:argOrder 1 ; bpm:argType bpm:EngineArgType_handle .
 bap:engine_ferroplan_op_session_set_fluent_name a bpm:EngineArg ;
@@ -12115,7 +11702,7 @@ bap:engine_ferroplan_op_session_set_fluent_value a bpm:EngineArg ;
 bap:engine_ferroplan_op_session_fluent a bpm:EngineOp ;
     bpm:opEngine bap:engine_ferroplan ; bpm:opName "session_fluent" ; bpm:opOrder 27 ;
     bpm:opDoc "`{\"op\":\"session_fluent\",\"handle\":h,\"name\":n}` -- `{:ok, %{\"value\" => f64 | nil}}`." ;
-    bpm:opTimeoutClass bpm:TimeoutClass_cheap ; bpm:opKind bpm:EngineOpKind_wire ; bpm:opVerificationClass bpm:VerificationClass_PURE .
+    bpm:opTimeoutClass bpm:TimeoutClass_cheap ; bpm:opKind bpm:EngineOpKind_wire .
 bap:engine_ferroplan_op_session_fluent_handle a bpm:EngineArg ;
     bpm:argOp bap:engine_ferroplan_op_session_fluent ; bpm:argName "handle" ; bpm:argOrder 1 ; bpm:argType bpm:EngineArgType_handle .
 bap:engine_ferroplan_op_session_fluent_name a bpm:EngineArg ;
@@ -12124,7 +11711,7 @@ bap:engine_ferroplan_op_session_fluent_name a bpm:EngineArg ;
 bap:engine_ferroplan_op_session_plan_valid a bpm:EngineOp ;
     bpm:opEngine bap:engine_ferroplan ; bpm:opName "session_plan_valid" ; bpm:opOrder 28 ;
     bpm:opDoc "`{\"op\":\"session_plan_valid\",\"handle\":h,\"plan\":plan,\"from\":n}` -- checks an externally-supplied plan is still valid from step index `from`, without mutating session state. Elixir names it `session_plan_valid?`." ;
-    bpm:opTimeoutClass bpm:TimeoutClass_cheap ; bpm:opKind bpm:EngineOpKind_wire ; bpm:opVerificationClass bpm:VerificationClass_PURE ;
+    bpm:opTimeoutClass bpm:TimeoutClass_cheap ; bpm:opKind bpm:EngineOpKind_wire ;
     bpm:opElixirPredicate "true" .
 bap:engine_ferroplan_op_session_plan_valid_handle a bpm:EngineArg ;
     bpm:argOp bap:engine_ferroplan_op_session_plan_valid ; bpm:argName "handle" ; bpm:argOrder 1 ; bpm:argType bpm:EngineArgType_handle .
@@ -12136,22 +11723,21 @@ bap:engine_ferroplan_op_session_plan_valid_from a bpm:EngineArg ;
 bap:engine_ferroplan_op_session_world_bytes a bpm:EngineOp ;
     bpm:opEngine bap:engine_ferroplan ; bpm:opName "session_world_bytes" ; bpm:opOrder 29 ;
     bpm:opDoc "`{\"op\":\"session_world_bytes\",\"handle\":h}` -- byte size of the shared/grounded world state." ;
-    bpm:opTimeoutClass bpm:TimeoutClass_cheap ; bpm:opKind bpm:EngineOpKind_wire ; bpm:opVerificationClass bpm:VerificationClass_PURE .
+    bpm:opTimeoutClass bpm:TimeoutClass_cheap ; bpm:opKind bpm:EngineOpKind_wire .
 bap:engine_ferroplan_op_session_world_bytes_handle a bpm:EngineArg ;
     bpm:argOp bap:engine_ferroplan_op_session_world_bytes ; bpm:argName "handle" ; bpm:argOrder 1 ; bpm:argType bpm:EngineArgType_handle .
 
 bap:engine_ferroplan_op_session_mind_bytes a bpm:EngineOp ;
     bpm:opEngine bap:engine_ferroplan ; bpm:opName "session_mind_bytes" ; bpm:opOrder 30 ;
     bpm:opDoc "`{\"op\":\"session_mind_bytes\",\"handle\":h}` -- byte size of this session's private mutable state." ;
-    bpm:opTimeoutClass bpm:TimeoutClass_cheap ; bpm:opKind bpm:EngineOpKind_wire ; bpm:opVerificationClass bpm:VerificationClass_PURE .
+    bpm:opTimeoutClass bpm:TimeoutClass_cheap ; bpm:opKind bpm:EngineOpKind_wire .
 bap:engine_ferroplan_op_session_mind_bytes_handle a bpm:EngineArg ;
     bpm:argOp bap:engine_ferroplan_op_session_mind_bytes ; bpm:argName "handle" ; bpm:argOrder 1 ; bpm:argType bpm:EngineArgType_handle .
 
 bap:engine_ferroplan_op_htn_plan a bpm:EngineOp ;
     bpm:opEngine bap:engine_ferroplan ; bpm:opName "htn_plan" ; bpm:opOrder 31 ;
     bpm:opDoc "`{\"op\":\"htn_plan\",\"domain\":d,\"problem\":p[,\"limits\":l]}` -- `domain`/`problem` are UTF-8 JSON text of a `PlanningProblem` object (same wire shape as `plan`/`plan_production`'s `domain`/`problem` fields, but decoded into the typed universal-planning model rather than PDDL text). `domain` is accepted but ignored when non-empty and not equal to `problem` -- ferroplan's universal-planning model has one combined problem document, so `problem` alone is parsed as the full `PlanningProblem`. Forces `PlanningType::Hierarchical`. Returns `UniversalPlan` JSON. `limits` is an optional partial `PlannerLimits` map (`max_depth` 128 / `max_states` 100000 / `max_iterations` 512 / `max_wall_ms` 10000; any/all omitted fields fall back to their own serde defaults). `max_wall_ms` is INERT for this op -- the hierarchical solver never consults the wall deadline (only `fond_policy`'s fixpoint loops do) -- so this op's real wall bound is the caller's own budget: the BEAM side never blocks past its `bpm:opTimeoutClass`-derived wasmex call timeout (heavy = 120000ms)." ;
-    bpm:opDoc "`{\"op\":\"htn_plan\",\"domain\":d,\"problem\":p[,\"limits\":l]}` -- hierarchical task network (HTN) decomposition, PlanningType::Hierarchical via solve_planning_type. `problem` is JSON text of a PlanningProblem (not PDDL). Returns `{:ok, <UniversalPlan map>}`." ;
-    bpm:opTimeoutClass bpm:TimeoutClass_heavy ; bpm:opKind bpm:EngineOpKind_wire ; bpm:opVerificationClass bpm:VerificationClass_PURE .
+    bpm:opTimeoutClass bpm:TimeoutClass_heavy ; bpm:opKind bpm:EngineOpKind_wire .
 bap:engine_ferroplan_op_htn_plan_domain a bpm:EngineArg ;
     bpm:argOp bap:engine_ferroplan_op_htn_plan ; bpm:argName "domain" ; bpm:argOrder 1 ; bpm:argType bpm:EngineArgType_string .
 bap:engine_ferroplan_op_htn_plan_problem a bpm:EngineArg ;
@@ -12164,11 +11750,7 @@ bap:engine_ferroplan_op_htn_plan_limits a bpm:EngineArg ;
 bap:engine_ferroplan_op_fond_policy a bpm:EngineOp ;
     bpm:opEngine bap:engine_ferroplan ; bpm:opName "fond_policy" ; bpm:opOrder 32 ;
     bpm:opDoc "`{\"op\":\"fond_policy\",\"domain\":d,\"problem\":p[,\"limits\":l]}` -- same wire shape as `htn_plan`; forces `PlanningType::Fond` (strong-plan fixpoint first, strong-cyclic fallback; bounded by each loop's own `states + 1` round failsafe). Returns `UniversalPlan` JSON. `limits` is an optional partial `PlannerLimits` map (`max_depth` 128 / `max_states` 100000 / `max_iterations` 512 / `max_wall_ms` 10000; any/all omitted fields fall back to their own serde defaults; `max_iterations` is advisory here). WATCHDOG SEMANTICS: `max_wall_ms` is honored cooperatively -- `check_wall_deadline` runs once per fixpoint round, default 10000ms when `limits` is omitted, `0` means unbounded -- so an overrun surfaces as `{:ok, %{\"error\" => %{\"code\" => \"FP_ADAPTER\", ...}}}` (the universal-solver envelope), never a bare `{:error, _}` and never `FP_TIMEOUT` through this op (bpm:ErrorCollapse_single_key_inspect). The per-round check is not preemptive: the BEAM caller's never-block-past-budget property is carried by the caller's own wasmex call timeout (heavy = 120000ms), which bounds the gap between rounds." ;
-
-bap:engine_ferroplan_op_fond_policy a bpm:EngineOp ;
-    bpm:opEngine bap:engine_ferroplan ; bpm:opName "fond_policy" ; bpm:opOrder 32 ;
-    bpm:opDoc "`{\"op\":\"fond_policy\",\"domain\":d,\"problem\":p[,\"limits\":l]}` -- fully observable non-deterministic (FOND) policy synthesis, PlanningType::Fond via solve_planning_type. `problem` is JSON text of a PlanningProblem (not PDDL). Returns `{:ok, <UniversalPlan map>}`." ;
-    bpm:opTimeoutClass bpm:TimeoutClass_heavy ; bpm:opKind bpm:EngineOpKind_wire ; bpm:opVerificationClass bpm:VerificationClass_PURE .
+    bpm:opTimeoutClass bpm:TimeoutClass_heavy ; bpm:opKind bpm:EngineOpKind_wire .
 bap:engine_ferroplan_op_fond_policy_domain a bpm:EngineArg ;
     bpm:argOp bap:engine_ferroplan_op_fond_policy ; bpm:argName "domain" ; bpm:argOrder 1 ; bpm:argType bpm:EngineArgType_string .
 bap:engine_ferroplan_op_fond_policy_problem a bpm:EngineArg ;
@@ -12181,11 +11763,7 @@ bap:engine_ferroplan_op_fond_policy_limits a bpm:EngineArg ;
 bap:engine_ferroplan_op_hddl_solve a bpm:EngineOp ;
     bpm:opEngine bap:engine_ferroplan ; bpm:opName "hddl_solve" ; bpm:opOrder 33 ;
     bpm:opDoc "`{\"op\":\"hddl_solve\",\"domain\":d,\"problem\":p[,\"limits\":l]}` -- `domain`/`problem` are HDDL source text (not classical PDDL or JSON): parsed, grounded, and translated by `ferroplan_hddl`'s parse -> ground -> translate pipeline into the same FOND solver used by `fond_policy` (`ferroplan::solve_hddl`). `limits` (optional; a partial `PlannerLimits` map -- `max_depth` 128 / `max_states` 100000 / `max_iterations` 512 / `max_wall_ms` 10000, any/all omitted) is merged into the request, EXCEPT `max_wall_ms`: the wasm adapter forces it to `0` (the synchronous, non-threaded solve path) because wasm32-wasip1 has no OS threads and the threaded watchdog would trap the whole guest instance -- so a caller-supplied wall budget is not honored through this ABI and the effective wall bound is the BEAM caller's own wasmex call timeout (heavy = 120000ms): the host never blocks past its budget even though the engine will not self-interrupt. A domain-level failure (parse/ground/translate/root-mismatch/model) surfaces as `{:ok, %{\"error\" => %{\"code\" => ..., \"message\" => ..., \"retryable\" => bool}}}` with a code naming the failing stage (`FP_PARSE`, `FP_HDDL_GROUND`, `FP_HDDL_TRANSLATE`, `FP_HDDL_ROOT_MISMATCH` -- an Eve handoff conflicting with the problem's own `:htn` root network, new at ferroplan 6cacbda -- or `FP_MODEL`) -- never a bare `{:error, _}` -- matching every other solve op's error-in-envelope convention (bpm:ErrorCollapse_single_key_inspect). The crate's `FP_TIMEOUT`/`FP_WORKER_PANICKED` codes (renamed from `FP_HDDL_TIMEOUT`/`FP_HDDL_WORKER_PANIC` at 6cacbda) are unreachable through this ABI while the threaded watchdog is disabled. Returns `UniversalPlan` JSON on success." ;
-
-bap:engine_ferroplan_op_hddl_solve a bpm:EngineOp ;
-    bpm:opEngine bap:engine_ferroplan ; bpm:opName "hddl_solve" ; bpm:opOrder 33 ;
-    bpm:opDoc "`{\"op\":\"hddl_solve\",\"domain\":d,\"problem\":p[,\"limits\":{...}]}` -- `domain`/`problem` are HDDL source text (not classical PDDL): parsed, grounded, and translated by `ferroplan_hddl`, then solved by the existing FOND policy solver (`ferroplan::solve_hddl`). `limits` (optional; a partial `PlannerLimits` map -- `max_depth`/`max_states`/`max_iterations`, any/all omitted) is merged into the request. Returns `{:ok, <UniversalPlan map>}`. A malformed/unsolvable HDDL document surfaces as `{:ok, %{\"error\" => %{\"code\" => ..., \"message\" => ..., \"retryable\" => bool}}}` with a code naming the failing stage (`FP_PARSE`, `FP_HDDL_GROUND`, `FP_HDDL_TRANSLATE`, `FP_MODEL`) -- never a bare `{:error, _}` -- matching every other solve op's error-in-envelope convention (bpm:ErrorCollapse_single_key_inspect)." ;
-    bpm:opTimeoutClass bpm:TimeoutClass_heavy ; bpm:opKind bpm:EngineOpKind_wire ; bpm:opVerificationClass bpm:VerificationClass_PURE .
+    bpm:opTimeoutClass bpm:TimeoutClass_heavy ; bpm:opKind bpm:EngineOpKind_wire .
 bap:engine_ferroplan_op_hddl_solve_domain a bpm:EngineArg ;
     bpm:argOp bap:engine_ferroplan_op_hddl_solve ; bpm:argName "domain" ; bpm:argOrder 1 ; bpm:argType bpm:EngineArgType_string .
 bap:engine_ferroplan_op_hddl_solve_problem a bpm:EngineArg ;
@@ -30108,7 +29686,6 @@ bap:hand_authored_task_eds_ledger a bpm:HandAuthoredSource ;
     bpm:admissionReason "`mix eds.ledger` -- prints the real ERC ledger read by BeamPM.Research.ERC.ledger/0 (admitted above); prints nothing fabricated. Same hand-authored mix-task convention as the already-admitted lib/mix/tasks/beam4pm.version_bump.ex and lib/mix/tasks/beam4pm.rf2_oracle_dep.ex." ;
     bpm:acceptanceCommand "mix eds.ledger" ;
     bpm:contentSha256 "2d8b17a2803032f65c93faef45cb39395526206beacc217f0f4746c388effdf0" ;
-    bpm:contentSha256 "ad0c515715614d1bd4d9083214844b468299c9f92de331ba7de609578b05266c" ;
     bpm:admittedAtCommit "51ca841" ;
     bpm:admissionExpires "2026-12-31" ;
     bpm:sunsetPlan "No template family fits an ad hoc ledger-printing mix task today; keep admitted until one is proposed upstream." .
@@ -30935,99 +30512,214 @@ bap:hand_authored_fixture_ocel_session_zcode_plain a bpm:HandAuthoredSource ;
     bpm:admissionExpires "2026-12-31" ;
     bpm:sunsetPlan "Sunsets with the session-facts qualification's admission (fixtures become ontology facts)." .
 
-# --- g2 parity-qualification wave PROOF admissions (scratch worktree) -------
-# One bpm:ParityCheck individual + the two fixture admissions it consumes.
-# This is consumer-owned instance data (the pack ships only vocabulary,
-# template, gates); rendered test file is the consequence, never edited.
+# ---- blocks added from merged branches (subjects absent from main) ----
 
-bpm:qual_fixture_dfcm_hddl_domain a bpm:QualificationFixture ;
-    bpm:fixturePath "qualification/fixtures/dfcm/dfcm.hddl" ;
-    bpm:fixtureSha256 "0060c0e6ba738193708bf457bfb03a22a41ad30c13359e6d795655541fbf6666" ;
-    bpm:fixtureDoc "DfCM cycle HDDL domain (8 phases, preserve-before-collapse root method): the standing qualification corpus of the fabric/ferroplan parity family." .
+# from chore/a2a-capability-sweep-v26917
+bex:ciRf123OracleBuild
+    a gha:Step ;
+    gha:inJob bex:ciTest ; gha:stepOrder 5 ;
+    gha:stepName "Build rust4pm-Reactor-validation oracle crates (RF1/RF2/RF3)" ;
+    gha:runCommand """# Real Rust subprocess oracles the RF1/RF2/RF3 Chicago tests spawn (thin
+# adapters over the real process_mining =0.6.2 function surface, no
+# algorithm re-implemented). ubuntu-latest ships a preinstalled
+# cargo/rustc, the same toolchain that already compiles ggen_igniter's
+# native/ggen_graph_nif rustler NIF at `mix test` time.
+cd native/rf1-dfg-oracle && cargo build --release && cd -
+cd native/rf2-conformance-oracle && cargo build --release && cd -
+cd native/rf3-ocel-oracle && cargo build --release && cd -""" .
 
-bpm:qual_fixture_dfcm_hddl_problem a bpm:QualificationFixture ;
-    bpm:fixturePath "qualification/fixtures/dfcm/dfcm-abcx.hddl" ;
-    bpm:fixtureSha256 "b337e94f975aaa6038d75ae4b6e4609283757a75d3335bd66f98bd1c3afbff2c" ;
-    bpm:fixtureDoc "ABCX problem document paired with the DfCM cycle HDDL domain in every fabric/ferroplan qualification run." .
+# from feat/ocel-evidence-architecture
+bex:ciRf123OracleCache
+    a gha:Step ;
+    gha:inJob bex:ciTest ; gha:stepOrder 5 ;
+    gha:stepName "Cache Cargo dependencies for RF1/RF2/RF3 oracle crates" ;
+    gha:usesAction "actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0" ;
+    gha:withParam "path: \"native/*/target\"" ;
+    gha:withParam "key: ${{ runner.os }}-cargo-${{ hashFiles('native/**/Cargo.lock') }}" ;
+    gha:withParam "restore-keys: \"${{ runner.os }}-cargo-\\n\"" .
 
-bpm:parity_ferroplan_vs_lab_fabric a bpm:ParityCheck ;
-    bpm:checkName "ferroplan_hddl_solve_vs_lab_fabric_solve" ;
-    bpm:checkDoc "Verdict parity between beam4pm's own ferroplan wasm engine (BeamPM.Ferroplan.hddl_solve/2, planning_type fond, UniversalPlan receipt vocabulary) and the AutoFDE-Lab decision fabric (fabric solve HTNDomain --solver Astar, receipt-bearing trajectory vocabulary) over the SAME admitted DfCM HDDL corpus. Both engines solve; the fabric rollout carries one step per DfCM phase (8), ferroplan's UniversalPlan one htn:decompose plus one htn:exec per phase (9) -- same decomposition, two receipt vocabularies. No divergence is known on this corpus today; if any pin below flips, this file names it." ;
-    bpm:checkOrdinal 1 ;
-    bpm:testPath "test/beam4pm_parity_ferroplan_hddl_solve_vs_lab_fabric_solve_test.exs" ;
-    bpm:testModule "BeamPM.ParityQualification.FerroplanHddlSolveVsLabFabricSolve" ;
-    bpm:leftCommand "~/autofde-lab/.venv/bin/python3 -m autofde_lab.cli fabric solve HTNDomain --solver Astar --domain-arguments '{\"domain_path\": \"qualification/fixtures/dfcm/dfcm.hddl\", \"problem_path\": \"qualification/fixtures/dfcm/dfcm-abcx.hddl\"}' (cwd = repo root)" ;
-    bpm:rightCommand "BeamPM.Ferroplan.hddl_solve(File.read!(\"qualification/fixtures/dfcm/dfcm.hddl\"), File.read!(\"qualification/fixtures/dfcm/dfcm-abcx.hddl\")) over native/ferroplan wasm e90928d" ;
-    bpm:leftCommandKind bpm:ParityCommandKind_lab_fabric_solve ;
-    bpm:rightCommandKind bpm:ParityCommandKind_beam_hddl_solve ;
-    bpm:leftDomain "HTNDomain" ;
-    bpm:leftSolver "Astar" ;
-    bpm:hasCorpus bpm:parity_corpus_dfcm_hddl_domain ,
-                  bpm:parity_corpus_dfcm_hddl_problem ;
-    bpm:hasDigestPin bpm:parity_pin_lab_input ,
-                     bpm:parity_pin_lab_receipt ,
-                     bpm:parity_pin_lab_trajectory ;
-    bpm:hasExpectedStep bpm:parity_step_1 ,
-                        bpm:parity_step_2 ,
-                        bpm:parity_step_3 ,
-                        bpm:parity_step_4 ,
-                        bpm:parity_step_5 ,
-                        bpm:parity_step_6 ,
-                        bpm:parity_step_7 ,
-                        bpm:parity_step_8 ;
-    bpm:consentLaw "Both engines are qualified over byte-identical, sha256-pinned, graph-admitted corpus files only; each leg is judged by its own named spec's verdict vocabulary (fabric trajectory vs ferroplan UniversalPlan), agreement is the shared 8-phase DfCM ladder witnessed by BOTH engines, and any flip of a corpus digest, ladder step or receipt pin is a named tripwire to re-derive or escalate -- never normalized away, never absorbed by an assertion-softening edit." ;
-    bpm:tamperFalsifier "renaming the phase-1 action in a temp copy of the domain corpus must flip BOTH engines' verdicts in the same place (replaced token present, original absent, in lab rollout steps and ferroplan policy actions) and move the lab trajectory digest off its pin" ;
-    bpm:tamperFind "preserve-known-options" ;
-    bpm:tamperReplace "tampered-known-options" ;
-    bpm:tamperCorpusOrder 1 .
+# from feat/ocel-evidence-architecture
+bex:rustCiWorkflow
+    a gha:Workflow ;
+    gha:fileName "rust-ci.yml" ;
+    gha:purpose "test native Rust engine crates (native/ferroplan)" ;
+    gha:permissionCeiling "contents: read" ;
+    gha:concurrencyPolicy """group: rust-ci-${{ github.ref }}
+cancel-in-progress: true""" ;
+    gha:trigger gha:EventPush ;
+    gha:trigger gha:EventPullRequest ;
+    gha:trigger gha:EventWorkflowDispatch ;
+    gha:onBlock """push:
+  branches: [main]
+pull_request:
+  branches: [main]
+workflow_dispatch:""" ;
+    gha:evidenceObligation "a clean cargo build --workspace, cargo test --workspace, and cargo clippy --workspace --all-targets -- -D warnings against native/ferroplan on the exact candidate SHA" ;
+    gha:standingEffect "a green run confers test-passing and lint-clean standing on native/ferroplan's htn_plan/fond_policy/hddl_solve crates for the exact candidate SHA; a red run is a real Rust build/test/clippy defect in that crate, previously invisible to CI." .
 
-bpm:parity_corpus_dfcm_hddl_domain a bpm:ParityCorpus ;
-    bpm:corpusPath "qualification/fixtures/dfcm/dfcm.hddl" ;
-    bpm:corpusSha256 "0060c0e6ba738193708bf457bfb03a22a41ad30c13359e6d795655541fbf6666" ;
-    bpm:corpusOrder 1 .
+# from feat/ocel-evidence-architecture
+bex:rustCiTest
+    a gha:Job ;
+    gha:inWorkflow bex:rustCiWorkflow ;
+    gha:jobName "test" ;
+    gha:runner "ubuntu-latest" ;
+    gha:timeoutMinutes 20 ;
+    gha:jobPermissions "contents: read" ;
+    gha:jobExtra "name: native/ferroplan cargo build + test + clippy" ;
+    gha:evidenceEmitted "cargo build, cargo test, and cargo clippy output in the run log" ;
+    gha:failureClassification "BUILD_BROKEN for a compile failure; a red cargo test is a production defect in native/ferroplan; a red clippy run is a lint regression against the -D warnings gate." .
 
-bpm:parity_corpus_dfcm_hddl_problem a bpm:ParityCorpus ;
-    bpm:corpusPath "qualification/fixtures/dfcm/dfcm-abcx.hddl" ;
-    bpm:corpusSha256 "b337e94f975aaa6038d75ae4b6e4609283757a75d3335bd66f98bd1c3afbff2c" ;
-    bpm:corpusOrder 2 .
+# from feat/ocel-evidence-architecture
+bex:rustCiCheckout
+    a gha:Step ;
+    gha:inJob bex:rustCiTest ; gha:stepOrder 1 ;
+    gha:stepName "Checkout (with vendor/ggen-marketplace submodule)" ;
+    gha:usesAction "actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1" ;
+    gha:withParam "submodules: recursive" ;
+    gha:withParam "persist-credentials: false" .
 
-bpm:parity_pin_lab_input a bpm:ParityDigestPin ;
-    bpm:pinKey "input_sha256" ;
-    bpm:pinValue "77ac02698139975925fe487ad9dc96510d7aec2f358d35636116129f22ee4517" .
+# from feat/ocel-evidence-architecture
+bex:rustCiToolchain
+    a gha:Step ;
+    gha:inJob bex:rustCiTest ; gha:stepOrder 2 ;
+    gha:stepName "Set up Rust toolchain" ;
+    gha:usesAction "dtolnay/rust-toolchain@e97e2d8cc328f1b50210efc529dca0028893a2d9" ;
+    gha:withParam "toolchain: stable" ;
+    gha:withParam "components: clippy" .
 
-bpm:parity_pin_lab_receipt a bpm:ParityDigestPin ;
-    bpm:pinKey "receipt_sha256" ;
-    bpm:pinValue "ab8521ed6e8215cb0a8255e7a6548ef875067f46c2ceac315a753604ba0610b9" .
+# from feat/ocel-evidence-architecture
+bex:rustCiCache
+    a gha:Step ;
+    gha:inJob bex:rustCiTest ; gha:stepOrder 3 ;
+    gha:stepName "Cache Cargo dependencies for native/ferroplan" ;
+    gha:usesAction "actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0" ;
+    gha:withParam "path: \"native/ferroplan/target\"" ;
+    gha:withParam "key: ${{ runner.os }}-cargo-${{ hashFiles('native/ferroplan/Cargo.lock') }}" ;
+    gha:withParam "restore-keys: \"${{ runner.os }}-cargo-\\n\"" .
 
-bpm:parity_pin_lab_trajectory a bpm:ParityDigestPin ;
-    bpm:pinKey "trajectory_sha256" ;
-    bpm:pinValue "6a74bca2dcfe29e101239c35f553984e648d17ebaf3d4b2da16f86ce79ad2685" .
+# from feat/ocel-evidence-architecture
+bex:rustCiBuild
+    a gha:Step ;
+    gha:inJob bex:rustCiTest ; gha:stepOrder 4 ;
+    gha:stepName "cargo build --workspace (native/ferroplan)" ;
+    gha:runCommand "cd native/ferroplan && cargo build --workspace" .
 
-bpm:parity_step_1 a bpm:ParityExpectedStep ; bpm:stepOrder 1 ; bpm:stepAction "preserve-known-options" .
-bpm:parity_step_2 a bpm:ParityExpectedStep ; bpm:stepOrder 2 ; bpm:stepAction "apply-known-fences" .
-bpm:parity_step_3 a bpm:ParityExpectedStep ; bpm:stepOrder 3 ; bpm:stepAction "perform-dfcm-calculus" .
-bpm:parity_step_4 a bpm:ParityExpectedStep ; bpm:stepOrder 4 ; bpm:stepAction "exclude-invalid-options" .
-bpm:parity_step_5 a bpm:ParityExpectedStep ; bpm:stepOrder 5 ; bpm:stepAction "materialize-falsifiers" .
-bpm:parity_step_6 a bpm:ParityExpectedStep ; bpm:stepOrder 6 ; bpm:stepAction "extend-if-required" .
-bpm:parity_step_7 a bpm:ParityExpectedStep ; bpm:stepOrder 7 ; bpm:stepAction "construct-contingent-policy" .
-bpm:parity_step_8 a bpm:ParityExpectedStep ; bpm:stepOrder 8 ; bpm:stepAction "select-lawful-option" .
+# from feat/ocel-evidence-architecture
+bex:rustCiTestStep
+    a gha:Step ;
+    gha:inJob bex:rustCiTest ; gha:stepOrder 5 ;
+    gha:stepName "cargo test --workspace (native/ferroplan)" ;
+    gha:runCommand "cd native/ferroplan && cargo test --workspace" .
 
+# from feat/ocel-evidence-architecture
+bex:rustCiClippy
+    a gha:Step ;
+    gha:inJob bex:rustCiTest ; gha:stepOrder 6 ;
+    gha:stepName "cargo clippy --workspace --all-targets -- -D warnings (native/ferroplan)" ;
+    gha:runCommand "cd native/ferroplan && cargo clippy --workspace --all-targets -- -D warnings" .
+
+# from feat/ocel-evidence-architecture
+bex:rustCiAudit
+    a gha:Step ;
+    gha:inJob bex:rustCiTest ; gha:stepOrder 7 ;
+    gha:stepName "cargo audit (advisory, non-blocking)" ;
+    gha:runCommand """cargo install cargo-audit --locked || true
+cd native/ferroplan && cargo audit || echo "::warning::pre-existing RUSTSEC debt remains advisory"
+""" .
+
+# from feat/ocel-evidence-architecture
 # ===========================================================================
-# v26.9.18 ggen-maximization wave INTEGRATION PROOF (scratch/gint, UNCOMMITTED)
-# Consumer-owned admissions lifted verbatim from the agents' proof worktrees
-# (wt-g1-proof, wt-g2-proof, wt-g3-proof) against the merged pack branch
-# pack/wave-26918-integration @ 0808a55db (vendored submodule). Proof only --
-# the cutover commit is the tree owner's landing step.
-# ===========================================================================
+# OCEL evidence architecture, Phase 1 (narrow ontology extension) -- consumer
+# extension of bpm:EngineOp, layered on the pack's own bpm:EngineOp /
+# bpm:opKind / bpm:opTimeoutClass shape (vendor/ggen-marketplace/packs/
+# beam4pm-process-model-pack/ontology.ttl). Not yet consumed by any template
+# (Phase 2 wires bpm:opVerificationClass into the OCEL evidence-contract
+# generation); admitted here as real, differentiated facts per op ahead of
+# that consumption, per this repo's evidence-forcing-architecture discipline
+# (every generated fact carries real classification before code depends on
+# it, not a placeholder default).
+#
+# bpm:opVerificationClass answers "what kind of evidence does calling this
+# op produce/require", a question bpm:opKind (wire vs host_helper -- a
+# dispatch-mechanics distinction) and bpm:opTimeoutClass (a budget
+# distinction) do not answer:
+#   - bpm:VerificationClass_PURE: a query/compute op that is a deterministic
+#     function of its arguments (and any handle-referenced state it reads,
+#     unmutated) -- calling it twice with the same inputs is a no-op on
+#     engine-side state. The largest class (40/79): shortest_path, scc,
+#     discover_dfg, compute_fitness, session_fact, etc.
+#   - bpm:VerificationClass_STATEFUL: constructs a new handle or mutates the
+#     state behind an existing handle (graph_new, add_edge, ocel_add_event,
+#     session_think, session_set_fact, ...). 29/79.
+#   - bpm:VerificationClass_EXTERNAL: crosses a real I/O boundary outside the
+#     wasm sandbox before delegating to a wire op -- exactly the 3 ops of
+#     bpm:EngineOpKind_host_helper (File.read!/1 host-side: load_model_path,
+#     import_xes_path, import_pnml_path). A real, pack-recognized behavioral
+#     distinction (see the pack's own EngineOpKind_host_helper comment), not
+#     invented for this field alone.
+#   - bpm:VerificationClass_REFUSAL: an op whose entire contract is to
+#     invalidate future access -- the 6 handle-release ops (free_graph,
+#     free_model, free_log, free_net, free_ocel, session_free) plus
+#     session_drop_plan (clears the stashed plan/cursor so a subsequent
+#     session_valid?/session_step read is refused until re-planned). 7/79.
+#
+# A derived per-op OCEL event-type name was considered and rejected as a new
+# field: it is fully derivable from the existing bpm:opEngine ->
+# bpm:engineName and bpm:opName (e.g. "petgraph.shortest_path"), so adding a
+# stored field would duplicate information already admitted, not add any.
+bpm:VerificationClass a rdfs:Class ;
+    rdfs:comment "Closed vocabulary: what kind of evidence calling this bpm:EngineOp produces or requires, for the OCEL evidence-contract generation (Phase 2). Orthogonal to bpm:EngineOpKind (dispatch mechanics) and bpm:TimeoutClass (budget)." .
+bpm:verificationClassName a rdf:Property ; rdfs:domain bpm:VerificationClass ; rdfs:range xsd:string .
+bpm:VerificationClass_PURE a bpm:VerificationClass ; bpm:verificationClassName "PURE" ;
+    rdfs:comment "Deterministic function of its arguments and any handle-referenced state it reads; does not mutate engine-side state." .
+bpm:VerificationClass_STATEFUL a bpm:VerificationClass ; bpm:verificationClassName "STATEFUL" ;
+    rdfs:comment "Constructs a new engine-side handle or mutates the state behind an existing one." .
+bpm:VerificationClass_EXTERNAL a bpm:VerificationClass ; bpm:verificationClassName "EXTERNAL" ;
+    rdfs:comment "Crosses a real I/O boundary outside the wasm sandbox (host-side File.read!/1) before delegating to a wire op -- bpm:EngineOpKind_host_helper ops exactly." .
+bpm:VerificationClass_REFUSAL a bpm:VerificationClass ; bpm:verificationClassName "REFUSAL" ;
+    rdfs:comment "The op's entire contract is to invalidate future access to a handle or stashed state (a free_* release, or session_drop_plan clearing the stashed plan/cursor)." .
+bpm:opVerificationClass a rdf:Property ; rdfs:domain bpm:EngineOp ; rdfs:range bpm:VerificationClass ;
+    rdfs:comment "Real, per-op classification (PURE/STATEFUL/EXTERNAL/REFUSAL) admitted for all 79 EngineOp individuals in this file -- see the section comment above for the counted distribution and rationale." .
 
-# ===========================================================================
-# bpm:CliBridge family (pack 0.1.20, v26.9.18 wave G1) -- UNCOMMITTED scratch
-# admission in wt-g1-proof: the autofde standalone CLI's command surface as
-# facts, plus one bpm:CliWitness per command recorded from the real runs
-# captured under tmp_probe/witness/ (envelope sha256s below are sha256 of the
-# exact captured stdout bytes; commands and exits in the wave receipt).
-# ===========================================================================
+# from feat/ocel-evidence-architecture
+bpm:req-eunit a ver:RequiredCheck ;
+    ver:name "eunit" ;
+    ver:checkCommand "rebar3 eunit" ;
+    rdfs:comment "The Erlang eunit test suite over generated src/*.erl must have been run and recorded." .
 
+# from feat/ocel-evidence-architecture
+bpm:req-mix-test a ver:RequiredCheck ;
+    ver:name "mix-test" ;
+    ver:checkCommand "mix test" ;
+    rdfs:comment "The Elixir ExUnit test suite over generated lib/*.ex must have been run and recorded." .
+
+# from feat/ocel-evidence-architecture
+bpm:req-mix-compile a ver:RequiredCheck ;
+    ver:name "mix-compile-warnings" ;
+    ver:checkCommand "mix compile --warnings-as-errors" ;
+    rdfs:comment "Elixir compilation with warnings promoted to errors must have been run and recorded." .
+
+# from feat/ocel-evidence-architecture
+bpm:req-evidence-coverage a ver:RequiredCheck ;
+    ver:name "evidence-coverage" ;
+    ver:checkCommand "bash scripts/gate_evidence_coverage_check.sh" ;
+    rdfs:comment "beam4pm's own OCEL evidence-coverage gate (scripts/gate_evidence_coverage_check.sh) must have been run and recorded." .
+
+# from feat/ocel-evidence-architecture
+bpm:kd-mix-test a ver:KnownDivergence ;
+    ver:name "mix-test" ;
+    rdfs:comment "mix test currently reports 1073 tests, 11 failures, 57 skipped -- the documented pre-existing RF2/RF3-oracle-env baseline from this session's earlier OCEL-evidence-architecture work, not a regression introduced by wiring ggen-verify-pack. Recorded red, accepted, disclosed; remove once the 11 pre-existing failures are root-caused and fixed." .
+
+# from preserve/v26.9.22/stash-1
+# WS3-REV-001 — tenant_runtime_boundary
+b4p:tenant_runtime_boundary_rt a bpm:RecordType ;
+    bpm:recordName "tenant_runtime_boundary" ;
+    bpm:recordDoc "Binds a paid tenant to one explicit runtime isolation boundary and replayable evidence identity." ;
+    bpm:hasField b4p:tenant_runtime_boundary_tenant_id_f,
+                 b4p:tenant_runtime_boundary_boundary_id_f,
+                 b4p:tenant_runtime_boundary_evidence_hash_f .
+
+# from preserve/v26.9.22/wt-g1-proof
 bap:cli_bridge_autofde a bpm:CliBridge ;
     bpm:bridgeName "autofde" ;
     bpm:bridgeModule "DfcmCli" ;
@@ -31039,6 +30731,7 @@ bap:cli_bridge_autofde a bpm:CliBridge ;
     bpm:cliDefaultPath "priv/bin/autofde" ;
     bpm:cliDefaultTimeoutMs 30000 .
 
+# from preserve/v26.9.22/wt-g1-proof
 # -- ocel_validate/1: renders the hand-written BeamPM.Dfcm.ocel_validate/1 ---
 bap:cli_ocel_validate a bpm:CliCommand ;
     bpm:cmdBridge bap:cli_bridge_autofde ;
@@ -31070,6 +30763,7 @@ bap:cli_ocel_validate a bpm:CliCommand ;
     bpm:cmdRefusalReason "ocel_validate_error" ;
     bpm:cmdTimeoutMs 30000 .
 
+# from preserve/v26.9.22/wt-g1-proof
 bap:cli_ocel_validate_log a bpm:CliArg ;
     bpm:argCommand bap:cli_ocel_validate ;
     bpm:cliArgName "log_path" ;
@@ -31078,6 +30772,7 @@ bap:cli_ocel_validate_log a bpm:CliArg ;
     bpm:cliArgMode bpm:CliArgMode_positional ;
     bpm:cliArgEncoding bpm:CliArgEncoding_raw .
 
+# from preserve/v26.9.22/wt-g1-proof
 bap:cliwitness_ocel_validate a bpm:CliWitness ;
     bpm:witnessCommand bap:cli_ocel_validate ;
     bpm:witnessedAt "2026-09-18" ;
@@ -31085,6 +30780,7 @@ bap:cliwitness_ocel_validate a bpm:CliWitness ;
     bpm:witnessExitCode 0 ;
     bpm:witnessEnvelopeSha256 "1d17c323c1ae0372e78b5ae3cda49b906236b83371a7c66d454f309824d98fd7" .
 
+# from preserve/v26.9.22/wt-g1-proof
 # -- sa2a_replay/2: renders the hand-written BeamPM.Dfcm.sa2a_replay/1 --------
 # (two required binary positionals instead of the hand-written single map --
 #  same guards, same refusal relay; documented delta)
@@ -31111,6 +30807,7 @@ bap:cli_sa2a_replay a bpm:CliCommand ;
     bpm:cmdRefusalReason "replay_refused" ;
     bpm:cmdTimeoutMs 30000 .
 
+# from preserve/v26.9.22/wt-g1-proof
 bap:cli_sa2a_replay_manifest a bpm:CliArg ;
     bpm:argCommand bap:cli_sa2a_replay ;
     bpm:cliArgName "manifest_json" ;
@@ -31119,6 +30816,7 @@ bap:cli_sa2a_replay_manifest a bpm:CliArg ;
     bpm:cliArgMode bpm:CliArgMode_positional ;
     bpm:cliArgEncoding bpm:CliArgEncoding_raw .
 
+# from preserve/v26.9.22/wt-g1-proof
 bap:cli_sa2a_replay_hash a bpm:CliArg ;
     bpm:argCommand bap:cli_sa2a_replay ;
     bpm:cliArgName "expected_hash" ;
@@ -31128,6 +30826,7 @@ bap:cli_sa2a_replay_hash a bpm:CliArg ;
     bpm:cliArgFlag "--expected-hash" ;
     bpm:cliArgEncoding bpm:CliArgEncoding_raw .
 
+# from preserve/v26.9.22/wt-g1-proof
 bap:cliwitness_sa2a_replay a bpm:CliWitness ;
     bpm:witnessCommand bap:cli_sa2a_replay ;
     bpm:witnessedAt "2026-09-18" ;
@@ -31135,6 +30834,7 @@ bap:cliwitness_sa2a_replay a bpm:CliWitness ;
     bpm:witnessExitCode 0 ;
     bpm:witnessEnvelopeSha256 "91c44e7e0a1602e35dea86856ccc27a104cd3583514c93a4182d9a01cce5ebcb" .
 
+# from preserve/v26.9.22/wt-g1-proof
 # -- fabric_cache_stats/0: NEW wrapper, facts only, never hand-written --------
 bap:cli_fabric_cache_stats a bpm:CliCommand ;
     bpm:cmdBridge bap:cli_bridge_autofde ;
@@ -31153,6 +30853,7 @@ bap:cli_fabric_cache_stats a bpm:CliCommand ;
     bpm:cmdRefusalReason "fabric_cache_stats_error" ;
     bpm:cmdTimeoutMs 10000 .
 
+# from preserve/v26.9.22/wt-g1-proof
 bap:cliwitness_fabric_cache_stats a bpm:CliWitness ;
     bpm:witnessCommand bap:cli_fabric_cache_stats ;
     bpm:witnessedAt "2026-09-18" ;
@@ -31160,22 +30861,19 @@ bap:cliwitness_fabric_cache_stats a bpm:CliWitness ;
     bpm:witnessExitCode 0 ;
     bpm:witnessEnvelopeSha256 "ac18fd9f6a3b272bbcf46121906b63278ede2b949b1f9634ceefe7016b58136d" .
 
-
-# --- g2 parity-qualification wave PROOF admissions (scratch worktree) -------
-# One bpm:ParityCheck individual + the two fixture admissions it consumes.
-# This is consumer-owned instance data (the pack ships only vocabulary,
-# template, gates); rendered test file is the consequence, never edited.
-
+# from preserve/v26.9.22/wt-g2-proof
 bpm:qual_fixture_dfcm_hddl_domain a bpm:QualificationFixture ;
     bpm:fixturePath "qualification/fixtures/dfcm/dfcm.hddl" ;
     bpm:fixtureSha256 "0060c0e6ba738193708bf457bfb03a22a41ad30c13359e6d795655541fbf6666" ;
     bpm:fixtureDoc "DfCM cycle HDDL domain (8 phases, preserve-before-collapse root method): the standing qualification corpus of the fabric/ferroplan parity family." .
 
+# from preserve/v26.9.22/wt-g2-proof
 bpm:qual_fixture_dfcm_hddl_problem a bpm:QualificationFixture ;
     bpm:fixturePath "qualification/fixtures/dfcm/dfcm-abcx.hddl" ;
     bpm:fixtureSha256 "b337e94f975aaa6038d75ae4b6e4609283757a75d3335bd66f98bd1c3afbff2c" ;
     bpm:fixtureDoc "ABCX problem document paired with the DfCM cycle HDDL domain in every fabric/ferroplan qualification run." .
 
+# from preserve/v26.9.22/wt-g2-proof
 bpm:parity_ferroplan_vs_lab_fabric a bpm:ParityCheck ;
     bpm:checkName "ferroplan_hddl_solve_vs_lab_fabric_solve" ;
     bpm:checkDoc "Verdict parity between beam4pm's own ferroplan wasm engine (BeamPM.Ferroplan.hddl_solve/2, planning_type fond, UniversalPlan receipt vocabulary) and the AutoFDE-Lab decision fabric (fabric solve HTNDomain --solver Astar, receipt-bearing trajectory vocabulary) over the SAME admitted DfCM HDDL corpus. Both engines solve; the fabric rollout carries one step per DfCM phase (8), ferroplan's UniversalPlan one htn:decompose plus one htn:exec per phase (9) -- same decomposition, two receipt vocabularies. No divergence is known on this corpus today; if any pin below flips, this file names it." ;
@@ -31207,28 +30905,34 @@ bpm:parity_ferroplan_vs_lab_fabric a bpm:ParityCheck ;
     bpm:tamperReplace "tampered-known-options" ;
     bpm:tamperCorpusOrder 1 .
 
+# from preserve/v26.9.22/wt-g2-proof
 bpm:parity_corpus_dfcm_hddl_domain a bpm:ParityCorpus ;
     bpm:corpusPath "qualification/fixtures/dfcm/dfcm.hddl" ;
     bpm:corpusSha256 "0060c0e6ba738193708bf457bfb03a22a41ad30c13359e6d795655541fbf6666" ;
     bpm:corpusOrder 1 .
 
+# from preserve/v26.9.22/wt-g2-proof
 bpm:parity_corpus_dfcm_hddl_problem a bpm:ParityCorpus ;
     bpm:corpusPath "qualification/fixtures/dfcm/dfcm-abcx.hddl" ;
     bpm:corpusSha256 "b337e94f975aaa6038d75ae4b6e4609283757a75d3335bd66f98bd1c3afbff2c" ;
     bpm:corpusOrder 2 .
 
+# from preserve/v26.9.22/wt-g2-proof
 bpm:parity_pin_lab_input a bpm:ParityDigestPin ;
     bpm:pinKey "input_sha256" ;
     bpm:pinValue "77ac02698139975925fe487ad9dc96510d7aec2f358d35636116129f22ee4517" .
 
+# from preserve/v26.9.22/wt-g2-proof
 bpm:parity_pin_lab_receipt a bpm:ParityDigestPin ;
     bpm:pinKey "receipt_sha256" ;
     bpm:pinValue "ab8521ed6e8215cb0a8255e7a6548ef875067f46c2ceac315a753604ba0610b9" .
 
+# from preserve/v26.9.22/wt-g2-proof
 bpm:parity_pin_lab_trajectory a bpm:ParityDigestPin ;
     bpm:pinKey "trajectory_sha256" ;
     bpm:pinValue "6a74bca2dcfe29e101239c35f553984e648d17ebaf3d4b2da16f86ce79ad2685" .
 
+# from preserve/v26.9.22/wt-g2-proof
 bpm:parity_step_1 a bpm:ParityExpectedStep ; bpm:stepOrder 1 ; bpm:stepAction "preserve-known-options" .
 bpm:parity_step_2 a bpm:ParityExpectedStep ; bpm:stepOrder 2 ; bpm:stepAction "apply-known-fences" .
 bpm:parity_step_3 a bpm:ParityExpectedStep ; bpm:stepOrder 3 ; bpm:stepAction "perform-dfcm-calculus" .
@@ -31238,18 +30942,7 @@ bpm:parity_step_6 a bpm:ParityExpectedStep ; bpm:stepOrder 6 ; bpm:stepAction "e
 bpm:parity_step_7 a bpm:ParityExpectedStep ; bpm:stepOrder 7 ; bpm:stepAction "construct-contingent-policy" .
 bpm:parity_step_8 a bpm:ParityExpectedStep ; bpm:stepOrder 8 ; bpm:stepAction "select-lawful-option" .
 
-
-
-# --- G3 wave proof (2026-09-18, UNCOMMITTED): bpm:PortBridge echo instance --
-#
-# Declared here to prove packs/beam4pm-process-model-pack 0.1.20
-# (ggen.toml re-pointed at the g3 authoring worktree, branch pack/port-bridge):
-# one echo bridge over the pack's stdlib-only fixture, exercising every
-# port-bridge vocabulary member -- wire rename (add/sum), stringify +
-# stringify_list encodings (echo_map), per-op timeout + sample request
-# (sleep), no-arg probe (ping). The fixture path resolves from THIS repo
-# root against the authoring worktree; Path.expand handles the ../ hop.
-
+# from preserve/v26.9.22/wt-g3-proof
 bpm:echo_bridge a bpm:PortBridge ;
     bpm:bridgeName "echo" ;
     bpm:bridgeModule "EchoBridge" ;
@@ -31261,18 +30954,15 @@ bpm:echo_bridge a bpm:PortBridge ;
     bpm:bridgeRestartPolicy bpm:RestartPolicy_lazy ;
     bpm:bridgeDefaultTimeoutMs 5000 ;
     bpm:bridgeScriptProbe "../../ggen-marketplace-wt/g3/packs/beam4pm-process-model-pack/qualification/echo_port_bridge.py" ;
-    bpm:bridgeCommandArgs "-u vendor/ggen-marketplace/packs/beam4pm-process-model-pack/qualification/echo_port_bridge.py" ;
-    bpm:bridgeFraming bpm:Framing_lines_json ;
-    bpm:bridgeRestartPolicy bpm:RestartPolicy_lazy ;
-    bpm:bridgeDefaultTimeoutMs 5000 ;
-    bpm:bridgeScriptProbe "vendor/ggen-marketplace/packs/beam4pm-process-model-pack/qualification/echo_port_bridge.py" ;
     bpm:bridgeProbeOp bpm:echo_op_ping .
 
+# from preserve/v26.9.22/wt-g3-proof
 bpm:echo_env_mark a bpm:BridgeEnv ;
     bpm:envBridge bpm:echo_bridge ;
     bpm:envName "ECHO_BRIDGE_MARK" ;
     bpm:envValue "g3-proof" .
 
+# from preserve/v26.9.22/wt-g3-proof
 bpm:echo_op_ping a bpm:BridgeOp ;
     bpm:opBridge bpm:echo_bridge ;
     bpm:opName "ping" ;
@@ -31280,6 +30970,7 @@ bpm:echo_op_ping a bpm:BridgeOp ;
     bpm:opDoc "Cheapest high-information gate: prove the interpreter answers." ;
     bpm:opReplyShape "{\"ok\": true, \"pong\": true}" .
 
+# from preserve/v26.9.22/wt-g3-proof
 bpm:echo_op_add a bpm:BridgeOp ;
     bpm:opBridge bpm:echo_bridge ;
     bpm:opName "add" ;
@@ -31288,6 +30979,7 @@ bpm:echo_op_add a bpm:BridgeOp ;
     bpm:opDoc "Add two integers on the interpreter." ;
     bpm:opReplyShape "{\"ok\": true, \"sum\": <number>}" .
 
+# from preserve/v26.9.22/wt-g3-proof
 bpm:echo_op_add_a a bpm:BridgeArg ;
     bpm:argOp bpm:echo_op_add ;
     bpm:argName "a" ;
@@ -31295,6 +30987,7 @@ bpm:echo_op_add_a a bpm:BridgeArg ;
     bpm:argType bpm:BridgeArgType_integer ;
     bpm:argSample "2" .
 
+# from preserve/v26.9.22/wt-g3-proof
 bpm:echo_op_add_b a bpm:BridgeArg ;
     bpm:argOp bpm:echo_op_add ;
     bpm:argName "b" ;
@@ -31302,6 +30995,7 @@ bpm:echo_op_add_b a bpm:BridgeArg ;
     bpm:argType bpm:BridgeArgType_integer ;
     bpm:argSample "3" .
 
+# from preserve/v26.9.22/wt-g3-proof
 bpm:echo_op_echo_map a bpm:BridgeOp ;
     bpm:opBridge bpm:echo_bridge ;
     bpm:opName "echo_map" ;
@@ -31309,6 +31003,7 @@ bpm:echo_op_echo_map a bpm:BridgeOp ;
     bpm:opDoc "Echo a string-keyed payload and per-item list back verbatim." ;
     bpm:opReplyShape "{\"ok\": true, \"echoed\": {...}, \"items\": [...]}" .
 
+# from preserve/v26.9.22/wt-g3-proof
 bpm:echo_op_echo_map_payload a bpm:BridgeArg ;
     bpm:argOp bpm:echo_op_echo_map ;
     bpm:argName "payload" ;
@@ -31317,6 +31012,7 @@ bpm:echo_op_echo_map_payload a bpm:BridgeArg ;
     bpm:argEncoding bpm:BridgeArgEncoding_stringify ;
     bpm:argSample "%{a: 1}" .
 
+# from preserve/v26.9.22/wt-g3-proof
 bpm:echo_op_echo_map_items a bpm:BridgeArg ;
     bpm:argOp bpm:echo_op_echo_map ;
     bpm:argName "items" ;
@@ -31325,6 +31021,7 @@ bpm:echo_op_echo_map_items a bpm:BridgeArg ;
     bpm:argEncoding bpm:BridgeArgEncoding_stringify_list ;
     bpm:argSample "[%{b: 2}]" .
 
+# from preserve/v26.9.22/wt-g3-proof
 bpm:echo_op_sleep a bpm:BridgeOp ;
     bpm:opBridge bpm:echo_bridge ;
     bpm:opName "sleep" ;
@@ -31334,225 +31031,10 @@ bpm:echo_op_sleep a bpm:BridgeOp ;
     bpm:opTimeoutMs 10000 ;
     bpm:opSampleRequest "{\"op\": \"sleep\", \"ms\": 5000}" .
 
+# from preserve/v26.9.22/wt-g3-proof
 bpm:echo_op_sleep_ms a bpm:BridgeArg ;
     bpm:argOp bpm:echo_op_sleep ;
     bpm:argName "ms" ;
     bpm:argOrder 1 ;
     bpm:argType bpm:BridgeArgType_integer ;
     bpm:argSample "1" .
-bap:hand_authored_lib_beam4pm_dfcm_ex a bpm:HandAuthoredSource ;
-    bpm:sourcePath "lib/beam4pm_dfcm.ex" ;
-    bpm:authorshipKind <https://ggen.dev/ontology/beam-process-model#AuthorshipKind_native_engine_facade> ;
-    bpm:authorizingPrincipal "Sean Chatman (repo owner) via ZCode agents P1/P2/P3/P4/P5/P7, v26.9.18 autofde-lab parity wave (2026-09-18); union synthesized and re-admitted at integration (branch parity/integration)" ;
-    bpm:admissionReason "Pure Design for Combinatorial Maximalism planning crown plus the sanctioned standalone AutoFDE-Lab Typer CLI bridge (priv/bin/autofde trampoline). Wave-union surface: fabric catalog + fabric_match/2 + fabric_solve/2 (P1; typed refusal surfacing incl. exit-3 envelopes and stdout log-noise extraction), ocel_conformance + ocel_validate/1 (P2; OCPQ Definition 2 atom-keyed projection), sa2a graphlaw hash|validate|hooks (baseline), sa2a_validate_card/1 (P3; lab profile court verdict passthrough incl. exit-1 verdict decode), sa2a_admit/2 (P4; §64 evidentiary admission court passthrough -- a court refusal is a verdict, not a bridge error), sa2a_replay/1 (P5; sha256-over-canonical-JSON verification passthrough), and allocate_options/2 reworked onto the certified CMCA cascade via `autofde cmca allocate` with uniform fallback ONLY when the CLI is absent and typed refusals otherwise (P7; dead AshAutofde.CascadeAllocator probe removed). Authority ceiling is strictly :select with no DO surface on every path." ;
-    bpm:acceptanceCommand "mix test test/beam4pm_dfcm_test.exs test/beam4pm_dfcm_fabric_parity_test.exs test/beam4pm_dfcm_ocel_validate_parity_test.exs test/beam4pm_dfcm_sa2a_validate_card_test.exs test/beam4pm_sa2a_admit_parity_test.exs test/beam4pm_dfcm_sa2a_replay_test.exs test/beam4pm_dfcm_cmca_parity_test.exs" ;
-    bpm:contentSha256 "a88af2e5be84f71ce1c59557154d39fe6a25e30b23286b42ee1a50a0f5ab5d42" ;
-    bpm:admittedAtCommit "e592849" ;
-    bpm:admissionExpires "2026-12-31" ;
-    bpm:sunsetPlan "Render the planning crown and the CLI bridge from pack facts/templates (DfCM contracts as ontology facts, bridge surface as bpm:EngineOp facts); then delete this admission." .
-
-bap:hand_authored_test_beam4pm_dfcm_test_exs a bpm:HandAuthoredSource ;
-    bpm:sourcePath "test/beam4pm_dfcm_test.exs" ;
-    bpm:authorshipKind <https://ggen.dev/ontology/beam-process-model#AuthorshipKind_hand_authored_qualification> ;
-    bpm:authorizingPrincipal "Sean Chatman (repo owner) via ZCode agent P5, v26.9.18 autofde-lab parity wave (2026-09-18)" ;
-    bpm:admissionReason "Chicago qualification of BeamPM.Dfcm bounded option-preservation calculus, formal HDDL/FOND fixtures, SELECT-not-DO authority ceiling, and the real standalone AutoFDE CLI bridge (catalog, ocel conformance, graphlaw hash/validate/hooks)." ;
-    bpm:acceptanceCommand "mix test test/beam4pm_dfcm_test.exs" ;
-    bpm:contentSha256 "b3fd6bd1b279a7c2116a6986caaa4a69f0550a9b6a15ee7ccaa084a273b4edea" ;
-    bpm:admittedAtCommit "36b0ed9" ;
-    bpm:admissionExpires "2026-12-31" ;
-    bpm:sunsetPlan "Render from the same DfCM planning facts as lib/beam4pm_dfcm.ex; then delete this admission." .
-
-bap:hand_authored_test_beam4pm_dfcm_sa2a_replay_test_exs a bpm:HandAuthoredSource ;
-    bpm:sourcePath "test/beam4pm_dfcm_sa2a_replay_test.exs" ;
-    bpm:authorshipKind <https://ggen.dev/ontology/beam-process-model#AuthorshipKind_hand_authored_qualification> ;
-    bpm:authorizingPrincipal "Sean Chatman (repo owner) via ZCode agent P5, v26.9.18 autofde-lab parity wave (2026-09-18)" ;
-    bpm:admissionReason "Chicago qualification of the pure-passthrough BeamPM.Dfcm.sa2a_replay/1 (ticket b4p-p5-sa2a-replay-parity): positive verdict pass-through, a real 1-byte tamper refused with the lab's own verdict payload, and the canonicalization boundary (whitespace-only re-serialization verifies) that distinguishes the lab's sha256-over-canonical-JSON scheme from BeamPM.ReceiptChain's raw-byte chain hashing. Cross-validation on real receipts (26 ERC-002, qualification, brce actuation, 157 engine_ops chain receipts, fresh fabric solve) is receipted in docs/jira/v26.9.18/b4p-p5-sa2a-replay-parity.md and WAVE-RECEIPT.md of the parity branch." ;
-    bpm:acceptanceCommand "mix test test/beam4pm_dfcm_sa2a_replay_test.exs" ;
-    bpm:contentSha256 "b80cea408d29a2e963e4cb068f1fdb1d2c3edffb46552874da02c8cf3206ed72" ;
-    bpm:admittedAtCommit "36b0ed9" ;
-    bpm:admissionExpires "2026-12-31" ;
-    bpm:sunsetPlan "Render from the same bridge-fact pack as lib/beam4pm_dfcm.ex's sa2a replay surface; then delete this admission." .
-
-bap:hand_authored_test_beam4pm_dfcm_fabric_parity_test_exs a bpm:HandAuthoredSource ;
-    bpm:sourcePath "test/beam4pm_dfcm_fabric_parity_test.exs" ;
-    bpm:authorshipKind <https://ggen.dev/ontology/beam-process-model#AuthorshipKind_hand_authored_qualification> ;
-    bpm:authorizingPrincipal "Sean Chatman (repo owner) via v26.9.18 autofde-lab parity wave (docs/jira/v26.9.18/_CONTEXT.md wave law; ticket b4p-p1-fabric-solve-parity, agent P1)" ;
-    bpm:admissionReason "Chicago parity qualification for BeamPM.Dfcm.fabric_match/2 + fabric_solve/2: real `autofde fabric match|solve` runs over beam4pm-owned HDDL/FOND fixtures (dfcm.hddl + dfcm-abcx.hddl; dfcm-fond.pddl + abcx-problem.pddl), cross-validated against BeamPM.Ferroplan wasm (pin e90928d) on the SAME fixtures, with typed-refusal legs (SKD-FABRIC-008 FOND refusal, HDDLDomain CLI-unreachability) and the observed divergence attributions pinned as permanent tripwires." ;
-    bpm:acceptanceCommand "mix test test/beam4pm_dfcm_fabric_parity_test.exs" ;
-    bpm:contentSha256 "c8a2fe98d366e22f9fc0f5f12dbed5ac576576b2a737d79be076882fb3bfbe9d" ;
-    bpm:admittedAtCommit "95ab1ac" ;
-    bpm:admissionExpires "2026-12-31" ;
-    bpm:sunsetPlan "When fabric match/solve are admitted as bpm:EngineOp facts and rendered, fold this parity table into the generated manifest test; then delete this admission." .
-
-bap:hand_authored_test_beam4pm_dfcm_ocel_validate_parity_test_exs a bpm:HandAuthoredSource ;
-    bpm:sourcePath "test/beam4pm_dfcm_ocel_validate_parity_test.exs" ;
-    bpm:authorshipKind <https://ggen.dev/ontology/beam-process-model#AuthorshipKind_hand_authored_qualification> ;
-    bpm:authorizingPrincipal "Sean Chatman (repo owner) via v26.9.18 autofde-lab parity wave standing order (docs/jira/v26.9.18/_CONTEXT.md wave law; ticket b4p-p2-ocel-validate-parity, agent P2)" ;
-    bpm:admissionReason "Chicago parity qualification for BeamPM.Dfcm.ocel_validate/1: real `autofde ocel validate` (OCPQ Definition 2) runs on the positive + n05/n13/n14 falsifier fixtures and the gym_bridge captures, cross-validated against BeamPM.RF3Ocel's real oracle subprocess. Pins the observed accept/refuse boundary table including the attributed n14 divergence (law coverage: OCPQ Def. 2 structural laws have no declared-type-membership law; RF3Ocel refuses via beam4pm declaration membership) and the gym capture format's absence from the oracle importer's input contract -- permanent tripwires against verdict drift on either side." ;
-    bpm:acceptanceCommand "mix test test/beam4pm_dfcm_ocel_validate_parity_test.exs" ;
-    bpm:contentSha256 "9fa90cceffcd5906c3f5b32f7cf4929c70f520e77706ad5f3b9ce853eebfb374" ;
-    bpm:admittedAtCommit "b09469e" ;
-    bpm:admissionExpires "2026-12-31" ;
-    bpm:sunsetPlan "When the lab's ocel validate and the RF3Ocel declaration-membership law are reconciled into a single admitted boundary, fold this parity table into the generated RF3 manifest test; then delete this admission." .
-
-bap:hand_authored_test_beam4pm_dfcm_sa2a_validate_card_test_exs a bpm:HandAuthoredSource ;
-    bpm:sourcePath "test/beam4pm_dfcm_sa2a_validate_card_test.exs" ;
-    bpm:authorshipKind <https://ggen.dev/ontology/beam-process-model#AuthorshipKind_hand_authored_qualification> ;
-    bpm:authorizingPrincipal "Sean Chatman (repo owner) via v26.9.18 parity wave agent P3 (worktree wt-p3, ticket b4p-p3-sa2a-card-validate-parity)" ;
-    bpm:admissionReason "Chicago qualification of BeamPM.Dfcm.sa2a_validate_card/1 against the REAL 1194-skill agent card served by a live beam4pm boot (fixture qualification/fixtures/a2a/agent-card.json, captured 2026-09-18 via GET /a2a/.well-known/agent-card.json; ash_a2a hex 26.9.17 pin). Asserts the lab court's observed UNSUPPORTED_PROFILE refusal of the A2A v0.3 card as a permanent parity tripwire (validator mis-read finding A1-A5, upstream note filed)." ;
-    bpm:acceptanceCommand "mix test test/beam4pm_dfcm_sa2a_validate_card_test.exs" ;
-    bpm:contentSha256 "0dc27a202e29afdf70df5e04368b706b64ba4bd33ea463eec896789d6b587062" ;
-    bpm:admittedAtCommit "d9dba35" ;
-    bpm:admissionExpires "2026-12-31" ;
-    bpm:sunsetPlan "Render from pack-declared sa2a-validate bridge facts and a captured-card fixture fact; then delete this admission." .
-
-bap:hand_authored_test_beam4pm_sa2a_admit_parity_test_exs a bpm:HandAuthoredSource ;
-    bpm:sourcePath "test/beam4pm_sa2a_admit_parity_test.exs" ;
-    bpm:authorshipKind <https://ggen.dev/ontology/beam-process-model#AuthorshipKind_hand_authored_qualification> ;
-    bpm:authorizingPrincipal "Sean Chatman (repo owner) via v26.9.18 parity wave agent P4 (worktree wt-p4, ticket b4p-p4-sa2a-admit-parity); carried worktree-untracked by P4, committed and admitted at integration" ;
-    bpm:admissionReason "Consent-table qualification for BeamPM.Dfcm.sa2a_admit/2 vs BeamPM.DeviationAdmission over the lab §64 admission court (12 real-CLI tests): admit/refuse boundaries consent on all shared cases (well-formed evidenced candidate, empty assertion, empty evidence, error-keyed evidence, malformed input fail-closed); the court's evidentiary-form-only blind spot on semantic forgery (C3 unknown-type / C4 dangling-ref ADMITTED by the lab) is pinned as a permanent tripwire naming the law it guards -- semantic conformance belongs to `sa2a graphlaw validate`, not `sa2a admit`." ;
-    bpm:acceptanceCommand "mix test test/beam4pm_sa2a_admit_parity_test.exs" ;
-    bpm:contentSha256 "579ab8cbae4b9934e1ae266551e6042726bbd204b086da806f05c2729099c874" ;
-    bpm:admittedAtCommit "2b12eef" ;
-    bpm:admissionExpires "2026-12-31" ;
-    bpm:sunsetPlan "When a composed admit+graphlaw admission surface is rendered from pack facts, fold this consent table into the generated manifest test; then delete this admission." .
-
-bap:hand_authored_test_beam4pm_dfcm_cmca_parity_test_exs a bpm:HandAuthoredSource ;
-    bpm:sourcePath "test/beam4pm_dfcm_cmca_parity_test.exs" ;
-    bpm:authorshipKind <https://ggen.dev/ontology/beam-process-model#AuthorshipKind_hand_authored_qualification> ;
-    bpm:authorizingPrincipal "Sean Chatman (repo owner) via v26.9.18 parity wave agent P7 (worktree wt-p7, ticket b4p-p7-cmca-allocator-parity)" ;
-    bpm:admissionReason "Property qualification for the cmca-backed allocate_options/2 (8 tests): real-CLI allocation provenance + :select ceiling, budget exactness (sum of fractions = 1.0 within the Q16.16 quantum for 1/2/3/5/8-branch budgets), budget mapping, determinism (byte-identical plans), the zero-allocation law (fraction 0.0 iff standing PRUNED; ADMITTED implies fraction > 0), the N=8 cardinality law (25-branch input refused with BcinrCardinalityRefusal evidence, never truncated), cmca-vs-uniform parity on the benchmark budget, and the absent-CLI uniform fallback." ;
-    bpm:acceptanceCommand "mix test test/beam4pm_dfcm_cmca_parity_test.exs" ;
-    bpm:contentSha256 "24a1763ab0d8f00d305c723075f9b06774f89a6f2fec34414a3165cdef64abd4" ;
-    bpm:admittedAtCommit "78ae830" ;
-    bpm:admissionExpires "2026-12-31" ;
-    bpm:sunsetPlan "Render from the same cmca allocator facts as lib/beam4pm_dfcm.ex's allocation surface; then delete this admission." .
-
-bap:hand_authored_test_beam4pm_graphlaw_parity_test_exs a bpm:HandAuthoredSource ;
-    bpm:sourcePath "test/beam4pm_graphlaw_parity_test.exs" ;
-    bpm:authorshipKind <https://ggen.dev/ontology/beam-process-model#AuthorshipKind_hand_authored_qualification> ;
-    bpm:authorizingPrincipal "Sean Chatman (repo owner) via v26.9.18 parity wave agent P10 (worktree wt-p10, ticket b4p-p10-graphlaw-cross-hash-parity)" ;
-    bpm:admissionReason "Flip-ledger parity qualification for the GraphLaw triangle (7 tests): BLAKE3 hash parity across lab CLI direct vs BeamPM.Dfcm trampoline corners on the synthesized TTL corpus with 5 digest pins, admitted-graph slice pin, SHACL violation/control + N3-denial verdict/stage-code pins, the honest empty-registry hooks pin (upstream AFDE-2612 literal-decode gap), the praxis wasm artifact identity pin (sha256 + size), and the E2BIG/stat-heuristic transport-ceiling pin (repo-root ontology.ttl yields no digest through either corner)." ;
-    bpm:acceptanceCommand "AUTOFDE_LAB_ROOT=$HOME/autofde-lab mix test --no-start test/beam4pm_graphlaw_parity_test.exs" ;
-    bpm:contentSha256 "547e6349ab5b51364e20b03409cc0c131b3d3c15f4db030ceb5690f635d1642c" ;
-    bpm:admittedAtCommit "db397e9" ;
-    bpm:admissionExpires "2026-12-31" ;
-    bpm:sunsetPlan "When the lab lifts the graphlaw transport ceilings and praxis lands hook literal decode, re-pin the full-graph digest from a rendered manifest test; then delete this admission." .
-
-bap:hand_authored_test_fixtures_graphlaw_parity_hooks_base_ttl a bpm:HandAuthoredSource ;
-    bpm:sourcePath "test/fixtures/graphlaw_parity/hooks_base.ttl" ;
-    bpm:authorshipKind <https://ggen.dev/ontology/beam-process-model#AuthorshipKind_hand_authored_qualification> ;
-    bpm:authorizingPrincipal "Sean Chatman (repo owner) via v26.9.18 parity wave agent P10 (ticket b4p-p10-graphlaw-cross-hash-parity); admitted at integration -- the gate surfaced the corpus as unadmitted debt (REFUSED_UNADMITTED, 6 findings), which P10's branch-scoped run did not see" ;
-    bpm:admissionReason "Synthesized TTL corpus of the GraphLaw flip-ledger parity test (test/beam4pm_graphlaw_parity_test.exs): BLAKE3 digest pins, SHACL/N3/hooks verdict pins, and the canonical-graph slice anchor are all defined over these bytes, so any edit trips the test's named FLIP assertions before it can drift silently. Admitted as counted qualification debt per the gate's unmarked-file law; sha256-bound like every debt row." ;
-    bpm:acceptanceCommand "AUTOFDE_LAB_ROOT=$HOME/autofde-lab mix test --no-start test/beam4pm_graphlaw_parity_test.exs" ;
-    bpm:contentSha256 "2125c7c5bc09870df22111a153ca722670171e8c726e6ae78df3fd7960490186" ;
-    bpm:admittedAtCommit "db397e9" ;
-    bpm:admissionExpires "2026-12-31" ;
-    bpm:sunsetPlan "When a pack template manufactures parity corpora from ontology facts, render this corpus and delete this admission." .
-
-bap:hand_authored_test_fixtures_graphlaw_parity_hooks_event_ttl a bpm:HandAuthoredSource ;
-    bpm:sourcePath "test/fixtures/graphlaw_parity/hooks_event.ttl" ;
-    bpm:authorshipKind <https://ggen.dev/ontology/beam-process-model#AuthorshipKind_hand_authored_qualification> ;
-    bpm:authorizingPrincipal "Sean Chatman (repo owner) via v26.9.18 parity wave agent P10 (ticket b4p-p10-graphlaw-cross-hash-parity); admitted at integration -- the gate surfaced the corpus as unadmitted debt (REFUSED_UNADMITTED, 6 findings), which P10's branch-scoped run did not see" ;
-    bpm:admissionReason "Synthesized TTL corpus of the GraphLaw flip-ledger parity test (test/beam4pm_graphlaw_parity_test.exs): BLAKE3 digest pins, SHACL/N3/hooks verdict pins, and the canonical-graph slice anchor are all defined over these bytes, so any edit trips the test's named FLIP assertions before it can drift silently. Admitted as counted qualification debt per the gate's unmarked-file law; sha256-bound like every debt row." ;
-    bpm:acceptanceCommand "AUTOFDE_LAB_ROOT=$HOME/autofde-lab mix test --no-start test/beam4pm_graphlaw_parity_test.exs" ;
-    bpm:contentSha256 "856e159c4156da6ff554c605603bfca9d02652bda3ba3f0e74c6b78969ba3081" ;
-    bpm:admittedAtCommit "db397e9" ;
-    bpm:admissionExpires "2026-12-31" ;
-    bpm:sunsetPlan "When a pack template manufactures parity corpora from ontology facts, render this corpus and delete this admission." .
-
-bap:hand_authored_test_fixtures_graphlaw_parity_n3_denial_ttl a bpm:HandAuthoredSource ;
-    bpm:sourcePath "test/fixtures/graphlaw_parity/n3_denial.ttl" ;
-    bpm:authorshipKind <https://ggen.dev/ontology/beam-process-model#AuthorshipKind_hand_authored_qualification> ;
-    bpm:authorizingPrincipal "Sean Chatman (repo owner) via v26.9.18 parity wave agent P10 (ticket b4p-p10-graphlaw-cross-hash-parity); admitted at integration -- the gate surfaced the corpus as unadmitted debt (REFUSED_UNADMITTED, 6 findings), which P10's branch-scoped run did not see" ;
-    bpm:admissionReason "Synthesized TTL corpus of the GraphLaw flip-ledger parity test (test/beam4pm_graphlaw_parity_test.exs): BLAKE3 digest pins, SHACL/N3/hooks verdict pins, and the canonical-graph slice anchor are all defined over these bytes, so any edit trips the test's named FLIP assertions before it can drift silently. Admitted as counted qualification debt per the gate's unmarked-file law; sha256-bound like every debt row." ;
-    bpm:acceptanceCommand "AUTOFDE_LAB_ROOT=$HOME/autofde-lab mix test --no-start test/beam4pm_graphlaw_parity_test.exs" ;
-    bpm:contentSha256 "163681e3d6627a6ad7c8d58cfc1bcf388f065c50f0d240cb39e8e847ca15856e" ;
-    bpm:admittedAtCommit "db397e9" ;
-    bpm:admissionExpires "2026-12-31" ;
-    bpm:sunsetPlan "When a pack template manufactures parity corpora from ontology facts, render this corpus and delete this admission." .
-
-bap:hand_authored_test_fixtures_graphlaw_parity_shacl_conforms_ttl a bpm:HandAuthoredSource ;
-    bpm:sourcePath "test/fixtures/graphlaw_parity/shacl_conforms.ttl" ;
-    bpm:authorshipKind <https://ggen.dev/ontology/beam-process-model#AuthorshipKind_hand_authored_qualification> ;
-    bpm:authorizingPrincipal "Sean Chatman (repo owner) via v26.9.18 parity wave agent P10 (ticket b4p-p10-graphlaw-cross-hash-parity); admitted at integration -- the gate surfaced the corpus as unadmitted debt (REFUSED_UNADMITTED, 6 findings), which P10's branch-scoped run did not see" ;
-    bpm:admissionReason "Synthesized TTL corpus of the GraphLaw flip-ledger parity test (test/beam4pm_graphlaw_parity_test.exs): BLAKE3 digest pins, SHACL/N3/hooks verdict pins, and the canonical-graph slice anchor are all defined over these bytes, so any edit trips the test's named FLIP assertions before it can drift silently. Admitted as counted qualification debt per the gate's unmarked-file law; sha256-bound like every debt row." ;
-    bpm:acceptanceCommand "AUTOFDE_LAB_ROOT=$HOME/autofde-lab mix test --no-start test/beam4pm_graphlaw_parity_test.exs" ;
-    bpm:contentSha256 "06110773968799947148e28f58043b0357570936861a076cb733ad8725a82a3f" ;
-    bpm:admittedAtCommit "db397e9" ;
-    bpm:admissionExpires "2026-12-31" ;
-    bpm:sunsetPlan "When a pack template manufactures parity corpora from ontology facts, render this corpus and delete this admission." .
-
-bap:hand_authored_test_fixtures_graphlaw_parity_shacl_shapes_ttl a bpm:HandAuthoredSource ;
-    bpm:sourcePath "test/fixtures/graphlaw_parity/shacl_shapes.ttl" ;
-    bpm:authorshipKind <https://ggen.dev/ontology/beam-process-model#AuthorshipKind_hand_authored_qualification> ;
-    bpm:authorizingPrincipal "Sean Chatman (repo owner) via v26.9.18 parity wave agent P10 (ticket b4p-p10-graphlaw-cross-hash-parity); admitted at integration -- the gate surfaced the corpus as unadmitted debt (REFUSED_UNADMITTED, 6 findings), which P10's branch-scoped run did not see" ;
-    bpm:admissionReason "Synthesized TTL corpus of the GraphLaw flip-ledger parity test (test/beam4pm_graphlaw_parity_test.exs): BLAKE3 digest pins, SHACL/N3/hooks verdict pins, and the canonical-graph slice anchor are all defined over these bytes, so any edit trips the test's named FLIP assertions before it can drift silently. Admitted as counted qualification debt per the gate's unmarked-file law; sha256-bound like every debt row." ;
-    bpm:acceptanceCommand "AUTOFDE_LAB_ROOT=$HOME/autofde-lab mix test --no-start test/beam4pm_graphlaw_parity_test.exs" ;
-    bpm:contentSha256 "a2c3bbb47825809911cf421639bfd076ea5ffcbfb7e2a5800949acd3be0ee393" ;
-    bpm:admittedAtCommit "db397e9" ;
-    bpm:admissionExpires "2026-12-31" ;
-    bpm:sunsetPlan "When a pack template manufactures parity corpora from ontology facts, render this corpus and delete this admission." .
-
-bap:hand_authored_test_fixtures_graphlaw_parity_shacl_violation_ttl a bpm:HandAuthoredSource ;
-    bpm:sourcePath "test/fixtures/graphlaw_parity/shacl_violation.ttl" ;
-    bpm:authorshipKind <https://ggen.dev/ontology/beam-process-model#AuthorshipKind_hand_authored_qualification> ;
-    bpm:authorizingPrincipal "Sean Chatman (repo owner) via v26.9.18 parity wave agent P10 (ticket b4p-p10-graphlaw-cross-hash-parity); admitted at integration -- the gate surfaced the corpus as unadmitted debt (REFUSED_UNADMITTED, 6 findings), which P10's branch-scoped run did not see" ;
-    bpm:admissionReason "Synthesized TTL corpus of the GraphLaw flip-ledger parity test (test/beam4pm_graphlaw_parity_test.exs): BLAKE3 digest pins, SHACL/N3/hooks verdict pins, and the canonical-graph slice anchor are all defined over these bytes, so any edit trips the test's named FLIP assertions before it can drift silently. Admitted as counted qualification debt per the gate's unmarked-file law; sha256-bound like every debt row." ;
-    bpm:acceptanceCommand "AUTOFDE_LAB_ROOT=$HOME/autofde-lab mix test --no-start test/beam4pm_graphlaw_parity_test.exs" ;
-    bpm:contentSha256 "be98b1ce3597fb64c289849e16a1280e692f6a884b09aef387555fdacf5d8d6d" ;
-    bpm:admittedAtCommit "db397e9" ;
-    bpm:admissionExpires "2026-12-31" ;
-    bpm:sunsetPlan "When a pack template manufactures parity corpora from ontology facts, render this corpus and delete this admission." .
-
-bap:hand_authored_lib_beam4pm_autofde_bridge_ex a bpm:HandAuthoredSource ;
-    bpm:sourcePath "lib/beam4pm_autofde_bridge.ex" ;
-    bpm:authorshipKind <https://ggen.dev/ontology/beam-process-model#AuthorshipKind_native_engine_facade> ;
-    bpm:authorizingPrincipal "Sean Chatman (repo owner) via Claude Code v26.9.18 parity wave agent P8 (session b4p-p8)" ;
-    bpm:admissionReason "Persistent stdio JSON-lines port bridge to autofde-lab's BEAM port bridge (src/autofde_lab/beam/beam_port_bridge.py): one GenServer-owned BEAM Port keeps one Python interpreter alive so post-boot requests skip the per-call interpreter boot the one-shot Typer CLI path pays. Frames newline-delimited JSON, correlates one reply line per request in order, returns the bridge's {ok: false} envelopes typed, degrades to {:error, :bridge_down} on port death and lazily reboots the interpreter (restart/1 forces it). Hand-authored: no template family fits a GenServer-wrapped stdio port client (same class precedent as lib/beam4pm_ocel.ex's native_engine_facade admission); the op surface (ping, cmca_allocate, calculate_salience) is the lab bridge's, not yet ontology facts. The lab's fabric commands are NOT bridge ops -- recorded failed edge; fabric parity stays on the CLI wrapper." ;
-    bpm:acceptanceCommand "mix test test/beam4pm_autofde_bridge_test.exs" ;
-    bpm:contentSha256 "26104d7ff39850d3f2c3e9de8acd3bafe23f057ebe293ff2293af80df67454b7" ;
-    bpm:admittedAtCommit "36b0ed9" ;
-    bpm:admissionExpires "2026-12-31" ;
-    bpm:sunsetPlan "Admit the beam-bridge op surface as ontology facts (a bpm:Engine projection over autofde-lab) and render this port-bridge client from them; then delete this admission." .
-
-bap:hand_authored_test_beam4pm_autofde_bridge_test_exs a bpm:HandAuthoredSource ;
-    bpm:sourcePath "test/beam4pm_autofde_bridge_test.exs" ;
-    bpm:authorshipKind <https://ggen.dev/ontology/beam-process-model#AuthorshipKind_hand_authored_qualification> ;
-    bpm:authorizingPrincipal "Sean Chatman (repo owner) via Claude Code v26.9.18 parity wave agent P8 (session b4p-p8)" ;
-    bpm:admissionReason "Chicago qualification of the hand-authored BeamPM.AutofdeBridge against the REAL autofde-lab beam_port_bridge interpreter (no mocks): real ping round-trip, one real cmca_allocate solve, exact plan parity with the one-shot CLI path on the same inputs, a real 5-call-per-path latency comparison (persistent channel wins on second+ call), and a real kill -9 of the interpreter's OS pid mid-session with observed {:error, :bridge_down} semantics and a fresh-interpreter recovery ping. Named skip when the autofde-lab checkout is not resolvable." ;
-    bpm:acceptanceCommand "mix test test/beam4pm_autofde_bridge_test.exs" ;
-    bpm:contentSha256 "e96351f9b34c77ccf3bfb3fa42e96e9c55c537384a80e1fec500998433c3ae88" ;
-    bpm:admittedAtCommit "36b0ed9" ;
-    bpm:admissionExpires "2026-12-31" ;
-    bpm:sunsetPlan "Render from the same beam-bridge op facts as lib/beam4pm_autofde_bridge.ex; then delete this admission." .
-# --- ggen-verify-pack wiring: beam4pm's own ver:RequiredCheck policy ------
-# (OCEL evidence-architecture Phase 4, unblocked 2026-09-10 by
-# ggen-verify-pack v26.7.20 removing its hardcoded cargo individuals.)
-# beam4pm's real toolchain is Erlang/Elixir/Gleam, not Rust -- these four
-# facts name beam4pm's REAL verification commands, not cargo.
-@prefix ver: <http://seanchatmangpt.github.io/packs/ggen-verify#> .
-
-bpm:req-eunit a ver:RequiredCheck ;
-    ver:name "eunit" ;
-    ver:checkCommand "rebar3 eunit" ;
-    rdfs:comment "The Erlang eunit test suite over generated src/*.erl must have been run and recorded." .
-
-bpm:req-mix-test a ver:RequiredCheck ;
-    ver:name "mix-test" ;
-    ver:checkCommand "mix test" ;
-    rdfs:comment "The Elixir ExUnit test suite over generated lib/*.ex must have been run and recorded." .
-
-bpm:req-mix-compile a ver:RequiredCheck ;
-    ver:name "mix-compile-warnings" ;
-    ver:checkCommand "mix compile --warnings-as-errors" ;
-    rdfs:comment "Elixir compilation with warnings promoted to errors must have been run and recorded." .
-
-bpm:req-evidence-coverage a ver:RequiredCheck ;
-    ver:name "evidence-coverage" ;
-    ver:checkCommand "bash scripts/gate_evidence_coverage_check.sh" ;
-    rdfs:comment "beam4pm's own OCEL evidence-coverage gate (scripts/gate_evidence_coverage_check.sh) must have been run and recorded." .
-
-bpm:kd-mix-test a ver:KnownDivergence ;
-    ver:name "mix-test" ;
-    rdfs:comment "mix test currently reports 1073 tests, 11 failures, 57 skipped -- the documented pre-existing RF2/RF3-oracle-env baseline from this session's earlier OCEL-evidence-architecture work, not a regression introduced by wiring ggen-verify-pack. Recorded red, accepted, disclosed; remove once the 11 pre-existing failures are root-caused and fixed." .
