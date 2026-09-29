@@ -17,10 +17,7 @@ imports = [
 ]
 
 [packs]
-# g2 parity-qualification wave PROOF wiring (UNCOMMITTED): point the process
-# model pack at the g2 authoring worktree (pack/parity-qualification,
-# beam4pm-process-model-pack v0.1.20) instead of the vendored submodule.
-beam4pm-process-model = { path = "/Users/sac/ggen-marketplace-wt/g2/packs/beam4pm-process-model-pack" }
+beam4pm-process-model = { path = "vendor/ggen-marketplace/packs/beam4pm-process-model-pack" }
 beam4pm-pro-infra = { path = "vendor/ggen-marketplace/packs/beam4pm-pro-infra-pack" }
 github-actions-pack = { path = "vendor/ggen-marketplace/packs/github-actions-pack" }
 beam4pm-ai-contracts = { path = "vendor/ggen-marketplace/packs/beam4pm-ai-contracts-pack" }
