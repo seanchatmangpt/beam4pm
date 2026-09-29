@@ -176,6 +176,79 @@ defmodule BeamPM.FerroplanTest do
       assert {:error, {:engine, message}} = Ferroplan.hddl_solve(@hddl_domain, @hddl_problem)
       assert message =~ "FP_MODEL"
       assert message =~ "NoPlan"
+    end
+
+    test "hddl_solve/3 reports a structured parse error for malformed HDDL" do
+      assert {:error, {:engine, message}} =
+               Ferroplan.hddl_solve("(define (domain broken", @hddl_problem)
+
+      assert message =~ ~r/"code" => "(FP_PARSE|FP_HDDL_GROUND|FP_HDDL_TRANSLATE)"/
+    end
+  end
+
+  describe "session lifecycle" do
+    test "session_new -> session_think -> session_step/suffix/advance walks a real plan" do
+      assert {:ok, %{"handle" => handle}} = Ferroplan.session_new(@domain, @problem)
+      assert {:ok, sol} = Ferroplan.session_think(handle, 10_000, 64)
+      assert sol["solved"] == true
+
+      assert {:ok, %{"has_plan" => true}} = Ferroplan.session_has_plan?(handle)
+      assert {:ok, %{"valid" => true}} = Ferroplan.session_valid?(handle)
+
+      assert {:ok, step} = Ferroplan.session_step(handle)
+      refute is_nil(step)
+
+      assert {:ok, %{"ok" => true}} = Ferroplan.session_advance(handle)
+      assert {:ok, suffix} = Ferroplan.session_suffix(handle)
+      assert is_list(suffix)
+
+      assert {:ok, %{"freed" => true}} = Ferroplan.session_free(handle)
+    end
+
+    test "session_fork shares the world but keeps independent plan state" do
+      {:ok, %{"handle" => parent}} = Ferroplan.session_new(@domain, @problem)
+      {:ok, _sol} = Ferroplan.session_think(parent, 10_000, 64)
+      assert {:ok, %{"handle" => child}} = Ferroplan.session_fork(parent)
+      refute child == parent
+
+      # The fork starts with no stashed plan of its own.
+      assert {:ok, %{"has_plan" => false}} = Ferroplan.session_has_plan?(child)
+      assert {:ok, %{"has_plan" => true}} = Ferroplan.session_has_plan?(parent)
+    end
+
+    test "session_set_fact / session_fact round-trip a real world mutation" do
+      {:ok, %{"handle" => handle}} = Ferroplan.session_new(@domain, @problem)
+      assert {:ok, %{"ok" => true}} = Ferroplan.session_set_fact(handle, "(at a)", false)
+      assert {:ok, %{"value" => value}} = Ferroplan.session_fact(handle, "(at a)")
+      assert value == false
+    end
+
+    test "session_world_bytes and session_mind_bytes report real positive sizes" do
+      {:ok, %{"handle" => handle}} = Ferroplan.session_new(@domain, @problem)
+      assert {:ok, %{"bytes" => world}} = Ferroplan.session_world_bytes(handle)
+      assert {:ok, %{"bytes" => mind}} = Ferroplan.session_mind_bytes(handle)
+      assert world > 0
+      assert mind >= 0
+    end
+  end
+
+  describe "handle discipline" do
+    test "an unknown session handle is a named engine error, not a crash" do
+      # Case 1: a handle number that was never allocated.
+      assert {:error, {:engine, msg}} = Ferroplan.session_step(999_999)
+      assert msg =~ "unknown session handle"
+
+      # Case 2: a handle that WAS allocated, then freed -- proves the
+      # registry actually removes freed handles rather than leaking them,
+      # hitting the same "unknown session handle" error shape via a
+      # different call path (session_free instead of session_step).
+      {:ok, %{"handle" => handle}} = Ferroplan.session_new(@domain, @problem)
+      assert {:ok, %{"freed" => true}} = Ferroplan.session_free(handle)
+      assert {:error, {:engine, msg2}} = Ferroplan.session_free(handle)
+      assert msg2 =~ "unknown session handle"
+    end
+  end
+
   describe "universal planning ops (htn_plan/3, fond_policy/3)" do
     # Same hierarchy fixture as ferroplan's own
     # crates/ferroplan/tests/planning_runtime.rs::hierarchy_problem() --
@@ -245,69 +318,6 @@ defmodule BeamPM.FerroplanTest do
     test "htn_plan/3 on a malformed problem returns a real adapter error, not a crash" do
       assert {:error, {:engine, message}} = Ferroplan.htn_plan("", "not json")
       assert message =~ "FP_ADAPTER"
-    end
-  end
-
-  describe "session lifecycle" do
-    test "session_new -> session_think -> session_step/suffix/advance walks a real plan" do
-      assert {:ok, %{"handle" => handle}} = Ferroplan.session_new(@domain, @problem)
-      assert {:ok, sol} = Ferroplan.session_think(handle, 10_000, 64)
-      assert sol["solved"] == true
-
-      assert {:ok, %{"has_plan" => true}} = Ferroplan.session_has_plan?(handle)
-      assert {:ok, %{"valid" => true}} = Ferroplan.session_valid?(handle)
-
-      assert {:ok, step} = Ferroplan.session_step(handle)
-      refute is_nil(step)
-
-      assert {:ok, %{"ok" => true}} = Ferroplan.session_advance(handle)
-      assert {:ok, suffix} = Ferroplan.session_suffix(handle)
-      assert is_list(suffix)
-
-      assert {:ok, %{"freed" => true}} = Ferroplan.session_free(handle)
-    end
-
-    test "session_fork shares the world but keeps independent plan state" do
-      {:ok, %{"handle" => parent}} = Ferroplan.session_new(@domain, @problem)
-      {:ok, _sol} = Ferroplan.session_think(parent, 10_000, 64)
-      assert {:ok, %{"handle" => child}} = Ferroplan.session_fork(parent)
-      refute child == parent
-
-      # The fork starts with no stashed plan of its own.
-      assert {:ok, %{"has_plan" => false}} = Ferroplan.session_has_plan?(child)
-      assert {:ok, %{"has_plan" => true}} = Ferroplan.session_has_plan?(parent)
-    end
-
-    test "session_set_fact / session_fact round-trip a real world mutation" do
-      {:ok, %{"handle" => handle}} = Ferroplan.session_new(@domain, @problem)
-      assert {:ok, %{"ok" => true}} = Ferroplan.session_set_fact(handle, "(at a)", false)
-      assert {:ok, %{"value" => value}} = Ferroplan.session_fact(handle, "(at a)")
-      assert value == false
-    end
-
-    test "session_world_bytes and session_mind_bytes report real positive sizes" do
-      {:ok, %{"handle" => handle}} = Ferroplan.session_new(@domain, @problem)
-      assert {:ok, %{"bytes" => world}} = Ferroplan.session_world_bytes(handle)
-      assert {:ok, %{"bytes" => mind}} = Ferroplan.session_mind_bytes(handle)
-      assert world > 0
-      assert mind >= 0
-    end
-  end
-
-  describe "handle discipline" do
-    test "an unknown session handle is a named engine error, not a crash" do
-      # Case 1: a handle number that was never allocated.
-      assert {:error, {:engine, msg}} = Ferroplan.session_step(999_999)
-      assert msg =~ "unknown session handle"
-
-      # Case 2: a handle that WAS allocated, then freed -- proves the
-      # registry actually removes freed handles rather than leaking them,
-      # hitting the same "unknown session handle" error shape via a
-      # different call path (session_free instead of session_step).
-      {:ok, %{"handle" => handle}} = Ferroplan.session_new(@domain, @problem)
-      assert {:ok, %{"freed" => true}} = Ferroplan.session_free(handle)
-      assert {:error, {:engine, msg2}} = Ferroplan.session_free(handle)
-      assert msg2 =~ "unknown session handle"
     end
   end
 end
