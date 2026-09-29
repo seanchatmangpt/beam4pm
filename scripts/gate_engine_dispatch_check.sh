@@ -25,6 +25,11 @@
 #   REFUSED_ENGINE_NOT_DISPATCHED  an engine whose dispatch source has zero arms
 #                               (wrong bpm:dispatchSource path or crate shape)
 # Reported, not refused:
+#   DISPATCH_SOURCE_EXTERNAL    the engine's bpm:dispatchSource uses the admitted
+#                               `crate:<crate>:<path>` scheme: its dispatch source is a
+#                               PUBLISHED crate (graphlaw), not a repo-relative file, so
+#                               the arms cannot be joined here. UNVERIFIED -- counted
+#                               separately, never counted as checked, never a pass.
 #   DISPATCH_SOURCE_ABSENT      the crate source is not on disk (e.g. a git
 #                               submodule not initialised) -- BLOCKED, not a pass
 #   UNEXPOSED_DISPATCH_ARM      a crate arm no fact exposes (scope control: this
@@ -137,11 +142,19 @@ echo "manifest: $rows_n ops across $engines_n engines"
 
 # --- pass 2: per engine, join the wire rows against the crate's arms -------
 blocked_n=0
+external_n=0
 checked_n=0
 unexposed_n=0
 cut -f1,5 "$ROWS" | sort -u > "$WORK/engines"
 while IFS=$'\t' read -r engine src; do
   [ -n "$engine" ] || continue
+  case "$src" in
+    crate:*)
+      echo "DISPATCH_SOURCE_EXTERNAL: $engine ($src is a published-crate dispatch source, not on disk in this repo -- its arms are UNVERIFIED here, not a pass)"
+      external_n=$((external_n + 1))
+      continue
+      ;;
+  esac
   if [ ! -f "$src" ]; then
     echo "DISPATCH_SOURCE_ABSENT: $engine ($src not on disk -- initialise the submodule / check bpm:dispatchSource; BLOCKED, not a pass)"
     blocked_n=$((blocked_n + 1))
@@ -179,4 +192,8 @@ if [ "$findings_n" -gt 0 ]; then
   exit 1
 fi
 
-echo "GATE ENGINE DISPATCH: PASS -- $checked_n wire ops dispatched across $engines_n engines, $unexposed_n crate arms unexposed (reported), $blocked_n engines blocked on absent sources, 0 findings"
+external_note=""
+if [ "$external_n" -gt 0 ]; then
+  external_note=", $external_n engines with external crate dispatch sources (UNVERIFIED, reported)"
+fi
+echo "GATE ENGINE DISPATCH: PASS -- $checked_n wire ops dispatched across $engines_n engines, $unexposed_n crate arms unexposed (reported), $blocked_n engines blocked on absent sources${external_note}, 0 findings"

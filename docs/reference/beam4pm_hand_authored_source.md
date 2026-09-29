@@ -240,7 +240,7 @@ artifact is absent (`ACCEPTANCE_BLOCKED_PREREQUISITE`).
 
 - Authorizing principal: Sean Chatman (repo owner) via Claude Code session (graphlaw plan admission, v26.9.29)
 - Reason: Chicago qualification against the real graphlaw wasm (and real ferroplan wasm for the router case): plan replay, mid-plan precondition falsifier, byte-identical replay, ReplanRouter admission gate, and the deviation SHACL gate leaving the file byte-identical on refusal. Missing artifacts are named skips.
-- Content sha256 at admission: `af1f19fcc7889e05f14abc9e6878b3a9a0a648955cabbeb3c0d4aba44f3139b7`
+- Content sha256 at admission: `7544ac33932b69c26d520029ac523142f71557fe66d90f7b0b246895caa316e5`
 - Sunset plan: Sunsets with lib/beam4pm_graphlaw.ex's admission.
 
 #### `test/beam4pm_ocel_test.exs`
@@ -428,7 +428,7 @@ artifact is absent (`ACCEPTANCE_BLOCKED_PREREQUISITE`).
 
 - Authorizing principal: Sean Chatman (repo owner) via Claude Code session_018iXTYcpGbgf23MZYLe6TCU
 - Reason: Closes the PPCX conceptual-center gap: admits a real bpm:ProcessDeviation individual into ontology.ttl on disk (a real file mutation, not an in-memory struct) whenever BeamPM.PowlConformance.check_conformance/3 reports conforms: false. Admitted under the native_engine_facade kind for lack of a closer-fitting closed-vocabulary kind (this is not a wasm native-engine facade; it is hand-authored lib/ domain logic not yet templated), same convention as bap:hand_authored_lib_beam4pm_ocel above.
-- Content sha256 at admission: `3e006d84d8fd26716318ccacae650df0b14d83d1dfe081a2e90aaf38c4df99b0`
+- Content sha256 at admission: `4a8f4896b08e957c52ded717586ed61beed1beca85f829c8529963d2a4aec54c`
 - Sunset plan: If bpm:ProcessDeviation is later promoted to a full admitted bpm:RecordType with ggen-generated constructors/codec, migrate BeamPM.DeviationAdmission's write path onto the generated struct + a real generated/hand-written TTL-append helper; then delete this admission.
 
 #### `lib/beam4pm_dfcm.ex`
@@ -470,7 +470,7 @@ artifact is absent (`ACCEPTANCE_BLOCKED_PREREQUISITE`).
 
 - Authorizing principal: Sean Chatman (repo owner) via Claude Code v26.9.26 harden lane beam4pm#91
 - Reason: Hand-authored replanning ladder over the generated BeamPM.Ferroplan facade (ferroplan stays mechanism-only: no session_route op). Pure route/2 orders stale-preimage and policy-digest refusal, malformed/non-atom-key refusal, goal close, unknown-fact strategic recompile, continue, follow_policy (same canonical-JSON equivalence as the admitted policy digest), suffix reuse and a monotone session_replan -> hddl_replan -> strategic_recompile ladder; event-triggered resets are bounded by max_episodes; every decision emits one OCEL event whose time is the validated observed_at (refusals included) so replay is byte-identical. The observe/execute driver classifies host faults off the ladder. Authority NONE, ceiling CONSTRUCT.
-- Content sha256 at admission: `316d8668d271a89d229d48a13cc915ffb7773240d5104fc862fb3bbb737fe2c6`
+- Content sha256 at admission: `a607d43239606555b9cd86d0618390847ad776837701551b6e4021f7c29d1dc8`
 - Sunset plan: Admit the replanning ladder (rungs, ordered checks, refusal vocabulary) as ontology facts and render route/2 from a pack template; then delete this admission.
 
 ### `reference_evidence` (7 file(s), counts as debt: false)

@@ -2,7 +2,7 @@
 # bap:hand_authored_test_graphlaw in ontology.ttl.
 defmodule BeamPM.GraphlawTest do
   @moduledoc """
-  Chicago-style qualification of `BeamPM.Graphlaw`, `BeamPM.PlanAdmission`,
+  Chicago-style qualification of `BeamPM.Graphlaw` (generated host), `BeamPM.GraphlawAdmission`, `BeamPM.PlanAdmission`,
   the deviation SHACL gate and the `ReplanRouter` admission gate against the
   REAL graphlaw wasm module (and the real ferroplan wasm for the router
   case) -- no mocks. A missing artifact is a NAMED SKIP.
@@ -10,7 +10,7 @@ defmodule BeamPM.GraphlawTest do
 
   use ExUnit.Case, async: false
 
-  alias BeamPM.{DeviationAdmission, Ferroplan, Graphlaw, PlanAdmission, ReplanRouter}
+  alias BeamPM.{DeviationAdmission, Ferroplan, Graphlaw, GraphlawAdmission, PlanAdmission, ReplanRouter}
 
   if not BeamPM.Graphlaw.wasm_built?() do
     @moduletag skip: BeamPM.Graphlaw.wasm_missing_reason()
@@ -57,12 +57,12 @@ defmodule BeamPM.GraphlawTest do
     :ok
   end
 
-  describe "BeamPM.Graphlaw.admit_plan/4" do
+  describe "BeamPM.GraphlawAdmission.admit_plan/4" do
     test "a valid plan is admitted with one chained receipt per action" do
       state = [at("A"), link("A", "B"), link("B", "C")]
 
       assert {:ok, %{"receipts" => [r1, r2], "states" => [_, _, final]}} =
-               Graphlaw.admit_plan(state, [go("A", "B"), go("B", "C")], [at("C")])
+               GraphlawAdmission.admit_plan(state, [go("A", "B"), go("B", "C")], [at("C")])
 
       assert r1["step"] == "plan-action"
       assert r1["child"] == r2["parent"]
@@ -73,7 +73,7 @@ defmodule BeamPM.GraphlawTest do
       state = [at("A"), link("A", "B")]
 
       assert {:error, {:refused, refusal}} =
-               Graphlaw.admit_plan(state, [go("A", "B"), go("B", "C")], [at("C")])
+               GraphlawAdmission.admit_plan(state, [go("A", "B"), go("B", "C")], [at("C")])
 
       assert refusal["message"] =~ "plan refused at step 1"
     end
@@ -81,8 +81,8 @@ defmodule BeamPM.GraphlawTest do
     test "replay is byte-identical" do
       state = [at("A"), link("A", "B")]
 
-      assert Graphlaw.admit_plan(state, [go("A", "B")], [at("B")]) ==
-               Graphlaw.admit_plan(state, [go("A", "B")], [at("B")])
+      assert GraphlawAdmission.admit_plan(state, [go("A", "B")], [at("B")]) ==
+               GraphlawAdmission.admit_plan(state, [go("A", "B")], [at("B")])
     end
   end
 
@@ -240,7 +240,7 @@ defmodule BeamPM.GraphlawTest do
 
     test "falsifier: the court refuses a real policy with skewed probability mass" do
       {:ok, synthesized} = Ferroplan.fond_policy("", @retry_loop)
-      assert {:ok, _} = Graphlaw.admit_policy(@retry_loop, synthesized)
+      assert {:ok, _} = GraphlawAdmission.admit_policy(@retry_loop, synthesized)
 
       skewed =
         update_in(
@@ -250,7 +250,7 @@ defmodule BeamPM.GraphlawTest do
         )
 
       assert {:error, {:refused, %{"message" => msg}}} =
-               Graphlaw.admit_policy(@retry_loop, skewed)
+               GraphlawAdmission.admit_policy(@retry_loop, skewed)
 
       assert msg =~ "policy refused (BadMass)"
     end
@@ -259,7 +259,7 @@ defmodule BeamPM.GraphlawTest do
       {:ok, synthesized} = Ferroplan.fond_policy("", @retry_loop)
 
       assert {:error, {:refused, %{"message" => msg}}} =
-               Graphlaw.admit_policy(@retry_loop, Map.put(synthesized, "policy", []))
+               GraphlawAdmission.admit_policy(@retry_loop, Map.put(synthesized, "policy", []))
 
       assert msg =~ "policy refused (MissingEntry)"
     end

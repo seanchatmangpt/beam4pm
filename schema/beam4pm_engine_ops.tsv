@@ -83,3 +83,5 @@ tract	load_model_path	load_model_path	host_helper	native/tract-wasm/src/lib.rs	n
 tract	run	run	wire	native/tract-wasm/src/lib.rs	native/tract-wasm/target/wasm32-wasip1/release/tract_wasm.wasm
 tract	model_info	model_info	wire	native/tract-wasm/src/lib.rs	native/tract-wasm/target/wasm32-wasip1/release/tract_wasm.wasm
 tract	free_model	free_model	wire	native/tract-wasm/src/lib.rs	native/tract-wasm/target/wasm32-wasip1/release/tract_wasm.wasm
+graphlaw	law	law	wire	crate:graphlaw:src/abi.rs	native/graphlaw/graphlaw_wasm.wasm
+graphlaw	policy	policy	wire	crate:graphlaw:src/abi.rs	native/graphlaw/graphlaw_wasm.wasm
