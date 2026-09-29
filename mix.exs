@@ -8,11 +8,39 @@ defmodule Beam4pm.MixProject do
       # together via `mix beam4pm.version_bump <version>`
       # (lib/mix/tasks/beam4pm.version_bump.ex), never by hand-editing one
       # without the other.
-      version: "26.9.10",
+      version: "26.9.24",
       elixir: "~> 1.17",
       start_permanent: Mix.env() == :prod,
       deps: deps(),
-      aliases: aliases()
+      aliases: aliases(),
+      description: description(),
+      package: package(),
+      source_url: "https://github.com/seanchatmangpt/beam4pm",
+      homepage_url: "https://github.com/seanchatmangpt/beam4pm",
+      docs: docs()
+    ]
+  end
+
+  defp description do
+    "A BEAM-first process-mining substrate manufactured entirely by ggen " <>
+      "from ontology.ttl + a vendored ggen-marketplace pack: real OCEL " <>
+      "discovery/conformance across Erlang, Elixir, Gleam, and Ash " <>
+      "projections, plus native engine facades (petgraph, tract, rust4pm, " <>
+      "ferroplan) hosted in BEAM via wasm."
+  end
+
+  defp package do
+    [
+      licenses: ["Apache-2.0"],
+      links: %{"GitHub" => "https://github.com/seanchatmangpt/beam4pm"},
+      files: ~w(lib src schema gleam mix.exs rebar.config ontology.ttl ggen.toml README.md CONTRIBUTING.md CLAUDE.md)
+    ]
+  end
+
+  defp docs do
+    [
+      main: "readme",
+      extras: ["README.md"]
     ]
   end
 
@@ -48,20 +76,9 @@ defmodule Beam4pm.MixProject do
       {:ash, "~> 3.0"},
       {:ash_ai, "~> 1.0"},
       {:wasmex, "~> 0.15"},
-      # :telemetry -- every generated engine facade op (lib/beam4pm_*.ex,
-      # beam4pm_engine.ex.tmpl) emits a real :telemetry.execute/3 event on
-      # both its success and refusal paths (OCEL evidence-contract Phase 2).
+      # OCEL evidence-contract phases 2-3: telemetry events + OTel span bridge
+      # (lib/beam4pm_evidence.ex).
       {:telemetry, "~> 1.4"},
-      # :opentelemetry -- real OTel SDK dependency (not test-only), Phase 3
-      # of the OCEL evidence-contract work: BeamPM.Evidence.OtelBridge
-      # (lib/beam4pm_evidence.ex) opens/closes a real span per
-      # [:beam4pm, :engine, engine, op] telemetry event via
-      # OpenTelemetry.Tracer.with_span/3. Exporter defaults to
-      # :otel_exporter_stdout (shipped inside this same package, no extra
-      # dep) for local/dev visibility; production/CI can override via
-      # config :opentelemetry, traces_exporter: :none (or a real OTLP
-      # exporter dep) since beam4pm is a library/substrate, not a
-      # standalone service that should force stdout tracing on its host app.
       {:opentelemetry, "~> 1.5"},
       {:opentelemetry_api, "~> 1.4"},
       # BeamPM.OcelIngest.Router (lib/beam4pm_ocel_ingest.ex) -- beam4pm's own
