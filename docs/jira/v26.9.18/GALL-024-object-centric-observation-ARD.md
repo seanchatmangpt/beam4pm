@@ -2,6 +2,7 @@
 
 **Status:** FINAL_SPEC — closed for v26.9.24  
 **Implementation standing:** OPEN in PR #80 (gall/implement-024-028-process-intelligence @ eca116ea; not on main)  
+**Status:** DRAFT ARCHITECTURE SPEC  
 **Release:** v26.9.18  
 **Repository:** `seanchatmangpt/beam4pm`  
 **Owner:** beam4pm  
