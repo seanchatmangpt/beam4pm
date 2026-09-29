@@ -73,7 +73,10 @@ defmodule Beam4pm.MixProject do
   defp deps do
     [
       {:ggen_igniter, "~> 26.9", runtime: false},
-      {:ash, "~> 3.0"},
+      # Match ash_ai's real lower bound and make the direct dependency authoritative.
+      # This also refuses the stale deps/ash 3.33.1 tree observed in CI while
+      # mix.lock pins 3.33.9, instead of letting restored cache state override the lock.
+      {:ash, ">= 3.33.6 and < 4.0.0-0", override: true},
       {:ash_ai, "~> 1.0"},
       {:wasmex, "~> 0.15"},
       # OCEL evidence-contract phases 2-3: telemetry events + OTel span bridge
