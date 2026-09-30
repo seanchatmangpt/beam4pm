@@ -1,0 +1,130 @@
+# Hand-authored independent qualification rail.
+# Generated product workflows remain ggen-owned; this rail proves one exact
+# candidate end to end without modifying their manufactured YAML.
+name: beam4pm Closed Loop Proof
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - "qualification/closed_loop/**"
+      - "qualification/fixtures/toy_gym_bridge.py"
+      - "mix.exs"
+      - "mix.lock"
+      - "lib/beam4pm_actuation.ex"
+      - "lib/beam4pm_process_governor.ex"
+      - "lib/beam4pm_powl_conformance.ex"
+      - "lib/beam4pm_dfcm.ex"
+      - "lib/beam4pm_ferroplan.ex"
+      - "lib/beam4pm_rust4pm.ex"
+      - "native/ferroplan/**"
+      - "native/rust4pm-wasm/**"
+      - "ontology.ttl"
+      - ".github/workflows/beam4pm-closed-loop-proof.yml"
+  workflow_dispatch:
+
+concurrency:
+  group: closed-loop-proof-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  prove:
+    name: Exact-head execution → OCEL → conformance → replan → BRCE
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+
+    steps:
+      - name: Checkout exact candidate
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          fetch-depth: 0
+          persist-credentials: false
+          submodules: recursive
+
+      - name: Prove exact subject identity
+        env:
+          EXPECTED_HEAD: ${{ github.event.pull_request.head.sha || github.sha }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "$EXPECTED_HEAD"
+          echo "EXACT_HEAD_ALIVE=$EXPECTED_HEAD"
+
+      - name: Set up BEAM
+        uses: erlef/setup-beam@54075bcc5e249e4758d363f27d099f55d843f124 # v1.24.1
+        with:
+          rebar3-version: "3.24.0"
+          elixir-version: "1.19.5"
+          otp-version: "28.3.1"
+
+      - name: Resolve Mix dependencies
+        shell: bash
+        run: mix deps.get
+
+      - name: Build real Rust4PM and Ferroplan WASM engines
+        shell: bash
+        run: |
+          set -euo pipefail
+          bash scripts/rust4pm_wasm_build.sh
+          bash scripts/ferroplan_wasm_build.sh
+          test -s native/rust4pm-wasm/target/wasm32-wasip1/release/rust4pm_wasm.wasm
+          test -s native/ferroplan/target/wasm32-wasip1/release/ferroplan_wasm.wasm
+
+      - name: Execute the single closed-loop falsifier
+        env:
+          CLOSED_LOOP_SUBJECT_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
+          CLOSED_LOOP_RECEIPTS_DIR: ${{ runner.temp }}/beam4pm-closed-loop
+          CLOSED_LOOP_PROOF_RECEIPT: ${{ runner.temp }}/beam4pm-closed-loop/closed-loop-proof.json
+        shell: bash
+        run: |
+          set -euo pipefail
+          mix run qualification/closed_loop/closed_loop_proof.exs | tee "$RUNNER_TEMP/closed-loop.log"
+          grep -Fq 'ALIVE[CLOSED_LOOP_BRCE_OCEL_CONFORMANCE_DFCM_FERROPLAN_BRCE]' "$RUNNER_TEMP/closed-loop.log"
+          test -s "$CLOSED_LOOP_PROOF_RECEIPT"
+
+          python3 - "$CLOSED_LOOP_PROOF_RECEIPT" "$CLOSED_LOOP_SUBJECT_SHA" <<'PY'
+          import json, sys
+          path, expected_sha = sys.argv[1:]
+          with open(path, "r", encoding="utf-8") as f:
+              r = json.load(f)
+
+          assert r["schema"] == "beam4pm-closed-loop-proof/v1"
+          assert r["subject_sha"] == expected_sha
+          assert r["reference_runs"] == 3
+          assert r["deviant_trace"] == ["plan", "admit", "execute"]
+          assert r["conformance_cost"] > 0
+          assert r["conformance_deviations"]
+          assert r["repair_decision"] == "replanned_full"
+          assert r["repair_trigger"] == "evidence_refused_reuse"
+          assert r["repair_authority_ceiling"] == "select"
+          assert r["planned_action"] == "increment_counter"
+          assert r["bypass_refused"] is True
+          assert r["receipt_chain_length"] == 2
+          print("ALIVE[CLOSED_LOOP_PROOF_RECEIPT_VERIFIED]")
+          PY
+
+      - name: Re-run the existing component courts against the real engines
+        shell: bash
+        run: |
+          set -euo pipefail
+          mix test \
+            test/beam4pm_process_governor_test.exs \
+            test/beam4pm_powl_conformance_test.exs \
+            test/beam4pm_replan_router_engine_test.exs \
+            --max-requires 1
+
+      - name: Preserve proof and consequence receipts
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: beam4pm-closed-loop-proof-${{ github.event.pull_request.head.sha || github.sha }}
+          path: |
+            ${{ runner.temp }}/beam4pm-closed-loop/closed-loop-proof.json
+            ${{ runner.temp }}/beam4pm-closed-loop/**/*.json
+            ${{ runner.temp }}/closed-loop.log
+          if-no-files-found: error
+          retention-days: 14

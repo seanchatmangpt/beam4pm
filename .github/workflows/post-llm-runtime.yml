@@ -21,7 +21,7 @@ permissions:
 jobs:
   manufacture:
     name: GGen manufacture
-    uses: seanchatmangpt/ggen/.github/workflows/ggen-sync-run.yml@83a02070d021fbbd66426793d47bc1d68d0603c6
+    uses: seanchatmangpt/ggen/.github/workflows/ggen-sync-run.yml@ff96f04e8c7b851e5cca53f3faf5ce1d5f43ce6e
     with:
       ggen_release: v26.8.27
       ggen_asset_sha256: ab442ced90a9836fd4eb07a5d61eb58293843cd515d864699fc0d0453444a035

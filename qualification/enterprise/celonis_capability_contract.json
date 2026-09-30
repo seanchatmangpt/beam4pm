@@ -1,0 +1,148 @@
+{
+  "schema": "beam4pm-enterprise-capability-court/v1",
+  "as_of": "2026-09-27",
+  "comparison_target": {
+    "name": "Celonis Process Intelligence Platform",
+    "basis": "Publicly documented platform capabilities, used only as an external comparison boundary; vendor claims are not treated as independent proof of performance.",
+    "sources": [
+      "https://www.celonis.com/platform/datacore",
+      "https://www.celonis.com/platform",
+      "https://developer.celonis.com/data-ingestion-api/standard/standard_overview",
+      "https://help.celonis.com/cpm47/en/conformance-checker"
+    ]
+  },
+  "claim_policy": {
+    "claim": "CELONIS_LEVEL",
+    "current_standing": "PARTIAL_ALIVE",
+    "admission_rule": "ALIVE only when every required capability has machine-observed ALIVE standing on the exact candidate SHA and every external-assurance requirement has current third-party evidence. Functional architecture similarity alone is insufficient.",
+    "refusal_is_success": true
+  },
+  "capabilities": [
+    {
+      "id": "object_centric_process_model",
+      "required": true,
+      "standing": "ALIVE",
+      "evidence": "OCEL 2.0 objects/events/relationships plus real rust4pm object-centric discovery/conformance paths.",
+      "falsifier": "A real object-centric trace cannot be represented, queried, or consumed by the process-mining engine."
+    },
+    {
+      "id": "process_discovery",
+      "required": true,
+      "standing": "ALIVE",
+      "evidence": "Real DFG/POWL discovery exists over rust4pm and is exercised by current qualification suites.",
+      "falsifier": "A real reference event log cannot produce a process model without a mock or hand-coded expected model."
+    },
+    {
+      "id": "conformance",
+      "required": true,
+      "standing": "ALIVE",
+      "evidence": "Real alignment and fitness checking detects missing/reordered activities and emits deviations.",
+      "falsifier": "A deliberately deviant observed trace aligns at zero cost or emits no deviation."
+    },
+    {
+      "id": "persistent_execution_evidence",
+      "required": true,
+      "standing": "ALIVE",
+      "evidence": "BRCE writes durable beam4pm-brce/v1 receipts containing OCEL events; ReceiptChain independently re-verifies ordered on-disk consequence history.",
+      "falsifier": "A process restart or fresh reader cannot reconstruct the verified action history from durable receipts."
+    },
+    {
+      "id": "conformance_to_replan",
+      "required": true,
+      "standing": "ALIVE",
+      "evidence": "PowlConformance.conform_observe_replan/6 consumes real conformance evidence and can force bounded DfCM/Ferroplan replanning.",
+      "falsifier": "Changing conformance evidence cannot change reuse/replan behavior or its evidence hashes."
+    },
+    {
+      "id": "planner_to_guarded_actuation",
+      "required": true,
+      "standing": "ALIVE",
+      "evidence": "The enterprise court takes live Ferroplan session steps, maps them to graph-admitted planning_action values, crosses BeamPM.Actuation BRCE, and advances the planner only after observed success.",
+      "falsifier": "A planner-selected action can execute without graph admission/receipt, or a successful repaired plan cannot be executed through BRCE."
+    },
+    {
+      "id": "receipt_replay_and_lineage",
+      "required": true,
+      "standing": "ALIVE",
+      "evidence": "Hash-chained consequence receipts and deterministic plan-lineage evidence are independently replayable.",
+      "falsifier": "Tampering/reordering is accepted or replay cannot bind the executed consequence to the repaired planning episode."
+    },
+    {
+      "id": "network_event_ingestion",
+      "required": true,
+      "standing": "PARTIAL_ALIVE",
+      "evidence": "Real HTTP OCEL event/object ingestion exists, but enterprise connector breadth and continuous external-source coverage are not established.",
+      "falsifier": "The admitted HTTP ingestion route cannot receive and decode a real OCEL event/object."
+    },
+    {
+      "id": "enterprise_data_core_scale",
+      "required": true,
+      "standing": "UNSUPPORTED",
+      "required_proof": "Published reproducible load/query benchmark at Fortune-5-relevant scale, including at least billion-record-class data, p50/p95/p99 latency, ingestion throughput, resource use, failure recovery, and scale-out behavior.",
+      "implementation_target": "Partitioned columnar/object-event storage plus native/vectorized query execution and a repeatable large-scale benchmark court."
+    },
+    {
+      "id": "connector_breadth",
+      "required": true,
+      "standing": "UNSUPPORTED",
+      "required_proof": "Versioned connector catalog with production qualification for major ERP/CRM/data platforms and connector contract tests.",
+      "implementation_target": "OTP-supervised connector SDK, CDC/batch source contracts, canonical OCEL/object mapping packs, and reusable connector certification fixtures."
+    },
+    {
+      "id": "real_time_and_zero_copy_data_access",
+      "required": true,
+      "standing": "UNSUPPORTED",
+      "required_proof": "Observed incremental/streaming ingestion plus zero-copy or pushdown access to governed lakehouse/object-store sources with freshness and consistency receipts.",
+      "implementation_target": "Kafka/CDC ingestion lane plus governed Parquet/lakehouse query adapters with provenance-bound snapshots."
+    },
+    {
+      "id": "task_mining",
+      "required": true,
+      "standing": "UNSUPPORTED",
+      "required_proof": "Privacy-bounded desktop/task event capture, task discovery, process correlation, and replay qualification.",
+      "implementation_target": "Separate consented endpoint event collector projecting task evidence into OCEL without granting actuation authority."
+    },
+    {
+      "id": "enterprise_identity_access_and_data_isolation",
+      "required": true,
+      "standing": "UNSUPPORTED",
+      "required_proof": "SSO/OIDC or SAML, SCIM lifecycle, RBAC/ABAC, tenant/data-pool isolation, audit logs, negative authorization tests, and break-glass controls.",
+      "implementation_target": "Identity/tenant control plane with policy-as-data, row/object scope enforcement, and adversarial authorization courts."
+    },
+    {
+      "id": "ha_dr_and_slo",
+      "required": true,
+      "standing": "UNSUPPORTED",
+      "required_proof": "Multi-node failover, rolling upgrade, backup/restore, RPO/RTO, load shedding, chaos tests, and published SLO/error-budget evidence.",
+      "implementation_target": "OTP cluster deployment profile plus replicated durable stores, disaster-recovery runbooks, chaos qualification, and SLO receipts."
+    },
+    {
+      "id": "external_security_assurance",
+      "required": true,
+      "standing": "UNSUPPORTED",
+      "required_proof": "Current independent security/compliance attestations appropriate to target customers (for example SOC 2 Type II / ISO 27001 as applicable), plus penetration-test and vulnerability-management evidence.",
+      "implementation_target": "Security control mapping and continuous evidence collection; third-party certification itself cannot be manufactured by code."
+    },
+    {
+      "id": "business_user_exploration_and_operational_apps",
+      "required": true,
+      "standing": "UNSUPPORTED",
+      "required_proof": "Production-grade process explorer, KPI/conformance views, root-cause analysis, value/opportunity views, governed action surfaces, accessibility and usability qualification.",
+      "implementation_target": "Read-only-first process intelligence UI over canonical query APIs, then explicitly admitted operational actions."
+    },
+    {
+      "id": "context_and_process_knowledge_layer",
+      "required": true,
+      "standing": "PARTIAL_ALIVE",
+      "evidence": "Ontology-backed semantic types, process contracts, planning policy and evidence exist; a broad reusable enterprise process-knowledge catalog and KPI/opportunity layer is not yet demonstrated.",
+      "required_proof": "Reusable cross-process knowledge packs with provenance, KPIs, business rules, semantic mappings, versioning, and measurable reuse across independent domains."
+    },
+    {
+      "id": "multi_tenant_commercial_control_plane",
+      "required": true,
+      "standing": "UNSUPPORTED",
+      "required_proof": "Separately deployable/licensed product boundary, tenant lifecycle, entitlements, metering, upgrades, isolation and admin operations.",
+      "implementation_target": "Close the README-declared beam4pm_pro product-boundary, distribution/upgrade and control-plane gaps."
+    }
+  ]
+}
