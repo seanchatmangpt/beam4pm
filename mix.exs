@@ -8,7 +8,7 @@ defmodule Beam4pm.MixProject do
       # together via `mix beam4pm.version_bump <version>`
       # (lib/mix/tasks/beam4pm.version_bump.ex), never by hand-editing one
       # without the other.
-      version: "26.9.29",
+      version: "26.9.30",
       elixir: "~> 1.17",
       start_permanent: Mix.env() == :prod,
       deps: deps(),
@@ -33,7 +33,8 @@ defmodule Beam4pm.MixProject do
     [
       licenses: ["Apache-2.0"],
       links: %{"GitHub" => "https://github.com/seanchatmangpt/beam4pm"},
-      files: ~w(lib src schema gleam mix.exs rebar.config ontology.ttl ggen.toml README.md CONTRIBUTING.md CLAUDE.md)
+      files:
+        ~w(lib src schema gleam native/graphlaw mix.exs rebar.config ontology.ttl ggen.toml README.md CONTRIBUTING.md CLAUDE.md)
     ]
   end
 
@@ -76,7 +77,7 @@ defmodule Beam4pm.MixProject do
       # Match ash_ai's real lower bound and make the direct dependency authoritative.
       # This also refuses the stale deps/ash 3.33.1 tree observed in CI while
       # mix.lock pins 3.33.9, instead of letting restored cache state override the lock.
-      {:ash, ">= 3.33.6 and < 4.0.0-0", override: true},
+      ash_dep(),
       {:ash_ai, "~> 1.0"},
       {:wasmex, "~> 0.15"},
       # OCEL evidence-contract phases 2-3: telemetry events + OTel span bridge
@@ -93,13 +94,35 @@ defmodule Beam4pm.MixProject do
       # touch beam4pm's internal mechanisms: EngineOp dispatch, OCEL/OTel
       # evidence chain, BeamPM.ReceiptChain). Additive alongside ex4pm's
       # existing Ex4pm.Engine.Beam4pm HTTP route-table client.
+      ash_a2a_dep(),
+      {:a2a, "~> 0.1"},
+      {:req, "~> 0.5"},
+      {:ex_doc, ">= 0.0.0", only: :dev, runtime: false}
+    ]
+  end
+
+  # Hex refuses overridden and git dependencies. Normal development keeps the
+  # override (stale deps/ash cache guard) and the pinned ash_a2a git ref;
+  # `BEAM4PM_HEX_PUBLISH=1 mix hex.build` / `mix hex.publish` swaps in the
+  # published releases. ash_a2a 26.9.30 must be on Hex before beam4pm 26.9.30
+  # can be published: Replan.Loop and Replan.ProviderRegistry first ship there.
+  defp hex_publish?, do: System.get_env("BEAM4PM_HEX_PUBLISH") in ["1", "true"]
+
+  defp ash_dep do
+    if hex_publish?(),
+      do: {:ash, ">= 3.33.6 and < 4.0.0-0"},
+      else: {:ash, ">= 3.33.6 and < 4.0.0-0", override: true}
+  end
+
+  defp ash_a2a_dep do
+    if hex_publish?() do
+      {:ash_a2a, "~> 26.9.30"}
+    else
       {:ash_a2a,
        git: "https://github.com/seanchatmangpt/ash_a2a.git",
        ref: "80b77e225814d7a10a724e5ac01318600c71ee4c",
-       override: true},
-      {:a2a, "~> 0.1"},
-      {:req, "~> 0.5"}
-    ]
+       override: true}
+    end
   end
 
   # `mix test` (default, test/test_helper.exs excludes :chicago) -- fast,

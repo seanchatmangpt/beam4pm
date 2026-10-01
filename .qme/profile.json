@@ -1,6 +1,6 @@
 {
   "qme_profile": "QME-1/EcosystemReference",
-  "version": "26.9.29",
+  "version": "26.9.30",
   "canonical_spec_subject": "seanchatmangpt/chatman-ecosystem@88b276f71e2c8e606553942cb721bceb6836a87e",
   "local_subject": "seanchatmangpt/beam4pm@448e918e22be5e264c4e17091179bf2cdd63ebea",
   "role": "process evidence and accumulated machine experience",

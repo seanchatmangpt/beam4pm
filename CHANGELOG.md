@@ -2,6 +2,12 @@
 
 All notable changes to beam4pm are documented in this file.
 
+## [26.9.30] - 2026-09-30
+
+### Changed
+
+- Version bump to 26.9.30 (Hex dry-run publish readiness); package files now include `native/graphlaw` (wasm + `.sha256` pin).
+
 ## [26.9.10] - 2026-09-10
 
 ### Integrated
