@@ -27,10 +27,11 @@ All notable changes to beam4pm are documented in this file.
   notifier change uses a LOCAL, UNCOMMITTED `path: "../ash_ex4pm"` override
   that is not part of this change (release path: upstream publish → bump
   the pin).
-- `lib/beam4pm_evidence.ex` moduledoc: the "two evidence stores are disjoint
-  by package design" paragraph should be refreshed by the next
-  generated-docs pass to reflect this bridge (that file is generated and
-  authorship-gated, so it is not edited in this change).
+- `lib/beam4pm_evidence.ex` moduledoc now carries the division-of-labor
+  paragraph (AshEx4pm.Notifier owns Ash-action emission into
+  `Ex4pm.Evidence.Store`; `BeamPM.Evidence`'s bridges stay authoritative for
+  the engine-telemetry family), including the forward seam naming for the
+  bridge above once the upstream broadcaster ships.
 
 ## [26.10.1] - 2026-10-01
 

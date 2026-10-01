@@ -8,14 +8,15 @@ docs/reference/discovery-and-conformance-api.md	reference_evidence	false	-	-	bas
 docs/reference/infra-beamops-first-principles.md	reference_evidence	false	-	-	bash scripts/gate_lint_truth.sh	-
 docs/reference/rust4pm-wasm-beam.md	reference_evidence	false	-	-	bash scripts/gate_lint_truth.sh	-
 docs/reference/scripts.md	reference_evidence	false	-	-	bash scripts/gate_lint_truth.sh	-
-lib/beam4pm_a2a_agent.ex	hand_authored_qualification	true	a0b561b3e420d9ed9c1db5a232d94a112447d3dfa32ed1df56a49dff59550c59	2026-12-31	mix run qualification/a2a_smoke_test.exs	-
+lib/beam4pm_a2a_agent.ex	hand_authored_qualification	true	867c71b74fd60533f937199d66994e5be87da771c42642aab8d8524d1abf681f	2026-12-31	mix run qualification/a2a_smoke_test.exs	-
 lib/beam4pm_a2a_router.ex	hand_authored_qualification	true	734cf82e4625241defa3c5361ba7abdcc1c2fb2a01543a2c2d931c9287ba8b28	2026-12-31	mix run qualification/a2a_smoke_test.exs	-
-lib/beam4pm_application.ex	hand_authored_qualification	true	9335347abf3756b903ed26a8b3fc9a90247e9fc6b50e819cbbf1793f51c0f3a3	2026-12-31	source scripts/env/rust4pm_reactor_env.sh && mix test --max-requires 1	-
-lib/beam4pm_contracts.ex	hand_authored_qualification	true	51f24b063e54cbf238778c2a0786c9571e1bf98eb1831c17cb9e3eb6a61385a7	2026-12-31	mix test test/beam4pm_contracts_test.exs	-
+lib/beam4pm_application.ex	hand_authored_qualification	true	c50641c7a8a31b86407490fd634844b3052fe900d177239e6fc05f8db0007ec6	2026-12-31	source scripts/env/rust4pm_reactor_env.sh && mix test --max-requires 1	-
+lib/beam4pm_contracts.ex	hand_authored_qualification	true	d17772091cb03875432a21683dbabc5eaa52c08e0630b4e4b22fbebd0a31a974	2026-12-31	mix test test/beam4pm_contracts_test.exs	-
 lib/beam4pm_deviation_admission.ex	native_engine_facade	true	bcb5f5396264cf18a1b9e408fe546cfd07ee8e7ae55edd401320f48f5d4cf6b9	2026-12-31	mix test test/beam4pm_deviation_admission_test.exs	-
 lib/beam4pm_dfcm.ex	native_engine_facade	true	6c00ee4ea52095d93d9db392a2dfbc679028fc950b7be527d7c5bfdc46b9ab7d	2026-12-31	mix test test/beam4pm_dfcm_test.exs	native/ferroplan/target/wasm32-wasip1/release/ferroplan_wasm.wasm
 lib/beam4pm_eds.ex	native_engine_facade	true	e9fca0b31543ba67de7ecc066975218d7810d7cca9d71f6a584631adc69b7057	2026-12-31	mix test test/beam4pm_eds_test.exs	-
 lib/beam4pm_eds_ppcx_h1.ex	native_engine_facade	true	d6c69650e66285cad187a5210633d9a7b8044c4f988c507fe4963c2935d83260	2026-12-31	mix test test/beam4pm_eds_test.exs	-
+lib/beam4pm_evidence.ex	hand_authored_qualification	true	027dd081ffc0c3028e4dbf7bca3064ff5c01c6d124ad6225cec0a84586c0d954	2026-12-31	mix test test/beam4pm_evidence_chain_test.exs	-
 lib/beam4pm_ocel.ex	native_engine_facade	true	f7e47a5c95278b14cc654361bf00e4b73e4440276945ba6b8eb6ef19d7b64ce2	2026-12-31	mix test test/beam4pm_ocel_test.exs	-
 lib/beam4pm_plan_lineage.ex	hand_authored_qualification	true	9f61518851c28b02022750845b18b7b185965d05dfc0a755a799d16fa2fba37e	2026-12-31	mix test test/beam4pm_replan_router_test.exs test/beam4pm_replan_router_hardening_test.exs	-
 lib/beam4pm_powl_conformance.ex	native_engine_facade	true	60e94965d20cd103b76132078631ce23abb1ffda8c881abcb3fa33e0f902bd4c	2026-12-31	mix test test/beam4pm_powl_conformance_test.exs test/beam4pm_powl_conformance_e2e_test.exs	cmd:test -f native/rust4pm-wasm/target/wasm32-wasip1/release/rust4pm_wasm.wasm && test -f native/ferroplan/target/wasm32-wasip1/release/ferroplan_wasm.wasm
@@ -32,10 +33,13 @@ test/beam4pm_action_model_test.exs	hand_authored_qualification	true	d4109c789470
 test/beam4pm_admission_default_test.exs	hand_authored_qualification	true	7c7b05918d6a4db2a270262493a1c03a0004604860fe0ef1f761bcf2f349f007	2026-12-31	mix test test/beam4pm_admission_default_test.exs	native/graphlaw/graphlaw_wasm.wasm
 test/beam4pm_aloop_conformance_test.exs	hand_authored_qualification	true	463fa9e73d411d71dd860fae098661cf175e277a8b84aea29584a1279b833688	2026-12-31	mix test test/beam4pm_aloop_conformance_test.exs	-
 test/beam4pm_ash_ai_tools_test.exs	hand_authored_qualification	true	b658dbbdcaa4c5585ee1d7b4b1dc80c059a40535157960386363e383b924dfd3	2026-12-31	mix test test/beam4pm_ash_ai_tools_test.exs	-
+test/beam4pm_ash_ex4pm_emission_test.exs	hand_authored_qualification	true	c8f4a6da2579173d4ba6f927ca11bec4152ca117f3ec079c20abafc31a1362a2	2026-12-31	mix test test/beam4pm_ash_ex4pm_emission_test.exs	-
+test/beam4pm_brce_contract_test.exs	hand_authored_qualification	true	5dd875291883b5ed2cc8a1c98442978075f01f3987a4f032c2330916008c0f1a	2026-12-31	mix test test/beam4pm_brce_contract_test.exs	-
 test/beam4pm_contracts_test.exs	hand_authored_qualification	true	04699f8e50cccd9b451619f983e472950799b8b2058000e5a1be251b004fc065	2026-12-31	mix test test/beam4pm_contracts_test.exs	-
 test/beam4pm_deviation_admission_test.exs	hand_authored_qualification	true	1ee967b2bc49ca2d7b69ebc1529eee2168e450d85e059c33a077d9a49440e6e6	2026-12-31	mix test test/beam4pm_deviation_admission_test.exs	-
 test/beam4pm_dfcm_test.exs	hand_authored_qualification	true	d152e27e1941cec038f964e0c08256fb5c0f1be1c22cef5b0b130bf5f833707e	2026-12-31	mix test test/beam4pm_dfcm_test.exs	native/ferroplan/target/wasm32-wasip1/release/ferroplan_wasm.wasm
 test/beam4pm_eds_test.exs	hand_authored_qualification	true	bfc270732d9cfffa3620f7ac6a9c702e526dccbded6320808e449bc2e432c176	2026-12-31	mix test test/beam4pm_eds_test.exs	-
+test/beam4pm_ex4pm_runtime_test.exs	hand_authored_qualification	true	68c7c2eb2033168a8b62d956131193361fd757e5bb9bac80e671f0f12e259da0	2026-12-31	mix test test/beam4pm_ex4pm_runtime_test.exs	-
 test/beam4pm_ferroplan_bridge_test.exs	hand_authored_qualification	true	807445c7d6257406c13f42877199210008672742544c073fd82498e87cf779b8	2026-12-31	mix test test/beam4pm_ferroplan_bridge_test.exs	-
 test/beam4pm_ferroplan_facades_test.exs	hand_authored_qualification	true	a1d83a882acec1fdac5a42936cf1139d704ee7417c1985732dde573709811196	2026-12-31	mix test test/beam4pm_ferroplan_facades_test.exs	native/ferroplan/target/wasm32-wasip1/release/ferroplan_wasm.wasm
 test/beam4pm_ferroplan_test.exs	hand_authored_qualification	true	0c4d09b7d9f437c8c9e8c397bc69e717d70e3baa9f3d7de4d70c8cf30a5ed505	2026-12-31	mix test test/beam4pm_ferroplan_test.exs	native/ferroplan/target/wasm32-wasip1/release/ferroplan_wasm.wasm
