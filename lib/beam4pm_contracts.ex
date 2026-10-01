@@ -17,6 +17,11 @@ defmodule BeamPM.Contracts do
   set is THREE files: `ontology.ttl` and its two real generated JSON
   Schema outputs. This manifest hashes exactly those three, not a fourth
   and fifth that don't exist.
+
+  Since v26.10.1 ex4pm is a real dependency of this repo (pulled via
+  `{:ash_ex4pm, "~> 26.10"}`); the local `BeamPM.ReceiptChain`
+  re-implementation remains deliberate -- its divergence rationale stands
+  unchanged.
   """
 
   alias BeamPM.ReceiptChain

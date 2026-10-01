@@ -290,6 +290,123 @@ BeamPM.Precision.etc_precision(edges, trace, 1.0)
 # => 0.6667 (approx)
 ```
 
+## BeamPM.ActionModel
+
+Hand-authored alongside the admission machinery in `lib/beam4pm_replan_router.ex` (module at
+line 1429) — not a generated projection.
+
+### `from_pddl/2`
+
+`lib/beam4pm_replan_router.ex:1469-1470`
+
+```elixir
+@spec from_pddl(String.t(), String.t()) :: {:ok, spec()} | {:error, term()}
+```
+
+Derives a `BeamPM.PlanAdmission` admission spec (`%{state:, model:, goal:}`) from PDDL
+`domain` and `problem` text, so callers do not hand-write action models. Supported subset:
+STRIPS + typing. Precondition/goal conjunctions of atoms and `(not atom)` literals are
+admitted — negated plain atoms become `pre_not` (precondition) and `goal_not` (goal; both
+previously typed `{:error, {:unsupported, what}}`). Effects map atoms to add and `(not atom)`
+to delete. Everything else is refused, never guessed: `or`, `not` over a non-atom, `forall`,
+`exists`, `imply`, `when`, `=`, numeric fluents (`:functions`, `increase`, `decrease`,
+`assign`, comparisons), durative actions, `either` types, predicates of arity above 2.
+
+Atoms map to triples as elsewhere in the admission tests: objects uppercased to
+`"urn:r:OBJ"`, predicates lowercased to `"urn:p:pred"`, arity-0 predicates to
+`{"urn:r:_", "urn:p:p", "urn:p:true"}` (moduledoc, `lib/beam4pm_replan_router.ex:1431-1460`).
+
+## BeamPM.GraphlawAdmission
+
+Host-side admission helpers over the generated `BeamPM.Graphlaw` engine facade
+(`lib/beam4pm_graphlaw.ex`): frame triples, PDDL-derived plans and SHACL shapes into the two
+graphlaw wire ops (`law`, `policy`). The wasmex hosting and the `{"ok": false}` →
+`{:error, {:refused, %{kind, engine, dialect, message}}}` collapse are generated; only this
+framing is hand-written (`lib/beam4pm_replan_router.ex:1151`). Engine artifact checks
+(`verify_artifact/1` against the sha256 pin) and the `capabilities` `abi_version` handshake
+also live here.
+
+### `admit_policy/3`
+
+`lib/beam4pm_replan_router.ex:1227-1228`
+
+```elixir
+@spec admit_policy(map() | String.t(), map() | list() | String.t(), keyword()) ::
+        {:ok, map()} | {:error, {:refused, map()} | {:wasmex, term()}}
+```
+
+Independent FOND policy admission: `problem` and `policy` (a ferroplan `UniversalPlan` map or
+its `policy` entries) are checked strong-cyclic by the graphlaw court — `{:ok, admitted}` or
+`{:error, {:refused, refusal}}`. Related: `admit_plan/4` (plan replay over triples, with
+`pre_not`/`goal_not` support), `admit_shacl/3` (SHACL gate), and
+`BeamPM.ReplanRouter.load_policy/4` (`lib/beam4pm_replan_router.ex:1075`), which loads a
+`UniversalPlan` into state only when it digests to the admitted `preimage.policy` and runs
+the graphlaw court by default in `:required` admission mode.
+
+## AshEx4pm
+
+Ash-side OCEL evidence emission, supplied by the external hex package `ash_ex4pm`
+(26.10.1). beam4pm depends on it as `{:ash_ex4pm, "~> 26.10"}`, which transitively pins
+`ex4pm == 26.10.1`. The resource template that owns all 647 generated `Ash.Resource` modules
+renders `extensions: [AshEx4pm]` plus an `ex4pm do ... end` section — like every generated
+file, corrections go through the pack ontology (the `bpm:ocelTypeExpr` ladder decides each
+attribute's OCEL type; map-typed attributes are skipped with a rendered comment, never
+silently) and a re-run of the generator, not direct edits. (The projection re-render is
+currently blocked by a pre-existing ggen_igniter reconciliation deadlock —
+`docs/jira/v26.10.1/RESOLUTIONS.md` R14 — so no rendered resource carries the extension
+yet; the wiring lands with the next successful Ash-leg regeneration.) The dep source below
+is read at the lock-pinned version.
+
+### DSL: `ex4pm do object_type ...; activity ... end`
+
+`deps/ash_ex4pm/lib/ash_ex4pm/dsl.ex`
+
+A resource section declares OCEL entities (`object_type <name>, attributes: [...scalar...]`)
+and emissions (`activity :<name>_created, on: :create`); beam4pm renders `:create` only
+(reads do not mutate). An `activity` may only reference a declared `object_type` — the DSL
+refuses a dangling reference at compile time
+(`deps/ash_ex4pm/lib/ash_ex4pm/transformers/persist.ex`). `AshEx4pm.Transformers.Persist`
+(`persist.ex:142-166`) auto-registers `AshEx4pm.Notifier` into the resource's
+`:simple_notifiers`, so `extensions: [AshEx4pm]` alone is the opt-in; an explicit
+`notifiers: [AshEx4pm.Notifier]` entry is redundant (and de-duplicated, not double-firing).
+
+### Notifier semantics
+
+`deps/ash_ex4pm/lib/ash_ex4pm/notifier.ex`
+
+Emission is post-commit and fire-and-forget: for each notification matching a compiled
+`activity`, the notifier builds an OCEL 2.0 envelope (plain map, string keys
+`"schema"`/`"producer"`/`"sequence"`/`"objects"`/`"events"`) and hands it to
+`Ex4pm.Stream.Ingest.ingest_envelope/1` (`deps/ex4pm/lib/ex4pm/stream/ingest.ex:19`) →
+`Ex4pm.Evidence.Store`. Refusals are logged and never block the committing change. beam4pm
+sets `config :ex4pm, wasm_host: false` — its own `BeamPM.EngineSupervisor` stays the only
+wasm host; the store still auto-starts under `:ex4pm`'s own application module.
+
+### `AshEx4pm.Changes.BrceGate` (optional; not enabled on any beam4pm resource)
+
+`deps/ash_ex4pm/lib/ash_ex4pm/changes/brce_gate.ex`
+
+The optional pre-commit gate: a `before_action` change running
+`Ex4pm.Evidence.BRCE.execute/4` that turns a BRCE refusal into a real Ash refusal before
+the underlying mutation runs. No beam4pm resource carries it in this release (the generated
+roundtrip fixtures create without actors, which gating would refuse); the gate contract —
+admit, deny, and raise paths — is proven by tests, and flagging resources is a follow-up.
+
+### Introspection
+
+`deps/ash_ex4pm/lib/ash_ex4pm/info.ex`
+
+`AshEx4pm.Info.compiled?/1` — predicate: does a resource (or domain) carry compiled `ex4pm`
+state? `AshEx4pm.Info.activities/1` — the compiled `AshEx4pm.Activity` list for a resource
+or domain, `[]` if absent.
+
+### Division of labor vs `BeamPM.Evidence`
+
+`BeamPM.Evidence` (with `BeamPM.OcelIngest.Router` and `BeamPM.ReceiptChain`) remains
+beam4pm's engine-op evidence chain — telemetry → OTel → OcelIngest/ReceiptChain — and is
+untouched by this change: Ash resource changes flow through `AshEx4pm`, not through it. The
+two stores stay disjoint by design; nothing is rerouted.
+
 ## See Also
 
 - `CLAUDE.md` — manufacturing pipeline, source-authority doctrine, Erlang/Elixir/Gleam/Ash

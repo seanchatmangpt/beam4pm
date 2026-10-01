@@ -41,6 +41,18 @@ end
 # `graphlaw_gate: false`); :skip disables the default gating for the whole VM.
 config :beam4pm, :admission_mode, :required
 
+# ash_ex4pm pulls ex4pm, whose Ex4pm.Application (deps/ex4pm/lib/ex4pm/
+# application.ex) starts Ex4pm.Evidence.Store -- the receipt ledger sink that
+# Ex4pm.Stream.Ingest.ingest_envelope/1 (called by ex4pm's own notifiers) and
+# ash_ex4pm's persist notifiers receipt into -- and it MUST keep starting.
+# The same callback also starts ex4pm's OWN wasm hosts (Ex4pmEngine.Wasm.Host
+# + Ex4pm.Engine.Ferroplan.Host) whenever `:wasm_host` is true (the default).
+# beam4pm already hosts its own wasm engines under BeamPM.EngineSupervisor
+# (lib/beam4pm_application.ex: engine_supervisor/0, gated by
+# BeamPM.GraphlawAdmission.engine_children/0), so the second host tree is
+# disabled here to keep exactly one wasm host per node.
+config :ex4pm, wasm_host: false
+
 # Per-env overrides (config/test.exs keeps the pre-existing ungated suites
 # running; the admission-default tests switch the mode explicitly).
 if File.exists?(Path.expand("#{config_env()}.exs", __DIR__)) do
