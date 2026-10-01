@@ -8,7 +8,7 @@ defmodule Beam4pm.MixProject do
       # together via `mix beam4pm.version_bump <version>`
       # (lib/mix/tasks/beam4pm.version_bump.ex), never by hand-editing one
       # without the other.
-      version: "26.9.30",
+      version: "26.10.1",
       elixir: "~> 1.17",
       start_permanent: Mix.env() == :prod,
       deps: deps(),
@@ -79,6 +79,13 @@ defmodule Beam4pm.MixProject do
       # mix.lock pins 3.33.9, instead of letting restored cache state override the lock.
       ash_dep(),
       {:ash_ai, "~> 1.0"},
+      # Automatic OCEL 2.0 event emission from Ash resource actions plus an
+      # optional BRCE admission gate (AshEx4pm.Changes.BrceGate), built on
+      # ex4pm's Ex4pm.Stream.Ingest.ingest_envelope/1 and
+      # Ex4pm.Evidence.BRCE.execute/4. Pins {:ex4pm, "== 26.10.1"} exactly
+      # (CalVer's third component carries contract changes), so every ex4pm
+      # bump needs a matching ash_ex4pm release.
+      {:ash_ex4pm, "~> 26.10"},
       {:wasmex, "~> 0.15"},
       # OCEL evidence-contract phases 2-3: telemetry events + OTel span bridge
       # (lib/beam4pm_evidence.ex).
@@ -92,8 +99,9 @@ defmodule Beam4pm.MixProject do
       {:bandit, "~> 1.5"},
       # Agent-facing layer only (see docs/jira -- A2A does not replace or
       # touch beam4pm's internal mechanisms: EngineOp dispatch, OCEL/OTel
-      # evidence chain, BeamPM.ReceiptChain). Additive alongside ex4pm's
-      # existing Ex4pm.Engine.Beam4pm HTTP route-table client.
+      # evidence chain, BeamPM.ReceiptChain). Additive alongside the ex4pm
+      # runtime pulled in via {:ash_ex4pm, ...} above; ex4pm 26.10.1 no
+      # longer ships an Ex4pm.Engine.Beam4pm HTTP route-table client.
       ash_a2a_dep(),
       {:a2a, "~> 0.1"},
       {:req, "~> 0.5"},
@@ -104,8 +112,9 @@ defmodule Beam4pm.MixProject do
   # Hex refuses overridden and git dependencies. Normal development keeps the
   # override (stale deps/ash cache guard) and the pinned ash_a2a git ref;
   # `BEAM4PM_HEX_PUBLISH=1 mix hex.build` / `mix hex.publish` swaps in the
-  # published releases. ash_a2a 26.9.30 must be on Hex before beam4pm 26.9.30
+  # published releases. ash_a2a 26.9.30+ must be on Hex before beam4pm 26.10.x
   # can be published: Replan.Loop and Replan.ProviderRegistry first ship there.
+  # ash_ex4pm/ex4pm are plain hex deps and need no publish-mode branch.
   defp hex_publish?, do: System.get_env("BEAM4PM_HEX_PUBLISH") in ["1", "true"]
 
   defp ash_dep do

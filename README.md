@@ -98,8 +98,10 @@ added 30 `bpm:aloop_*_rt` ALOOP episode-loop record types).
   suites, real discovery demos in Erlang/Elixir/Gleam, and the roundtrip
   proof. Gate-by-gate standing:
   [`docs/jira/v26.8.29/16-gate-closure-m0-m6.md`](docs/jira/v26.8.29/16-gate-closure-m0-m6.md).
-- A DfCM planning crown, `BeamPM.Dfcm` (`lib/beam4pm_dfcm.ex`): pure and
-  SELECT-only with deliberately no DO surface. It preserves admitted
+- A DfCM planning crown, `BeamPM.Dfcm` (`lib/beam4pm_dfcm.ex`):
+  SELECT-only with deliberately no DO surface (its `allocate_options/2`
+  delegates cascade allocation to the external certified `cmca` CLI — see
+  the 2026-09-28 admission wave below). It preserves admitted
   alternatives, applies explicit fences, records every exclusion with a
   deterministic receipt and falsifier, and returns either a
   decision-relevant observation request or a SELECT candidate. It composes
@@ -118,6 +120,52 @@ added 30 `bpm:aloop_*_rt` ALOOP episode-loop record types).
   sha256 hash chain over plan generations (digests of a canonical JSON
   rendering) whose `verify/1` recomputes the chain and refuses the first
   link that does not match.
+- Plan admission is fail-closed by default (2026-09-28 admission wave,
+  commits `2a437a7e`, `82438aee`, `0f304857`, `6955b894`, `cf418a79`):
+  `config :beam4pm, :admission_mode`
+  (`config/config.exs`) defaults to `:required`, so a solved candidate plan
+  carrying no admission spec is refused `{:error, {:admission_missing, _}}`
+  (`lib/beam4pm_replan_router.ex`); per-call opt-outs are `admission: :skip`,
+  `graphlaw_court: false`, and `graphlaw_gate: false`. The graphlaw and
+  ferroplan wasm engines run supervised under `BeamPM.EngineSupervisor`
+  (`lib/beam4pm_application.ex`) — an engine child is started only when its
+  artifact exists and, for graphlaw, the sha256 pin
+  (`native/graphlaw/graphlaw_wasm.wasm.sha256`, written by
+  `scripts/graphlaw_wasm_fetch.sh`) verifies and the running engine's
+  `capabilities` reports the expected `abi_version` (ABI handshake,
+  `BeamPM.GraphlawAdmission`, `lib/beam4pm_replan_router.ex:1247-1310`).
+- PDDL action models and independent policy admission (same wave):
+  `BeamPM.ActionModel.from_pddl/2` (`lib/beam4pm_replan_router.ex:1470`)
+  derives a `BeamPM.PlanAdmission` admission spec from PDDL domain/problem
+  text — STRIPS + typing, with negated plain atoms admitted as
+  `pre_not`/`goal_not` (previously typed `{:error, {:unsupported, _}}`);
+  `BeamPM.GraphlawAdmission.admit_policy/3` (`lib/beam4pm_replan_router.ex:1228`)
+  checks a ferroplan `UniversalPlan` strong-cyclic via the graphlaw court
+  (`{:ok, admitted}` or `{:error, {:refused, refusal}}`); and
+  `BeamPM.ReplanRouter.load_policy/4` loads a `UniversalPlan` into state only
+  when it digests to the admitted `preimage.policy`, running the graphlaw
+  court by default in `:required` mode.
+- `BeamPM.Dfcm.allocate_options/2` (`lib/beam4pm_dfcm.ex`) delegates cascade
+  allocation to the external certified `cmca` CLI (`autofde cmca allocate`):
+  when the CLI is present but refuses (cardinality law, transport failure),
+  a refused map with reason `{:cmca_allocate_failed, detail}` is returned —
+  the uniform option-preserving fallback is never silently substituted for a
+  real refusal. Authority ceiling stays `:select` in every branch.
+- `Beam4PM.CastleCapabilityIntake`
+  (`lib/beam4pm_castle_capability_intake.ex`): a runtime-readable CASTLE
+  capability donor registry admitting EX4PM only as a process-execution
+  kernel behind Beam4PM's PROCESS_COORDINATION ownership — authority ceiling
+  `:construct`, `dispatch_authority?/1` always `false`, no actuation path.
+- Ash-native evidence emission via `AshEx4pm` (26.10.1): the hex dep is in,
+  `Ex4pm.Evidence.Store` (the emission sink) auto-starts, and the ingest /
+  dedup / refusal / BRCE-gate contracts are test-pinned. The
+  generated-resource wiring (`extensions: [AshEx4pm]` + a create-only
+  `ex4pm` block per resource) is rendered by the pack template from the
+  `bpm:ocelTypeExpr` ladder and lands with the next Ash-leg regeneration
+  (currently blocked by a pre-existing ggen_igniter reconciliation
+  deadlock — `docs/jira/v26.10.1/RESOLUTIONS.md` R14) — additive to
+  beam4pm's own telemetry→OTel→`OcelIngest`/`ReceiptChain` chain, which is
+  not rerouted through it.
 
 ## Build and test
 

@@ -36,6 +36,31 @@ defmodule BeamPM.Evidence do
   `scripts/gate_engine_dispatch_check.sh` already reads, rather than
   hand-enumerating engine/op pairs (which would drift the moment a new
   `bpm:EngineOp` fact is admitted).
+
+  ## Division of labor: Ash-action evidence (26.10.1)
+
+  Since `{:ash_ex4pm, "~> 26.10"}`, Ash-resource-action OCEL 2.0 emission
+  is owned by `AshEx4pm.Notifier` (`deps/ash_ex4pm/lib/ash_ex4pm/
+  notifier.ex`): it builds the envelope and ingests it via
+  `Ex4pm.Stream.Ingest.ingest_envelope/1` into `Ex4pm.Evidence.Store`
+  (notifier.ex:153). This module's three bridges remain authoritative
+  **exclusively** for the `[:beam4pm, :engine, engine, op]` engine
+  telemetry family -- the three-evidences-per-engine-op contract pinned by
+  `test/beam4pm_evidence_chain_test.exs` is unchanged, and no bridge here
+  ever handles an Ash-action envelope.
+
+  The two evidence stores are disjoint by package design (v26.10.1 R5
+  investigation, 2026-10-01): `Ex4pm.Stream.Ingest` emits no telemetry on
+  the ingest path; its optional `:broadcaster` callback
+  (`deps/ex4pm/lib/ex4pm/stream/ingest.ex:129-137`) is per-call only and
+  `AshEx4pm.Notifier.notify/1` passes no opts, so it is unreachable from
+  beam4pm without an upstream change; and `Ex4pm.Evidence.Store`
+  (`deps/ex4pm/lib/ex4pm/evidence.ex:78-163`) is a pull-only ETS
+  GenServer with no Registry/PubSub/monitor push seam. Bridging the two
+  stores would require an upstream ash_ex4pm broadcaster (or ex4pm ingest
+  telemetry); once one exists, a `BeamPM.Evidence.Ex4pmBridge` can attach
+  to it and forward envelopes through `BeamPM.Ingest.Bridge.ingest/1`.
+  Polling the ETS store was rejected as not an event seam.
   """
 
   @manifest_path Path.join([__DIR__, "..", "schema", "beam4pm_engine_ops.tsv"])
@@ -122,7 +147,15 @@ defmodule BeamPM.Evidence do
 
     attrs =
       metadata
-      |> Map.take([:op_iri, :engine, :op, :args_digest, :invocation_id, :verification_class, :refusal_reason])
+      |> Map.take([
+        :op_iri,
+        :engine,
+        :op,
+        :args_digest,
+        :invocation_id,
+        :verification_class,
+        :refusal_reason
+      ])
       |> Map.new(fn {k, v} -> {to_string(k), if(is_binary(v), do: v, else: inspect(v))} end)
       |> Map.put("duration_native", to_string(Map.get(measurements, :duration_native, 0)))
 
@@ -191,7 +224,8 @@ defmodule BeamPM.Evidence.OtelBridge do
       {"beam4pm.capability.op", to_string(op)},
       {"beam4pm.capability.op_iri", to_string(Map.get(metadata, :op_iri, ""))},
       {"beam4pm.capability.invocation_id", inspect(Map.get(metadata, :invocation_id))},
-      {"beam4pm.capability.verification_class", to_string(Map.get(metadata, :verification_class, ""))},
+      {"beam4pm.capability.verification_class",
+       to_string(Map.get(metadata, :verification_class, ""))},
       {"beam4pm.capability.args_digest", to_string(Map.get(metadata, :args_digest, ""))},
       {"ocel.outcome", outcome}
     ]
@@ -284,7 +318,10 @@ defmodule BeamPM.Evidence.ReceiptBridge do
   def handle_event([:beam4pm, :engine, engine, op], measurements, metadata, _config) do
     chain_id = "#{engine}.#{op}"
     invocation_id = Map.get(metadata, :invocation_id)
-    run_id = "#{chain_id}-#{inspect(invocation_id)}-#{System.unique_integer([:positive, :monotonic])}"
+
+    run_id =
+      "#{chain_id}-#{inspect(invocation_id)}-#{System.unique_integer([:positive, :monotonic])}"
+
     dir = receipts_dir()
     File.mkdir_p!(dir)
     next_receipt_path = Path.join(dir, run_id <> ".json")
@@ -310,7 +347,8 @@ defmodule BeamPM.Evidence.ReceiptBridge do
       "args_digest" => to_string(Map.get(metadata, :args_digest, "")),
       "duration_ms" => duration_ms,
       "outcome" => outcome,
-      "refusal_reason" => Map.get(metadata, :refusal_reason) |> then(&if(&1, do: to_string(&1), else: nil)),
+      "refusal_reason" =>
+        Map.get(metadata, :refusal_reason) |> then(&if(&1, do: to_string(&1), else: nil)),
       "recorded_at" => DateTime.utc_now() |> DateTime.to_iso8601()
     }
 

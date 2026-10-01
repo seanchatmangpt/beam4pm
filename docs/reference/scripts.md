@@ -30,6 +30,7 @@ targets are noted in `CLAUDE.md` for the primary ones (`sync`, `test`, `verify`)
 | `standing_vocabulary_check.sh` | Confirms beam4pm's STANDING vocabulary matches ex4pm.ttl's canonical six | Checks string-identity of vocabulary terms used in `receipts/*.json`/`docs/jira/**/*.md` against ex4pm's canonical source |
 | `pro_type_pages_sync.sh` | Per-record-type reference doc fan-out (transplanted from xaas's `--for-each` pattern) | Regenerates one `docs/reference/types/<record_name>.md` per admitted `bpm:RecordType` individual |
 | `rust4pm_wasm_build.sh` | Builds the process-mining engine (native/rust4pm-wasm crate as wasm32-wasip1 cdylib) | Regenerates the `.wasm` module BeamPM.Rust4PM/Erlang/Gleam facades delegate to |
+| `graphlaw_wasm_fetch.sh` | Installs the graphlaw admission-court wasm module at `native/graphlaw/graphlaw_wasm.wasm` | Downloads the checksum-verified `graphlaw.wasm` release asset via `gh` (`scripts/graphlaw_wasm_fetch.sh [VERSION]`, default `$GRAPHLAW_VERSION`) or installs a local build (`--from <path>`); writes the sha256 pin `native/graphlaw/graphlaw_wasm.wasm.sha256` that `BeamPM.GraphlawAdmission.verify_artifact/1` checks before the engine child starts; exit 2 when the release or asset does not exist / cannot be downloaded |
 
 ## Revenue / economics
 

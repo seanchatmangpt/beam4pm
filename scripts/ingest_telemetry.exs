@@ -22,10 +22,10 @@
 #      `:action`/`:query`, `:trace_id`/`:span_id` -- into the fields
 #      `ocel_event` actually has: event_id, event_type, event_time,
 #      attributes).
-#   2. Every fired event is buffered (in-process, via `:persistent_term` so
-#      the buffer survives across telemetry callback invocations without a
-#      GenServer -- this script's job is the bridge itself, not a new
-#      supervised process tree) as a real `%BeamPM.Types.OcelEvent{}`
+#   2. Every fired event is buffered in a bounded named `:ets` `:ordered_set`
+#      owned by a lazily-started GenServer (oldest-drop cap, O(1) ingest --
+#      the buffer lives outside the calling process so a caller crash
+#      cannot destroy it) as a real `%BeamPM.Types.OcelEvent{}`
 #      struct built via the GENERATED `BeamPM.Types.OcelEvent.new/1`
 #      constructor -- never a hand-rolled struct literal, so the
 #      constructor's own field-presence validation is exercised on every
@@ -61,7 +61,19 @@ defmodule BeamPM.Ingest.Bridge do
   `bpm:RecordType` projection, so it is a script, not a `lib/` module.
   """
 
-  @buffer_key {__MODULE__, :buffer}
+  # The buffer is a bounded, named, public `:ets` `:ordered_set` owned by a
+  # tiny lazily-started GenServer (SOAK-1 blocker fix): the previous
+  # `:persistent_term` literal-list buffer was unbounded, O(n) per write
+  # (~397us at 2k events), and 20k realtime events crashed the VM
+  # (literal_alloc + erl_crash.dump). The table lives OUTSIDE the calling
+  # process (owner GenServer + public writers), so a caller crash cannot
+  # destroy buffered evidence -- mirroring how `Ex4pm.Evidence.Store`
+  # survives. Cap (oldest-drop) comes from
+  # `Application.get_env(:beam4pm, :ingest_buffer_cap, 50_000)`.
+  @ets :beam4pm_ingest_bridge_buffer
+  @owner :beam4pm_ingest_bridge_owner
+  @seq_key :ingest_seq
+  @default_cap 50_000
 
   @doc """
   Attaches a `:telemetry` handler for `event_name` (a `[atom()]` telemetry
@@ -128,31 +140,135 @@ defmodule BeamPM.Ingest.Bridge do
     :ok
   end
 
-  @doc "Appends one already-constructed `%BeamPM.Types.OcelEvent{}` to the buffer."
+  @doc """
+  Appends one already-constructed `%BeamPM.Types.OcelEvent{}` to the bounded
+  buffer (O(1) -- ets insert + cap trim, oldest dropped when over cap).
+  Malformed input (not matching `%BeamPM.Types.OcelEvent{}`) returns a typed
+  `{:error, {:invalid_ocel_event, term}}` instead of raising.
+  """
   @spec ingest(BeamPM.Types.OcelEvent.t()) :: :ok
   def ingest(%BeamPM.Types.OcelEvent{} = event) do
-    current = :persistent_term.get(@buffer_key, [])
-    :persistent_term.put(@buffer_key, [event | current])
+    ensure_started()
+
+    # The monotonic sequence lives in a counter row in the same table:
+    # `:ets.update_counter/4` with an insert-default is atomic under
+    # concurrency (a :persistent_term read-modify-write is NOT -- concurrent
+    # ingests collided and overwrote rows in the 8-way soak). The row sorts
+    # AFTER every integer seq key (atoms > integers in ETS term order), so
+    # `:ets.first/1` still returns the oldest event row and every consumer
+    # filters the bookkeeping key out.
+    seq = :ets.update_counter(@ets, @seq_key, 1, {@seq_key, 0})
+    :ets.insert(@ets, {seq, event})
+
+    # +1: the counter row itself counts toward :size. One insert => at most
+    # one row over cap; drop the oldest (lowest seq).
+    if :ets.info(@ets, :size) > cap() + 1 do
+      :ets.delete(@ets, :ets.first(@ets))
+    end
+
     :ok
   end
 
-  @doc "Every buffered event, oldest first."
+  def ingest(other), do: {:error, {:invalid_ocel_event, other}}
+
+  @doc "Every buffered event, oldest first (at most the newest `cap` entries)."
   @spec events() :: [BeamPM.Types.OcelEvent.t()]
   def events do
-    :persistent_term.get(@buffer_key, []) |> Enum.reverse()
+    ensure_started()
+
+    :ets.foldl(
+      fn
+        {@seq_key, _}, acc -> acc
+        {_seq, event}, acc -> [event | acc]
+      end,
+      [],
+      @ets
+    )
+    |> Enum.reverse()
   end
 
   @doc "Clears the buffer (used between independent runs/tests)."
   @spec reset() :: :ok
   def reset do
-    :persistent_term.put(@buffer_key, [])
+    ensure_started()
+    :ets.delete_all_objects(@ets)
+    :ets.insert(@ets, {@seq_key, 0})
+    :ok
   end
 
-  defp reset_buffer_if_absent do
-    case :persistent_term.get(@buffer_key, :absent) do
-      :absent -> :persistent_term.put(@buffer_key, [])
-      _ -> :ok
+  # --- bounded ets buffer plumbing -------------------------------------------
+
+  defp cap do
+    Application.get_env(:beam4pm, :ingest_buffer_cap, @default_cap)
+  end
+
+  defp ensure_started do
+    case GenServer.whereis(@owner) do
+      nil ->
+        case GenServer.start(__MODULE__, [], name: @owner) do
+          {:ok, _pid} -> :ok
+
+          {:error, {:already_started, pid}} ->
+            # we raced the registered server: if OUR init created the table,
+            # hand it to the winner so it survives this (losing) process exit
+            if :ets.whereis(@ets) != :undefined and :ets.info(@ets, :owner) == self() do
+              :ets.give_away(@ets, pid, nil)
+            end
+
+            :ok
+
+          {:error, reason} ->
+            raise "BeamPM.Ingest.Bridge init failed: #{inspect(reason)}"
+        end
+
+      _pid ->
+        :ok
     end
+  end
+
+  @doc false
+  def init(_) do
+    tid = ensure_table(50)
+    :ets.insert(tid, {@seq_key, 0})
+    {:ok, %{cap: cap()}}
+  end
+
+  # Race-safe table acquisition. Two concurrent inits can both observe
+  # whereis == :undefined; the :ets.new loser adopts the winner's table (or,
+  # if the creator died in between, retries). Bounded retries so a hostile
+  # environment cannot spin forever.
+  defp ensure_table(retries) do
+    case :ets.whereis(@ets) do
+      tid when tid != :undefined ->
+        tid
+
+      :undefined ->
+        try do
+          # NOTE: :read_concurrency is intentionally absent -- this host's
+          # OTP 28.5.0.2 rejects it in :ets.new options ("invalid options");
+          # it is a performance hint only, no semantic effect.
+          :ets.new(@ets, [
+            :ordered_set,
+            :named_table,
+            :public,
+            {:write_concurrency, true}
+          ])
+        rescue
+          ArgumentError ->
+            case :ets.whereis(@ets) do
+              :undefined when retries > 0 -> ensure_table(retries - 1)
+              :undefined -> raise "BeamPM.Ingest.Bridge: cannot create buffer table"
+              tid -> tid
+            end
+        end
+    end
+  end
+
+  def handle_info(_msg, state), do: {:noreply, state}
+
+  defp reset_buffer_if_absent do
+    ensure_started()
+    :ok
   end
 
   @doc """

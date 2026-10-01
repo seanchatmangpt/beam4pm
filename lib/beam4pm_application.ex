@@ -5,7 +5,10 @@ defmodule BeamPM.Application do
   Starts `BeamPM.OcelIngest.Router` (`lib/beam4pm_ocel_ingest.ex`, generated
   by ggen_igniter from the admitted `bpmi:AdmittedIngestRoute` graph) behind
   a real Bandit HTTP listener -- beam4pm's own independent network-facing
-  ingestion capability, not a dependency on ex4pm.
+  ingestion capability, network-independent of ex4pm. ex4pm itself is now a
+  real transitive dependency (pulled via `{:ash_ex4pm, "~> 26.10"}`); its
+  `Ex4pm.Evidence.Store` is the sink for AshEx4pm emission, while wasm
+  hosting stays beam4pm's own (`config :ex4pm, wasm_host: false`).
 
   Not itself ggen-generated: per `docs/jira/v26.8.29/
   03-architecture-and-ggen-manufacturing.md`'s source authority policy,
@@ -14,9 +17,10 @@ defmodule BeamPM.Application do
 
   Also mounts the agent-facing A2A HTTP listener (`A2A.Plug`/Bandit on its
   own port, at `/a2a`, in front of `BeamPM.A2AAgent`) ADDITIVELY, alongside
-  the OCEL ingest listener above -- it does not replace or touch it, and it
-  does not replace ex4pm's existing `Ex4pm.Engine.Beam4pm` HTTP route-table
-  client. `BeamPM.A2AAgent` itself is booted by `:ash_a2a`'s own Application
+  the OCEL ingest listener above -- it does not replace or touch it. ex4pm
+  26.10.1 removed the former `Ex4pm.Engine.Beam4pm` HTTP route-table client
+  this listener was once contrasted against, so there is nothing to
+  displace. `BeamPM.A2AAgent` itself is booted by `:ash_a2a`'s own Application
   callback (`config :ash_a2a, :agents, [BeamPM.A2AAgent]` in
   `config/config.exs`), not here -- starting its `A2A.AgentSupervisor` a
   second time in this tree would double-register the agent name and crash

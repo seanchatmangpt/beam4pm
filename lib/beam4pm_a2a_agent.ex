@@ -16,10 +16,11 @@ defmodule BeamPM.A2AAgent do
   supervision-tree-adjacent wiring is a manufacturing input (like
   `beam4pm_application.ex` itself), never generated output.
 
-  This is additive: it does NOT replace ex4pm's existing
-  `Ex4pm.Engine.Beam4pm` HTTP route-table client, and it never routes
-  beam4pm's own internals (EngineOp dispatch, the OCEL/OTel evidence chain,
-  `BeamPM.ReceiptChain`) through A2A/JSON-RPC.
+  This is additive alongside ex4pm, which is now a real dependency of this
+  repo (`{:ash_ex4pm, "~> 26.10"}` -- hex ex4pm 26.10.1, which removed the
+  former `Ex4pm.Engine.Beam4pm` HTTP route-table client), not an external
+  client. It never routes beam4pm's own internals (EngineOp dispatch, the
+  OCEL/OTel evidence chain, `BeamPM.ReceiptChain`) through A2A/JSON-RPC.
   """
   # GATE M2 deletes every manufactured projection before either engine runs.
   # During that bounded bootstrap window the Ash domain is absent or not yet a
