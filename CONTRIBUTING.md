@@ -289,6 +289,24 @@ via `System.fetch_env!/1`, and `RF1DfgDiscoveryTest` raises a clear "binary not 
 run `cargo build --release` in native/rf1-dfg-oracle/ first" message — both are
 honest refusals, not silent skips.
 
+## Versioning
+
+beam4pm uses CalVer: version tags have the shape `vYY.MM.P` (e.g. `v26.9.10`,
+`v26.10.1`) and are cut on release commits; `mix.exs`'s `version:` (currently
+`26.10.1`) is bumped on release day — bump it via
+`mix beam4pm.version_bump <version>` (`lib/mix/tasks/beam4pm.version_bump.ex`),
+never by hand-editing `mix.exs`. The declared version must match the topmost
+released `CHANGELOG.md` heading.
+
+### The ex4pm exact-pin policy
+
+`mix.exs` pins `{:ex4pm, "== 26.10.1"}` exactly — not a range — because ex4pm's
+CalVer third component carries **contract changes**, not patch fixes; a
+`~>` range could silently admit a breaking ex4pm release. The consequence:
+every ex4pm bump requires a matching dependent release here (a new `vYY.MM.P`
+tag and `mix.exs`/CHANGELOG bump in the same cycle), so the pin and the
+released contract never drift apart.
+
 ## See also
 
 - [`README.md`](README.md) — project overview, current manufacturing status
