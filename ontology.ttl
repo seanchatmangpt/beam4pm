@@ -10432,7 +10432,7 @@ bap:hand_authored_lib_dfcm a bpm:HandAuthoredSource ;
     bpm:admissionReason "DfCM planning crown plus live Ferroplan runtime composition. Preserves admitted alternatives, fences and falsifiers; adds zero-DO observation-to-repair routing, deterministic plan lineage and memory evidence, explicit stale-plan refusal, bounded counterfactual probes over cheap session forks, admitted external evidence (e.g. a POWL conformance verdict) bound by digest into event, trigger, memory and lineage hashes, and an evidence reuse gate that forces a bounded replan with trigger evidence_refused_reuse. FOND branch admission is BLOCKED(producer lacks fond_validate): no admitted Ferroplan pin (e90928d7, 420974c5) exposes fond_validate, so every well-shaped policy returns a typed fond_validator_unavailable and no branch is admitted; the validated path is UNVERIFIED. Native session_repair/session_probe are UNVERIFIED (no admitted pin or generated facade exports them); every observed run takes the host ladder built from existing session ops. Authority ceiling remains strictly :select. Hardened at the boundary: malformed, contradictory or out-of-budget deliveries, a non-boolean reuse gate, malformed or duplicate probe ids, ambiguous FOND policies and empty stale-plan identities are refused as typed errors before any engine call; native repair output passes a closed decision vocabulary and fails closed to escalation." ;
     bpm:acceptanceCommand "mix test test/beam4pm_dfcm_test.exs" ;
     bpm:acceptancePrerequisite "native/ferroplan/target/wasm32-wasip1/release/ferroplan_wasm.wasm" ;
-    bpm:contentSha256 "6c00ee4ea52095d93d9db392a2dfbc679028fc950b7be527d7c5bfdc46b9ab7d" ;
+    bpm:contentSha256 "d545e724ef5fb175e55383b2142b7b3c11adebc163aa8eded906617534a48f34" ;
     bpm:admittedAtCommit "8344990" ;
     bpm:admissionExpires "2026-12-31" ;
     bpm:sunsetPlan "Admit DfCM contracts as ontology facts and render the planning crown from a pack template; then delete this admission." .
@@ -10501,7 +10501,7 @@ bap:hand_authored_test_ferroplan a bpm:HandAuthoredSource ;
     bpm:admissionReason "Chicago qualification of BeamPM.Ferroplan against a real classical-planning domain inside the wasm engine (no mocks); the planning fixtures are hand-written, not ontology facts." ;
     bpm:acceptanceCommand "mix test test/beam4pm_ferroplan_test.exs" ;
     bpm:acceptancePrerequisite "native/ferroplan/target/wasm32-wasip1/release/ferroplan_wasm.wasm" ;
-    bpm:contentSha256 "0c4d09b7d9f437c8c9e8c397bc69e717d70e3baa9f3d7de4d70c8cf30a5ed505" ;
+    bpm:contentSha256 "bf2a179c0e6331d3c0b3085fd5efb67c3af0b8cdfe24c4ad1154c69419f0c3ed" ;
     bpm:admittedAtCommit "c34e275" ;
     bpm:admissionExpires "2026-12-31" ;
     bpm:sunsetPlan "Admit the planning fixtures as ontology facts (a bpmg:ProcessContract already projects to PDDL) and render this qualification from them; then delete this admission." .
@@ -10823,7 +10823,7 @@ bap:hand_authored_test_patch_field a bpm:HandAuthoredSource ;
     bpm:admissionReason "Chicago qualification of GgenIgniter.PatchField.patch/4 (admitted above) against the actual, current lib/beam4pm_types.ex content -- asserts the codemod's real output, not a mocked interaction. DISCLOSED GAP: both tests are @moduletag :skip as of 2026-09-09 -- they reliably time out at ~360s against the CURRENT lib/beam4pm_types.ex (~18k lines, grown ~7.6x since this test was authored), a real bottleneck inside Igniter.Code.Common/Sourceror's AST traversal, not in the codemod's own logic. See the test file's own header comment for the full disclosure." ;
     bpm:acceptanceCommand "mix test test/ggen_igniter_patch_field_test.exs" ;
     bpm:acceptancePrerequisite "cmd:test -n \"${BEAM4PM_RUN_EXPENSIVE_PATCH_FIELD_TESTS:-}\" && test $(wc -l < lib/beam4pm_types.ex) -lt 5000" ;
-    bpm:contentSha256 "b2be2a83ee1b8258cb429abd2c976fb1cb0bd3c5ffd4e216e3f21cf7ed42e97f" ;
+    bpm:contentSha256 "0441e69dadd9032e79458f86908b5de09d46aafd730054be33f006d995e44fed" ;
     bpm:admittedAtCommit "2cc09cb" ;
     bpm:admissionExpires "2026-12-31" ;
     bpm:sunsetPlan "Sunsets alongside lib/ggen_igniter/patch_field.ex's own admission." .
@@ -10868,10 +10868,544 @@ bap:hand_authored_test_replan_chain a bpm:HandAuthoredSource ;
     bpm:authorizingPrincipal "Sean Chatman (repo owner) via git history (896fbaff)" ;
     bpm:admissionReason "Chicago qualification of BeamPM.ReplanTrigger, BeamPM.StalePlanGate and BeamPM.PlanJournal over the generated Ash ETS resources with real Ash reads and no doubles: pinned trigger_hash and individual-name formulas recomputed with :crypto sha256, conforms:true no-op, no_deviation refusal, stale-plan gate outcomes, lineage/memory hash determinism and empty-identity refusals." ;
     bpm:acceptanceCommand "mix test test/beam4pm_replan_chain_test.exs" ;
-    bpm:contentSha256 "dc1099db10baf77611ef02d6ceade33a661160946f8973c060adef2237b03b09" ;
+    bpm:contentSha256 "9bddf01812269792e747b4643a35457f94084570f3cbc5c9d19080b9b35f2023" ;
     bpm:admittedAtCommit "896fbaff" ;
     bpm:admissionExpires "2026-12-31" ;
     bpm:sunsetPlan "Render from ontology facts once the replan-chain producers are admitted; then delete this admission." .
+
+
+bap:hand_authored_repair_lib_beam_pm_sa2a_recovery_receipt_adapter_ex a bpm:HandAuthoredSource ;
+    bpm:sourcePath "lib/beam_pm/sa2a/recovery_receipt_adapter.ex" ;
+    bpm:authorshipKind bpm:AuthorshipKind_hand_authored_qualification ;
+    bpm:authorizingPrincipal "Sean Chatman (repo owner) via Claude Code fleet repair lane REPAIR-beam4pm (2026-10-03)" ;
+    bpm:admissionReason "Hand-authored SA2A failover seam: maps an AshA2A.Replan.Loop result (provider id + exclusions) back onto BeamPM.FerroplanBridge.RecoveryReceipt (edge_for_provider/2, from_loop/3). No pack template renders this bridge; same class as lib/beam4pm_evidence.ex." ;
+    bpm:acceptanceCommand "mix test test/beam_pm/ferroplan_bridge/sa2a_coordinator_test.exs" ;
+    bpm:contentSha256 "2053af8c0d95c7fe20bd76419815a172110ead5c6c8e5e4ce36722a1d1f3c93f" ;
+    bpm:admittedAtCommit "bd6d48f" ;
+    bpm:admissionExpires "2026-12-31" ;
+    bpm:sunsetPlan "Migrate the capability into bpm: facts + a pack template and render it; then delete this admission." .
+
+bap:hand_authored_repair_lib_beam_pm_sa2a_replan_consumer_ex a bpm:HandAuthoredSource ;
+    bpm:sourcePath "lib/beam_pm/sa2a/replan_consumer.ex" ;
+    bpm:authorshipKind bpm:AuthorshipKind_hand_authored_qualification ;
+    bpm:authorizingPrincipal "Sean Chatman (repo owner) via Claude Code fleet repair lane REPAIR-beam4pm (2026-10-03)" ;
+    bpm:admissionReason "Hand-authored adapter from Beam4PM's ExecutionEnvelope into AshA2A.Replan.Loop (owns provider exclusion, bounded attempts, replay identity). No pack template renders this adapter; same class as lib/beam4pm_evidence.ex." ;
+    bpm:acceptanceCommand "mix test test/beam_pm/sa2a/replan_consumer_test.exs" ;
+    bpm:contentSha256 "dd408486513484864f2331d4c654000c9629a83da68ef3ab74d223a9939eccd7" ;
+    bpm:admittedAtCommit "bd6d48f" ;
+    bpm:admissionExpires "2026-12-31" ;
+    bpm:sunsetPlan "Migrate the capability into bpm: facts + a pack template and render it; then delete this admission." .
+
+bap:hand_authored_repair_lib_beam4pm_autofde_bridge_ex a bpm:HandAuthoredSource ;
+    bpm:sourcePath "lib/beam4pm_autofde_bridge.ex" ;
+    bpm:authorshipKind bpm:AuthorshipKind_hand_authored_qualification ;
+    bpm:authorizingPrincipal "Sean Chatman (repo owner) via Claude Code fleet repair lane REPAIR-beam4pm (2026-10-03)" ;
+    bpm:admissionReason "Persistent stdio port-bridge GenServer over autofde-lab (v26.9.18 wave, agent P8 delegation-only seam). Admission dropped by the 2026-10-01 ontology regeneration; re-admitted unchanged." ;
+    bpm:acceptanceCommand "mix test test/beam4pm_autofde_bridge_test.exs" ;
+    bpm:contentSha256 "26104d7ff39850d3f2c3e9de8acd3bafe23f057ebe293ff2293af80df67454b7" ;
+    bpm:admittedAtCommit "bd6d48f" ;
+    bpm:admissionExpires "2026-12-31" ;
+    bpm:sunsetPlan "Migrate the capability into bpm: facts + a pack template and render it; then delete this admission." .
+
+bap:hand_authored_repair_lib_beam4pm_castle_capability_intake_ex a bpm:HandAuthoredSource ;
+    bpm:sourcePath "lib/beam4pm_castle_capability_intake.ex" ;
+    bpm:authorshipKind bpm:AuthorshipKind_hand_authored_qualification ;
+    bpm:authorizingPrincipal "Sean Chatman (repo owner) via Claude Code fleet repair lane REPAIR-beam4pm (2026-10-03)" ;
+    bpm:admissionReason "Hand-authored castle capability-intake runtime; no pack template renders this seam. Dropped by the 2026-10-01 regeneration; re-admitted unchanged." ;
+    bpm:acceptanceCommand "mix test test/castle_capability_intake_test.exs test/castle_capability_intake_runtime_test.exs" ;
+    bpm:contentSha256 "6e13920c731fe94406661140ce70b901a6ed31a2992af9c0c2fdf83f849307a2" ;
+    bpm:admittedAtCommit "bd6d48f" ;
+    bpm:admissionExpires "2026-12-31" ;
+    bpm:sunsetPlan "Migrate the capability into bpm: facts + a pack template and render it; then delete this admission." .
+
+bap:hand_authored_repair_lib_beam4pm_enterprise_planning_ex a bpm:HandAuthoredSource ;
+    bpm:sourcePath "lib/beam4pm_enterprise_planning.ex" ;
+    bpm:authorshipKind bpm:AuthorshipKind_hand_authored_qualification ;
+    bpm:authorizingPrincipal "Sean Chatman (repo owner) via Claude Code fleet repair lane REPAIR-beam4pm (2026-10-03)" ;
+    bpm:admissionReason "Hand-authored enterprise planning surface; not a bpm:RecordType projection, no pack template applies. Dropped by the 2026-10-01 regeneration; re-admitted unchanged." ;
+    bpm:acceptanceCommand "mix test test/beam4pm_enterprise_planning_test.exs" ;
+    bpm:contentSha256 "322e7a1a3470d6fe351934ab245cc459df277cccbec78c62d31780be941129db" ;
+    bpm:admittedAtCommit "bd6d48f" ;
+    bpm:admissionExpires "2026-12-31" ;
+    bpm:sunsetPlan "Migrate the capability into bpm: facts + a pack template and render it; then delete this admission." .
+
+bap:hand_authored_repair_lib_beam4pm_ferroplan_bridge_ex a bpm:HandAuthoredSource ;
+    bpm:sourcePath "lib/beam4pm_ferroplan_bridge.ex" ;
+    bpm:authorshipKind bpm:AuthorshipKind_hand_authored_qualification ;
+    bpm:authorizingPrincipal "Sean Chatman (repo owner) via Claude Code fleet repair lane REPAIR-beam4pm (2026-10-03)" ;
+    bpm:admissionReason "Hand-authored ExecutionEnvelope/SemanticEdge struct seam for the ferroplan closure coordinator; no pack template renders it. Dropped by the 2026-10-01 regeneration; re-admitted unchanged." ;
+    bpm:acceptanceCommand "mix test test/beam_pm/ferroplan_bridge/sa2a_coordinator_test.exs" ;
+    bpm:contentSha256 "0c44ca5c3b0deff005cd743567db6ada587547b924db57d8f7e95446ff8759d5" ;
+    bpm:admittedAtCommit "bd6d48f" ;
+    bpm:admissionExpires "2026-12-31" ;
+    bpm:sunsetPlan "Migrate the capability into bpm: facts + a pack template and render it; then delete this admission." .
+
+bap:hand_authored_repair_lib_beam4pm_fond_powl_ex a bpm:HandAuthoredSource ;
+    bpm:sourcePath "lib/beam4pm_fond_powl.ex" ;
+    bpm:authorshipKind bpm:AuthorshipKind_hand_authored_qualification ;
+    bpm:authorizingPrincipal "Sean Chatman (repo owner) via Claude Code fleet repair lane REPAIR-beam4pm (2026-10-03)" ;
+    bpm:admissionReason "Hand-authored FOND outcome-branch set -> POWL choice-graph converter (BeamPM.Powl.FondPowl); no pack template renders it. Dropped by the 2026-10-01 regeneration; re-admitted unchanged." ;
+    bpm:acceptanceCommand "mix test test/beam4pm_powl_edges_test.exs" ;
+    bpm:contentSha256 "50962ba972c1b32caa2e888fcbdce8980d2edb9ef3de453515c436b6192f8171" ;
+    bpm:admittedAtCommit "bd6d48f" ;
+    bpm:admissionExpires "2026-12-31" ;
+    bpm:sunsetPlan "Migrate the capability into bpm: facts + a pack template and render it; then delete this admission." .
+
+bap:hand_authored_repair_lib_beam4pm_gall_ocel_ex a bpm:HandAuthoredSource ;
+    bpm:sourcePath "lib/beam4pm_gall_ocel.ex" ;
+    bpm:authorshipKind bpm:AuthorshipKind_hand_authored_qualification ;
+    bpm:authorizingPrincipal "Sean Chatman (repo owner) via Claude Code fleet repair lane REPAIR-beam4pm (2026-10-03)" ;
+    bpm:admissionReason "Hand-authored gall-to-OCEL event mapping; not a bpm:RecordType projection. Dropped by the 2026-10-01 regeneration; re-admitted unchanged." ;
+    bpm:acceptanceCommand "mix test test/beam4pm_gall_ocel_test.exs" ;
+    bpm:contentSha256 "b28b52e8f5f4aa5eb5dd5e7325ed3f97a8e5a98260f74884c30cc145147c667f" ;
+    bpm:admittedAtCommit "bd6d48f" ;
+    bpm:admissionExpires "2026-12-31" ;
+    bpm:sunsetPlan "Migrate the capability into bpm: facts + a pack template and render it; then delete this admission." .
+
+bap:hand_authored_repair_lib_beam4pm_hddl_powl_ex a bpm:HandAuthoredSource ;
+    bpm:sourcePath "lib/beam4pm_hddl_powl.ex" ;
+    bpm:authorshipKind bpm:AuthorshipKind_hand_authored_qualification ;
+    bpm:authorizingPrincipal "Sean Chatman (repo owner) via Claude Code fleet repair lane REPAIR-beam4pm (2026-10-03)" ;
+    bpm:admissionReason "Hand-authored HDDL task network -> POWL partial-order converter (BeamPM.Powl.HddlPowl); no pack template renders it. Dropped by the 2026-10-01 regeneration; re-admitted unchanged." ;
+    bpm:acceptanceCommand "mix test test/beam4pm_powl_edges_test.exs" ;
+    bpm:contentSha256 "fd7c38c319c4644296f21678556f1ec0b68382a36f6563f8289af2f22e80f006" ;
+    bpm:admittedAtCommit "bd6d48f" ;
+    bpm:admissionExpires "2026-12-31" ;
+    bpm:sunsetPlan "Migrate the capability into bpm: facts + a pack template and render it; then delete this admission." .
+
+bap:hand_authored_repair_lib_beam4pm_legacy_equivalence_ex a bpm:HandAuthoredSource ;
+    bpm:sourcePath "lib/beam4pm_legacy_equivalence.ex" ;
+    bpm:authorshipKind bpm:AuthorshipKind_hand_authored_qualification ;
+    bpm:authorizingPrincipal "Sean Chatman (repo owner) via Claude Code fleet repair lane REPAIR-beam4pm (2026-10-03)" ;
+    bpm:admissionReason "Hand-authored legacy-equivalence verdict receipt module (beam4pm-legacy-equivalence/1). This session also fixes normalize/1: nil is an atom, so a missing event_type was stringified to 'nil', defeating the :missing_event_type refusal; digest is post-fix." ;
+    bpm:acceptanceCommand "mix test test/beam4pm_legacy_equivalence_test.exs" ;
+    bpm:contentSha256 "6825cd786bc9fcdbef3f51a6ffb743b099cf4ac251f1627ca0bc7499215892d9" ;
+    bpm:admittedAtCommit "bd6d48f" ;
+    bpm:admissionExpires "2026-12-31" ;
+    bpm:sunsetPlan "Migrate the capability into bpm: facts + a pack template and render it; then delete this admission." .
+
+bap:hand_authored_repair_lib_beam4pm_ocel_accumulator_ex a bpm:HandAuthoredSource ;
+    bpm:sourcePath "lib/beam4pm_ocel_accumulator.ex" ;
+    bpm:authorshipKind bpm:AuthorshipKind_hand_authored_qualification ;
+    bpm:authorizingPrincipal "Sean Chatman (repo owner) via Claude Code fleet repair lane REPAIR-beam4pm (2026-10-03)" ;
+    bpm:admissionReason "Hand-authored streaming OCEL accumulator feeding BeamPM.OcelSessionFacts; no pack template renders it. Dropped by the 2026-10-01 regeneration; re-admitted unchanged." ;
+    bpm:acceptanceCommand "mix test test/beam4pm_powl_edges_test.exs" ;
+    bpm:contentSha256 "133d07430e7c43aef3c89f85dfe5397c6f7d8efde9b469d5cc5d02b0d7acc593" ;
+    bpm:admittedAtCommit "bd6d48f" ;
+    bpm:admissionExpires "2026-12-31" ;
+    bpm:sunsetPlan "Migrate the capability into bpm: facts + a pack template and render it; then delete this admission." .
+
+bap:hand_authored_repair_lib_beam4pm_ocel_session_facts_ex a bpm:HandAuthoredSource ;
+    bpm:sourcePath "lib/beam4pm_ocel_session_facts.ex" ;
+    bpm:authorshipKind bpm:AuthorshipKind_hand_authored_qualification ;
+    bpm:authorizingPrincipal "Sean Chatman (repo owner) via Claude Code fleet repair lane REPAIR-beam4pm (2026-10-03)" ;
+    bpm:admissionReason "Hand-authored OCEL session-facts surface over the rust4pm wasm engine; no pack template renders it. Dropped by the 2026-10-01 regeneration; re-admitted unchanged." ;
+    bpm:acceptanceCommand "mix test test/beam4pm_ocel_session_facts_test.exs" ;
+    bpm:acceptancePrerequisite "native/graphlaw/graphlaw_wasm.wasm" ;
+    bpm:contentSha256 "cec6e5325cf3c6f7b59000ef54b43c7ff29f7edc3b6999c520a8ab182b395e7e" ;
+    bpm:admittedAtCommit "bd6d48f" ;
+    bpm:admissionExpires "2026-12-31" ;
+    bpm:sunsetPlan "Migrate the capability into bpm: facts + a pack template and render it; then delete this admission." .
+
+bap:hand_authored_repair_lib_beam4pm_plan_journal_ex a bpm:HandAuthoredSource ;
+    bpm:sourcePath "lib/beam4pm_plan_journal.ex" ;
+    bpm:authorshipKind bpm:AuthorshipKind_hand_authored_qualification ;
+    bpm:authorizingPrincipal "Sean Chatman (repo owner) via Claude Code fleet repair lane REPAIR-beam4pm (2026-10-03)" ;
+    bpm:admissionReason "Hand-authored plan journal over the DfCM planning crown; no pack template renders it. Dropped by the 2026-10-01 regeneration; re-admitted unchanged." ;
+    bpm:acceptanceCommand "mix test test/beam4pm_replan_chain_test.exs" ;
+    bpm:contentSha256 "d9b2860fdbc3617f756b0500e348ffcca44eb6af4ca21fb9d5ad34508d1b29a5" ;
+    bpm:admittedAtCommit "bd6d48f" ;
+    bpm:admissionExpires "2026-12-31" ;
+    bpm:sunsetPlan "Migrate the capability into bpm: facts + a pack template and render it; then delete this admission." .
+
+bap:hand_authored_repair_lib_beam4pm_powl_model_ex a bpm:HandAuthoredSource ;
+    bpm:sourcePath "lib/beam4pm_powl_model.ex" ;
+    bpm:authorshipKind bpm:AuthorshipKind_hand_authored_qualification ;
+    bpm:authorizingPrincipal "Sean Chatman (repo owner) via Claude Code fleet repair lane REPAIR-beam4pm (2026-10-03)" ;
+    bpm:admissionReason "Hand-authored typed data edge over the rust4pm serde POWL model (BeamPM.Powl.Model); no pack template renders it. Dropped by the 2026-10-01 regeneration; re-admitted unchanged." ;
+    bpm:acceptanceCommand "mix test test/beam4pm_powl_edges_test.exs" ;
+    bpm:contentSha256 "3a87452265a05e5f7c8e00ba32058e4e83b43aa8687afab3019621554cc12386" ;
+    bpm:admittedAtCommit "bd6d48f" ;
+    bpm:admissionExpires "2026-12-31" ;
+    bpm:sunsetPlan "Migrate the capability into bpm: facts + a pack template and render it; then delete this admission." .
+
+bap:hand_authored_repair_lib_beam4pm_replan_trigger_ex a bpm:HandAuthoredSource ;
+    bpm:sourcePath "lib/beam4pm_replan_trigger.ex" ;
+    bpm:authorshipKind bpm:AuthorshipKind_hand_authored_qualification ;
+    bpm:authorizingPrincipal "Sean Chatman (repo owner) via Claude Code fleet repair lane REPAIR-beam4pm (2026-10-03)" ;
+    bpm:admissionReason "Hand-authored DynamicReplanTrigger/PlanLineage support for the replanning ladder; no pack template renders it. Dropped by the 2026-10-01 regeneration; re-admitted unchanged." ;
+    bpm:acceptanceCommand "mix test test/beam4pm_replan_chain_test.exs" ;
+    bpm:contentSha256 "96afeb8d74823a921fb14a197467037df2264ae1189726da25082f3afd348c9e" ;
+    bpm:admittedAtCommit "bd6d48f" ;
+    bpm:admissionExpires "2026-12-31" ;
+    bpm:sunsetPlan "Migrate the capability into bpm: facts + a pack template and render it; then delete this admission." .
+
+bap:hand_authored_repair_lib_beam4pm_stale_plan_gate_ex a bpm:HandAuthoredSource ;
+    bpm:sourcePath "lib/beam4pm_stale_plan_gate.ex" ;
+    bpm:authorshipKind bpm:AuthorshipKind_hand_authored_qualification ;
+    bpm:authorizingPrincipal "Sean Chatman (repo owner) via Claude Code fleet repair lane REPAIR-beam4pm (2026-10-03)" ;
+    bpm:admissionReason "Hand-authored stale-plan gate for the replanning ladder; no pack template renders it. Dropped by the 2026-10-01 regeneration; re-admitted unchanged." ;
+    bpm:acceptanceCommand "mix test test/beam4pm_replan_chain_test.exs" ;
+    bpm:contentSha256 "d8053adeebf96759c8ca7874fae930d42419f2e3ce0c795139649820b5285753" ;
+    bpm:admittedAtCommit "bd6d48f" ;
+    bpm:admissionExpires "2026-12-31" ;
+    bpm:sunsetPlan "Migrate the capability into bpm: facts + a pack template and render it; then delete this admission." .
+
+bap:hand_authored_repair_schema_beam4pm_evidence_coverage_tsv a bpm:HandAuthoredSource ;
+    bpm:sourcePath "schema/beam4pm_evidence_coverage.tsv" ;
+    bpm:authorshipKind bpm:AuthorshipKind_hand_authored_qualification ;
+    bpm:authorizingPrincipal "Sean Chatman (repo owner) via Claude Code fleet repair lane REPAIR-beam4pm (2026-10-03)" ;
+    bpm:admissionReason "Hand-maintained evidence-coverage ledger rendered by no pack template; consumed by scripts/gate_evidence_coverage_check.sh. Dropped by the 2026-10-01 regeneration; re-admitted unchanged." ;
+    bpm:acceptanceCommand "bash scripts/gate_evidence_coverage_check.sh" ;
+    bpm:contentSha256 "13df9958c005ad8b86d17651d821dcf6776d43006e7caedff7034d78a9e0c22a" ;
+    bpm:admittedAtCommit "bd6d48f" ;
+    bpm:admissionExpires "2026-12-31" ;
+    bpm:sunsetPlan "Migrate the capability into bpm: facts + a pack template and render it; then delete this admission." .
+
+bap:hand_authored_repair_test_beam_pm_ferroplan_bridge_sa2a_coordinator_test_exs a bpm:HandAuthoredSource ;
+    bpm:sourcePath "test/beam_pm/ferroplan_bridge/sa2a_coordinator_test.exs" ;
+    bpm:authorshipKind bpm:AuthorshipKind_hand_authored_qualification ;
+    bpm:authorizingPrincipal "Sean Chatman (repo owner) via Claude Code fleet repair lane REPAIR-beam4pm (2026-10-03)" ;
+    bpm:admissionReason "Chicago qualification that the coordinator receipt shape is preserved while SA2A owns failover (ReplanConsumer path). This session adds the coordinator sa2a branch it exercises." ;
+    bpm:acceptanceCommand "mix test test/beam_pm/ferroplan_bridge/sa2a_coordinator_test.exs" ;
+    bpm:contentSha256 "4b7aaa353a2803e0becb81c59035105e12cb6191b64228554f38d611197bdc32" ;
+    bpm:admittedAtCommit "bd6d48f" ;
+    bpm:admissionExpires "2026-12-31" ;
+    bpm:sunsetPlan "Migrate the capability into bpm: facts + a pack template and render it; then delete this admission." .
+
+bap:hand_authored_repair_test_beam_pm_sa2a_replan_consumer_test_exs a bpm:HandAuthoredSource ;
+    bpm:sourcePath "test/beam_pm/sa2a/replan_consumer_test.exs" ;
+    bpm:authorshipKind bpm:AuthorshipKind_hand_authored_qualification ;
+    bpm:authorizingPrincipal "Sean Chatman (repo owner) via Claude Code fleet repair lane REPAIR-beam4pm (2026-10-03)" ;
+    bpm:admissionReason "Chicago qualification of BeamPM.SA2A.ReplanConsumer: Beam4PM delegates provider exclusion and replay identity to SA2A (real AshA2A.Replan.Loop, real propose/2 providers)." ;
+    bpm:acceptanceCommand "mix test test/beam_pm/sa2a/replan_consumer_test.exs" ;
+    bpm:contentSha256 "e0edca8662b10b0a1c0efd002f27acfea2cf4472383f44b1ae47d2524d7ce2c0" ;
+    bpm:admittedAtCommit "bd6d48f" ;
+    bpm:admissionExpires "2026-12-31" ;
+    bpm:sunsetPlan "Migrate the capability into bpm: facts + a pack template and render it; then delete this admission." .
+
+bap:hand_authored_repair_test_beam4pm_autofde_bridge_test_exs a bpm:HandAuthoredSource ;
+    bpm:sourcePath "test/beam4pm_autofde_bridge_test.exs" ;
+    bpm:authorshipKind bpm:AuthorshipKind_hand_authored_qualification ;
+    bpm:authorizingPrincipal "Sean Chatman (repo owner) via Claude Code fleet repair lane REPAIR-beam4pm (2026-10-03)" ;
+    bpm:admissionReason "Chicago qualification of the autofde-lab port bridge, named-skip when the autofde-lab checkout is absent." ;
+    bpm:acceptanceCommand "mix test test/beam4pm_autofde_bridge_test.exs" ;
+    bpm:contentSha256 "e96351f9b34c77ccf3bfb3fa42e96e9c55c537384a80e1fec500998433c3ae88" ;
+    bpm:admittedAtCommit "bd6d48f" ;
+    bpm:admissionExpires "2026-12-31" ;
+    bpm:sunsetPlan "Migrate the capability into bpm: facts + a pack template and render it; then delete this admission." .
+
+bap:hand_authored_repair_test_beam4pm_dfcm_cmca_parity_test_exs a bpm:HandAuthoredSource ;
+    bpm:sourcePath "test/beam4pm_dfcm_cmca_parity_test.exs" ;
+    bpm:authorshipKind bpm:AuthorshipKind_hand_authored_qualification ;
+    bpm:authorizingPrincipal "Sean Chatman (repo owner) via Claude Code fleet repair lane REPAIR-beam4pm (2026-10-03)" ;
+    bpm:admissionReason "Real-engine Chicago parity qualification (agent P7, v26.9.18 autofde-lab wave) of the DfCM CMCA surface. Dropped by the 2026-10-01 regeneration; re-admitted unchanged." ;
+    bpm:acceptanceCommand "mix test test/beam4pm_dfcm_cmca_parity_test.exs" ;
+    bpm:contentSha256 "24a1763ab0d8f00d305c723075f9b06774f89a6f2fec34414a3165cdef64abd4" ;
+    bpm:admittedAtCommit "bd6d48f" ;
+    bpm:admissionExpires "2026-12-31" ;
+    bpm:sunsetPlan "Migrate the capability into bpm: facts + a pack template and render it; then delete this admission." .
+
+bap:hand_authored_repair_test_beam4pm_dfcm_fabric_parity_test_exs a bpm:HandAuthoredSource ;
+    bpm:sourcePath "test/beam4pm_dfcm_fabric_parity_test.exs" ;
+    bpm:authorshipKind bpm:AuthorshipKind_hand_authored_qualification ;
+    bpm:authorizingPrincipal "Sean Chatman (repo owner) via Claude Code fleet repair lane REPAIR-beam4pm (2026-10-03)" ;
+    bpm:admissionReason "Real-engine Chicago parity qualification (agent P1, v26.9.18 wave) of the DfCM fabric surface; named-skip without the ferroplan wasm. Dropped by the 2026-10-01 regeneration; re-admitted unchanged." ;
+    bpm:acceptanceCommand "mix test test/beam4pm_dfcm_fabric_parity_test.exs" ;
+    bpm:contentSha256 "c8a2fe98d366e22f9fc0f5f12dbed5ac576576b2a737d79be076882fb3bfbe9d" ;
+    bpm:admittedAtCommit "bd6d48f" ;
+    bpm:admissionExpires "2026-12-31" ;
+    bpm:sunsetPlan "Migrate the capability into bpm: facts + a pack template and render it; then delete this admission." .
+
+bap:hand_authored_repair_test_beam4pm_dfcm_ocel_validate_parity_test_exs a bpm:HandAuthoredSource ;
+    bpm:sourcePath "test/beam4pm_dfcm_ocel_validate_parity_test.exs" ;
+    bpm:authorshipKind bpm:AuthorshipKind_hand_authored_qualification ;
+    bpm:authorizingPrincipal "Sean Chatman (repo owner) via Claude Code fleet repair lane REPAIR-beam4pm (2026-10-03)" ;
+    bpm:admissionReason "Real-engine Chicago parity qualification (agent P2, v26.9.18 wave) of DfCM OCEL validation. Dropped by the 2026-10-01 regeneration; re-admitted unchanged." ;
+    bpm:acceptanceCommand "mix test test/beam4pm_dfcm_ocel_validate_parity_test.exs" ;
+    bpm:contentSha256 "9fa90cceffcd5906c3f5b32f7cf4929c70f520e77706ad5f3b9ce853eebfb374" ;
+    bpm:admittedAtCommit "bd6d48f" ;
+    bpm:admissionExpires "2026-12-31" ;
+    bpm:sunsetPlan "Migrate the capability into bpm: facts + a pack template and render it; then delete this admission." .
+
+bap:hand_authored_repair_test_beam4pm_dfcm_sa2a_replay_test_exs a bpm:HandAuthoredSource ;
+    bpm:sourcePath "test/beam4pm_dfcm_sa2a_replay_test.exs" ;
+    bpm:authorshipKind bpm:AuthorshipKind_hand_authored_qualification ;
+    bpm:authorizingPrincipal "Sean Chatman (repo owner) via Claude Code fleet repair lane REPAIR-beam4pm (2026-10-03)" ;
+    bpm:admissionReason "Real-engine Chicago parity qualification (agent P5, v26.9.18 wave) of DfCM-SA2A replay. Dropped by the 2026-10-01 regeneration; re-admitted unchanged." ;
+    bpm:acceptanceCommand "mix test test/beam4pm_dfcm_sa2a_replay_test.exs" ;
+    bpm:contentSha256 "b80cea408d29a2e963e4cb068f1fdb1d2c3edffb46552874da02c8cf3206ed72" ;
+    bpm:admittedAtCommit "bd6d48f" ;
+    bpm:admissionExpires "2026-12-31" ;
+    bpm:sunsetPlan "Migrate the capability into bpm: facts + a pack template and render it; then delete this admission." .
+
+bap:hand_authored_repair_test_beam4pm_dfcm_sa2a_validate_card_test_exs a bpm:HandAuthoredSource ;
+    bpm:sourcePath "test/beam4pm_dfcm_sa2a_validate_card_test.exs" ;
+    bpm:authorshipKind bpm:AuthorshipKind_hand_authored_qualification ;
+    bpm:authorizingPrincipal "Sean Chatman (repo owner) via Claude Code fleet repair lane REPAIR-beam4pm (2026-10-03)" ;
+    bpm:admissionReason "Real-engine Chicago parity qualification (agent P3, v26.9.18 wave) of DfCM-SA2A validate cards. Dropped by the 2026-10-01 regeneration; re-admitted unchanged." ;
+    bpm:acceptanceCommand "mix test test/beam4pm_dfcm_sa2a_validate_card_test.exs" ;
+    bpm:contentSha256 "0dc27a202e29afdf70df5e04368b706b64ba4bd33ea463eec896789d6b587062" ;
+    bpm:admittedAtCommit "bd6d48f" ;
+    bpm:admissionExpires "2026-12-31" ;
+    bpm:sunsetPlan "Migrate the capability into bpm: facts + a pack template and render it; then delete this admission." .
+
+bap:hand_authored_repair_test_beam4pm_evidence_chain_test_exs a bpm:HandAuthoredSource ;
+    bpm:sourcePath "test/beam4pm_evidence_chain_test.exs" ;
+    bpm:authorshipKind bpm:AuthorshipKind_hand_authored_qualification ;
+    bpm:authorizingPrincipal "Sean Chatman (repo owner) via Claude Code fleet repair lane REPAIR-beam4pm (2026-10-03)" ;
+    bpm:admissionReason "Chicago end-to-end evidence-chain qualification (:telemetry -> OcelEvent + OTel span + BRCE receipt). Digest refreshed 2026-10-07 by campaign lane W658b (v26.10.6): the file's content changed after its 2026-10-03 admission (tract leg correction + later edits); the on-disk bytes are ground truth, re-admitted with the current digest." ;
+    bpm:acceptanceCommand "mix test test/beam4pm_evidence_chain_test.exs" ;
+    bpm:contentSha256 "443f2e7a29aa41dbf51961e63d9ee78a0aa511eb20a49be003187da62e369692" ;
+    bpm:admittedAtCommit "813eb924" ;
+    bpm:admissionExpires "2026-12-31" ;
+    bpm:sunsetPlan "Migrate the capability into bpm: facts + a pack template and render it; then delete this admission." .
+
+bap:hand_authored_repair_test_beam4pm_ex4pm_realtime_bridge_test_exs a bpm:HandAuthoredSource ;
+    bpm:sourcePath "test/beam4pm_ex4pm_realtime_bridge_test.exs" ;
+    bpm:authorshipKind bpm:AuthorshipKind_hand_authored_qualification ;
+    bpm:authorizingPrincipal "Sean Chatman (repo owner) via Claude Code fleet repair lane REPAIR-beam4pm (2026-10-03)" ;
+    bpm:admissionReason "Chicago qualification of the ex4pm realtime bridge (v26.10.1 wave). Dropped by the 2026-10-01 regeneration; re-admitted unchanged." ;
+    bpm:acceptanceCommand "mix test test/beam4pm_ex4pm_realtime_bridge_test.exs" ;
+    bpm:contentSha256 "0a3defcae5206839a988b1162c88957ec66b4b260064dcc48bce12b8acd84735" ;
+    bpm:admittedAtCommit "bd6d48f" ;
+    bpm:admissionExpires "2026-12-31" ;
+    bpm:sunsetPlan "Migrate the capability into bpm: facts + a pack template and render it; then delete this admission." .
+
+bap:hand_authored_repair_test_beam4pm_ex4pm_soak_correctness_test_exs a bpm:HandAuthoredSource ;
+    bpm:sourcePath "test/beam4pm_ex4pm_soak_correctness_test.exs" ;
+    bpm:authorshipKind bpm:AuthorshipKind_hand_authored_qualification ;
+    bpm:authorizingPrincipal "Sean Chatman (repo owner) via Claude Code fleet repair lane REPAIR-beam4pm (2026-10-03)" ;
+    bpm:admissionReason "Chicago soak-correctness qualification of the ex4pm bridge (v26.10.1 wave). Dropped by the 2026-10-01 regeneration; re-admitted unchanged." ;
+    bpm:acceptanceCommand "mix test test/beam4pm_ex4pm_soak_correctness_test.exs" ;
+    bpm:contentSha256 "3b423ca0f00e0c2e6ab70f3ab61f2464b67d18a23e13741835618974a93d82bf" ;
+    bpm:admittedAtCommit "bd6d48f" ;
+    bpm:admissionExpires "2026-12-31" ;
+    bpm:sunsetPlan "Migrate the capability into bpm: facts + a pack template and render it; then delete this admission." .
+
+bap:hand_authored_repair_test_beam4pm_gall_ocel_test_exs a bpm:HandAuthoredSource ;
+    bpm:sourcePath "test/beam4pm_gall_ocel_test.exs" ;
+    bpm:authorshipKind bpm:AuthorshipKind_hand_authored_qualification ;
+    bpm:authorizingPrincipal "Sean Chatman (repo owner) via Claude Code fleet repair lane REPAIR-beam4pm (2026-10-03)" ;
+    bpm:admissionReason "Chicago qualification of the gall-to-OCEL mapping. Dropped by the 2026-10-01 regeneration; re-admitted unchanged." ;
+    bpm:acceptanceCommand "mix test test/beam4pm_gall_ocel_test.exs" ;
+    bpm:contentSha256 "be38dc5c3b8ba98b3bad24d4c3863b5c7932f3ed3281124e11623f5c61b6f414" ;
+    bpm:admittedAtCommit "bd6d48f" ;
+    bpm:admissionExpires "2026-12-31" ;
+    bpm:sunsetPlan "Migrate the capability into bpm: facts + a pack template and render it; then delete this admission." .
+
+bap:hand_authored_repair_test_beam4pm_graphlaw_parity_test_exs a bpm:HandAuthoredSource ;
+    bpm:sourcePath "test/beam4pm_graphlaw_parity_test.exs" ;
+    bpm:authorshipKind bpm:AuthorshipKind_hand_authored_qualification ;
+    bpm:authorizingPrincipal "Sean Chatman (repo owner) via Claude Code fleet repair lane REPAIR-beam4pm (2026-10-03)" ;
+    bpm:admissionReason "Real-engine Chicago parity qualification (agent P10, v26.9.18 wave) of the graphlaw wasm engine. Dropped by the 2026-10-01 regeneration; re-admitted unchanged." ;
+    bpm:acceptanceCommand "mix test test/beam4pm_graphlaw_parity_test.exs" ;
+    bpm:contentSha256 "547e6349ab5b51364e20b03409cc0c131b3d3c15f4db030ceb5690f635d1642c" ;
+    bpm:admittedAtCommit "bd6d48f" ;
+    bpm:admissionExpires "2026-12-31" ;
+    bpm:sunsetPlan "Migrate the capability into bpm: facts + a pack template and render it; then delete this admission." .
+
+bap:hand_authored_repair_test_beam4pm_ingest_bridge_buffer_cap_test_exs a bpm:HandAuthoredSource ;
+    bpm:sourcePath "test/beam4pm_ingest_bridge_buffer_cap_test.exs" ;
+    bpm:authorshipKind bpm:AuthorshipKind_hand_authored_qualification ;
+    bpm:authorizingPrincipal "Sean Chatman (repo owner) via Claude Code fleet repair lane REPAIR-beam4pm (2026-10-03)" ;
+    bpm:admissionReason "Chicago qualification of the ingest bridge buffer cap. Dropped by the 2026-10-01 regeneration; re-admitted unchanged." ;
+    bpm:acceptanceCommand "mix test test/beam4pm_ingest_bridge_buffer_cap_test.exs" ;
+    bpm:contentSha256 "21f4641f23587ff39f32daef64a465629567c9d650948bd13cafbf19463c3f85" ;
+    bpm:admittedAtCommit "bd6d48f" ;
+    bpm:admissionExpires "2026-12-31" ;
+    bpm:sunsetPlan "Migrate the capability into bpm: facts + a pack template and render it; then delete this admission." .
+
+bap:hand_authored_repair_test_beam4pm_sa2a_admit_parity_test_exs a bpm:HandAuthoredSource ;
+    bpm:sourcePath "test/beam4pm_sa2a_admit_parity_test.exs" ;
+    bpm:authorshipKind bpm:AuthorshipKind_hand_authored_qualification ;
+    bpm:authorizingPrincipal "Sean Chatman (repo owner) via Claude Code fleet repair lane REPAIR-beam4pm (2026-10-03)" ;
+    bpm:admissionReason "Real-engine Chicago parity qualification (agent P4, v26.9.18 wave) of SA2A admit. Dropped by the 2026-10-01 regeneration; re-admitted unchanged." ;
+    bpm:acceptanceCommand "mix test test/beam4pm_sa2a_admit_parity_test.exs" ;
+    bpm:contentSha256 "579ab8cbae4b9934e1ae266551e6042726bbd204b086da806f05c2729099c874" ;
+    bpm:admittedAtCommit "bd6d48f" ;
+    bpm:admissionExpires "2026-12-31" ;
+    bpm:sunsetPlan "Migrate the capability into bpm: facts + a pack template and render it; then delete this admission." .
+
+bap:hand_authored_repair_test_castle_capability_intake_runtime_test_exs a bpm:HandAuthoredSource ;
+    bpm:sourcePath "test/castle_capability_intake_runtime_test.exs" ;
+    bpm:authorshipKind bpm:AuthorshipKind_hand_authored_qualification ;
+    bpm:authorizingPrincipal "Sean Chatman (repo owner) via Claude Code fleet repair lane REPAIR-beam4pm (2026-10-03)" ;
+    bpm:admissionReason "Chicago qualification of the castle capability-intake runtime. Dropped by the 2026-10-01 regeneration; re-admitted unchanged." ;
+    bpm:acceptanceCommand "mix test test/castle_capability_intake_runtime_test.exs" ;
+    bpm:contentSha256 "4aa7eadbafd1afd21d432110180716979f35008334aeda589a18347323c66154" ;
+    bpm:admittedAtCommit "bd6d48f" ;
+    bpm:admissionExpires "2026-12-31" ;
+    bpm:sunsetPlan "Migrate the capability into bpm: facts + a pack template and render it; then delete this admission." .
+
+bap:hand_authored_repair_test_beam4pm_w601_map_update_dual_safe_test_exs a bpm:HandAuthoredSource ;
+    bpm:sourcePath "test/beam4pm_w601_map_update_dual_safe_test.exs" ;
+    bpm:authorshipKind bpm:AuthorshipKind_hand_authored_qualification ;
+    bpm:authorizingPrincipal "Sean Chatman (repo owner) via Claude Code fleet repair lane W658 (v26.10.6 campaign, 2026-10-06)" ;
+    bpm:admissionReason "Chicago qualification of the w601 dual-safe map update (lane W601, v26.10.6 campaign); hand-authored test with no pack template rendering this seam." ;
+    bpm:acceptanceCommand "mix test test/beam4pm_w601_map_update_dual_safe_test.exs" ;
+    bpm:contentSha256 "a7cae76f581d81672dabd3c5ad6c28d2b08b81d2d0833fb4b26abda5fef80a81" ;
+    bpm:admittedAtCommit "813eb924" ;
+    bpm:admissionExpires "2026-12-31" ;
+    bpm:sunsetPlan "Migrate the capability into bpm: facts + a pack template and render it; then delete this admission." .
+
+bap:hand_authored_repair_lib_beam4pm_art72_conformance_ex a bpm:HandAuthoredSource ;
+    bpm:sourcePath "lib/beam4pm_art72_conformance.ex" ;
+    bpm:authorshipKind bpm:AuthorshipKind_hand_authored_qualification ;
+    bpm:authorizingPrincipal "Sean Chatman (repo owner) via Claude Code fleet repair lane W658b (v26.10.6 campaign, 2026-10-07)" ;
+    bpm:admissionReason "EU AI Act Art. 72 post-market monitoring conformance module (dissertation Definition 7.2 token-replay fitness C(L,P)=1/2(1-m/c)+1/2(1-r/p) over a plain Petri net, wired to a typed drift decision); lane W511's module, hand-authored with no pack template rendering this seam (the rust4pm WASM engine exposes alignment-based fitness only, no token-replay op). Admitted sha-bound, disclosed and counted." ;
+    bpm:acceptanceCommand "mix test test/beam4pm_art72_conformance_test.exs" ;
+    bpm:contentSha256 "d0c1a2a7d8a5edc01f92fff88d90220fe1470fe09253066be2e766988e52fb53" ;
+    bpm:admittedAtCommit "813eb924" ;
+    bpm:admissionExpires "2026-12-31" ;
+    bpm:sunsetPlan "Admit the fitness calculus as bpm: facts and render from a pack template; then delete this admission." .
+
+bap:hand_authored_repair_test_beam4pm_art72_conformance_test_exs a bpm:HandAuthoredSource ;
+    bpm:sourcePath "test/beam4pm_art72_conformance_test.exs" ;
+    bpm:authorshipKind bpm:AuthorshipKind_hand_authored_qualification ;
+    bpm:authorizingPrincipal "Sean Chatman (repo owner) via Claude Code fleet repair lane W658b (v26.10.6 campaign, 2026-10-07)" ;
+    bpm:admissionReason "Chicago qualification of BeamPM.Art72Conformance (lane W511): hand-derived token-replay fitness C values over a synthetic sequential Petri net start->t_a->t_b->t_c->end, plus typed drift decision edges; hand-authored with no pack template rendering this seam. Admitted sha-bound, disclosed and counted." ;
+    bpm:acceptanceCommand "mix test test/beam4pm_art72_conformance_test.exs" ;
+    bpm:contentSha256 "6ec4a4ad6b31bf882c2f6d6939f34df5b7752e4d009e6a71eb85e754307df278" ;
+    bpm:admittedAtCommit "813eb924" ;
+    bpm:admissionExpires "2026-12-31" ;
+    bpm:sunsetPlan "Render from the same Art. 72 pack facts as lib/beam4pm_art72_conformance.ex; then delete this admission." .
+
+bap:hand_authored_repair_test_beam4pm_airo_description_test_exs a bpm:HandAuthoredSource ;
+    bpm:sourcePath "test/beam4pm_airo_description_test.exs" ;
+    bpm:authorshipKind bpm:AuthorshipKind_hand_authored_qualification ;
+    bpm:authorizingPrincipal "Sean Chatman (repo owner) via Claude Code fleet repair lane W658b (v26.10.6 campaign, 2026-10-07)" ;
+    bpm:admissionReason "Chicago court for beam4pm's AIRo risk description (priv/airo_risk_description.ttl, lane W634): real-file structural soundness, AIRo v1.0 vocabulary sha256 pinning against the w600 receipt, cited-path existence, mapped-individual presence and likelihood/severity class assertions; hand-authored with no pack template rendering this seam. Admitted sha-bound, disclosed and counted." ;
+    bpm:acceptanceCommand "mix test test/beam4pm_airo_description_test.exs" ;
+    bpm:contentSha256 "bfa8e5bb623f4cc3d32e20cd0d063b110011077b4d550bfe17552f7007a21c97" ;
+    bpm:admittedAtCommit "813eb924" ;
+    bpm:admissionExpires "2026-12-31" ;
+    bpm:sunsetPlan "Render from AIRo vocabulary facts + a pack template; then delete this admission." .
+
+bap:hand_authored_repair_test_castle_capability_intake_test_exs a bpm:HandAuthoredSource ;
+    bpm:sourcePath "test/castle_capability_intake_test.exs" ;
+    bpm:authorshipKind bpm:AuthorshipKind_hand_authored_qualification ;
+    bpm:authorizingPrincipal "Sean Chatman (repo owner) via Claude Code fleet repair lane REPAIR-beam4pm (2026-10-03)" ;
+    bpm:admissionReason "Chicago qualification of the castle capability-intake calculus. Dropped by the 2026-10-01 regeneration; re-admitted unchanged." ;
+    bpm:acceptanceCommand "mix test test/castle_capability_intake_test.exs" ;
+    bpm:contentSha256 "dac39dff2f235a2467113ae6267a91d6909e6d8efe93cb5da9621a9bf78e1905" ;
+    bpm:admittedAtCommit "bd6d48f" ;
+    bpm:admissionExpires "2026-12-31" ;
+    bpm:sunsetPlan "Migrate the capability into bpm: facts + a pack template and render it; then delete this admission." .
+
+bap:hand_authored_repair_test_fixtures_dfcm_abcx_problem_pddl a bpm:HandAuthoredSource ;
+    bpm:sourcePath "test/fixtures/dfcm/abcx-problem.pddl" ;
+    bpm:authorshipKind bpm:AuthorshipKind_hand_authored_qualification ;
+    bpm:authorizingPrincipal "Sean Chatman (repo owner) via Claude Code fleet repair lane REPAIR-beam4pm (2026-10-03)" ;
+    bpm:admissionReason "Hand-authored DfCM planning fixture consumed by test/beam4pm_dfcm_test.exs; qualification-corpus debt, same class as the v26.9.18 graphlaw TTL corpus. Dropped by the 2026-10-01 regeneration; re-admitted unchanged." ;
+    bpm:acceptanceCommand "mix test test/beam4pm_dfcm_test.exs" ;
+    bpm:acceptancePrerequisite "native/ferroplan/target/wasm32-wasip1/release/ferroplan_wasm.wasm" ;
+    bpm:contentSha256 "f545654f8f910997fc9cedb96f20ae592fd509352489fea4a65f3854ccc07c08" ;
+    bpm:admittedAtCommit "bd6d48f" ;
+    bpm:admissionExpires "2026-12-31" ;
+    bpm:sunsetPlan "Migrate the capability into bpm: facts + a pack template and render it; then delete this admission." .
+
+bap:hand_authored_repair_test_fixtures_dfcm_dfcm_fond_pddl a bpm:HandAuthoredSource ;
+    bpm:sourcePath "test/fixtures/dfcm/dfcm-fond.pddl" ;
+    bpm:authorshipKind bpm:AuthorshipKind_hand_authored_qualification ;
+    bpm:authorizingPrincipal "Sean Chatman (repo owner) via Claude Code fleet repair lane REPAIR-beam4pm (2026-10-03)" ;
+    bpm:admissionReason "Hand-authored DfCM FOND planning fixture consumed by test/beam4pm_dfcm_test.exs; qualification-corpus debt. Dropped by the 2026-10-01 regeneration; re-admitted unchanged." ;
+    bpm:acceptanceCommand "mix test test/beam4pm_dfcm_test.exs" ;
+    bpm:acceptancePrerequisite "native/ferroplan/target/wasm32-wasip1/release/ferroplan_wasm.wasm" ;
+    bpm:contentSha256 "5dbc77ebe012a9e8a8ccc8d4bd7e540a426eb8495ab6a2a3a2272db2e1b88983" ;
+    bpm:admittedAtCommit "bd6d48f" ;
+    bpm:admissionExpires "2026-12-31" ;
+    bpm:sunsetPlan "Migrate the capability into bpm: facts + a pack template and render it; then delete this admission." .
+
+bap:hand_authored_repair_test_fixtures_dfcm_dfcm_hddl a bpm:HandAuthoredSource ;
+    bpm:sourcePath "test/fixtures/dfcm/dfcm.hddl" ;
+    bpm:authorshipKind bpm:AuthorshipKind_hand_authored_qualification ;
+    bpm:authorizingPrincipal "Sean Chatman (repo owner) via Claude Code fleet repair lane REPAIR-beam4pm (2026-10-03)" ;
+    bpm:admissionReason "Hand-authored DfCM HDDL fixture consumed by test/beam4pm_dfcm_test.exs; qualification-corpus debt. Dropped by the 2026-10-01 regeneration; re-admitted unchanged." ;
+    bpm:acceptanceCommand "mix test test/beam4pm_dfcm_test.exs" ;
+    bpm:acceptancePrerequisite "native/ferroplan/target/wasm32-wasip1/release/ferroplan_wasm.wasm" ;
+    bpm:contentSha256 "0060c0e6ba738193708bf457bfb03a22a41ad30c13359e6d795655541fbf6666" ;
+    bpm:admittedAtCommit "bd6d48f" ;
+    bpm:admissionExpires "2026-12-31" ;
+    bpm:sunsetPlan "Migrate the capability into bpm: facts + a pack template and render it; then delete this admission." .
+
+bap:hand_authored_repair_test_fixtures_graphlaw_parity_hooks_base_ttl a bpm:HandAuthoredSource ;
+    bpm:sourcePath "test/fixtures/graphlaw_parity/hooks_base.ttl" ;
+    bpm:authorshipKind bpm:AuthorshipKind_hand_authored_qualification ;
+    bpm:authorizingPrincipal "Sean Chatman (repo owner) via Claude Code fleet repair lane REPAIR-beam4pm (2026-10-03)" ;
+    bpm:admissionReason "Hand-authored graphlaw parity corpus TTL (v26.9.18 wave, sha-bound qualification debt). Dropped by the 2026-10-01 regeneration; re-admitted unchanged." ;
+    bpm:acceptanceCommand "mix test test/beam4pm_graphlaw_parity_test.exs" ;
+    bpm:contentSha256 "2125c7c5bc09870df22111a153ca722670171e8c726e6ae78df3fd7960490186" ;
+    bpm:admittedAtCommit "bd6d48f" ;
+    bpm:admissionExpires "2026-12-31" ;
+    bpm:sunsetPlan "Migrate the capability into bpm: facts + a pack template and render it; then delete this admission." .
+
+bap:hand_authored_repair_test_fixtures_graphlaw_parity_hooks_event_ttl a bpm:HandAuthoredSource ;
+    bpm:sourcePath "test/fixtures/graphlaw_parity/hooks_event.ttl" ;
+    bpm:authorshipKind bpm:AuthorshipKind_hand_authored_qualification ;
+    bpm:authorizingPrincipal "Sean Chatman (repo owner) via Claude Code fleet repair lane REPAIR-beam4pm (2026-10-03)" ;
+    bpm:admissionReason "Hand-authored graphlaw parity corpus TTL (v26.9.18 wave, sha-bound qualification debt). Dropped by the 2026-10-01 regeneration; re-admitted unchanged." ;
+    bpm:acceptanceCommand "mix test test/beam4pm_graphlaw_parity_test.exs" ;
+    bpm:contentSha256 "856e159c4156da6ff554c605603bfca9d02652bda3ba3f0e74c6b78969ba3081" ;
+    bpm:admittedAtCommit "bd6d48f" ;
+    bpm:admissionExpires "2026-12-31" ;
+    bpm:sunsetPlan "Migrate the capability into bpm: facts + a pack template and render it; then delete this admission." .
+
+bap:hand_authored_repair_test_fixtures_graphlaw_parity_n3_denial_ttl a bpm:HandAuthoredSource ;
+    bpm:sourcePath "test/fixtures/graphlaw_parity/n3_denial.ttl" ;
+    bpm:authorshipKind bpm:AuthorshipKind_hand_authored_qualification ;
+    bpm:authorizingPrincipal "Sean Chatman (repo owner) via Claude Code fleet repair lane REPAIR-beam4pm (2026-10-03)" ;
+    bpm:admissionReason "Hand-authored graphlaw parity corpus TTL (v26.9.18 wave, sha-bound qualification debt). Dropped by the 2026-10-01 regeneration; re-admitted unchanged." ;
+    bpm:acceptanceCommand "mix test test/beam4pm_graphlaw_parity_test.exs" ;
+    bpm:contentSha256 "163681e3d6627a6ad7c8d58cfc1bcf388f065c50f0d240cb39e8e847ca15856e" ;
+    bpm:admittedAtCommit "bd6d48f" ;
+    bpm:admissionExpires "2026-12-31" ;
+    bpm:sunsetPlan "Migrate the capability into bpm: facts + a pack template and render it; then delete this admission." .
+
+bap:hand_authored_repair_test_fixtures_graphlaw_parity_shacl_conforms_ttl a bpm:HandAuthoredSource ;
+    bpm:sourcePath "test/fixtures/graphlaw_parity/shacl_conforms.ttl" ;
+    bpm:authorshipKind bpm:AuthorshipKind_hand_authored_qualification ;
+    bpm:authorizingPrincipal "Sean Chatman (repo owner) via Claude Code fleet repair lane REPAIR-beam4pm (2026-10-03)" ;
+    bpm:admissionReason "Hand-authored graphlaw parity corpus TTL (v26-9-18 wave, sha-bound qualification debt). Dropped by the 2026-10-01 regeneration; re-admitted unchanged." ;
+    bpm:acceptanceCommand "mix test test/beam4pm_graphlaw_parity_test.exs" ;
+    bpm:contentSha256 "06110773968799947148e28f58043b0357570936861a076cb733ad8725a82a3f" ;
+    bpm:admittedAtCommit "bd6d48f" ;
+    bpm:admissionExpires "2026-12-31" ;
+    bpm:sunsetPlan "Migrate the capability into bpm: facts + a pack template and render it; then delete this admission." .
+
+bap:hand_authored_repair_test_fixtures_graphlaw_parity_shacl_shapes_ttl a bpm:HandAuthoredSource ;
+    bpm:sourcePath "test/fixtures/graphlaw_parity/shacl_shapes.ttl" ;
+    bpm:authorshipKind bpm:AuthorshipKind_hand_authored_qualification ;
+    bpm:authorizingPrincipal "Sean Chatman (repo owner) via Claude Code fleet repair lane REPAIR-beam4pm (2026-10-03)" ;
+    bpm:admissionReason "Hand-authored graphlaw parity corpus TTL (v26.9.18 wave, sha-bound qualification debt). Dropped by the 2026-10-01 regeneration; re-admitted unchanged." ;
+    bpm:acceptanceCommand "mix test test/beam4pm_graphlaw_parity_test.exs" ;
+    bpm:contentSha256 "a2c3bbb47825809911cf421639bfd076ea5ffcbfb7e2a5800949acd3be0ee393" ;
+    bpm:admittedAtCommit "bd6d48f" ;
+    bpm:admissionExpires "2026-12-31" ;
+    bpm:sunsetPlan "Migrate the capability into bpm: facts + a pack template and render it; then delete this admission." .
+
+bap:hand_authored_repair_test_fixtures_graphlaw_parity_shacl_violation_ttl a bpm:HandAuthoredSource ;
+    bpm:sourcePath "test/fixtures/graphlaw_parity/shacl_violation.ttl" ;
+    bpm:authorshipKind bpm:AuthorshipKind_hand_authored_qualification ;
+    bpm:authorizingPrincipal "Sean Chatman (repo owner) via Claude Code fleet repair lane REPAIR-beam4pm (2026-10-03)" ;
+    bpm:admissionReason "Hand-authored graphlaw parity corpus TTL (v26.9.18 wave, sha-bound qualification debt). Dropped by the 2026-10-01 regeneration; re-admitted unchanged." ;
+    bpm:acceptanceCommand "mix test test/beam4pm_graphlaw_parity_test.exs" ;
+    bpm:contentSha256 "be98b1ce3597fb64c289849e16a1280e692f6a884b09aef387555fdacf5d8d6d" ;
+    bpm:admittedAtCommit "bd6d48f" ;
+    bpm:admissionExpires "2026-12-31" ;
+    bpm:sunsetPlan "Migrate the capability into bpm: facts + a pack template and render it; then delete this admission." .
+
+bap:hand_authored_repair_test_beam4pm_enterprise_planning_test_exs a bpm:HandAuthoredSource ;
+    bpm:sourcePath "test/beam4pm_enterprise_planning_test.exs" ;
+    bpm:authorshipKind bpm:AuthorshipKind_hand_authored_qualification ;
+    bpm:authorizingPrincipal "Sean Chatman (repo owner) via Claude Code fleet repair lane REPAIR-beam4pm (2026-10-03)" ;
+    bpm:admissionReason "Chicago qualification of BeamPM.EnterprisePlanning. Dropped by the 2026-10-01 regeneration; re-admitted unchanged." ;
+    bpm:acceptanceCommand "mix test test/beam4pm_enterprise_planning_test.exs" ;
+    bpm:contentSha256 "dcc1ade468d311097f836ac44b77793b55dcacdf5b7702a06ab1c833e50b3546" ;
+    bpm:admittedAtCommit "bd6d48f" ;
+    bpm:admissionExpires "2026-12-31" ;
+    bpm:sunsetPlan "Migrate the capability into bpm: facts + a pack template and render it; then delete this admission." .
+
 
 # -- manufacturing_input (1; not debt) --------------------------------------
 
@@ -22195,7 +22729,7 @@ bap:hand_authored_lib_replan_router a bpm:HandAuthoredSource ;
     bpm:authorizingPrincipal "Sean Chatman (repo owner) via Claude Code v26.9.26 harden lane beam4pm#91" ;
     bpm:admissionReason "Hand-authored replanning ladder over the generated BeamPM.Ferroplan facade (ferroplan stays mechanism-only: no session_route op). Pure route/2 orders stale-preimage and policy-digest refusal, malformed/non-atom-key refusal, goal close, unknown-fact strategic recompile, continue, follow_policy (same canonical-JSON equivalence as the admitted policy digest), suffix reuse and a monotone session_replan -> hddl_replan -> strategic_recompile ladder; event-triggered resets are bounded by max_episodes; every decision emits one OCEL event whose time is the validated observed_at (refusals included) so replay is byte-identical. The observe/execute driver classifies host faults off the ladder. Authority NONE, ceiling CONSTRUCT." ;
     bpm:acceptanceCommand "mix test test/beam4pm_replan_router_test.exs test/beam4pm_replan_router_hardening_test.exs test/beam4pm_graphlaw_test.exs test/beam4pm_action_model_test.exs" ;
-    bpm:contentSha256 "156884ba388b5b2d2a1fc8bab580b84c9085c56c1e064806365857938a571b7d" ;
+    bpm:contentSha256 "44c8969574112676784808c4dd94fd7c1aa4fed302404e12b298b830abceaee0" ;
     bpm:admittedAtCommit "0650513" ;
     bpm:admissionExpires "2026-12-31" ;
     bpm:sunsetPlan "Admit the replanning ladder (rungs, ordered checks, refusal vocabulary) as ontology facts and render route/2 from a pack template; then delete this admission." .
@@ -22343,7 +22877,7 @@ bap:hand_authored_test_ash_ex4pm_emission a bpm:HandAuthoredSource ;
     bpm:authorizingPrincipal "Sean Chatman (repo owner) via ZCode v26.10.1 ash_ex4pm adoption wave (coordinator admission at integration)" ;
     bpm:admissionReason "Adoption-seam qualification for the v26.10.1 ash_ex4pm upgrade (R3-AMENDED/R14), two layers: ALWAYS-ON identity and law-side wiring guards (mix.lock pins ash_ex4pm 26.10.1 pinning ex4pm 26.10.1; the beam4pm_ash_resource igniter template renders extensions: [AshEx4pm] plus the create-only ex4pm block; the pack ontology carries the bpm:ocelTypeExpr scalar ladder; ash_fields.rq projects ?ocel_type_expr with unbound = rendered skip comment, never silent), and LIVE-EMISSION tests DORMANT until the Ash-leg projection unfreezes (R14 reconciliation deadlock), each asserting the dormant state itself so the day regen lands, these assertions fail and force the file onto its live bodies. Hand-written: it qualifies the upgrade seam and the pack law, not a generated resource." ;
     bpm:acceptanceCommand "mix test test/beam4pm_ash_ex4pm_emission_test.exs" ;
-    bpm:contentSha256 "c8f4a6da2579173d4ba6f927ca11bec4152ca117f3ec079c20abafc31a1362a2" ;
+    bpm:contentSha256 "a85b3a38223f27602dca401857112a736e612107e7b909276b065d8de8dad9ee" ;
     bpm:admittedAtCommit "fee843a2" ;
     bpm:admissionExpires "2026-12-31" ;
     bpm:sunsetPlan "When scripts/igniter_sync.sh re-renders the AshEx4pm extension (post-R14), the live bodies take over; then render from the same facts and delete this admission." .
@@ -23328,6 +23862,8 @@ bap:runtime_module_lib_beam_pm_ferroplan_bridge_closure_coordinator_ex a bap:Run
 
   alias BeamPM.ReplanRouter
 
+  alias BeamPM.SA2A.{RecoveryReceiptAdapter, ReplanConsumer}
+
   def start_link(opts), do: GenServer.start_link(__MODULE__, opts)
 
   def execute(pid, envelope, edges),
@@ -23399,18 +23935,43 @@ bap:runtime_module_lib_beam_pm_ferroplan_bridge_closure_coordinator_ex a bap:Run
         state
       ) do
     result =
-      dispatch(
-        env,
-        edges,
-        decision,
-        handle,
-        inputs,
-        opts,
-        state.max_attempts,
-        Enum.reverse(env.failed_edges)
-      )
+      if Keyword.has_key?(opts, :sa2a_providers) do
+        run_sa2a(env, edges, decision, handle, inputs, opts)
+      else
+        dispatch(
+          env,
+          edges,
+          decision,
+          handle,
+          inputs,
+          opts,
+          state.max_attempts,
+          Enum.reverse(env.failed_edges)
+        )
+      end
 
     {:reply, result, state}
+  end
+
+  # SA2A owns provider exclusion, bounded attempts and replay identity; the
+  # coordinator receipt shape (edge / result / failed_edges /
+  # recovery_receipt) is preserved for existing consumers.
+  defp run_sa2a(env, edges, decision, handle, inputs, opts) do
+    case ReplanConsumer.run(env, edges, decision, handle, inputs, opts) do
+      {:ok, loop} ->
+        edge = RecoveryReceiptAdapter.edge_for_provider(edges, loop.provider)
+
+        {:ok,
+         %{
+           edge: edge,
+           result: loop.candidate,
+           failed_edges: loop.excluded,
+           recovery_receipt: RecoveryReceiptAdapter.from_loop(env.subject, loop, edges)
+         }}
+
+      {:error, _} = error ->
+        error
+    end
   end
 
   defp dispatch(_env, _edges, _decision, _handle, _inputs, _opts, 0, failed) do
@@ -23470,8 +24031,7 @@ bap:runtime_module_lib_beam_pm_ferroplan_bridge_closure_coordinator_ex a bap:Run
     |> Enum.reduce(edges, fn failed, acc -> EdgeSet.exclude(acc, failed) end)
     |> EdgeSet.select(capability)
   end
-end
-""" .
+end""" .
 
 bap:runtime_module_lib_beam_pm_ferroplan_bridge_closure_execution_envelope_ex a bap:RuntimeModule ;
     bap:modulePath "lib/beam_pm/ferroplan_bridge/closure/execution_envelope.ex" ;
@@ -23864,7 +24424,7 @@ bap:runtime_module_lib_beam_pm_ferroplan_bridge_wasm_provider_adapter_ex a bap:R
 
   def resolve(provider, providers) when is_map(providers) do
     case Map.get(providers, provider) do
-      module when is_atom(module) -> {:ok, module}
+      module when is_atom(module) and not is_nil(module) -> {:ok, module}
       nil -> resolve_builtin(provider)
       other -> {:error, %{provider: provider, reason: {:invalid_provider_module, other}}}
     end
@@ -23882,10 +24442,14 @@ bap:runtime_module_lib_beam_pm_ferroplan_bridge_wasm_provider_adapter_ex a bap:R
   def normalize(other, provider),
     do: {:error, %{provider: provider, reason: {:invalid_result, other}}}
 
-  defp resolve_builtin(provider) when provider in [:ferroplan, \"ferroplan\"],
-    do: {:ok, ReplanRouter}
+  defp resolve_builtin(provider) when provider in [:ferroplan, "ferroplan"] do
+    Code.ensure_loaded(ReplanRouter)
+    {:ok, ReplanRouter}
+  end
 
   defp resolve_builtin(provider) when is_atom(provider) do
+    Code.ensure_loaded(provider)
+
     if function_exported?(provider, :execute, 4),
       do: {:ok, provider},
       else: {:error, %{provider: provider, reason: :unsupported_provider}}
@@ -23893,8 +24457,7 @@ bap:runtime_module_lib_beam_pm_ferroplan_bridge_wasm_provider_adapter_ex a bap:R
 
   defp resolve_builtin(provider),
     do: {:error, %{provider: provider, reason: :unsupported_provider}}
-end
-""" .
+end""" .
 
 bap:runtime_module_lib_beam_pm_research_runtime_attempt_budget_ex a bap:RuntimeModule ;
     bap:modulePath "lib/beam_pm/research_runtime/attempt_budget.ex" ;
@@ -24566,6 +25129,7 @@ bap:runtime_module_test_beam_pm_ferroplan_bridge_coordinator_recovery_integratio
   test \"ferroplan provider resolves to the real ReplanRouter execution boundary\" do
     assert {:ok, BeamPM.ReplanRouter} = ProviderAdapter.resolve(\"ferroplan\", %{})
     assert function_exported?(BeamPM.ReplanRouter, :execute, 4)
+    Code.ensure_loaded!(Coordinator)
     assert function_exported?(Coordinator, :replan, 9)
   end
 end
