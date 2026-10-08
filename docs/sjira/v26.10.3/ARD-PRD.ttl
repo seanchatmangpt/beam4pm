@@ -1,0 +1,245 @@
+@prefix sj: <https://ggen-igniter.dev/ontology/semantic-jira#> .
+@prefix prd: <https://ggen-igniter.dev/sjira/v26.10.3/ard-prd-beam4pm#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+# Product Requirements Document for beam4pm 26.10.1, authored as an
+# sj:GoalCheckpoint goal graph grounded in the repository's real, on-disk
+# capabilities. This graph authors NO sj:WorkOrder and NO sj:Receipt.
+# Every capability claim names the test, script, fixture, or module that
+# observes it; every claim carries a falsifier naming the observation that
+# would refute it. Standing values are descriptive of the evidence observed
+# at authoring time, not self-approval, certification, or endorsement.
+
+prd:ARD-PRD-beam4pm a sj:GoalCheckpoint ;
+    dcterms:identifier "GC-BEAM4PM-26.10.1-PRD" ;
+    rdfs:label "beam4pm 26.10.1 capability requirements document" ;
+    dcterms:description """Enumerate the BEAM-native process-mining host of beam4pm 26.10.1 -- ggen-manufactured type substrate, ferroplan-over-wasm planning, POWL conformance, Plug/Bandit OCEL ingest router, tamper-falsifiable receipt chains, RF1/RF2/RF3 oracle differentials against real Rust binaries, DFCM fabric solve/match parity, the ash_ex4pm emission bridge, and HDDL-to-A2A-to-OCEL end-to-end conformance -- as requirements anchored to repository artifacts, each with a falsifier and an honest limitation.""" ;
+    dcterms:source "docs/sjira/v26.10.3/ARD-PRD.ttl" ;
+    sj:repository "seanchatmangpt/beam4pm" ;
+    sj:baseSha "82aacc1" ;
+    sj:version "26.10.1" ;
+    sj:authorityCeiling "CONSTRUCT" ;
+    sj:evidenceHorizon "EXECUTED_VERIFIED" ;
+    sj:replayIdentity "semantic-jira:v26.10.3:GC-BEAM4PM-26.10.1-PRD" ;
+    sj:observation """Test suite at authoring time: 1693 tests, 3 failures (2 require the python unified_planning runtime for DFCM doctests; 1 is env-gated), 147 skipped.""" ;
+    dcterms:hasPart
+        prd:goal-manufactured-substrate,
+        prd:goal-ferroplan-planning,
+        prd:goal-powl-conformance,
+        prd:goal-ocel-ingest-router,
+        prd:goal-receipt-chain,
+        prd:goal-oracle-differentials,
+        prd:goal-dfcm-fabric,
+        prd:goal-ex4pm-bridge,
+        prd:goal-hddl-a2a-ocel-e2e,
+        prd:goal-qualification ;
+    sj:exclusion
+        "No requirement in this document grants DO authority; this PRD authors no work order and no receipt.",
+        "No goal's standing is inferred from a neighboring goal's evidence.",
+        "Descriptions of capabilities are factual observations of shipped code and tests, not certification or endorsement.",
+        "No claim is made that oracle binaries are built on any given machine; RF tests are env-gated and skip without scripts/env/rust4pm_reactor_env.sh sourced and the native/ oracles compiled.",
+        "The working tree at authoring time was heavily uncommitted; baseSha names the observed HEAD, not a clean-tree guarantee." ;
+    sj:stopQuery """PREFIX sj: <https://ggen-igniter.dev/ontology/semantic-jira#>
+PREFIX prd: <https://ggen-igniter.dev/sjira/v26.10.3/ard-prd-beam4pm#>
+PREFIX dcterms: <http://purl.org/dc/terms/>
+ASK {
+  prd:ARD-PRD-beam4pm dcterms:hasPart
+    prd:goal-manufactured-substrate,
+    prd:goal-ferroplan-planning,
+    prd:goal-powl-conformance,
+    prd:goal-ocel-ingest-router,
+    prd:goal-receipt-chain,
+    prd:goal-oracle-differentials,
+    prd:goal-dfcm-fabric,
+    prd:goal-ex4pm-bridge,
+    prd:goal-hddl-a2a-ocel-e2e,
+    prd:goal-qualification ;
+  prd:goal-manufactured-substrate sj:acceptance ?a1 ;
+  prd:goal-ferroplan-planning sj:acceptance ?a2 ;
+  prd:goal-powl-conformance sj:acceptance ?a3 ;
+  prd:goal-ocel-ingest-router sj:acceptance ?a4 ;
+  prd:goal-receipt-chain sj:acceptance ?a5 ;
+  prd:goal-oracle-differentials sj:acceptance ?a6 ;
+  prd:goal-dfcm-fabric sj:acceptance ?a7 ;
+  prd:goal-ex4pm-bridge sj:acceptance ?a8 ;
+  prd:goal-hddl-a2a-ocel-e2e sj:acceptance ?a9 ;
+  prd:goal-qualification sj:acceptance ?a10 .
+}""" .
+
+# ---------------------------------------------------------------------------
+# Goal 1: ggen-manufactured four-projection type substrate
+# ---------------------------------------------------------------------------
+prd:goal-manufactured-substrate a sj:GoalCheckpoint ;
+    dcterms:identifier "GC-BEAM4PM-001" ;
+    rdfs:label "ggen-manufactured four-projection type substrate" ;
+    dcterms:description """beam4pm's application source is manufactured by ggen from ontology.ttl and the vendored beam4pm-process-model-pack: 981 admitted bpm:RecordType individuals projected into Erlang, Elixir, Gleam (two disclosed type divergences), and 647 Ash.Resource modules via the ggen_igniter engine. Generated files are marked GENERATED-by-ggen and direct edits are refused by default under the source-authority doctrine.""" ;
+    sj:acceptance """The type manifest reflection (beam4pm_types_manifest / BeamPM.Types.Manifest) lists every admitted record, generated codecs round-trip, and the Ash resources roundtrip test passes.""" ;
+    sj:falsifier """If the generated manifest disagrees with the admitted record types in ontology.ttl, or the Ash roundtrip test (test/beam4pm_ash_roundtrip_test.exs) fails on an unmodified manufactured tree, this goal is refuted.""" ;
+    sj:evidence
+        "ontology.ttl (981 bpm:RecordType individuals as of 2026-09-27)" ,
+        "vendor/ggen-marketplace/packs/beam4pm-process-model-pack" ,
+        "lib/beam4pm_ash/resources/ (647 Ash.Resource modules)" ,
+        "test/beam4pm_ash_resources_test.exs" ,
+        "test/beam4pm_ash_roundtrip_test.exs" ;
+    sj:evidenceCeiling "IMPLEMENTED_UNVERIFIED" .
+
+# ---------------------------------------------------------------------------
+# Goal 2: ferroplan-over-wasm HDDL planning
+# ---------------------------------------------------------------------------
+prd:goal-ferroplan-planning a sj:GoalCheckpoint ;
+    dcterms:identifier "GC-BEAM4PM-002" ;
+    rdfs:label "ferroplan HDDL planning hosted in BEAM via wasm" ;
+    dcterms:description """lib/beam4pm_ferroplan.ex and lib/beam4pm_ferroplan_bridge.ex host ferroplan planning in the BEAM via wasm, with facades and a parity test comparing ferroplan HDDL solve against the lab fabric solve.""" ;
+    sj:acceptance """The ferroplan, ferroplan_bridge, ferroplan_facades, and parity_ferroplan_hddl_solve_vs_lab_fabric_solve tests pass on a machine with the wasm host available.""" ;
+    sj:falsifier """If ferroplan HDDL solve parity with the lab fabric solve fails on identical inputs, or the wasm host cannot load the ferroplan wasm module, this goal is refuted.""" ;
+    sj:evidence
+        "lib/beam4pm_ferroplan.ex" ,
+        "lib/beam4pm_ferroplan_bridge.ex" ,
+        "test/beam4pm_ferroplan_test.exs" ,
+        "test/beam4pm_ferroplan_bridge_test.exs" ,
+        "test/beam4pm_ferroplan_facades_test.exs" ,
+        "test/beam4pm_parity_ferroplan_hddl_solve_vs_lab_fabric_solve_test.exs" ;
+    sj:evidenceCeiling "IMPLEMENTED_UNVERIFIED" .
+
+# ---------------------------------------------------------------------------
+# Goal 3: POWL discovery and conformance
+# ---------------------------------------------------------------------------
+prd:goal-powl-conformance a sj:GoalCheckpoint ;
+    dcterms:identifier "GC-BEAM4PM-003" ;
+    rdfs:label "POWL discovery and conformance over real event logs" ;
+    dcterms:description """lib/beam4pm_hddl_powl.ex implements POWL model representation; POWL models are discovered from real event logs and checked for conformance. The e2e test drives conformance over captured reference/deviant OCEL traces and requires the two to separate: the reference trace conforms and the deviant trace is rejected.""" ;
+    sj:acceptance """POWL discovery produces a model from a real log, and POWL conformance checking against captured reference/deviant traces separates them: the reference trace conforms and the deviant trace is rejected.""" ;
+    sj:falsifier """If POWL discovery from real logs fails, or conformance does not separate the reference from the deviant captured traces, this goal is refuted.""" ;
+    sj:evidence
+        "lib/beam4pm_hddl_powl.ex" ,
+        "test/beam4pm_powl_conformance_test.exs" ,
+        "test/beam4pm_powl_discovery_test.exs" ,
+        "test/beam4pm_powl_edges_test.exs" ,
+        "qualification/gym_bridge/reference_ocel_events.json and deviant_ocel_events.json, captured from ash_a2a" ;
+    sj:evidenceCeiling "IMPLEMENTED_UNVERIFIED" .
+
+# ---------------------------------------------------------------------------
+# Goal 4: OCEL 2.0 ingest router over real Plug/Bandit
+# ---------------------------------------------------------------------------
+prd:goal-ocel-ingest-router a sj:GoalCheckpoint ;
+    dcterms:identifier "GC-BEAM4PM-004" ;
+    rdfs:label "OCEL 2.0 HTTP ingest router over real Plug/Bandit" ;
+    dcterms:description """lib/beam4pm_ocel_ingest.ex is a real Plug.Router application with Plug.Parsers JSON decoding, served over Bandit, that accepts OCEL 2.0 JSON events over HTTP, buffers events under a hard cap, and accumulates them into session facts via the accumulator and session-facts modules.""" ;
+    sj:acceptance """The router accepts OCEL 2.0 JSON over real HTTP sockets, the ingest bridge enforces its buffer cap, and the accumulator preserves committed facts across sessions.""" ;
+    sj:falsifier """If the HTTP router cannot accept OCEL 2.0 JSON over real sockets, or the buffer cap is exceeded without a typed refusal, or the accumulator loses committed facts, this goal is refuted.""" ;
+    sj:evidence
+        "lib/beam4pm_ocel_ingest.ex (use Plug.Router; plug Plug.Parsers)" ,
+        "lib/beam4pm_ocel_accumulator.ex" ,
+        "lib/beam4pm_ocel_session_facts.ex" ,
+        "test/beam4pm_ocel_ingest_test.exs" ,
+        "test/beam4pm_ingest_bridge_buffer_cap_test.exs" ;
+    sj:evidenceCeiling "IMPLEMENTED_UNVERIFIED" .
+
+# ---------------------------------------------------------------------------
+# Goal 5: receipt chains with tamper falsifiers
+# ---------------------------------------------------------------------------
+prd:goal-receipt-chain a sj:GoalCheckpoint ;
+    dcterms:identifier "GC-BEAM4PM-005" ;
+    rdfs:label "Receipt chains with tamper detection" ;
+    dcterms:description """lib/beam4pm_receipt_chain.ex builds receipt chains whose stored hashes make tampering observable: a corrupted or mutated receipt in the chain is detected rather than silently accepted.""" ;
+    sj:acceptance """The receipt chain test builds a real chain and proves a mutated or corrupted link is detected.""" ;
+    sj:falsifier """If any required link can go missing without detection, or a corrupted receipt mutates a stored hash and goes undetected, this goal is refuted.""" ;
+    sj:evidence
+        "lib/beam4pm_receipt_chain.ex" ,
+        "test/beam4pm_receipt_chain_test.exs" ;
+    sj:evidenceCeiling "IMPLEMENTED_UNVERIFIED" .
+
+# ---------------------------------------------------------------------------
+# Goal 6: RF1/RF2/RF3 oracle differentials against real Rust binaries
+# ---------------------------------------------------------------------------
+prd:goal-oracle-differentials a sj:GoalCheckpoint ;
+    dcterms:identifier "GC-BEAM4PM-006" ;
+    rdfs:label "RF1 DFG / RF2 fitness / RF3 OCEL oracle differentials" ;
+    dcterms:description """lib/beam4pm_rf1_dfg.ex, lib/beam4pm_rf2_conformance.ex, and lib/beam4pm_rf3_ocel.ex spawn real Rust oracle subprocesses against real canonical datasets (Chicago-style, no mocks). RF1 DFG against native/rf1-dfg-oracle/target/release/rf1-dfg-oracle (hardcoded relative path, no env var needed); RF2 conformance against RF2_ORACLE_BIN with clean and mutated receipt.xes fixtures checked into qualification/fixtures/; RF3 OCEL against RF3_ORACLE_BIN with positive and adversarial n05/n13/n14 fixtures. Tests are env-gated via scripts/env/rust4pm_reactor_env.sh, which must be sourced and the oracle binaries built for the tests to run rather than skip.""" ;
+    sj:acceptance """With scripts/env/rust4pm_reactor_env.sh sourced and the native/ oracle binaries compiled, the rf1_dfg, rf2_conformance, rf2_oracle_dep_task, and rf3_ocel tests pass against the real binaries and checked-in fixtures; scripts/gate_m2_check.sh passes.""" ;
+    sj:falsifier """If the Elixir implementation and the Rust oracle disagree on any canonical or adversarial fixture (positive accepted, n05/n13/n14 rejected), this goal is refuted.""" ;
+    sj:evidence
+        "lib/beam4pm_rf1_dfg.ex" ,
+        "lib/beam4pm_rf2_conformance.ex" ,
+        "lib/beam4pm_rf3_ocel.ex" ,
+        "scripts/env/rust4pm_reactor_env.sh" ,
+        "scripts/rf2_conformance_sync.sh" ,
+        "scripts/rf3_ocel_sync.sh" ,
+        "scripts/gate_m2_check.sh" ,
+        "qualification/fixtures/ (receipt.xes, mutated_receipt.xes, positive-self-authored.ocel.json, n05-o2o-dangling.ocel.json, n13-duplicate-object-id.ocel.json, n14-undeclared-event-type.ocel.json)" ,
+        "test/beam4pm_rf1_dfg_test.exs" ,
+        "test/beam4pm_rf2_conformance_test.exs" ,
+        "test/beam4pm_rf2_oracle_dep_task_test.exs" ,
+        "test/beam4pm_rf3_ocel_test.exs" ;
+    sj:limitation """The oracle binaries must be built (cargo release builds under native/) and the env script sourced; without them these tests skip rather than run.""" ;
+    sj:evidenceCeiling "IMPLEMENTED_UNVERIFIED" .
+
+# ---------------------------------------------------------------------------
+# Goal 7: DFCM fabric solve/match parity
+# ---------------------------------------------------------------------------
+prd:goal-dfcm-fabric a sj:GoalCheckpoint ;
+    dcterms:identifier "GC-BEAM4PM-007" ;
+    rdfs:label "DFCM fabric solve/match parity with ggen_igniter" ;
+    dcterms:description """lib/beam4pm_dfcm.ex implements the DFCM fabric solve/match with parity tests against the ggen_igniter reference fabric, SA2A admission/replay, and OCEL validate parity. The DFCM doctests require the python unified_planning runtime; without it the corresponding tests fail or skip.""" ;
+    sj:acceptance """DFCM solve/match agrees with the ggen_igniter reference fabric on identical inputs, and SA2A validate/replay parity tests pass.""" ;
+    sj:falsifier """If DFCM solve/match parity with ggen_igniter's fabric fails on identical inputs, or SA2A validate/replay parity tests fail, this goal is refuted.""" ;
+    sj:evidence
+        "lib/beam4pm_dfcm.ex" ,
+        "test/beam4pm_dfcm_test.exs" ,
+        "test/beam4pm_dfcm_fabric_parity_test.exs" ,
+        "test/beam4pm_dfcm_cmca_parity_test.exs" ,
+        "test/beam4pm_dfcm_ocel_validate_parity_test.exs" ,
+        "test/beam4pm_dfcm_sa2a_replay_test.exs" ,
+        "test/beam4pm_dfcm_sa2a_validate_card_test.exs" ;
+    sj:limitation """2 of the 3 current suite failures require the python unified_planning runtime for DFCM doctests; without that runtime installed those tests fail.""" ;
+    sj:evidenceCeiling "IMPLEMENTED_UNVERIFIED" .
+
+# ---------------------------------------------------------------------------
+# Goal 8: ash_ex4pm emission bridge
+# ---------------------------------------------------------------------------
+prd:goal-ex4pm-bridge a sj:GoalCheckpoint ;
+    dcterms:identifier "GC-BEAM4PM-008" ;
+    rdfs:label "ash_ex4pm realtime OCEL emission bridge" ;
+    dcterms:description """AshEx4pm.Notifier broadcast envelopes (via the broadcaster callback introduced in ash_ex4pm 26.10.1) are mapped by BeamPM.Evidence.Ex4pmBridge in scripts/ex4pm_bridge.exs to %BeamPM.Types.OcelEvent{} structs and forwarded through BeamPM.Ingest.Bridge.ingest/1, emitting a beam4pm/ex4pm/envelope/ingested telemetry event per forwarded envelope.""" ;
+    sj:acceptance """The emission test proves notifier envelopes become OcelEvent structs through the bridge, and the realtime bridge test proves the telemetry event fires per forwarded envelope.""" ;
+    sj:falsifier """If AshEx4pm.Notifier broadcast envelopes are not mapped to OcelEvent structs, or the telemetry event does not fire per forwarded envelope, this goal is refuted.""" ;
+    sj:evidence
+        "scripts/ex4pm_bridge.exs (BeamPM.Evidence.Ex4pmBridge)" ,
+        "docs/ex4pm-realtime-capture.md" ,
+        "test/beam4pm_ash_ex4pm_emission_test.exs" ,
+        "test/beam4pm_ex4pm_realtime_bridge_test.exs" ;
+    sj:evidenceCeiling "IMPLEMENTED_UNVERIFIED" .
+
+# ---------------------------------------------------------------------------
+# Goal 9: HDDL -> A2A -> OCEL end-to-end conformance
+# ---------------------------------------------------------------------------
+prd:goal-hddl-a2a-ocel-e2e a sj:GoalCheckpoint ;
+    dcterms:identifier "GC-BEAM4PM-009" ;
+    rdfs:label "HDDL to A2A to OCEL end-to-end conformance" ;
+    dcterms:description """test/beam4pm_powl_conformance_e2e_test.exs drives HDDL planning through A2A agents to OCEL event capture end-to-end, using captured reference and deviant OCEL events (qualification/gym_bridge/reference_ocel_events.json and deviant_ocel_events.json, captured from ash_a2a); conformance must accept the reference and reject the deviant. The test skips if the captured event files are absent.""" ;
+    sj:acceptance """The e2e test passes over the captured reference/deviant events: the reference trace conforms and the deviant trace is rejected with a typed error.""" ;
+    sj:falsifier """If the e2e path admits the deviant trace, or rejects the reference trace, this goal is refuted.""" ;
+    sj:evidence
+        "test/beam4pm_powl_conformance_e2e_test.exs" ,
+        "qualification/gym_bridge/reference_ocel_events.json" ,
+        "qualification/gym_bridge/deviant_ocel_events.json" ;
+    sj:limitation """The captured event files must exist; the test skips with an instruction to re-run the capture from the ash_a2a repo otherwise.""" ;
+    sj:evidenceCeiling "IMPLEMENTED_UNVERIFIED" .
+
+# ---------------------------------------------------------------------------
+# Goal 10: qualification ladder
+# ---------------------------------------------------------------------------
+prd:goal-qualification a sj:GoalCheckpoint ;
+    dcterms:identifier "GC-BEAM4PM-010" ;
+    rdfs:label "Qualification ladder for beam4pm 26.10.1" ;
+    dcterms:description """The full suite observes 1693 tests with 3 failures (2 requiring python unified_planning for DFCM doctests; 1 env-gated) and 147 skips. Clean execution of the oracle and e2e tiers requires scripts/env/rust4pm_reactor_env.sh sourced, the native/ oracle binaries built, and the captured gym_bridge events present.""" ;
+    sj:acceptance """Narrow module tests (rf1_dfg, rf2_conformance, rf3_ocel, receipt_chain, ocel_ingest, dfcm parity) pass unconditionally or skip with a typed reason; integration and e2e tiers pass with the documented env sourced.""" ;
+    sj:falsifier """If the 3 known failures change count or class without a corresponding code or environment change, or an env-gated tier fails rather than skips when its environment is present, this goal is refuted.""" ;
+    sj:evidence
+        "mix test (1693 tests / 3 failures / 147 skipped at authoring time)" ,
+        "scripts/env/rust4pm_reactor_env.sh" ,
+        "scripts/gate_m2_check.sh" ;
+    sj:limitation """The failures are real at authoring time: 2 need python unified_planning, 1 is env-gated; the working tree was heavily uncommitted when the suite was observed.""" ;
+    sj:evidenceCeiling "IMPLEMENTED_UNVERIFIED" .
