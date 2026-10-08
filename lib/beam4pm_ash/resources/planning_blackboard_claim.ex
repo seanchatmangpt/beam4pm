@@ -5,7 +5,19 @@ defmodule BeamPM.Ash.Resources.PlanningBlackboardClaim do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:planning_blackboard_claim,
+      attributes: [claim_id: :string, work_item_id: :string, owner_subject_sha: :string]
+    )
+
+    activity(:planning_blackboard_claim_created,
+      on: :create,
+      object_type: :planning_blackboard_claim
+    )
+  end
 
   attributes do
     uuid_primary_key(:id)

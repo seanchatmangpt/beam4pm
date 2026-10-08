@@ -5,7 +5,23 @@ defmodule BeamPM.Ash.Resources.ServiceSpan do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:service_span,
+      attributes: [
+        span_id: :string,
+        service_name: :string,
+        duration_ms: :integer,
+        parent_span_id: :string,
+        trace_id: :string,
+        start_time: :datetime
+      ]
+    )
+
+    activity(:service_span_created, on: :create, object_type: :service_span)
+  end
 
   attributes do
     uuid_primary_key(:id)

@@ -5,7 +5,24 @@ defmodule BeamPM.Ash.Resources.CommercialValueRealization do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:commercial_value_realization,
+      attributes: [
+        realization_id: :string,
+        baseline_id: :string,
+        realized_value: :float,
+        measured_at: :datetime
+      ]
+    )
+
+    activity(:commercial_value_realization_created,
+      on: :create,
+      object_type: :commercial_value_realization
+    )
+  end
 
   attributes do
     uuid_primary_key(:id)

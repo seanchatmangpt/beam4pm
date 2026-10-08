@@ -5,7 +5,16 @@ defmodule BeamPM.Ash.Resources.PpddlProjection do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:ppddl_projection,
+      attributes: [plan_id: :string, domain_hash: :string, problem_hash: :string]
+    )
+
+    activity(:ppddl_projection_created, on: :create, object_type: :ppddl_projection)
+  end
 
   attributes do
     uuid_primary_key(:id)

@@ -5,7 +5,19 @@ defmodule BeamPM.Ash.Resources.PlanningBlackboardConflict do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:planning_blackboard_conflict,
+      attributes: [conflict_id: :string, claim_set_digest: :string, conflict_type: :string]
+    )
+
+    activity(:planning_blackboard_conflict_created,
+      on: :create,
+      object_type: :planning_blackboard_conflict
+    )
+  end
 
   attributes do
     uuid_primary_key(:id)

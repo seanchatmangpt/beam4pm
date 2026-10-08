@@ -5,7 +5,23 @@ defmodule BeamPM.Ash.Resources.UncertaintyAwareSelection do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:uncertainty_aware_selection,
+      attributes: [
+        option_set_id: :string,
+        uncertainty_model_hash: :string,
+        selected_option_id: :string
+      ]
+    )
+
+    activity(:uncertainty_aware_selection_created,
+      on: :create,
+      object_type: :uncertainty_aware_selection
+    )
+  end
 
   attributes do
     uuid_primary_key(:id)

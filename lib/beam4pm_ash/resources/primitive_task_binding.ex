@@ -5,7 +5,16 @@ defmodule BeamPM.Ash.Resources.PrimitiveTaskBinding do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:primitive_task_binding,
+      attributes: [task_id: :string, action_id: :string, binding_digest: :string]
+    )
+
+    activity(:primitive_task_binding_created, on: :create, object_type: :primitive_task_binding)
+  end
 
   attributes do
     uuid_primary_key(:id)

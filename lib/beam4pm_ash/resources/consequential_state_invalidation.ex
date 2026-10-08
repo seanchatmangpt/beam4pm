@@ -5,7 +5,24 @@ defmodule BeamPM.Ash.Resources.ConsequentialStateInvalidation do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:consequential_state_invalidation,
+      attributes: [
+        transition_id: :string,
+        affected_state_digest: :string,
+        invalidation_reason: :string,
+        invalidated_at: :datetime
+      ]
+    )
+
+    activity(:consequential_state_invalidation_created,
+      on: :create,
+      object_type: :consequential_state_invalidation
+    )
+  end
 
   attributes do
     uuid_primary_key(:id)

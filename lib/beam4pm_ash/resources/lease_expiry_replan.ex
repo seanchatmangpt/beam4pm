@@ -5,7 +5,20 @@ defmodule BeamPM.Ash.Resources.LeaseExpiryReplan do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:lease_expiry_replan,
+      attributes: [
+        replan_id: :string,
+        expired_lease_id: :string,
+        returned_frontier_digest: :string
+      ]
+    )
+
+    activity(:lease_expiry_replan_created, on: :create, object_type: :lease_expiry_replan)
+  end
 
   attributes do
     uuid_primary_key(:id)

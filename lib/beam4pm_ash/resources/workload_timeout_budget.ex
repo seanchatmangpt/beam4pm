@@ -5,7 +5,16 @@ defmodule BeamPM.Ash.Resources.WorkloadTimeoutBudget do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:workload_timeout_budget,
+      attributes: [tenant_id: :string, budget_id: :string, budget_hash: :string]
+    )
+
+    activity(:workload_timeout_budget_created, on: :create, object_type: :workload_timeout_budget)
+  end
 
   attributes do
     uuid_primary_key(:id)

@@ -5,7 +5,22 @@ defmodule BeamPM.Ash.Resources.QuotaBurstAllowance do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:quota_burst_allowance,
+      attributes: [
+        quota_burst_allowance_id: :string,
+        account_id: :string,
+        burst_units: :float,
+        evidence_digest: :string,
+        effective_at: :datetime
+      ]
+    )
+
+    activity(:quota_burst_allowance_created, on: :create, object_type: :quota_burst_allowance)
+  end
 
   attributes do
     uuid_primary_key(:id)

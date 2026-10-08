@@ -5,7 +5,21 @@ defmodule BeamPM.Ash.Resources.PathSchema do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:path_schema,
+      attributes: [
+        schema_id: :string,
+        source_type: :string,
+        target_type: :string,
+        support: :integer
+      ]
+    )
+
+    activity(:path_schema_created, on: :create, object_type: :path_schema)
+  end
 
   attributes do
     uuid_primary_key(:id)

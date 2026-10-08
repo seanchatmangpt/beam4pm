@@ -5,7 +5,16 @@ defmodule BeamPM.Ash.Resources.DynamicReplanTrigger do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:dynamic_replan_trigger,
+      attributes: [plan_id: :string, event_id: :string, trigger_hash: :string]
+    )
+
+    activity(:dynamic_replan_trigger_created, on: :create, object_type: :dynamic_replan_trigger)
+  end
 
   attributes do
     uuid_primary_key(:id)

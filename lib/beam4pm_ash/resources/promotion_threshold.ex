@@ -5,7 +5,23 @@ defmodule BeamPM.Ash.Resources.PromotionThreshold do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:promotion_threshold,
+      attributes: [
+        threshold_id: :string,
+        objective_id: :string,
+        minimum_payoff: :float,
+        maximum_regression: :float,
+        minimum_evidence_count: :integer,
+        authority_binding: :string
+      ]
+    )
+
+    activity(:promotion_threshold_created, on: :create, object_type: :promotion_threshold)
+  end
 
   attributes do
     uuid_primary_key(:id)

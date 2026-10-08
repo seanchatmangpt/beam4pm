@@ -5,7 +5,16 @@ defmodule BeamPM.Ash.Resources.PolicyDecision do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:policy_decision,
+      attributes: [decision_id: :string, verdict: :atom, reason: :string]
+    )
+
+    activity(:policy_decision_created, on: :create, object_type: :policy_decision)
+  end
 
   attributes do
     uuid_primary_key(:id)

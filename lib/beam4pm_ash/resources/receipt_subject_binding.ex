@@ -5,7 +5,16 @@ defmodule BeamPM.Ash.Resources.ReceiptSubjectBinding do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:receipt_subject_binding,
+      attributes: [tenant_id: :string, workload_id: :string, binding_hash: :string]
+    )
+
+    activity(:receipt_subject_binding_created, on: :create, object_type: :receipt_subject_binding)
+  end
 
   attributes do
     uuid_primary_key(:id)

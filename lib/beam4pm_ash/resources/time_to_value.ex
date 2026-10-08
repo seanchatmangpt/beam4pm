@@ -5,7 +5,22 @@ defmodule BeamPM.Ash.Resources.TimeToValue do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:time_to_value,
+      attributes: [
+        time_to_value_id: :string,
+        account_id: :string,
+        verified_days: :integer,
+        evidence_digest: :string,
+        observed_at: :datetime
+      ]
+    )
+
+    activity(:time_to_value_created, on: :create, object_type: :time_to_value)
+  end
 
   attributes do
     uuid_primary_key(:id)

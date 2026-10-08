@@ -5,7 +5,16 @@ defmodule BeamPM.Ash.Resources.AdmissibleActionSet do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:admissible_action_set,
+      attributes: [state_id: :string, constraint_hash: :string, action_set_hash: :string]
+    )
+
+    activity(:admissible_action_set_created, on: :create, object_type: :admissible_action_set)
+  end
 
   attributes do
     uuid_primary_key(:id)

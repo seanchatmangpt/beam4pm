@@ -5,7 +5,19 @@ defmodule BeamPM.Ash.Resources.ActionEligibilityDecision do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:action_eligibility_decision,
+      attributes: [decision_id: :string, action_id: :string, standing: :string]
+    )
+
+    activity(:action_eligibility_decision_created,
+      on: :create,
+      object_type: :action_eligibility_decision
+    )
+  end
 
   attributes do
     uuid_primary_key(:id)

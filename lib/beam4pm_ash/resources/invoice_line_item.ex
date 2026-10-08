@@ -5,7 +5,22 @@ defmodule BeamPM.Ash.Resources.InvoiceLineItem do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:invoice_line_item,
+      attributes: [
+        invoice_line_item_id: :string,
+        account_id: :string,
+        line_amount: :float,
+        evidence_digest: :string,
+        effective_at: :datetime
+      ]
+    )
+
+    activity(:invoice_line_item_created, on: :create, object_type: :invoice_line_item)
+  end
 
   attributes do
     uuid_primary_key(:id)

@@ -5,7 +5,25 @@ defmodule BeamPM.Ash.Resources.FailedChallengerRetention do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:failed_challenger_retention,
+      attributes: [
+        retention_id: :string,
+        challenger_evaluation_id: :string,
+        failure_evidence_digest: :string,
+        retained_at: :datetime,
+        eligible_for_future: :boolean
+      ]
+    )
+
+    activity(:failed_challenger_retention_created,
+      on: :create,
+      object_type: :failed_challenger_retention
+    )
+  end
 
   attributes do
     uuid_primary_key(:id)

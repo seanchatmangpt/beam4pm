@@ -5,7 +5,16 @@ defmodule BeamPM.Ash.Resources.RoleCompatibility do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:role_compatibility,
+      attributes: [role_id: :string, policy_id: :string, compatibility: :string]
+    )
+
+    activity(:role_compatibility_created, on: :create, object_type: :role_compatibility)
+  end
 
   attributes do
     uuid_primary_key(:id)

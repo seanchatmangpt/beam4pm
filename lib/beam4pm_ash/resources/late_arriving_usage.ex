@@ -5,7 +5,22 @@ defmodule BeamPM.Ash.Resources.LateArrivingUsage do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:late_arriving_usage,
+      attributes: [
+        late_arriving_usage_id: :string,
+        account_id: :string,
+        occurred_at: :datetime,
+        evidence_digest: :string,
+        effective_at: :datetime
+      ]
+    )
+
+    activity(:late_arriving_usage_created, on: :create, object_type: :late_arriving_usage)
+  end
 
   attributes do
     uuid_primary_key(:id)

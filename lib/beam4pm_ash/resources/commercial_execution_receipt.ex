@@ -5,7 +5,24 @@ defmodule BeamPM.Ash.Resources.CommercialExecutionReceipt do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:commercial_execution_receipt,
+      attributes: [
+        receipt_id: :string,
+        subject_id: :string,
+        operation: :string,
+        evidence_hash: :string
+      ]
+    )
+
+    activity(:commercial_execution_receipt_created,
+      on: :create,
+      object_type: :commercial_execution_receipt
+    )
+  end
 
   attributes do
     uuid_primary_key(:id)

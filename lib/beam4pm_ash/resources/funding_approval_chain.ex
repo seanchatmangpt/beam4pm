@@ -5,7 +5,16 @@ defmodule BeamPM.Ash.Resources.FundingApprovalChain do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:funding_approval_chain,
+      attributes: [opportunity_id: :string, approval_chain_id: :string, evidence_hash: :string]
+    )
+
+    activity(:funding_approval_chain_created, on: :create, object_type: :funding_approval_chain)
+  end
 
   attributes do
     uuid_primary_key(:id)

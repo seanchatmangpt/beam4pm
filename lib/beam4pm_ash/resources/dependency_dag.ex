@@ -5,7 +5,16 @@ defmodule BeamPM.Ash.Resources.DependencyDag do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:dependency_dag,
+      attributes: [dag_id: :string, node_set_hash: :string, edge_set_hash: :string]
+    )
+
+    activity(:dependency_dag_created, on: :create, object_type: :dependency_dag)
+  end
 
   attributes do
     uuid_primary_key(:id)

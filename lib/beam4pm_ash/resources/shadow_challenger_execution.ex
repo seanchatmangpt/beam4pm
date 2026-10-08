@@ -5,7 +5,26 @@ defmodule BeamPM.Ash.Resources.ShadowChallengerExecution do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:shadow_challenger_execution,
+      attributes: [
+        execution_id: :string,
+        incumbent_policy_id: :string,
+        challenger_policy_id: :string,
+        shared_observation_digest: :string,
+        shadow_receipt_digest: :string,
+        authority_mode: :string
+      ]
+    )
+
+    activity(:shadow_challenger_execution_created,
+      on: :create,
+      object_type: :shadow_challenger_execution
+    )
+  end
 
   attributes do
     uuid_primary_key(:id)

@@ -5,7 +5,21 @@ defmodule BeamPM.Ash.Resources.EnvironmentProfile do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:environment_profile,
+      attributes: [
+        profile_id: :string,
+        environment: :atom,
+        region: :string,
+        configuration_hash: :string
+      ]
+    )
+
+    activity(:environment_profile_created, on: :create, object_type: :environment_profile)
+  end
 
   attributes do
     uuid_primary_key(:id)

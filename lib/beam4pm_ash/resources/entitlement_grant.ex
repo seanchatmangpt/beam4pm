@@ -5,7 +5,21 @@ defmodule BeamPM.Ash.Resources.EntitlementGrant do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:entitlement_grant,
+      attributes: [
+        grant_id: :string,
+        tenant_id: :string,
+        capability_id: :string,
+        valid_until: :datetime
+      ]
+    )
+
+    activity(:entitlement_grant_created, on: :create, object_type: :entitlement_grant)
+  end
 
   attributes do
     uuid_primary_key(:id)

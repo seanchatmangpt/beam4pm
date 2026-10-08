@@ -5,7 +5,24 @@ defmodule BeamPM.Ash.Resources.ChangedSurfaceInference do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:changed_surface_inference,
+      attributes: [
+        prior_tree_sha: :string,
+        current_tree_sha: :string,
+        changed_surface_digest: :string,
+        inference_status: :string
+      ]
+    )
+
+    activity(:changed_surface_inference_created,
+      on: :create,
+      object_type: :changed_surface_inference
+    )
+  end
 
   attributes do
     uuid_primary_key(:id)

@@ -5,7 +5,21 @@ defmodule BeamPM.Ash.Resources.TenantAccount do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:tenant_account,
+      attributes: [
+        tenant_id: :string,
+        account_id: :string,
+        home_region: :string,
+        edition_id: :string
+      ]
+    )
+
+    activity(:tenant_account_created, on: :create, object_type: :tenant_account)
+  end
 
   attributes do
     uuid_primary_key(:id)

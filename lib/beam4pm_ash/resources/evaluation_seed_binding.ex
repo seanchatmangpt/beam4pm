@@ -5,7 +5,23 @@ defmodule BeamPM.Ash.Resources.EvaluationSeedBinding do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:evaluation_seed_binding,
+      attributes: [
+        binding_id: :string,
+        evaluation_id: :string,
+        seed: :string,
+        result_digest: :string,
+        source_digest: :string,
+        deterministic: :boolean
+      ]
+    )
+
+    activity(:evaluation_seed_binding_created, on: :create, object_type: :evaluation_seed_binding)
+  end
 
   attributes do
     uuid_primary_key(:id)

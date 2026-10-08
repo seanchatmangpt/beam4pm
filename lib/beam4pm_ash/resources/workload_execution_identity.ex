@@ -5,7 +5,19 @@ defmodule BeamPM.Ash.Resources.WorkloadExecutionIdentity do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:workload_execution_identity,
+      attributes: [tenant_id: :string, execution_id: :string, subject_digest: :string]
+    )
+
+    activity(:workload_execution_identity_created,
+      on: :create,
+      object_type: :workload_execution_identity
+    )
+  end
 
   attributes do
     uuid_primary_key(:id)

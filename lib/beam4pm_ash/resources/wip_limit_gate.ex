@@ -5,7 +5,16 @@ defmodule BeamPM.Ash.Resources.WipLimitGate do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:wip_limit_gate,
+      attributes: [episode_id: :string, wip_limit: :string, standing: :string]
+    )
+
+    activity(:wip_limit_gate_created, on: :create, object_type: :wip_limit_gate)
+  end
 
   attributes do
     uuid_primary_key(:id)

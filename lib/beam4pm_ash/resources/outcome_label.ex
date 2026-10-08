@@ -5,7 +5,22 @@ defmodule BeamPM.Ash.Resources.OutcomeLabel do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:outcome_label,
+      attributes: [
+        label_id: :string,
+        episode_id: :string,
+        outcome_class: :string,
+        confidence_basis: :string,
+        independent_evidence_digest: :string
+      ]
+    )
+
+    activity(:outcome_label_created, on: :create, object_type: :outcome_label)
+  end
 
   attributes do
     uuid_primary_key(:id)

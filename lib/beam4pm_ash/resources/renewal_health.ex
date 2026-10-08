@@ -5,7 +5,22 @@ defmodule BeamPM.Ash.Resources.RenewalHealth do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:renewal_health,
+      attributes: [
+        renewal_health_id: :string,
+        account_id: :string,
+        renewal_health_score: :float,
+        evidence_digest: :string,
+        observed_at: :datetime
+      ]
+    )
+
+    activity(:renewal_health_created, on: :create, object_type: :renewal_health)
+  end
 
   attributes do
     uuid_primary_key(:id)

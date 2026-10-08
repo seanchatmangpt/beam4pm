@@ -5,7 +5,15 @@ defmodule BeamPM.Ash.Resources.EventType do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:event_type, attributes: [type_name: :string])
+
+    # skipped field :attribute_names (bpm:fieldType "list_string") - no bpm:ocelTypeExpr: OCEL object attributes are scalars only
+    activity(:event_type_created, on: :create, object_type: :event_type)
+  end
 
   attributes do
     uuid_primary_key(:id)

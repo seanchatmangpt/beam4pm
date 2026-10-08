@@ -5,7 +5,19 @@ defmodule BeamPM.Ash.Resources.EventTriggeredPlanning do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:event_triggered_planning,
+      attributes: [event_id: :string, world_state_hash: :string, episode_id: :string]
+    )
+
+    activity(:event_triggered_planning_created,
+      on: :create,
+      object_type: :event_triggered_planning
+    )
+  end
 
   attributes do
     uuid_primary_key(:id)

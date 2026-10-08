@@ -5,7 +5,26 @@ defmodule BeamPM.Ash.Resources.PlannerPolicyComparison do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:planner_policy_comparison,
+      attributes: [
+        comparison_id: :string,
+        planner_id: :string,
+        incumbent_policy_id: :string,
+        challenger_policy_id: :string,
+        payoff_delta: :float,
+        winner_evidence_digest: :string
+      ]
+    )
+
+    activity(:planner_policy_comparison_created,
+      on: :create,
+      object_type: :planner_policy_comparison
+    )
+  end
 
   attributes do
     uuid_primary_key(:id)

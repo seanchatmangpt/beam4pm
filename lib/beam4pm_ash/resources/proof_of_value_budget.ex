@@ -5,7 +5,16 @@ defmodule BeamPM.Ash.Resources.ProofOfValueBudget do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:proof_of_value_budget,
+      attributes: [opportunity_id: :string, budget_id: :string, decision: :string]
+    )
+
+    activity(:proof_of_value_budget_created, on: :create, object_type: :proof_of_value_budget)
+  end
 
   attributes do
     uuid_primary_key(:id)

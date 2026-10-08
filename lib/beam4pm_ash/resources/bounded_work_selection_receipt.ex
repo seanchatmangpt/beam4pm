@@ -5,7 +5,19 @@ defmodule BeamPM.Ash.Resources.BoundedWorkSelectionReceipt do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:bounded_work_selection_receipt,
+      attributes: [receipt_id: :string, selected_work_item_id: :string, frontier_digest: :string]
+    )
+
+    activity(:bounded_work_selection_receipt_created,
+      on: :create,
+      object_type: :bounded_work_selection_receipt
+    )
+  end
 
   attributes do
     uuid_primary_key(:id)

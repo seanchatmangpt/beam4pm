@@ -5,7 +5,19 @@ defmodule BeamPM.Ash.Resources.VendorRegistrationState do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:vendor_registration_state,
+      attributes: [account_id: :string, registration_id: :string, registration_state: :string]
+    )
+
+    activity(:vendor_registration_state_created,
+      on: :create,
+      object_type: :vendor_registration_state
+    )
+  end
 
   attributes do
     uuid_primary_key(:id)

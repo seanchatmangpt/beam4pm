@@ -5,7 +5,24 @@ defmodule BeamPM.Ash.Resources.RetentionPolicyEvidence do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:retention_policy_evidence,
+      attributes: [
+        evidence_id: :string,
+        subject_sha: :string,
+        retention_days: :integer,
+        observed_result: :atom
+      ]
+    )
+
+    activity(:retention_policy_evidence_created,
+      on: :create,
+      object_type: :retention_policy_evidence
+    )
+  end
 
   attributes do
     uuid_primary_key(:id)

@@ -5,7 +5,16 @@ defmodule BeamPM.Ash.Resources.ClusterQuorumState do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:cluster_quorum_state,
+      attributes: [tenant_id: :string, cluster_id: :string, quorum_hash: :string]
+    )
+
+    activity(:cluster_quorum_state_created, on: :create, object_type: :cluster_quorum_state)
+  end
 
   attributes do
     uuid_primary_key(:id)

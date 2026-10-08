@@ -5,7 +5,26 @@ defmodule BeamPM.Ash.Resources.CostLatencyReliabilityTradeoff do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:cost_latency_reliability_tradeoff,
+      attributes: [
+        assessment_id: :string,
+        candidate_policy_id: :string,
+        cost_score: :float,
+        latency_score: :float,
+        reliability_score: :float,
+        utility_score: :float
+      ]
+    )
+
+    activity(:cost_latency_reliability_tradeoff_created,
+      on: :create,
+      object_type: :cost_latency_reliability_tradeoff
+    )
+  end
 
   attributes do
     uuid_primary_key(:id)

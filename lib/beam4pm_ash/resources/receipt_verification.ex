@@ -5,7 +5,16 @@ defmodule BeamPM.Ash.Resources.ReceiptVerification do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:receipt_verification,
+      attributes: [tenant_id: :string, receipt_id: :string, verification_hash: :string]
+    )
+
+    activity(:receipt_verification_created, on: :create, object_type: :receipt_verification)
+  end
 
   attributes do
     uuid_primary_key(:id)

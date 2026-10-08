@@ -5,7 +5,21 @@ defmodule BeamPM.Ash.Resources.CrownSourceCapsule do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:crown_source_capsule,
+      attributes: [
+        propagation_id: :string,
+        subject_sha: :string,
+        capsule_digest: :string,
+        receipt_digest: :string
+      ]
+    )
+
+    activity(:crown_source_capsule_created, on: :create, object_type: :crown_source_capsule)
+  end
 
   attributes do
     uuid_primary_key(:id)

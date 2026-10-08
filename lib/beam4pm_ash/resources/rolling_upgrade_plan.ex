@@ -5,7 +5,16 @@ defmodule BeamPM.Ash.Resources.RollingUpgradePlan do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:rolling_upgrade_plan,
+      attributes: [tenant_id: :string, upgrade_id: :string, plan_hash: :string]
+    )
+
+    activity(:rolling_upgrade_plan_created, on: :create, object_type: :rolling_upgrade_plan)
+  end
 
   attributes do
     uuid_primary_key(:id)

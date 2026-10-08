@@ -5,7 +5,22 @@ defmodule BeamPM.Ash.Resources.AntiRepeatSignature do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:anti_repeat_signature,
+      attributes: [
+        signature_id: :string,
+        failure_class: :string,
+        causal_features_digest: :string,
+        repair_family: :string,
+        first_seen_episode: :string
+      ]
+    )
+
+    activity(:anti_repeat_signature_created, on: :create, object_type: :anti_repeat_signature)
+  end
 
   attributes do
     uuid_primary_key(:id)

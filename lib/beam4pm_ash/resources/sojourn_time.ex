@@ -5,7 +5,16 @@ defmodule BeamPM.Ash.Resources.SojournTime do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:sojourn_time,
+      attributes: [object_id: :string, event_type: :string, seconds: :float]
+    )
+
+    activity(:sojourn_time_created, on: :create, object_type: :sojourn_time)
+  end
 
   attributes do
     uuid_primary_key(:id)

@@ -5,7 +5,16 @@ defmodule BeamPM.Ash.Resources.OpportunityValueRange do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:opportunity_value_range,
+      attributes: [opportunity_id: :string, minimum_value: :string, maximum_value: :string]
+    )
+
+    activity(:opportunity_value_range_created, on: :create, object_type: :opportunity_value_range)
+  end
 
   attributes do
     uuid_primary_key(:id)

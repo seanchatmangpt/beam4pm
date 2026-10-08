@@ -5,7 +5,21 @@ defmodule BeamPM.Ash.Resources.DfgEdge do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:dfg_edge,
+      attributes: [
+        source_activity: :string,
+        target_activity: :string,
+        frequency: :integer,
+        edge_weight: :float
+      ]
+    )
+
+    activity(:dfg_edge_created, on: :create, object_type: :dfg_edge)
+  end
 
   attributes do
     uuid_primary_key(:id)

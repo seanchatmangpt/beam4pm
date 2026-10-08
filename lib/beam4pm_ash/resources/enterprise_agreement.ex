@@ -5,7 +5,22 @@ defmodule BeamPM.Ash.Resources.EnterpriseAgreement do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:enterprise_agreement,
+      attributes: [
+        enterprise_agreement_id: :string,
+        account_id: :string,
+        agreement_version: :string,
+        evidence_digest: :string,
+        effective_at: :datetime
+      ]
+    )
+
+    activity(:enterprise_agreement_created, on: :create, object_type: :enterprise_agreement)
+  end
 
   attributes do
     uuid_primary_key(:id)

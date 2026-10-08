@@ -5,7 +5,16 @@ defmodule BeamPM.Ash.Resources.AgentAssignment do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:agent_assignment,
+      attributes: [agent_id: :string, policy_id: :string, assignment_hash: :string]
+    )
+
+    activity(:agent_assignment_created, on: :create, object_type: :agent_assignment)
+  end
 
   attributes do
     uuid_primary_key(:id)

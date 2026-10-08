@@ -5,7 +5,16 @@ defmodule BeamPM.Ash.Resources.WorkloadQueueDepth do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:workload_queue_depth,
+      attributes: [tenant_id: :string, queue_id: :string, measurement_hash: :string]
+    )
+
+    activity(:workload_queue_depth_created, on: :create, object_type: :workload_queue_depth)
+  end
 
   attributes do
     uuid_primary_key(:id)

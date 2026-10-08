@@ -5,7 +5,21 @@ defmodule BeamPM.Ash.Resources.ConfigurationImport do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:configuration_import,
+      attributes: [
+        import_id: :string,
+        tenant_id: :string,
+        configuration_hash: :string,
+        status: :atom
+      ]
+    )
+
+    activity(:configuration_import_created, on: :create, object_type: :configuration_import)
+  end
 
   attributes do
     uuid_primary_key(:id)

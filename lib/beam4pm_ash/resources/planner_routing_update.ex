@@ -5,7 +5,23 @@ defmodule BeamPM.Ash.Resources.PlannerRoutingUpdate do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:planner_routing_update,
+      attributes: [
+        update_id: :string,
+        route_id: :string,
+        prior_planner_id: :string,
+        selected_planner_id: :string,
+        payoff_basis_digest: :string,
+        rollback_policy_id: :string
+      ]
+    )
+
+    activity(:planner_routing_update_created, on: :create, object_type: :planner_routing_update)
+  end
 
   attributes do
     uuid_primary_key(:id)

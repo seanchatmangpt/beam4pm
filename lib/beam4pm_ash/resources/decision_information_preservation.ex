@@ -5,7 +5,26 @@ defmodule BeamPM.Ash.Resources.DecisionInformationPreservation do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:decision_information_preservation,
+      attributes: [
+        preservation_id: :string,
+        decision_id: :string,
+        source_partition_digest: :string,
+        projection_digest: :string,
+        preserved_question_set_digest: :string,
+        loss_score: :float
+      ]
+    )
+
+    activity(:decision_information_preservation_created,
+      on: :create,
+      object_type: :decision_information_preservation
+    )
+  end
 
   attributes do
     uuid_primary_key(:id)

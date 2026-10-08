@@ -5,7 +5,16 @@ defmodule BeamPM.Ash.Resources.OcelAttribute do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:ocel_attribute,
+      attributes: [attribute_name: :string, attribute_value: :string, recorded_at: :datetime]
+    )
+
+    activity(:ocel_attribute_created, on: :create, object_type: :ocel_attribute)
+  end
 
   attributes do
     uuid_primary_key(:id)

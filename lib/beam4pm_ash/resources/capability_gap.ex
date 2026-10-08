@@ -5,7 +5,22 @@ defmodule BeamPM.Ash.Resources.CapabilityGap do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:capability_gap,
+      attributes: [
+        capability_gap_id: :string,
+        account_id: :string,
+        gap_severity: :string,
+        evidence_digest: :string,
+        observed_at: :datetime
+      ]
+    )
+
+    activity(:capability_gap_created, on: :create, object_type: :capability_gap)
+  end
 
   attributes do
     uuid_primary_key(:id)

@@ -5,7 +5,24 @@ defmodule BeamPM.Ash.Resources.WorkflowDefinitionDigestObservation do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:workflow_definition_digest_observation,
+      attributes: [
+        workflow_path: :string,
+        definition_sha256: :string,
+        source_sha: :string,
+        observed_at: :datetime
+      ]
+    )
+
+    activity(:workflow_definition_digest_observation_created,
+      on: :create,
+      object_type: :workflow_definition_digest_observation
+    )
+  end
 
   attributes do
     uuid_primary_key(:id)

@@ -5,7 +5,16 @@ defmodule BeamPM.Ash.Resources.OcelPlanningEvent do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:ocel_planning_event,
+      attributes: [event_id: :string, activity: :string, object_binding_digest: :string]
+    )
+
+    activity(:ocel_planning_event_created, on: :create, object_type: :ocel_planning_event)
+  end
 
   attributes do
     uuid_primary_key(:id)

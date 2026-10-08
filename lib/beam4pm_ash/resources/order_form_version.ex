@@ -5,7 +5,22 @@ defmodule BeamPM.Ash.Resources.OrderFormVersion do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:order_form_version,
+      attributes: [
+        order_form_version_id: :string,
+        account_id: :string,
+        order_form_digest: :string,
+        evidence_digest: :string,
+        effective_at: :datetime
+      ]
+    )
+
+    activity(:order_form_version_created, on: :create, object_type: :order_form_version)
+  end
 
   attributes do
     uuid_primary_key(:id)

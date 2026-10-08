@@ -5,7 +5,22 @@ defmodule BeamPM.Ash.Resources.EditionDowngradePath do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:edition_downgrade_path,
+      attributes: [
+        edition_downgrade_path_id: :string,
+        account_id: :string,
+        target_edition_id: :string,
+        evidence_digest: :string,
+        effective_at: :datetime
+      ]
+    )
+
+    activity(:edition_downgrade_path_created, on: :create, object_type: :edition_downgrade_path)
+  end
 
   attributes do
     uuid_primary_key(:id)

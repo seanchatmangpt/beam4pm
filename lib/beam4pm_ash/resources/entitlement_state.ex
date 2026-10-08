@@ -5,7 +5,21 @@ defmodule BeamPM.Ash.Resources.EntitlementState do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:entitlement_state,
+      attributes: [
+        entitlement_id: :string,
+        status: :string,
+        last_applied_event_id: :string,
+        updated_at: :datetime
+      ]
+    )
+
+    activity(:entitlement_state_created, on: :create, object_type: :entitlement_state)
+  end
 
   attributes do
     uuid_primary_key(:id)

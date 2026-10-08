@@ -5,7 +5,24 @@ defmodule BeamPM.Ash.Resources.CallerLocalCrownIdentity do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:caller_local_crown_identity,
+      attributes: [
+        propagation_id: :string,
+        subject_sha: :string,
+        consumer_subject_sha: :string,
+        receipt_digest: :string
+      ]
+    )
+
+    activity(:caller_local_crown_identity_created,
+      on: :create,
+      object_type: :caller_local_crown_identity
+    )
+  end
 
   attributes do
     uuid_primary_key(:id)

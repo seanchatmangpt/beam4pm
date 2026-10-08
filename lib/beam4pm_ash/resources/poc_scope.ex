@@ -5,7 +5,22 @@ defmodule BeamPM.Ash.Resources.PocScope do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:poc_scope,
+      attributes: [
+        poc_scope_id: :string,
+        account_id: :string,
+        use_case_count: :integer,
+        evidence_digest: :string,
+        observed_at: :datetime
+      ]
+    )
+
+    activity(:poc_scope_created, on: :create, object_type: :poc_scope)
+  end
 
   attributes do
     uuid_primary_key(:id)

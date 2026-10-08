@@ -5,7 +5,22 @@ defmodule BeamPM.Ash.Resources.PocRisk do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:poc_risk,
+      attributes: [
+        poc_risk_id: :string,
+        account_id: :string,
+        risk_score: :float,
+        evidence_digest: :string,
+        observed_at: :datetime
+      ]
+    )
+
+    activity(:poc_risk_created, on: :create, object_type: :poc_risk)
+  end
 
   attributes do
     uuid_primary_key(:id)

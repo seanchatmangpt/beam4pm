@@ -5,7 +5,24 @@ defmodule BeamPM.Ash.Resources.CustomerSignalObservation do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:customer_signal_observation,
+      attributes: [
+        customer_id: :string,
+        signal_type: :string,
+        signal_digest: :string,
+        observed_at: :datetime
+      ]
+    )
+
+    activity(:customer_signal_observation_created,
+      on: :create,
+      object_type: :customer_signal_observation
+    )
+  end
 
   attributes do
     uuid_primary_key(:id)

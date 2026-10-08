@@ -5,7 +5,16 @@ defmodule BeamPM.Ash.Resources.PowlLoopOperator do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:powl_loop_operator,
+      attributes: [operator_id: :string, body_digest: :string, exit_predicate: :string]
+    )
+
+    activity(:powl_loop_operator_created, on: :create, object_type: :powl_loop_operator)
+  end
 
   attributes do
     uuid_primary_key(:id)

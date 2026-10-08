@@ -5,7 +5,24 @@ defmodule BeamPM.Ash.Resources.ContainerPlatformDigestObservation do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:container_platform_digest_observation,
+      attributes: [
+        index_digest: :string,
+        platform: :string,
+        platform_digest: :string,
+        observed_at: :datetime
+      ]
+    )
+
+    activity(:container_platform_digest_observation_created,
+      on: :create,
+      object_type: :container_platform_digest_observation
+    )
+  end
 
   attributes do
     uuid_primary_key(:id)

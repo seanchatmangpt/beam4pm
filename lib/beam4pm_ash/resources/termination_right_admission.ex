@@ -5,7 +5,19 @@ defmodule BeamPM.Ash.Resources.TerminationRightAdmission do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:termination_right_admission,
+      attributes: [opportunity_id: :string, termination_right_id: :string, decision: :string]
+    )
+
+    activity(:termination_right_admission_created,
+      on: :create,
+      object_type: :termination_right_admission
+    )
+  end
 
   attributes do
     uuid_primary_key(:id)

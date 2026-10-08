@@ -5,7 +5,16 @@ defmodule BeamPM.Ash.Resources.ReceiptSignature do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:receipt_signature,
+      attributes: [tenant_id: :string, receipt_id: :string, signature_hash: :string]
+    )
+
+    activity(:receipt_signature_created, on: :create, object_type: :receipt_signature)
+  end
 
   attributes do
     uuid_primary_key(:id)

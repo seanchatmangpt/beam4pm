@@ -5,7 +5,16 @@ defmodule BeamPM.Ash.Resources.PlanMemory do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:plan_memory,
+      attributes: [plan_id: :string, evidence_hash: :string, memory_hash: :string]
+    )
+
+    activity(:plan_memory_created, on: :create, object_type: :plan_memory)
+  end
 
   attributes do
     uuid_primary_key(:id)

@@ -5,7 +5,19 @@ defmodule BeamPM.Ash.Resources.DataProcessingAddendumState do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:data_processing_addendum_state,
+      attributes: [opportunity_id: :string, addendum_id: :string, addendum_state: :string]
+    )
+
+    activity(:data_processing_addendum_state_created,
+      on: :create,
+      object_type: :data_processing_addendum_state
+    )
+  end
 
   attributes do
     uuid_primary_key(:id)

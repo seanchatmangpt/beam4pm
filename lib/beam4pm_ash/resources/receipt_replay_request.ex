@@ -5,7 +5,16 @@ defmodule BeamPM.Ash.Resources.ReceiptReplayRequest do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:receipt_replay_request,
+      attributes: [tenant_id: :string, receipt_id: :string, replay_request_hash: :string]
+    )
+
+    activity(:receipt_replay_request_created, on: :create, object_type: :receipt_replay_request)
+  end
 
   attributes do
     uuid_primary_key(:id)

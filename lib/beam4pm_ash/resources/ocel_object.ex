@@ -5,7 +5,15 @@ defmodule BeamPM.Ash.Resources.OcelObject do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:ocel_object, attributes: [object_id: :string, object_type: :string])
+
+    # skipped field :attributes (bpm:fieldType "map") - no bpm:ocelTypeExpr: OCEL object attributes are scalars only
+    activity(:ocel_object_created, on: :create, object_type: :ocel_object)
+  end
 
   attributes do
     uuid_primary_key(:id)

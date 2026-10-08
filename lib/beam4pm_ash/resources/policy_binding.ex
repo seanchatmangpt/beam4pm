@@ -5,7 +5,16 @@ defmodule BeamPM.Ash.Resources.PolicyBinding do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:policy_binding,
+      attributes: [policy_id: :string, planner_id: :string, policy_hash: :string]
+    )
+
+    activity(:policy_binding_created, on: :create, object_type: :policy_binding)
+  end
 
   attributes do
     uuid_primary_key(:id)

@@ -5,7 +5,16 @@ defmodule BeamPM.Ash.Resources.ReversibilityWeight do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:reversibility_weight,
+      attributes: [action_id: :string, rollback_id: :string, weight: :string]
+    )
+
+    activity(:reversibility_weight_created, on: :create, object_type: :reversibility_weight)
+  end
 
   attributes do
     uuid_primary_key(:id)

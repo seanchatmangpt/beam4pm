@@ -5,7 +5,25 @@ defmodule BeamPM.Ash.Resources.MasterServiceAgreementBinding do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:master_service_agreement_binding,
+      attributes: [
+        master_service_agreement_binding_id: :string,
+        account_id: :string,
+        msa_digest: :string,
+        evidence_digest: :string,
+        effective_at: :datetime
+      ]
+    )
+
+    activity(:master_service_agreement_binding_created,
+      on: :create,
+      object_type: :master_service_agreement_binding
+    )
+  end
 
   attributes do
     uuid_primary_key(:id)

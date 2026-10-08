@@ -5,7 +5,24 @@ defmodule BeamPM.Ash.Resources.InformationPartitionObservation do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:information_partition_observation,
+      attributes: [
+        partition_id: :string,
+        state_vector_id: :string,
+        partition_key: :string,
+        information_digest: :string
+      ]
+    )
+
+    activity(:information_partition_observation_created,
+      on: :create,
+      object_type: :information_partition_observation
+    )
+  end
 
   attributes do
     uuid_primary_key(:id)

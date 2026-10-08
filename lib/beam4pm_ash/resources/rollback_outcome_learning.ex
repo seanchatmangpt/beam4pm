@@ -5,7 +5,26 @@ defmodule BeamPM.Ash.Resources.RollbackOutcomeLearning do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:rollback_outcome_learning,
+      attributes: [
+        learning_id: :string,
+        rollback_id: :string,
+        pre_rollback_state_digest: :string,
+        post_rollback_state_digest: :string,
+        recovery_score: :float,
+        evidence_digest: :string
+      ]
+    )
+
+    activity(:rollback_outcome_learning_created,
+      on: :create,
+      object_type: :rollback_outcome_learning
+    )
+  end
 
   attributes do
     uuid_primary_key(:id)

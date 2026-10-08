@@ -5,7 +5,21 @@ defmodule BeamPM.Ash.Resources.ChannelAgreement do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:channel_agreement,
+      attributes: [
+        agreement_id: :string,
+        partner_id: :string,
+        territory: :string,
+        valid_until: :datetime
+      ]
+    )
+
+    activity(:channel_agreement_created, on: :create, object_type: :channel_agreement)
+  end
 
   attributes do
     uuid_primary_key(:id)

@@ -5,7 +5,22 @@ defmodule BeamPM.Ash.Resources.SupportReadiness do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:support_readiness,
+      attributes: [
+        support_readiness_id: :string,
+        account_id: :string,
+        support_readiness_score: :float,
+        evidence_digest: :string,
+        observed_at: :datetime
+      ]
+    )
+
+    activity(:support_readiness_created, on: :create, object_type: :support_readiness)
+  end
 
   attributes do
     uuid_primary_key(:id)

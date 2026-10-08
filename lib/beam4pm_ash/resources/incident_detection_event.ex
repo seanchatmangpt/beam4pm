@@ -5,7 +5,19 @@ defmodule BeamPM.Ash.Resources.IncidentDetectionEvent do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:incident_detection_event,
+      attributes: [tenant_id: :string, incident_id: :string, detection_hash: :string]
+    )
+
+    activity(:incident_detection_event_created,
+      on: :create,
+      object_type: :incident_detection_event
+    )
+  end
 
   attributes do
     uuid_primary_key(:id)

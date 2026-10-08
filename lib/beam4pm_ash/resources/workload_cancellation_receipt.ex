@@ -5,7 +5,19 @@ defmodule BeamPM.Ash.Resources.WorkloadCancellationReceipt do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:workload_cancellation_receipt,
+      attributes: [tenant_id: :string, execution_id: :string, receipt_hash: :string]
+    )
+
+    activity(:workload_cancellation_receipt_created,
+      on: :create,
+      object_type: :workload_cancellation_receipt
+    )
+  end
 
   attributes do
     uuid_primary_key(:id)

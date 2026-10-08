@@ -5,7 +5,20 @@ defmodule BeamPM.Ash.Resources.NextLawfulActuation do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:next_lawful_actuation,
+      attributes: [
+        episode_id: :string,
+        selected_action_id: :string,
+        selection_receipt_hash: :string
+      ]
+    )
+
+    activity(:next_lawful_actuation_created, on: :create, object_type: :next_lawful_actuation)
+  end
 
   attributes do
     uuid_primary_key(:id)

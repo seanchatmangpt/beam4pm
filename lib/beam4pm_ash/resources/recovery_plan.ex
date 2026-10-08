@@ -5,7 +5,22 @@ defmodule BeamPM.Ash.Resources.RecoveryPlan do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:recovery_plan,
+      attributes: [
+        recovery_plan_id: :string,
+        account_id: :string,
+        recovery_time_hours: :float,
+        evidence_digest: :string,
+        observed_at: :datetime
+      ]
+    )
+
+    activity(:recovery_plan_created, on: :create, object_type: :recovery_plan)
+  end
 
   attributes do
     uuid_primary_key(:id)

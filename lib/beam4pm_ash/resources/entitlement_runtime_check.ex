@@ -5,7 +5,19 @@ defmodule BeamPM.Ash.Resources.EntitlementRuntimeCheck do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:entitlement_runtime_check,
+      attributes: [tenant_id: :string, entitlement_id: :string, check_hash: :string]
+    )
+
+    activity(:entitlement_runtime_check_created,
+      on: :create,
+      object_type: :entitlement_runtime_check
+    )
+  end
 
   attributes do
     uuid_primary_key(:id)

@@ -5,7 +5,23 @@ defmodule BeamPM.Ash.Resources.NoveltyReward do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:novelty_reward,
+      attributes: [
+        reward_id: :string,
+        hypothesis_id: :string,
+        feature_vector_digest: :string,
+        nearest_prior_distance: :float,
+        reward: :float,
+        evidence_digest: :string
+      ]
+    )
+
+    activity(:novelty_reward_created, on: :create, object_type: :novelty_reward)
+  end
 
   attributes do
     uuid_primary_key(:id)

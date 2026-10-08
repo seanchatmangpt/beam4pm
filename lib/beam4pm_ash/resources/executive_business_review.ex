@@ -5,7 +5,25 @@ defmodule BeamPM.Ash.Resources.ExecutiveBusinessReview do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:executive_business_review,
+      attributes: [
+        executive_business_review_id: :string,
+        account_id: :string,
+        executive_outcome: :string,
+        evidence_digest: :string,
+        observed_at: :datetime
+      ]
+    )
+
+    activity(:executive_business_review_created,
+      on: :create,
+      object_type: :executive_business_review
+    )
+  end
 
   attributes do
     uuid_primary_key(:id)

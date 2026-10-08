@@ -5,7 +5,21 @@ defmodule BeamPM.Ash.Resources.DeploymentEntitlement do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:deployment_entitlement,
+      attributes: [
+        entitlement_id: :string,
+        tenant_id: :string,
+        profile_id: :string,
+        valid_until: :datetime
+      ]
+    )
+
+    activity(:deployment_entitlement_created, on: :create, object_type: :deployment_entitlement)
+  end
 
   attributes do
     uuid_primary_key(:id)

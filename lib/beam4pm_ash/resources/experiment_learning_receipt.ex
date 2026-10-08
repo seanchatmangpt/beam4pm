@@ -5,7 +5,26 @@ defmodule BeamPM.Ash.Resources.ExperimentLearningReceipt do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:experiment_learning_receipt,
+      attributes: [
+        receipt_id: :string,
+        experiment_id: :string,
+        exact_subject_sha: :string,
+        evidence_digest: :string,
+        result_digest: :string,
+        authority_ceiling: :string
+      ]
+    )
+
+    activity(:experiment_learning_receipt_created,
+      on: :create,
+      object_type: :experiment_learning_receipt
+    )
+  end
 
   attributes do
     uuid_primary_key(:id)

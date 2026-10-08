@@ -5,7 +5,24 @@ defmodule BeamPM.Ash.Resources.ObservationFreshnessAssessment do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:observation_freshness_assessment,
+      attributes: [
+        observation_id: :string,
+        observed_at: :datetime,
+        freshness_deadline: :datetime,
+        freshness_status: :string
+      ]
+    )
+
+    activity(:observation_freshness_assessment_created,
+      on: :create,
+      object_type: :observation_freshness_assessment
+    )
+  end
 
   attributes do
     uuid_primary_key(:id)

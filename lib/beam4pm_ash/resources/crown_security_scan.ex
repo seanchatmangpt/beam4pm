@@ -5,7 +5,21 @@ defmodule BeamPM.Ash.Resources.CrownSecurityScan do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:crown_security_scan,
+      attributes: [
+        propagation_id: :string,
+        subject_sha: :string,
+        scan_report_digest: :string,
+        receipt_digest: :string
+      ]
+    )
+
+    activity(:crown_security_scan_created, on: :create, object_type: :crown_security_scan)
+  end
 
   attributes do
     uuid_primary_key(:id)

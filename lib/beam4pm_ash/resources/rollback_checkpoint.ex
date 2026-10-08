@@ -5,7 +5,16 @@ defmodule BeamPM.Ash.Resources.RollbackCheckpoint do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:rollback_checkpoint,
+      attributes: [tenant_id: :string, checkpoint_id: :string, state_hash: :string]
+    )
+
+    activity(:rollback_checkpoint_created, on: :create, object_type: :rollback_checkpoint)
+  end
 
   attributes do
     uuid_primary_key(:id)

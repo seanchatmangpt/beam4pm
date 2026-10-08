@@ -5,7 +5,21 @@ defmodule BeamPM.Ash.Resources.AutonomicStateVector do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:autonomic_state_vector,
+      attributes: [
+        state_vector_id: :string,
+        subject_id: :string,
+        dimension_digest: :string,
+        observed_at: :datetime
+      ]
+    )
+
+    activity(:autonomic_state_vector_created, on: :create, object_type: :autonomic_state_vector)
+  end
 
   attributes do
     uuid_primary_key(:id)

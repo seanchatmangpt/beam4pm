@@ -5,7 +5,22 @@ defmodule BeamPM.Ash.Resources.RegionPricingPolicy do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:region_pricing_policy,
+      attributes: [
+        region_pricing_policy_id: :string,
+        account_id: :string,
+        region_code: :string,
+        evidence_digest: :string,
+        effective_at: :datetime
+      ]
+    )
+
+    activity(:region_pricing_policy_created, on: :create, object_type: :region_pricing_policy)
+  end
 
   attributes do
     uuid_primary_key(:id)

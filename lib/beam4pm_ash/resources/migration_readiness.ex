@@ -5,7 +5,22 @@ defmodule BeamPM.Ash.Resources.MigrationReadiness do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:migration_readiness,
+      attributes: [
+        migration_readiness_id: :string,
+        account_id: :string,
+        migration_effort_days: :integer,
+        evidence_digest: :string,
+        observed_at: :datetime
+      ]
+    )
+
+    activity(:migration_readiness_created, on: :create, object_type: :migration_readiness)
+  end
 
   attributes do
     uuid_primary_key(:id)

@@ -5,7 +5,19 @@ defmodule BeamPM.Ash.Resources.NondeterministicEffectContract do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:nondeterministic_effect_contract,
+      attributes: [action_id: :string, effect_set_digest: :string, selection_semantics: :string]
+    )
+
+    activity(:nondeterministic_effect_contract_created,
+      on: :create,
+      object_type: :nondeterministic_effect_contract
+    )
+  end
 
   attributes do
     uuid_primary_key(:id)

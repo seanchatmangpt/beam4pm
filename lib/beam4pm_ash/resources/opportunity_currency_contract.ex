@@ -5,7 +5,19 @@ defmodule BeamPM.Ash.Resources.OpportunityCurrencyContract do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:opportunity_currency_contract,
+      attributes: [opportunity_id: :string, currency_code: :string, fx_basis_id: :string]
+    )
+
+    activity(:opportunity_currency_contract_created,
+      on: :create,
+      object_type: :opportunity_currency_contract
+    )
+  end
 
   attributes do
     uuid_primary_key(:id)

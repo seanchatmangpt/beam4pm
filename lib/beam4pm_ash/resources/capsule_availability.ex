@@ -5,7 +5,16 @@ defmodule BeamPM.Ash.Resources.CapsuleAvailability do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:capsule_availability,
+      attributes: [capsule_id: :string, capsule_digest: :string, availability: :string]
+    )
+
+    activity(:capsule_availability_created, on: :create, object_type: :capsule_availability)
+  end
 
   attributes do
     uuid_primary_key(:id)

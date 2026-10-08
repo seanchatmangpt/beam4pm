@@ -5,7 +5,22 @@ defmodule BeamPM.Ash.Resources.SuccessPlan do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:success_plan,
+      attributes: [
+        success_plan_id: :string,
+        account_id: :string,
+        success_target: :string,
+        evidence_digest: :string,
+        observed_at: :datetime
+      ]
+    )
+
+    activity(:success_plan_created, on: :create, object_type: :success_plan)
+  end
 
   attributes do
     uuid_primary_key(:id)

@@ -5,7 +5,25 @@ defmodule BeamPM.Ash.Resources.EvidenceTrainingSample do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:evidence_training_sample,
+      attributes: [
+        sample_id: :string,
+        episode_id: :string,
+        feature_digest: :string,
+        label_id: :string,
+        provenance_digest: :string
+      ]
+    )
+
+    activity(:evidence_training_sample_created,
+      on: :create,
+      object_type: :evidence_training_sample
+    )
+  end
 
   attributes do
     uuid_primary_key(:id)

@@ -5,7 +5,16 @@ defmodule BeamPM.Ash.Resources.NodeFailoverEvent do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:node_failover_event,
+      attributes: [tenant_id: :string, node_id: :string, failover_hash: :string]
+    )
+
+    activity(:node_failover_event_created, on: :create, object_type: :node_failover_event)
+  end
 
   attributes do
     uuid_primary_key(:id)

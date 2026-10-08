@@ -5,7 +5,22 @@ defmodule BeamPM.Ash.Resources.ObjectionResolution do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:objection_resolution,
+      attributes: [
+        objection_resolution_id: :string,
+        account_id: :string,
+        resolution_status: :string,
+        evidence_digest: :string,
+        observed_at: :datetime
+      ]
+    )
+
+    activity(:objection_resolution_created, on: :create, object_type: :objection_resolution)
+  end
 
   attributes do
     uuid_primary_key(:id)

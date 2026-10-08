@@ -5,7 +5,23 @@ defmodule BeamPM.Ash.Resources.PromotionDecision do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:promotion_decision,
+      attributes: [
+        decision_id: :string,
+        candidate_policy_id: :string,
+        threshold_id: :string,
+        evidence_set_digest: :string,
+        decision: :string,
+        refusal_code: :string
+      ]
+    )
+
+    activity(:promotion_decision_created, on: :create, object_type: :promotion_decision)
+  end
 
   attributes do
     uuid_primary_key(:id)

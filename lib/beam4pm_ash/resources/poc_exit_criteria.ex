@@ -5,7 +5,22 @@ defmodule BeamPM.Ash.Resources.PocExitCriteria do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:poc_exit_criteria,
+      attributes: [
+        poc_exit_criteria_id: :string,
+        account_id: :string,
+        criteria_pass_rate: :float,
+        evidence_digest: :string,
+        observed_at: :datetime
+      ]
+    )
+
+    activity(:poc_exit_criteria_created, on: :create, object_type: :poc_exit_criteria)
+  end
 
   attributes do
     uuid_primary_key(:id)

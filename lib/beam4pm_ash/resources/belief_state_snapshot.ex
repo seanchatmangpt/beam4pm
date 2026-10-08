@@ -5,7 +5,21 @@ defmodule BeamPM.Ash.Resources.BeliefStateSnapshot do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:belief_state_snapshot,
+      attributes: [
+        belief_state_id: :string,
+        subject_id: :string,
+        posterior_digest: :string,
+        uncertainty_status: :string
+      ]
+    )
+
+    activity(:belief_state_snapshot_created, on: :create, object_type: :belief_state_snapshot)
+  end
 
   attributes do
     uuid_primary_key(:id)

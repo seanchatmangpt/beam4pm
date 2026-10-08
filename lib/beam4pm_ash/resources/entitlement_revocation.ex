@@ -5,7 +5,21 @@ defmodule BeamPM.Ash.Resources.EntitlementRevocation do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:entitlement_revocation,
+      attributes: [
+        revocation_id: :string,
+        grant_id: :string,
+        reason: :string,
+        revoked_at: :datetime
+      ]
+    )
+
+    activity(:entitlement_revocation_created, on: :create, object_type: :entitlement_revocation)
+  end
 
   attributes do
     uuid_primary_key(:id)

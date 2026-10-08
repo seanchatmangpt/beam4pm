@@ -5,7 +5,16 @@ defmodule BeamPM.Ash.Resources.LeakageFinding do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:leakage_finding,
+      attributes: [case_id: :string, fitness: :float, precision: :float, amount_at_risk: :float]
+    )
+
+    activity(:leakage_finding_created, on: :create, object_type: :leakage_finding)
+  end
 
   attributes do
     uuid_primary_key(:id)

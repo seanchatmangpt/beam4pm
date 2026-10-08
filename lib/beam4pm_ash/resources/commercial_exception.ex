@@ -5,7 +5,16 @@ defmodule BeamPM.Ash.Resources.CommercialException do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:commercial_exception,
+      attributes: [opportunity_id: :string, exception_id: :string, exception_state: :string]
+    )
+
+    activity(:commercial_exception_created, on: :create, object_type: :commercial_exception)
+  end
 
   attributes do
     uuid_primary_key(:id)

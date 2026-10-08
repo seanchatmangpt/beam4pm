@@ -5,7 +5,16 @@ defmodule BeamPM.Ash.Resources.MetaRouter do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:meta_router,
+      attributes: [portfolio_id: :string, observation_hash: :string, selected_planner_id: :string]
+    )
+
+    activity(:meta_router_created, on: :create, object_type: :meta_router)
+  end
 
   attributes do
     uuid_primary_key(:id)

@@ -5,7 +5,30 @@ defmodule BeamPM.Ash.Resources.FederatedDogfoodLearningCrown do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:federated_dogfood_learning_crown,
+      attributes: [
+        crown_id: :string,
+        exact_subject_sha: :string,
+        consumer_id: :string,
+        pack_sha: :string,
+        capsule_digest: :string,
+        manufacture_receipt_digest: :string,
+        ownership_verification_digest: :string,
+        second_pass_identity_digest: :string,
+        workflow_sequence: :string,
+        authority_ceiling: :string
+      ]
+    )
+
+    activity(:federated_dogfood_learning_crown_created,
+      on: :create,
+      object_type: :federated_dogfood_learning_crown
+    )
+  end
 
   attributes do
     uuid_primary_key(:id)

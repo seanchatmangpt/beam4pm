@@ -5,7 +5,22 @@ defmodule BeamPM.Ash.Resources.OverageInvoice do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:overage_invoice,
+      attributes: [
+        overage_invoice_id: :string,
+        account_id: :string,
+        overage_amount: :float,
+        evidence_digest: :string,
+        effective_at: :datetime
+      ]
+    )
+
+    activity(:overage_invoice_created, on: :create, object_type: :overage_invoice)
+  end
 
   attributes do
     uuid_primary_key(:id)

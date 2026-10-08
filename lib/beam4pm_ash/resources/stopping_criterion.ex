@@ -5,7 +5,23 @@ defmodule BeamPM.Ash.Resources.StoppingCriterion do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:stopping_criterion,
+      attributes: [
+        criterion_id: :string,
+        objective_id: :string,
+        minimum_gain: :float,
+        maximum_episodes: :integer,
+        evidence_window_digest: :string,
+        authority_binding: :string
+      ]
+    )
+
+    activity(:stopping_criterion_created, on: :create, object_type: :stopping_criterion)
+  end
 
   attributes do
     uuid_primary_key(:id)

@@ -5,7 +5,23 @@ defmodule BeamPM.Ash.Resources.CounterfactualReplay do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:counterfactual_replay,
+      attributes: [
+        replay_id: :string,
+        source_episode_id: :string,
+        intervention_digest: :string,
+        seed: :string,
+        predicted_outcome: :string,
+        comparison_digest: :string
+      ]
+    )
+
+    activity(:counterfactual_replay_created, on: :create, object_type: :counterfactual_replay)
+  end
 
   attributes do
     uuid_primary_key(:id)

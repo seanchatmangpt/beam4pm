@@ -5,7 +5,19 @@ defmodule BeamPM.Ash.Resources.PlanningBlackboardResolution do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:planning_blackboard_resolution,
+      attributes: [resolution_id: :string, conflict_id: :string, preserved_option_digest: :string]
+    )
+
+    activity(:planning_blackboard_resolution_created,
+      on: :create,
+      object_type: :planning_blackboard_resolution
+    )
+  end
 
   attributes do
     uuid_primary_key(:id)

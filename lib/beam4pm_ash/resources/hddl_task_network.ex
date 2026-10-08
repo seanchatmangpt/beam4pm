@@ -5,7 +5,16 @@ defmodule BeamPM.Ash.Resources.HddlTaskNetwork do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:hddl_task_network,
+      attributes: [network_id: :string, task_set_digest: :string, ordering_digest: :string]
+    )
+
+    activity(:hddl_task_network_created, on: :create, object_type: :hddl_task_network)
+  end
 
   attributes do
     uuid_primary_key(:id)

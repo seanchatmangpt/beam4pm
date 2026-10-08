@@ -5,7 +5,20 @@ defmodule BeamPM.Ash.Resources.EntropyReductionScore do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:entropy_reduction_score,
+      attributes: [
+        action_id: :string,
+        prior_entropy: :string,
+        expected_posterior_entropy: :string
+      ]
+    )
+
+    activity(:entropy_reduction_score_created, on: :create, object_type: :entropy_reduction_score)
+  end
 
   attributes do
     uuid_primary_key(:id)

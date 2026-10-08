@@ -5,7 +5,21 @@ defmodule BeamPM.Ash.Resources.ServiceLevelObjective do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:service_level_objective,
+      attributes: [
+        slo_id: :string,
+        contract_id: :string,
+        target_percent: :float,
+        measurement_window: :atom
+      ]
+    )
+
+    activity(:service_level_objective_created, on: :create, object_type: :service_level_objective)
+  end
 
   attributes do
     uuid_primary_key(:id)

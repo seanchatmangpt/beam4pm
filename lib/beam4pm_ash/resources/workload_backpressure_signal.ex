@@ -5,7 +5,19 @@ defmodule BeamPM.Ash.Resources.WorkloadBackpressureSignal do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:workload_backpressure_signal,
+      attributes: [tenant_id: :string, signal_id: :string, measurement_hash: :string]
+    )
+
+    activity(:workload_backpressure_signal_created,
+      on: :create,
+      object_type: :workload_backpressure_signal
+    )
+  end
 
   attributes do
     uuid_primary_key(:id)

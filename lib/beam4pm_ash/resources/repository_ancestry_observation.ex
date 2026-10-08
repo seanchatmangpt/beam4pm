@@ -5,7 +5,24 @@ defmodule BeamPM.Ash.Resources.RepositoryAncestryObservation do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:repository_ancestry_observation,
+      attributes: [
+        ancestor_sha: :string,
+        descendant_sha: :string,
+        relation: :string,
+        evidence_digest: :string
+      ]
+    )
+
+    activity(:repository_ancestry_observation_created,
+      on: :create,
+      object_type: :repository_ancestry_observation
+    )
+  end
 
   attributes do
     uuid_primary_key(:id)

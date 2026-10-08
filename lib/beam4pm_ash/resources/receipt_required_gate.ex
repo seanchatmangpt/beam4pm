@@ -5,7 +5,16 @@ defmodule BeamPM.Ash.Resources.ReceiptRequiredGate do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:receipt_required_gate,
+      attributes: [action_id: :string, receipt_contract_id: :string, standing: :string]
+    )
+
+    activity(:receipt_required_gate_created, on: :create, object_type: :receipt_required_gate)
+  end
 
   attributes do
     uuid_primary_key(:id)

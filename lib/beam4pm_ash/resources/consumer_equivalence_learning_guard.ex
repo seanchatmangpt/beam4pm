@@ -5,7 +5,26 @@ defmodule BeamPM.Ash.Resources.ConsumerEquivalenceLearningGuard do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:consumer_equivalence_learning_guard,
+      attributes: [
+        guard_id: :string,
+        source_consumer_id: :string,
+        target_consumer_id: :string,
+        equivalence_evidence_digest: :string,
+        decision: :string,
+        refusal_code: :string
+      ]
+    )
+
+    activity(:consumer_equivalence_learning_guard_created,
+      on: :create,
+      object_type: :consumer_equivalence_learning_guard
+    )
+  end
 
   attributes do
     uuid_primary_key(:id)

@@ -5,7 +5,24 @@ defmodule BeamPM.Ash.Resources.ProvenanceBindingObservation do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:provenance_binding_observation,
+      attributes: [
+        observation_id: :string,
+        source_capsule_digest: :string,
+        evidence_digest: :string,
+        binding_status: :string
+      ]
+    )
+
+    activity(:provenance_binding_observation_created,
+      on: :create,
+      object_type: :provenance_binding_observation
+    )
+  end
 
   attributes do
     uuid_primary_key(:id)

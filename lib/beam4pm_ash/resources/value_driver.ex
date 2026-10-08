@@ -5,7 +5,22 @@ defmodule BeamPM.Ash.Resources.ValueDriver do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:value_driver,
+      attributes: [
+        value_driver_id: :string,
+        account_id: :string,
+        annual_value: :float,
+        evidence_digest: :string,
+        observed_at: :datetime
+      ]
+    )
+
+    activity(:value_driver_created, on: :create, object_type: :value_driver)
+  end
 
   attributes do
     uuid_primary_key(:id)

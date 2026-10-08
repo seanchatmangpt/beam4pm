@@ -5,7 +5,20 @@ defmodule BeamPM.Ash.Resources.PaymentTermsAdmission do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:payment_terms_admission,
+      attributes: [
+        opportunity_id: :string,
+        payment_terms: :string,
+        authority_evidence_hash: :string
+      ]
+    )
+
+    activity(:payment_terms_admission_created, on: :create, object_type: :payment_terms_admission)
+  end
 
   attributes do
     uuid_primary_key(:id)

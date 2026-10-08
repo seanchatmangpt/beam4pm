@@ -5,7 +5,22 @@ defmodule BeamPM.Ash.Resources.FailureLabel do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:failure_label,
+      attributes: [
+        failure_id: :string,
+        episode_id: :string,
+        failure_class: :string,
+        causal_scope: :string,
+        preserved_evidence_digest: :string
+      ]
+    )
+
+    activity(:failure_label_created, on: :create, object_type: :failure_label)
+  end
 
   attributes do
     uuid_primary_key(:id)

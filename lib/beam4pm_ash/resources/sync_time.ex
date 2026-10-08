@@ -5,7 +5,16 @@ defmodule BeamPM.Ash.Resources.SyncTime do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:sync_time,
+      attributes: [object_id: :string, delaying_object_id: :string, seconds: :float]
+    )
+
+    activity(:sync_time_created, on: :create, object_type: :sync_time)
+  end
 
   attributes do
     uuid_primary_key(:id)

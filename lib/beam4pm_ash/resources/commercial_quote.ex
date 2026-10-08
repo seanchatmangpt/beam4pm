@@ -5,7 +5,16 @@ defmodule BeamPM.Ash.Resources.CommercialQuote do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:commercial_quote,
+      attributes: [quote_id: :string, account_id: :string, currency: :string, status: :atom]
+    )
+
+    activity(:commercial_quote_created, on: :create, object_type: :commercial_quote)
+  end
 
   attributes do
     uuid_primary_key(:id)

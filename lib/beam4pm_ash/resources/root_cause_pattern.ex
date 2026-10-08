@@ -5,7 +5,22 @@ defmodule BeamPM.Ash.Resources.RootCausePattern do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:root_cause_pattern,
+      attributes: [
+        pattern_id: :string,
+        failure_class: :string,
+        causal_graph_digest: :string,
+        confirmed_reproducer_digest: :string,
+        reusable_scope: :string
+      ]
+    )
+
+    activity(:root_cause_pattern_created, on: :create, object_type: :root_cause_pattern)
+  end
 
   attributes do
     uuid_primary_key(:id)

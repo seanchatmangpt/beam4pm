@@ -5,7 +5,19 @@ defmodule BeamPM.Ash.Resources.SecondRunIdentityObjective do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:second_run_identity_objective,
+      attributes: [subject_id: :string, first_tree_hash: :string, second_tree_hash: :string]
+    )
+
+    activity(:second_run_identity_objective_created,
+      on: :create,
+      object_type: :second_run_identity_objective
+    )
+  end
 
   attributes do
     uuid_primary_key(:id)

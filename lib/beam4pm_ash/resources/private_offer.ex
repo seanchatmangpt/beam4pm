@@ -5,7 +5,21 @@ defmodule BeamPM.Ash.Resources.PrivateOffer do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:private_offer,
+      attributes: [
+        offer_id: :string,
+        account_id: :string,
+        total_price: :float,
+        expires_at: :datetime
+      ]
+    )
+
+    activity(:private_offer_created, on: :create, object_type: :private_offer)
+  end
 
   attributes do
     uuid_primary_key(:id)

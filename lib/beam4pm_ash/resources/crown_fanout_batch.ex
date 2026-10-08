@@ -5,7 +5,21 @@ defmodule BeamPM.Ash.Resources.CrownFanoutBatch do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:crown_fanout_batch,
+      attributes: [
+        propagation_id: :string,
+        subject_sha: :string,
+        fanout_set_digest: :string,
+        receipt_digest: :string
+      ]
+    )
+
+    activity(:crown_fanout_batch_created, on: :create, object_type: :crown_fanout_batch)
+  end
 
   attributes do
     uuid_primary_key(:id)

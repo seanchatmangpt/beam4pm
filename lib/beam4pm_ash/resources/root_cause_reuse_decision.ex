@@ -5,7 +5,25 @@ defmodule BeamPM.Ash.Resources.RootCauseReuseDecision do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:root_cause_reuse_decision,
+      attributes: [
+        decision_id: :string,
+        pattern_id: :string,
+        current_failure_id: :string,
+        similarity_score: :float,
+        applicability_evidence_digest: :string
+      ]
+    )
+
+    activity(:root_cause_reuse_decision_created,
+      on: :create,
+      object_type: :root_cause_reuse_decision
+    )
+  end
 
   attributes do
     uuid_primary_key(:id)

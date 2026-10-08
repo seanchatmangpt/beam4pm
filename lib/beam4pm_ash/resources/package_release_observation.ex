@@ -5,7 +5,24 @@ defmodule BeamPM.Ash.Resources.PackageReleaseObservation do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:package_release_observation,
+      attributes: [
+        package_id: :string,
+        version: :string,
+        immutable_digest: :string,
+        observed_at: :datetime
+      ]
+    )
+
+    activity(:package_release_observation_created,
+      on: :create,
+      object_type: :package_release_observation
+    )
+  end
 
   attributes do
     uuid_primary_key(:id)

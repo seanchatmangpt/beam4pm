@@ -5,7 +5,22 @@ defmodule BeamPM.Ash.Resources.RefundPolicy do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:refund_policy,
+      attributes: [
+        refund_policy_id: :string,
+        account_id: :string,
+        refund_method: :string,
+        evidence_digest: :string,
+        effective_at: :datetime
+      ]
+    )
+
+    activity(:refund_policy_created, on: :create, object_type: :refund_policy)
+  end
 
   attributes do
     uuid_primary_key(:id)

@@ -5,7 +5,22 @@ defmodule BeamPM.Ash.Resources.GeneratedHypothesis do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:generated_hypothesis,
+      attributes: [
+        hypothesis_id: :string,
+        source_gap_id: :string,
+        candidate_capability: :string,
+        expected_value: :float,
+        falsifier_contract: :string
+      ]
+    )
+
+    activity(:generated_hypothesis_created, on: :create, object_type: :generated_hypothesis)
+  end
 
   attributes do
     uuid_primary_key(:id)

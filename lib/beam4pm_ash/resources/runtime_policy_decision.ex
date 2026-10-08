@@ -5,7 +5,16 @@ defmodule BeamPM.Ash.Resources.RuntimePolicyDecision do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:runtime_policy_decision,
+      attributes: [tenant_id: :string, decision_id: :string, policy_hash: :string]
+    )
+
+    activity(:runtime_policy_decision_created, on: :create, object_type: :runtime_policy_decision)
+  end
 
   attributes do
     uuid_primary_key(:id)

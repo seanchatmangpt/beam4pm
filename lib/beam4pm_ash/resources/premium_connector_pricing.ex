@@ -5,7 +5,25 @@ defmodule BeamPM.Ash.Resources.PremiumConnectorPricing do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:premium_connector_pricing,
+      attributes: [
+        premium_connector_pricing_id: :string,
+        account_id: :string,
+        connector_id: :string,
+        evidence_digest: :string,
+        effective_at: :datetime
+      ]
+    )
+
+    activity(:premium_connector_pricing_created,
+      on: :create,
+      object_type: :premium_connector_pricing
+    )
+  end
 
   attributes do
     uuid_primary_key(:id)

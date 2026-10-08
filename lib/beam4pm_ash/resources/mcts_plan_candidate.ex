@@ -5,7 +5,16 @@ defmodule BeamPM.Ash.Resources.MctsPlanCandidate do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:mcts_plan_candidate,
+      attributes: [plan_id: :string, seed: :string, rollout_hash: :string]
+    )
+
+    activity(:mcts_plan_candidate_created, on: :create, object_type: :mcts_plan_candidate)
+  end
 
   attributes do
     uuid_primary_key(:id)

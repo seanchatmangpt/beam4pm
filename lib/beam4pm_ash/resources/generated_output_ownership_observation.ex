@@ -5,7 +5,24 @@ defmodule BeamPM.Ash.Resources.GeneratedOutputOwnershipObservation do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:generated_output_ownership_observation,
+      attributes: [
+        output_path: :string,
+        ownership_marker: :string,
+        source_input_digest: :string,
+        standing: :string
+      ]
+    )
+
+    activity(:generated_output_ownership_observation_created,
+      on: :create,
+      object_type: :generated_output_ownership_observation
+    )
+  end
 
   attributes do
     uuid_primary_key(:id)

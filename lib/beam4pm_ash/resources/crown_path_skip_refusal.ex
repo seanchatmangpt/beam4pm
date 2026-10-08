@@ -5,7 +5,21 @@ defmodule BeamPM.Ash.Resources.CrownPathSkipRefusal do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:crown_path_skip_refusal,
+      attributes: [
+        propagation_id: :string,
+        subject_sha: :string,
+        skipped_gate_id: :string,
+        receipt_digest: :string
+      ]
+    )
+
+    activity(:crown_path_skip_refusal_created, on: :create, object_type: :crown_path_skip_refusal)
+  end
 
   attributes do
     uuid_primary_key(:id)

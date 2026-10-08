@@ -5,7 +5,16 @@ defmodule BeamPM.Ash.Resources.ParetoFilter do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:pareto_filter,
+      attributes: [option_set_id: :string, objective_set_hash: :string, pareto_set_hash: :string]
+    )
+
+    activity(:pareto_filter_created, on: :create, object_type: :pareto_filter)
+  end
 
   attributes do
     uuid_primary_key(:id)

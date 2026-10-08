@@ -5,7 +5,19 @@ defmodule BeamPM.Ash.Resources.AgentCapabilityAdvertisement do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:agent_capability_advertisement,
+      attributes: [agent_subject_sha: :string, capability_digest: :string, valid_until: :datetime]
+    )
+
+    activity(:agent_capability_advertisement_created,
+      on: :create,
+      object_type: :agent_capability_advertisement
+    )
+  end
 
   attributes do
     uuid_primary_key(:id)

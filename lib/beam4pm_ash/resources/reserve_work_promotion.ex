@@ -5,7 +5,16 @@ defmodule BeamPM.Ash.Resources.ReserveWorkPromotion do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:reserve_work_promotion,
+      attributes: [blocked_work_id: :string, reserve_set_hash: :string, promoted_work_id: :string]
+    )
+
+    activity(:reserve_work_promotion_created, on: :create, object_type: :reserve_work_promotion)
+  end
 
   attributes do
     uuid_primary_key(:id)

@@ -5,7 +5,16 @@ defmodule BeamPM.Ash.Resources.OptionGeneration do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:option_generation,
+      attributes: [state_id: :string, generator_id: :string, option_set_hash: :string]
+    )
+
+    activity(:option_generation_created, on: :create, object_type: :option_generation)
+  end
 
   attributes do
     uuid_primary_key(:id)

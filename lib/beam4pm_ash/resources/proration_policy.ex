@@ -5,7 +5,22 @@ defmodule BeamPM.Ash.Resources.ProrationPolicy do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:proration_policy,
+      attributes: [
+        proration_policy_id: :string,
+        account_id: :string,
+        proration_method: :string,
+        evidence_digest: :string,
+        effective_at: :datetime
+      ]
+    )
+
+    activity(:proration_policy_created, on: :create, object_type: :proration_policy)
+  end
 
   attributes do
     uuid_primary_key(:id)

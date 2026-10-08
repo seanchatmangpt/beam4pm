@@ -5,7 +5,26 @@ defmodule BeamPM.Ash.Resources.VerificationDepthUpdate do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:verification_depth_update,
+      attributes: [
+        update_id: :string,
+        verifier_id: :string,
+        prior_depth: :integer,
+        new_depth: :integer,
+        risk_signal_digest: :string,
+        minimum_depth: :integer
+      ]
+    )
+
+    activity(:verification_depth_update_created,
+      on: :create,
+      object_type: :verification_depth_update
+    )
+  end
 
   attributes do
     uuid_primary_key(:id)

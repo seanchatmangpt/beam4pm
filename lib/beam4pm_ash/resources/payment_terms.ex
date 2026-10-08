@@ -5,7 +5,16 @@ defmodule BeamPM.Ash.Resources.PaymentTerms do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:payment_terms,
+      attributes: [terms_id: :string, net_days: :integer, late_policy: :string, status: :atom]
+    )
+
+    activity(:payment_terms_created, on: :create, object_type: :payment_terms)
+  end
 
   attributes do
     uuid_primary_key(:id)

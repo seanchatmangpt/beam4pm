@@ -5,7 +5,21 @@ defmodule BeamPM.Ash.Resources.CrownFreshnessWindow do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:crown_freshness_window,
+      attributes: [
+        propagation_id: :string,
+        subject_sha: :string,
+        fresh_until: :string,
+        receipt_digest: :string
+      ]
+    )
+
+    activity(:crown_freshness_window_created, on: :create, object_type: :crown_freshness_window)
+  end
 
   attributes do
     uuid_primary_key(:id)

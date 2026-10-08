@@ -5,7 +5,19 @@ defmodule BeamPM.Ash.Resources.ReplayEnvironmentIdentity do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:replay_environment_identity,
+      attributes: [tenant_id: :string, environment_id: :string, identity_hash: :string]
+    )
+
+    activity(:replay_environment_identity_created,
+      on: :create,
+      object_type: :replay_environment_identity
+    )
+  end
 
   attributes do
     uuid_primary_key(:id)

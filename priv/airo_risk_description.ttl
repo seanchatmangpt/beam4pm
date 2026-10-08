@@ -1,0 +1,333 @@
+@prefix airo: <https://w3id.org/airo#> .
+@prefix bpm: <https://w3id.org/beam4pm/ns#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+### AIRo risk description of the beam4pm process-mining engine (lane W634,
+### AIRo wiring wave). Vocabulary: AIRo v1.0 (https://w3id.org/airo),
+### vendored by lane W600 at /Users/sac/xaas/priv/semantic/airo/airo.ttl,
+### sha256 6274d2d8711e046cf38f1b5b2980188094d4aa87b5af79804005a06468fd8469.
+###
+### Every airo: term used below is declared in that artifact. Likelihood and
+### severity are stated honestly and qualitatively as locally-declared
+### individuals typed with the real AIRo classes airo:Likelihood and
+### airo:Severity (AIRo v1.0 defines the classes but ships no level
+### individuals). Every cited repository path exists on disk at authoring
+### time; the ExUnit court test/beam4pm_airo_description_test.exs re-verifies
+### all of it as a real structural check.
+
+airo:AISystem a owl:Class .
+airo:Risk a owl:Class .
+airo:RiskSource a owl:Class .
+airo:RiskControl a owl:Class .
+airo:Consequence a owl:Class .
+airo:Impact a owl:Class .
+airo:Likelihood a owl:Class .
+airo:Severity a owl:Class .
+airo:hasRisk a owl:ObjectProperty .
+airo:hasRiskControl a owl:ObjectProperty .
+airo:isRiskSourceFor a owl:ObjectProperty .
+airo:hasConsequence a owl:ObjectProperty .
+airo:hasImpact a owl:ObjectProperty .
+airo:hasLikelihood a owl:ObjectProperty .
+airo:hasSeverity a owl:ObjectProperty .
+airo:detectsRiskConcept a owl:ObjectProperty .
+airo:mitigatesRiskConcept a owl:ObjectProperty .
+
+### ---------------------------------------------------------------- ###
+### The system                                                        ###
+### ---------------------------------------------------------------- ###
+
+bpm:ProcessMiningEngine
+    a airo:AISystem ;
+    rdfs:label "beam4pm process-mining engine" ;
+    rdfs:comment
+        "Elixir/OTP process-mining engine: discovery, conformance checking, " ;
+    rdfs:comment
+        "simulation and evidence chains over service spans; consumes the " ;
+    rdfs:comment
+        "rust4pm WASM engine (lib/beam4pm_rust4pm.ex) for alignment-based " ;
+    rdfs:comment
+        "fitness and optimal alignments." ;
+    airo:hasRisk
+        bpm:Risk-ConformanceMetricMismatch ,
+        bpm:Risk-SilentAggregationDrift ,
+        bpm:Risk-EvidenceChainShaDrift ;
+    airo:hasRiskControl
+        bpm:RiskControl-DualSafeMapUpdatePatches ,
+        bpm:RiskControl-Art72Conformance ,
+        bpm:RiskControl-AuthorshipGate ,
+        bpm:RiskControl-FullTestSuite .
+
+### ---------------------------------------------------------------- ###
+### Likelihood / severity individuals (honest, qualitative)           ###
+### ---------------------------------------------------------------- ###
+
+bpm:Likelihood-Low a airo:Likelihood ;
+    rdfs:label "low likelihood" ;
+    rdfs:comment "Not currently observed; controls in place and passing." .
+
+bpm:Likelihood-Medium a airo:Likelihood ;
+    rdfs:label "medium likelihood" ;
+    rdfs:comment "Plausible under the current uncommitted tree state." .
+
+bpm:Likelihood-High a airo:Likelihood ;
+    rdfs:label "high likelihood" ;
+    rdfs:comment "Observed on the pinned toolchain without the control." .
+
+bpm:Severity-Low a airo:Severity ;
+    rdfs:label "low severity" ;
+    rdfs:comment "Limited blast radius; deterministic, test-pinned behavior." .
+
+bpm:Severity-Medium a airo:Severity ;
+    rdfs:label "medium severity" ;
+    rdfs:comment "Wrong conformance verdicts or untrustworthy evidence would " ;
+    rdfs:comment "misinform downstream decisions." .
+
+bpm:Severity-High a airo:Severity ;
+    rdfs:label "high severity" ;
+    rdfs:comment "Silently corrupted aggregates or evidence chains defeat " ;
+    rdfs:comment "every downstream consumer of the engine." .
+
+### ---------------------------------------------------------------- ###
+### Risks                                                             ###
+### ---------------------------------------------------------------- ###
+
+bpm:Risk-ConformanceMetricMismatch
+    a airo:Risk ;
+    rdfs:label "conformance verdicts computed under a split metric basis" ;
+    rdfs:comment
+        "The rust4pm WASM engine exposes alignment-based fitness only " ;
+    rdfs:comment
+        "(BeamPM.Rust4PM.compute_fitness/2, align_trace/2). Art. 72 " ;
+    rdfs:comment
+        "post-market-monitoring conformance (dissertation Definition 7.2) " ;
+    rdfs:comment
+        "is token-replay fitness C(L,P) = 1/2(1 - m/c) + 1/2(1 - r/p). " ;
+    rdfs:comment
+        "Mixing the two bases would yield non-comparable fitness numbers." ;
+    airo:hasLikelihood bpm:Likelihood-Low ;
+    airo:hasSeverity bpm:Severity-Medium ;
+    airo:hasConsequence bpm:Consequence-MisleadingConformanceVerdicts ;
+    airo:hasRiskControl bpm:RiskControl-Art72Conformance .
+
+bpm:Risk-SilentAggregationDrift
+    a airo:Risk ;
+    rdfs:label "silent aggregation drift from the otp-29 Map.update deviation" ;
+    rdfs:comment
+        "On the pinned toolchain (elixir 1.20.4-otp-29 / erlang 29.1.1) " ;
+    rdfs:comment
+        "Map.update/4 skips the update function on the absent-key path " ;
+    rdfs:comment
+        "(w525d probe: Map.update(%{}, :k, 7, &(&1+1)) returns %{k: 7} " ;
+    rdfs:comment
+        "where documented semantics give %{k: 8}), so reducers seeding " ;
+    rdfs:comment
+        "from an empty map silently store the un-updated default. " ;
+    rdfs:comment
+        "Likelihood without the control: High (observed). With the W601 " ;
+    rdfs:comment
+        "dual-safe patches: Low, because no Map.update/4 call remains at " ;
+    rdfs:comment
+        "any ABSENT-KEY-RELIANT site." ;
+    airo:hasLikelihood bpm:Likelihood-Low ;
+    airo:hasSeverity bpm:Severity-High ;
+    airo:hasConsequence bpm:Consequence-CorruptedAggregates ;
+    airo:hasRiskControl bpm:RiskControl-DualSafeMapUpdatePatches .
+
+bpm:Risk-EvidenceChainShaDrift
+    a airo:Risk ;
+    rdfs:label "manufactured-artifact and evidence-chain SHA drift" ;
+    rdfs:comment
+        "Generated artifacts (courts, manifests) can drift from their " ;
+    rdfs:comment
+        "admitted source graph (bpm:HandAuthoredSource); the real " ;
+    rdfs:comment
+        "AuthorshipGate run on the current tree reports SHA drift on " ;
+    rdfs:comment
+        "test/beam4pm_evidence_chain_test.exs vs " ;
+    rdfs:comment
+        "schema/beam4pm_hand_authored_source.tsv, plus unadmitted new " ;
+    rdfs:comment
+        "artifacts (w601 regression test, Art72Conformance module and " ;
+    rdfs:comment
+        "court) counted as manufacturing debt." ;
+    airo:hasLikelihood bpm:Likelihood-Medium ;
+    airo:hasSeverity bpm:Severity-Medium ;
+    airo:hasConsequence bpm:Consequence-UntrustworthyEvidence ;
+    airo:hasRiskControl bpm:RiskControl-AuthorshipGate .
+
+### ---------------------------------------------------------------- ###
+### Risk sources                                                      ###
+### ---------------------------------------------------------------- ###
+
+bpm:RiskSource-OTP29MapUpdateDeviation
+    a airo:RiskSource ;
+    rdfs:label "otp-29 Map.update/4 absent-key deviation (w525d)" ;
+    rdfs:comment
+        "Runtime deviation: fun skipped on the absent-key path of " ;
+    rdfs:comment
+        "Map.update/4 on elixir 1.20.4-otp-29 / erlang 29.1.1. Confirmed " ;
+    rdfs:comment
+        "in beam4pm by the w525d probe and censused: 5 sites, 3 " ;
+    rdfs:comment
+        "ABSENT-KEY-RELIANT (lib/beam4pm_discovery.ex:310, " ;
+    rdfs:comment
+        "lib/beam4pm_pro_simulation.ex:53 and :76)." ;
+    airo:isRiskSourceFor
+        bpm:Risk-SilentAggregationDrift .
+
+bpm:RiskSource-ConformanceSplit
+    a airo:RiskSource ;
+    rdfs:label "alignment-vs-token-replay conformance split" ;
+    rdfs:comment
+        "beam4pm's engine-level fitness is alignment-based " ;
+    rdfs:comment
+        "(lib/beam4pm_rust4pm.ex dispatch surface, verified 2026-10-06 by " ;
+    rdfs:comment
+        "the Art72Conformance deviation note), while EU AI Act Art. 72 " ;
+    rdfs:comment
+        "conformance per dissertation Definition 7.2 is token-replay " ;
+    rdfs:comment
+        "fitness. The split is a hazard source for metric confusion." ;
+    airo:isRiskSourceFor
+        bpm:Risk-ConformanceMetricMismatch .
+
+bpm:RiskSource-GeneratedArtifactDrift
+    a airo:RiskSource ;
+    rdfs:label "generated-artifact vs admitted-source drift" ;
+    rdfs:comment
+        "Manufactured artifacts drift from the bpm:HandAuthoredSource " ;
+    rdfs:comment
+        "admission graph; real observed instance: SHA drift of " ;
+    rdfs:comment
+        "test/beam4pm_evidence_chain_test.exs vs " ;
+    rdfs:comment
+        "schema/beam4pm_hand_authored_source.tsv (w601 full-suite receipt)." ;
+    airo:isRiskSourceFor
+        bpm:Risk-EvidenceChainShaDrift .
+
+### ---------------------------------------------------------------- ###
+### Risk controls                                                     ###
+### ---------------------------------------------------------------- ###
+
+bpm:RiskControl-DualSafeMapUpdatePatches
+    a airo:RiskControl ;
+    rdfs:label "W601 dual-safe Map.fetch/Map.put patches (3 sites)" ;
+    rdfs:comment
+        "The three ABSENT-KEY-RELIANT Map.update/4 sites were replaced " ;
+    rdfs:comment
+        "with a case Map.fetch/Map.put idiom whose absent-key path stores " ;
+    rdfs:comment
+        "default directly, identical under documented and deviant runtime " ;
+    rdfs:comment
+        "semantics. Sites: lib/beam4pm_discovery.ex:310, " ;
+    rdfs:comment
+        "lib/beam4pm_pro_simulation.ex:53, lib/beam4pm_pro_simulation.ex:76. " ;
+    rdfs:comment
+        "Regressed by test/beam4pm_w601_map_update_dual_safe_test.exs " ;
+    rdfs:comment
+        "through the public API (3 tests)." ;
+    rdfs:seeAlso "lib/beam4pm_discovery.ex" ;
+    rdfs:seeAlso "lib/beam4pm_pro_simulation.ex" ;
+    rdfs:seeAlso "test/beam4pm_w601_map_update_dual_safe_test.exs" ;
+    airo:detectsRiskConcept bpm:RiskSource-OTP29MapUpdateDeviation ;
+    airo:mitigatesRiskConcept bpm:Risk-SilentAggregationDrift .
+
+bpm:RiskControl-Art72Conformance
+    a airo:RiskControl ;
+    rdfs:label "BeamPM.Art72Conformance token-replay module + 10-test court" ;
+    rdfs:comment
+        "lib/beam4pm_art72_conformance.ex implements Art. 72 conformance " ;
+    rdfs:comment
+        "on the token-replay basis explicitly, engine-free and deterministic, " ;
+    rdfs:comment
+        "with the deviation from the alignment-based engine documented in " ;
+    rdfs:comment
+        "its @moduledoc. Qualified by test/beam4pm_art72_conformance_test.exs " ;
+    rdfs:comment
+        "(10 tests)." ;
+    rdfs:seeAlso "lib/beam4pm_art72_conformance.ex" ;
+    rdfs:seeAlso "test/beam4pm_art72_conformance_test.exs" ;
+    airo:detectsRiskConcept bpm:RiskSource-ConformanceSplit ;
+    airo:mitigatesRiskConcept bpm:Risk-ConformanceMetricMismatch .
+
+bpm:RiskControl-AuthorshipGate
+    a airo:RiskControl ;
+    rdfs:label "AuthorshipGate: gate_authorship_check.sh + generated court" ;
+    rdfs:comment
+        "scripts/gate_authorship_check.sh refuses unmarked, unadmitted, " ;
+    rdfs:comment
+        "stale, or SHA-drifted manufactured files with typed REFUSED_* " ;
+    rdfs:comment
+        "codes; qualified by the generated court " ;
+    rdfs:comment
+        "test/beam4pm_authorship_gate_test.exs (21 tests) which runs the " ;
+    rdfs:comment
+        "real gate script as a real subprocess over the real tree plus " ;
+    rdfs:comment
+        "planted git fixtures." ;
+    rdfs:seeAlso "scripts/gate_authorship_check.sh" ;
+    rdfs:seeAlso "test/beam4pm_authorship_gate_test.exs" ;
+    airo:detectsRiskConcept bpm:RiskSource-GeneratedArtifactDrift ;
+    airo:mitigatesRiskConcept bpm:Risk-EvidenceChainShaDrift .
+
+bpm:RiskControl-FullTestSuite
+    a airo:RiskControl ;
+    rdfs:label "beam4pm full ExUnit suite (1562 passing tests)" ;
+    rdfs:comment
+        "The repo-wide suite (w601 receipt: 1562/1565 passed, 147 skipped, " ;
+    rdfs:comment
+        "3 pre-existing failures classified in the w601 receipt) pins " ;
+    rdfs:comment
+        "discovery, simulation, conformance and evidence-chain behavior " ;
+    rdfs:comment
+        "through public APIs." ;
+    rdfs:seeAlso "test" ;
+    airo:mitigatesRiskConcept
+        bpm:Risk-SilentAggregationDrift ,
+        bpm:Risk-ConformanceMetricMismatch ,
+        bpm:Risk-EvidenceChainShaDrift .
+
+### ---------------------------------------------------------------- ###
+### Consequences and impacts                                          ###
+### ---------------------------------------------------------------- ###
+
+bpm:Consequence-MisleadingConformanceVerdicts
+    a airo:Consequence ;
+    rdfs:label "misleading Art. 72 conformance verdicts" ;
+    rdfs:comment
+        "Non-comparable fitness numbers silently cross the Art. 72 " ;
+    rdfs:comment
+        "monitoring boundary." ;
+    airo:hasImpact bpm:Impact-WrongComplianceDecision .
+
+bpm:Consequence-CorruptedAggregates
+    a airo:Consequence ;
+    rdfs:label "silently corrupted discovery/simulation aggregates" ;
+    rdfs:comment
+        "Counters and adjacency structures seeded from empty maps store " ;
+    rdfs:comment
+        "un-updated defaults; every downstream consumer inherits the drift." ;
+    airo:hasImpact bpm:Impact-WrongProcessInsights .
+
+bpm:Consequence-UntrustworthyEvidence
+    a airo:Consequence ;
+    rdfs:label "untrustworthy manufactured evidence chains" ;
+    rdfs:comment
+        "Artifacts no longer provably derived from the admitted source " ;
+    rdfs:comment
+        "graph; receipts and courts lose provenance." ;
+    airo:hasImpact bpm:Impact-LostProvenance .
+
+bpm:Impact-WrongComplianceDecision a airo:Impact ;
+    rdfs:label "wrong Art. 72 compliance decision" .
+
+bpm:Impact-WrongProcessInsights a airo:Impact ;
+    rdfs:label "wrong process-insight decisions" .
+
+bpm:Impact-LostProvenance a airo:Impact ;
+    rdfs:label "lost provenance for manufactured artifacts" .

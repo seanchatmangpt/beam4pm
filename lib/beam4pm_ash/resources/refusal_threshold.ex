@@ -5,7 +5,22 @@ defmodule BeamPM.Ash.Resources.RefusalThreshold do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:refusal_threshold,
+      attributes: [
+        threshold_id: :string,
+        refusal_class: :string,
+        limit: :float,
+        metric_id: :string,
+        authority_binding: :string
+      ]
+    )
+
+    activity(:refusal_threshold_created, on: :create, object_type: :refusal_threshold)
+  end
 
   attributes do
     uuid_primary_key(:id)

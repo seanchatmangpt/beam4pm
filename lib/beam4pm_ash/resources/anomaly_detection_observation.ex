@@ -5,7 +5,24 @@ defmodule BeamPM.Ash.Resources.AnomalyDetectionObservation do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:anomaly_detection_observation,
+      attributes: [
+        subject_id: :string,
+        baseline_digest: :string,
+        observation_digest: :string,
+        anomaly_score: :float
+      ]
+    )
+
+    activity(:anomaly_detection_observation_created,
+      on: :create,
+      object_type: :anomaly_detection_observation
+    )
+  end
 
   attributes do
     uuid_primary_key(:id)

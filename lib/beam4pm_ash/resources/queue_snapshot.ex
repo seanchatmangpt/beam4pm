@@ -5,7 +5,16 @@ defmodule BeamPM.Ash.Resources.QueueSnapshot do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:queue_snapshot,
+      attributes: [queue_name: :string, depth: :integer, observed_at: :datetime]
+    )
+
+    activity(:queue_snapshot_created, on: :create, object_type: :queue_snapshot)
+  end
 
   attributes do
     uuid_primary_key(:id)

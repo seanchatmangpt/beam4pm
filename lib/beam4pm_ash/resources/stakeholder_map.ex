@@ -5,7 +5,22 @@ defmodule BeamPM.Ash.Resources.StakeholderMap do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:stakeholder_map,
+      attributes: [
+        stakeholder_map_id: :string,
+        account_id: :string,
+        stakeholder_count: :integer,
+        evidence_digest: :string,
+        observed_at: :datetime
+      ]
+    )
+
+    activity(:stakeholder_map_created, on: :create, object_type: :stakeholder_map)
+  end
 
   attributes do
     uuid_primary_key(:id)

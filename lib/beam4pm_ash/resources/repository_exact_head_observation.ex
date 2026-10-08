@@ -5,7 +5,24 @@ defmodule BeamPM.Ash.Resources.RepositoryExactHeadObservation do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:repository_exact_head_observation,
+      attributes: [
+        repository_id: :string,
+        branch_name: :string,
+        head_sha: :string,
+        previous_head_sha: :string
+      ]
+    )
+
+    activity(:repository_exact_head_observation_created,
+      on: :create,
+      object_type: :repository_exact_head_observation
+    )
+  end
 
   attributes do
     uuid_primary_key(:id)

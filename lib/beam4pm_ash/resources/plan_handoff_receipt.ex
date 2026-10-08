@@ -5,7 +5,16 @@ defmodule BeamPM.Ash.Resources.PlanHandoffReceipt do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:plan_handoff_receipt,
+      attributes: [receipt_id: :string, plan_digest: :string, receiver_subject_sha: :string]
+    )
+
+    activity(:plan_handoff_receipt_created, on: :create, object_type: :plan_handoff_receipt)
+  end
 
   attributes do
     uuid_primary_key(:id)

@@ -5,7 +5,16 @@ defmodule BeamPM.Ash.Resources.CommercialForecast do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:commercial_forecast,
+      attributes: [forecast_id: :string, account_id: :string, amount: :float, confidence: :float]
+    )
+
+    activity(:commercial_forecast_created, on: :create, object_type: :commercial_forecast)
+  end
 
   attributes do
     uuid_primary_key(:id)

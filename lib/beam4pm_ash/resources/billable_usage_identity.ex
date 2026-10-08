@@ -5,7 +5,16 @@ defmodule BeamPM.Ash.Resources.BillableUsageIdentity do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:billable_usage_identity,
+      attributes: [tenant_id: :string, billable_usage_id: :string, identity_hash: :string]
+    )
+
+    activity(:billable_usage_identity_created, on: :create, object_type: :billable_usage_identity)
+  end
 
   attributes do
     uuid_primary_key(:id)

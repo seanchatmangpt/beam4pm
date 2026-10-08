@@ -5,7 +5,21 @@ defmodule BeamPM.Ash.Resources.CrownFaninConvergence do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:crown_fanin_convergence,
+      attributes: [
+        propagation_id: :string,
+        subject_sha: :string,
+        fanin_set_digest: :string,
+        receipt_digest: :string
+      ]
+    )
+
+    activity(:crown_fanin_convergence_created, on: :create, object_type: :crown_fanin_convergence)
+  end
 
   attributes do
     uuid_primary_key(:id)

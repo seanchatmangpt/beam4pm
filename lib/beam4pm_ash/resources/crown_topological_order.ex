@@ -5,7 +5,21 @@ defmodule BeamPM.Ash.Resources.CrownTopologicalOrder do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:crown_topological_order,
+      attributes: [
+        propagation_id: :string,
+        subject_sha: :string,
+        topological_rank: :string,
+        receipt_digest: :string
+      ]
+    )
+
+    activity(:crown_topological_order_created, on: :create, object_type: :crown_topological_order)
+  end
 
   attributes do
     uuid_primary_key(:id)

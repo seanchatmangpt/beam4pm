@@ -5,7 +5,22 @@ defmodule BeamPM.Ash.Resources.PrepaidCreditBalance do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:prepaid_credit_balance,
+      attributes: [
+        prepaid_credit_balance_id: :string,
+        account_id: :string,
+        remaining_credit: :float,
+        evidence_digest: :string,
+        effective_at: :datetime
+      ]
+    )
+
+    activity(:prepaid_credit_balance_created, on: :create, object_type: :prepaid_credit_balance)
+  end
 
   attributes do
     uuid_primary_key(:id)

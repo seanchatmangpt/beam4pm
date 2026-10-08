@@ -5,7 +5,16 @@ defmodule BeamPM.Ash.Resources.ServiceHealthSnapshot do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:service_health_snapshot,
+      attributes: [tenant_id: :string, service_id: :string, snapshot_hash: :string]
+    )
+
+    activity(:service_health_snapshot_created, on: :create, object_type: :service_health_snapshot)
+  end
 
   attributes do
     uuid_primary_key(:id)

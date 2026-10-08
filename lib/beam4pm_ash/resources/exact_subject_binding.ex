@@ -5,7 +5,16 @@ defmodule BeamPM.Ash.Resources.ExactSubjectBinding do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:exact_subject_binding,
+      attributes: [subject_id: :string, subject_sha: :string, binding_hash: :string]
+    )
+
+    activity(:exact_subject_binding_created, on: :create, object_type: :exact_subject_binding)
+  end
 
   attributes do
     uuid_primary_key(:id)

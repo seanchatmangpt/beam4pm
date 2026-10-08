@@ -5,7 +5,23 @@ defmodule BeamPM.Ash.Resources.ContractingEntityIdentity do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:contracting_entity_identity,
+      attributes: [
+        opportunity_id: :string,
+        contracting_entity_id: :string,
+        identity_evidence_hash: :string
+      ]
+    )
+
+    activity(:contracting_entity_identity_created,
+      on: :create,
+      object_type: :contracting_entity_identity
+    )
+  end
 
   attributes do
     uuid_primary_key(:id)

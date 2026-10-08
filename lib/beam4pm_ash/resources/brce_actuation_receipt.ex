@@ -5,7 +5,16 @@ defmodule BeamPM.Ash.Resources.BrceActuationReceipt do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:brce_actuation_receipt,
+      attributes: [tenant_id: :string, request_id: :string, receipt_hash: :string]
+    )
+
+    activity(:brce_actuation_receipt_created, on: :create, object_type: :brce_actuation_receipt)
+  end
 
   attributes do
     uuid_primary_key(:id)

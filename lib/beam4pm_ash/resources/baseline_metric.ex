@@ -5,7 +5,22 @@ defmodule BeamPM.Ash.Resources.BaselineMetric do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:baseline_metric,
+      attributes: [
+        baseline_metric_id: :string,
+        account_id: :string,
+        baseline_value: :float,
+        evidence_digest: :string,
+        observed_at: :datetime
+      ]
+    )
+
+    activity(:baseline_metric_created, on: :create, object_type: :baseline_metric)
+  end
 
   attributes do
     uuid_primary_key(:id)

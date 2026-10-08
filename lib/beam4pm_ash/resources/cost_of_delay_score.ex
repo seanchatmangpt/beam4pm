@@ -5,7 +5,16 @@ defmodule BeamPM.Ash.Resources.CostOfDelayScore do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:cost_of_delay_score,
+      attributes: [option_id: :string, horizon: :string, score: :string]
+    )
+
+    activity(:cost_of_delay_score_created, on: :create, object_type: :cost_of_delay_score)
+  end
 
   attributes do
     uuid_primary_key(:id)

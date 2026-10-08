@@ -5,7 +5,25 @@ defmodule BeamPM.Ash.Resources.HistoricalEpisodeReplay do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:historical_episode_replay,
+      attributes: [
+        replay_id: :string,
+        episode_id: :string,
+        historical_subject_sha: :string,
+        replay_seed: :string,
+        divergence_code: :string
+      ]
+    )
+
+    activity(:historical_episode_replay_created,
+      on: :create,
+      object_type: :historical_episode_replay
+    )
+  end
 
   attributes do
     uuid_primary_key(:id)

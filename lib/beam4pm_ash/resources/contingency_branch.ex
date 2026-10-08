@@ -5,7 +5,16 @@ defmodule BeamPM.Ash.Resources.ContingencyBranch do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:contingency_branch,
+      attributes: [branch_id: :string, observation_predicate: :string, next_node_id: :string]
+    )
+
+    activity(:contingency_branch_created, on: :create, object_type: :contingency_branch)
+  end
 
   attributes do
     uuid_primary_key(:id)

@@ -5,7 +5,22 @@ defmodule BeamPM.Ash.Resources.LearningEpisode do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:learning_episode,
+      attributes: [
+        episode_id: :string,
+        exact_subject_sha: :string,
+        evidence_digest: :string,
+        outcome: :string,
+        authority_ceiling: :string
+      ]
+    )
+
+    activity(:learning_episode_created, on: :create, object_type: :learning_episode)
+  end
 
   attributes do
     uuid_primary_key(:id)

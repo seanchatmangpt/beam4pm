@@ -5,7 +5,22 @@ defmodule BeamPM.Ash.Resources.BurstPricingPolicy do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:burst_pricing_policy,
+      attributes: [
+        burst_pricing_policy_id: :string,
+        account_id: :string,
+        burst_multiplier: :float,
+        evidence_digest: :string,
+        effective_at: :datetime
+      ]
+    )
+
+    activity(:burst_pricing_policy_created, on: :create, object_type: :burst_pricing_policy)
+  end
 
   attributes do
     uuid_primary_key(:id)

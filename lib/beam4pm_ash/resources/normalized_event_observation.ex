@@ -5,7 +5,24 @@ defmodule BeamPM.Ash.Resources.NormalizedEventObservation do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:normalized_event_observation,
+      attributes: [
+        source_system: :string,
+        event_id: :string,
+        event_type: :string,
+        event_time: :datetime
+      ]
+    )
+
+    activity(:normalized_event_observation_created,
+      on: :create,
+      object_type: :normalized_event_observation
+    )
+  end
 
   attributes do
     uuid_primary_key(:id)

@@ -5,7 +5,13 @@ defmodule BeamPM.Ash.Resources.AlignmentMove do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:alignment_move, attributes: [move_type: :atom, cost: :integer])
+    activity(:alignment_move_created, on: :create, object_type: :alignment_move)
+  end
 
   attributes do
     uuid_primary_key(:id)

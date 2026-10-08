@@ -5,7 +5,24 @@ defmodule BeamPM.Ash.Resources.DecisionCompressionObservation do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:decision_compression_observation,
+      attributes: [
+        compression_id: :string,
+        input_state_digest: :string,
+        output_delta_digest: :string,
+        loss_bound: :string
+      ]
+    )
+
+    activity(:decision_compression_observation_created,
+      on: :create,
+      object_type: :decision_compression_observation
+    )
+  end
 
   attributes do
     uuid_primary_key(:id)

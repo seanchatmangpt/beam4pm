@@ -5,7 +5,17 @@ defmodule BeamPM.Ash.Resources.CatalogRelease do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:catalog_release,
+      attributes: [release_id: :string, version: :string, effective_at: :datetime]
+    )
+
+    # skipped field :sku_ids (bpm:fieldType "list_string") - no bpm:ocelTypeExpr: OCEL object attributes are scalars only
+    activity(:catalog_release_created, on: :create, object_type: :catalog_release)
+  end
 
   attributes do
     uuid_primary_key(:id)

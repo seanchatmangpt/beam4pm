@@ -5,7 +5,21 @@ defmodule BeamPM.Ash.Resources.MigrationContract do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:migration_contract,
+      attributes: [
+        migration_id: :string,
+        from_version: :string,
+        to_version: :string,
+        rollback_plan: :string
+      ]
+    )
+
+    activity(:migration_contract_created, on: :create, object_type: :migration_contract)
+  end
 
   attributes do
     uuid_primary_key(:id)

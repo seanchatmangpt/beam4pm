@@ -5,7 +5,17 @@ defmodule BeamPM.Ash.Resources.CapabilityBundle do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:capability_bundle,
+      attributes: [bundle_id: :string, name: :string, version: :string]
+    )
+
+    # skipped field :capability_ids (bpm:fieldType "list_string") - no bpm:ocelTypeExpr: OCEL object attributes are scalars only
+    activity(:capability_bundle_created, on: :create, object_type: :capability_bundle)
+  end
 
   attributes do
     uuid_primary_key(:id)

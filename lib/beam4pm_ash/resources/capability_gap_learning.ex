@@ -5,7 +5,22 @@ defmodule BeamPM.Ash.Resources.CapabilityGapLearning do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:capability_gap_learning,
+      attributes: [
+        learning_id: :string,
+        observed_capability_id: :string,
+        required_capability_id: :string,
+        gap_type: :string,
+        evidence_digest: :string
+      ]
+    )
+
+    activity(:capability_gap_learning_created, on: :create, object_type: :capability_gap_learning)
+  end
 
   attributes do
     uuid_primary_key(:id)

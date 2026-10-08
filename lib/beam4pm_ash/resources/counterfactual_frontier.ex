@@ -5,7 +5,16 @@ defmodule BeamPM.Ash.Resources.CounterfactualFrontier do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:counterfactual_frontier,
+      attributes: [option_set_id: :string, world_model_hash: :string, frontier_hash: :string]
+    )
+
+    activity(:counterfactual_frontier_created, on: :create, object_type: :counterfactual_frontier)
+  end
 
   attributes do
     uuid_primary_key(:id)

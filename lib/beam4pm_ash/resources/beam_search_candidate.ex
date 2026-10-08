@@ -5,7 +5,16 @@ defmodule BeamPM.Ash.Resources.BeamSearchCandidate do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:beam_search_candidate,
+      attributes: [plan_id: :string, beam_width: :string, frontier_hash: :string]
+    )
+
+    activity(:beam_search_candidate_created, on: :create, object_type: :beam_search_candidate)
+  end
 
   attributes do
     uuid_primary_key(:id)

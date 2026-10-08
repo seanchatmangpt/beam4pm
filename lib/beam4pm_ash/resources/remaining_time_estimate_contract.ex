@@ -5,7 +5,19 @@ defmodule BeamPM.Ash.Resources.RemainingTimeEstimateContract do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:remaining_time_estimate_contract,
+      attributes: [estimate_id: :string, case_state_digest: :string, interval_digest: :string]
+    )
+
+    activity(:remaining_time_estimate_contract_created,
+      on: :create,
+      object_type: :remaining_time_estimate_contract
+    )
+  end
 
   attributes do
     uuid_primary_key(:id)

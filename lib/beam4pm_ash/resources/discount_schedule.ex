@@ -5,7 +5,21 @@ defmodule BeamPM.Ash.Resources.DiscountSchedule do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:discount_schedule,
+      attributes: [
+        schedule_id: :string,
+        threshold: :float,
+        discount_percent: :float,
+        currency: :string
+      ]
+    )
+
+    activity(:discount_schedule_created, on: :create, object_type: :discount_schedule)
+  end
 
   attributes do
     uuid_primary_key(:id)

@@ -5,7 +5,24 @@ defmodule BeamPM.Ash.Resources.TemporalOrderObservation do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:temporal_order_observation,
+      attributes: [
+        earlier_observation_id: :string,
+        later_observation_id: :string,
+        ordering_basis: :string,
+        evidence_digest: :string
+      ]
+    )
+
+    activity(:temporal_order_observation_created,
+      on: :create,
+      object_type: :temporal_order_observation
+    )
+  end
 
   attributes do
     uuid_primary_key(:id)

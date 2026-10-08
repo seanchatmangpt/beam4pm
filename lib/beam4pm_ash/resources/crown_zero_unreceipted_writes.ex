@@ -5,7 +5,24 @@ defmodule BeamPM.Ash.Resources.CrownZeroUnreceiptedWrites do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:crown_zero_unreceipted_writes,
+      attributes: [
+        propagation_id: :string,
+        subject_sha: :string,
+        write_set_digest: :string,
+        receipt_digest: :string
+      ]
+    )
+
+    activity(:crown_zero_unreceipted_writes_created,
+      on: :create,
+      object_type: :crown_zero_unreceipted_writes
+    )
+  end
 
   attributes do
     uuid_primary_key(:id)

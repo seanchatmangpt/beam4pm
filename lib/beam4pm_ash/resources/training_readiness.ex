@@ -5,7 +5,22 @@ defmodule BeamPM.Ash.Resources.TrainingReadiness do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:training_readiness,
+      attributes: [
+        training_readiness_id: :string,
+        account_id: :string,
+        training_completion_rate: :float,
+        evidence_digest: :string,
+        observed_at: :datetime
+      ]
+    )
+
+    activity(:training_readiness_created, on: :create, object_type: :training_readiness)
+  end
 
   attributes do
     uuid_primary_key(:id)

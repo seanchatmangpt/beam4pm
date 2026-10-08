@@ -5,7 +5,22 @@ defmodule BeamPM.Ash.Resources.RateDistortionBudget do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:rate_distortion_budget,
+      attributes: [
+        budget_id: :string,
+        decision_id: :string,
+        source_information_bits: :float,
+        retained_information_bits: :float,
+        maximum_distortion: :float
+      ]
+    )
+
+    activity(:rate_distortion_budget_created, on: :create, object_type: :rate_distortion_budget)
+  end
 
   attributes do
     uuid_primary_key(:id)

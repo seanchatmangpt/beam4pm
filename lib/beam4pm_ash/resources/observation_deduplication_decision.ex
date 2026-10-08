@@ -5,7 +5,24 @@ defmodule BeamPM.Ash.Resources.ObservationDeduplicationDecision do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:observation_deduplication_decision,
+      attributes: [
+        event_id: :string,
+        event_digest: :string,
+        dedup_key: :string,
+        decision: :string
+      ]
+    )
+
+    activity(:observation_deduplication_decision_created,
+      on: :create,
+      object_type: :observation_deduplication_decision
+    )
+  end
 
   attributes do
     uuid_primary_key(:id)

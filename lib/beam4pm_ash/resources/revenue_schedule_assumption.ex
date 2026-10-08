@@ -5,7 +5,23 @@ defmodule BeamPM.Ash.Resources.RevenueScheduleAssumption do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:revenue_schedule_assumption,
+      attributes: [
+        opportunity_id: :string,
+        schedule_id: :string,
+        assumption_evidence_hash: :string
+      ]
+    )
+
+    activity(:revenue_schedule_assumption_created,
+      on: :create,
+      object_type: :revenue_schedule_assumption
+    )
+  end
 
   attributes do
     uuid_primary_key(:id)

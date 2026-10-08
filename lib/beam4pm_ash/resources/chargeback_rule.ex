@@ -5,7 +5,16 @@ defmodule BeamPM.Ash.Resources.ChargebackRule do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:chargeback_rule,
+      attributes: [rule_id: :string, cost_center: :string, metric_name: :string, rate: :float]
+    )
+
+    activity(:chargeback_rule_created, on: :create, object_type: :chargeback_rule)
+  end
 
   attributes do
     uuid_primary_key(:id)

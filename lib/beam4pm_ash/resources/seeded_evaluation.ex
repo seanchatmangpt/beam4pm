@@ -5,7 +5,23 @@ defmodule BeamPM.Ash.Resources.SeededEvaluation do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:seeded_evaluation,
+      attributes: [
+        evaluation_id: :string,
+        seed: :string,
+        dataset_digest: :string,
+        policy_id: :string,
+        score: :float,
+        replay_digest: :string
+      ]
+    )
+
+    activity(:seeded_evaluation_created, on: :create, object_type: :seeded_evaluation)
+  end
 
   attributes do
     uuid_primary_key(:id)

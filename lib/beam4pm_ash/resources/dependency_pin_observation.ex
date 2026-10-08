@@ -5,7 +5,24 @@ defmodule BeamPM.Ash.Resources.DependencyPinObservation do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:dependency_pin_observation,
+      attributes: [
+        dependency_id: :string,
+        declared_ref: :string,
+        resolved_sha: :string,
+        observed_at: :datetime
+      ]
+    )
+
+    activity(:dependency_pin_observation_created,
+      on: :create,
+      object_type: :dependency_pin_observation
+    )
+  end
 
   attributes do
     uuid_primary_key(:id)

@@ -5,7 +5,22 @@ defmodule BeamPM.Ash.Resources.DemoScenario do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:demo_scenario,
+      attributes: [
+        demo_scenario_id: :string,
+        account_id: :string,
+        scenario_name: :string,
+        evidence_digest: :string,
+        observed_at: :datetime
+      ]
+    )
+
+    activity(:demo_scenario_created, on: :create, object_type: :demo_scenario)
+  end
 
   attributes do
     uuid_primary_key(:id)

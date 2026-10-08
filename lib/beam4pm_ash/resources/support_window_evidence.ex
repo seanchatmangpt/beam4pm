@@ -5,7 +5,21 @@ defmodule BeamPM.Ash.Resources.SupportWindowEvidence do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:support_window_evidence,
+      attributes: [
+        evidence_id: :string,
+        subject_sha: :string,
+        support_channel: :string,
+        observed_result: :atom
+      ]
+    )
+
+    activity(:support_window_evidence_created, on: :create, object_type: :support_window_evidence)
+  end
 
   attributes do
     uuid_primary_key(:id)

@@ -5,7 +5,24 @@ defmodule BeamPM.Ash.Resources.MutableIdentityRefusalEvidence do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:mutable_identity_refusal_evidence,
+      attributes: [
+        evidence_id: :string,
+        subject_sha: :string,
+        mutable_reference: :string,
+        observed_result: :atom
+      ]
+    )
+
+    activity(:mutable_identity_refusal_evidence_created,
+      on: :create,
+      object_type: :mutable_identity_refusal_evidence
+    )
+  end
 
   attributes do
     uuid_primary_key(:id)

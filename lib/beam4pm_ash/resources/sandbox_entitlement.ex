@@ -5,7 +5,22 @@ defmodule BeamPM.Ash.Resources.SandboxEntitlement do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:sandbox_entitlement,
+      attributes: [
+        sandbox_entitlement_id: :string,
+        account_id: :string,
+        sandbox_limit: :integer,
+        evidence_digest: :string,
+        effective_at: :datetime
+      ]
+    )
+
+    activity(:sandbox_entitlement_created, on: :create, object_type: :sandbox_entitlement)
+  end
 
   attributes do
     uuid_primary_key(:id)

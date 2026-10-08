@@ -5,7 +5,20 @@ defmodule BeamPM.Ash.Resources.LeastAuthorityEvidence do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:least_authority_evidence,
+      attributes: [evidence_id: :string, subject_sha: :string, observed_result: :atom]
+    )
+
+    # skipped field :granted_permissions (bpm:fieldType "list_string") - no bpm:ocelTypeExpr: OCEL object attributes are scalars only
+    activity(:least_authority_evidence_created,
+      on: :create,
+      object_type: :least_authority_evidence
+    )
+  end
 
   attributes do
     uuid_primary_key(:id)

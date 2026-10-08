@@ -5,7 +5,19 @@ defmodule BeamPM.Ash.Resources.MethodPreconditionGate do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:method_precondition_gate,
+      attributes: [method_id: :string, state_digest: :string, decision: :string]
+    )
+
+    activity(:method_precondition_gate_created,
+      on: :create,
+      object_type: :method_precondition_gate
+    )
+  end
 
   attributes do
     uuid_primary_key(:id)

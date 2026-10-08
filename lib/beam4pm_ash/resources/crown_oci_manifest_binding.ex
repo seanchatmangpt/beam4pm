@@ -5,7 +5,24 @@ defmodule BeamPM.Ash.Resources.CrownOciManifestBinding do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:crown_oci_manifest_binding,
+      attributes: [
+        propagation_id: :string,
+        subject_sha: :string,
+        oci_index_digest: :string,
+        receipt_digest: :string
+      ]
+    )
+
+    activity(:crown_oci_manifest_binding_created,
+      on: :create,
+      object_type: :crown_oci_manifest_binding
+    )
+  end
 
   attributes do
     uuid_primary_key(:id)

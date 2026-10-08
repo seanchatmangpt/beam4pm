@@ -5,7 +5,22 @@ defmodule BeamPM.Ash.Resources.MeterDimension do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:meter_dimension,
+      attributes: [
+        meter_dimension_id: :string,
+        account_id: :string,
+        dimension_name: :string,
+        evidence_digest: :string,
+        effective_at: :datetime
+      ]
+    )
+
+    activity(:meter_dimension_created, on: :create, object_type: :meter_dimension)
+  end
 
   attributes do
     uuid_primary_key(:id)

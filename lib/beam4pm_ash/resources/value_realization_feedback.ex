@@ -5,7 +5,26 @@ defmodule BeamPM.Ash.Resources.ValueRealizationFeedback do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:value_realization_feedback,
+      attributes: [
+        feedback_id: :string,
+        objective_id: :string,
+        baseline_value: :float,
+        realized_value: :float,
+        evidence_digest: :string,
+        policy_id: :string
+      ]
+    )
+
+    activity(:value_realization_feedback_created,
+      on: :create,
+      object_type: :value_realization_feedback
+    )
+  end
 
   attributes do
     uuid_primary_key(:id)

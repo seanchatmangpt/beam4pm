@@ -5,7 +5,21 @@ defmodule BeamPM.Ash.Resources.CrownConvergenceProof do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:crown_convergence_proof,
+      attributes: [
+        propagation_id: :string,
+        subject_sha: :string,
+        convergence_proof_digest: :string,
+        receipt_digest: :string
+      ]
+    )
+
+    activity(:crown_convergence_proof_created, on: :create, object_type: :crown_convergence_proof)
+  end
 
   attributes do
     uuid_primary_key(:id)

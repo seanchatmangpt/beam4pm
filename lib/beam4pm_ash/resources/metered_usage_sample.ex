@@ -5,7 +5,16 @@ defmodule BeamPM.Ash.Resources.MeteredUsageSample do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:metered_usage_sample,
+      attributes: [tenant_id: :string, usage_sample_id: :string, sample_hash: :string]
+    )
+
+    activity(:metered_usage_sample_created, on: :create, object_type: :metered_usage_sample)
+  end
 
   attributes do
     uuid_primary_key(:id)

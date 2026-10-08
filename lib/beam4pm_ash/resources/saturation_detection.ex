@@ -5,7 +5,23 @@ defmodule BeamPM.Ash.Resources.SaturationDetection do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:saturation_detection,
+      attributes: [
+        detection_id: :string,
+        curriculum_id: :string,
+        recent_gain: :float,
+        gain_slope: :float,
+        novelty_floor: :float,
+        coverage_digest: :string
+      ]
+    )
+
+    activity(:saturation_detection_created, on: :create, object_type: :saturation_detection)
+  end
 
   attributes do
     uuid_primary_key(:id)

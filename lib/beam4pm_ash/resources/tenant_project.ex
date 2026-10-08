@@ -5,7 +5,16 @@ defmodule BeamPM.Ash.Resources.TenantProject do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:tenant_project,
+      attributes: [project_id: :string, tenant_id: :string, cost_center: :string, status: :atom]
+    )
+
+    activity(:tenant_project_created, on: :create, object_type: :tenant_project)
+  end
 
   attributes do
     uuid_primary_key(:id)

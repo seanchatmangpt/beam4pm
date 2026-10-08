@@ -5,7 +5,24 @@ defmodule BeamPM.Ash.Resources.CrownMarketplacePackPin do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:crown_marketplace_pack_pin,
+      attributes: [
+        propagation_id: :string,
+        subject_sha: :string,
+        pack_commit_sha: :string,
+        receipt_digest: :string
+      ]
+    )
+
+    activity(:crown_marketplace_pack_pin_created,
+      on: :create,
+      object_type: :crown_marketplace_pack_pin
+    )
+  end
 
   attributes do
     uuid_primary_key(:id)

@@ -5,7 +5,21 @@ defmodule BeamPM.Ash.Resources.RenewalOption do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:renewal_option,
+      attributes: [
+        option_id: :string,
+        subscription_id: :string,
+        term_months: :integer,
+        notice_by: :datetime
+      ]
+    )
+
+    activity(:renewal_option_created, on: :create, object_type: :renewal_option)
+  end
 
   attributes do
     uuid_primary_key(:id)

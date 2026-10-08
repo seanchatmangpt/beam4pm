@@ -5,7 +5,16 @@ defmodule BeamPM.Ash.Resources.PlanningAction do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:planning_action, attributes: [action_name: :string])
+
+    # skipped field :preconditions (bpm:fieldType "list_string") - no bpm:ocelTypeExpr: OCEL object attributes are scalars only
+    # skipped field :effects (bpm:fieldType "list_string") - no bpm:ocelTypeExpr: OCEL object attributes are scalars only
+    activity(:planning_action_created, on: :create, object_type: :planning_action)
+  end
 
   attributes do
     uuid_primary_key(:id)

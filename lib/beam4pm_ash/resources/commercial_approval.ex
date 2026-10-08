@@ -5,7 +5,16 @@ defmodule BeamPM.Ash.Resources.CommercialApproval do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:commercial_approval,
+      attributes: [approval_id: :string, quote_id: :string, authority: :string, status: :atom]
+    )
+
+    activity(:commercial_approval_created, on: :create, object_type: :commercial_approval)
+  end
 
   attributes do
     uuid_primary_key(:id)

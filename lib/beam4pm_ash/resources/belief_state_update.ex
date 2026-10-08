@@ -5,7 +5,21 @@ defmodule BeamPM.Ash.Resources.BeliefStateUpdate do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:belief_state_update,
+      attributes: [
+        prior_belief_id: :string,
+        evidence_digest: :string,
+        posterior_belief_id: :string,
+        update_rule: :string
+      ]
+    )
+
+    activity(:belief_state_update_created, on: :create, object_type: :belief_state_update)
+  end
 
   attributes do
     uuid_primary_key(:id)

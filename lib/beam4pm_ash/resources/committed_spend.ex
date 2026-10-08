@@ -5,7 +5,21 @@ defmodule BeamPM.Ash.Resources.CommittedSpend do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:committed_spend,
+      attributes: [
+        commitment_id: :string,
+        amount: :float,
+        currency: :string,
+        expires_at: :datetime
+      ]
+    )
+
+    activity(:committed_spend_created, on: :create, object_type: :committed_spend)
+  end
 
   attributes do
     uuid_primary_key(:id)

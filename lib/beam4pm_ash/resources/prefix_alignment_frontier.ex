@@ -5,7 +5,19 @@ defmodule BeamPM.Ash.Resources.PrefixAlignmentFrontier do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:prefix_alignment_frontier,
+      attributes: [frontier_id: :string, prefix_digest: :string, candidate_digest: :string]
+    )
+
+    activity(:prefix_alignment_frontier_created,
+      on: :create,
+      object_type: :prefix_alignment_frontier
+    )
+  end
 
   attributes do
     uuid_primary_key(:id)

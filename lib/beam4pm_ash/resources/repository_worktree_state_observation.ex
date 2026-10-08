@@ -5,7 +5,24 @@ defmodule BeamPM.Ash.Resources.RepositoryWorktreeStateObservation do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:repository_worktree_state_observation,
+      attributes: [
+        repository_id: :string,
+        worktree_hash: :string,
+        dirty_path_count: :integer,
+        observed_at: :datetime
+      ]
+    )
+
+    activity(:repository_worktree_state_observation_created,
+      on: :create,
+      object_type: :repository_worktree_state_observation
+    )
+  end
 
   attributes do
     uuid_primary_key(:id)

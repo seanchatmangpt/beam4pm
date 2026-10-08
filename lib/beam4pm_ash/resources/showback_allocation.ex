@@ -5,7 +5,21 @@ defmodule BeamPM.Ash.Resources.ShowbackAllocation do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:showback_allocation,
+      attributes: [
+        allocation_id: :string,
+        project_id: :string,
+        metric_name: :string,
+        quantity: :float
+      ]
+    )
+
+    activity(:showback_allocation_created, on: :create, object_type: :showback_allocation)
+  end
 
   attributes do
     uuid_primary_key(:id)

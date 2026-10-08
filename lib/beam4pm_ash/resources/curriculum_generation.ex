@@ -5,7 +5,22 @@ defmodule BeamPM.Ash.Resources.CurriculumGeneration do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:curriculum_generation,
+      attributes: [
+        curriculum_id: :string,
+        source_gap_set_digest: :string,
+        ordered_hypotheses_digest: :string,
+        diversity_score: :float,
+        falsifier_coverage: :float
+      ]
+    )
+
+    activity(:curriculum_generation_created, on: :create, object_type: :curriculum_generation)
+  end
 
   attributes do
     uuid_primary_key(:id)

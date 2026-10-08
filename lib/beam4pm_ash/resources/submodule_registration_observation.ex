@@ -5,7 +5,24 @@ defmodule BeamPM.Ash.Resources.SubmoduleRegistrationObservation do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:submodule_registration_observation,
+      attributes: [
+        submodule_path: :string,
+        registration_state: :string,
+        repository_url: :string,
+        evidence_digest: :string
+      ]
+    )
+
+    activity(:submodule_registration_observation_created,
+      on: :create,
+      object_type: :submodule_registration_observation
+    )
+  end
 
   attributes do
     uuid_primary_key(:id)

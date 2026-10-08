@@ -5,7 +5,22 @@ defmodule BeamPM.Ash.Resources.TrialEntitlement do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:trial_entitlement,
+      attributes: [
+        trial_entitlement_id: :string,
+        account_id: :string,
+        trial_expires_at: :datetime,
+        evidence_digest: :string,
+        effective_at: :datetime
+      ]
+    )
+
+    activity(:trial_entitlement_created, on: :create, object_type: :trial_entitlement)
+  end
 
   attributes do
     uuid_primary_key(:id)

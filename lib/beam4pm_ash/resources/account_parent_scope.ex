@@ -5,7 +5,16 @@ defmodule BeamPM.Ash.Resources.AccountParentScope do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:account_parent_scope,
+      attributes: [account_id: :string, parent_account_id: :string, scope_evidence_hash: :string]
+    )
+
+    activity(:account_parent_scope_created, on: :create, object_type: :account_parent_scope)
+  end
 
   attributes do
     uuid_primary_key(:id)

@@ -5,7 +5,16 @@ defmodule BeamPM.Ash.Resources.StaleReceiptRefusal do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:stale_receipt_refusal,
+      attributes: [tenant_id: :string, receipt_id: :string, refusal_hash: :string]
+    )
+
+    activity(:stale_receipt_refusal_created, on: :create, object_type: :stale_receipt_refusal)
+  end
 
   attributes do
     uuid_primary_key(:id)

@@ -5,7 +5,19 @@ defmodule BeamPM.Ash.Resources.WorkloadIdempotencyKey do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:workload_idempotency_key,
+      attributes: [tenant_id: :string, execution_id: :string, idempotency_key: :string]
+    )
+
+    activity(:workload_idempotency_key_created,
+      on: :create,
+      object_type: :workload_idempotency_key
+    )
+  end
 
   attributes do
     uuid_primary_key(:id)

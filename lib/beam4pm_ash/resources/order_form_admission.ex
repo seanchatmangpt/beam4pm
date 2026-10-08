@@ -5,7 +5,16 @@ defmodule BeamPM.Ash.Resources.OrderFormAdmission do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:order_form_admission,
+      attributes: [opportunity_id: :string, order_form_id: :string, decision: :string]
+    )
+
+    activity(:order_form_admission_created, on: :create, object_type: :order_form_admission)
+  end
 
   attributes do
     uuid_primary_key(:id)

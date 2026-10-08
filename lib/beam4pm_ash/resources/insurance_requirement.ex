@@ -5,7 +5,16 @@ defmodule BeamPM.Ash.Resources.InsuranceRequirement do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:insurance_requirement,
+      attributes: [opportunity_id: :string, coverage_id: :string, evidence_hash: :string]
+    )
+
+    activity(:insurance_requirement_created, on: :create, object_type: :insurance_requirement)
+  end
 
   attributes do
     uuid_primary_key(:id)

@@ -5,7 +5,16 @@ defmodule BeamPM.Ash.Resources.ExceptionAuthority do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:exception_authority,
+      attributes: [exception_id: :string, authority_id: :string, decision: :string]
+    )
+
+    activity(:exception_authority_created, on: :create, object_type: :exception_authority)
+  end
 
   attributes do
     uuid_primary_key(:id)

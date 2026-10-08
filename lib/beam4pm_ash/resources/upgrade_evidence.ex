@@ -5,7 +5,21 @@ defmodule BeamPM.Ash.Resources.UpgradeEvidence do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:upgrade_evidence,
+      attributes: [
+        evidence_id: :string,
+        subject_sha: :string,
+        from_version: :string,
+        observed_result: :atom
+      ]
+    )
+
+    activity(:upgrade_evidence_created, on: :create, object_type: :upgrade_evidence)
+  end
 
   attributes do
     uuid_primary_key(:id)

@@ -5,7 +5,16 @@ defmodule BeamPM.Ash.Resources.PlanLineage do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:plan_lineage,
+      attributes: [plan_id: :string, parent_plan_id: :string, lineage_hash: :string]
+    )
+
+    activity(:plan_lineage_created, on: :create, object_type: :plan_lineage)
+  end
 
   attributes do
     uuid_primary_key(:id)

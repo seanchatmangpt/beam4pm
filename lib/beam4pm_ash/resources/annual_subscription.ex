@@ -5,7 +5,21 @@ defmodule BeamPM.Ash.Resources.AnnualSubscription do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:annual_subscription,
+      attributes: [
+        subscription_id: :string,
+        sku: :string,
+        seat_count: :integer,
+        renews_at: :datetime
+      ]
+    )
+
+    activity(:annual_subscription_created, on: :create, object_type: :annual_subscription)
+  end
 
   attributes do
     uuid_primary_key(:id)

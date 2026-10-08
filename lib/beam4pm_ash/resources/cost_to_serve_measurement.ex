@@ -5,7 +5,19 @@ defmodule BeamPM.Ash.Resources.CostToServeMeasurement do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:cost_to_serve_measurement,
+      attributes: [tenant_id: :string, billing_period_id: :string, measurement_hash: :string]
+    )
+
+    activity(:cost_to_serve_measurement_created,
+      on: :create,
+      object_type: :cost_to_serve_measurement
+    )
+  end
 
   attributes do
     uuid_primary_key(:id)

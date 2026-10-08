@@ -5,7 +5,24 @@ defmodule BeamPM.Ash.Resources.MachineActionableDelta do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:machine_actionable_delta,
+      attributes: [
+        subject_id: :string,
+        prior_state_digest: :string,
+        delta_digest: :string,
+        recommended_action: :string
+      ]
+    )
+
+    activity(:machine_actionable_delta_created,
+      on: :create,
+      object_type: :machine_actionable_delta
+    )
+  end
 
   attributes do
     uuid_primary_key(:id)

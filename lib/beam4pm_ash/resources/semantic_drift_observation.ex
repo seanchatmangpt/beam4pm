@@ -5,7 +5,24 @@ defmodule BeamPM.Ash.Resources.SemanticDriftObservation do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:semantic_drift_observation,
+      attributes: [
+        subject_id: :string,
+        prior_semantic_digest: :string,
+        current_semantic_digest: :string,
+        drift_class: :string
+      ]
+    )
+
+    activity(:semantic_drift_observation_created,
+      on: :create,
+      object_type: :semantic_drift_observation
+    )
+  end
 
   attributes do
     uuid_primary_key(:id)

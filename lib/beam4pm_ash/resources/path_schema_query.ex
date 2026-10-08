@@ -5,7 +5,16 @@ defmodule BeamPM.Ash.Resources.PathSchemaQuery do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:path_schema_query,
+      attributes: [source_type: :string, target_type: :string, max_length: :integer]
+    )
+
+    activity(:path_schema_query_created, on: :create, object_type: :path_schema_query)
+  end
 
   attributes do
     uuid_primary_key(:id)

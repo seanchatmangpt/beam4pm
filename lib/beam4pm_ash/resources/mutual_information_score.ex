@@ -5,7 +5,19 @@ defmodule BeamPM.Ash.Resources.MutualInformationScore do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:mutual_information_score,
+      attributes: [observation_id: :string, target_state_id: :string, score: :string]
+    )
+
+    activity(:mutual_information_score_created,
+      on: :create,
+      object_type: :mutual_information_score
+    )
+  end
 
   attributes do
     uuid_primary_key(:id)

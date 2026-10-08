@@ -5,7 +5,24 @@ defmodule BeamPM.Ash.Resources.ValueOfInformationEstimate do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:value_of_information_estimate,
+      attributes: [
+        decision_id: :string,
+        evidence_candidate_id: :string,
+        expected_information_gain: :float,
+        cost_basis: :string
+      ]
+    )
+
+    activity(:value_of_information_estimate_created,
+      on: :create,
+      object_type: :value_of_information_estimate
+    )
+  end
 
   attributes do
     uuid_primary_key(:id)

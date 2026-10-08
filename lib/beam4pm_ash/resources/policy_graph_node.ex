@@ -5,7 +5,16 @@ defmodule BeamPM.Ash.Resources.PolicyGraphNode do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:policy_graph_node,
+      attributes: [node_id: :string, state_digest: :string, selected_action_id: :string]
+    )
+
+    activity(:policy_graph_node_created, on: :create, object_type: :policy_graph_node)
+  end
 
   attributes do
     uuid_primary_key(:id)

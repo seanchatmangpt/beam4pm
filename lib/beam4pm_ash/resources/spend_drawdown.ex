@@ -5,7 +5,22 @@ defmodule BeamPM.Ash.Resources.SpendDrawdown do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:spend_drawdown,
+      attributes: [
+        spend_drawdown_id: :string,
+        account_id: :string,
+        consumed_amount: :float,
+        evidence_digest: :string,
+        effective_at: :datetime
+      ]
+    )
+
+    activity(:spend_drawdown_created, on: :create, object_type: :spend_drawdown)
+  end
 
   attributes do
     uuid_primary_key(:id)

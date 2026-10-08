@@ -5,7 +5,16 @@ defmodule BeamPM.Ash.Resources.ResourceCapacityPlan do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:resource_capacity_plan,
+      attributes: [episode_id: :string, resource_pool_hash: :string, allocation_hash: :string]
+    )
+
+    activity(:resource_capacity_plan_created, on: :create, object_type: :resource_capacity_plan)
+  end
 
   attributes do
     uuid_primary_key(:id)

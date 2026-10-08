@@ -5,7 +5,25 @@ defmodule BeamPM.Ash.Resources.HypothesisPriorityUpdate do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:hypothesis_priority_update,
+      attributes: [
+        update_id: :string,
+        hypothesis_id: :string,
+        prior_priority: :float,
+        new_priority: :float,
+        payoff_evidence_digest: :string
+      ]
+    )
+
+    activity(:hypothesis_priority_update_created,
+      on: :create,
+      object_type: :hypothesis_priority_update
+    )
+  end
 
   attributes do
     uuid_primary_key(:id)

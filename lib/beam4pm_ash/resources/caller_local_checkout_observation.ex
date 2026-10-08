@@ -5,7 +5,24 @@ defmodule BeamPM.Ash.Resources.CallerLocalCheckoutObservation do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:caller_local_checkout_observation,
+      attributes: [
+        consumer_repository_id: :string,
+        checkout_sha: :string,
+        checkout_path: :string,
+        evidence_digest: :string
+      ]
+    )
+
+    activity(:caller_local_checkout_observation_created,
+      on: :create,
+      object_type: :caller_local_checkout_observation
+    )
+  end
 
   attributes do
     uuid_primary_key(:id)

@@ -5,7 +5,22 @@ defmodule BeamPM.Ash.Resources.TrajectoryWindow do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:trajectory_window,
+      attributes: [
+        window_id: :string,
+        repository_id: :string,
+        first_subject_sha: :string,
+        last_subject_sha: :string,
+        episode_count: :integer
+      ]
+    )
+
+    activity(:trajectory_window_created, on: :create, object_type: :trajectory_window)
+  end
 
   attributes do
     uuid_primary_key(:id)

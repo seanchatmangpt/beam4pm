@@ -5,7 +5,26 @@ defmodule BeamPM.Ash.Resources.ObservationProjectionUpdate do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:observation_projection_update,
+      attributes: [
+        update_id: :string,
+        projection_id: :string,
+        prior_digest: :string,
+        new_digest: :string,
+        triggering_gap_id: :string,
+        authority_ceiling: :string
+      ]
+    )
+
+    activity(:observation_projection_update_created,
+      on: :create,
+      object_type: :observation_projection_update
+    )
+  end
 
   attributes do
     uuid_primary_key(:id)

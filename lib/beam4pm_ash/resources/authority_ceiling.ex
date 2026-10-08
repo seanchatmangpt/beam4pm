@@ -5,7 +5,16 @@ defmodule BeamPM.Ash.Resources.AuthorityCeiling do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:authority_ceiling,
+      attributes: [action_id: :string, grant_id: :string, ceiling: :string]
+    )
+
+    activity(:authority_ceiling_created, on: :create, object_type: :authority_ceiling)
+  end
 
   attributes do
     uuid_primary_key(:id)

@@ -5,7 +5,24 @@ defmodule BeamPM.Ash.Resources.CommitCheckStateObservation do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:commit_check_state_observation,
+      attributes: [
+        commit_sha: :string,
+        check_name: :string,
+        check_status: :string,
+        observed_at: :datetime
+      ]
+    )
+
+    activity(:commit_check_state_observation_created,
+      on: :create,
+      object_type: :commit_check_state_observation
+    )
+  end
 
   attributes do
     uuid_primary_key(:id)

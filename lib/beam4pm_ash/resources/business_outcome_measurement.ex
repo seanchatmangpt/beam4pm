@@ -5,7 +5,19 @@ defmodule BeamPM.Ash.Resources.BusinessOutcomeMeasurement do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:business_outcome_measurement,
+      attributes: [tenant_id: :string, outcome_id: :string, measurement_hash: :string]
+    )
+
+    activity(:business_outcome_measurement_created,
+      on: :create,
+      object_type: :business_outcome_measurement
+    )
+  end
 
   attributes do
     uuid_primary_key(:id)

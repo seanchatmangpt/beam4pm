@@ -5,7 +5,24 @@ defmodule BeamPM.Ash.Resources.CrownAutonomicRepublish do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:crown_autonomic_republish,
+      attributes: [
+        propagation_id: :string,
+        subject_sha: :string,
+        republished_crown_digest: :string,
+        receipt_digest: :string
+      ]
+    )
+
+    activity(:crown_autonomic_republish_created,
+      on: :create,
+      object_type: :crown_autonomic_republish
+    )
+  end
 
   attributes do
     uuid_primary_key(:id)

@@ -5,7 +5,24 @@ defmodule BeamPM.Ash.Resources.SecondPassByteIdentityObservation do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:second_pass_byte_identity_observation,
+      attributes: [
+        first_tree_digest: :string,
+        second_tree_digest: :string,
+        byte_identity: :boolean,
+        receipt_digest: :string
+      ]
+    )
+
+    activity(:second_pass_byte_identity_observation_created,
+      on: :create,
+      object_type: :second_pass_byte_identity_observation
+    )
+  end
 
   attributes do
     uuid_primary_key(:id)

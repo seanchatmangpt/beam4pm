@@ -5,7 +5,22 @@ defmodule BeamPM.Ash.Resources.RevenueAttribution do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:revenue_attribution,
+      attributes: [
+        revenue_attribution_id: :string,
+        account_id: :string,
+        attributed_revenue: :float,
+        evidence_digest: :string,
+        observed_at: :datetime
+      ]
+    )
+
+    activity(:revenue_attribution_created, on: :create, object_type: :revenue_attribution)
+  end
 
   attributes do
     uuid_primary_key(:id)

@@ -5,7 +5,16 @@ defmodule BeamPM.Ash.Resources.DeviationRepairOption do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:deviation_repair_option,
+      attributes: [option_id: :string, deviation_id: :string, repair_plan_digest: :string]
+    )
+
+    activity(:deviation_repair_option_created, on: :create, object_type: :deviation_repair_option)
+  end
 
   attributes do
     uuid_primary_key(:id)

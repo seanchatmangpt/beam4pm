@@ -5,7 +5,19 @@ defmodule BeamPM.Ash.Resources.BeneficialOwnerEvidence do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:beneficial_owner_evidence,
+      attributes: [account_id: :string, owner_id: :string, evidence_hash: :string]
+    )
+
+    activity(:beneficial_owner_evidence_created,
+      on: :create,
+      object_type: :beneficial_owner_evidence
+    )
+  end
 
   attributes do
     uuid_primary_key(:id)

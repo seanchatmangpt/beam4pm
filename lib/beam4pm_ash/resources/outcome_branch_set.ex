@@ -5,7 +5,16 @@ defmodule BeamPM.Ash.Resources.OutcomeBranchSet do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:outcome_branch_set,
+      attributes: [action_id: :string, branch_digest: :string, coverage_mode: :string]
+    )
+
+    activity(:outcome_branch_set_created, on: :create, object_type: :outcome_branch_set)
+  end
 
   attributes do
     uuid_primary_key(:id)

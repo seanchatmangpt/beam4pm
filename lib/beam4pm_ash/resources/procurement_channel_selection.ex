@@ -5,7 +5,19 @@ defmodule BeamPM.Ash.Resources.ProcurementChannelSelection do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:procurement_channel_selection,
+      attributes: [opportunity_id: :string, channel_id: :string, selection_evidence_hash: :string]
+    )
+
+    activity(:procurement_channel_selection_created,
+      on: :create,
+      object_type: :procurement_channel_selection
+    )
+  end
 
   attributes do
     uuid_primary_key(:id)

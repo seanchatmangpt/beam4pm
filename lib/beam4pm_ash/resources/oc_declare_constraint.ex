@@ -5,7 +5,21 @@ defmodule BeamPM.Ash.Resources.OcDeclareConstraint do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:oc_declare_constraint,
+      attributes: [
+        constraint_id: :string,
+        source_activity: :string,
+        target_activity: :string,
+        constraint_type: :atom
+      ]
+    )
+
+    activity(:oc_declare_constraint_created, on: :create, object_type: :oc_declare_constraint)
+  end
 
   attributes do
     uuid_primary_key(:id)

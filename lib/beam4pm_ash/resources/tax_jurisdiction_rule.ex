@@ -5,7 +5,22 @@ defmodule BeamPM.Ash.Resources.TaxJurisdictionRule do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:tax_jurisdiction_rule,
+      attributes: [
+        tax_jurisdiction_rule_id: :string,
+        account_id: :string,
+        jurisdiction_code: :string,
+        evidence_digest: :string,
+        effective_at: :datetime
+      ]
+    )
+
+    activity(:tax_jurisdiction_rule_created, on: :create, object_type: :tax_jurisdiction_rule)
+  end
 
   attributes do
     uuid_primary_key(:id)

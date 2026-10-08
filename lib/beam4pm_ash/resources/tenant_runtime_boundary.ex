@@ -5,7 +5,16 @@ defmodule BeamPM.Ash.Resources.TenantRuntimeBoundary do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:tenant_runtime_boundary,
+      attributes: [tenant_id: :string, boundary_id: :string, evidence_hash: :string]
+    )
+
+    activity(:tenant_runtime_boundary_created, on: :create, object_type: :tenant_runtime_boundary)
+  end
 
   attributes do
     uuid_primary_key(:id)

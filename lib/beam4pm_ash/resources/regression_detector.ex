@@ -5,7 +5,23 @@ defmodule BeamPM.Ash.Resources.RegressionDetector do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:regression_detector,
+      attributes: [
+        detection_id: :string,
+        baseline_policy_id: :string,
+        candidate_policy_id: :string,
+        metric_id: :string,
+        regression_delta: :float,
+        evidence_digest: :string
+      ]
+    )
+
+    activity(:regression_detector_created, on: :create, object_type: :regression_detector)
+  end
 
   attributes do
     uuid_primary_key(:id)

@@ -5,7 +5,19 @@ defmodule BeamPM.Ash.Resources.IntegrationScopeAdmission do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:integration_scope_admission,
+      attributes: [opportunity_id: :string, integration_scope_id: :string, decision: :string]
+    )
+
+    activity(:integration_scope_admission_created,
+      on: :create,
+      object_type: :integration_scope_admission
+    )
+  end
 
   attributes do
     uuid_primary_key(:id)

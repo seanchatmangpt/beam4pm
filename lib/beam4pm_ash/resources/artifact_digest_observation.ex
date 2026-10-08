@@ -5,7 +5,24 @@ defmodule BeamPM.Ash.Resources.ArtifactDigestObservation do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:artifact_digest_observation,
+      attributes: [
+        artifact_id: :string,
+        artifact_sha256: :string,
+        producer_run_id: :string,
+        observed_at: :datetime
+      ]
+    )
+
+    activity(:artifact_digest_observation_created,
+      on: :create,
+      object_type: :artifact_digest_observation
+    )
+  end
 
   attributes do
     uuid_primary_key(:id)

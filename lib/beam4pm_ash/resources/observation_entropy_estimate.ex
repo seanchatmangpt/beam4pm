@@ -5,7 +5,24 @@ defmodule BeamPM.Ash.Resources.ObservationEntropyEstimate do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:observation_entropy_estimate,
+      attributes: [
+        state_vector_id: :string,
+        entropy_method: :string,
+        entropy_value: :float,
+        observed_at: :datetime
+      ]
+    )
+
+    activity(:observation_entropy_estimate_created,
+      on: :create,
+      object_type: :observation_entropy_estimate
+    )
+  end
 
   attributes do
     uuid_primary_key(:id)

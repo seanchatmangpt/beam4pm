@@ -5,7 +5,19 @@ defmodule BeamPM.Ash.Resources.ConsumptionSubscription do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:consumption_subscription,
+      attributes: [subscription_id: :string, account_id: :string, plan_id: :string, status: :atom]
+    )
+
+    activity(:consumption_subscription_created,
+      on: :create,
+      object_type: :consumption_subscription
+    )
+  end
 
   attributes do
     uuid_primary_key(:id)

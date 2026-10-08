@@ -5,7 +5,24 @@ defmodule BeamPM.Ash.Resources.CrownSecondPassIdentity do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:crown_second_pass_identity,
+      attributes: [
+        propagation_id: :string,
+        subject_sha: :string,
+        second_pass_digest: :string,
+        receipt_digest: :string
+      ]
+    )
+
+    activity(:crown_second_pass_identity_created,
+      on: :create,
+      object_type: :crown_second_pass_identity
+    )
+  end
 
   attributes do
     uuid_primary_key(:id)

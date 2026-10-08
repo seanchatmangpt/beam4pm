@@ -5,7 +5,22 @@ defmodule BeamPM.Ash.Resources.CreditExpiryPolicy do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:credit_expiry_policy,
+      attributes: [
+        credit_expiry_policy_id: :string,
+        account_id: :string,
+        expires_at: :datetime,
+        evidence_digest: :string,
+        effective_at: :datetime
+      ]
+    )
+
+    activity(:credit_expiry_policy_created, on: :create, object_type: :credit_expiry_policy)
+  end
 
   attributes do
     uuid_primary_key(:id)

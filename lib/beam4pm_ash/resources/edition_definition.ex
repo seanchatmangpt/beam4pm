@@ -5,7 +5,17 @@ defmodule BeamPM.Ash.Resources.EditionDefinition do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:edition_definition,
+      attributes: [edition_id: :string, name: :string, support_tier: :string]
+    )
+
+    # skipped field :bundle_ids (bpm:fieldType "list_string") - no bpm:ocelTypeExpr: OCEL object attributes are scalars only
+    activity(:edition_definition_created, on: :create, object_type: :edition_definition)
+  end
 
   attributes do
     uuid_primary_key(:id)

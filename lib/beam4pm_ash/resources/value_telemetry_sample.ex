@@ -5,7 +5,16 @@ defmodule BeamPM.Ash.Resources.ValueTelemetrySample do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:value_telemetry_sample,
+      attributes: [tenant_id: :string, outcome_id: :string, telemetry_hash: :string]
+    )
+
+    activity(:value_telemetry_sample_created, on: :create, object_type: :value_telemetry_sample)
+  end
 
   attributes do
     uuid_primary_key(:id)

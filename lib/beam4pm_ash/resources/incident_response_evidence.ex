@@ -5,7 +5,24 @@ defmodule BeamPM.Ash.Resources.IncidentResponseEvidence do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:incident_response_evidence,
+      attributes: [
+        evidence_id: :string,
+        subject_sha: :string,
+        incident_id: :string,
+        observed_result: :atom
+      ]
+    )
+
+    activity(:incident_response_evidence_created,
+      on: :create,
+      object_type: :incident_response_evidence
+    )
+  end
 
   attributes do
     uuid_primary_key(:id)

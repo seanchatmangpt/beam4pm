@@ -5,7 +5,19 @@ defmodule BeamPM.Ash.Resources.ExactWorldStateAdmission do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:exact_world_state_admission,
+      attributes: [subject_sha: :string, state_digest: :string, observed_at: :datetime]
+    )
+
+    activity(:exact_world_state_admission_created,
+      on: :create,
+      object_type: :exact_world_state_admission
+    )
+  end
 
   attributes do
     uuid_primary_key(:id)

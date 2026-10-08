@@ -5,7 +5,16 @@ defmodule BeamPM.Ash.Resources.OutputOwnershipGate do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:output_ownership_gate,
+      attributes: [subject_id: :string, ownership_manifest_hash: :string, standing: :string]
+    )
+
+    activity(:output_ownership_gate_created, on: :create, object_type: :output_ownership_gate)
+  end
 
   attributes do
     uuid_primary_key(:id)

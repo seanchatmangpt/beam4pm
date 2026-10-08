@@ -5,7 +5,13 @@ defmodule BeamPM.Ash.Resources.EventLog do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:event_log, attributes: [log_id: :string, name: :string, description: :string])
+    activity(:event_log_created, on: :create, object_type: :event_log)
+  end
 
   attributes do
     uuid_primary_key(:id)

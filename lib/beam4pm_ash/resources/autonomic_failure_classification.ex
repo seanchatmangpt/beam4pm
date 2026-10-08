@@ -5,7 +5,24 @@ defmodule BeamPM.Ash.Resources.AutonomicFailureClassification do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:autonomic_failure_classification,
+      attributes: [
+        actuation_id: :string,
+        subject_sha: :string,
+        authority_receipt_sha: :string,
+        state_digest: :string
+      ]
+    )
+
+    activity(:autonomic_failure_classification_created,
+      on: :create,
+      object_type: :autonomic_failure_classification
+    )
+  end
 
   attributes do
     uuid_primary_key(:id)

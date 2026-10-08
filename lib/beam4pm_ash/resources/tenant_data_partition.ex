@@ -5,7 +5,16 @@ defmodule BeamPM.Ash.Resources.TenantDataPartition do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:tenant_data_partition,
+      attributes: [tenant_id: :string, partition_id: :string, isolation_hash: :string]
+    )
+
+    activity(:tenant_data_partition_created, on: :create, object_type: :tenant_data_partition)
+  end
 
   attributes do
     uuid_primary_key(:id)

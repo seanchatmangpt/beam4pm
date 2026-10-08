@@ -5,7 +5,22 @@ defmodule BeamPM.Ash.Resources.RollbackDecision do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:rollback_decision,
+      attributes: [
+        rollback_decision_id: :string,
+        account_id: :string,
+        rollback_result: :string,
+        evidence_digest: :string,
+        observed_at: :datetime
+      ]
+    )
+
+    activity(:rollback_decision_created, on: :create, object_type: :rollback_decision)
+  end
 
   attributes do
     uuid_primary_key(:id)

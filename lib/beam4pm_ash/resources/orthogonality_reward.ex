@@ -5,7 +5,23 @@ defmodule BeamPM.Ash.Resources.OrthogonalityReward do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:orthogonality_reward,
+      attributes: [
+        reward_id: :string,
+        candidate_id: :string,
+        comparison_set_digest: :string,
+        minimum_semantic_distance: :float,
+        reward: :float,
+        independence_evidence_digest: :string
+      ]
+    )
+
+    activity(:orthogonality_reward_created, on: :create, object_type: :orthogonality_reward)
+  end
 
   attributes do
     uuid_primary_key(:id)

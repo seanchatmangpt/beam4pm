@@ -5,7 +5,19 @@ defmodule BeamPM.Ash.Resources.TaskDecompositionProof do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:task_decomposition_proof,
+      attributes: [proof_id: :string, method_id: :string, constraint_proof_digest: :string]
+    )
+
+    activity(:task_decomposition_proof_created,
+      on: :create,
+      object_type: :task_decomposition_proof
+    )
+  end
 
   attributes do
     uuid_primary_key(:id)

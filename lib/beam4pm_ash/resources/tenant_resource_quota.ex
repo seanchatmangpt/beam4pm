@@ -5,7 +5,16 @@ defmodule BeamPM.Ash.Resources.TenantResourceQuota do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:tenant_resource_quota,
+      attributes: [tenant_id: :string, quota_id: :string, utilization_hash: :string]
+    )
+
+    activity(:tenant_resource_quota_created, on: :create, object_type: :tenant_resource_quota)
+  end
 
   attributes do
     uuid_primary_key(:id)

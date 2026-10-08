@@ -5,7 +5,25 @@ defmodule BeamPM.Ash.Resources.UsageAggregationWindow do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:usage_aggregation_window,
+      attributes: [
+        usage_aggregation_window_id: :string,
+        account_id: :string,
+        window_seconds: :integer,
+        evidence_digest: :string,
+        effective_at: :datetime
+      ]
+    )
+
+    activity(:usage_aggregation_window_created,
+      on: :create,
+      object_type: :usage_aggregation_window
+    )
+  end
 
   attributes do
     uuid_primary_key(:id)

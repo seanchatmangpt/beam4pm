@@ -5,7 +5,25 @@ defmodule BeamPM.Ash.Resources.ObjectVolumePricingPolicy do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:object_volume_pricing_policy,
+      attributes: [
+        object_volume_pricing_policy_id: :string,
+        account_id: :string,
+        unit_object_price: :float,
+        evidence_digest: :string,
+        effective_at: :datetime
+      ]
+    )
+
+    activity(:object_volume_pricing_policy_created,
+      on: :create,
+      object_type: :object_volume_pricing_policy
+    )
+  end
 
   attributes do
     uuid_primary_key(:id)

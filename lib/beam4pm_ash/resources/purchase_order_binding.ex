@@ -5,7 +5,21 @@ defmodule BeamPM.Ash.Resources.PurchaseOrderBinding do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:purchase_order_binding,
+      attributes: [
+        binding_id: :string,
+        order_id: :string,
+        purchase_order_number: :string,
+        status: :atom
+      ]
+    )
+
+    activity(:purchase_order_binding_created, on: :create, object_type: :purchase_order_binding)
+  end
 
   attributes do
     uuid_primary_key(:id)

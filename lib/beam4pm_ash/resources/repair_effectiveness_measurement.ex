@@ -5,7 +5,25 @@ defmodule BeamPM.Ash.Resources.RepairEffectivenessMeasurement do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:repair_effectiveness_measurement,
+      attributes: [
+        measurement_id: :string,
+        repair_id: :string,
+        baseline_failure_rate: :float,
+        post_repair_failure_rate: :float,
+        evaluation_window_digest: :string
+      ]
+    )
+
+    activity(:repair_effectiveness_measurement_created,
+      on: :create,
+      object_type: :repair_effectiveness_measurement
+    )
+  end
 
   attributes do
     uuid_primary_key(:id)

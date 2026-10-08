@@ -5,7 +5,24 @@ defmodule BeamPM.Ash.Resources.CrownPackagePinReconciliation do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:crown_package_pin_reconciliation,
+      attributes: [
+        propagation_id: :string,
+        subject_sha: :string,
+        package_version_digest: :string,
+        receipt_digest: :string
+      ]
+    )
+
+    activity(:crown_package_pin_reconciliation_created,
+      on: :create,
+      object_type: :crown_package_pin_reconciliation
+    )
+  end
 
   attributes do
     uuid_primary_key(:id)

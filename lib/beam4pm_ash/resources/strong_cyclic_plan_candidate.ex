@@ -5,7 +5,19 @@ defmodule BeamPM.Ash.Resources.StrongCyclicPlanCandidate do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:strong_cyclic_plan_candidate,
+      attributes: [candidate_id: :string, policy_digest: :string, fairness_proof: :string]
+    )
+
+    activity(:strong_cyclic_plan_candidate_created,
+      on: :create,
+      object_type: :strong_cyclic_plan_candidate
+    )
+  end
 
   attributes do
     uuid_primary_key(:id)

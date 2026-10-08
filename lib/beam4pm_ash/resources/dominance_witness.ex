@@ -5,7 +5,20 @@ defmodule BeamPM.Ash.Resources.DominanceWitness do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:dominance_witness,
+      attributes: [
+        dominant_option_id: :string,
+        dominated_option_id: :string,
+        witness_hash: :string
+      ]
+    )
+
+    activity(:dominance_witness_created, on: :create, object_type: :dominance_witness)
+  end
 
   attributes do
     uuid_primary_key(:id)

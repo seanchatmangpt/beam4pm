@@ -5,7 +5,22 @@ defmodule BeamPM.Ash.Resources.CustomerHealth do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:customer_health,
+      attributes: [
+        customer_health_id: :string,
+        account_id: :string,
+        health_score: :float,
+        evidence_digest: :string,
+        observed_at: :datetime
+      ]
+    )
+
+    activity(:customer_health_created, on: :create, object_type: :customer_health)
+  end
 
   attributes do
     uuid_primary_key(:id)

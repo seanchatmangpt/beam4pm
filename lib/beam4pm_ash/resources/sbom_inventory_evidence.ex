@@ -5,7 +5,21 @@ defmodule BeamPM.Ash.Resources.SbomInventoryEvidence do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:sbom_inventory_evidence,
+      attributes: [
+        evidence_id: :string,
+        subject_sha: :string,
+        component_count: :integer,
+        observed_result: :atom
+      ]
+    )
+
+    activity(:sbom_inventory_evidence_created, on: :create, object_type: :sbom_inventory_evidence)
+  end
 
   attributes do
     uuid_primary_key(:id)

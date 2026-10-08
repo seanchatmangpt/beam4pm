@@ -5,7 +5,19 @@ defmodule BeamPM.Ash.Resources.SupervisorRestartPolicy do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:supervisor_restart_policy,
+      attributes: [tenant_id: :string, supervisor_id: :string, policy_hash: :string]
+    )
+
+    activity(:supervisor_restart_policy_created,
+      on: :create,
+      object_type: :supervisor_restart_policy
+    )
+  end
 
   attributes do
     uuid_primary_key(:id)

@@ -5,7 +5,19 @@ defmodule BeamPM.Ash.Resources.AvailabilityObservation do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:availability_observation,
+      attributes: [tenant_id: :string, slo_id: :string, observation_hash: :string]
+    )
+
+    activity(:availability_observation_created,
+      on: :create,
+      object_type: :availability_observation
+    )
+  end
 
   attributes do
     uuid_primary_key(:id)

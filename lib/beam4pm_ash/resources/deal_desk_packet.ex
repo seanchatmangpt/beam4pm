@@ -5,7 +5,16 @@ defmodule BeamPM.Ash.Resources.DealDeskPacket do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:deal_desk_packet,
+      attributes: [opportunity_id: :string, packet_id: :string, evidence_hash: :string]
+    )
+
+    activity(:deal_desk_packet_created, on: :create, object_type: :deal_desk_packet)
+  end
 
   attributes do
     uuid_primary_key(:id)

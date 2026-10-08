@@ -5,7 +5,24 @@ defmodule BeamPM.Ash.Resources.ArchitectureReviewEvidence do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:architecture_review_evidence,
+      attributes: [
+        evidence_id: :string,
+        subject_sha: :string,
+        review_decision: :string,
+        observed_result: :atom
+      ]
+    )
+
+    activity(:architecture_review_evidence_created,
+      on: :create,
+      object_type: :architecture_review_evidence
+    )
+  end
 
   attributes do
     uuid_primary_key(:id)

@@ -5,7 +5,16 @@ defmodule BeamPM.Ash.Resources.LiabilityCapAdmission do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:liability_cap_admission,
+      attributes: [opportunity_id: :string, liability_cap_id: :string, decision: :string]
+    )
+
+    activity(:liability_cap_admission_created, on: :create, object_type: :liability_cap_admission)
+  end
 
   attributes do
     uuid_primary_key(:id)

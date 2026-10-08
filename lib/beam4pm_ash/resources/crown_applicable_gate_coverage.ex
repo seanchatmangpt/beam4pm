@@ -5,7 +5,24 @@ defmodule BeamPM.Ash.Resources.CrownApplicableGateCoverage do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:crown_applicable_gate_coverage,
+      attributes: [
+        propagation_id: :string,
+        subject_sha: :string,
+        applicable_gate_set_digest: :string,
+        receipt_digest: :string
+      ]
+    )
+
+    activity(:crown_applicable_gate_coverage_created,
+      on: :create,
+      object_type: :crown_applicable_gate_coverage
+    )
+  end
 
   attributes do
     uuid_primary_key(:id)

@@ -5,7 +5,22 @@ defmodule BeamPM.Ash.Resources.BundleDependency do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:bundle_dependency,
+      attributes: [
+        bundle_dependency_id: :string,
+        account_id: :string,
+        required_bundle_id: :string,
+        evidence_digest: :string,
+        effective_at: :datetime
+      ]
+    )
+
+    activity(:bundle_dependency_created, on: :create, object_type: :bundle_dependency)
+  end
 
   attributes do
     uuid_primary_key(:id)

@@ -5,7 +5,16 @@ defmodule BeamPM.Ash.Resources.GeneratedSourceRoute do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:generated_source_route,
+      attributes: [projection_id: :string, source_coordinate: :string, route: :string]
+    )
+
+    activity(:generated_source_route_created, on: :create, object_type: :generated_source_route)
+  end
 
   attributes do
     uuid_primary_key(:id)

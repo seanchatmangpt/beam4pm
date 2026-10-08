@@ -5,7 +5,16 @@ defmodule BeamPM.Ash.Resources.SupportContract do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:support_contract,
+      attributes: [contract_id: :string, account_id: :string, tier: :atom, valid_until: :datetime]
+    )
+
+    activity(:support_contract_created, on: :create, object_type: :support_contract)
+  end
 
   attributes do
     uuid_primary_key(:id)

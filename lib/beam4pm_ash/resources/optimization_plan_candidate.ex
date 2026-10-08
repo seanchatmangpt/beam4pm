@@ -5,7 +5,19 @@ defmodule BeamPM.Ash.Resources.OptimizationPlanCandidate do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:optimization_plan_candidate,
+      attributes: [plan_id: :string, objective_id: :string, solver_receipt_hash: :string]
+    )
+
+    activity(:optimization_plan_candidate_created,
+      on: :create,
+      object_type: :optimization_plan_candidate
+    )
+  end
 
   attributes do
     uuid_primary_key(:id)

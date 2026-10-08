@@ -5,7 +5,25 @@ defmodule BeamPM.Ash.Resources.SubjectFailureSeparation do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:subject_failure_separation,
+      attributes: [
+        assessment_id: :string,
+        exact_subject_sha: :string,
+        capsule_standing: :string,
+        subject_failure_code: :string,
+        independent_reproducer_digest: :string
+      ]
+    )
+
+    activity(:subject_failure_separation_created,
+      on: :create,
+      object_type: :subject_failure_separation
+    )
+  end
 
   attributes do
     uuid_primary_key(:id)

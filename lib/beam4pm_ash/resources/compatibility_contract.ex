@@ -5,7 +5,21 @@ defmodule BeamPM.Ash.Resources.CompatibilityContract do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:compatibility_contract,
+      attributes: [
+        contract_id: :string,
+        product_version: :string,
+        schema_version: :string,
+        api_version: :string
+      ]
+    )
+
+    activity(:compatibility_contract_created, on: :create, object_type: :compatibility_contract)
+  end
 
   attributes do
     uuid_primary_key(:id)

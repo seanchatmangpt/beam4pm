@@ -5,7 +5,26 @@ defmodule BeamPM.Ash.Resources.AcceptanceCriteriaNonweakening do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:acceptance_criteria_nonweakening,
+      attributes: [
+        assessment_id: :string,
+        acceptance_contract_id: :string,
+        prior_digest: :string,
+        candidate_digest: :string,
+        strength_result: :string,
+        refusal_code: :string
+      ]
+    )
+
+    activity(:acceptance_criteria_nonweakening_created,
+      on: :create,
+      object_type: :acceptance_criteria_nonweakening
+    )
+  end
 
   attributes do
     uuid_primary_key(:id)

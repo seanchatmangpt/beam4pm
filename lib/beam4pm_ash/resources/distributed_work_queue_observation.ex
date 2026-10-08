@@ -5,7 +5,19 @@ defmodule BeamPM.Ash.Resources.DistributedWorkQueueObservation do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:distributed_work_queue_observation,
+      attributes: [consumer_subject_sha: :string, queue_digest: :string, observed_at: :datetime]
+    )
+
+    activity(:distributed_work_queue_observation_created,
+      on: :create,
+      object_type: :distributed_work_queue_observation
+    )
+  end
 
   attributes do
     uuid_primary_key(:id)

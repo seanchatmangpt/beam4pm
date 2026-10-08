@@ -5,7 +5,24 @@ defmodule BeamPM.Ash.Resources.RepositoryDefaultBranchObservation do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:repository_default_branch_observation,
+      attributes: [
+        repository_id: :string,
+        default_branch: :string,
+        head_sha: :string,
+        observed_at: :datetime
+      ]
+    )
+
+    activity(:repository_default_branch_observation_created,
+      on: :create,
+      object_type: :repository_default_branch_observation
+    )
+  end
 
   attributes do
     uuid_primary_key(:id)

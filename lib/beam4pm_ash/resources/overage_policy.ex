@@ -5,7 +5,16 @@ defmodule BeamPM.Ash.Resources.OveragePolicy do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:overage_policy,
+      attributes: [policy_id: :string, quota_id: :string, unit_price: :float, behavior: :atom]
+    )
+
+    activity(:overage_policy_created, on: :create, object_type: :overage_policy)
+  end
 
   attributes do
     uuid_primary_key(:id)

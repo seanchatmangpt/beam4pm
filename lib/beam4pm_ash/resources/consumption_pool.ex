@@ -5,7 +5,21 @@ defmodule BeamPM.Ash.Resources.ConsumptionPool do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:consumption_pool,
+      attributes: [
+        pool_id: :string,
+        account_id: :string,
+        unit: :string,
+        remaining_quantity: :float
+      ]
+    )
+
+    activity(:consumption_pool_created, on: :create, object_type: :consumption_pool)
+  end
 
   attributes do
     uuid_primary_key(:id)

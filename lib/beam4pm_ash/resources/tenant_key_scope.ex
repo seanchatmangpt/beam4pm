@@ -5,7 +5,16 @@ defmodule BeamPM.Ash.Resources.TenantKeyScope do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:tenant_key_scope,
+      attributes: [tenant_id: :string, key_scope_id: :string, key_attestation_hash: :string]
+    )
+
+    activity(:tenant_key_scope_created, on: :create, object_type: :tenant_key_scope)
+  end
 
   attributes do
     uuid_primary_key(:id)

@@ -5,7 +5,21 @@ defmodule BeamPM.Ash.Resources.CrownPromotionRace do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:crown_promotion_race,
+      attributes: [
+        propagation_id: :string,
+        subject_sha: :string,
+        observed_previous_digest: :string,
+        receipt_digest: :string
+      ]
+    )
+
+    activity(:crown_promotion_race_created, on: :create, object_type: :crown_promotion_race)
+  end
 
   attributes do
     uuid_primary_key(:id)

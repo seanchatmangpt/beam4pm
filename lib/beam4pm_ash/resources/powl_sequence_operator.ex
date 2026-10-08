@@ -5,7 +5,16 @@ defmodule BeamPM.Ash.Resources.PowlSequenceOperator do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:powl_sequence_operator,
+      attributes: [operator_id: :string, step_digest: :string, predecessor_digest: :string]
+    )
+
+    activity(:powl_sequence_operator_created, on: :create, object_type: :powl_sequence_operator)
+  end
 
   attributes do
     uuid_primary_key(:id)

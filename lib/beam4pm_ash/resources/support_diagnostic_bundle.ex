@@ -5,7 +5,19 @@ defmodule BeamPM.Ash.Resources.SupportDiagnosticBundle do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:support_diagnostic_bundle,
+      attributes: [tenant_id: :string, incident_id: :string, bundle_hash: :string]
+    )
+
+    activity(:support_diagnostic_bundle_created,
+      on: :create,
+      object_type: :support_diagnostic_bundle
+    )
+  end
 
   attributes do
     uuid_primary_key(:id)

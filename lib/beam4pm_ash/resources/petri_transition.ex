@@ -5,7 +5,13 @@ defmodule BeamPM.Ash.Resources.PetriTransition do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:petri_transition, attributes: [transition_id: :string, label: :string])
+    activity(:petri_transition_created, on: :create, object_type: :petri_transition)
+  end
 
   attributes do
     uuid_primary_key(:id)

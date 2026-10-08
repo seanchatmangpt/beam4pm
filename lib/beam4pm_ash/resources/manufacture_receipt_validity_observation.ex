@@ -5,7 +5,24 @@ defmodule BeamPM.Ash.Resources.ManufactureReceiptValidityObservation do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:manufacture_receipt_validity_observation,
+      attributes: [
+        receipt_digest: :string,
+        subject_sha: :string,
+        verification_status: :string,
+        verifier_identity: :string
+      ]
+    )
+
+    activity(:manufacture_receipt_validity_observation_created,
+      on: :create,
+      object_type: :manufacture_receipt_validity_observation
+    )
+  end
 
   attributes do
     uuid_primary_key(:id)

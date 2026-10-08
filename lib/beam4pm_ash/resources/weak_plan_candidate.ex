@@ -5,7 +5,16 @@ defmodule BeamPM.Ash.Resources.WeakPlanCandidate do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:weak_plan_candidate,
+      attributes: [candidate_id: :string, policy_digest: :string, uncovered_digest: :string]
+    )
+
+    activity(:weak_plan_candidate_created, on: :create, object_type: :weak_plan_candidate)
+  end
 
   attributes do
     uuid_primary_key(:id)

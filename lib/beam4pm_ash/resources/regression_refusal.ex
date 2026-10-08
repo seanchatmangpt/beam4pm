@@ -5,7 +5,23 @@ defmodule BeamPM.Ash.Resources.RegressionRefusal do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:regression_refusal,
+      attributes: [
+        refusal_id: :string,
+        candidate_policy_id: :string,
+        regression_detection_id: :string,
+        acceptance_threshold: :float,
+        observed_regression: :float,
+        authority_ceiling: :string
+      ]
+    )
+
+    activity(:regression_refusal_created, on: :create, object_type: :regression_refusal)
+  end
 
   attributes do
     uuid_primary_key(:id)

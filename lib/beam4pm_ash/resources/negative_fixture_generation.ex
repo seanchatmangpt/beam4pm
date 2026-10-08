@@ -5,7 +5,25 @@ defmodule BeamPM.Ash.Resources.NegativeFixtureGeneration do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:negative_fixture_generation,
+      attributes: [
+        fixture_id: :string,
+        source_failure_id: :string,
+        invariant_id: :string,
+        generated_input_digest: :string,
+        expected_refusal_code: :string
+      ]
+    )
+
+    activity(:negative_fixture_generation_created,
+      on: :create,
+      object_type: :negative_fixture_generation
+    )
+  end
 
   attributes do
     uuid_primary_key(:id)

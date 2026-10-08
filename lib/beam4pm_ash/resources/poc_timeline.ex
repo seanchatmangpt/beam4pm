@@ -5,7 +5,22 @@ defmodule BeamPM.Ash.Resources.PocTimeline do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:poc_timeline,
+      attributes: [
+        poc_timeline_id: :string,
+        account_id: :string,
+        days_to_value: :integer,
+        evidence_digest: :string,
+        observed_at: :datetime
+      ]
+    )
+
+    activity(:poc_timeline_created, on: :create, object_type: :poc_timeline)
+  end
 
   attributes do
     uuid_primary_key(:id)

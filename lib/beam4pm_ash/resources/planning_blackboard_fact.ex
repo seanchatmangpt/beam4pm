@@ -5,7 +5,19 @@ defmodule BeamPM.Ash.Resources.PlanningBlackboardFact do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:planning_blackboard_fact,
+      attributes: [fact_id: :string, subject_sha: :string, provenance_digest: :string]
+    )
+
+    activity(:planning_blackboard_fact_created,
+      on: :create,
+      object_type: :planning_blackboard_fact
+    )
+  end
 
   attributes do
     uuid_primary_key(:id)

@@ -5,7 +5,24 @@ defmodule BeamPM.Ash.Resources.CrownDefaultHeadSensor do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:crown_default_head_sensor,
+      attributes: [
+        propagation_id: :string,
+        subject_sha: :string,
+        default_head_sha: :string,
+        receipt_digest: :string
+      ]
+    )
+
+    activity(:crown_default_head_sensor_created,
+      on: :create,
+      object_type: :crown_default_head_sensor
+    )
+  end
 
   attributes do
     uuid_primary_key(:id)

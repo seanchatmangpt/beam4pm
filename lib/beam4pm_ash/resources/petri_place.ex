@@ -5,7 +5,13 @@ defmodule BeamPM.Ash.Resources.PetriPlace do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:petri_place, attributes: [place_id: :string, tokens: :integer])
+    activity(:petri_place_created, on: :create, object_type: :petri_place)
+  end
 
   attributes do
     uuid_primary_key(:id)

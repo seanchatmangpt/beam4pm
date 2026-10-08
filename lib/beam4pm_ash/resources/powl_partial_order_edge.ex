@@ -5,7 +5,13 @@ defmodule BeamPM.Ash.Resources.PowlPartialOrderEdge do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:powl_partial_order_edge, attributes: [from_index: :integer, to_index: :integer])
+    activity(:powl_partial_order_edge_created, on: :create, object_type: :powl_partial_order_edge)
+  end
 
   attributes do
     uuid_primary_key(:id)

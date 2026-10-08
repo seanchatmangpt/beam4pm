@@ -5,7 +5,19 @@ defmodule BeamPM.Ash.Resources.AccountValueRealization do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:account_value_realization,
+      attributes: [tenant_id: :string, account_id: :string, realization_hash: :string]
+    )
+
+    activity(:account_value_realization_created,
+      on: :create,
+      object_type: :account_value_realization
+    )
+  end
 
   attributes do
     uuid_primary_key(:id)

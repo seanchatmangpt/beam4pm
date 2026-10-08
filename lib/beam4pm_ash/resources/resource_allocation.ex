@@ -5,7 +5,16 @@ defmodule BeamPM.Ash.Resources.ResourceAllocation do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:resource_allocation,
+      attributes: [resource_id: :string, activity: :string, event_id: :string]
+    )
+
+    activity(:resource_allocation_created, on: :create, object_type: :resource_allocation)
+  end
 
   attributes do
     uuid_primary_key(:id)

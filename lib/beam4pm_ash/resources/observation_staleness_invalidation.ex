@@ -5,7 +5,24 @@ defmodule BeamPM.Ash.Resources.ObservationStalenessInvalidation do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:observation_staleness_invalidation,
+      attributes: [
+        observation_id: :string,
+        invalidated_at: :datetime,
+        staleness_reason: :string,
+        replacement_required: :boolean
+      ]
+    )
+
+    activity(:observation_staleness_invalidation_created,
+      on: :create,
+      object_type: :observation_staleness_invalidation
+    )
+  end
 
   attributes do
     uuid_primary_key(:id)

@@ -5,7 +5,22 @@ defmodule BeamPM.Ash.Resources.SecurityReadiness do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:security_readiness,
+      attributes: [
+        security_readiness_id: :string,
+        account_id: :string,
+        control_coverage: :float,
+        evidence_digest: :string,
+        observed_at: :datetime
+      ]
+    )
+
+    activity(:security_readiness_created, on: :create, object_type: :security_readiness)
+  end
 
   attributes do
     uuid_primary_key(:id)

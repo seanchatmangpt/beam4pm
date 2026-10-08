@@ -5,7 +5,25 @@ defmodule BeamPM.Ash.Resources.EnvironmentFailureSeparation do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:environment_failure_separation,
+      attributes: [
+        assessment_id: :string,
+        exact_subject_sha: :string,
+        capsule_digest: :string,
+        failure_signal: :string,
+        classification_basis: :string
+      ]
+    )
+
+    activity(:environment_failure_separation_created,
+      on: :create,
+      object_type: :environment_failure_separation
+    )
+  end
 
   attributes do
     uuid_primary_key(:id)

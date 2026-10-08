@@ -5,7 +5,19 @@ defmodule BeamPM.Ash.Resources.MasterServiceAgreementState do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:master_service_agreement_state,
+      attributes: [opportunity_id: :string, agreement_id: :string, agreement_state: :string]
+    )
+
+    activity(:master_service_agreement_state_created,
+      on: :create,
+      object_type: :master_service_agreement_state
+    )
+  end
 
   attributes do
     uuid_primary_key(:id)

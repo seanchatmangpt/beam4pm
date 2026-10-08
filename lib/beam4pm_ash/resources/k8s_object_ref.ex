@@ -5,7 +5,13 @@ defmodule BeamPM.Ash.Resources.K8sObjectRef do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:k8s_object_ref, attributes: [kind: :string, name: :string, namespace: :string])
+    activity(:k8s_object_ref_created, on: :create, object_type: :k8s_object_ref)
+  end
 
   attributes do
     uuid_primary_key(:id)

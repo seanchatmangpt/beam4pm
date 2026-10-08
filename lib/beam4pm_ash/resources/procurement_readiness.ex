@@ -5,7 +5,22 @@ defmodule BeamPM.Ash.Resources.ProcurementReadiness do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:procurement_readiness,
+      attributes: [
+        procurement_readiness_id: :string,
+        account_id: :string,
+        procurement_stage: :string,
+        evidence_digest: :string,
+        observed_at: :datetime
+      ]
+    )
+
+    activity(:procurement_readiness_created, on: :create, object_type: :procurement_readiness)
+  end
 
   attributes do
     uuid_primary_key(:id)

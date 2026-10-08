@@ -5,7 +5,24 @@ defmodule BeamPM.Ash.Resources.CrownWorkflowRunReceipt do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:crown_workflow_run_receipt,
+      attributes: [
+        propagation_id: :string,
+        subject_sha: :string,
+        workflow_run_id: :string,
+        receipt_digest: :string
+      ]
+    )
+
+    activity(:crown_workflow_run_receipt_created,
+      on: :create,
+      object_type: :crown_workflow_run_receipt
+    )
+  end
 
   attributes do
     uuid_primary_key(:id)

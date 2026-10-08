@@ -5,7 +5,16 @@ defmodule BeamPM.Ash.Resources.BudgetPeriodAlignment do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:budget_period_alignment,
+      attributes: [opportunity_id: :string, budget_period: :string, alignment_result: :string]
+    )
+
+    activity(:budget_period_alignment_created, on: :create, object_type: :budget_period_alignment)
+  end
 
   attributes do
     uuid_primary_key(:id)

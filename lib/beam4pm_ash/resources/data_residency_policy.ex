@@ -5,7 +5,17 @@ defmodule BeamPM.Ash.Resources.DataResidencyPolicy do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:data_residency_policy,
+      attributes: [policy_id: :string, tenant_id: :string, status: :atom]
+    )
+
+    # skipped field :allowed_regions (bpm:fieldType "list_string") - no bpm:ocelTypeExpr: OCEL object attributes are scalars only
+    activity(:data_residency_policy_created, on: :create, object_type: :data_residency_policy)
+  end
 
   attributes do
     uuid_primary_key(:id)

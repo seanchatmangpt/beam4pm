@@ -5,7 +5,22 @@ defmodule BeamPM.Ash.Resources.ArchitectureReadiness do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:architecture_readiness,
+      attributes: [
+        architecture_readiness_id: :string,
+        account_id: :string,
+        architecture_score: :float,
+        evidence_digest: :string,
+        observed_at: :datetime
+      ]
+    )
+
+    activity(:architecture_readiness_created, on: :create, object_type: :architecture_readiness)
+  end
 
   attributes do
     uuid_primary_key(:id)

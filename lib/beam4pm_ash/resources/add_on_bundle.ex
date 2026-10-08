@@ -5,7 +5,15 @@ defmodule BeamPM.Ash.Resources.AddOnBundle do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:add_on_bundle, attributes: [add_on_id: :string, name: :string, status: :atom])
+
+    # skipped field :capability_ids (bpm:fieldType "list_string") - no bpm:ocelTypeExpr: OCEL object attributes are scalars only
+    activity(:add_on_bundle_created, on: :create, object_type: :add_on_bundle)
+  end
 
   attributes do
     uuid_primary_key(:id)

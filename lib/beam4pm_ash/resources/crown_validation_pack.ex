@@ -5,7 +5,21 @@ defmodule BeamPM.Ash.Resources.CrownValidationPack do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:crown_validation_pack,
+      attributes: [
+        propagation_id: :string,
+        subject_sha: :string,
+        validation_pack_sha: :string,
+        receipt_digest: :string
+      ]
+    )
+
+    activity(:crown_validation_pack_created, on: :create, object_type: :crown_validation_pack)
+  end
 
   attributes do
     uuid_primary_key(:id)

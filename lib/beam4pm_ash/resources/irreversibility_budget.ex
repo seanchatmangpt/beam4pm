@@ -5,7 +5,16 @@ defmodule BeamPM.Ash.Resources.IrreversibilityBudget do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:irreversibility_budget,
+      attributes: [episode_id: :string, budget: :string, consumed: :string]
+    )
+
+    activity(:irreversibility_budget_created, on: :create, object_type: :irreversibility_budget)
+  end
 
   attributes do
     uuid_primary_key(:id)

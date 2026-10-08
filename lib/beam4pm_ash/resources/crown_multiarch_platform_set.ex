@@ -5,7 +5,24 @@ defmodule BeamPM.Ash.Resources.CrownMultiarchPlatformSet do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:crown_multiarch_platform_set,
+      attributes: [
+        propagation_id: :string,
+        subject_sha: :string,
+        platform_set_digest: :string,
+        receipt_digest: :string
+      ]
+    )
+
+    activity(:crown_multiarch_platform_set_created,
+      on: :create,
+      object_type: :crown_multiarch_platform_set
+    )
+  end
 
   attributes do
     uuid_primary_key(:id)

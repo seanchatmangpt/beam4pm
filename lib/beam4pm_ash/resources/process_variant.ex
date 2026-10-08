@@ -5,7 +5,15 @@ defmodule BeamPM.Ash.Resources.ProcessVariant do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:process_variant, attributes: [variant_id: :string, frequency: :integer])
+
+    # skipped field :activity_sequence (bpm:fieldType "list_string") - no bpm:ocelTypeExpr: OCEL object attributes are scalars only
+    activity(:process_variant_created, on: :create, object_type: :process_variant)
+  end
 
   attributes do
     uuid_primary_key(:id)

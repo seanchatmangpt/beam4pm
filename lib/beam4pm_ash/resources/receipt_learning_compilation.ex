@@ -5,7 +5,25 @@ defmodule BeamPM.Ash.Resources.ReceiptLearningCompilation do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:receipt_learning_compilation,
+      attributes: [
+        compilation_id: :string,
+        receipt_chain_head: :string,
+        admitted_receipt_count: :integer,
+        rejected_receipt_count: :integer,
+        learning_digest: :string
+      ]
+    )
+
+    activity(:receipt_learning_compilation_created,
+      on: :create,
+      object_type: :receipt_learning_compilation
+    )
+  end
 
   attributes do
     uuid_primary_key(:id)

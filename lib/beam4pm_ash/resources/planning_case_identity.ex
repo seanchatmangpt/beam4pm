@@ -5,7 +5,16 @@ defmodule BeamPM.Ash.Resources.PlanningCaseIdentity do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:planning_case_identity,
+      attributes: [case_id: :string, subject_sha: :string, lineage_root: :string]
+    )
+
+    activity(:planning_case_identity_created, on: :create, object_type: :planning_case_identity)
+  end
 
   attributes do
     uuid_primary_key(:id)

@@ -5,7 +5,26 @@ defmodule BeamPM.Ash.Resources.PolicyPayoffObservation do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:policy_payoff_observation,
+      attributes: [
+        observation_id: :string,
+        policy_id: :string,
+        parameter_digest: :string,
+        objective_id: :string,
+        payoff: :float,
+        evidence_digest: :string
+      ]
+    )
+
+    activity(:policy_payoff_observation_created,
+      on: :create,
+      object_type: :policy_payoff_observation
+    )
+  end
 
   attributes do
     uuid_primary_key(:id)

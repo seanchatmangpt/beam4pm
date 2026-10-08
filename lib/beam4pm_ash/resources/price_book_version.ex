@@ -5,7 +5,22 @@ defmodule BeamPM.Ash.Resources.PriceBookVersion do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:price_book_version,
+      attributes: [
+        price_book_version_id: :string,
+        account_id: :string,
+        version: :string,
+        evidence_digest: :string,
+        effective_at: :datetime
+      ]
+    )
+
+    activity(:price_book_version_created, on: :create, object_type: :price_book_version)
+  end
 
   attributes do
     uuid_primary_key(:id)

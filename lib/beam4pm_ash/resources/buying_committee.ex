@@ -5,7 +5,22 @@ defmodule BeamPM.Ash.Resources.BuyingCommittee do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:buying_committee,
+      attributes: [
+        buying_committee_id: :string,
+        account_id: :string,
+        committee_coverage: :float,
+        evidence_digest: :string,
+        observed_at: :datetime
+      ]
+    )
+
+    activity(:buying_committee_created, on: :create, object_type: :buying_committee)
+  end
 
   attributes do
     uuid_primary_key(:id)

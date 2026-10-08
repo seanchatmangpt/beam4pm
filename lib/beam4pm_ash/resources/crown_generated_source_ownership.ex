@@ -5,7 +5,24 @@ defmodule BeamPM.Ash.Resources.CrownGeneratedSourceOwnership do
   use Ash.Resource,
     domain: BeamPM.Ash.Domain,
     data_layer: Ash.DataLayer.Ets,
-    validate_domain_inclusion?: false
+    validate_domain_inclusion?: false,
+    extensions: [AshEx4pm]
+
+  ex4pm do
+    object_type(:crown_generated_source_ownership,
+      attributes: [
+        propagation_id: :string,
+        subject_sha: :string,
+        canonical_source_path: :string,
+        receipt_digest: :string
+      ]
+    )
+
+    activity(:crown_generated_source_ownership_created,
+      on: :create,
+      object_type: :crown_generated_source_ownership
+    )
+  end
 
   attributes do
     uuid_primary_key(:id)
