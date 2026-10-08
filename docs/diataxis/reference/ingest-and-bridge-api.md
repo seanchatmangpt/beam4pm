@@ -237,3 +237,5 @@ directly-follows edges (fields `source_activity`, `target_activity`,
 | `bench/ex4pm_bridge_bench.exs` | Realtime capture-path benchmark (`MIX_BUILD_ROOT=_build-soak4 MIX_ENV=test mix run --no-start bench/ex4pm_bridge_bench.exs`) |
 
 See Also: `docs/diataxis/explanation/why-the-ingest-bridges-live-in-scripts.md`
+
+wasm4pm's OCEL fixtures (`/Users/sac/wasm4pm/fixtures/shared/receipt.xes`, `fixtures/negative/`) are real ingestion inputs exercised by `lib/beam4pm_rf2_conformance.ex` and `lib/beam4pm_rf3_ocel.ex`; see [wasm4pm docs](../../../../wasm4pm/docs/README.md).
