@@ -39,7 +39,7 @@ direct intervention on generated files:
 ```sh
 git clone --recurse-submodules <this-repo-url>   # vendor/ggen-marketplace is a submodule
 just verify        # submodules -> sync -> authorship -> engine_dispatch -> lint_truth -> test
-# asdf toolchain pin at repo root (.tool-versions): elixir 1.18.4-otp-27, erlang 27.2.4, postgres 15.2
+# asdf toolchain pin at repo root (.tool-versions): elixir 1.20.4-otp-29, erlang 29.1.1, postgres 15.2
 just sync           # rm -f ggen.lock; ggen sync run --dry-run; ggen sync run
 just test           # rebar3 eunit && mix test
 ```
