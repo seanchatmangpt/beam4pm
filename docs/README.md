@@ -24,6 +24,7 @@ what you're trying to do, not the one that sounds most complete.
 - [BeamPM.Discovery and BeamPM.Precision API Reference](reference/discovery-and-conformance-api.md)
 - [beam4pm Types Reference](reference/beam4pm_types_reference.md) — generated, every `bpm:RecordType`
 - [Per-record-type pages](reference/types/) — generated, one page per admitted record type
+- [Generated API Reference Skeletons](diataxis/reference/generated/README.md) — doc-hdit-scaffolded, full code surface (1552 modules / 6680 public items); regenerated, do not hand-edit
 - [FAQ](FAQ.md)
 
 ## Explanation — understand why
