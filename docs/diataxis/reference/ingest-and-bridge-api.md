@@ -8,7 +8,10 @@ function they feed. All signatures verified against the cited files.
 Provenance note: `BeamPM.Ingest.Bridge` is defined in
 `scripts/ingest_telemetry.exs`, `BeamPM.Evidence.Ex4pmBridge` in
 `scripts/ex4pm_bridge.exs` — hand-authored orchestration over generated
-capital, loaded at runtime via `Code.require_file/1`. The types and
+capital, loaded at runtime via `Code.require_file/1`. Neither module lives
+in `lib/`: both are script-local definitions, so they are not part of the
+compiled `:beam4pm` application and are only available when the defining
+script is loaded. The types and
 discovery functions are GENERATED (`lib/beam4pm_types.ex`,
 `lib/beam4pm_discovery.ex`); never hand-edit them.
 

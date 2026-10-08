@@ -19,14 +19,12 @@ All notable changes to beam4pm are documented in this file.
   `[:beam4pm, :ex4pm, :envelope, :ingested]` telemetry event per forwarded
   envelope. Attach via `Application.put_env(:ash_ex4pm, :broadcaster, ...)`
   or `BeamPM.Evidence.Ex4pmBridge.attach/0`.
-- Caveat (hex consumers): the automatic notifier-driven path requires the
-  NEXT `ash_ex4pm` release — the released 26.10.1 notifier passes no
-  broadcaster (the bridge itself and its tests run against released hex
-  26.10.1 by passing the broadcaster explicitly). This branch keeps the hex
-  dep `{:ash_ex4pm, "~> 26.10"}`; dogfooding the unreleased upstream
-  notifier change uses a LOCAL, UNCOMMITTED `path: "../ash_ex4pm"` override
-  that is not part of this change (release path: upstream publish → bump
-  the pin).
+- Caveat (hex consumers), RESOLVED: the notifier-driven path shipped in
+  upstream `ash_ex4pm` 26.10.8 (tag `v26.10.8`, `420ead7`) — the released
+  notifier now threads the `:broadcaster` through to
+  `Ex4pm.Stream.Ingest.ingest_envelope/2`. The hex dep remains
+  `{:ash_ex4pm, "~> 26.10"}`; bump the pin to `~> 26.10.8` (or `>= 26.10.8`)
+  to pick up the automatic notifier-driven path.
 - `lib/beam4pm_evidence.ex` moduledoc now carries the division-of-labor
   paragraph (AshEx4pm.Notifier owns Ash-action emission into
   `Ex4pm.Evidence.Store`; `BeamPM.Evidence`'s bridges stay authoritative for
@@ -34,6 +32,23 @@ All notable changes to beam4pm are documented in this file.
   bridge above once the upstream broadcaster ships.
 
 ## [26.10.8] - 2026-10-08
+
+### Added
+
+- Batch C ERC-002 witness receipts (23) plus 2 ex4pm soak notes
+  (`6d2e4833`).
+- Batch C map-update + Art. 72 conformance courts: 3 test files, +343
+  lines (`0bf99728` — `test/beam4pm_art72_conformance_test.exs`,
+  `test/beam4pm_w601_map_update_dual_safe_test.exs`,
+  `test/beam4pm_w607_map_update_court_test.exs`).
+- Admission wave W658b: 3 newly admitted hand-authored sources
+  (`lib/beam4pm_art72_conformance.ex` + test — lane W511's Art. 72
+  token-replay conformance; `test/beam4pm_airo_description_test.exs` —
+  lane W634's AIRo risk-description court), authorship ceiling raised
+  99 -> 102, sha256 digest refreshes, `ggen.lock` regen (`56020248`).
+- v26.10.3 ARD-PRD requirements graph, batch E
+  (`docs/sjira/v26.10.3/ARD-PRD.ttl`, `bc340f3f`).
+- Vendored `ggen-marketplace` bumped to `6e9344140` (`7312ffcd`).
 
 ### Changed
 
