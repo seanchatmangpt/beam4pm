@@ -43,3 +43,12 @@ pricing/packaging, GTM, security, and release-gate package — start at
 
 - `CLAUDE.md` — repository overview and command reference
 - `ontology.ttl` — the RDF instance data that drives manufacturing
+
+Family (external sibling repositories):
+
+- ex4pm `docs/README.md` (`~/ex4pm`) — the upstream core engine and
+  evidence contract; beam4pm reaches the ex4pm runtime (incl.
+  `Ex4pm.Stream.Ingest.ingest_envelope/1`, `Ex4pm.Evidence.BRCE.execute/4`)
+  through `ash_ex4pm`, which pins `{:ex4pm, "== 26.10.1"}`.
+- ash_ex4pm `docs/diataxis/index.md` (`~/ash_ex4pm`) — the Ash projection
+  layer beam4pm consumes via `{:ash_ex4pm, "~> 26.10"}`.
