@@ -238,6 +238,496 @@ defmodule BeamPM.Ash.ResourcesGeneratedTest do
       }
     },
     %{
+      name: "aloop_actuate",
+      mod: BeamPM.Ash.Resources.AloopActuate,
+      params: %{
+        event_id: "sample_x",
+        event_time: "2026-08-29T12:00:00Z",
+        episode_id: "sample_x",
+        attributes: %{"k" => "v"},
+        consequence: "sample_x"
+      },
+      expected: %{
+        event_id: "sample_x",
+        event_time: ~U[2026-08-29 12:00:00Z],
+        episode_id: "sample_x",
+        attributes: %{"k" => "v"},
+        consequence: "sample_x"
+      }
+    },
+    %{
+      name: "aloop_benchmark_run",
+      mod: BeamPM.Ash.Resources.AloopBenchmarkRun,
+      params: %{
+        event_id: "sample_x",
+        event_time: "2026-08-29T12:00:00Z",
+        episode_id: "sample_x",
+        attributes: %{"k" => "v"}
+      },
+      expected: %{
+        event_id: "sample_x",
+        event_time: ~U[2026-08-29 12:00:00Z],
+        episode_id: "sample_x",
+        attributes: %{"k" => "v"}
+      }
+    },
+    %{
+      name: "aloop_candidate_admit",
+      mod: BeamPM.Ash.Resources.AloopCandidateAdmit,
+      params: %{
+        event_id: "sample_x",
+        event_time: "2026-08-29T12:00:00Z",
+        episode_id: "sample_x",
+        attributes: %{"k" => "v"}
+      },
+      expected: %{
+        event_id: "sample_x",
+        event_time: ~U[2026-08-29 12:00:00Z],
+        episode_id: "sample_x",
+        attributes: %{"k" => "v"}
+      }
+    },
+    %{
+      name: "aloop_candidate_construct",
+      mod: BeamPM.Ash.Resources.AloopCandidateConstruct,
+      params: %{
+        event_id: "sample_x",
+        event_time: "2026-08-29T12:00:00Z",
+        episode_id: "sample_x",
+        attributes: %{"k" => "v"},
+        origin_authority: "sample_x"
+      },
+      expected: %{
+        event_id: "sample_x",
+        event_time: ~U[2026-08-29 12:00:00Z],
+        episode_id: "sample_x",
+        attributes: %{"k" => "v"},
+        origin_authority: "sample_x"
+      }
+    },
+    %{
+      name: "aloop_checkpoint",
+      mod: BeamPM.Ash.Resources.AloopCheckpoint,
+      params: %{
+        event_id: "sample_x",
+        event_time: "2026-08-29T12:00:00Z",
+        episode_id: "sample_x",
+        attributes: %{"k" => "v"}
+      },
+      expected: %{
+        event_id: "sample_x",
+        event_time: ~U[2026-08-29 12:00:00Z],
+        episode_id: "sample_x",
+        attributes: %{"k" => "v"}
+      }
+    },
+    %{
+      name: "aloop_commit",
+      mod: BeamPM.Ash.Resources.AloopCommit,
+      params: %{
+        event_id: "sample_x",
+        event_time: "2026-08-29T12:00:00Z",
+        episode_id: "sample_x",
+        attributes: %{"k" => "v"}
+      },
+      expected: %{
+        event_id: "sample_x",
+        event_time: ~U[2026-08-29 12:00:00Z],
+        episode_id: "sample_x",
+        attributes: %{"k" => "v"}
+      }
+    },
+    %{
+      name: "aloop_episode_start",
+      mod: BeamPM.Ash.Resources.AloopEpisodeStart,
+      params: %{
+        event_id: "sample_x",
+        event_time: "2026-08-29T12:00:00Z",
+        episode_id: "sample_x",
+        attributes: %{"k" => "v"}
+      },
+      expected: %{
+        event_id: "sample_x",
+        event_time: ~U[2026-08-29 12:00:00Z],
+        episode_id: "sample_x",
+        attributes: %{"k" => "v"}
+      }
+    },
+    %{
+      name: "aloop_episode_terminal",
+      mod: BeamPM.Ash.Resources.AloopEpisodeTerminal,
+      params: %{
+        event_id: "sample_x",
+        event_time: "2026-08-29T12:00:00Z",
+        episode_id: "sample_x",
+        attributes: %{"k" => "v"}
+      },
+      expected: %{
+        event_id: "sample_x",
+        event_time: ~U[2026-08-29 12:00:00Z],
+        episode_id: "sample_x",
+        attributes: %{"k" => "v"}
+      }
+    },
+    %{
+      name: "aloop_execution_crash",
+      mod: BeamPM.Ash.Resources.AloopExecutionCrash,
+      params: %{
+        event_id: "sample_x",
+        event_time: "2026-08-29T12:00:00Z",
+        episode_id: "sample_x",
+        attributes: %{"k" => "v"}
+      },
+      expected: %{
+        event_id: "sample_x",
+        event_time: ~U[2026-08-29 12:00:00Z],
+        episode_id: "sample_x",
+        attributes: %{"k" => "v"}
+      }
+    },
+    %{
+      name: "aloop_execution_start",
+      mod: BeamPM.Ash.Resources.AloopExecutionStart,
+      params: %{
+        event_id: "sample_x",
+        event_time: "2026-08-29T12:00:00Z",
+        episode_id: "sample_x",
+        attributes: %{"k" => "v"}
+      },
+      expected: %{
+        event_id: "sample_x",
+        event_time: ~U[2026-08-29 12:00:00Z],
+        episode_id: "sample_x",
+        attributes: %{"k" => "v"}
+      }
+    },
+    %{
+      name: "aloop_failure_detect",
+      mod: BeamPM.Ash.Resources.AloopFailureDetect,
+      params: %{
+        event_id: "sample_x",
+        event_time: "2026-08-29T12:00:00Z",
+        episode_id: "sample_x",
+        attributes: %{"k" => "v"}
+      },
+      expected: %{
+        event_id: "sample_x",
+        event_time: ~U[2026-08-29 12:00:00Z],
+        episode_id: "sample_x",
+        attributes: %{"k" => "v"}
+      }
+    },
+    %{
+      name: "aloop_falsifier_run",
+      mod: BeamPM.Ash.Resources.AloopFalsifierRun,
+      params: %{
+        event_id: "sample_x",
+        event_time: "2026-08-29T12:00:00Z",
+        episode_id: "sample_x",
+        attributes: %{"k" => "v"}
+      },
+      expected: %{
+        event_id: "sample_x",
+        event_time: ~U[2026-08-29 12:00:00Z],
+        episode_id: "sample_x",
+        attributes: %{"k" => "v"}
+      }
+    },
+    %{
+      name: "aloop_gap_detect",
+      mod: BeamPM.Ash.Resources.AloopGapDetect,
+      params: %{
+        event_id: "sample_x",
+        event_time: "2026-08-29T12:00:00Z",
+        episode_id: "sample_x",
+        attributes: %{"k" => "v"}
+      },
+      expected: %{
+        event_id: "sample_x",
+        event_time: ~U[2026-08-29 12:00:00Z],
+        episode_id: "sample_x",
+        attributes: %{"k" => "v"}
+      }
+    },
+    %{
+      name: "aloop_goal_blocked",
+      mod: BeamPM.Ash.Resources.AloopGoalBlocked,
+      params: %{
+        event_id: "sample_x",
+        event_time: "2026-08-29T12:00:00Z",
+        episode_id: "sample_x",
+        attributes: %{"k" => "v"}
+      },
+      expected: %{
+        event_id: "sample_x",
+        event_time: ~U[2026-08-29 12:00:00Z],
+        episode_id: "sample_x",
+        attributes: %{"k" => "v"}
+      }
+    },
+    %{
+      name: "aloop_goal_satisfied",
+      mod: BeamPM.Ash.Resources.AloopGoalSatisfied,
+      params: %{
+        event_id: "sample_x",
+        event_time: "2026-08-29T12:00:00Z",
+        episode_id: "sample_x",
+        attributes: %{"k" => "v"}
+      },
+      expected: %{
+        event_id: "sample_x",
+        event_time: ~U[2026-08-29 12:00:00Z],
+        episode_id: "sample_x",
+        attributes: %{"k" => "v"}
+      }
+    },
+    %{
+      name: "aloop_merge",
+      mod: BeamPM.Ash.Resources.AloopMerge,
+      params: %{
+        event_id: "sample_x",
+        event_time: "2026-08-29T12:00:00Z",
+        episode_id: "sample_x",
+        attributes: %{"k" => "v"}
+      },
+      expected: %{
+        event_id: "sample_x",
+        event_time: ~U[2026-08-29 12:00:00Z],
+        episode_id: "sample_x",
+        attributes: %{"k" => "v"}
+      }
+    },
+    %{
+      name: "aloop_model_edge",
+      mod: BeamPM.Ash.Resources.AloopModelEdge,
+      params: %{
+        from_activity: "sample_x",
+        to_activity: "sample_x",
+        observed_count: 42
+      },
+      expected: %{
+        from_activity: "sample_x",
+        to_activity: "sample_x",
+        observed_count: 42
+      }
+    },
+    %{
+      name: "aloop_object",
+      mod: BeamPM.Ash.Resources.AloopObject,
+      params: %{
+        object_id: "sample_x",
+        object_type: "sample_x",
+        attributes: %{"k" => "v"}
+      },
+      expected: %{
+        object_id: "sample_x",
+        object_type: "sample_x",
+        attributes: %{"k" => "v"}
+      }
+    },
+    %{
+      name: "aloop_observe",
+      mod: BeamPM.Ash.Resources.AloopObserve,
+      params: %{
+        event_id: "sample_x",
+        event_time: "2026-08-29T12:00:00Z",
+        episode_id: "sample_x",
+        attributes: %{"k" => "v"}
+      },
+      expected: %{
+        event_id: "sample_x",
+        event_time: ~U[2026-08-29 12:00:00Z],
+        episode_id: "sample_x",
+        attributes: %{"k" => "v"}
+      }
+    },
+    %{
+      name: "aloop_plan_select",
+      mod: BeamPM.Ash.Resources.AloopPlanSelect,
+      params: %{
+        event_id: "sample_x",
+        event_time: "2026-08-29T12:00:00Z",
+        episode_id: "sample_x",
+        attributes: %{"k" => "v"}
+      },
+      expected: %{
+        event_id: "sample_x",
+        event_time: ~U[2026-08-29 12:00:00Z],
+        episode_id: "sample_x",
+        attributes: %{"k" => "v"}
+      }
+    },
+    %{
+      name: "aloop_provider_replace",
+      mod: BeamPM.Ash.Resources.AloopProviderReplace,
+      params: %{
+        event_id: "sample_x",
+        event_time: "2026-08-29T12:00:00Z",
+        episode_id: "sample_x",
+        attributes: %{"k" => "v"},
+        from_provider: "sample_x",
+        to_provider: "sample_x"
+      },
+      expected: %{
+        event_id: "sample_x",
+        event_time: ~U[2026-08-29 12:00:00Z],
+        episode_id: "sample_x",
+        attributes: %{"k" => "v"},
+        from_provider: "sample_x",
+        to_provider: "sample_x"
+      }
+    },
+    %{
+      name: "aloop_provider_select",
+      mod: BeamPM.Ash.Resources.AloopProviderSelect,
+      params: %{
+        event_id: "sample_x",
+        event_time: "2026-08-29T12:00:00Z",
+        episode_id: "sample_x",
+        attributes: %{"k" => "v"},
+        provider: "sample_x"
+      },
+      expected: %{
+        event_id: "sample_x",
+        event_time: ~U[2026-08-29 12:00:00Z],
+        episode_id: "sample_x",
+        attributes: %{"k" => "v"},
+        provider: "sample_x"
+      }
+    },
+    %{
+      name: "aloop_receipt_persist",
+      mod: BeamPM.Ash.Resources.AloopReceiptPersist,
+      params: %{
+        event_id: "sample_x",
+        event_time: "2026-08-29T12:00:00Z",
+        episode_id: "sample_x",
+        attributes: %{"k" => "v"},
+        receipt: "sample_x"
+      },
+      expected: %{
+        event_id: "sample_x",
+        event_time: ~U[2026-08-29 12:00:00Z],
+        episode_id: "sample_x",
+        attributes: %{"k" => "v"},
+        receipt: "sample_x"
+      }
+    },
+    %{
+      name: "aloop_reconcile",
+      mod: BeamPM.Ash.Resources.AloopReconcile,
+      params: %{
+        event_id: "sample_x",
+        event_time: "2026-08-29T12:00:00Z",
+        episode_id: "sample_x",
+        attributes: %{"k" => "v"}
+      },
+      expected: %{
+        event_id: "sample_x",
+        event_time: ~U[2026-08-29 12:00:00Z],
+        episode_id: "sample_x",
+        attributes: %{"k" => "v"}
+      }
+    },
+    %{
+      name: "aloop_reobserve",
+      mod: BeamPM.Ash.Resources.AloopReobserve,
+      params: %{
+        event_id: "sample_x",
+        event_time: "2026-08-29T12:00:00Z",
+        episode_id: "sample_x",
+        attributes: %{"k" => "v"}
+      },
+      expected: %{
+        event_id: "sample_x",
+        event_time: ~U[2026-08-29 12:00:00Z],
+        episode_id: "sample_x",
+        attributes: %{"k" => "v"}
+      }
+    },
+    %{
+      name: "aloop_replan",
+      mod: BeamPM.Ash.Resources.AloopReplan,
+      params: %{
+        event_id: "sample_x",
+        event_time: "2026-08-29T12:00:00Z",
+        episode_id: "sample_x",
+        attributes: %{"k" => "v"}
+      },
+      expected: %{
+        event_id: "sample_x",
+        event_time: ~U[2026-08-29 12:00:00Z],
+        episode_id: "sample_x",
+        attributes: %{"k" => "v"}
+      }
+    },
+    %{
+      name: "aloop_tool_admit",
+      mod: BeamPM.Ash.Resources.AloopToolAdmit,
+      params: %{
+        event_id: "sample_x",
+        event_time: "2026-08-29T12:00:00Z",
+        episode_id: "sample_x",
+        attributes: %{"k" => "v"}
+      },
+      expected: %{
+        event_id: "sample_x",
+        event_time: ~U[2026-08-29 12:00:00Z],
+        episode_id: "sample_x",
+        attributes: %{"k" => "v"}
+      }
+    },
+    %{
+      name: "aloop_verify",
+      mod: BeamPM.Ash.Resources.AloopVerify,
+      params: %{
+        event_id: "sample_x",
+        event_time: "2026-08-29T12:00:00Z",
+        episode_id: "sample_x",
+        attributes: %{"k" => "v"}
+      },
+      expected: %{
+        event_id: "sample_x",
+        event_time: ~U[2026-08-29 12:00:00Z],
+        episode_id: "sample_x",
+        attributes: %{"k" => "v"}
+      }
+    },
+    %{
+      name: "aloop_worker_claim",
+      mod: BeamPM.Ash.Resources.AloopWorkerClaim,
+      params: %{
+        event_id: "sample_x",
+        event_time: "2026-08-29T12:00:00Z",
+        episode_id: "sample_x",
+        attributes: %{"k" => "v"},
+        worker: "sample_x"
+      },
+      expected: %{
+        event_id: "sample_x",
+        event_time: ~U[2026-08-29 12:00:00Z],
+        episode_id: "sample_x",
+        attributes: %{"k" => "v"},
+        worker: "sample_x"
+      }
+    },
+    %{
+      name: "aloop_workorder_issue",
+      mod: BeamPM.Ash.Resources.AloopWorkorderIssue,
+      params: %{
+        event_id: "sample_x",
+        event_time: "2026-08-29T12:00:00Z",
+        episode_id: "sample_x",
+        attributes: %{"k" => "v"}
+      },
+      expected: %{
+        event_id: "sample_x",
+        event_time: ~U[2026-08-29 12:00:00Z],
+        episode_id: "sample_x",
+        attributes: %{"k" => "v"}
+      }
+    },
+    %{
       name: "annual_subscription",
       mod: BeamPM.Ash.Resources.AnnualSubscription,
       params: %{
@@ -4607,76 +5097,6 @@ defmodule BeamPM.Ash.ResourcesGeneratedTest do
         tenant_id: "sample_x",
         receipt_id: "sample_x",
         refusal_hash: "sample_x"
-      }
-    },
-    %{
-      name: "frontier_benchmark",
-      mod: BeamPM.Ash.Resources.FrontierBenchmark,
-      params: %{
-        benchmark_id: "sample_x",
-        metric: "sample_x",
-        acceptance_predicate: "sample_x",
-        falsifier: "sample_x"
-      },
-      expected: %{
-        benchmark_id: "sample_x",
-        metric: "sample_x",
-        acceptance_predicate: "sample_x",
-        falsifier: "sample_x"
-      }
-    },
-    %{
-      name: "frontier_evidence",
-      mod: BeamPM.Ash.Resources.FrontierEvidence,
-      params: %{
-        subject_identity: "sample_x",
-        verifier_identity: "sample_x",
-        receipt_ref: "sample_x",
-        replay_ref: "sample_x",
-        standing: :sample_atom
-      },
-      expected: %{
-        subject_identity: "sample_x",
-        verifier_identity: "sample_x",
-        receipt_ref: "sample_x",
-        replay_ref: "sample_x",
-        standing: :sample_atom
-      }
-    },
-    %{
-      name: "frontier_opportunity",
-      mod: BeamPM.Ash.Resources.FrontierOpportunity,
-      params: %{
-        source_digest: "sample_x",
-        response_mode: :sample_atom,
-        target_repository: "sample_x",
-        required_capability: "sample_x",
-        benchmark_id: "sample_x"
-      },
-      expected: %{
-        source_digest: "sample_x",
-        response_mode: :sample_atom,
-        target_repository: "sample_x",
-        required_capability: "sample_x",
-        benchmark_id: "sample_x"
-      }
-    },
-    %{
-      name: "frontier_source_release",
-      mod: BeamPM.Ash.Resources.FrontierSourceRelease,
-      params: %{
-        source_url: "sample_x",
-        publisher: "sample_x",
-        published_at: "2026-08-29T12:00:00Z",
-        content_digest: "sample_x",
-        claims: %{"k" => "v"}
-      },
-      expected: %{
-        source_url: "sample_x",
-        publisher: "sample_x",
-        published_at: ~U[2026-08-29 12:00:00Z],
-        content_digest: "sample_x",
-        claims: %{"k" => "v"}
       }
     },
     %{

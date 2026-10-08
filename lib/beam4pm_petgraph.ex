@@ -379,8 +379,8 @@ defmodule BeamPM.Petgraph do
 
     # bpm:ErrorCollapse_single_key_inspect: only a response whose SOLE key is
     # "error" is an op failure. A response carrying "error" alongside other
-    # top-level keys is a structured refusal envelope the caller needs whole,
-    # so it passes through as {:ok, decoded} untouched.
+    # top-level keys is a real structured refusal envelope the caller needs
+    # whole, so it passes through as {:ok, decoded} untouched.
     case JSON.decode!(out) do
       %{"error" => err} = decoded when map_size(decoded) == 1 ->
         {:error, {:engine, inspect(err)}}

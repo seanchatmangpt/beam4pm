@@ -11,6 +11,8 @@ defmodule BeamPM.FerroplanBridge.Coordinator do
 
   alias BeamPM.ReplanRouter
 
+  alias BeamPM.SA2A.{RecoveryReceiptAdapter, ReplanConsumer}
+
   def start_link(opts), do: GenServer.start_link(__MODULE__, opts)
 
   def execute(pid, envelope, edges),
@@ -82,18 +84,43 @@ defmodule BeamPM.FerroplanBridge.Coordinator do
         state
       ) do
     result =
-      dispatch(
-        env,
-        edges,
-        decision,
-        handle,
-        inputs,
-        opts,
-        state.max_attempts,
-        Enum.reverse(env.failed_edges)
-      )
+      if Keyword.has_key?(opts, :sa2a_providers) do
+        run_sa2a(env, edges, decision, handle, inputs, opts)
+      else
+        dispatch(
+          env,
+          edges,
+          decision,
+          handle,
+          inputs,
+          opts,
+          state.max_attempts,
+          Enum.reverse(env.failed_edges)
+        )
+      end
 
     {:reply, result, state}
+  end
+
+  # SA2A owns provider exclusion, bounded attempts and replay identity; the
+  # coordinator receipt shape (edge / result / failed_edges /
+  # recovery_receipt) is preserved for existing consumers.
+  defp run_sa2a(env, edges, decision, handle, inputs, opts) do
+    case ReplanConsumer.run(env, edges, decision, handle, inputs, opts) do
+      {:ok, loop} ->
+        edge = RecoveryReceiptAdapter.edge_for_provider(edges, loop.provider)
+
+        {:ok,
+         %{
+           edge: edge,
+           result: loop.candidate,
+           failed_edges: loop.excluded,
+           recovery_receipt: RecoveryReceiptAdapter.from_loop(env.subject, loop, edges)
+         }}
+
+      {:error, _} = error ->
+        error
+    end
   end
 
   defp dispatch(_env, _edges, _decision, _handle, _inputs, _opts, 0, failed) do

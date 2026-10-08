@@ -6,7 +6,7 @@ exists in the repo (`CLAUDE.md`, `justfile`).
 
 ## Prerequisites
 
-- Elixir 1.18.4-otp-27, Erlang 27.2.4 — the `.tool-versions` pin at the repo
+- Elixir 1.20.4-otp-29, Erlang 29.1.1 — the `.tool-versions` pin at the repo
   root (`asdf install` if you are behind)
 - `ggen` on PATH (the manufacturing engine)
 - git with submodule support: `vendor/ggen-marketplace` is a submodule

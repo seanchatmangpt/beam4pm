@@ -160,6 +160,7 @@ defmodule BeamPM.LegacyEquivalence do
   end
 
   defp normalize(value) when is_list(value), do: Enum.map(value, &normalize/1)
+  defp normalize(nil), do: nil
   defp normalize(value) when is_atom(value), do: Atom.to_string(value)
   defp normalize(value), do: value
 

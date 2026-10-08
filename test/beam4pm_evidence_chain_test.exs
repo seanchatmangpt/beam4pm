@@ -81,7 +81,10 @@ defmodule BeamPM.EvidenceChainTest do
     :ok = :otel_batch_processor.set_exporter(:otel_exporter_pid, self())
 
     receipts_dir =
-      Path.join(System.tmp_dir!(), "beam4pm_evidence_chain_test_#{System.unique_integer([:positive])}")
+      Path.join(
+        System.tmp_dir!(),
+        "beam4pm_evidence_chain_test_#{System.unique_integer([:positive])}"
+      )
 
     File.mkdir_p!(receipts_dir)
     System.put_env("BEAM4PM_ENGINE_OP_RECEIPTS_DIR", receipts_dir)
@@ -118,7 +121,41 @@ defmodule BeamPM.EvidenceChainTest do
     expected_outcome = Keyword.get(opts, :expect, :ok)
     receipts_dir = Keyword.fetch!(opts, :receipts_dir)
 
+    # Drain any `{:span, _}` messages that arrived in this process's
+    # mailbox BEFORE this invocation (late flushes from previous tests,
+    # delivered here by the shared batch processor after our exporter
+    # swap in `setup/0`), so receive_span/2 below only ever considers
+    # spans exported after this call began.
+    drain_spans()
+
+    # Start a test-owned ROOT span around the real call. Because the
+    # engine facade emits its `[:beam4pm, :engine, engine, op]`
+    # telemetry -- and the Evidence handler its span -- in the CALLING
+    # process, in-process context propagation makes the engine op span a
+    # direct CHILD of this root. Matching the received span on
+    # `parent_span_id` (elem/2 index 4 of the `#span{}` record, same
+    # 0-based convention documented at `span_attribute/2` below) selects
+    # exactly THIS invocation's span, never a same-named span from a
+    # concurrent `async: true` test file (e.g. `beam4pm_rust4pm_test.exs`
+    # T7/T8 also emit `beam4pm.engine.rust4pm.import_xes` spans whose
+    # late batch-processor flushes can land in this mailbox under full
+    # suite load) -- the former name-only match was the flake's root
+    # cause. The root span is ended and cleared from the pdict
+    # immediately after the call so it does not leak into anything else.
+    root_span_ctx =
+      :otel_tracer.start_span(
+        :opentelemetry.get_application_tracer(__MODULE__),
+        "beam4pm.evidence_chain_root.#{engine}.#{op}",
+        %{}
+      )
+
+    :otel_tracer.set_current_span(root_span_ctx)
+    root_span_id = :otel_span.span_id(root_span_ctx)
+
     call_result = call_fn.()
+
+    _ = :otel_span.end_span(root_span_ctx)
+    :otel_tracer.set_current_span(:undefined)
 
     expected_event_type = "#{engine}.#{op}"
 
@@ -147,7 +184,7 @@ defmodule BeamPM.EvidenceChainTest do
     # is sized generously (10s) to absorb that real async gap.
     :ok = :otel_tracer_provider.force_flush()
 
-    span = receive_span(expected_span_name)
+    span = receive_span(expected_span_name, root_span_id)
 
     assert span != nil,
            "expected a real OTel span named #{inspect(expected_span_name)} to arrive via " <>
@@ -178,19 +215,30 @@ defmodule BeamPM.EvidenceChainTest do
   # 40 * 250ms = 10s total budget -- generous because
   # `:otel_tracer_provider.force_flush/0` is a real async cast (see the
   # comment above its call site), not a synchronous flush.
-  defp receive_span(expected_name, tries \\ 40)
-  defp receive_span(_expected_name, 0), do: nil
+  defp receive_span(expected_name, root_span_id, tries \\ 40)
+  defp receive_span(_expected_name, _root_span_id, 0), do: nil
 
-  defp receive_span(expected_name, tries) do
+  defp receive_span(expected_name, root_span_id, tries) do
     receive do
       {:span, span} ->
-        if elem(span, 6) == expected_name do
+        if elem(span, 6) == expected_name and elem(span, 4) == root_span_id do
           span
         else
-          receive_span(expected_name, tries - 1)
+          receive_span(expected_name, root_span_id, tries - 1)
         end
     after
-      250 -> receive_span(expected_name, tries - 1)
+      250 -> receive_span(expected_name, root_span_id, tries - 1)
+    end
+  end
+
+  # Discard every `{:span, _}` message currently in this process's
+  # mailbox, so span matching below can only see spans exported after
+  # this test's own invocation began.
+  defp drain_spans do
+    receive do
+      {:span, _span} -> drain_spans()
+    after
+      0 -> :ok
     end
   end
 
@@ -225,7 +273,9 @@ defmodule BeamPM.EvidenceChainTest do
       @describetag skip: Petgraph.wasm_missing_reason()
     end
 
-    test "a real graph_new call produces real OCEL + OTel + receipt evidence", %{receipts_dir: dir} do
+    test "a real graph_new call produces real OCEL + OTel + receipt evidence", %{
+      receipts_dir: dir
+    } do
       {:ok, _pid} = Petgraph.start()
 
       result =
@@ -251,10 +301,15 @@ defmodule BeamPM.EvidenceChainTest do
 
       {:ok, _pid} = Tract.start()
 
+      # load_model_path is a host-side delegate (bpm:opDelegatesTo
+      # engine_tract_op_load_model); the real engine op that performs
+      # the wasm call -- and therefore the telemetry identity -- is
+      # `load_model`.
       result =
-        assert_full_evidence_chain!(:tract, :load_model_path, fn -> Tract.load_model_path(@linear_model) end,
-          receipts_dir: dir
-        )
+        assert_full_evidence_chain!(
+          :tract,
+          :load_model,
+          fn -> Tract.load_model_path(@linear_model) end, receipts_dir: dir)
 
       assert {:ok, %{"handle" => handle}} = result
       assert is_integer(handle)
@@ -270,7 +325,9 @@ defmodule BeamPM.EvidenceChainTest do
       {:ok, _pid} = Rust4PM.start()
 
       result =
-        assert_full_evidence_chain!(:rust4pm, :ocel_new, fn -> Rust4PM.ocel_new() end, receipts_dir: dir)
+        assert_full_evidence_chain!(:rust4pm, :ocel_new, fn -> Rust4PM.ocel_new() end,
+          receipts_dir: dir
+        )
 
       assert {:ok, %{"ocel_handle" => handle}} = result
       assert is_integer(handle)
@@ -282,7 +339,9 @@ defmodule BeamPM.EvidenceChainTest do
       @describetag skip: Ferroplan.wasm_missing_reason()
     end
 
-    test "a real readiness call produces real OCEL + OTel + receipt evidence", %{receipts_dir: dir} do
+    test "a real readiness call produces real OCEL + OTel + receipt evidence", %{
+      receipts_dir: dir
+    } do
       {:ok, _pid} = Ferroplan.start()
 
       result =
@@ -305,11 +364,15 @@ defmodule BeamPM.EvidenceChainTest do
     end
 
     test "a real parse failure ('not xml') is captured as a real refusal OCEL event, " <>
-           "an error-status OTel span, and a receipted chain entry", %{receipts_dir: dir} do
+           "an error-status OTel span, and a receipted chain entry",
+         %{receipts_dir: dir} do
       {:ok, _pid} = Rust4PM.start()
 
       result =
-        assert_full_evidence_chain!(:rust4pm, :import_xes, fn -> Rust4PM.import_xes("not xml") end,
+        assert_full_evidence_chain!(
+          :rust4pm,
+          :import_xes,
+          fn -> Rust4PM.import_xes("not xml") end,
           receipts_dir: dir,
           expect: :error
         )

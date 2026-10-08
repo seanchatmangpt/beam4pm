@@ -71,6 +71,7 @@ defmodule BeamPM.FerroplanBridge.CoordinatorRecoveryIntegrationTest do
   test "ferroplan provider resolves to the real ReplanRouter execution boundary" do
     assert {:ok, BeamPM.ReplanRouter} = ProviderAdapter.resolve("ferroplan", %{})
     assert function_exported?(BeamPM.ReplanRouter, :execute, 4)
+    Code.ensure_loaded!(Coordinator)
     assert function_exported?(Coordinator, :replan, 9)
   end
 end

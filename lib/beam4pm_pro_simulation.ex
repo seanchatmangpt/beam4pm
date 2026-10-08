@@ -50,7 +50,10 @@ defmodule BeamPM.Pro.Simulation do
   def reachable_from(edges, start_activity) when is_list(edges) and is_binary(start_activity) do
     adjacency =
       Enum.reduce(edges, %{}, fn {from, to, _freq}, acc ->
-        Map.update(acc, from, [to], &[to | &1])
+        case Map.fetch(acc, from) do
+          {:ok, v} -> Map.put(acc, from, [to | v])
+          :error -> Map.put(acc, from, [to])
+        end
       end)
 
     bfs(adjacency, [start_activity], MapSet.new([start_activity]))
@@ -73,7 +76,10 @@ defmodule BeamPM.Pro.Simulation do
   def has_cycle?(edges) when is_list(edges) do
     adjacency =
       Enum.reduce(edges, %{}, fn {from, to, _freq}, acc ->
-        Map.update(acc, from, [to], &[to | &1])
+        case Map.fetch(acc, from) do
+          {:ok, v} -> Map.put(acc, from, [to | v])
+          :error -> Map.put(acc, from, [to])
+        end
       end)
 
     nodes = Enum.uniq(Enum.flat_map(edges, fn {from, to, _freq} -> [from, to] end))

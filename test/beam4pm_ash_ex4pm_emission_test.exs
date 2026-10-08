@@ -52,6 +52,22 @@ defmodule BeamPM.AshEx4pmEmissionTest do
 
   # -- layer 1: identity + law-side wiring (always on) -----------------------
 
+  # Real cleanup: the creates below land real rows in the resource's shared
+  # ETS table; leaving them would leak into BeamPM.Ash.ResourcesGeneratedTest's
+  # read-all round-trip (same VM, same table). Mirrors the roundtrip suite's
+  # own Ash.DataLayer.Ets.stop/1 reset.
+  setup do
+    on_exit(fn ->
+      # Also the OcelEvent resource: the R3 read-silence leg creates one.
+      Enum.each(
+        [BeamPM.Ash.Resources.BrceActuationRequest, BeamPM.Ash.Resources.OcelEvent],
+        &:erlang.apply(Ash.DataLayer.Ets, :stop, [&1])
+      )
+      :ok
+    end)
+    :ok
+  end
+
   @tag :ash_ex4pm_emission
   test "dependency identities are pinned exactly at 26.10.1" do
     assert to_string(Application.spec(:ash_ex4pm, :vsn)) == "26.10.1"

@@ -396,6 +396,10 @@ defmodule BeamPM.ReceiptChainTest do
     {p1, p2}
   end
 
+  # Heavyweight property test (360 writes, each gated by an O(dir) scan
+  # oracle, plus whole-directory verify per chain) -- needs headroom above
+  # the 60s default when run under full-suite parallel load.
+  @tag timeout: 180_000
   test "tip index: link_fields/3 == retained scan oracle before every one of 360 randomly interleaved writes across 7 chains (+40 unchained noise files), and the untouched verify/2 accepts every chain",
        %{tmp_dir: tmp_dir} do
     chains = ["alpha", "beta", "gamma", "delta", "epsilon", "tenant/acme process #7", "zeta"]

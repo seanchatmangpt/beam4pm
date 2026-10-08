@@ -44,6 +44,7 @@
 
 -type result() :: {ok, map()} | {error, term()}.
 -type handle() :: non_neg_integer().
+-export_type([handle/0]).
 
 %% Start (or find already-started) the named Wasmex engine process.
 -spec start() -> {ok, pid()} | {error, term()}.

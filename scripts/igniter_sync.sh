@@ -95,8 +95,11 @@ rm -f lib/beam4pm_ash.ex test/beam4pm_ash_test.exs
 #     ADDITIONAL_PACK_ONTOLOGY below into MERGED_TTL and using it for step 3
 #     too, not just 1a/2a.
 MERGED_TTL="tmp_probe/ontology_merged.ttl"
+# frontier-release-beam-pack removed from this list 2026-10-03 (REPAIR-beam4pm):
+# the pack directory is absent from the current vendored universe (FM-PACK-001);
+# its four frontier_* bpm:RecordType facts left the admitted set with it. Both
+# manufacture legs (Rust ggen and ggen_igniter) now agree on the same record set.
 ADDITIONAL_PACK_ONTOLOGIES=(
-  "vendor/ggen-marketplace/packs/frontier-release-beam-pack/ontology.ttl"
 )
 cat ontology.ttl "$PACK/ontology.ttl" "${ADDITIONAL_PACK_ONTOLOGIES[@]}" > "$MERGED_TTL"
 

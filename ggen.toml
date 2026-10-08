@@ -20,11 +20,18 @@ imports = [
 beam4pm-process-model = { path = "vendor/ggen-marketplace/packs/beam4pm-process-model-pack" }
 beam4pm-pro-infra = { path = "vendor/ggen-marketplace/packs/beam4pm-pro-infra-pack" }
 github-actions-pack = { path = "vendor/ggen-marketplace/packs/github-actions-pack" }
-beam4pm-ai-contracts = { path = "vendor/ggen-marketplace/packs/beam4pm-ai-contracts-pack" }
+# beam4pm-ai-contracts: unwired 2026-10-03 (REPAIR-beam4pm): pack directory absent
+# from the vendored universe (FM-PACK-001 refused the whole pipeline; the
+# error's own remediation is "fix the [packs] path or vendor the pack"). Its
+# ten mcp:MessageType consumers remain admitted in ontology.ttl verbatim.
 beam4pm-pro-entitlement = { path = "vendor/ggen-marketplace/packs/beam4pm-pro-entitlement-pack" }
-beam4pm-mcp-contracts = { path = "vendor/ggen-marketplace/packs/beam4pm-mcp-contracts-pack" }
+# beam4pm-mcp-contracts: unwired 2026-10-03 (REPAIR-beam4pm), same FM-PACK-001
+# missing-directory finding as beam4pm-ai-contracts above.
 beam4pm-wasm-engine = { path = "vendor/ggen-marketplace/packs/beam4pm-wasm-engine-pack" }
-frontier-release = { path = "vendor/ggen-marketplace/packs/frontier-release-beam-pack" }
+# frontier-release: unwired 2026-10-03 (REPAIR-beam4pm), same FM-PACK-001
+# missing-directory finding (frontier-release-beam-pack absent from the
+# vendored universe; the igniter-side MERGED_TTL concatenation in
+# scripts/igniter_sync.sh references it too and degrades to 0 rows there).
 fortune5-architecture = { path = "vendor/ggen-marketplace/packs/fortune5-architecture-pack" }
 fortune5-deployment-blocks = { path = "vendor/ggen-marketplace/packs/fortune5-deployment-blocks-pack" }
 # gh-terraform-pack: investigated 2026-08-30, NOT wired -- ships unscoped

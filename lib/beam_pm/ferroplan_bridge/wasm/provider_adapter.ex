@@ -24,7 +24,7 @@ defmodule BeamPM.FerroplanBridge.ProviderAdapter do
 
   def resolve(provider, providers) when is_map(providers) do
     case Map.get(providers, provider) do
-      module when is_atom(module) -> {:ok, module}
+      module when is_atom(module) and not is_nil(module) -> {:ok, module}
       nil -> resolve_builtin(provider)
       other -> {:error, %{provider: provider, reason: {:invalid_provider_module, other}}}
     end
@@ -42,10 +42,14 @@ defmodule BeamPM.FerroplanBridge.ProviderAdapter do
   def normalize(other, provider),
     do: {:error, %{provider: provider, reason: {:invalid_result, other}}}
 
-  defp resolve_builtin(provider) when provider in [:ferroplan, "ferroplan"],
-    do: {:ok, ReplanRouter}
+  defp resolve_builtin(provider) when provider in [:ferroplan, "ferroplan"] do
+    Code.ensure_loaded(ReplanRouter)
+    {:ok, ReplanRouter}
+  end
 
   defp resolve_builtin(provider) when is_atom(provider) do
+    Code.ensure_loaded(provider)
+
     if function_exported?(provider, :execute, 4),
       do: {:ok, provider},
       else: {:error, %{provider: provider, reason: :unsupported_provider}}

@@ -6,6 +6,26 @@
 defmodule BeamPM.ReplanChainTest do
   use ExUnit.Case, async: false
 
+  # Real cleanup: the creates below land real rows in these resources' shared
+  # ETS tables; leaving them would leak into BeamPM.Ash.ResourcesGeneratedTest's
+  # read-all round-trip (same VM, same tables). Mirrors the roundtrip suite's
+  # own Ash.DataLayer.Ets.stop/1 reset.
+  setup do
+    on_exit(fn ->
+      Enum.each(
+        [
+          BeamPM.Ash.Resources.EventTriggeredPlanning,
+          BeamPM.Ash.Resources.DynamicReplanTrigger,
+          BeamPM.Ash.Resources.PlanLineage,
+          BeamPM.Ash.Resources.PlanMemory
+        ],
+        &:erlang.apply(Ash.DataLayer.Ets, :stop, [&1])
+      )
+      :ok
+    end)
+    :ok
+  end
+
   alias BeamPM.Ash.Resources.EventTriggeredPlanning
   alias BeamPM.Ash.Resources.DynamicReplanTrigger
   alias BeamPM.Ash.Resources.PlanLineage

@@ -39,6 +39,7 @@
 
 -type result() :: {ok, map()} | {error, term()}.
 -type handle() :: non_neg_integer().
+-export_type([handle/0]).
 -type tensor() :: #{shape := [non_neg_integer()], data := [number()]}.
 
 %% Start (or find already-started) the named Wasmex engine process.

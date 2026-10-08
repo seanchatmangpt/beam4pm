@@ -16,7 +16,7 @@ defmodule BeamPM.Graphlaw do
 
   The wasm module exports `gl_alloc(len) -> ptr`,
   `gl_call(ptr, len) -> packed_u64` (the response buffer packed
-  as `(out_ptr << 32) | out_len`) and `gl_free(ptr, len)`.
+  as `(out_ptr << 32) | out_len`) and `gl_dealloc(ptr, len)`.
   Per call (`call/2` below): JSON-encode the request map; `gl_alloc`
   through the same exit-guarded path as the op itself (its own execution is
   microseconds, but a concurrent long op holds the single store-executor
@@ -24,7 +24,7 @@ defmodule BeamPM.Graphlaw do
   rather than write at offset 0; write the bytes (freeing the request buffer
   best-effort if the write fails); `gl_call`; normalize the
   packed u64 (wasmex delivers it as a signed i64) and split ptr/len; read the
-  response; `gl_free` the RESPONSE buffer only --
+  response; `gl_dealloc` the RESPONSE buffer only --
   `gl_call` consumes and frees the request buffer itself, so a
   host-side dealloc of it would be a double free; JSON-decode.
 
@@ -72,12 +72,11 @@ defmodule BeamPM.Graphlaw do
   @type resp :: map()
 
   @typedoc """
-  `{:refused, refusal}` = the wasm engine answered `{"ok": false, "error": refusal}`
-  (a typed refusal map);
+  `{:engine, msg}` = the wasm engine returned an error response;
   `{:wasmex, term}` = a host-level failure (engine not started, wasmex
   call/alloc/write failure, or a call timeout/exit).
   """
-  @type err :: {:refused, %{String.t() => term()}} | {:wasmex, term()}
+  @type err :: {:engine, String.t()} | {:wasmex, term()}
 
   @type result :: {:ok, resp()} | {:error, err()}
 
@@ -85,9 +84,9 @@ defmodule BeamPM.Graphlaw do
   # Engine lifecycle
   # ---------------------------------------------------------------------
 
-  @doc "Wasm artifact path: the `GRAPHLAW_WASM` environment variable if set, else the repo-root-relative artifact path, expanded."
+  @doc "Repo-root-relative wasm artifact path, expanded."
   @spec wasm_path() :: String.t()
-  def wasm_path, do: System.get_env("GRAPHLAW_WASM") || Path.expand(@wasm_rel)
+  def wasm_path, do: Path.expand(@wasm_rel)
 
   @doc "Whether the wasm engine artifact has been built."
   @spec wasm_built?() :: boolean()
@@ -97,7 +96,7 @@ defmodule BeamPM.Graphlaw do
   @spec wasm_missing_reason() :: String.t()
   def wasm_missing_reason do
     "graphlaw_wasm.wasm not built at #{wasm_path()} -- run " <>
-      "scripts/graphlaw_wasm_fetch.sh first (or set GRAPHLAW_WASM), and run mix test from the " <>
+      "scripts/graphlaw_wasm_fetch.sh first, and run mix test from the " <>
       "project root"
   end
 
@@ -239,7 +238,7 @@ defmodule BeamPM.Graphlaw do
         :ok
 
       {:error, _} = err ->
-        _ = call_export(pid, "gl_free", [ptr, len], @cheap_timeout)
+        _ = call_export(pid, "gl_dealloc", [ptr, len], @cheap_timeout)
         err
     end
   end
@@ -250,17 +249,23 @@ defmodule BeamPM.Graphlaw do
     out_len = band(packed, 0xFFFF_FFFF)
 
     out = Wasmex.Memory.read_binary(store, memory, out_ptr, out_len)
-    _ = call_export(pid, "gl_free", [out_ptr, out_len], timeout)
+    _ = call_export(pid, "gl_dealloc", [out_ptr, out_len], timeout)
 
-    # bpm:ErrorCollapse_ok_flag_refusal: the engine answers every request with
-    # an explicit `"ok"` flag. `{"ok": true, ...}` is success (the flag is
-    # stripped); `{"ok": false, "error": refusal}` is a typed refusal
-    # `{:error, {:refused, refusal}}`; anything else is an unexpected response.
+    # bpm:ErrorCollapse_ok_flag_refusal: an {"ok": false} response is a typed
+    # refusal; the guest wraps it as {"ok": false, "error" => refusal}. Any
+    # other response passes through unchanged (single-key "error" collapses
+    # to {:error, {:engine, inspect(err)}}).
     case JSON.decode!(out) do
-      %{"ok" => true} = decoded -> {:ok, Map.delete(decoded, "ok")}
-      %{"ok" => false, "error" => err} -> {:error, {:refused, err}}
-      other -> {:error, {:wasmex, {:unexpected_response, other}}}
+      %{"ok" => false, "error" => refusal} ->
+        {:error, {:refused, refusal}}
+
+      %{"error" => err} = decoded when map_size(decoded) == 1 ->
+        {:error, {:engine, inspect(err)}}
+
+      decoded ->
+        {:ok, decoded}
     end
+
   end
 
   defp restart_engine do

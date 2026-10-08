@@ -20,7 +20,7 @@ defmodule BeamPM.Ash.Domain do
 
   # Agent-facing A2A skills, SAME curated subset as the AshAi tools above
   # (do not expose more of the 901 resources without a stated reason).
-  # A2A is additive alongside ex4pm's existing Ex4pm.Engine.Beam4pm
+  # A2A is additive alongside the ex4pm runtime pulled in via {:ash_ex4pm, "~> 26.10"}
   # HTTP route-table client -- it does not replace it, and it never
   # routes beam4pm's own internals (EngineOp dispatch, OCEL/OTel
   # evidence chain, BeamPM.ReceiptChain) through A2A/JSON-RPC.
@@ -45,6 +45,36 @@ defmodule BeamPM.Ash.Domain do
     resource(BeamPM.Ash.Resources.AgentAssignment)
     resource(BeamPM.Ash.Resources.AgentCapabilityAdvertisement)
     resource(BeamPM.Ash.Resources.AlignmentMove)
+    resource(BeamPM.Ash.Resources.AloopActuate)
+    resource(BeamPM.Ash.Resources.AloopBenchmarkRun)
+    resource(BeamPM.Ash.Resources.AloopCandidateAdmit)
+    resource(BeamPM.Ash.Resources.AloopCandidateConstruct)
+    resource(BeamPM.Ash.Resources.AloopCheckpoint)
+    resource(BeamPM.Ash.Resources.AloopCommit)
+    resource(BeamPM.Ash.Resources.AloopEpisodeStart)
+    resource(BeamPM.Ash.Resources.AloopEpisodeTerminal)
+    resource(BeamPM.Ash.Resources.AloopExecutionCrash)
+    resource(BeamPM.Ash.Resources.AloopExecutionStart)
+    resource(BeamPM.Ash.Resources.AloopFailureDetect)
+    resource(BeamPM.Ash.Resources.AloopFalsifierRun)
+    resource(BeamPM.Ash.Resources.AloopGapDetect)
+    resource(BeamPM.Ash.Resources.AloopGoalBlocked)
+    resource(BeamPM.Ash.Resources.AloopGoalSatisfied)
+    resource(BeamPM.Ash.Resources.AloopMerge)
+    resource(BeamPM.Ash.Resources.AloopModelEdge)
+    resource(BeamPM.Ash.Resources.AloopObject)
+    resource(BeamPM.Ash.Resources.AloopObserve)
+    resource(BeamPM.Ash.Resources.AloopPlanSelect)
+    resource(BeamPM.Ash.Resources.AloopProviderReplace)
+    resource(BeamPM.Ash.Resources.AloopProviderSelect)
+    resource(BeamPM.Ash.Resources.AloopReceiptPersist)
+    resource(BeamPM.Ash.Resources.AloopReconcile)
+    resource(BeamPM.Ash.Resources.AloopReobserve)
+    resource(BeamPM.Ash.Resources.AloopReplan)
+    resource(BeamPM.Ash.Resources.AloopToolAdmit)
+    resource(BeamPM.Ash.Resources.AloopVerify)
+    resource(BeamPM.Ash.Resources.AloopWorkerClaim)
+    resource(BeamPM.Ash.Resources.AloopWorkorderIssue)
     resource(BeamPM.Ash.Resources.AnnualSubscription)
     resource(BeamPM.Ash.Resources.AnomalyDetectionObservation)
     resource(BeamPM.Ash.Resources.AntiRepeatRefusal)
@@ -317,10 +347,6 @@ defmodule BeamPM.Ash.Domain do
     resource(BeamPM.Ash.Resources.FairnessAssumption)
     resource(BeamPM.Ash.Resources.FederatedDogfoodLearningCrown)
     resource(BeamPM.Ash.Resources.ForgedReceiptRefusal)
-    resource(BeamPM.Ash.Resources.FrontierBenchmark)
-    resource(BeamPM.Ash.Resources.FrontierEvidence)
-    resource(BeamPM.Ash.Resources.FrontierOpportunity)
-    resource(BeamPM.Ash.Resources.FrontierSourceRelease)
     resource(BeamPM.Ash.Resources.FundingApprovalChain)
     resource(BeamPM.Ash.Resources.FxConversionPolicy)
     resource(BeamPM.Ash.Resources.GeneratedHypothesis)
