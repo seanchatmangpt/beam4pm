@@ -2,15 +2,15 @@
 
 ## Summary
 
-beam4pm is a crate with 1552 modules and 6680 public items on its code surface.
+beam4pm is a crate with 1631 modules and 6934 public items on its code surface.
 
 ## Verified snippet
 
 <!-- Snippet slot: code facts only, copied from the code surface. -->
 
 ```rust
-// B4pm1704Fixtures.ShapeAParenlessZeroArity :: verify
-verify/0
+// AshAffidavit.ABI :: classify_encode_error
+classify_encode_error/1
 ```
 
 ## Commentary

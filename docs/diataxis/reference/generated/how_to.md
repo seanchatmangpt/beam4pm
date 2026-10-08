@@ -3,113 +3,113 @@
 ## Prerequisites
 
 
-- B4pm1704Fixtures.ShapeAParenlessZeroArity::verify (function)
+- AshAffidavit.ABI::classify_encode_error (function)
 
-- B4pm1704Fixtures.ShapeBGuardedDef::caller (function)
+- AshAffidavit.ABI::classify_encode_error (function)
 
-- B4pm1704Fixtures.ShapeBGuardedDef::read (function)
+- AshAffidavit.ABI::decode_response (function)
 
-- B4pm1704Fixtures.ShapeOkNormalDef::read (function)
+- AshAffidavit.ABI::encode_request (function)
 
-- Beam4pm.CastleCapabilityIntake::authority_ceiling (function)
+- AshAffidavit.ABI::max_request_bytes (function)
 
-- Beam4pm.CastleCapabilityIntake::dispatch_authority? (function)
+- AshAffidavit.ABI::safe_encode (function)
 
-- Beam4pm.CastleCapabilityIntake::donor (function)
+- AshAffidavit.ABI::unpack_result (function)
 
-- Beam4pm.CastleCapabilityIntake::owner_capability (function)
+- AshAffidavit.ABI::version (function)
 
-- Beam4pm.CastleCapabilityIntake::projection_source (function)
+- AshAffidavit.EngineLoad::admit (function)
 
-- BeamPM.A2AAgent::handle_message (function)
+- AshAffidavit.EngineLoad::admit (function)
 
-- BeamPM.AI.Contracts.AdmissionDecision::new (function)
+- AshAffidavit.EngineLoad::admit (function)
 
-- BeamPM.AI.Contracts.CandidateClaim::new (function)
+- AshAffidavit.EngineLoad::allowlist_unavailable (function)
 
-- BeamPM.AI.Contracts.Codec::decode (function)
+- AshAffidavit.EngineLoad::cache_key (function)
 
-- BeamPM.AI.Contracts.Codec::encode (function)
+- AshAffidavit.EngineLoad::cached? (function)
 
-- BeamPM.AI.Contracts.Codec::from_known_fields (function)
+- AshAffidavit.EngineLoad::check_digest (function)
 
-- BeamPM.AI.Contracts.Codec::from_map (function)
+- AshAffidavit.EngineLoad::check_digest (function)
 
-- BeamPM.AI.Contracts.Codec::from_map (function)
+- AshAffidavit.EngineLoad::check_digest (function)
 
-- BeamPM.AI.Contracts.Codec::from_map (function)
+- AshAffidavit.EngineLoad::check_exports (function)
 
-- BeamPM.AI.Contracts.Codec::from_map (function)
+- AshAffidavit.EngineLoad::check_imports (function)
 
-- BeamPM.AI.Contracts.Codec::from_map (function)
+- AshAffidavit.EngineLoad::compile (function)
 
-- BeamPM.AI.Contracts.Codec::from_map (function)
+- AshAffidavit.EngineLoad::compile_and_admit (function)
 
-- BeamPM.AI.Contracts.Codec::from_map (function)
+- AshAffidavit.EngineLoad::emit (function)
 
-- BeamPM.AI.Contracts.Codec::from_map (function)
+- AshAffidavit.EngineLoad::engine_new (function)
 
-- BeamPM.AI.Contracts.Codec::to_known_map (function)
+- AshAffidavit.EngineLoad::expected (function)
 
-- BeamPM.AI.Contracts.Codec::to_map (function)
+- AshAffidavit.EngineLoad::invalid (function)
 
-- BeamPM.AI.Contracts.Codec::to_map (function)
+- AshAffidavit.EngineLoad::judge_imports (function)
 
-- BeamPM.AI.Contracts.Codec::to_map (function)
+- AshAffidavit.EngineLoad::module_compile (function)
 
-- BeamPM.AI.Contracts.Codec::to_map (function)
+- AshAffidavit.EngineLoad::pinned_sha256 (function)
 
-- BeamPM.AI.Contracts.Codec::to_map (function)
+- AshAffidavit.EngineLoad::purge_cache (function)
 
-- BeamPM.AI.Contracts.Codec::to_map (function)
+- AshAffidavit.EngineLoad::required_exports (function)
 
-- BeamPM.AI.Contracts.Codec::to_map (function)
+- AshAffidavit.EngineLoad::store_new (function)
 
-- BeamPM.AI.Contracts.EvidenceEnvelope::new (function)
+- AshAffidavit.Host::alloc (function)
 
-- BeamPM.AI.Contracts.EvidenceHit::new (function)
+- AshAffidavit.Host::announce (function)
 
-- BeamPM.AI.Contracts.ModelCallReceipt::new (function)
+- AshAffidavit.Host::announce (function)
 
-- BeamPM.AI.Contracts.ResearchTask::new (function)
+- AshAffidavit.Host::available? (function)
 
-- BeamPM.AI.Contracts.ToolIntent::new (function)
+- AshAffidavit.Host::call_engine (function)
 
-- BeamPM.ActionModel::action (function)
+- AshAffidavit.Host::call_raw (function)
 
-- BeamPM.ActionModel::actions (function)
+- AshAffidavit.Host::call_simple (function)
 
-- BeamPM.ActionModel::actions (function)
+- AshAffidavit.Host::call_timeout (function)
 
-- BeamPM.ActionModel::build (function)
+- AshAffidavit.Host::classify (function)
 
 
 ## Steps
 
 
-1. Use `verify` from `B4pm1704Fixtures.ShapeAParenlessZeroArity`.
+1. Use `classify_encode_error` from `AshAffidavit.ABI`.
 
-2. Use `caller` from `B4pm1704Fixtures.ShapeBGuardedDef`.
+2. Use `classify_encode_error` from `AshAffidavit.ABI`.
 
-3. Use `read` from `B4pm1704Fixtures.ShapeBGuardedDef`.
+3. Use `decode_response` from `AshAffidavit.ABI`.
 
-4. Use `read` from `B4pm1704Fixtures.ShapeOkNormalDef`.
+4. Use `encode_request` from `AshAffidavit.ABI`.
 
-5. Use `authority_ceiling` from `Beam4pm.CastleCapabilityIntake`.
+5. Use `max_request_bytes` from `AshAffidavit.ABI`.
 
-6. Use `dispatch_authority?` from `Beam4pm.CastleCapabilityIntake`.
+6. Use `safe_encode` from `AshAffidavit.ABI`.
 
-7. Use `donor` from `Beam4pm.CastleCapabilityIntake`.
+7. Use `unpack_result` from `AshAffidavit.ABI`.
 
-8. Use `owner_capability` from `Beam4pm.CastleCapabilityIntake`.
+8. Use `version` from `AshAffidavit.ABI`.
 
-9. Use `projection_source` from `Beam4pm.CastleCapabilityIntake`.
+9. Use `admit` from `AshAffidavit.EngineLoad`.
 
-10. Use `handle_message` from `BeamPM.A2AAgent`.
+10. Use `admit` from `AshAffidavit.EngineLoad`.
 
-11. Use `new` from `BeamPM.AI.Contracts.AdmissionDecision`.
+11. Use `admit` from `AshAffidavit.EngineLoad`.
 
-12. Use `new` from `BeamPM.AI.Contracts.CandidateClaim`.
+12. Use `allowlist_unavailable` from `AshAffidavit.EngineLoad`.
 
 
 ## Verified snippet
@@ -118,8 +118,8 @@
 <!-- (doc:Claim rows whose doc:attribute is "snippet"), never agent prose. -->
 
 ```rust
-// B4pm1704Fixtures.ShapeAParenlessZeroArity :: verify
-verify/0
+// AshAffidavit.ABI :: classify_encode_error
+classify_encode_error/1
 ```
 
 <!-- AGENT-COMMENTARY-BEGIN -->
