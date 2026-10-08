@@ -8,7 +8,7 @@ defmodule Beam4pm.MixProject do
       # together via `mix beam4pm.version_bump <version>`
       # (lib/mix/tasks/beam4pm.version_bump.ex), never by hand-editing one
       # without the other.
-      version: "26.10.1",
+      version: "26.10.8",
       elixir: "~> 1.17",
       start_permanent: Mix.env() == :prod,
       deps: deps(),

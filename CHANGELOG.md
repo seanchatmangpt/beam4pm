@@ -33,6 +33,12 @@ All notable changes to beam4pm are documented in this file.
   the engine-telemetry family), including the forward seam naming for the
   bridge above once the upstream broadcaster ships.
 
+## [26.10.8] - 2026-10-08
+
+### Changed
+
+- Version bump to 26.10.8 (fleet campaign).
+
 ## [26.10.1] - 2026-10-01
 
 ### Added
