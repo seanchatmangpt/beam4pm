@@ -1,0 +1,112 @@
+@prefix sj: <https://ggen-igniter.dev/ontology/semantic-jira#> .
+@prefix wg: <https://seanchatmangpt.dev/beam4pm/sjira/v26.10.8#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+# Workgraph for the beam4pm v26.10.8 campaign.
+# Factual RDF: commits, court counts, and residues observed on the real
+# checkout at HEAD 1887ff76 (branch main). sj: is doc-graph vocabulary only;
+# receipts stay in code/receipt files. Standing values are the six sanctioned
+# cross-repo strings (beam4pm/ontology.ttl:2671, string-identical to ex4pm.ttl's
+# six ex4pm:Capability individuals). Regen-wave courts witnessed 14/0 and
+# batch C ERC receipts landed, so those orders carry
+# sj:evidenceCeiling "EXECUTED_VERIFIED"; the residues below remain OPEN.
+
+# -- Campaign identity ----------------------------------------------------------
+
+wg:campaign a sj:Subject ;
+    rdfs:label "beam4pm v26.10.8 campaign" ;
+    dcterms:title "beam4pm v26.10.8 campaign workgraph" ;
+    dcterms:description "Campaign on top of the v26.10.8 release tag (e66bd48): ggen regen wave completion (ash resources + top-level engine), batch C ERC-002 witness receipts, diataxis expansion from source, family cross-references, and changelog/reference landings. HEAD at author time: 1887ff76. Honest-open residues: three generated diataxis reference files modified and the vendor/ggen-marketplace submodule pointer dirty in the working tree at author time." ;
+    sj:repository "seanchatmangpt/beam4pm" ;
+    sj:baseSha "e66bd48" ;
+    sj:headSha "1887ff76" ;
+    wg:receipt "docs/sjira/v26.10.8/CAMPAIGN-RECEIPT.md" ;
+    wg:courtRun "14/0" .
+
+# -- Work orders ----------------------------------------------------------------
+
+wg:wo-regen-wave a sj:WorkOrder ;
+    rdfs:label "WO-1: ggen regen wave completion" ;
+    dcterms:title "Top-level engine + ash resource regen wave" ;
+    dcterms:description "Regen wave landed as commits be6203cf (ggen-manufactured ash resource regen: aloop, art72, airo), b1be105c (retire frontier_* resources), and 78a5ff21 (top-level engine regen, ggen wave completion), with follow-up cb9a40e3 syncing the CLAUDE.md toolchain pin. Courts witnessed 14/0 on this wave." ;
+    sj:repository "seanchatmangpt/beam4pm" ;
+    sj:subject "beam4pm:wo:v26.10.8:regen-wave" ;
+    sj:standing "ALIVE" ;
+    sj:evidenceCeiling "EXECUTED_VERIFIED" ;
+    sj:authorityCeiling "CONSTRUCT" ;
+    sj:authorityRequirement "NONE" ;
+    wg:commit "78a5ff21", "be6203cf", "b1be105c", "cb9a40e3" ;
+    wg:courtRun "14/0" ;
+    sj:replayIdentity "beam4pm:wo:v26.10.8:regen-wave" ;
+    sj:promotionRule "Standing advances only from an independent exact-head court receipt for the same subject; this workgraph never asserts a receipt of its own." .
+
+wg:wo-erc-batch-c a sj:WorkOrder ;
+    rdfs:label "WO-2: batch C ERC-002 witness receipts" ;
+    dcterms:title "Batch C ERC receipts landed" ;
+    dcterms:description "Commit 6d2e4833 landed 23 ERC-002 witness receipts under research/erc/ plus 2 ex4pm soak notes under notes/. Receipts stay in code/research artifacts; this graph only cites them." ;
+    sj:repository "seanchatmangpt/beam4pm" ;
+    sj:subject "beam4pm:wo:v26.10.8:erc-batch-c" ;
+    sj:standing "ALIVE" ;
+    sj:evidenceCeiling "EXECUTED_VERIFIED" ;
+    sj:authorityCeiling "CONSTRUCT" ;
+    sj:authorityRequirement "NONE" ;
+    wg:commit "6d2e4833" ;
+    sj:replayIdentity "beam4pm:wo:v26.10.8:erc-batch-c" ;
+    sj:promotionRule "Standing advances only from an independent exact-head court receipt for the same subject; this workgraph never asserts a receipt of its own." .
+
+wg:wo-diataxis-expansion a sj:WorkOrder ;
+    rdfs:label "WO-3: diataxis expansion from source" ;
+    dcterms:title "Expand diataxis quadrants from source (12 pages)" ;
+    dcterms:description "Commit a6ffc627 expanded the diataxis quadrants from source (12 diataxis pages), followed by 1887ff76 scaffolding reference skeletons via doc-hdit for coverage remediation. Witnessed by the campaign courts." ;
+    sj:repository "seanchatmangpt/beam4pm" ;
+    sj:subject "beam4pm:wo:v26.10.8:diataxis-expansion" ;
+    sj:standing "ALIVE" ;
+    sj:evidenceCeiling "EXECUTED_VERIFIED" ;
+    sj:authorityCeiling "CONSTRUCT" ;
+    sj:authorityRequirement "NONE" ;
+    wg:commit "a6ffc627", "1887ff76" ;
+    sj:replayIdentity "beam4pm:wo:v26.10.8:diataxis-expansion" ;
+    sj:promotionRule "Standing advances only from an independent exact-head court receipt for the same subject; this workgraph never asserts a receipt of its own." .
+
+wg:wo-family-xrefs a sj:WorkOrder ;
+    rdfs:label "WO-4: family cross-references" ;
+    dcterms:title "Cross-reference OCEL train and process-mining family" ;
+    dcterms:description "Fleet-campaign cross-references landed as commits a7d5892d (process-mining family) and b4f6d2e5 (OCEL train), plus 5543600f recording the v26.10.8 campaign landings in changelog and reference docs. Family linkage is citation only; no graph merge, no shared receipt authority." ;
+    sj:repository "seanchatmangpt/beam4pm" ;
+    sj:subject "beam4pm:wo:v26.10.8:family-xrefs" ;
+    sj:standing "ALIVE" ;
+    sj:evidenceCeiling "EXECUTED_VERIFIED" ;
+    sj:authorityCeiling "CONSTRUCT" ;
+    sj:authorityRequirement "NONE" ;
+    wg:commit "a7d5892d", "b4f6d2e5", "5543600f" ;
+    sj:replayIdentity "beam4pm:wo:v26.10.8:family-xrefs" ;
+    sj:promotionRule "Standing advances only from an independent exact-head court receipt for the same subject; this workgraph never asserts a receipt of its own." .
+
+# -- Open residues --------------------------------------------------------------
+
+wg:residue-vendor-submodule a sj:WorkOrder ;
+    rdfs:label "RES-1: vendor/ggen-marketplace submodule dirty (OPEN)" ;
+    dcterms:title "Vendor submodule pointer dirty in the working tree" ;
+    dcterms:description "At author time (HEAD 1887ff76) git status reported the vendor/ggen-marketplace submodule as modified ('m') and three generated diataxis reference files (docs/diataxis/reference/generated/{explanation,how_to,reference}.md) as modified. These are honest-open residues: not witnessed, not counted in any court total, and deliberately not folded into the witnessed orders above." ;
+    sj:repository "seanchatmangpt/beam4pm" ;
+    sj:subject "beam4pm:wo:v26.10.8:vendor-submodule-residue" ;
+    sj:standing "PARTIAL_ALIVE" ;
+    sj:evidenceCeiling "EXECUTED" ;
+    sj:authorityCeiling "CONSTRUCT" ;
+    sj:authorityRequirement "NONE" ;
+    sj:replayIdentity "beam4pm:wo:v26.10.8:vendor-submodule-residue" ;
+    sj:promotionRule "Residue closes only when the working tree is clean or the drift is committed with its own receipt; an independent exact-head court receipt for the same subject advances standing." .
+
+# -- Evidence anchors -----------------------------------------------------------
+
+wg:evidence-regen-courts a sj:EvidenceRequirement ;
+    rdfs:label "Regen wave court run" ;
+    dcterms:description "14 courts run, 0 failures on the regen wave, plus batch C courts (4 + 10, all passing) and ERC receipts witnessed, recorded in docs/sjira/v26.10.8/CAMPAIGN-RECEIPT.md. Measurements at those subjects, not guarantees over arbitrary heads." ;
+    sj:pathScope "docs/sjira/v26.10.8/CAMPAIGN-RECEIPT.md", "research/erc/" .
+
+wg:falsifier-stale-sha a sj:Falsifier ;
+    rdfs:label "Falsifier: stale SHA, court count, or residue claim" ;
+    dcterms:description "This workgraph is falsified if any cited SHA is absent from the branch's history, the cited court count disagrees with the receipt file on disk, or the claimed residues are absent from a fresh git status at the cited HEAD." ;
+    sj:pathScope "docs/sjira/v26.10.8/WORKGRAPH.ttl", "docs/sjira/v26.10.8/CAMPAIGN-RECEIPT.md" .
