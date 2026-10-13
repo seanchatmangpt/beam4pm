@@ -21,4 +21,5 @@ case A2A.Client.send_message(client, message) do
 
   {:error, err} ->
     IO.puts("DISPATCH_ERROR=#{inspect(err)}")
+    exit({:shutdown, 1})
 end

@@ -19,6 +19,10 @@ erl_crash.dump
 .DS_Store
 *.tmp
 
+# Python bytecode caches (committed by accident from qualification/; never again)
+__pycache__/
+*.pyc
+
 # ggen_igniter reconciliation manifest + probe output (manufacturing-time state)
 .ggen_igniter/
 .ggen_igniter_tmp/
