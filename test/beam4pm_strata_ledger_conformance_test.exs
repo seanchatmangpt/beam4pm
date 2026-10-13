@@ -125,7 +125,7 @@ defmodule BeamPM.StrataLedgerConformanceTest do
     # `apply_transition` event class is outside beam4pm's GALL lifecycle
     # vocabulary — cross-pack fitness requires the Art72/PN64 mapping above).
     refusal = BeamPM.GallOcel.check(["apply_transition"])
-    assert {:error, {:unknown_event, "apply_transition"}} = refusal
+    assert {:error, {:unknown_event, :apply_transition}} = refusal
   end
 
   test "timestamp-mirror violation is detected in the log (strata first_violation analogue)" do
