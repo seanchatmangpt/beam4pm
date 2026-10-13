@@ -73,15 +73,17 @@ defmodule BeamPM.PowlConformanceE2ETest do
     h
   end
 
+  @tag skip:
+         if(File.exists?(@reference_path) and File.exists?(@deviant_path),
+           do: false,
+           else:
+             "BLOCKED: #{@reference_path} / #{@deviant_path} not found. Run, from the ash_a2a repo: " <>
+               "mix test test/ash_a2a_freedom_gym_ocel_conformance_e2e_test.exs --include external_api " <>
+               "first to produce the real captured OCEL events this test conforms against."
+         )
   test "real captured reference + deviant traces -- real POWL conformance detects the real " <>
          "injected clean_house-skip deviation from the real ash_a2a e2e run" do
-    unless captures_available?() do
-      IO.puts(
-        "SKIPPED: #{@reference_path} / #{@deviant_path} not found. Run, from the ash_a2a repo:\n" <>
-          "  mix test test/ash_a2a_freedom_gym_ocel_conformance_e2e_test.exs --include external_api\n" <>
-          "first to produce the real captured OCEL events this test conforms against."
-      )
-    else
+    if captures_available?() do
       reference_events = load_events!(@reference_path)
       deviant_events = load_events!(@deviant_path)
 

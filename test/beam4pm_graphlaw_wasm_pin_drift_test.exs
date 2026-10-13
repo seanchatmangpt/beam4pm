@@ -26,6 +26,12 @@ defmodule BeamPM.GraphlawWasmPinDriftTest do
   # ALLOWED only here — any OTHER digest is fresh drift and must fail.
   @known_drifted_sha256 "bf2bdd8fd761ff85d876a4af8805d77606d08ca1788e9a89be26039f2150d66c"
 
+  # The allowlist above is an interim, NOT a standing exemption: past this date
+  # the known-drift branch is itself a refusal, so rotation cannot be deferred
+  # forever. Bump this date ONLY in the same commit as a real rotation (new
+  # checked-in wasm matching the pin, or a re-witnessed drift with a new as-of).
+  @allowlist_as_of ~D[2026-10-20]
+
   test "checked-in graphlaw wasm matches the ash_graphlaw WASI pin (known drift allowlisted)" do
     decoded = @manifest |> File.read!() |> Jason.decode!()
     assert %{"sha256" => pinned} = Map.fetch!(decoded, "artifact")
@@ -44,10 +50,20 @@ defmodule BeamPM.GraphlawWasmPinDriftTest do
         :ok
 
       actual == @known_drifted_sha256 ->
-        IO.puts(
-          "BLOCKED: GRAPHLAW_WASM_PIN_DRIFT known — checked-in #{actual} != pinned #{pinned}; " <>
-            "rotate via graphlaw_wasm_fetch.sh once the v26.9.29 release asset is published"
-        )
+        if Date.compare(Date.utc_today(), @allowlist_as_of) == :gt do
+          flunk(
+            "REFUSED:GRAPHLAW_WASM_PIN_DRIFT_ALLOWLIST_EXPIRED — the known drift #{@known_drifted_sha256} " <>
+              "was allowlisted only until #{@allowlist_as_of} (as of #{Date.to_iso8601(Date.utc_today())} it has aged past that). " <>
+              "Rotate the checked-in wasm to the pinned digest via graphlaw_wasm_fetch.sh, or re-witness the drift " <>
+              "with a new @allowlist_as_of in the same commit."
+          )
+        else
+          IO.puts(
+            "BLOCKED: GRAPHLAW_WASM_PIN_DRIFT known — checked-in #{actual} != pinned #{pinned}; " <>
+              "rotate via graphlaw_wasm_fetch.sh once the v26.9.29 release asset is published " <>
+              "(allowlist expires #{@allowlist_as_of})"
+          )
+        end
 
       true ->
         flunk(

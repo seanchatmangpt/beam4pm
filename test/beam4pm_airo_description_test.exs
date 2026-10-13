@@ -20,7 +20,8 @@ defmodule BeamPM.AiroDescriptionTest do
   use ExUnit.Case, async: true
 
   @ttl "priv/airo_risk_description.ttl"
-  @vocab "/Users/sac/xaas/priv/semantic/airo/airo.ttl"
+  @xaas_path System.get_env("XAAS_PATH") || "/Users/sac/xaas"
+  @vocab Path.join(@xaas_path, "priv/semantic/airo/airo.ttl")
   @vocab_sha "6274d2d8711e046cf38f1b5b2980188094d4aa87b5af79804005a06468fd8469"
 
   @cited_paths [
@@ -84,6 +85,13 @@ defmodule BeamPM.AiroDescriptionTest do
     end
   end
 
+  @tag skip:
+         if(File.exists?(@vocab),
+           do: false,
+           else:
+             "BLOCKED: vendored AIRo vocabulary not found at #{@vocab} (set XAAS_PATH) — " <>
+               "the sha256-pin and term-coverage court needs the live xaas vocabulary file"
+         )
   test "vocabulary copy matches the w600 sha256 pin and defines every airo: term used" do
     assert File.exists?(@vocab), "vendored AIRo vocabulary missing at #{@vocab}"
     assert :crypto.hash(:sha256, File.read!(@vocab)) == Base.decode16!(@vocab_sha, case: :lower)

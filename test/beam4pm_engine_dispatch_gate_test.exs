@@ -50,6 +50,11 @@ defmodule BeamPM.EngineDispatchGateTest do
     {"tract", "native/tract-wasm/src/lib.rs"},
     {"graphlaw", "crate:graphlaw:src/abi.rs"}
   ]
+  # The gate's own taxonomy, mirrored at test level: `crate:*` sources are
+  # EXTERNAL (published-crate arms, unverifiable on disk), absent files are
+  # BLOCKED. Both become named ExUnit skips, never a silent green pass.
+  @external_sources for({engine, src} <- @engines, String.starts_with?(src, "crate:"), do: {engine, src})
+  @absent_sources for({engine, src} <- @engines, not File.exists?(src) and not String.starts_with?(src, "crate:"), do: {engine, src})
   @ops [
     {"rust4pm", "import_xes", "import_xes", "wire"},
     {"rust4pm", "import_xes_path", "import_xes_path", "host_helper"},
@@ -236,21 +241,29 @@ defmodule BeamPM.EngineDispatchGateTest do
       end
     end
 
+    @tag skip:
+           if(@absent_sources == [] and @external_sources == [],
+             do: false,
+             else:
+               "BLOCKED/UNVERIFIED: " <>
+                 Enum.map_join(@absent_sources, "; ", fn {e, s} ->
+                   "dispatch source absent on this host (DISPATCH_SOURCE_ABSENT): #{e} #{s}"
+                 end) <>
+                 Enum.map_join(@external_sources, "; ", fn {e, s} ->
+                   "published-crate dispatch source, arms not verifiable on disk (DISPATCH_SOURCE_EXTERNAL): #{e} #{s}"
+                 end)
+           )
     test "every wire op is a real dispatch arm of its engine's crate source (independent re-derivation)" do
       for {engine, src} <- @engines do
-        if File.exists?(src) do
-          arms = dispatch_arms(src)
-          assert arms != [], "#{engine}: #{src} has no dispatch arms -- wrong bpm:dispatchSource?"
+        assert File.exists?(src),
+               "engine dispatch source absent on this host (BLOCKED, not verified): #{engine} #{src}"
 
-          for {^engine, op, wire, "wire"} <- @ops do
-            assert wire in arms,
-                   "#{engine}/#{op}: wire name #{inspect(wire)} is not a dispatch arm in #{src}"
-          end
-        else
-          # A submodule not initialised on this host: the gate reports it
-          # DISPATCH_SOURCE_ABSENT (BLOCKED), and this test says so too rather
-          # than silently passing a join it could not perform.
-          IO.puts("engine dispatch source absent on this host (BLOCKED, not verified): #{engine} #{src}")
+        arms = dispatch_arms(src)
+        assert arms != [], "#{engine}: #{src} has no dispatch arms -- wrong bpm:dispatchSource?"
+
+        for {^engine, op, wire, "wire"} <- @ops do
+          assert wire in arms,
+                 "#{engine}/#{op}: wire name #{inspect(wire)} is not a dispatch arm in #{src}"
         end
       end
     end

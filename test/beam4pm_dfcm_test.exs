@@ -316,7 +316,13 @@ defmodule BeamPM.DfcmTest do
     end
   end
 
-  @tag skip: not File.exists?(Dfcm.autofde_cli_path())
+  @tag skip:
+         if(File.exists?(Dfcm.autofde_cli_path()),
+           do: false,
+           else:
+             "BLOCKED: AutoFDE Typer binary not present at #{Dfcm.autofde_cli_path()} " <>
+               "(build priv/bin/autofde first; the standalone-CLI courts cannot run without it)"
+         )
   test "Dfcm runs standalone AutoFDE Typer binary in priv/bin/autofde" do
     assert Dfcm.autofde_cli_available?()
 
@@ -341,7 +347,13 @@ defmodule BeamPM.DfcmTest do
     assert resp["overall_fitness"] < 1.0
   end
 
-  @tag skip: not File.exists?(Dfcm.autofde_cli_path())
+  @tag skip:
+         if(File.exists?(Dfcm.autofde_cli_path()),
+           do: false,
+           else:
+             "BLOCKED: AutoFDE Typer binary not present at #{Dfcm.autofde_cli_path()} " <>
+               "(build priv/bin/autofde first; the GraphLaw-WASM bridge court cannot run without it)"
+         )
   test "Dfcm executes native Praxis GraphLaw WASM engine via standalone AutoFDE bridge" do
     sample_ttl = """
     @prefix ex: <http://example.org/> .

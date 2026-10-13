@@ -17,7 +17,8 @@ defmodule Beam4pm.ZcodeOcelVerifierTest do
   @app_server_log Path.join(@fixtures_dir, "app-server-list.jsonocel")
   @app_server_receipt Path.join(@fixtures_dir, "app-server-list.receipt.json")
   @pinned_manifest Path.join(@fixtures_dir, "zcode_vocab_manifest.json")
-  @live_manifest "/Users/sac/zcode-cli/src/ocel-vocab-manifest.ts"
+  @zcode_cli_path System.get_env("ZCODE_CLI_PATH") || "/Users/sac/zcode-cli"
+  @live_manifest Path.join(@zcode_cli_path, "src/ocel-vocab-manifest.ts")
 
   alias BeamPM.ZcodeOcelVerifier
 
@@ -241,7 +242,13 @@ defmodule Beam4pm.ZcodeOcelVerifierTest do
     @tag :drift
     # BLOCKED-skip when the zcode checkout is absent: the drift court cannot
     # run without its live referent.
-    @tag skip: not File.exists?(@live_manifest)
+    @tag skip:
+           if(File.exists?(@live_manifest),
+             do: false,
+             else:
+               "BLOCKED: live zcode manifest not found at #{@live_manifest} (set ZCODE_CLI_PATH) — " <>
+                 "the drift court cannot run without its live referent"
+           )
     test "drift meta-test: pinned manifest matches the live zcode manifest" do
       live_sha = :crypto.hash(:sha256, File.read!(@live_manifest)) |> Base.encode16(case: :lower)
       manifest = Jason.decode!(File.read!(@pinned_manifest))
