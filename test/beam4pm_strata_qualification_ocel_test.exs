@@ -11,6 +11,14 @@ defmodule BeamPM.StrataQualificationOcelTest do
   and checked against the closed `BeamPM.CastleOcel` vocabulary and its
   per-event-type object binding.
 
+  Fixture freshness law lives in
+  `qualification/fixtures/strata-qualification.HEADER.md` and is enforced by
+  the "freshness court" test below: refresh is required when the marketplace
+  HEAD moved past the as-of HEAD (`fb123a452...`) AND a `packs/strata-*` pack
+  changed since as-of. Regeneration on 2026-10-13 produced one standing delta
+  (strata-protocol-pack REFUSED -> ALIVE, allowlisted in the HEADER), so the
+  pinned fixture is intentionally retained at sha256 `4b12771a...`.
+
   Assertions:
 
     * one event per pack verdict (count == report `pack_count`);
@@ -105,5 +113,68 @@ defmodule BeamPM.StrataQualificationOcelTest do
 
   test "drift court: two runs convert to identical bytes" do
     assert convert() == convert()
+  end
+
+  @marketplace_path System.get_env("GGEN_MARKETPLACE_PATH") || "/Users/sac/ggen-marketplace"
+  @as_of_head "fb123a452b52b64976185d1ad53937b2c52e7281"
+  @as_of_date "2026-10-13"
+  @refresh_command """
+  cd /Users/sac/ggen-marketplace && python3 scripts/qualify_packs.py \
+    --report /tmp/strata-qualification-current.json --workers 7 \
+    --pack strata-cas-pack --pack strata-pn64-pack --pack strata-protocol-pack \
+    --pack strata-signer-pack --pack strata-stratus-pack \
+    --pack strata-temprun-pack --pack strata-valve-pack
+  """
+  @standing_delta_allowlist %{
+    "strata-protocol-pack" => %{
+      fixture: "REFUSED",
+      regenerated: "ALIVE",
+      note:
+        "FM-GRAPH-013 BIND re-bind graph error (REFUSED:GGEN_PACK_SYNC_FAILED) no longer fires"
+    }
+  }
+
+  test "freshness court: pinned fixture is stale when marketplace HEAD moved AND a strata pack changed since as-of #{@as_of_date}" do
+    marketplace = Path.expand(@marketplace_path, __DIR__)
+    assert File.dir?(marketplace), """
+    ggen-marketplace checkout not reachable at #{inspect(marketplace)}.
+    Set GGEN_MARKETPLACE_PATH to the canonical checkout; the freshness court
+    refuses to pass vacuously when its subject is unobservable.
+    """
+
+    {head, 0} = System.cmd("git", ["-C", marketplace, "rev-parse", "HEAD"])
+    head = String.trim(head)
+
+    {log, 0} =
+      System.cmd("git", ["-C", marketplace, "log", "--format=%H", "#{@as_of_head}..HEAD", "--"] ++
+                   Enum.map(strata_packs(), &"packs/#{&1}"))
+
+    changed_since_as_of = String.trim(log) != ""
+
+    if head != @as_of_head and changed_since_as_of do
+      flunk("""
+      Pinned strata qualification fixture is STALE: marketplace HEAD moved past
+      #{@as_of_head} (as-of #{@as_of_date}, now #{head}) AND strata packs changed
+      since as-of. Regenerate and re-pin:
+
+      #{@refresh_command}
+
+      Known standing deltas vs the pinned fixture (allowlist, see
+      qualification/fixtures/strata-qualification.HEADER.md):
+      #{Enum.map(@standing_delta_allowlist, fn {pack, d} -> "\n  #{pack}: #{d.fixture} -> #{d.regenerated} (#{d.note})" end)}
+      """)
+    end
+  end
+
+  defp strata_packs do
+    marketplace = Path.expand(@marketplace_path, __DIR__)
+
+    case File.ls(Path.join(marketplace, "packs")) do
+      {:ok, entries} ->
+        Enum.filter(Enum.sort(entries), &String.starts_with?(&1, "strata-"))
+
+      {:error, reason} ->
+        flunk("cannot list #{marketplace}/packs: #{inspect(reason)}")
+    end
   end
 end
