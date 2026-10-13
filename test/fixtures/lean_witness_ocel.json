@@ -1,0 +1,100 @@
+{
+  "events": [
+    {
+      "event_id": "lean.witness:ProcInt.PN64.pn64_sequence_conserves",
+      "event_type": "lean.witness",
+      "event_time": "2026-10-13T10:25:06Z",
+      "attributes": {
+        "theorem": "ProcInt.PN64.pn64_sequence_conserves",
+        "axioms_count": 2,
+        "source_sha256": "3b03a04dba536b7146027cc6f23315566bfa905d783f28b56e8eb3d1992667c0"
+      },
+      "relationships": [
+        {
+          "qualifier": "module",
+          "object_id": "ProcInt.Petri.PN64Conservation"
+        }
+      ]
+    },
+    {
+      "event_id": "lean.witness:ProcInt.head_unique",
+      "event_type": "lean.witness",
+      "event_time": "2026-10-13T10:25:06Z",
+      "attributes": {
+        "theorem": "ProcInt.head_unique",
+        "axioms_count": 2,
+        "source_sha256": "04e1e2c0ee1c067d8466bfc4c75acbf1e379c5a6bf1075b744e204336d2c0de9"
+      },
+      "relationships": [
+        {
+          "qualifier": "module",
+          "object_id": "ProcInt.Petri.ForkChoice"
+        }
+      ]
+    },
+    {
+      "event_id": "lean.witness:ProcInt.StrataNet.mempool_capacity",
+      "event_type": "lean.witness",
+      "event_time": "2026-10-13T10:25:06Z",
+      "attributes": {
+        "theorem": "ProcInt.StrataNet.mempool_capacity",
+        "axioms_count": 2,
+        "source_sha256": "46f328d01ee3458d606990de3dabc91c3578bde5e602fa32da647df82c29a700"
+      },
+      "relationships": [
+        {
+          "qualifier": "module",
+          "object_id": "ProcInt.Petri.NetLaws"
+        }
+      ]
+    },
+    {
+      "event_id": "lean.witness:ProcInt.StrataStore.recover_after_crash",
+      "event_type": "lean.witness",
+      "event_time": "2026-10-13T10:25:06Z",
+      "attributes": {
+        "theorem": "ProcInt.StrataStore.recover_after_crash",
+        "axioms_count": 2,
+        "source_sha256": "b5a0432aa4787294689799290c482aa038f0b914fed461575c5494ce54abf85e"
+      },
+      "relationships": [
+        {
+          "qualifier": "module",
+          "object_id": "ProcInt.Petri.JournalReplay"
+        }
+      ]
+    },
+    {
+      "event_id": "lean.witness:ProcInt.StrataLedger.strata_ledger_total_value_conserved",
+      "event_type": "lean.witness",
+      "event_time": "2026-10-13T10:25:06Z",
+      "attributes": {
+        "theorem": "ProcInt.StrataLedger.strata_ledger_total_value_conserved",
+        "axioms_count": 2,
+        "source_sha256": "7399cdc4ec988684d7ef8bd3268c807ddc8565a6a8d74f4a5d14505af8aebb34"
+      },
+      "relationships": [
+        {
+          "qualifier": "module",
+          "object_id": "ProcInt.Petri.LedgerConservation"
+        }
+      ]
+    },
+    {
+      "event_id": "lean.witness:ProcInt.StrataMerkle.merkle_inclusion_complete",
+      "event_type": "lean.witness",
+      "event_time": "2026-10-13T10:25:06Z",
+      "attributes": {
+        "theorem": "ProcInt.StrataMerkle.merkle_inclusion_complete",
+        "axioms_count": 3,
+        "source_sha256": "20a86ff86a2837d9284cefbb84af7a239354d8855d401aba3a3fb09596eb866e"
+      },
+      "relationships": [
+        {
+          "qualifier": "module",
+          "object_id": "ProcInt.Petri.MerkleCompleteness"
+        }
+      ]
+    }
+  ]
+}
