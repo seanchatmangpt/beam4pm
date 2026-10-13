@@ -251,21 +251,17 @@ defmodule BeamPM.Graphlaw do
     out = Wasmex.Memory.read_binary(store, memory, out_ptr, out_len)
     _ = call_export(pid, "gl_dealloc", [out_ptr, out_len], timeout)
 
-    # bpm:ErrorCollapse_ok_flag_refusal: an {"ok": false} response is a typed
-    # refusal; the guest wraps it as {"ok": false, "error" => refusal}. Any
-    # other response passes through unchanged (single-key "error" collapses
-    # to {:error, {:engine, inspect(err)}}).
+    # bpm:ErrorCollapse_single_key_inspect: only a response whose SOLE key is
+    # "error" is an op failure. A response carrying "error" alongside other
+    # top-level keys is a structured refusal envelope the caller needs whole,
+    # so it passes through as {:ok, decoded} untouched.
     case JSON.decode!(out) do
-      %{"ok" => false, "error" => refusal} ->
-        {:error, {:refused, refusal}}
-
       %{"error" => err} = decoded when map_size(decoded) == 1 ->
         {:error, {:engine, inspect(err)}}
 
       decoded ->
         {:ok, decoded}
     end
-
   end
 
   defp restart_engine do

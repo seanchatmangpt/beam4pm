@@ -766,7 +766,6 @@ defmodule BeamPM.Rust4PM do
       %{"error" => msg} -> {:error, {:engine, msg}}
       decoded -> {:ok, decoded}
     end
-
   end
 
   defp restart_engine do
