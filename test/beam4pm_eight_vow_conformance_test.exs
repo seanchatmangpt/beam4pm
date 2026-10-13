@@ -156,26 +156,35 @@ defmodule BeamPM.EightVowConformanceTest do
   # events below are lifecycle scaffolding required by PRD §27/§28 — they are
   # NOT claimed as projections of insa edges 1-6 (those stay vow-native).
   defp gall_carrier do
-    base = %{
-      checkpoint_admitted: %{checkpoint: "vow-mal-3-10"},
-      run_created: %{checkpoint: "vow-mal-3-10", run: "vow-run-1"},
-      epoch_created: %{run: "vow-run-1", epoch: "vow-epoch-1"},
-      worktree_provisioned: %{epoch: "vow-epoch-1", worker: "vow-worker-1"},
-      lease_claimed: %{epoch: "vow-epoch-1", lease: "vow-lease-1", worker: "vow-worker-1"},
-      tool_admitted: %{lease: "vow-lease-1"},
-      candidate_committed: %{lease: "vow-lease-1", candidate: "0xCC-receiver-edge-042"},
-      lease_closed: %{lease: "vow-lease-1", candidate: "0xCC-receiver-edge-042"},
-      verification_started: %{
-        lease: "vow-lease-1",
-        candidate: "0xCC-receiver-edge-042",
-        verifier: "vow-verifier-1"
-      },
-      verification_finished: %{
-        lease: "vow-lease-1",
-        candidate: "0xCC-receiver-edge-042",
-        verifier: "vow-verifier-1"
-      }
-    }
+    # Order-critical fixture: GallOcel.check/1 is a pure precedence walk over
+    # the trace ORDER, so the carrier lifecycle (PRD §27/§28) is pinned as an
+    # explicit list. A `%{...}` map literal must NOT be used here: map key
+    # iteration order is UNSPECIFIED in Elixir, and on some VM boots the
+    # flatmap iterates in non-lifecycle order (observed: lease_claimed before
+    # worktree_provisioned -> spurious REFUSED_CONFORMANCE ~1/8 full-suite
+    # runs, never in isolation). Tuples pin insertion order exactly.
+    base = [
+      {:checkpoint_admitted, %{checkpoint: "vow-mal-3-10"}},
+      {:run_created, %{checkpoint: "vow-mal-3-10", run: "vow-run-1"}},
+      {:epoch_created, %{run: "vow-run-1", epoch: "vow-epoch-1"}},
+      {:worktree_provisioned, %{epoch: "vow-epoch-1", worker: "vow-worker-1"}},
+      {:lease_claimed, %{epoch: "vow-epoch-1", lease: "vow-lease-1", worker: "vow-worker-1"}},
+      {:tool_admitted, %{lease: "vow-lease-1"}},
+      {:candidate_committed, %{lease: "vow-lease-1", candidate: "0xCC-receiver-edge-042"}},
+      {:lease_closed, %{lease: "vow-lease-1", candidate: "0xCC-receiver-edge-042"}},
+      {:verification_started,
+       %{
+         lease: "vow-lease-1",
+         candidate: "0xCC-receiver-edge-042",
+         verifier: "vow-verifier-1"
+       }},
+      {:verification_finished,
+       %{
+         lease: "vow-lease-1",
+         candidate: "0xCC-receiver-edge-042",
+         verifier: "vow-verifier-1"
+       }}
+    ]
 
     for {name, objects} <- base do
       %{name: name, time: "2026-10-13T00:00:00Z", objects: objects}
