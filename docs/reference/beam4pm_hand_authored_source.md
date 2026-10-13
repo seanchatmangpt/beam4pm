@@ -16,22 +16,22 @@ artifact is absent (`ACCEPTANCE_BLOCKED_PREREQUISITE`).
 
 ## Count
 
-- Admitted unmarked files: **117**
-- Counted as manufacturing debt: **109**
-- Lawful inputs / reference evidence (not debt): **8**
+- Admitted unmarked files: **128**
+- Counted as manufacturing debt: **119**
+- Lawful inputs / reference evidence (not debt): **9**
 
 ## Authorship kinds (closed vocabulary, pack `ontology.ttl`)
 
 | Kind | Counts as debt | Admitted | Ceiling | Doc |
 | --- | --- | --- | --- | --- |
-| `hand_authored_qualification` | true | 102 | 102 | A hand-authored ExUnit qualification file under test/ (VISION-2030 section 2 lists tests-as-specification among lawful inputs, but this pack's convention manufactures every test from a template, so an unmanufactured test is counted as debt). Sunset: migrate its fixture bindings into ontology facts and render it from a .tmpl/.eex like the beam4pm_types_test.exs family. Ceiling raised 16 -> 24 (2026-09-09): a beam4pm branch-integration merge surfaced 8 real, pre-existing hand-authored files (lib/beam4pm_application.ex, lib/beam4pm_contracts.ex + test, lib/beam4pm_powl_discovery.ex + test, two new B4PM-1703/1709 mix tasks + tests, test/beam4pm_ws3_dfcm_self_healing_test.exs) that predate GATE AUTHORSHIP's own manufacture and were never previously surfaced as unadmitted debt -- disclosed and counted here, not silently exempted. Ceiling raised 24 -> 27 (2026-09-09, same session): B4PM-1702's single-record-patch codemod (lib/ggen_igniter/patch_field.ex, its mix task, and its test) is a deliberately hand-authored alternative manufacturing path -- the codemod's own capability IS being an alternative to a full EEx re-render, so it cannot itself be ggen output. Ceiling raised 27 -> 30 (2026-09-10, v26.9.10 release-candidate integration): feat/ocel-evidence-architecture's Phases 3/4/6 surfaced 3 real hand-authored files wiring/verifying the :telemetry->OcelEvent/OTel/BRCE evidence chain (BeamPM.Evidence.OtelBridge, BeamPM.Evidence.ReceiptBridge, and the generalized Chicago-style evidence-chain end-to-end test) -- none is a bpm:RecordType projection or template-rendered file, analogous to the already-admitted lib/beam4pm_application.ex and lib/beam4pm_ocel_ingest.ex. Ceiling raised 30 -> 32 (2026-09-11, HDDL/FOND FreedomGym plan-execute-conform loop, Step 5): 2 new real Chicago qualification tests for BeamPM.PowlConformance (test/beam4pm_powl_conformance_test.exs -- a real in-test OCEL log, real deviation detection; test/beam4pm_powl_conformance_e2e_test.exs -- the real cross-repo e2e leg reading ash_a2a's real captured OCEL ingest events) -- neither is a bpm:RecordType projection or template-rendered file; the conformance-orchestration module itself was admitted under native_engine_facade instead (no ceiling pressure there). Ceiling raised 32 -> 33 (2026-09-13, v26.9.12 branch-fleet integration merge): feat/eds-core's test/beam4pm_ws3_dfcm_self_healing-adjacent EDS qualification test surfaced alongside the independently-developed feat/ppcx-conformance-deviation-to-ontology branch's deviation-admission test in the same integration merge -- both are real, distinct hand-authored Chicago tests admitted concurrently on separate branches; neither duplicates the other, so both are disclosed and counted rather than one being silently dropped. Ceiling raised 33 -> 35 (2026-09-13, same v26.9.12 integration): the eds-core branch's own pre-existing lib/beam4pm_research_erc.ex (real ERC ledger reader) and lib/mix/tasks/eds.ledger.ex (real mix task over it) surfaced as previously-unadmitted debt in the same merge -- both real hand-authored files, disclosed and counted, not silently exempted. Ceiling raised 35 -> 44 (2026-09-18, v26.9.18 autofde-lab parity wave integration): the wave landed 9 real qualification files in one integration merge -- test/beam4pm_dfcm_test.exs (canonical bridge suite, previously uncommitted working-tree state), and the per-agent parity/consent qualifications test/beam4pm_dfcm_fabric_parity_test.exs (P1), test/beam4pm_dfcm_ocel_validate_parity_test.exs (P2), test/beam4pm_dfcm_sa2a_validate_card_test.exs (P3), test/beam4pm_sa2a_admit_parity_test.exs (P4), test/beam4pm_dfcm_sa2a_replay_test.exs (P5), test/beam4pm_dfcm_cmca_parity_test.exs (P7), test/beam4pm_autofde_bridge_test.exs (P8), test/beam4pm_graphlaw_parity_test.exs (P10) -- all real-engine Chicago qualifications against autofde-lab, admitted concurrently on separate branches, disclosed and counted rather than one being silently dropped. Ceiling raised 44 -> 50 (2026-09-18, same integration, post-render gate run): the authorship gate surfaced agent P10's six hand-authored TTL corpus files under test/fixtures/graphlaw_parity/ as unadmitted debt (REFUSED_UNADMITTED x6 -- P10's branch-scoped run never executed the full gate), admitted as sha-bound qualification debt; the flip-ledger test itself pins their digests. Ceiling raised 50 -> 54 (2026-10-01, v26.10.1 ash_ex4pm adoption integration): the wave's four real hand-authored files landed together -- test/beam4pm_ex4pm_runtime_test.exs, test/beam4pm_ash_ex4pm_emission_test.exs, test/beam4pm_brce_contract_test.exs (upgrade-seam qualifications of the hex-pinned ash_ex4pm 26.10.1 -> ex4pm 26.10.1 dependency, the frozen Ash-leg projection law, and the ex4pm BRCE gate contract) and lib/beam4pm_evidence.ex (the :telemetry->OcelEvent/OTel bridge, same class as the v26.9.10 30->32 precedent) -- disclosed and counted, Ceiling raised 54 -> 98 (2026-10-03, fleet repair lane REPAIR-beam4pm): the 2026-10-01 v26.10.1 ontology regeneration silently dropped 44 existing bpm:HandAuthoredSource individuals (16 lib seams, 18 qualification tests, schema/beam4pm_evidence_coverage.tsv, 3 DfCM planning fixtures, 6 graphlaw parity corpus TTLs -- all previously admitted in the v26.9.18 and v26.10.1 waves). The repair lane re-admitted all 44 unchanged (one with a post-fix digest: lib/beam4pm_legacy_equivalence.ex normalize/1 nil-atom fix) and refreshed 4 REFUSED_SHA_DRIFT digests (lib/beam4pm_dfcm.ex, lib/beam4pm_replan_router.ex, test/beam4pm_ferroplan_test.exs, test/ggen_igniter_patch_field_test.exs), disclosed and counted, not silently exempted. Ceiling raised 98 -> 99 (2026-10-07, campaign lane W658): v26.10.6 lane W601 landed one real hand-authored Chicago qualification test (test/beam4pm_w601_map_update_dual_safe_test.exs, dual-safe map update) with no pack template rendering this seam; admitted sha-bound by lane W658, disclosed and counted, not silently exempted. Ceiling raised 99 -> 102 (2026-10-07, campaign lane W658b): the remaining 4 AuthorshipGate findings are cleared -- 3 real hand-authored files (lib/beam4pm_art72_conformance.ex + test, lane W511's Art. 72 token-replay conformance; test/beam4pm_airo_description_test.exs, lane W634's AIRo risk-description court) admitted sha-bound as qualification debt, plus one REFUSED_SHA_DRIFT digest refresh (test/beam4pm_evidence_chain_test.exs, content edited after its admission); disclosed and counted, not silently exempted. |
+| `hand_authored_qualification` | true | 112 | 112 | A hand-authored ExUnit qualification file under test/ (VISION-2030 section 2 lists tests-as-specification among lawful inputs, but this pack's convention manufactures every test from a template, so an unmanufactured test is counted as debt). Sunset: migrate its fixture bindings into ontology facts and render it from a .tmpl/.eex like the beam4pm_types_test.exs family. Ceiling raised 16 -> 24 (2026-09-09): a beam4pm branch-integration merge surfaced 8 real, pre-existing hand-authored files (lib/beam4pm_application.ex, lib/beam4pm_contracts.ex + test, lib/beam4pm_powl_discovery.ex + test, two new B4PM-1703/1709 mix tasks + tests, test/beam4pm_ws3_dfcm_self_healing_test.exs) that predate GATE AUTHORSHIP's own manufacture and were never previously surfaced as unadmitted debt -- disclosed and counted here, not silently exempted. Ceiling raised 24 -> 27 (2026-09-09, same session): B4PM-1702's single-record-patch codemod (lib/ggen_igniter/patch_field.ex, its mix task, and its test) is a deliberately hand-authored alternative manufacturing path -- the codemod's own capability IS being an alternative to a full EEx re-render, so it cannot itself be ggen output. Ceiling raised 27 -> 30 (2026-09-10, v26.9.10 release-candidate integration): feat/ocel-evidence-architecture's Phases 3/4/6 surfaced 3 real hand-authored files wiring/verifying the :telemetry->OcelEvent/OTel/BRCE evidence chain (BeamPM.Evidence.OtelBridge, BeamPM.Evidence.ReceiptBridge, and the generalized Chicago-style evidence-chain end-to-end test) -- none is a bpm:RecordType projection or template-rendered file, analogous to the already-admitted lib/beam4pm_application.ex and lib/beam4pm_ocel_ingest.ex. Ceiling raised 30 -> 32 (2026-09-11, HDDL/FOND FreedomGym plan-execute-conform loop, Step 5): 2 new real Chicago qualification tests for BeamPM.PowlConformance (test/beam4pm_powl_conformance_test.exs -- a real in-test OCEL log, real deviation detection; test/beam4pm_powl_conformance_e2e_test.exs -- the real cross-repo e2e leg reading ash_a2a's real captured OCEL ingest events) -- neither is a bpm:RecordType projection or template-rendered file; the conformance-orchestration module itself was admitted under native_engine_facade instead (no ceiling pressure there). Ceiling raised 32 -> 33 (2026-09-13, v26.9.12 branch-fleet integration merge): feat/eds-core's test/beam4pm_ws3_dfcm_self_healing-adjacent EDS qualification test surfaced alongside the independently-developed feat/ppcx-conformance-deviation-to-ontology branch's deviation-admission test in the same integration merge -- both are real, distinct hand-authored Chicago tests admitted concurrently on separate branches; neither duplicates the other, so both are disclosed and counted rather than one being silently dropped. Ceiling raised 33 -> 35 (2026-09-13, same v26.9.12 integration): the eds-core branch's own pre-existing lib/beam4pm_research_erc.ex (real ERC ledger reader) and lib/mix/tasks/eds.ledger.ex (real mix task over it) surfaced as previously-unadmitted debt in the same merge -- both real hand-authored files, disclosed and counted, not silently exempted. Ceiling raised 35 -> 44 (2026-09-18, v26.9.18 autofde-lab parity wave integration): the wave landed 9 real qualification files in one integration merge -- test/beam4pm_dfcm_test.exs (canonical bridge suite, previously uncommitted working-tree state), and the per-agent parity/consent qualifications test/beam4pm_dfcm_fabric_parity_test.exs (P1), test/beam4pm_dfcm_ocel_validate_parity_test.exs (P2), test/beam4pm_dfcm_sa2a_validate_card_test.exs (P3), test/beam4pm_sa2a_admit_parity_test.exs (P4), test/beam4pm_dfcm_sa2a_replay_test.exs (P5), test/beam4pm_dfcm_cmca_parity_test.exs (P7), test/beam4pm_autofde_bridge_test.exs (P8), test/beam4pm_graphlaw_parity_test.exs (P10) -- all real-engine Chicago qualifications against autofde-lab, admitted concurrently on separate branches, disclosed and counted rather than one being silently dropped. Ceiling raised 44 -> 50 (2026-09-18, same integration, post-render gate run): the authorship gate surfaced agent P10's six hand-authored TTL corpus files under test/fixtures/graphlaw_parity/ as unadmitted debt (REFUSED_UNADMITTED x6 -- P10's branch-scoped run never executed the full gate), admitted as sha-bound qualification debt; the flip-ledger test itself pins their digests. Ceiling raised 50 -> 54 (2026-10-01, v26.10.1 ash_ex4pm adoption integration): the wave's four real hand-authored files landed together -- test/beam4pm_ex4pm_runtime_test.exs, test/beam4pm_ash_ex4pm_emission_test.exs, test/beam4pm_brce_contract_test.exs (upgrade-seam qualifications of the hex-pinned ash_ex4pm 26.10.1 -> ex4pm 26.10.1 dependency, the frozen Ash-leg projection law, and the ex4pm BRCE gate contract) and lib/beam4pm_evidence.ex (the :telemetry->OcelEvent/OTel bridge, same class as the v26.9.10 30->32 precedent) -- disclosed and counted, Ceiling raised 54 -> 98 (2026-10-03, fleet repair lane REPAIR-beam4pm): the 2026-10-01 v26.10.1 ontology regeneration silently dropped 44 existing bpm:HandAuthoredSource individuals (16 lib seams, 18 qualification tests, schema/beam4pm_evidence_coverage.tsv, 3 DfCM planning fixtures, 6 graphlaw parity corpus TTLs -- all previously admitted in the v26.9.18 and v26.10.1 waves). The repair lane re-admitted all 44 unchanged (one with a post-fix digest: lib/beam4pm_legacy_equivalence.ex normalize/1 nil-atom fix) and refreshed 4 REFUSED_SHA_DRIFT digests (lib/beam4pm_dfcm.ex, lib/beam4pm_replan_router.ex, test/beam4pm_ferroplan_test.exs, test/ggen_igniter_patch_field_test.exs), disclosed and counted, not silently exempted. Ceiling raised 98 -> 99 (2026-10-07, campaign lane W658): v26.10.6 lane W601 landed one real hand-authored Chicago qualification test (test/beam4pm_w601_map_update_dual_safe_test.exs, dual-safe map update) with no pack template rendering this seam; admitted sha-bound by lane W658, disclosed and counted, not silently exempted. Ceiling raised 99 -> 102 (2026-10-07, campaign lane W658b): the remaining 4 AuthorshipGate findings are cleared -- 3 real hand-authored files (lib/beam4pm_art72_conformance.ex + test, lane W511's Art. 72 token-replay conformance; test/beam4pm_airo_description_test.exs, lane W634's AIRo risk-description court) admitted sha-bound as qualification debt, plus one REFUSED_SHA_DRIFT digest refresh (test/beam4pm_evidence_chain_test.exs, content edited after its admission); Ceiling raised 102 -> 110 (2026-10-13, campaign lane L172, beam4pm base 0d1d2f68): the wave's residual authorship debt is cleared -- 8 real hand-authored files (lib/beam4pm_castle_ocel.ex, the CASTLE-runtime OCEL projection; test/beam4pm_castle_ocel_test.exs, test/beam4pm_eight_vow_conformance_test.exs, test/beam4pm_fleet_process_drift_test.exs, test/beam4pm_strata_ledger_conformance_test.exs, test/beam4pm_w607_map_update_court_test.exs, five real Chicago qualification/cross-conformance courts; test/fixtures/strata_ledger_ocel.json and test/fixtures/strata/ledger-receipt.json, two sha-pinned strata corpus fixtures) admitted sha-bound as qualification debt; disclosed and counted, not silently exempted. Ceiling raised 110 -> 112 (2026-10-13, campaign lane L197, same base): the lean-witness drift court (test/beam4pm_lean_witness_drift_test.exs) and its sha-pinned OCEL fixture (test/fixtures/lean_witness_ocel.json) -- two real hand-authored files L172's full-gate run surfaced after its ceiling raise (L172's disclosed residual); admitted sha-bound as qualification debt; disclosed and counted, not silently exempted. |
 | `manufacturing_input` | false | 1 | 4 | Project scaffolding that happens to live under a manufactured root but is a lawful manufacturing input in the same class as ggen.toml / rebar.config / mix.exs (e.g. src/beam4pm.app.src). Not counted as debt; still admitted so the tree has zero unexplained unmarked files. |
 | `native_engine_facade` | true | 7 | 7 | A thin, delegation-only BEAM facade (Erlang / Elixir / Gleam) over ONE native engine hosted via wasm whose surface has NOT yet been admitted as bpm:Engine / bpm:EngineOp facts. Since pack 0.1.17 templates/beam4pm_engine.{ex,erl,gleam}.tmpl render every admitted engine's three facades, so this kind is the shrinking remainder (ferroplan, rust4pm in the reference consumer; petgraph and tract are manufactured). Ceiling lowered 12 -> 6 when those two converted: a converted engine cannot quietly return to hand-authoring. Ceiling raised 6 -> 7 (2026-09-18, v26.9.18 autofde-lab parity wave integration): the wave's two lib facades -- lib/beam4pm_dfcm.ex (planning crown + standalone AutoFDE CLI bridge, wrappers by agents P1/P2/P3/P4/P5/P7) and lib/beam4pm_autofde_bridge.ex (persistent stdio port-bridge GenServer, agent P8) -- landed together in the parity/integration merge; both are real delegation-only seams over autofde-lab, disclosed and counted, not silently exempted. |
-| `reference_evidence` | false | 7 | 8 | A hand-authored reference document under docs/reference/ sitting beside the manufactured ones (VISION-2030 section 2: reference evidence is a lawful input). Not counted as debt; admitted so a doc that only LOOKS manufactured cannot hide there unexplained. |
+| `reference_evidence` | false | 8 | 8 | A hand-authored reference document under docs/reference/ sitting beside the manufactured ones (VISION-2030 section 2: reference evidence is a lawful input). Not counted as debt; admitted so a doc that only LOOKS manufactured cannot hide there unexplained. |
 
 ## Admitted files
 
-### `hand_authored_qualification` (102 file(s), counts as debt: true)
+### `hand_authored_qualification` (112 file(s), counts as debt: true)
 
 | Path | Admitted at | Expires | Acceptance command | Prerequisite |
 | --- | --- | --- | --- | --- |
@@ -41,6 +41,7 @@ artifact is absent (`ACCEPTANCE_BLOCKED_PREREQUISITE`).
 | `lib/beam4pm_art72_conformance.ex` | `813eb924` | 2026-12-31 | `mix test test/beam4pm_art72_conformance_test.exs` | - |
 | `lib/beam4pm_autofde_bridge.ex` | `bd6d48f` | 2026-12-31 | `mix test test/beam4pm_autofde_bridge_test.exs` | - |
 | `lib/beam4pm_castle_capability_intake.ex` | `bd6d48f` | 2026-12-31 | `mix test test/castle_capability_intake_test.exs test/castle_capability_intake_runtime_test.exs` | - |
+| `lib/beam4pm_castle_ocel.ex` | `0d1d2f68` | 2026-12-31 | `mix test test/beam4pm_castle_ocel_test.exs` | - |
 | `lib/beam4pm_contracts.ex` | `91965eb` | 2026-12-31 | `mix test test/beam4pm_contracts_test.exs` | - |
 | `lib/beam4pm_enterprise_planning.ex` | `bd6d48f` | 2026-12-31 | `mix test test/beam4pm_enterprise_planning_test.exs` | - |
 | `lib/beam4pm_evidence.ex` | `fee843a2` | 2026-12-31 | `mix test test/beam4pm_evidence_chain_test.exs` | - |
@@ -75,6 +76,7 @@ artifact is absent (`ACCEPTANCE_BLOCKED_PREREQUISITE`).
 | `test/beam4pm_ash_ex4pm_emission_test.exs` | `fee843a2` | 2026-12-31 | `mix test test/beam4pm_ash_ex4pm_emission_test.exs` | - |
 | `test/beam4pm_autofde_bridge_test.exs` | `bd6d48f` | 2026-12-31 | `mix test test/beam4pm_autofde_bridge_test.exs` | - |
 | `test/beam4pm_brce_contract_test.exs` | `fee843a2` | 2026-12-31 | `mix test test/beam4pm_brce_contract_test.exs` | - |
+| `test/beam4pm_castle_ocel_test.exs` | `0d1d2f68` | 2026-12-31 | `mix test test/beam4pm_castle_ocel_test.exs` | - |
 | `test/beam4pm_contracts_test.exs` | `91965eb` | 2026-12-31 | `mix test test/beam4pm_contracts_test.exs` | - |
 | `test/beam4pm_deviation_admission_test.exs` | `c639d69` | 2026-12-31 | `mix test test/beam4pm_deviation_admission_test.exs` | - |
 | `test/beam4pm_dfcm_cmca_parity_test.exs` | `bd6d48f` | 2026-12-31 | `mix test test/beam4pm_dfcm_cmca_parity_test.exs` | - |
@@ -84,6 +86,7 @@ artifact is absent (`ACCEPTANCE_BLOCKED_PREREQUISITE`).
 | `test/beam4pm_dfcm_sa2a_validate_card_test.exs` | `bd6d48f` | 2026-12-31 | `mix test test/beam4pm_dfcm_sa2a_validate_card_test.exs` | - |
 | `test/beam4pm_dfcm_test.exs` | `8344990` | 2026-12-31 | `mix test test/beam4pm_dfcm_test.exs` | native/ferroplan/target/wasm32-wasip1/release/ferroplan_wasm.wasm |
 | `test/beam4pm_eds_test.exs` | `4d50b4b` | 2026-12-31 | `mix test test/beam4pm_eds_test.exs` | - |
+| `test/beam4pm_eight_vow_conformance_test.exs` | `0d1d2f68` | 2026-12-31 | `mix test test/beam4pm_eight_vow_conformance_test.exs` | - |
 | `test/beam4pm_enterprise_planning_test.exs` | `bd6d48f` | 2026-12-31 | `mix test test/beam4pm_enterprise_planning_test.exs` | - |
 | `test/beam4pm_evidence_chain_test.exs` | `813eb924` | 2026-12-31 | `mix test test/beam4pm_evidence_chain_test.exs` | - |
 | `test/beam4pm_ex4pm_realtime_bridge_test.exs` | `bd6d48f` | 2026-12-31 | `mix test test/beam4pm_ex4pm_realtime_bridge_test.exs` | - |
@@ -92,10 +95,12 @@ artifact is absent (`ACCEPTANCE_BLOCKED_PREREQUISITE`).
 | `test/beam4pm_ferroplan_bridge_test.exs` | `896fbaff` | 2026-12-31 | `mix test test/beam4pm_ferroplan_bridge_test.exs` | - |
 | `test/beam4pm_ferroplan_facades_test.exs` | `f44dcd0` | 2026-12-31 | `mix test test/beam4pm_ferroplan_facades_test.exs` | native/ferroplan/target/wasm32-wasip1/release/ferroplan_wasm.wasm |
 | `test/beam4pm_ferroplan_test.exs` | `c34e275` | 2026-12-31 | `mix test test/beam4pm_ferroplan_test.exs` | native/ferroplan/target/wasm32-wasip1/release/ferroplan_wasm.wasm |
+| `test/beam4pm_fleet_process_drift_test.exs` | `0d1d2f68` | 2026-12-31 | `mix test test/beam4pm_fleet_process_drift_test.exs` | - |
 | `test/beam4pm_gall_ocel_test.exs` | `bd6d48f` | 2026-12-31 | `mix test test/beam4pm_gall_ocel_test.exs` | - |
 | `test/beam4pm_graphlaw_parity_test.exs` | `bd6d48f` | 2026-12-31 | `mix test test/beam4pm_graphlaw_parity_test.exs` | - |
 | `test/beam4pm_graphlaw_test.exs` | `26a84ea` | 2026-12-31 | `mix test test/beam4pm_graphlaw_test.exs` | native/graphlaw/graphlaw_wasm.wasm |
 | `test/beam4pm_ingest_bridge_buffer_cap_test.exs` | `bd6d48f` | 2026-12-31 | `mix test test/beam4pm_ingest_bridge_buffer_cap_test.exs` | - |
+| `test/beam4pm_lean_witness_drift_test.exs` | `0d1d2f68` | 2026-12-31 | `mix test test/beam4pm_lean_witness_drift_test.exs` | - |
 | `test/beam4pm_ocel_session_facts_test.exs` | `76f814ed` | 2026-12-31 | `mix test test/beam4pm_ocel_session_facts_test.exs` | - |
 | `test/beam4pm_ocel_test.exs` | `91965eb` | 2026-12-31 | `mix test test/beam4pm_ocel_test.exs` | - |
 | `test/beam4pm_pddl_projection_test.exs` | `f44dcd0` | 2026-12-31 | `mix test test/beam4pm_pddl_projection_test.exs` | native/ferroplan/target/wasm32-wasip1/release/ferroplan_wasm.wasm |
@@ -116,10 +121,12 @@ artifact is absent (`ACCEPTANCE_BLOCKED_PREREQUISITE`).
 | `test/beam4pm_rust4pm_health_test.exs` | `f44dcd0` | 2026-12-31 | `mix test test/beam4pm_rust4pm_health_test.exs` | native/rust4pm-wasm/target/wasm32-wasip1/release/rust4pm_wasm.wasm |
 | `test/beam4pm_rust4pm_test.exs` | `f44dcd0` | 2026-12-31 | `mix test test/beam4pm_rust4pm_test.exs` | native/rust4pm-wasm/target/wasm32-wasip1/release/rust4pm_wasm.wasm |
 | `test/beam4pm_sa2a_admit_parity_test.exs` | `bd6d48f` | 2026-12-31 | `mix test test/beam4pm_sa2a_admit_parity_test.exs` | - |
+| `test/beam4pm_strata_ledger_conformance_test.exs` | `0d1d2f68` | 2026-12-31 | `mix test test/beam4pm_strata_ledger_conformance_test.exs` | - |
 | `test/beam4pm_tract_facades_test.exs` | `f44dcd0` | 2026-12-31 | `mix test test/beam4pm_tract_facades_test.exs` | native/tract-wasm/target/wasm32-wasip1/release/tract_wasm.wasm |
 | `test/beam4pm_tract_test.exs` | `f44dcd0` | 2026-12-31 | `mix test test/beam4pm_tract_test.exs` | native/tract-wasm/target/wasm32-wasip1/release/tract_wasm.wasm |
 | `test/beam4pm_version_bump_test.exs` | `91965eb` | 2026-12-31 | `mix test test/beam4pm_version_bump_test.exs` | - |
 | `test/beam4pm_w601_map_update_dual_safe_test.exs` | `813eb924` | 2026-12-31 | `mix test test/beam4pm_w601_map_update_dual_safe_test.exs` | - |
+| `test/beam4pm_w607_map_update_court_test.exs` | `0d1d2f68` | 2026-12-31 | `mix test test/beam4pm_w607_map_update_court_test.exs` | - |
 | `test/beam_pm/ferroplan_bridge/sa2a_coordinator_test.exs` | `bd6d48f` | 2026-12-31 | `mix test test/beam_pm/ferroplan_bridge/sa2a_coordinator_test.exs` | - |
 | `test/beam_pm/sa2a/replan_consumer_test.exs` | `bd6d48f` | 2026-12-31 | `mix test test/beam_pm/sa2a/replan_consumer_test.exs` | - |
 | `test/castle_capability_intake_runtime_test.exs` | `bd6d48f` | 2026-12-31 | `mix test test/castle_capability_intake_runtime_test.exs` | - |
@@ -133,9 +140,12 @@ artifact is absent (`ACCEPTANCE_BLOCKED_PREREQUISITE`).
 | `test/fixtures/graphlaw_parity/shacl_conforms.ttl` | `bd6d48f` | 2026-12-31 | `mix test test/beam4pm_graphlaw_parity_test.exs` | - |
 | `test/fixtures/graphlaw_parity/shacl_shapes.ttl` | `bd6d48f` | 2026-12-31 | `mix test test/beam4pm_graphlaw_parity_test.exs` | - |
 | `test/fixtures/graphlaw_parity/shacl_violation.ttl` | `bd6d48f` | 2026-12-31 | `mix test test/beam4pm_graphlaw_parity_test.exs` | - |
+| `test/fixtures/lean_witness_ocel.json` | `0d1d2f68` | 2026-12-31 | `mix test test/beam4pm_lean_witness_drift_test.exs` | - |
 | `test/fixtures/ocel_session_facts/beam4pm_ingest.json` | `896fbaff` | 2026-12-31 | `mix test test/beam4pm_ocel_session_facts_test.exs` | - |
 | `test/fixtures/ocel_session_facts/xaas_ocel_prefixed.ndjson` | `896fbaff` | 2026-12-31 | `mix test test/beam4pm_ocel_session_facts_test.exs` | - |
 | `test/fixtures/ocel_session_facts/zcode_plain_key.jsonocel` | `896fbaff` | 2026-12-31 | `mix test test/beam4pm_ocel_session_facts_test.exs` | - |
+| `test/fixtures/strata/ledger-receipt.json` | `0d1d2f68` | 2026-12-31 | `mix test test/beam4pm_fleet_process_drift_test.exs` | - |
+| `test/fixtures/strata_ledger_ocel.json` | `0d1d2f68` | 2026-12-31 | `mix test test/beam4pm_strata_ledger_conformance_test.exs` | - |
 | `test/ggen_igniter_patch_field_test.exs` | `2cc09cb` | 2026-12-31 | `mix test test/ggen_igniter_patch_field_test.exs` | cmd:test -n "${BEAM4PM_RUN_EXPENSIVE_PATCH_FIELD_TESTS:-}" && test $(wc -l < lib/beam4pm_types.ex) -lt 5000 |
 
 
@@ -180,6 +190,13 @@ artifact is absent (`ACCEPTANCE_BLOCKED_PREREQUISITE`).
 - Reason: Hand-authored castle capability-intake runtime; no pack template renders this seam. Dropped by the 2026-10-01 regeneration; re-admitted unchanged.
 - Content sha256 at admission: `6e13920c731fe94406661140ce70b901a6ed31a2992af9c0c2fdf83f849307a2`
 - Sunset plan: Migrate the capability into bpm: facts + a pack template and render it; then delete this admission.
+
+#### `lib/beam4pm_castle_ocel.ex`
+
+- Authorizing principal: Sean Chatman (repo owner) via Claude Code campaign lane L172
+- Reason: OCEL projection of the CASTLE runtime's observed lifecycle plus a pure conformance checker over its permitted observation order, mirroring the structure of the admitted BeamPM.GallOcel (OcelEvent/OcelObject + relationship pairs consumed by BeamPM.Ocel.object_trace/2, validate_envelope/2, encode/1). Hand-authored lib domain logic over already-generated BeamPM.Types/Ocel capital, not a template-rendered record-type projection; admitted under hand_authored_qualification per the lib/beam4pm_evidence.ex precedent (W658) so the native_engine_facade ceiling stays untouched.
+- Content sha256 at admission: `f59e3b7d43fa2f1e0c27e102087fa7653719e1ad9f600b125442cc55508f5ac0`
+- Sunset plan: Admit CASTLE observation-order facts to the ontology and render this projection from a pack template alongside GallOcel's; then delete this admission.
 
 #### `lib/beam4pm_contracts.ex`
 
@@ -419,6 +436,13 @@ artifact is absent (`ACCEPTANCE_BLOCKED_PREREQUISITE`).
 - Content sha256 at admission: `5dd875291883b5ed2cc8a1c98442978075f01f3987a4f032c2330916008c0f1a`
 - Sunset plan: When R4 resource gating lands, render the gate-contract falsifiers from the ex4pm BRCE facts as a pack template; then delete this admission.
 
+#### `test/beam4pm_castle_ocel_test.exs`
+
+- Authorizing principal: Sean Chatman (repo owner) via Claude Code campaign lane L172
+- Reason: Chicago qualification of the hand-authored BeamPM.CastleOcel projection: happy-path CASTLE trace projects to real OcelEvent/OcelObject pairs, out-of-order observation is refused typed, GALL-vocabulary traces are refused by the closed CASTLE event vocabulary and vice versa. Exercises a hand-authored module, so no beam4pm_types_test.exs.eex-style template applies.
+- Content sha256 at admission: `4520c267d39eb7a36df1d66aa23bed384449a9e1bad1ce5929f2a787e1cc0a9f`
+- Sunset plan: Render from the same CASTLE observation-order facts as lib/beam4pm_castle_ocel.ex when that module is templated; then delete this admission.
+
 #### `test/beam4pm_contracts_test.exs`
 
 - Authorizing principal: Sean Chatman (repo owner) via Claude Code session_018iXTYcpGbgf23MZYLe6TCU
@@ -482,6 +506,13 @@ artifact is absent (`ACCEPTANCE_BLOCKED_PREREQUISITE`).
 - Content sha256 at admission: `bfc270732d9cfffa3620f7ac6a9c702e526dccbded6320808e449bc2e432c176`
 - Sunset plan: If a research-claim record type is ever rendered from a pack template, generate this qualification from the matching test template as well; then delete this admission.
 
+#### `test/beam4pm_eight_vow_conformance_test.exs`
+
+- Authorizing principal: Sean Chatman (repo owner) via Claude Code campaign lane L172
+- Reason: Cross-conformance court (lane L61): feeds insa's eight-vow bridge executions (insa-replaw eight_vow_bridge.rs, traces pinned inline with provenance comments) through BeamPM.Art72Conformance token-replay fitness over a linear typestate Petri net and through BeamPM.GallOcel on the semantically exact subset -- asserting the full 8-edge forced mapping is NOT claimed and unmapped vow edges are refused by the closed GALL vocabulary. Hand-written because its fixtures are pinned inline from another repo's Rust test bodies; no pack template renders cross-repo corpus courts.
+- Content sha256 at admission: `4d56a9362b54485956b029d88b710b2179b70974add279c9b73dfc2d68e3b9b4`
+- Sunset plan: Admit the eight-vow corpus as ontology parity-corpus facts and render the court from the parity-corpus template family; then delete this admission.
+
 #### `test/beam4pm_enterprise_planning_test.exs`
 
 - Authorizing principal: Sean Chatman (repo owner) via Claude Code fleet repair lane REPAIR-beam4pm (2026-10-03)
@@ -538,6 +569,13 @@ artifact is absent (`ACCEPTANCE_BLOCKED_PREREQUISITE`).
 - Content sha256 at admission: `bf2a179c0e6331d3c0b3085fd5efb67c3af0b8cdfe24c4ad1154c69419f0c3ed`
 - Sunset plan: Admit the planning fixtures as ontology facts (a bpmg:ProcessContract already projects to PDDL) and render this qualification from them; then delete this admission.
 
+#### `test/beam4pm_fleet_process_drift_test.exs`
+
+- Authorizing principal: Sean Chatman (repo owner) via Claude Code campaign lane L172
+- Reason: L113 process-mining court over the fleet's own happy path: projects castle's pinned strata-ingest ledger receipt (test/fixtures/strata/ledger-receipt.json, digest-bound in-file) through the beam4pm_feed wire envelope into real OcelEvents and runs real conformance over the admitted order law (admission -> gate-run -> receipt -> ingest). Hand-written because it reads a sha-pinned cross-repo fixture and encodes the observed order law as assertions; no template renders fixture-bound process-drift courts.
+- Content sha256 at admission: `13cfdc527652c7ee04e8c1ec6c5febb48d572d6c7b3ec85bb56294132da08c8b`
+- Sunset plan: Admit the fleet happy-path order law as ontology facts and render this court from a pack template; then delete this admission.
+
 #### `test/beam4pm_gall_ocel_test.exs`
 
 - Authorizing principal: Sean Chatman (repo owner) via Claude Code fleet repair lane REPAIR-beam4pm (2026-10-03)
@@ -565,6 +603,13 @@ artifact is absent (`ACCEPTANCE_BLOCKED_PREREQUISITE`).
 - Reason: Chicago qualification of the ingest bridge buffer cap. Dropped by the 2026-10-01 regeneration; re-admitted unchanged.
 - Content sha256 at admission: `21f4641f23587ff39f32daef64a465629567c9d650948bd13cafbf19463c3f85`
 - Sunset plan: Migrate the capability into bpm: facts + a pack template and render it; then delete this admission.
+
+#### `test/beam4pm_lean_witness_drift_test.exs`
+
+- Authorizing principal: Sean Chatman (repo owner) via Claude Code campaign lane L197
+- Reason: Lane L188 lean-witness drift court (L181 rank-1 construction): posts the REAL mfact `scripts/witness_receipt.py --ocel` batch (sha-pinned fixture test/fixtures/lean_witness_ocel.json) through the real BeamPM.OcelIngest.Router in-VM plug pipeline and checks Art72 token-replay fitness over the import -> axiom_sweep -> gate -> emit proof order law, with mutation courts (swapped order -> fitness 0.775 -> :DRIFT; extra axiom -> typed gate refusal, replayed fitness 2/3) and the L181 falsifier (order-free baseline net admits at 1.0 -- the order law adds the discrimination). Hand-written fixture-bound cross-repo corpus court; no pack template renders it.
+- Content sha256 at admission: `64360714fa995572e3d522f5fb8fd583596dd9a8ad8f7c7689a5e279c91b57fa`
+- Sunset plan: Admit the lean.witness proof order law as ontology Art72 net facts and render the court from the parity-corpus template family; then delete this admission.
 
 #### `test/beam4pm_ocel_session_facts_test.exs`
 
@@ -706,6 +751,13 @@ artifact is absent (`ACCEPTANCE_BLOCKED_PREREQUISITE`).
 - Content sha256 at admission: `579ab8cbae4b9934e1ae266551e6042726bbd204b086da806f05c2729099c874`
 - Sunset plan: Migrate the capability into bpm: facts + a pack template and render it; then delete this admission.
 
+#### `test/beam4pm_strata_ledger_conformance_test.exs`
+
+- Authorizing principal: Sean Chatman (repo owner) via Claude Code campaign lane L172
+- Reason: Cross-conformance court (lane L7): feeds strata-ledger-pack's OCEL-v2 event log (pinned fixture test/fixtures/strata_ledger_ocel.json, strata commit 00e0b086b) through BeamPM.Ocel.decode/1, the real OcelIngest.Router POST /ocel/events wire path, Art72 token-replay fitness over the strata PN64 normative model, and BeamPM.GallOcel.check/1 -- asserted honestly to REFUSE the strata event vocabulary (a real schema-seam finding, not a silent pass). Hand-written fixture-bound cross-repo corpus court; no pack template renders it.
+- Content sha256 at admission: `6e6b5527f32c267234e6f503b7969c825b419dc82b18c2cb3f0439d1de4c2237`
+- Sunset plan: Admit the strata corpus as ontology parity-corpus facts and render the court from the parity-corpus template family; then delete this admission.
+
 #### `test/beam4pm_tract_facades_test.exs`
 
 - Authorizing principal: Sean Chatman (repo owner) via Claude Code session_01UiCeLuzgcK2BLocBKxXw39
@@ -733,6 +785,13 @@ artifact is absent (`ACCEPTANCE_BLOCKED_PREREQUISITE`).
 - Reason: Chicago qualification of the w601 dual-safe map update (lane W601, v26.10.6 campaign); hand-authored test with no pack template rendering this seam.
 - Content sha256 at admission: `a7cae76f581d81672dabd3c5ad6c28d2b08b81d2d0833fb4b26abda5fef80a81`
 - Sunset plan: Migrate the capability into bpm: facts + a pack template and render it; then delete this admission.
+
+#### `test/beam4pm_w607_map_update_court_test.exs`
+
+- Authorizing principal: Sean Chatman (repo owner) via Claude Code campaign lane L172
+- Reason: W607 lane court (WP-4 / OS-20 Map.update/3 sweep): a parameterized court over the three class-(b) Map.update/3 sites, each exercised through its real public entry point on empty and populated accumulators (Chicago-style real collaborators, no mocks), asserting deterministic-insertion semantics are preserved. No site was patched; the court documents relied-upon semantics. Hand-written parameterized court, not a template-rendered record-type test.
+- Content sha256 at admission: `ce0210c6ad68364a3e92b78f36170e90546050a24568af756e4e7b691285816b`
+- Sunset plan: If the Map.update/3 sites are later converted to generated accumulator code, render the court from the matching record-type template; then delete this admission.
 
 #### `test/beam_pm/ferroplan_bridge/sa2a_coordinator_test.exs`
 
@@ -825,6 +884,13 @@ artifact is absent (`ACCEPTANCE_BLOCKED_PREREQUISITE`).
 - Content sha256 at admission: `be98b1ce3597fb64c289849e16a1280e692f6a884b09aef387555fdacf5d8d6d`
 - Sunset plan: Migrate the capability into bpm: facts + a pack template and render it; then delete this admission.
 
+#### `test/fixtures/lean_witness_ocel.json`
+
+- Authorizing principal: Sean Chatman (repo owner) via Claude Code campaign lane L197
+- Reason: Sha-pinned mfact `lean.witness` OCEL event corpus fixture (lane L188, captured from mfact's scripts/witness_receipt.py --ocel) consumed by test/beam4pm_lean_witness_drift_test.exs; admitted per the graphlaw_parity/strata fixture precedent (corpus fixtures admitted sha-bound as qualification debt). Its passing court is the consuming suite.
+- Content sha256 at admission: `d91b7034c28daa29ef1368332a155d7b17823afd938cd6179ec6f90735489629`
+- Sunset plan: Retire with its consuming court when the lean.witness order law is admitted as ontology net facts; then delete this admission.
+
 #### `test/fixtures/ocel_session_facts/beam4pm_ingest.json`
 
 - Authorizing principal: Sean Chatman (repo owner) via Claude Code session (OCEL session-facts admission lane)
@@ -845,6 +911,20 @@ artifact is absent (`ACCEPTANCE_BLOCKED_PREREQUISITE`).
 - Reason: Hand-authored OCEL fixture (zcode plain-key jsonocel shape) consumed by test/beam4pm_ocel_session_facts_test.exs; sha-bound qualification input, same class as the admitted graphlaw_parity corpus fixtures.
 - Content sha256 at admission: `ff86706ee1992e76a700d0f157eff88fbf9af48a9a5a7397a80c45d7bdad6681`
 - Sunset plan: Sunsets with the session-facts qualification's admission (fixtures become ontology facts).
+
+#### `test/fixtures/strata/ledger-receipt.json`
+
+- Authorizing principal: Sean Chatman (repo owner) via Claude Code campaign lane L172
+- Reason: Sha-pinned castle strata-ingest chain-hashed ledger receipt fixture (praxis-chain/v2-fold) consumed by test/beam4pm_fleet_process_drift_test.exs, which binds its digest in-file; admitted per the graphlaw_parity fixture precedent. Its passing court is the consuming suite.
+- Content sha256 at admission: `d442823a21b912fbcd43665433f220655d43c41462732ce7c434214ee760661d`
+- Sunset plan: Retire with its consuming court when the fleet order law is admitted as ontology facts; then delete this admission.
+
+#### `test/fixtures/strata_ledger_ocel.json`
+
+- Authorizing principal: Sean Chatman (repo owner) via Claude Code campaign lane L172
+- Reason: Sha-pinned strata-derived OCEL 2.0 corpus fixture (5 apply_transition events, strata-ledger-pack commit 00e0b086b) consumed by test/beam4pm_strata_ledger_conformance_test.exs; admitted per the graphlaw_parity fixture precedent (corpus TTLs admitted sha-bound as qualification debt, 2026-09-18). Its passing court is the consuming suite.
+- Content sha256 at admission: `78b447d4d3620819306bd8982921a32a55fb3b43050c81323afc1b7e92502c68`
+- Sunset plan: Retire with its consuming court when the strata corpus is admitted as ontology parity-corpus facts; then delete this admission.
 
 #### `test/ggen_igniter_patch_field_test.exs`
 
@@ -929,13 +1009,14 @@ artifact is absent (`ACCEPTANCE_BLOCKED_PREREQUISITE`).
 - Content sha256 at admission: `44c8969574112676784808c4dd94fd7c1aa4fed302404e12b298b830abceaee0`
 - Sunset plan: Admit the replanning ladder (rungs, ordered checks, refusal vocabulary) as ontology facts and render route/2 from a pack template; then delete this admission.
 
-### `reference_evidence` (7 file(s), counts as debt: false)
+### `reference_evidence` (8 file(s), counts as debt: false)
 
 | Path | Admitted at | Expires | Acceptance command | Prerequisite |
 | --- | --- | --- | --- | --- |
 | `docs/reference/beam4pm-pro-modules.md` | `f44dcd0` | - | `bash scripts/gate_lint_truth.sh` | - |
 | `docs/reference/beam4pm-pro-revenue-suite.md` | `f44dcd0` | - | `bash scripts/gate_lint_truth.sh` | - |
 | `docs/reference/discovery-and-conformance-api.md` | `f44dcd0` | - | `bash scripts/gate_lint_truth.sh` | - |
+| `docs/reference/engine-ops-chain-law.md` | `0d1d2f68` | - | `bash scripts/gate_lint_truth.sh` | - |
 | `docs/reference/infra-beamops-first-principles.md` | `f44dcd0` | - | `bash scripts/gate_lint_truth.sh` | - |
 | `docs/reference/rust4pm-wasm-beam.md` | `f44dcd0` | - | `bash scripts/gate_lint_truth.sh` | - |
 | `docs/reference/scripts.md` | `f44dcd0` | - | `bash scripts/gate_lint_truth.sh` | - |
@@ -960,6 +1041,13 @@ artifact is absent (`ACCEPTANCE_BLOCKED_PREREQUISITE`).
 
 - Authorizing principal: Sean Chatman (repo owner) via Claude Code session_01UiCeLuzgcK2BLocBKxXw39
 - Reason: Hand-authored Elixir API reference for the manufactured BeamPM.Discovery / BeamPM.Precision modules; reference evidence scanned by GATE LINT-TRUTH.
+- Content sha256 at admission: `-`
+- Sunset plan: -
+
+#### `docs/reference/engine-ops-chain-law.md`
+
+- Authorizing principal: Sean Chatman (repo owner) via Claude Code campaign lane L172
+- Reason: Hand-authored reference for the engine-ops receipt chain law (beam4pm-brce/v1 hash-chained receipts) and the L129 court verdict; reference evidence (VISION-2030 section 2) scanned by GATE LINT-TRUTH.
 - Content sha256 at admission: `-`
 - Sunset plan: -
 

@@ -25526,3 +25526,141 @@ bap:runtime_module_test_frontier_evidence_test_exs a bap:RuntimeModule ;
   end
 end
 """ .
+
+# ===========================================================================
+# Lane L172 residual authorship debt clearance (2026-10-13, base 0d1d2f68):
+# the GATE AUTHORSHIP run surfaced 9 unmarked, unadmitted files under the
+# manufactured roots (REFUSED_UNADMITTED x9). Each is admitted below with the
+# real sha256 of its current bytes, its passing court as acceptance command,
+# and a sunset plan. hand_authored_qualification ceiling raised 102 -> 110 in
+# the vendored pack (reviewed pack edit; raise note appended to the kind doc).
+# ===========================================================================
+
+bap:hand_authored_lib_castle_ocel a bpm:HandAuthoredSource ;
+    bpm:sourcePath "lib/beam4pm_castle_ocel.ex" ;
+    bpm:authorshipKind bpm:AuthorshipKind_hand_authored_qualification ;
+    bpm:authorizingPrincipal "Sean Chatman (repo owner) via Claude Code campaign lane L172" ;
+    bpm:admissionReason "OCEL projection of the CASTLE runtime's observed lifecycle plus a pure conformance checker over its permitted observation order, mirroring the structure of the admitted BeamPM.GallOcel (OcelEvent/OcelObject + relationship pairs consumed by BeamPM.Ocel.object_trace/2, validate_envelope/2, encode/1). Hand-authored lib domain logic over already-generated BeamPM.Types/Ocel capital, not a template-rendered record-type projection; admitted under hand_authored_qualification per the lib/beam4pm_evidence.ex precedent (W658) so the native_engine_facade ceiling stays untouched." ;
+    bpm:acceptanceCommand "mix test test/beam4pm_castle_ocel_test.exs" ;
+    bpm:contentSha256 "f59e3b7d43fa2f1e0c27e102087fa7653719e1ad9f600b125442cc55508f5ac0" ;
+    bpm:admittedAtCommit "0d1d2f68" ;
+    bpm:admissionExpires "2026-12-31" ;
+    bpm:sunsetPlan "Admit CASTLE observation-order facts to the ontology and render this projection from a pack template alongside GallOcel's; then delete this admission." .
+
+bap:hand_authored_test_castle_ocel a bpm:HandAuthoredSource ;
+    bpm:sourcePath "test/beam4pm_castle_ocel_test.exs" ;
+    bpm:authorshipKind bpm:AuthorshipKind_hand_authored_qualification ;
+    bpm:authorizingPrincipal "Sean Chatman (repo owner) via Claude Code campaign lane L172" ;
+    bpm:admissionReason "Chicago qualification of the hand-authored BeamPM.CastleOcel projection: happy-path CASTLE trace projects to real OcelEvent/OcelObject pairs, out-of-order observation is refused typed, GALL-vocabulary traces are refused by the closed CASTLE event vocabulary and vice versa. Exercises a hand-authored module, so no beam4pm_types_test.exs.eex-style template applies." ;
+    bpm:acceptanceCommand "mix test test/beam4pm_castle_ocel_test.exs" ;
+    bpm:contentSha256 "4520c267d39eb7a36df1d66aa23bed384449a9e1bad1ce5929f2a787e1cc0a9f" ;
+    bpm:admittedAtCommit "0d1d2f68" ;
+    bpm:admissionExpires "2026-12-31" ;
+    bpm:sunsetPlan "Render from the same CASTLE observation-order facts as lib/beam4pm_castle_ocel.ex when that module is templated; then delete this admission." .
+
+bap:hand_authored_test_eight_vow_conformance a bpm:HandAuthoredSource ;
+    bpm:sourcePath "test/beam4pm_eight_vow_conformance_test.exs" ;
+    bpm:authorshipKind bpm:AuthorshipKind_hand_authored_qualification ;
+    bpm:authorizingPrincipal "Sean Chatman (repo owner) via Claude Code campaign lane L172" ;
+    bpm:admissionReason "Cross-conformance court (lane L61): feeds insa's eight-vow bridge executions (insa-replaw eight_vow_bridge.rs, traces pinned inline with provenance comments) through BeamPM.Art72Conformance token-replay fitness over a linear typestate Petri net and through BeamPM.GallOcel on the semantically exact subset -- asserting the full 8-edge forced mapping is NOT claimed and unmapped vow edges are refused by the closed GALL vocabulary. Hand-written because its fixtures are pinned inline from another repo's Rust test bodies; no pack template renders cross-repo corpus courts." ;
+    bpm:acceptanceCommand "mix test test/beam4pm_eight_vow_conformance_test.exs" ;
+    bpm:contentSha256 "4d56a9362b54485956b029d88b710b2179b70974add279c9b73dfc2d68e3b9b4" ;
+    bpm:admittedAtCommit "0d1d2f68" ;
+    bpm:admissionExpires "2026-12-31" ;
+    bpm:sunsetPlan "Admit the eight-vow corpus as ontology parity-corpus facts and render the court from the parity-corpus template family; then delete this admission." .
+
+bap:hand_authored_test_fleet_process_drift a bpm:HandAuthoredSource ;
+    bpm:sourcePath "test/beam4pm_fleet_process_drift_test.exs" ;
+    bpm:authorshipKind bpm:AuthorshipKind_hand_authored_qualification ;
+    bpm:authorizingPrincipal "Sean Chatman (repo owner) via Claude Code campaign lane L172" ;
+    bpm:admissionReason "L113 process-mining court over the fleet's own happy path: projects castle's pinned strata-ingest ledger receipt (test/fixtures/strata/ledger-receipt.json, digest-bound in-file) through the beam4pm_feed wire envelope into real OcelEvents and runs real conformance over the admitted order law (admission -> gate-run -> receipt -> ingest). Hand-written because it reads a sha-pinned cross-repo fixture and encodes the observed order law as assertions; no template renders fixture-bound process-drift courts." ;
+    bpm:acceptanceCommand "mix test test/beam4pm_fleet_process_drift_test.exs" ;
+    bpm:contentSha256 "13cfdc527652c7ee04e8c1ec6c5febb48d572d6c7b3ec85bb56294132da08c8b" ;
+    bpm:admittedAtCommit "0d1d2f68" ;
+    bpm:admissionExpires "2026-12-31" ;
+    bpm:sunsetPlan "Admit the fleet happy-path order law as ontology facts and render this court from a pack template; then delete this admission." .
+
+bap:hand_authored_test_strata_ledger_conformance a bpm:HandAuthoredSource ;
+    bpm:sourcePath "test/beam4pm_strata_ledger_conformance_test.exs" ;
+    bpm:authorshipKind bpm:AuthorshipKind_hand_authored_qualification ;
+    bpm:authorizingPrincipal "Sean Chatman (repo owner) via Claude Code campaign lane L172" ;
+    bpm:admissionReason "Cross-conformance court (lane L7): feeds strata-ledger-pack's OCEL-v2 event log (pinned fixture test/fixtures/strata_ledger_ocel.json, strata commit 00e0b086b) through BeamPM.Ocel.decode/1, the real OcelIngest.Router POST /ocel/events wire path, Art72 token-replay fitness over the strata PN64 normative model, and BeamPM.GallOcel.check/1 -- asserted honestly to REFUSE the strata event vocabulary (a real schema-seam finding, not a silent pass). Hand-written fixture-bound cross-repo corpus court; no pack template renders it." ;
+    bpm:acceptanceCommand "mix test test/beam4pm_strata_ledger_conformance_test.exs" ;
+    bpm:contentSha256 "6e6b5527f32c267234e6f503b7969c825b419dc82b18c2cb3f0439d1de4c2237" ;
+    bpm:admittedAtCommit "0d1d2f68" ;
+    bpm:admissionExpires "2026-12-31" ;
+    bpm:sunsetPlan "Admit the strata corpus as ontology parity-corpus facts and render the court from the parity-corpus template family; then delete this admission." .
+
+bap:hand_authored_test_w607_map_update_court a bpm:HandAuthoredSource ;
+    bpm:sourcePath "test/beam4pm_w607_map_update_court_test.exs" ;
+    bpm:authorshipKind bpm:AuthorshipKind_hand_authored_qualification ;
+    bpm:authorizingPrincipal "Sean Chatman (repo owner) via Claude Code campaign lane L172" ;
+    bpm:admissionReason "W607 lane court (WP-4 / OS-20 Map.update/3 sweep): a parameterized court over the three class-(b) Map.update/3 sites, each exercised through its real public entry point on empty and populated accumulators (Chicago-style real collaborators, no mocks), asserting deterministic-insertion semantics are preserved. No site was patched; the court documents relied-upon semantics. Hand-written parameterized court, not a template-rendered record-type test." ;
+    bpm:acceptanceCommand "mix test test/beam4pm_w607_map_update_court_test.exs" ;
+    bpm:contentSha256 "ce0210c6ad68364a3e92b78f36170e90546050a24568af756e4e7b691285816b" ;
+    bpm:admittedAtCommit "0d1d2f68" ;
+    bpm:admissionExpires "2026-12-31" ;
+    bpm:sunsetPlan "If the Map.update/3 sites are later converted to generated accumulator code, render the court from the matching record-type template; then delete this admission." .
+
+bap:hand_authored_fixture_strata_ledger_ocel a bpm:HandAuthoredSource ;
+    bpm:sourcePath "test/fixtures/strata_ledger_ocel.json" ;
+    bpm:authorshipKind bpm:AuthorshipKind_hand_authored_qualification ;
+    bpm:authorizingPrincipal "Sean Chatman (repo owner) via Claude Code campaign lane L172" ;
+    bpm:admissionReason "Sha-pinned strata-derived OCEL 2.0 corpus fixture (5 apply_transition events, strata-ledger-pack commit 00e0b086b) consumed by test/beam4pm_strata_ledger_conformance_test.exs; admitted per the graphlaw_parity fixture precedent (corpus TTLs admitted sha-bound as qualification debt, 2026-09-18). Its passing court is the consuming suite." ;
+    bpm:acceptanceCommand "mix test test/beam4pm_strata_ledger_conformance_test.exs" ;
+    bpm:contentSha256 "78b447d4d3620819306bd8982921a32a55fb3b43050c81323afc1b7e92502c68" ;
+    bpm:admittedAtCommit "0d1d2f68" ;
+    bpm:admissionExpires "2026-12-31" ;
+    bpm:sunsetPlan "Retire with its consuming court when the strata corpus is admitted as ontology parity-corpus facts; then delete this admission." .
+
+bap:hand_authored_fixture_strata_ledger_receipt a bpm:HandAuthoredSource ;
+    bpm:sourcePath "test/fixtures/strata/ledger-receipt.json" ;
+    bpm:authorshipKind bpm:AuthorshipKind_hand_authored_qualification ;
+    bpm:authorizingPrincipal "Sean Chatman (repo owner) via Claude Code campaign lane L172" ;
+    bpm:admissionReason "Sha-pinned castle strata-ingest chain-hashed ledger receipt fixture (praxis-chain/v2-fold) consumed by test/beam4pm_fleet_process_drift_test.exs, which binds its digest in-file; admitted per the graphlaw_parity fixture precedent. Its passing court is the consuming suite." ;
+    bpm:acceptanceCommand "mix test test/beam4pm_fleet_process_drift_test.exs" ;
+    bpm:contentSha256 "d442823a21b912fbcd43665433f220655d43c41462732ce7c434214ee760661d" ;
+    bpm:admittedAtCommit "0d1d2f68" ;
+    bpm:admissionExpires "2026-12-31" ;
+    bpm:sunsetPlan "Retire with its consuming court when the fleet order law is admitted as ontology facts; then delete this admission." .
+
+bap:hand_authored_doc_engine_ops_chain_law a bpm:HandAuthoredSource ;
+    bpm:sourcePath "docs/reference/engine-ops-chain-law.md" ;
+    bpm:authorshipKind bpm:AuthorshipKind_reference_evidence ;
+    bpm:authorizingPrincipal "Sean Chatman (repo owner) via Claude Code campaign lane L172" ;
+    bpm:admissionReason "Hand-authored reference for the engine-ops receipt chain law (beam4pm-brce/v1 hash-chained receipts) and the L129 court verdict; reference evidence (VISION-2030 section 2) scanned by GATE LINT-TRUTH." ;
+    bpm:acceptanceCommand "bash scripts/gate_lint_truth.sh" ;
+    bpm:admittedAtCommit "0d1d2f68" .
+
+# ===========================================================================
+# Lane L197 completes L172's disclosed residual (2026-10-13, base 0d1d2f68):
+# the 2 REFUSED_UNADMITTED files the full GATE AUTHORSHIP run surfaced after
+# L172's ceiling raise -- the lean-witness drift court (lane L188) and its
+# sha-pinned mfact `lean.witness` OCEL fixture. Each is admitted below with
+# the real sha256 of its current bytes, its passing court as acceptance
+# command, and a sunset plan. hand_authored_qualification ceiling raised
+# 110 -> 112 in the vendored pack (reviewed pack edit; raise note appended
+# to the kind doc).
+# ===========================================================================
+
+bap:hand_authored_test_lean_witness_drift a bpm:HandAuthoredSource ;
+    bpm:sourcePath "test/beam4pm_lean_witness_drift_test.exs" ;
+    bpm:authorshipKind bpm:AuthorshipKind_hand_authored_qualification ;
+    bpm:authorizingPrincipal "Sean Chatman (repo owner) via Claude Code campaign lane L197" ;
+    bpm:admissionReason "Lane L188 lean-witness drift court (L181 rank-1 construction): posts the REAL mfact `scripts/witness_receipt.py --ocel` batch (sha-pinned fixture test/fixtures/lean_witness_ocel.json) through the real BeamPM.OcelIngest.Router in-VM plug pipeline and checks Art72 token-replay fitness over the import -> axiom_sweep -> gate -> emit proof order law, with mutation courts (swapped order -> fitness 0.775 -> :DRIFT; extra axiom -> typed gate refusal, replayed fitness 2/3) and the L181 falsifier (order-free baseline net admits at 1.0 -- the order law adds the discrimination). Hand-written fixture-bound cross-repo corpus court; no pack template renders it." ;
+    bpm:acceptanceCommand "mix test test/beam4pm_lean_witness_drift_test.exs" ;
+    bpm:contentSha256 "64360714fa995572e3d522f5fb8fd583596dd9a8ad8f7c7689a5e279c91b57fa" ;
+    bpm:admittedAtCommit "0d1d2f68" ;
+    bpm:admissionExpires "2026-12-31" ;
+    bpm:sunsetPlan "Admit the lean.witness proof order law as ontology Art72 net facts and render the court from the parity-corpus template family; then delete this admission." .
+
+bap:hand_authored_fixture_lean_witness_ocel a bpm:HandAuthoredSource ;
+    bpm:sourcePath "test/fixtures/lean_witness_ocel.json" ;
+    bpm:authorshipKind bpm:AuthorshipKind_hand_authored_qualification ;
+    bpm:authorizingPrincipal "Sean Chatman (repo owner) via Claude Code campaign lane L197" ;
+    bpm:admissionReason "Sha-pinned mfact `lean.witness` OCEL event corpus fixture (lane L188, captured from mfact's scripts/witness_receipt.py --ocel) consumed by test/beam4pm_lean_witness_drift_test.exs; admitted per the graphlaw_parity/strata fixture precedent (corpus fixtures admitted sha-bound as qualification debt). Its passing court is the consuming suite." ;
+    bpm:acceptanceCommand "mix test test/beam4pm_lean_witness_drift_test.exs" ;
+    bpm:contentSha256 "d91b7034c28daa29ef1368332a155d7b17823afd938cd6179ec6f90735489629" ;
+    bpm:admittedAtCommit "0d1d2f68" ;
+    bpm:admissionExpires "2026-12-31" ;
+    bpm:sunsetPlan "Retire with its consuming court when the lean.witness order law is admitted as ontology net facts; then delete this admission." .
