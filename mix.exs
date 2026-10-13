@@ -82,9 +82,11 @@ defmodule Beam4pm.MixProject do
       # Automatic OCEL 2.0 event emission from Ash resource actions plus an
       # optional BRCE admission gate (AshEx4pm.Changes.BrceGate), built on
       # ex4pm's Ex4pm.Stream.Ingest.ingest_envelope/1 and
-      # Ex4pm.Evidence.BRCE.execute/4. Pins {:ex4pm, "== 26.10.1"} exactly
-      # (CalVer's third component carries contract changes), so every ex4pm
-      # bump needs a matching ash_ex4pm release.
+      # Ex4pm.Evidence.BRCE.execute/4. Pins {:ex4pm, ...} at one exact
+      # version (CalVer's third component carries contract changes), so
+      # every ex4pm bump needs a matching ash_ex4pm release. Check
+      # mix.lock for the exact pinned ex4pm version rather than trusting
+      # this comment.
       {:ash_ex4pm, "~> 26.10"},
       {:wasmex, "~> 0.15"},
       # OCEL evidence-contract phases 2-3: telemetry events + OTel span bridge
@@ -125,6 +127,12 @@ defmodule Beam4pm.MixProject do
 
   defp ash_a2a_dep do
     if hex_publish?() do
+      # Cap policy: intentional user-gated bump, NOT drift. `~> 26.9.30` only
+      # activates under BEAM4PM_HEX_PUBLISH=1 (hex_publish?/0); the default
+      # dev path falls back to the git ref pinned below (ash_a2a pre-Hex).
+      # Raise the cap only when ash_a2a 26.9.30+ is actually published to Hex.
+      # NOTE: mix.lock currently holds git ref df2cbfe5 while this branch pins
+      # 80b77e22 — `mix deps.get` is required to reconcile before compile.
       {:ash_a2a, "~> 26.9.30"}
     else
       {:ash_a2a,
