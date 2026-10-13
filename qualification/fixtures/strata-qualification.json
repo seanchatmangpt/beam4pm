@@ -1,0 +1,92 @@
+{
+  "ggen": "ggen 26.10.11",
+  "pack_count": 7,
+  "packs": [
+    {
+      "consequence_files": 9,
+      "consequence_sha256": "ab379b580e6411dee33ab6c3b224213eb75a26e33b1bdaee1a233dc3a9bff961",
+      "generated_build": {
+        "manifests_verified": []
+      },
+      "name": "strata-cas-pack",
+      "profile": "project",
+      "source_sha256": "6833f91a3dfab5f5b17c9e3926328c997a15df6c829e41ac3c102b123e4dfb94",
+      "status": "ALIVE",
+      "version": "0.1.0"
+    },
+    {
+      "consequence_files": 15,
+      "consequence_sha256": "3047ba908533345b523999b5395d70ed77a9205da608dccd0a6eecd39846e9e6",
+      "generated_build": {
+        "manifests_verified": []
+      },
+      "name": "strata-pn64-pack",
+      "profile": "project",
+      "source_sha256": "ed951b705b0bf548e587a974fdb6bb3b9a9b1cedb48697ee19c40cd45e541012",
+      "status": "ALIVE",
+      "version": "0.1.0"
+    },
+    {
+      "code": "REFUSED:GGEN_PACK_SYNC_FAILED",
+      "detail": "pass=1 exit=1 output=2026-10-13T03:08:12.775473Z  INFO ggen.cli{command=sync run version=\"26.10.11\"}:pipeline.validate{operation.name=\"pipeline.validate\" operation.type=\"pipeline\" pipeline.stage=\"validate\"}: ggen_engine::generation_rules: close time.busy=433\u00b5s time.idle=375ns\n2026-10-13T03:08:12.775489Z  INFO ggen.cli{command=sync run version=\"26.10.11\"}:pipeline.extract{operation.name=\"pipeline.extract\" operation.type=\"pipeline\" pipeline.stage=\"extract\" pipeline.duration_ms=0}: ggen_engine::generation_rules: close time.busy=125ns time.idle=452\u00b5s\n2026-10-13T03:08:12.775515Z  INFO ggen.cli{command=sync run version=\"26.10.11\"}:pipeline.load{operation.name=\"pipeline.load\" operation.type=\"pipeline\" pipeline.stage=\"load\" pipeline.duration_ms=0}: ggen_engine::generation_rules: close time.busy=405\u00b5s time.idle=483\u00b5s\n2026-10-13T03:08:12.780208Z  INFO ggen.cli{command=sync run version=\"26.10.11\"}: ggen_cli_lib: close time.busy=6.41ms time.idle=1.62\u00b5s\nERROR: CLI execution failed: Command execution failed: graph error: [FM-GRAPH-013] BIND re-binds in-scope variable ?f1 (SPARQL 1.1 requires a fresh variable); rename the AS target. [at line 12: BIND(\"MAGIC\" AS ?f1) BIND(\"offset+length != next offset\" AS ?p1)]",
+      "name": "strata-protocol-pack",
+      "profile": "project",
+      "status": "REFUSED",
+      "version": "0.1.0"
+    },
+    {
+      "consequence_files": 8,
+      "consequence_sha256": "729cc80d10d4b4ffb5c68a3a8e2b50a3c3b2aab2c613faffef7fa2bf32f5065f",
+      "generated_build": {
+        "manifests_verified": []
+      },
+      "name": "strata-signer-pack",
+      "profile": "project",
+      "source_sha256": "53e69501095fbccb55ab7c66e6b438f8de9b9820afc6c2afd32778ab604a5c7d",
+      "status": "ALIVE",
+      "version": "0.1.0"
+    },
+    {
+      "consequence_files": 11,
+      "consequence_sha256": "52fabf221298aedd9e8d8b7437c8e51977552d3b58925081af64842359407066",
+      "generated_build": {
+        "manifests_verified": []
+      },
+      "name": "strata-stratus-pack",
+      "profile": "project",
+      "source_sha256": "2a95097ac52e58906b5397d4ad93aeb050ab26f3d373928ee06ff328815fa59c",
+      "status": "ALIVE",
+      "version": "0.1.0"
+    },
+    {
+      "consequence_files": 8,
+      "consequence_sha256": "698c6c5a3b3b2cc3871f7a0879f4b2d34d6eaf1adb636ea03f7475ccb325ce60",
+      "generated_build": {
+        "manifests_verified": []
+      },
+      "name": "strata-temprun-pack",
+      "profile": "project",
+      "source_sha256": "460dd07fc7fb06c0ca46a9338475ec9b1cf687997d91da2894721a1ff60e3cf1",
+      "status": "ALIVE",
+      "version": "0.1.0"
+    },
+    {
+      "consequence_files": 11,
+      "consequence_sha256": "ead5c00f6b084532f12b0f732bab6f17599c69674dec752b9c71884a77042730",
+      "generated_build": {
+        "manifests_verified": []
+      },
+      "name": "strata-valve-pack",
+      "profile": "project",
+      "source_sha256": "a0c7ea57cea83dc4d3e0d437b056269ac78ae391879b67f7c9873a0206c132ec",
+      "status": "ALIVE",
+      "version": "0.1.0"
+    }
+  ],
+  "qualification_runner": "r18-headroom",
+  "schema": "https://ggen.dev/marketplace/qualification/v1",
+  "scope": "all",
+  "shard_count": null,
+  "shard_index": null,
+  "timeout_seconds": 15.0
+}
