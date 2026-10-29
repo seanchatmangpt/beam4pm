@@ -62,6 +62,16 @@ defmodule BeamPM.GraphlawBridge do
       referentially closed and `BeamPM.Ocel.validate_envelope/2` returns
       `:ok` over a mapped envelope with no extra objects supplied.
 
+  Art. 12 (GL28-1 leg b): every bridged event carries the source identity
+  of the law content the span executed --
+  `attributes["pe:sourceDigest"]`, the engine-minted `blake3:` LawState.id
+  (RDFC-1.0 canonical N-Quads of the CONTENT, not the source bytes;
+  `wasm_sha256` routes to the engine object and is never reused). The
+  mapper emits it only when the admit metadata carries `:source_digest`;
+  `ingest/1` REFUSES any envelope whose events lack it (typed
+  `{:error, {:missing_field, :source_digest}}`, all-or-nothing) -- absence
+  is a refusal, never a silent pass.
+
   ## Conformance leg (after `ingest/2`)
 
   `conform/1` runs the ACCUMULATED content (what `ingest/2` wrote into the
@@ -115,8 +125,10 @@ defmodule BeamPM.GraphlawBridge do
   The exact graphlaw_ex admit-stop event name this bridge attaches to
   (`GraphlawEx.Telemetry.events/0`'s `[:graphlaw_ex, :admit, :stop]`:
   measurements `%{duration: native}`, metadata
-  `%{op: String.t(), server: term, outcome: :ok | :refused,
-  refusal_code: atom | nil}`).
+  `%{op: String.t(), server: term, source_digest: String.t() | nil,
+  outcome: :ok | :refused, refusal_code: atom | nil}` — `source_digest` is
+  the engine-minted `blake3:` LawState.id of the law content the span
+  executed, nil when the caller omitted the opt).
   """
   @spec event_name() :: [atom()]
   def event_name, do: @event_name
@@ -158,6 +170,12 @@ defmodule BeamPM.GraphlawBridge do
       "graphlaw.refusal_code" => metadata |> Map.get(:refusal_code) |> refusal_code_string(),
       "graphlaw.duration_native" => measurements |> Map.get(:duration, 0) |> duration_string()
     }
+    # GL28-1 leg (b), Art. 12: the source identity of the law content the
+    # span executed (engine-minted `blake3:` LawState.id) is a REQUIRED
+    # attribute on every bridged event -- required by the ingest gate below,
+    # not by the mapper: a nil (metadata carrying no :source_digest) omits
+    # the key here, and `ingest/1` then refuses the envelope.
+    |> maybe_put("pe:sourceDigest", Map.get(metadata, :source_digest))
 
     event = %OcelEvent{
       event_id: "graphlaw_admit_" <> op_string <> "_" <> unique_suffix(),
@@ -179,8 +197,10 @@ defmodule BeamPM.GraphlawBridge do
 
   @doc """
   Ingest path: refuses (typed, all-or-nothing -- nothing is written) any
-  envelope whose events are missing their OCEL 2.0 activity (`event_type`)
-  or timestamp (`event_time`), mirroring the generated
+  envelope whose events are missing their OCEL 2.0 activity (`event_type`),
+  timestamp (`event_time`), or Article 12 source identity
+  (`attributes["pe:sourceDigest"]`, the engine-minted `blake3:` LawState.id
+  of the law content executed), mirroring the generated
   `BeamPM.Types.OcelEvent.new/1` refusal shape `{:error, {:missing_field,
   field}}`; anything structurally malformed beyond that is left to
   `BeamPM.OcelAccumulator.ingest/2`'s own typed refusals
@@ -667,16 +687,19 @@ defmodule BeamPM.GraphlawBridge do
     :ok
   end
 
-  # The bridge's own refusal surface: activity (event_type) and timestamp
-  # (event_time) must both be binaries on every event in the envelope.
-  # Structurally malformed pairs are skipped here (they return nil) so the
-  # accumulator's own typed shape refusal fires downstream instead.
+  # The bridge's own refusal surface: activity (event_type), timestamp
+  # (event_time) and the Article 12 source identity (a binary
+  # `attributes["pe:sourceDigest"]`) must all be present on every event in
+  # the envelope. Structurally malformed pairs are skipped here (they return
+  # nil) so the accumulator's own typed shape refusal fires downstream
+  # instead.
   defp first_missing_field(events) do
     Enum.reduce_while(events, nil, fn
-      {%OcelEvent{event_type: type, event_time: time}, rels}, _acc when is_list(rels) ->
+      {%OcelEvent{} = event, rels}, _acc when is_list(rels) ->
         cond do
-          not is_binary(type) -> {:halt, :event_type}
-          not is_binary(time) -> {:halt, :event_time}
+          not is_binary(event.event_type) -> {:halt, :event_type}
+          not is_binary(event.event_time) -> {:halt, :event_time}
+          not is_binary(source_digest_of(event)) -> {:halt, :source_digest}
           true -> {:cont, nil}
         end
 
@@ -685,8 +708,22 @@ defmodule BeamPM.GraphlawBridge do
     end)
   end
 
+  # nil attributes are structural (skipped above so the accumulator's own
+  # typed shape refusal fires downstream); a present attributes map without
+  # the binary `pe:sourceDigest` halts with `:source_digest`.
+  defp source_digest_of(%OcelEvent{attributes: attrs}) when is_map(attrs),
+    do: Map.get(attrs, "pe:sourceDigest")
+
+  defp source_digest_of(_event), do: nil
+
   defp string_or_inspect(value) when is_binary(value), do: value
   defp string_or_inspect(value), do: inspect(value)
+
+  # Leg (b) mapper tail: put the key only when the value is present (a nil
+  # `:source_digest` in the telemetry metadata OMITS the attribute -- the
+  # ingest gate, not the mapper, turns absence into a typed refusal).
+  defp maybe_put(map, _key, nil), do: map
+  defp maybe_put(map, key, value), do: Map.put(map, key, value)
 
   defp refusal_code_string(nil), do: nil
   defp refusal_code_string(code) when is_atom(code), do: Atom.to_string(code)

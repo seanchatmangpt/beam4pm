@@ -8,8 +8,9 @@ defmodule BeamPM.GraphlawBridgeTest do
       envelope that passes `BeamPM.Ocel.validate_envelope/2` and ingests
       through `BeamPM.OcelAccumulator.ingest/2` (activity = op, timestamp
       parses as ISO8601, object ref from metadata, `admitted_by` E2O);
-    * the flip-twins: the SAME envelope with the activity dropped, and
-      with the timestamp dropped, is each REFUSED by the bridge's ingest
+    * the flip-twins: the SAME envelope with the activity dropped, with
+      the timestamp dropped, and with the `pe:sourceDigest` source
+      identity stripped, is each REFUSED by the bridge's ingest
       path with a typed refusal and nothing written;
     * `validate_envelope/2` itself is proven non-vacuous by flipping it
       (the envelope minus its server object is dangling-refused);
@@ -30,11 +31,29 @@ defmodule BeamPM.GraphlawBridgeTest do
   alias BeamPM.Types.OcelRelationship
 
   # The real graphlaw_ex admit-stop shape (GraphlawEx.Telemetry.admit/3):
-  # measurements %{duration: native}, metadata %{op:, server:, outcome:,
-  # refusal_code:}.
+  # measurements %{duration: native}, metadata %{op:, server:, source_digest:,
+  # outcome:, refusal_code:}.
   @measurements %{duration: 9876}
 
-  @ok_metadata %{op: "law_admit", server: GraphlawEx, outcome: :ok, refusal_code: nil}
+  # GL28-1 leg (b): the Art. 12 source identity. ENGINE-MINTED, not a
+  # test-rolled literal: the fixture law bytes below through the REAL `law`
+  # op (construct-ceiling signed lease, the capability smoke court's
+  # engine-verifiable fixture) over the real wasm artifact
+  # (engine_sha256 34fd4ada7ffe57f3f07de14232f8faacab67ef78a4d9afc3a12e79d78f865d08);
+  # response `states` head = blake3: of the RDFC-1.0 canonical N-Quads of
+  # the law content (LawState.id). The `canonical` op's content-addressed
+  # id agrees on the same input (two real collaborators, one mint). Fixture
+  # law bytes: "<https://x/s> <https://x/p> <https://x/o> ." — re-mint with
+  # the law op on those bytes and the states head must equal this digest.
+  @source_digest "blake3:dc0088be1cab1b4c41922511b036ee65159c8098e33c5f6c8a7a5cad4485a46e"
+
+  @ok_metadata %{
+    op: "law_admit",
+    server: GraphlawEx,
+    outcome: :ok,
+    refusal_code: nil,
+    source_digest: @source_digest
+  }
 
   @refused_metadata %{
     op: "shacl_validate",
@@ -93,6 +112,12 @@ defmodule BeamPM.GraphlawBridgeTest do
 
       # duration carried into attributes
       assert event.attributes["graphlaw.duration_native"] == "9876"
+
+      # Art. 12 source identity (leg b): the engine-minted blake3: digest
+      # from the admit opts flows through the telemetry metadata onto the
+      # event -- identity of the law CONTENT executed, never wasm_sha256
+      # (that routes to the engine object, ENVELOPE-SPEC §2)
+      assert event.attributes["pe:sourceDigest"] == @source_digest
     end
 
     test "a refused admit span maps to a valid envelope carrying the refusal code" do
@@ -130,6 +155,25 @@ defmodule BeamPM.GraphlawBridgeTest do
       assert %{events: 0, objects: 0} = OcelAccumulator.counts()
     end
 
+    # GL28-1 leg (b): the Art. 12 court law -- missing pe:sourceDigest ->
+    # trace rejected, nothing written. The SAME envelope as the passing
+    # ingest above, with ONLY the attribute stripped post-mapper: the
+    # refusal must name :source_digest exactly.
+    test "flip-twin: an injected event missing its pe:sourceDigest is refused, nothing written" do
+      envelope = GraphlawBridge.mapper(@measurements, @ok_metadata)
+      [{event, rels}] = envelope.events
+
+      no_digest = %{
+        events: [
+          {%OcelEvent{event | attributes: Map.delete(event.attributes, "pe:sourceDigest")}, rels}
+        ],
+        objects: envelope.objects
+      }
+
+      assert {:error, {:missing_field, :source_digest}} = GraphlawBridge.ingest(no_digest)
+      assert %{events: 0, objects: 0} = OcelAccumulator.counts()
+    end
+
     test "validate_envelope/2 is non-vacuous: the envelope minus its server object dangles" do
       envelope = GraphlawBridge.mapper(@measurements, @ok_metadata)
 
@@ -144,10 +188,14 @@ defmodule BeamPM.GraphlawBridgeTest do
       assert :ok = GraphlawBridge.attach()
 
       # real telemetry dispatch (synchronous by default): the handler has
-      # finished its ingest by the time execute/3 returns
+      # finished its ingest by the time execute/3 returns. The synthetic
+      # metadata carries the source identity exactly as the real span now
+      # does when the admit opts pin it (leg b) -- without it the ingest
+      # gate refuses the event by design.
       :telemetry.execute([:graphlaw_ex, :admit, :stop], %{duration: 4242}, %{
         op: "law_admit",
         server: GraphlawEx,
+        source_digest: @source_digest,
         outcome: :refused,
         refusal_code: :GL28_REFUSED_X
       })
@@ -252,7 +300,10 @@ defmodule BeamPM.GraphlawBridgeTest do
       start_supervised!({GraphlawEx, wasm_path: @wasm_path, expected_sha256: :unpinned})
       :ok = GraphlawBridge.attach()
 
-      assert {:ok, %{"ok" => true}} = GraphlawEx.admit(JSON.encode!(%{"op" => "capabilities"}))
+      assert {:ok, %{"ok" => true}} =
+               GraphlawEx.admit(GraphlawEx, JSON.encode!(%{"op" => "capabilities"}),
+                 source_digest: @source_digest
+               )
 
       # telemetry dispatch is synchronous: direct observation, never a wait
       assert %{events: 1, objects: 1} = OcelAccumulator.counts()
@@ -332,14 +383,20 @@ defmodule BeamPM.GraphlawBridgeTest do
       start_supervised!({GraphlawEx, wasm_path: @wasm_path, expected_sha256: :unpinned})
       :ok = GraphlawBridge.attach()
 
-      assert {:ok, %{"ok" => true}} = GraphlawEx.admit(JSON.encode!(%{"op" => "capabilities"}))
+      assert {:ok, %{"ok" => true}} =
+               GraphlawEx.admit(GraphlawEx, JSON.encode!(%{"op" => "capabilities"}),
+                 source_digest: @source_digest
+               )
       assert %{events: 1, objects: 1} = OcelAccumulator.counts()
 
       # the flip: no handler attached -> no OCEL. The bridge is the only
       # source of accumulated events; the engine alone writes nothing.
       :ok = GraphlawBridge.detach()
 
-      assert {:ok, %{"ok" => true}} = GraphlawEx.admit(JSON.encode!(%{"op" => "capabilities"}))
+      assert {:ok, %{"ok" => true}} =
+               GraphlawEx.admit(GraphlawEx, JSON.encode!(%{"op" => "capabilities"}),
+                 source_digest: @source_digest
+               )
       assert %{events: 1, objects: 1} = OcelAccumulator.counts()
     end
   end
