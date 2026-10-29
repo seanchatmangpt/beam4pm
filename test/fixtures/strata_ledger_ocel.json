@@ -1,0 +1,72 @@
+{
+  "_provenance": {
+    "source_pack": "ggen-marketplace:packs/strata-ledger-pack",
+    "source_commit": "00e0b086b4358fe15488a7c817864730d029d41b",
+    "derived_from": "LedgerState.events() OCEL-v2 emission (st:OcelEvent): one apply_transition event per applied transition, timestamp = 1-based transition index, objects = sorted-dedup inputs-union-outputs account ids (see packs/strata-ledger-pack/generated/ledger_state.rs OcelEvent struct + verify_conformance PN64 replay)",
+    "generated_by": "lane L7 cross-conformance court (beam4pm x strata-ledger-pack), 2026-10-13"
+  },
+  "objectTypes": [
+    {"objectType": "account", "name": "Ledger account"}
+  ],
+  "eventTypes": [
+    {"eventType": "apply_transition", "name": "Ledger transition applied"}
+  ],
+  "objects": [
+    {"object_id": "acct:alice", "object_type": "account", "attributes": {}, "relationships": []},
+    {"object_id": "acct:bob", "object_type": "account", "attributes": {}, "relationships": []},
+    {"object_id": "acct:carol", "object_type": "account", "attributes": {}, "relationships": []},
+    {"object_id": "acct:dave", "object_type": "account", "attributes": {}, "relationships": []}
+  ],
+  "events": [
+    {
+      "event_id": "ev-1",
+      "event_type": "apply_transition",
+      "event_time": "2026-10-13T00:00:01Z",
+      "attributes": {"transition_index": 1, "source_pack": "strata-ledger-pack"},
+      "relationships": [
+        {"qualifier": "executor", "object_id": "acct:alice"},
+        {"qualifier": "executor", "object_id": "acct:bob"}
+      ]
+    },
+    {
+      "event_id": "ev-2",
+      "event_type": "apply_transition",
+      "event_time": "2026-10-13T00:00:02Z",
+      "attributes": {"transition_index": 2, "source_pack": "strata-ledger-pack"},
+      "relationships": [
+        {"qualifier": "executor", "object_id": "acct:bob"},
+        {"qualifier": "executor", "object_id": "acct:carol"}
+      ]
+    },
+    {
+      "event_id": "ev-3",
+      "event_type": "apply_transition",
+      "event_time": "2026-10-13T00:00:03Z",
+      "attributes": {"transition_index": 3, "source_pack": "strata-ledger-pack"},
+      "relationships": [
+        {"qualifier": "executor", "object_id": "acct:carol"},
+        {"qualifier": "executor", "object_id": "acct:dave"}
+      ]
+    },
+    {
+      "event_id": "ev-4",
+      "event_type": "apply_transition",
+      "event_time": "2026-10-13T00:00:04Z",
+      "attributes": {"transition_index": 4, "source_pack": "strata-ledger-pack"},
+      "relationships": [
+        {"qualifier": "executor", "object_id": "acct:dave"},
+        {"qualifier": "executor", "object_id": "acct:alice"}
+      ]
+    },
+    {
+      "event_id": "ev-5",
+      "event_type": "apply_transition",
+      "event_time": "2026-10-13T00:00:05Z",
+      "attributes": {"transition_index": 5, "source_pack": "strata-ledger-pack"},
+      "relationships": [
+        {"qualifier": "executor", "object_id": "acct:alice"},
+        {"qualifier": "executor", "object_id": "acct:bob"}
+      ]
+    }
+  ]
+}

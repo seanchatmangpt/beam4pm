@@ -444,9 +444,8 @@ defmodule BeamPM.ProcessGovernor do
   # observation_before reflects the real post-step state, not the initial
   # reset's state), and closes it exactly once via try/after regardless of
   # how the fold ends.
-  defp run_transitions_continuous([], snapshot, _actuation_opts), do: {:ok, snapshot}
-
-  defp run_transitions_continuous([first | _] = transitions, snapshot, actuation_opts) do
+  defp run_transitions_continuous(transitions, snapshot, actuation_opts) do
+    first = hd(transitions)
     gym = Keyword.fetch!(actuation_opts, :gym)
     bridge = Keyword.fetch!(actuation_opts, :bridge)
     bridge_timeout = Keyword.get(actuation_opts, :bridge_timeout, 10_000)

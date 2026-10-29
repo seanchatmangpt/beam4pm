@@ -261,7 +261,8 @@ defmodule BeamPM.ZcodeOcelVerifier do
       end
     end
 
-    phase = phased(event["type"]) || ""
+    _ = phased(event["type"])
+    phase = ""
     ref = attr.("pi_pending_ref") || ""
     hash = attr.("pi_hash")
 

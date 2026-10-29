@@ -146,7 +146,6 @@ defmodule BeamPM.Powl.Model do
                              min_freq: freq.min_freq, max_freq: freq.max_freq}}}
     else
       {:error, _} = err -> err
-      other -> {:error, {:invalid_leaf_node, other}}
     end
   end
 
@@ -208,8 +207,6 @@ defmodule BeamPM.Powl.Model do
     end
   end
 
-  defp leaf_struct_view(other), do: {:error, {:invalid_leaf_node, other}}
-
   # Freq sits beside the leaf struct in the engine serde
   # (%{"Leaf" => %{"leaf" => ..., "freq" => ...}}); some emitted shapes
   # carry it one level up beside the "Leaf" variant tag instead. Accept
@@ -218,7 +215,6 @@ defmodule BeamPM.Powl.Model do
     case fetch(wrapper, "freq") do
       {:ok, _} = found -> found
       :error -> fetch(node_m, "freq")
-      {:error, _} = err -> err
     end
   end
 
@@ -688,10 +684,10 @@ defmodule BeamPM.Powl.Model do
     do: "[" <> Enum.map_join(list, ",", &encode_canonical/1) <> "]"
 
   def encode_canonical(bin) when is_binary(bin), do: "\"" <> escape_json(bin) <> "\""
+  def encode_canonical(nil), do: "null"
   def encode_canonical(atom) when is_atom(atom) and not is_boolean(atom), do: "\"" <> Atom.to_string(atom) <> "\""
   def encode_canonical(true), do: "true"
   def encode_canonical(false), do: "false"
-  def encode_canonical(nil), do: "null"
   def encode_canonical(i) when is_integer(i), do: Integer.to_string(i)
   def encode_canonical(f) when is_float(f), do: JSON.encode!(f)
 

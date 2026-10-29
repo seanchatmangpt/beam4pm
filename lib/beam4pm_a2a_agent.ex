@@ -33,38 +33,20 @@ defmodule BeamPM.A2AAgent do
       File.exists?(".beam4pm-a2a-gate-bootstrap")
 
   if bootstrap? do
-    # Use the protocol's own zero-skill agent implementation so application
-    # supervision and registry discovery exercise the real OTP/A2A contracts
-    # during destructive manufacture without claiming any domain capability.
-    Code.eval_quoted(
-      quote do
-        use A2A.Agent,
-          name: "beam4pm_regeneration_bootstrap",
-          description: "Zero-skill agent available only during deterministic regeneration",
-          version: "bootstrap",
-          skills: []
+    use A2A.Agent,
+      name: "beam4pm_regeneration_bootstrap",
+      description: "Zero-skill agent available only during deterministic regeneration",
+      version: "bootstrap",
+      skills: []
 
-        @impl A2A.Agent
-        def handle_message(_message, _context),
-          do: {:error, %{code: :regeneration_in_progress}}
-      end,
-      [],
-      __ENV__
-    )
+    @impl A2A.Agent
+    def handle_message(_message, _context),
+      do: {:error, %{code: :regeneration_in_progress}}
   else
-    # `use` is a macro and ordinary conditional syntax may expand it before
-    # the module-body condition executes. Evaluate the real-agent definition
-    # only after the bootstrap sentinel decision so the destructive
-    # regeneration window cannot inspect an incomplete Ash domain.
-    Code.eval_quoted(
-      quote do
-        Code.ensure_compiled!(BeamPM.Ash.Domain)
-        use AshA2A.Agent,
-          resource_or_domain: BeamPM.Ash.Domain,
-          name: "beam4pm_a2a_agent"
-      end,
-      [],
-      __ENV__
-    )
+    Code.ensure_compiled!(BeamPM.Ash.Domain)
+
+    use AshA2A.Agent,
+      resource_or_domain: BeamPM.Ash.Domain,
+      name: "beam4pm_a2a_agent"
   end
 end

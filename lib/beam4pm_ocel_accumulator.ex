@@ -243,7 +243,6 @@ defmodule BeamPM.OcelAccumulator do
     if Rust4PM.wasm_built?() do
       case Rust4PM.start() do
         {:ok, _pid} -> :ok
-        {:error, {:already_started, _pid}} -> :ok
         {:error, reason} -> {:error, {:engine_start_failed, reason}}
       end
     else

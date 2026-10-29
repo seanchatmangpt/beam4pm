@@ -663,10 +663,10 @@ defmodule BeamPM.ReplanRouter do
 
   def honored_attempt(%__MODULE__{}, _attempt), do: nil
 
-  defp succ(:none), do: :session_replan
   defp succ(:session_replan), do: :hddl_replan
   defp succ(:hddl_replan), do: :strategic_recompile
   defp succ(:strategic_recompile), do: :strategic_recompile
+  defp succ(_), do: :session_replan
 
   defp max_rung(a, nil), do: a
   defp max_rung(a, b), do: if(rung_index(b) > rung_index(a), do: b, else: a)
