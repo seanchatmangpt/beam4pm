@@ -4,6 +4,13 @@ All notable changes to beam4pm are documented in this file.
 
 ## [Unreleased]
 
+## [26.10.18] - 2026-10-18
+
+### Upgraded
+- Upgraded `ash_ex4pm` to `~> 26.10.17` (pins `ex4pm == 26.10.17`).
+- Updated process-intelligence engine downstream across all 647 Ash resources.
+- Synchronized ERRC improvements and Elixir 1.20 OTP 29 warning cleans.
+
 ### Added
 
 - Realtime Ash-action OCEL 2.0 capture: closes the v26.10.1 R5 gap where
@@ -30,6 +37,20 @@ All notable changes to beam4pm are documented in this file.
   `Ex4pm.Evidence.Store`; `BeamPM.Evidence`'s bridges stay authoritative for
   the engine-telemetry family), including the forward seam naming for the
   bridge above once the upstream broadcaster ships.
+- `BeamPM.GraphlawBridge` (`827fd110`, `lib/beam4pm_graphlaw_bridge.ex`):
+  bridges `[:graphlaw_ex, :admit, :stop]` telemetry into OCEL 2.0 envelopes
+  (activity `graphlaw_ex.<op>`, one `graphlaw_ex_server` object per server,
+  `admitted_by` E2O relation) and adds `conform/1` — the accumulated OCEL
+  content is run through the RF3 conformance oracle (native binary
+  `native/rf3-conformance-oracle` via `BeamPM.RF3Ocel.Oracle.call/3`, else
+  the Elixir engine-handle path). A stats mismatch is `:refused`, never a
+  pass; a missing oracle capability answers
+  `{:error, {:conformance_oracle_absent, _}}`. Court receipts are written
+  under the `beam4pm-graphlaw-bridge-conformance/v1` schema
+  (`receipts/graphlaw_bridge/`). Public surface: `event_name/0`,
+  `attach/0`, `detach/0`, `mapper/2`, `ingest/1`, `conform/1`,
+  `conformance_oracle_bin/0`, and the `BeamPM.GraphlawBridge.Conformance`
+  verdict struct.
 
 ## [26.10.8] - 2026-10-08
 

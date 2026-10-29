@@ -8,7 +8,7 @@ defmodule Beam4pm.MixProject do
       # together via `mix beam4pm.version_bump <version>`
       # (lib/mix/tasks/beam4pm.version_bump.ex), never by hand-editing one
       # without the other.
-      version: "26.10.8",
+      version: "26.10.18",
       elixir: "~> 1.17",
       start_permanent: Mix.env() == :prod,
       deps: deps(),
@@ -82,12 +82,12 @@ defmodule Beam4pm.MixProject do
       # Automatic OCEL 2.0 event emission from Ash resource actions plus an
       # optional BRCE admission gate (AshEx4pm.Changes.BrceGate), built on
       # ex4pm's Ex4pm.Stream.Ingest.ingest_envelope/1 and
-      # Ex4pm.Evidence.BRCE.execute/4. Pins {:ex4pm, ...} at one exact
-      # version (CalVer's third component carries contract changes), so
+      # Ex4pm.Evidence.BRCE.execute/4. ash_ex4pm pins {:ex4pm, "26.10.17"}
+      # exactly (CalVer's third component carries contract changes), so
       # every ex4pm bump needs a matching ash_ex4pm release. Check
       # mix.lock for the exact pinned ex4pm version rather than trusting
       # this comment.
-      {:ash_ex4pm, "~> 26.10"},
+      {:ash_ex4pm, "~> 26.10.17"},
       {:wasmex, "~> 0.15"},
       # OCEL evidence-contract phases 2-3: telemetry events + OTel span bridge
       # (lib/beam4pm_evidence.ex).
@@ -107,6 +107,11 @@ defmodule Beam4pm.MixProject do
       ash_a2a_dep(),
       {:a2a, "~> 0.1"},
       {:req, "~> 0.5"},
+      # GL28-1 leg c: the graphlaw admission kernel's Elixir bindings (path dep
+      # on the sibling checkout, smalt GL28-2 precedent). Test-only: the
+      # witness court starts the REAL wasm engine and bridges its admit
+      # telemetry into the OCEL accumulator; no runtime consumer in beam4pm.
+      {:graphlaw_ex, path: "../graphlaw/graphlaw_ex", only: :test},
       {:ex_doc, ">= 0.0.0", only: :dev, runtime: false}
     ]
   end
@@ -131,13 +136,13 @@ defmodule Beam4pm.MixProject do
       # activates under BEAM4PM_HEX_PUBLISH=1 (hex_publish?/0); the default
       # dev path falls back to the git ref pinned below (ash_a2a pre-Hex).
       # Raise the cap only when ash_a2a 26.9.30+ is actually published to Hex.
-      # NOTE: mix.lock currently holds git ref df2cbfe5 while this branch pins
-      # 80b77e22 — `mix deps.get` is required to reconcile before compile.
+      # NOTE: dev-path git ref and mix.lock hold the same ash_a2a commit
+      # (99280b85). Keep them in lockstep on any future bump.
       {:ash_a2a, "~> 26.9.30"}
     else
       {:ash_a2a,
        git: "https://github.com/seanchatmangpt/ash_a2a.git",
-       ref: "80b77e225814d7a10a724e5ac01318600c71ee4c",
+       ref: "99280b852b65e640b416411491cace0ac2081391",
        override: true}
     end
   end
