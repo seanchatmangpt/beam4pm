@@ -217,7 +217,9 @@ defmodule BeamPM.GraphlawBridge do
   Options: `:run_id` (default a fresh unique id), `:receipts_dir`
   (default `receipts/graphlaw_bridge` under the current working
   directory), `:timeout` (native-oracle call timeout ms, default
-  10_000).
+  10_000), `:receipt_extras` (a string-keyed map merged as top-level
+  fields into the on-disk receipt, default `%{}` -- e.g. the real
+  engine digest as `%{"engine_sha256" => ...}`).
   """
   @spec conform(keyword()) :: {:ok, Conformance.t()} | {:error, term()}
   def conform(opts \\ [])
@@ -609,7 +611,11 @@ defmodule BeamPM.GraphlawBridge do
           :run_id,
           "graphlaw-bridge-conform-#{System.system_time(:millisecond)}-#{System.unique_integer([:positive])}"
         ),
-      timeout: Keyword.get(opts, :timeout, 10_000)
+      timeout: Keyword.get(opts, :timeout, 10_000),
+      # GL28-1 leg c: caller-supplied extra top-level receipt fields (e.g. the
+      # engine's real wasm digest from GraphlawEx.Host.info/1). Default %{} --
+      # existing call sites merge nothing and stay behavior-identical.
+      extras: Keyword.get(opts, :receipt_extras, %{})
     }
   end
 
@@ -623,6 +629,7 @@ defmodule BeamPM.GraphlawBridge do
         },
         fields
       )
+    |> Map.merge(norm.extras)
 
     path = Path.join(norm.receipts_dir, norm.run_id <> ".json")
     File.mkdir_p!(Path.dirname(path))

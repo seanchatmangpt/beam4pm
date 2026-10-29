@@ -221,5 +221,126 @@ defmodule BeamPM.GraphlawBridgeTest do
       assert receipt["counts"] == %{"events" => 1, "objects" => 1}
       assert receipt["replay"]["oracle_bin"] == GraphlawBridge.conformance_oracle_bin()
     end
+
+    # -----------------------------------------------------------------
+    # GL28-1 leg c: the REAL-engine witness court. The engine artifact is
+    # the sibling graphlaw checkout's graphlaw_ex app (PRIV_WASM overrides).
+    # A missing artifact is a LOUD skip with the named reason -- never a
+    # fake pass -- and GRAPHLAW_REQUIRE_ENGINE=1 flips the skip into a hard
+    # failure (the test runs and flunks at its head). Real collaborators
+    # only: the supervised GraphlawEx host over the real wasm module, the
+    # real :telemetry dispatch, the real ETS accumulator, the real oracle.
+    # -----------------------------------------------------------------
+    @wasm_path System.get_env("PRIV_WASM") ||
+                 Path.expand("../../graphlaw/graphlaw_ex/priv/graphlaw/graphlaw.wasm", __DIR__)
+
+    unless File.regular?(@wasm_path) or System.get_env("GRAPHLAW_REQUIRE_ENGINE") == "1" do
+      @tag skip:
+             "graphlaw_ex engine artifact missing at #{@wasm_path} -- loud skip, not a fake pass " <>
+               "(GRAPHLAW_REQUIRE_ENGINE=1 turns this skip into a failure)"
+    end
+
+    @tag timeout: 300_000
+    test "the real GraphlawEx engine's admit telemetry bridges into a conformant OCEL receipt carrying the engine digest" do
+      unless File.regular?(@wasm_path) do
+        flunk(
+          "graphlaw_ex engine artifact missing at #{@wasm_path} -- GRAPHLAW_REQUIRE_ENGINE=1 forbids the skip"
+        )
+      end
+
+      # the REAL engine over the real artifact bytes, no mocks
+      start_supervised!({GraphlawEx, wasm_path: @wasm_path, expected_sha256: :unpinned})
+      :ok = GraphlawBridge.attach()
+
+      assert {:ok, %{"ok" => true}} = GraphlawEx.admit(JSON.encode!(%{"op" => "capabilities"}))
+
+      # telemetry dispatch is synchronous: direct observation, never a wait
+      assert %{events: 1, objects: 1} = OcelAccumulator.counts()
+
+      assert [%OcelEvent{event_type: "graphlaw_ex.admit", attributes: attrs}] =
+               Enum.map(OcelAccumulator.events(), fn {e, _} -> e end)
+
+      assert attrs["graphlaw.op"] == "admit"
+      assert attrs["graphlaw.outcome"] == ":ok"
+      assert attrs["graphlaw.refusal_code"] == nil
+
+      # a REAL engine duration: parses as an integer > 0 and is neither of
+      # the synthetic fixture constants used by the mapper courts above
+      assert {duration, ""} = Integer.parse(attrs["graphlaw.duration_native"])
+      assert duration > 0
+      refute duration in [9876, 4242]
+
+      assert [%OcelObject{object_id: "graphlaw_ex.server.GraphlawEx", object_type: "graphlaw_ex_server"}] =
+               Enum.map(OcelAccumulator.objects(), fn {o, _} -> o end)
+
+      # the live-ingested real-engine content is referentially closed OCEL 2.0
+      assert :ok = Ocel.validate_envelope(OcelAccumulator.events(), OcelAccumulator.objects())
+
+      # the engine's real load receipt: the digest of the exact artifact bytes
+      assert {:ok, %{wasm_sha256: digest}} = GraphlawEx.Host.info(GraphlawEx)
+
+      receipts_dir =
+        Path.join([
+          System.tmp_dir!(),
+          "graphlaw_bridge_conformance",
+          "run-#{System.unique_integer([:positive])}"
+        ])
+
+      run_id = "graphlaw-engine-witness-#{System.unique_integer([:positive])}"
+
+      assert {:ok,
+              %GraphlawBridge.Conformance{outcome: :conformant, counts: %{events: 1, objects: 1}} =
+                verdict} =
+               GraphlawBridge.conform(
+                 receipts_dir: receipts_dir,
+                 run_id: run_id,
+                 receipt_extras: %{
+                   "engine_sha256" => digest,
+                   "wasm_path" => @wasm_path,
+                   "emission" => %{
+                     "source" => "real_graphlaw_ex_engine",
+                     "op" => "admit",
+                     "outcome" => ":ok",
+                     "refusal_code" => nil,
+                     "duration_native" => duration
+                   }
+                 }
+               )
+
+      # the on-disk receipt carries the caller-supplied engine extras at the
+      # top level (the :receipt_extras merge)
+      receipt = verdict.receipt_path |> File.read!() |> JSON.decode!()
+      assert receipt["engine_sha256"] == digest
+      assert receipt["wasm_path"] == @wasm_path
+      assert receipt["emission"]["duration_native"] == duration
+    end
+
+    unless File.regular?(@wasm_path) or System.get_env("GRAPHLAW_REQUIRE_ENGINE") == "1" do
+      @tag skip:
+             "graphlaw_ex engine artifact missing at #{@wasm_path} -- loud skip, not a fake pass " <>
+               "(GRAPHLAW_REQUIRE_ENGINE=1 turns this skip into a failure)"
+    end
+
+    @tag timeout: 300_000
+    test "anti-vacuity: with the bridge detached a real engine admit writes nothing" do
+      unless File.regular?(@wasm_path) do
+        flunk(
+          "graphlaw_ex engine artifact missing at #{@wasm_path} -- GRAPHLAW_REQUIRE_ENGINE=1 forbids the skip"
+        )
+      end
+
+      start_supervised!({GraphlawEx, wasm_path: @wasm_path, expected_sha256: :unpinned})
+      :ok = GraphlawBridge.attach()
+
+      assert {:ok, %{"ok" => true}} = GraphlawEx.admit(JSON.encode!(%{"op" => "capabilities"}))
+      assert %{events: 1, objects: 1} = OcelAccumulator.counts()
+
+      # the flip: no handler attached -> no OCEL. The bridge is the only
+      # source of accumulated events; the engine alone writes nothing.
+      :ok = GraphlawBridge.detach()
+
+      assert {:ok, %{"ok" => true}} = GraphlawEx.admit(JSON.encode!(%{"op" => "capabilities"}))
+      assert %{events: 1, objects: 1} = OcelAccumulator.counts()
+    end
   end
 end
