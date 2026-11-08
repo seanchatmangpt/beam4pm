@@ -53,3 +53,11 @@ receipts/engine_ops/
 _build-*/
 /target/
 /.clap-noun-verb/
+
+# rust4pm runtime telemetry: chain-tip state rewritten every engine run
+# (chain_seq increments; not evidence, just live pointer state)
+receipts/engine_ops/.chain-tips/
+
+# ERC research run outputs: epoch-ms-timestamped witness files minted per
+# research execution; landed batches are reconciled separately from live churn
+research/erc/ERC-*-*.json
