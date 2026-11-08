@@ -10,7 +10,7 @@
 # separately — the gate is about capability reachability, not payload
 # validity.
 #
-# Run: mix run priv/consumption_sweep_f510.exs (from a worktree whose
+# Run: MIX_ENV=test mix run --no-start priv/consumption_sweep_f510.exs (from a worktree whose
 # mix.exs path-overrides {:ash_a2a, path: "~/ash_a2a"} — uncommitted).
 
 principal = "f510-consumption-sweep"
@@ -24,9 +24,23 @@ end
 
 
 # 1) Real broker + config, exactly the documented bootstrap.
-{:ok, _broker} = AshA2A.Authority.Broker.InMemory.start_link([])
-Application.put_env(:ash_a2a, :authority_broker, AshA2A.Authority.Broker.InMemory)
+#    Boot posture: ash_a2a 26.10.8 SecurityProfile.Boot refuses boot on
+#    strict-profile violations at Application start; the profile is a
+#    compile-time constant (Application.compile_env), so the script runs
+#    under MIX_ENV=test where the repo's own config/test.exs selects
+#    :legacy_compat. The broker/policy under test are read per-call.
+#    Real durable broker (AshA2A.Authority.Broker.Ekv), standalone-startable —
+#    no cluster required. AshA2A.Application supervises the broker's real
+#    single-node EKV instance, so the {module, opts} form carries our fresh
+#    per-run data_dir (keeps `issue/3`'s insert-if-absent CAS off stale
+#    token_id entries from earlier runs).
+broker_data_dir =
+  Path.join(System.tmp_dir!(), "beam4pm_f510_broker_ekv_#{System.unique_integer([:positive])}")
+
+Application.put_env(:ash_a2a, :authority_broker, {AshA2A.Authority.Broker.Ekv, data_dir: broker_data_dir})
 Application.put_env(:ash_a2a, :authority_policy, :broker)
+
+{:ok, _} = Application.ensure_all_started(:ash_a2a)
 
 subject = AshA2A.Identity.principal(principal)
 
@@ -50,10 +64,10 @@ auth = [metadata: %{"a2a.auth" => %{identity: principal}}]
 
 {completed, reachable, refusals, other} =
   Enum.reduce(changes, {0, 0, [], 0}, fn skill, {c, r, refusals, other} ->
-    message = %A2A.Message{
-      message_id: Ash.UUID.generate(),
+    message = %AshA2A.Protocol.Message{
+      message_id: AshA2A.Protocol.ID.generate("msg"),
       role: :user,
-      parts: [A2A.Part.Data.new(%{})],
+      parts: [AshA2A.Protocol.Part.Data.new(%{})],
       metadata: %{skill: skill.id}
     }
 
