@@ -10,6 +10,6 @@ config :beam4pm, :admission_mode, :skip
 # long-lived VM on this host. Port 0 = OS-assigned ephemeral port
 # (BeamPM.Application reads :ocel_ingest_port/:a2a_port via
 # Application.get_env; Bandit/Thousand Island binds port 0 fine).
-config :beam4pm, ocel_ingest_port: 0, a2a_port: 0
+config :beam4pm, ocel_ingest_port: 0, a2a_port: 0, ocel_log_ingest_port: 0
 
 config :ash_a2a, :security_profile, :legacy_compat
