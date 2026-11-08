@@ -32,11 +32,17 @@ defmodule BeamPM.Application do
   def start(_type, _args) do
     port = Application.get_env(:beam4pm, :ocel_ingest_port, 4210)
     a2a_port = Application.get_env(:beam4pm, :a2a_port, 4211)
+    ocel_log_port = Application.get_env(:beam4pm, :ocel_log_ingest_port, 4212)
 
     children =
       engine_supervisor() ++
         [
           {Bandit, plug: BeamPM.OcelIngest.Router, port: port},
+          {BeamPM.OcelLogStore, []},
+          Supervisor.child_spec(
+            {Bandit, plug: BeamPM.OcelLogIngest, port: ocel_log_port},
+            id: :ocel_log_bandit
+          ),
           Supervisor.child_spec(
             {Bandit, plug: BeamPM.A2ARouter, port: a2a_port},
             id: :a2a_bandit
