@@ -61,3 +61,6 @@ receipts/engine_ops/.chain-tips/
 # ERC research run outputs: epoch-ms-timestamped witness files minted per
 # research execution; landed batches are reconciled separately from live churn
 research/erc/ERC-*-*.json
+
+# rf3 conformance oracle release binary (build artifact; source crate lives in native/rf3-*/target per cargo convention)
+native/rf3-conformance-oracle
