@@ -27,6 +27,7 @@ defmodule BeamPM.OcelLogIngest do
   alias BeamPM.OcelLogStore
 
   plug(Plug.Parsers, parsers: [:json], json_decoder: JSON, pass: ["application/json"])
+  plug(:fetch_query_params)
   plug(:match)
   plug(:dispatch)
 
@@ -49,11 +50,84 @@ defmodule BeamPM.OcelLogIngest do
     end
   end
 
+  get("/api/ocel/logs") do
+    conn
+    |> Plug.Conn.put_resp_content_type("application/json")
+    |> Plug.Conn.send_resp(200, JSON.encode!(OcelLogStore.list()))
+  end
+
+  get("/api/ocel/logs/:id") do
+    case OcelLogStore.get(id) do
+      {:ok, log} ->
+        body =
+          if conn.params["format"] == "wasm4pm" do
+            to_wasm4pm(log)
+          else
+            log
+          end
+
+        conn
+        |> Plug.Conn.put_resp_content_type("application/json")
+        |> Plug.Conn.send_resp(200, JSON.encode!(body))
+
+      :error ->
+        conn
+        |> Plug.Conn.put_resp_content_type("application/json")
+        |> Plug.Conn.send_resp(404, JSON.encode!(%{"error" => "log_not_found", "log_id" => id}))
+    end
+  end
+
   match(_) do
     conn
     |> Plug.Conn.put_resp_content_type("application/json")
     |> Plug.Conn.send_resp(404, JSON.encode!(%{"error" => "route_not_admitted"}))
   end
+
+  # -- wasm4pm adapter view ---------------------------------------------------
+  # Reshapes a stored log into the wasm4pm-internal OcelLog format consumed by
+  # `wpm trace conform` (wasm4pm packages/contracts/src/erlang-bridge.ts,
+  # OcelLogSchema): ocel_version / ocel_global_log / ocel_events /
+  # ocel_objects. Stored events carry {id,type,time,relationships}; the adapter
+  # maps type->activity, time->timestamp (string), relationships->objects with
+  # type resolved from the stored objects list, and emits plain attribute maps.
+  defp to_wasm4pm(log) do
+    object_types =
+      log["objects"]
+      |> Map.new(fn o -> {o["id"], o["type"]} end)
+
+    %{
+      "ocel_version" => "2.0",
+      "ocel_global_log" => %{"ocel_attribute_names" => []},
+      "ocel_events" =>
+        Enum.map(log["events"], fn e ->
+          %{
+            "event_id" => e["id"],
+            "activity" => e["type"],
+            "timestamp" => timestamp_string(e["time"]),
+            "objects" =>
+              e
+              |> Map.get("relationships", [])
+              |> Enum.map(fn rel ->
+                %{"id" => rel["objectId"], "type" => Map.get(object_types, rel["objectId"], "")}
+              end),
+            "attributes" => event_attributes(e)
+          }
+        end),
+      "ocel_objects" =>
+        Enum.map(log["objects"], fn o ->
+          %{"id" => o["id"], "type" => o["type"], "attributes" => %{}}
+        end)
+    }
+  end
+
+  defp event_attributes(%{"attributes" => attrs}) when is_list(attrs),
+    do: Map.new(attrs, fn a -> {a["name"], a["value"]} end)
+
+  defp event_attributes(_), do: %{}
+
+  defp timestamp_string(t) when is_integer(t), do: Integer.to_string(t)
+  defp timestamp_string(t) when is_float(t), do: :erlang.float_to_binary(t, decimals: 3)
+  defp timestamp_string(t) when is_number(t), do: to_string(t)
 
   # -- Validation (fail-closed: first error list wins, nothing persisted) ----
 

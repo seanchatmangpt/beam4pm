@@ -37,6 +37,15 @@ defmodule BeamPM.OcelLogStore do
     end
   end
 
+  @doc "List all stored logs as %{log_id => event_count} (query surface for /api/ocel/logs)."
+  @spec list() :: %{String.t() => non_neg_integer()}
+  def list do
+    :ets.tab2list(@table)
+    |> Map.new(fn {log_id, log_map} ->
+      {log_id, log_map |> Map.get("events", []) |> length()}
+    end)
+  end
+
   @doc "Count of accepted logs (test isolation aid)."
   @spec count() :: non_neg_integer()
   def count do

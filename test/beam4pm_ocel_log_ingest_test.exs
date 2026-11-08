@@ -99,4 +99,68 @@ defmodule BeamPM.OcelLogIngestTest do
     assert "missing_key:objectTypes" in resp["errors"]
     assert resp["accepted"] == 0
   end
+
+  # -- Query surface (V8-SIM-BEAM) -------------------------------------------
+
+  test "get /api/ocel/logs lists stored log_ids with event counts" do
+    conn = post_log(valid_log())
+    assert conn.status == 201
+    log_id = JSON.decode!(conn.resp_body)["log_id"]
+
+    conn = conn(:get, "/api/ocel/logs") |> OcelLogIngest.call(OcelLogIngest.init([]))
+
+    assert conn.status == 200
+    listing = JSON.decode!(conn.resp_body)
+    assert is_map(listing)
+    assert listing[log_id] == 2
+  end
+
+  test "get /api/ocel/logs/:id returns the stored log" do
+    conn = post_log(valid_log())
+    log_id = JSON.decode!(conn.resp_body)["log_id"]
+
+    conn = conn(:get, "/api/ocel/logs/#{log_id}") |> OcelLogIngest.call(OcelLogIngest.init([]))
+
+    assert conn.status == 200
+    stored = JSON.decode!(conn.resp_body)
+    assert stored["events"] |> length() == 2
+    assert hd(stored["events"])["id"] == "e-1"
+  end
+
+  test "get /api/ocel/logs/:id returns 404 for an unknown id" do
+    conn =
+      conn(:get, "/api/ocel/logs/ocel-log-does-not-exist")
+      |> OcelLogIngest.call(OcelLogIngest.init([]))
+
+    assert conn.status == 404
+    assert JSON.decode!(conn.resp_body)["error"] == "log_not_found"
+  end
+
+  test "get /api/ocel/logs/:id?format=wasm4pm reshapes to the wpm-trace-conform OcelLog shape" do
+    conn = post_log(valid_log())
+    log_id = JSON.decode!(conn.resp_body)["log_id"]
+
+    conn =
+      conn(:get, "/api/ocel/logs/#{log_id}?format=wasm4pm")
+      |> OcelLogIngest.call(OcelLogIngest.init([]))
+
+    assert conn.status == 200
+    view = JSON.decode!(conn.resp_body)
+
+    # wasm4pm erlang-bridge OcelLogSchema keys (wpm trace conform input)
+    assert view["ocel_version"] == "2.0"
+    assert is_map(view["ocel_global_log"]) and is_list(view["ocel_global_log"]["ocel_attribute_names"])
+    assert is_list(view["ocel_events"]) and length(view["ocel_events"]) == 2
+    assert is_list(view["ocel_objects"]) and length(view["ocel_objects"]) == 1
+
+    ev = hd(view["ocel_events"])
+    assert %{"event_id" => "e-1", "activity" => "Create Order", "timestamp" => ts, "objects" => objs, "attributes" => attrs} = ev
+    assert is_binary(ts)
+    assert objs == [%{"id" => "o-1", "type" => "Order"}]
+    assert is_map(attrs)
+
+    obj = hd(view["ocel_objects"])
+    assert %{"id" => "o-1", "type" => "Order", "attributes" => %{} = oattrs} = obj
+    assert is_map(oattrs)
+  end
 end
