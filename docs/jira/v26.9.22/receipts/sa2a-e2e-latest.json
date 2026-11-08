@@ -2,8 +2,8 @@
   "checks": 6,
   "failed": 0,
   "receipt": "sa2a-e2e-qualification",
-  "recorded_at": "2026-09-23T09:28:34.984801Z",
-  "subject_sha": "3f26fe0305994f570250def4cf22e4389e04c65a",
-  "subject_tree": "52d1ce51cc19c1792aeab3e56f9fae7ba8ffc517",
+  "recorded_at": "2026-11-08T10:41:30.373778Z",
+  "subject_sha": "2ba15cf7ec8bff905586ed797f16a1d95554b357",
+  "subject_tree": "d9d93e151f65e78bbe348bf2587cb65591ac2db5",
   "verifier": "mix run qualification/sa2a_e2e_qualification.exs"
 }

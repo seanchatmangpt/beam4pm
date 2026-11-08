@@ -119,17 +119,18 @@ results = check.(results, "Q5 observe skill completes",
   "state=#{t5.status.state}")
 
 # Q6 HTTP wire.
-# NAMED GAP (2026-11-08, lane V8-ELX-BROKER-e): the wire path is broken at the
-# pinned combination ash_a2a@99280b85 + a2a 0.3.0, INDEPENDENT of the broker
-# under test: `A2A.Plug` passes the decoded wire `%A2A.Message{}` straight
-# through to `AshA2A.Agent.__dispatch__/4`, which only matches
-# `%AshA2A.Protocol.Message{}` (agent.ex:349-353) -> typed `:invalid_message`
-# failure; the failed `AshA2A.Protocol.Task` then hits
-# `A2A.JSONRPC.encode_send_result/2` (a2a jsonrpc.ex:338), which has no
-# clause for AshA2A task structs -> FunctionClauseError -> empty 200 body.
-# No wire->protocol conversion exists in either dep. Q1-Q5 prove the broker
-# swap in-process; Q6 stays asserting (never fake-passed) until the transport
-# conversion lands in ash_a2a.
+# CLOSED (2026-11-08, lane V8-Q6-f): the wire conversion named by
+# V8-ELX-BROKER-e landed in ash_a2a (43a669fd: WireCompat wire->protocol
+# conversion + protocol->wire encode clause at the Transport.Runtime
+# :message boundary; 1bd72fb9: wire-shaped "a2a.auth" identity maps).
+# Q6 carries wire auth metadata through JSON-RPC params ("a2a.auth"),
+# the same channel the in-process Q1-Q5 calls use, because the wire
+# round trip stringifies metadata keys -- without it the wire request is
+# refused :unauthenticated (fail-closed, correct for an anonymous wire
+# caller, not the conversion gap under test). PIN NOTE: beam4pm still
+# pins ash_a2a@99280b85; this 6/6 run used a path-dep override to
+# ash_a2a@1bd72fb9. Until the pin bump lands, the pinned tree still
+# fails Q6 (the conversion is not in the pin).
 {:ok, card} = A2A.Client.discover("http://localhost:4211/a2a")
 # The card's advertised url is a compile_env default (compiled under test env
 # with a2a_port 0), so the client targets the real listener URL directly;
@@ -140,8 +141,14 @@ wire =
     message_id: AshA2A.Protocol.ID.generate("msg"),
     role: :user,
     parts: [A2A.Part.Data.new(%{})],
-    metadata: %{skill: "read_ocel_events"}
-  })
+    metadata: %{"skill" => "read_ocel_events"}
+    # Wire auth (lane V8-Q6-f): the HTTP path carries the verified identity
+    # through JSON-RPC params metadata ("a2a.auth") — the same channel the
+    # in-process Q1-Q5 calls use via call opts — mirroring the runtime's
+    # `call_metadata/1` "a2a.auth" fetch. Without it the wire request is
+    # refused :unauthenticated (fail-closed), which is the correct refusal
+    # for an anonymous wire caller, not the conversion gap under test.
+  }, metadata: %{"a2a.auth" => %{identity: granted_principal}})
 
 # The expected skill count is derived from the domain, never hardcoded: the
 # card is built by `use AshA2A.Agent, resource_or_domain: BeamPM.Ash.Domain`
