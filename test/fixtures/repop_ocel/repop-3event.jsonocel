@@ -1,0 +1,11 @@
+{
+  "events": [
+{"id": "repop-ev-1", "type": "start", "time": "2026-11-08T00:00:00.000Z", "attributes": [{"name": "rep_parent", "value": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"}, {"name": "rep_hash", "value": "08a1c042809421cd71c733172b8c133de856131c4fb40849485307fbceb278f2"}], "relationships": [{"objectId": "wo-1", "qualifier": "exec"}]},
+{"id": "repop-ev-2", "type": "assign", "time": "2026-11-08T00:00:00.000Z", "attributes": [{"name": "rep_parent", "value": "08a1c042809421cd71c733172b8c133de856131c4fb40849485307fbceb278f2"}, {"name": "rep_hash", "value": "949c291efedcce860377af70e1e7934c68e39ae4d04b3b6a403e1104b349a9b0"}], "relationships": [{"objectId": "wo-1", "qualifier": "assoc"}, {"objectId": "machine-1", "qualifier": "exec"}]},
+{"id": "repop-ev-3", "type": "complete", "time": "2026-11-08T00:00:00.000Z", "attributes": [{"name": "rep_parent", "value": "949c291efedcce860377af70e1e7934c68e39ae4d04b3b6a403e1104b349a9b0"}, {"name": "rep_hash", "value": "7d9f2914fa815d3aa314d252112570d5b547315bdfb987d9705de23b2a63876c"}], "relationships": [{"objectId": "wo-1", "qualifier": "exec"}, {"objectId": "machine-1", "qualifier": "assoc"}]}
+  ],
+  "objects": [
+{"id": "wo-1", "type": "wo", "attributes": [], "relationships": [{"objectId": "repop-ev-1", "qualifier": "exec"}]},
+{"id": "machine-1", "type": "machine", "attributes": [], "relationships": [{"objectId": "repop-ev-3", "qualifier": "assoc"}]}
+  ]
+}

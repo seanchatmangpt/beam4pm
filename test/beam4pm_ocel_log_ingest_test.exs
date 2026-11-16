@@ -88,6 +88,58 @@ defmodule BeamPM.OcelLogIngestTest do
     assert OcelLogStore.count() == before
   end
 
+  # -- Dual-form time law (Y13 premise-rot reconciliation) -------------------
+
+  test "post /api/ocel/ingest accepts ISO8601 string times (struct-law form)" do
+    log = valid_log()
+
+    iso_log =
+      log
+      |> Map.put("events", [
+        %{"id" => "e-iso", "type" => "Create Order", "time" => "2026-11-08T00:00:00Z"}
+      ])
+
+    conn = post_log(iso_log)
+    assert conn.status == 201
+    resp = JSON.decode!(conn.resp_body)
+    assert resp["accepted"] == 1
+
+    # Chicago: assert real persisted state -- the string is stored as-is.
+    assert {:ok, persisted} = OcelLogStore.get(resp["log_id"])
+    assert hd(persisted["events"])["time"] == "2026-11-08T00:00:00Z"
+  end
+
+  test "post /api/ocel/ingest refuses a non-parseable string time with 422" do
+    before = OcelLogStore.count()
+    log = valid_log()
+
+    malformed =
+      log
+      |> Map.put("events", [
+        %{"id" => "e-bad-time", "type" => "Ship Order", "time" => "not-a-timestamp"}
+      ])
+
+    conn = post_log(malformed)
+
+    assert conn.status == 422
+    resp = JSON.decode!(conn.resp_body)
+    assert resp["accepted"] == 0
+    assert Enum.any?(resp["errors"], &String.contains?(&1, "events[0]"))
+    assert Enum.any?(resp["errors"], &String.contains?(&1, "time"))
+
+    # Fail-closed: nothing persisted on any validation failure.
+    assert OcelLogStore.count() == before
+  end
+
+  test "post /api/ocel/ingest still accepts numeric epoch times (back-compat)" do
+    conn = post_log(valid_log())
+    assert conn.status == 201
+    resp = JSON.decode!(conn.resp_body)
+    assert resp["accepted"] == 2
+    assert {:ok, persisted} = OcelLogStore.get(resp["log_id"])
+    assert hd(persisted["events"])["time"] == 1_766_200_000.0
+  end
+
   test "post /api/ocel/ingest refuses a log missing a top-level key (422)" do
     conn =
       valid_log()

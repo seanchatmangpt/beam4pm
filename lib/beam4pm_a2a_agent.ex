@@ -33,20 +33,18 @@ defmodule BeamPM.A2AAgent do
       File.exists?(".beam4pm-a2a-gate-bootstrap")
 
   if bootstrap? do
-    use A2A.Agent,
-      name: "beam4pm_regeneration_bootstrap",
-      description: "Zero-skill agent available only during deterministic regeneration",
-      version: "bootstrap",
-      skills: []
-
-    @impl A2A.Agent
-    def handle_message(_message, _context),
-      do: {:error, %{code: :regeneration_in_progress}}
+    # Zero-skill placeholder: the real agent is not compilable while the gate
+    # has deleted the projections. Never served (no `AshA2A.Agent` behaviour).
+    @doc false
+    def regeneration_in_progress?, do: true
   else
     Code.ensure_compiled!(BeamPM.Ash.Domain)
 
     use AshA2A.Agent,
       resource_or_domain: BeamPM.Ash.Domain,
-      name: "beam4pm_a2a_agent"
+      name: "beam4pm_a2a_agent",
+      # The curated read-only OCEL/conformance skills are readable without a
+      # verified caller identity; every other skill stays fail-closed.
+      public_skills: ["BeamPM.Ash.Resources.OcelEvent.read", "BeamPM.Ash.Resources.ConformanceResult.read"]
   end
 end

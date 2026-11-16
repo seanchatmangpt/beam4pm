@@ -13,10 +13,10 @@ config :ash, default_string_length_count: :codepoints
 
 # BeamPM.A2AAgent (lib/beam4pm_a2a_agent.ex) is booted by ash_a2a's own
 # Application callback (AshA2A.Application, `:ash_a2a`'s `mod`), which reads
-# this config and starts an A2A.AgentSupervisor for it -- so
-# BeamPM.Application must NOT also start an A2A.AgentSupervisor for the same
+# this config and starts an AshA2A agent supervisor for it -- so
+# BeamPM.Application must NOT also start an AshA2A agent supervisor for the same
 # agent (that double-starts the agent's registered name and crashes boot).
-# BeamPM.Application only adds the HTTP listener (A2A.Plug/Bandit) on top.
+# BeamPM.Application only adds the HTTP listener (AshA2A.Protocol.Plug/Bandit) on top.
 config :ash_a2a, :agents, [BeamPM.A2AAgent]
 # OTel SDK exporter for BeamPM.Evidence.OtelBridge (lib/beam4pm_evidence.ex,
 # OCEL evidence-contract Phase 3). beam4pm is a library/substrate, not a

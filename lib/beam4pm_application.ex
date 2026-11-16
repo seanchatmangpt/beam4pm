@@ -15,14 +15,14 @@ defmodule BeamPM.Application do
   supervision-tree wiring is a manufacturing input (like `mix.exs`), never
   generated output.
 
-  Also mounts the agent-facing A2A HTTP listener (`A2A.Plug`/Bandit on its
+  Also mounts the agent-facing A2A HTTP listener (`AshA2A.Protocol.Plug`/Bandit on its
   own port, at `/a2a`, in front of `BeamPM.A2AAgent`) ADDITIVELY, alongside
   the OCEL ingest listener above -- it does not replace or touch it. ex4pm
   26.10.1 removed the former `Ex4pm.Engine.Beam4pm` HTTP route-table client
   this listener was once contrasted against, so there is nothing to
   displace. `BeamPM.A2AAgent` itself is booted by `:ash_a2a`'s own Application
   callback (`config :ash_a2a, :agents, [BeamPM.A2AAgent]` in
-  `config/config.exs`), not here -- starting its `A2A.AgentSupervisor` a
+  `config/config.exs`), not here -- starting its agent supervisor a
   second time in this tree would double-register the agent name and crash
   boot. See `BeamPM.A2AAgent`'s moduledoc for the curated-skill boundary.
   """

@@ -9,9 +9,8 @@ defmodule BeamPM.Dfcm.Sa2aValidateCardTest do
 
   The recorded real-card verdict IS the parity finding: the lab court reads
   only the SA2A extension fields `supported_profiles`/`agent_id`
-  (autofde-lab src/autofde_lab/sa2a/cli.py:65-73), which the A2A v0.3 wire
-  card emitted by `A2A.JSON.encode_agent_card/2` (deps/a2a
-  lib/a2a/json.ex:272-287) structurally cannot carry -- so a conformant
+  (autofde-lab src/autofde_lab/sa2a/cli.py:65-73), which the A2A wire
+  card served by the live router structurally cannot carry -- so a conformant
   A2A v0.3 card is refused with `UNSUPPORTED_PROFILE`. Asserting that
   refusal here is the permanent tripwire for this finding: if the upstream
   validator ever learns A2A v0.3 shapes, this test fails and forces the
@@ -28,22 +27,22 @@ defmodule BeamPM.Dfcm.Sa2aValidateCardTest do
     assert File.exists?(@real_card), "real agent-card fixture missing at #{inspect(@real_card)}"
 
     card = @real_card |> File.read!() |> JSON.decode!()
-    # The fixture is the real capture (observed 2026-09-18, worktree boot on
-    # :4311, ash_a2a hex 26.9.17): A2A v0.3 wire shape, 1194 skills.
-    assert length(card["skills"]) == 1194
+    # The fixture is regenerated from the live BeamPM.A2ARouter (ash_a2a v1.0
+    # wire shape); the skill count is checked against the live card, never a
+    # hardcoded literal.
     assert card["name"] == "beam4pm_a2a_agent"
-    # Finding B1 (parity ledger): top-level protocolVersion is ABSENT from the
-    # served card -- deps/a2a json.ex:287 emits it only when the plug opts
-    # carry :protocol_version, and BeamPM.A2ARouter passes none. If this
-    # assertion flips, the B1 fix landed: re-triage the parity table.
-    refute Map.has_key?(card, "protocolVersion")
-    # Finding B2: the interface version served is "2.0" (the JSON-RPC layer),
-    # not the builder's declared "0.3.0" -- deps/ash_a2a
-    # agent_card_builder.ex:39 is dropped by deps/a2a json.ex:253-255.
-    assert card["supportedInterfaces"] == [
-             %{"protocolBinding" => "jsonrpc", "protocolVersion" => "2.0",
-               "url" => "http://localhost:4311/a2a"}
-           ]
+    assert [%{"protocolBinding" => "JSONRPC", "protocolVersion" => "1.0"}] =
+             card["supportedInterfaces"]
+
+    live =
+      Plug.Test.conn(:get, "/a2a/.well-known/agent-card.json")
+      |> BeamPM.A2ARouter.call(BeamPM.A2ARouter.init([]))
+
+    assert live.status == 200
+    live_card = JSON.decode!(live.resp_body)
+    assert length(card["skills"]) == length(live_card["skills"])
+    assert card["name"] == live_card["name"]
+    assert card["supportedInterfaces"] == live_card["supportedInterfaces"]
 
     assert {:error, {:invalid_card, verdict}} = Dfcm.sa2a_validate_card(@real_card)
     # Verdict payload exactly as the lab emits it (sa2a/cli.py:67-71 -- the

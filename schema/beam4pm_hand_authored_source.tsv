@@ -9,8 +9,8 @@ docs/reference/engine-ops-chain-law.md	reference_evidence	false	-	-	bash scripts
 docs/reference/infra-beamops-first-principles.md	reference_evidence	false	-	-	bash scripts/gate_lint_truth.sh	-
 docs/reference/rust4pm-wasm-beam.md	reference_evidence	false	-	-	bash scripts/gate_lint_truth.sh	-
 docs/reference/scripts.md	reference_evidence	false	-	-	bash scripts/gate_lint_truth.sh	-
-lib/beam4pm_a2a_agent.ex	hand_authored_qualification	true	867c71b74fd60533f937199d66994e5be87da771c42642aab8d8524d1abf681f	2026-12-31	mix run qualification/a2a_smoke_test.exs	-
-lib/beam4pm_a2a_router.ex	hand_authored_qualification	true	734cf82e4625241defa3c5361ba7abdcc1c2fb2a01543a2c2d931c9287ba8b28	2026-12-31	mix run qualification/a2a_smoke_test.exs	-
+lib/beam4pm_a2a_agent.ex	hand_authored_qualification	true	015e780786c492ed3aba1f4b20ce1e814cdaec025e2aa177b87aed52fa6f8cbf	2026-12-31	mix run qualification/a2a_smoke_test.exs	-
+lib/beam4pm_a2a_router.ex	hand_authored_qualification	true	7795a175f181666a685a49cf9d1a4f2517c3a35934e336e0193d8c539ff56d92	2026-12-31	mix run qualification/a2a_smoke_test.exs	-
 lib/beam4pm_application.ex	hand_authored_qualification	true	c50641c7a8a31b86407490fd634844b3052fe900d177239e6fc05f8db0007ec6	2026-12-31	source scripts/env/rust4pm_reactor_env.sh && mix test --max-requires 1	-
 lib/beam4pm_art72_conformance.ex	hand_authored_qualification	true	d0c1a2a7d8a5edc01f92fff88d90220fe1470fe09253066be2e766988e52fb53	2026-12-31	mix test test/beam4pm_art72_conformance_test.exs	-
 lib/beam4pm_autofde_bridge.ex	hand_authored_qualification	true	26104d7ff39850d3f2c3e9de8acd3bafe23f057ebe293ff2293af80df67454b7	2026-12-31	mix test test/beam4pm_autofde_bridge_test.exs	-

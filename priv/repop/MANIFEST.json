@@ -1,0 +1,37 @@
+{
+  "artifact": "repop_kernel_wasm.wasm",
+  "target": "wasm32-unknown-unknown",
+  "crate": "repop-kernel-wasm",
+  "sha256": "3cc67f94d67927d3bed1c995a99538d9c0facb98a211ec4e911a134c21370e6b",
+  "byte_size": 901,
+  "abi_version": 1,
+  "packed_version": 256,
+  "version": "0.1.0",
+  "imports": [],
+  "exports": [
+    "memory",
+    "repop_abi_version",
+    "repop_version",
+    "repop_scratch_alloc",
+    "repop_scratch_reset",
+    "repop_scratch_remaining",
+    "repop_solve",
+    "repop_receipt_emit",
+    "repop_cas_commit",
+    "repop_cas_read"
+  ],
+  "status_codes": {
+    "0": "OK",
+    "1": "ERR_BAD_INTENT",
+    "2": "ERR_NO_HYPERPLANE",
+    "3": "ERR_CAS_VERSION",
+    "4": "ERR_CAS_ABSENT",
+    "5": "ERR_RECEIPT_INVALID",
+    "6": "ERR_OOM",
+    "7": "ERR_UNWIRED"
+  },
+  "provenance": {
+    "built_by": "cargo build --release -p repop-kernel-wasm --target wasm32-unknown-unknown (repop kernel workspace)",
+    "load_receipt": "repop docs/jira/v26.11.9-integration/receipts/i3exp-wasmex-load.md (Standing: PASS, wasmex 0.16.0)"
+  }
+}

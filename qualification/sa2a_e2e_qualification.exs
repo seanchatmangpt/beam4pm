@@ -1,6 +1,6 @@
 # Run: MIX_ENV=test mix run --no-start qualification/sa2a_e2e_qualification.exs  (exit 0 iff 6/6 pass)
 # SA2A end-to-end qualification against beam4pm's real A2A agent + real ETS-backed
-# Ash resources, consuming hex ash_a2a. State-based (Chicago): no doubles.
+# Ash resources, consuming the sibling/ASH_A2A_PATH ash_a2a (see mix.exs ash_a2a_dep/0). State-based (Chicago): no doubles.
 #
 #   Q1 granted change actuates      -> :completed AND the row exists in ETS
 #   Q2 same message_id replayed     -> no duplicate row (replay-safe)

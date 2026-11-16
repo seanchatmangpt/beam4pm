@@ -105,7 +105,6 @@ defmodule Beam4pm.MixProject do
       # runtime pulled in via {:ash_ex4pm, ...} above; ex4pm 26.10.1 no
       # longer ships an Ex4pm.Engine.Beam4pm HTTP route-table client.
       ash_a2a_dep(),
-      {:a2a, "~> 0.1"},
       {:req, "~> 0.5"},
       # GL28-1 leg c: the graphlaw admission kernel's Elixir bindings (path dep
       # on the sibling checkout, smalt GL28-2 precedent). Test-only: the
@@ -131,19 +130,25 @@ defmodule Beam4pm.MixProject do
   end
 
   defp ash_a2a_dep do
-    if hex_publish?() do
-      # Cap policy: intentional user-gated bump, NOT drift. `~> 26.9.30` only
-      # activates under BEAM4PM_HEX_PUBLISH=1 (hex_publish?/0); the default
-      # dev path falls back to the git ref pinned below (ash_a2a pre-Hex).
-      # Raise the cap only when ash_a2a 26.9.30+ is actually published to Hex.
-      # NOTE: dev-path git ref and mix.lock hold the same ash_a2a commit
-      # (99280b85). Keep them in lockstep on any future bump.
-      {:ash_a2a, "~> 26.9.30"}
-    else
-      {:ash_a2a,
-       git: "https://github.com/seanchatmangpt/ash_a2a.git",
-       ref: "99280b852b65e640b416411491cace0ac2081391",
-       override: true}
+    cond do
+      hex_publish?() ->
+        # Cap policy: intentional user-gated bump, NOT drift. `~> 26.9.30` only
+        # activates under BEAM4PM_HEX_PUBLISH=1 (hex_publish?/0).
+        {:ash_a2a, "~> 26.9.30"}
+
+      path = System.get_env("ASH_A2A_PATH") ->
+        {:ash_a2a, path: path, override: true}
+
+      # Default dev path: the sibling canonical checkout (ash_a2a 26.10.x).
+      File.dir?(Path.expand("../ash_a2a", __DIR__)) ->
+        {:ash_a2a, path: "../ash_a2a", override: true}
+
+      true ->
+        # No sibling checkout (e.g. CI): the last pinned pre-Hex ref.
+        {:ash_a2a,
+         git: "https://github.com/seanchatmangpt/ash_a2a.git",
+         ref: "99280b852b65e640b416411491cace0ac2081391",
+         override: true}
     end
   end
 

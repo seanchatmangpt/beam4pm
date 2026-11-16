@@ -1,0 +1,38 @@
+{
+  "provenance": {
+    "source_path": "repop packages/worker/src/ocel/vocab.ts",
+    "source_sha256": "be8432e0b3cd49270a490e22ea91bf9ebb8356a550c11f6f45daff86b6c29d62",
+    "chain_source": "repop packages/worker/src/ocel/chain.ts",
+    "chain_source_sha256": "986e620b61298a6df1cbd2bda27dd59e11059db476fa69aa7d7f63db33510db6",
+    "pinned_at": "2026-11-08",
+    "note": "Pinned copy of the repop closed activity vocabulary. Activities re-exported verbatim from vocab.ts (5 activities, frozen at module load); qualifiers and object types per the repop wire vocabulary. Drift test test/beam4pm_repop_ocel_verifier_test.exs refuses drift vs the live repop checkout when present."
+  },
+  "registry": {
+    "event_types": ["start", "assign", "execute", "complete", "fail"],
+    "qualifiers": ["exec", "assoc"],
+    "object_types": ["wo", "machine"]
+  },
+  "zcode_event_types": [
+    "checkpoint_created", "execution_crash", "falsifier_run", "message_removed",
+    "message_upserted", "model_streaming", "part_delta", "part_removed",
+    "part_started", "part_upserted", "permission_requested", "permission_resolved",
+    "place_order", "provider_replace", "provider_select", "receipt_persist",
+    "reobserve", "result", "rewind_triggered", "session_closed", "session_created",
+    "session_resumed", "session_title_updated", "session_updated", "ship_order",
+    "stream_recovery_updated", "tool_updated", "turn_completed", "turn_failed",
+    "turn_started", "turn_steer_drained", "turn_steer_queued", "user_input_requested",
+    "user_input_resolved", "worker_claim"
+  ],
+  "zcode_object_types": [
+    "authority", "item", "lease", "model_request", "order", "permission",
+    "provider", "receipt", "session", "subagent", "tool_call", "turn",
+    "work_order", "worker"
+  ],
+  "castle_event_types": [
+    "system_bootstrapped", "pod_provisioned", "container_started",
+    "ggen_sync_observed", "activity_started", "activity_finished",
+    "episode_recorded", "evidence_admitted", "episode_receipt_sealed",
+    "refused_observation"
+  ],
+  "castle_object_types": ["system", "pod", "container", "gym_act_episode"]
+}

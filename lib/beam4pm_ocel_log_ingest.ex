@@ -10,8 +10,13 @@ defmodule BeamPM.OcelLogIngest do
         "objects":      [{id, type, attributes?}]
       }
 
-  Each event carries `id`/`type`/`time` (number) and may carry
-  `relationships` (`{objectId, qualifier}`), per WasmOcelEventSchema.
+  Each event carries `id`/`type` and a `time` in one of two lawful forms
+  (dual-form law): a number (epoch seconds/millis, legacy wasm4pm-compat
+  form) or an ISO8601 UTC string parseable by `DateTime.from_iso8601`
+  (the `BeamPM.Types.OcelEvent.event_time` struct law, and the form repop
+  exports). Any other value -- including a non-parseable string -- is
+  refused fail-closed with `422`. Events may also carry `relationships`
+  (`{objectId, qualifier}`), per WasmOcelEventSchema.
   Accepted logs are persisted whole (ETS via `BeamPM.OcelLogStore`) and the
   endpoint returns `201 {"accepted": N, "log_id": id}`. A malformed log is
   refused fail-closed with `422` and a per-item error list -- nothing is
@@ -128,6 +133,8 @@ defmodule BeamPM.OcelLogIngest do
   defp timestamp_string(t) when is_integer(t), do: Integer.to_string(t)
   defp timestamp_string(t) when is_float(t), do: :erlang.float_to_binary(t, decimals: 3)
   defp timestamp_string(t) when is_number(t), do: to_string(t)
+  # ISO8601 string times pass through verbatim (already the stored form).
+  defp timestamp_string(t) when is_binary(t), do: t
 
   # -- Validation (fail-closed: first error list wins, nothing persisted) ----
 
@@ -185,7 +192,7 @@ defmodule BeamPM.OcelLogIngest do
       for {k, pred} <- [
             {"id", &is_binary/1},
             {"type", &is_binary/1},
-            {"time", &is_number/1}
+            {"time", &valid_time?/1}
           ],
           # sentinel default: a nil filter result would skip the item and
           # silently accept a missing key (fail-open)
@@ -206,6 +213,19 @@ defmodule BeamPM.OcelLogIngest do
   end
 
   defp validate_event(_), do: ["not_an_object"]
+
+  # Dual-form event `time` law: numeric epoch (legacy wasm4pm-compat form)
+  # or ISO8601 UTC string (the `BeamPM.Types.OcelEvent.event_time` struct
+  # law, and the form repop exports). Strings must parse via
+  # DateTime.from_iso8601; non-parseable strings are refused fail-closed.
+  defp valid_time?(t) when is_number(t), do: true
+  defp valid_time?(t) when is_binary(t) do
+    case DateTime.from_iso8601(t) do
+      {:ok, _datetime, _offset} -> true
+      {:error, _} -> false
+    end
+  end
+  defp valid_time?(_), do: false
 
   defp validate_relationship(%{"objectId" => oid, "qualifier" => q})
        when is_binary(oid) and is_binary(q),

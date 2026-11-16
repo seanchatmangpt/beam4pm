@@ -374,7 +374,9 @@ defmodule BeamPM.Powl.Model do
   defp put_children_digest(op_struct, _type, _children), do: op_struct
 
   defp operator_id(op_map, type) do
-    hash = :crypto.hash(:sha256, :erlang.term_to_binary({type, op_map}))
+    # YX class-C internal content digest -> injectable seam (Y14). Default
+    # SHA256 keeps output byte-identical; not a wire contract or pinned formula.
+    hash = BeamPM.Digest.hash(:erlang.term_to_binary({type, op_map}))
     "powl-op-" <> Base.encode16(binary_part(hash, 0, 8), case: :lower)
   end
 
